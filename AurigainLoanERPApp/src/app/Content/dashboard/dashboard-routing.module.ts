@@ -11,10 +11,9 @@ const routes: Routes = [
   },
   {
     path: 'admin',
-    component : AdminDashboardComponent
+    component: AdminDashboardComponent
+  }
 
-  },
-  
 ];
 
 @NgModule({

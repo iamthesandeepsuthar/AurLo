@@ -10,12 +10,12 @@ const routes: Routes = [
     pathMatch: 'full'
   },
 
-  {
-    path: '**',
-    component: PageNotFoundComponent,
-    pathMatch: 'full',
-    canActivate: [AuthenticationGuard]
-  },
+  // {
+  //   path: '**',
+  //   component: PageNotFoundComponent,
+  //   pathMatch: 'full',
+  //   canActivate: [AuthenticationGuard]
+  // },
 
   { path: "dashboard", loadChildren: () => import('./Content/dashboard/dashboard.module').then(m => m.DashboardModule) },
   { path: "admin", loadChildren: () => import('./Content/admin/admin.module').then(m => m.AdminModule) },

@@ -16,6 +16,7 @@ import { BaseAPIService } from "./Shared/Helper/base-api.service";
 import { LoaderService } from "./Shared/Helper/loader.service";
 import { SharedModule } from "./Shared/Helper/shared/shared.module";
 import { LoaderComponent } from './Content/Common/loader/loader.component';
+import { DashboardModule } from "./Content/dashboard/dashboard.module";
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { LoaderComponent } from './Content/Common/loader/loader.component';
     CustomerModule,
     AgentModule,
     CommonModule,
+    DashboardModule
    
   ],
   providers: [ BaseAPIService, 
