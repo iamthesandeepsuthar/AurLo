@@ -61,4 +61,7 @@
   <ItemGroup>
     <Folder Include="Properties" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="AurigainLoanERP.Database.publish.xml" />
+  </ItemGroup>
 </Project>
