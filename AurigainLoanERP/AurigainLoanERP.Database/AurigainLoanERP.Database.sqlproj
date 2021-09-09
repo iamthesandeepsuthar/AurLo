@@ -64,4 +64,7 @@
   <ItemGroup>
     <None Include="AurigainLoanERP.Database.publish.xml" />
   </ItemGroup>
+  <ItemGroup>
+    <Build Include="Users.sql" />
+  </ItemGroup>
 </Project>
