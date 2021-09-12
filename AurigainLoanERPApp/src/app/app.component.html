@@ -1,4 +1,11 @@
-<app-loader ></app-loader>
-<app-header></app-header>
-<router-outlet></router-outlet>
-<app-footer></app-footer>
+<app-loader></app-loader>
+<div class="main-container" id="container">
+    <div class="overlay"></div>
+    <div class="search-overlay"></div>
+    <app-header></app-header>
+    <div id="content" class="main-content">
+        <router-outlet></router-outlet>
+        <app-footer></app-footer>
+    </div>
+
+</div>
