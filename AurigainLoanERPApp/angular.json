@@ -48,7 +48,10 @@
                         "styles": [
                             "src/assets/bootstrap/css/bootstrap.min.css",
                             "src/assets/css/plugins.css",
-                            "src/assets/css/scrollspyNav.css"
+                            "src/assets/css/scrollspyNav.css",
+                            "src/assets/plugins/table/datatable/datatables.css",
+                            "src/assets/plugins/table/datatable/dt-global_style.css",
+                            "src/assets/css/forms/theme-checkbox-radio.css"
                         ],
                         "scripts": [
                             "src/assets/js/libs/jquery-3.1.1.min.js",

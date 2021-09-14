@@ -138,3 +138,14 @@ function GetIEVersion() {
 $(document).ready(function() {
     App.init();
 });
+
+// Tooltip start
+$(function() {
+    $('[data-toggle="tooltip"]').tooltip()
+})
+$(document).ready(function() {
+    $('[data-toggle="popover"]').popover({
+        trigger: 'hover'
+    });
+});
+// Tooltip end
