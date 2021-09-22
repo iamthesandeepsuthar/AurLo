@@ -266,8 +266,8 @@ span.red {
 .form-group label,
 label {
     font-size: 15px;
-    color: #888ea8;
-    letter-spacing: 1px;
+    color: #000000;
+    font-weight: 800;
 }
 
 
