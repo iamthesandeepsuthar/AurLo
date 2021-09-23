@@ -1,0 +1,47 @@
+
+Agent Registration :
+
+Agent Detail :
+
+	tblUserOTP => to verify User OTP :
+	UserId
+	OTP
+	IsVerifyd
+	OTPSentDateAndTime (For Checking Expire validity)
+	 Is DorStep (we can also manage this by using role id, because Doorstep may have some additional field)
+
+
+	UserRole (tblusertype)
+	District (tbldistrictmaster)
+	State (tbldistrict =>tblState=> ) we does not required to save state , we will manage this usng district field
+	
+	tblQualificationMaster (for select qulification in dropdown)
+	
+	Nominee Detail :
+	Relation with Nominee (tblRelationMaster)
+	Gender (Enum or lookuptype)
+
+	KYC :
+	KYCDocType (tblDocumentMaster :* add new Field as IsKYCDoc =true)
+	Kyc Name
+	KYCNumber
+	
+	Bank Detail :
+	
+	Bank (tblBank)
+	Account 
+	IFSC
+	CancelCheckImage 
+	BankStatementFile 
+
+	Document Detail :
+
+	DocType (tblDocType)
+	DocFile 
+	DocNumber
+
+
+User Document :
+
+	
+
