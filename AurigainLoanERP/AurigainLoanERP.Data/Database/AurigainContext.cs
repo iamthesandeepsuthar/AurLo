@@ -11,15 +11,16 @@ namespace AurigainLoanERP.Data.Database
     {
         private IConfiguration _configuration;
 
-        public AurigainContext(IConfiguration configuration)
+        public AurigainContext()
         {
-            _configuration = configuration;
-
         }
 
-        public AurigainContext(DbContextOptions<AurigainContext> options)
+        public AurigainContext(IConfiguration configuration,DbContextOptions<AurigainContext> options)
             : base(options)
         {
+
+            _configuration = configuration;
+
         }
 
         public virtual DbSet<User> Users { get; set; }

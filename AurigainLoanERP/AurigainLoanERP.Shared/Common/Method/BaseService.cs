@@ -6,15 +6,15 @@ using Microsoft.Extensions.Configuration;
 
 namespace AurigainLoanERP.Shared.Common.Method
 {
-    class BaseService
+   public class BaseService
     {
 
         public readonly LoginUserViewModel _loginUserDetail;
-        public IConfiguration _configuration;
-        public BaseService(IConfiguration configuration)
+       // public IConfiguration _configuration;
+        public BaseService()
         {
             _loginUserDetail = new LoginUserViewModel();
-            _configuration = configuration;
+          //  _configuration = configuration;
         }
 
         public virtual ApiServiceResponseModel<T> CreateResponse<T>(T objData, string Message, bool IsSuccess, string exception = "", string validationMessage = "") where T : class

@@ -1,4 +1,5 @@
 ﻿using AurigainLoanERP.Data.ContractModel;
+using AurigainLoanERP.Shared.Common.Method;
 using AutoMapper;
 using System;
 using System.Collections.Generic;
@@ -8,14 +9,16 @@ using System.Threading.Tasks;
 
 namespace AurigainLoanERP.Services.UserRole
 {
-   public class UserRoleService : IUserRoleService
+   public class UserRoleService : BaseService, IUserRoleService
     {
-        private readonly IMapper _mapper;
 
-        public UserRoleService(IMapper mapper)
-        {
-            this._mapper = mapper;
-        }
+      
+        //public readonly IMapper _mapper;
+
+        //public UserRoleService(IMapper mapper)
+        //{
+        //    this._mapper = mapper;
+        //}
 
         public Student get()
         {
@@ -26,8 +29,8 @@ namespace AurigainLoanERP.Services.UserRole
                 Age = 25,
                 City = "New York"
             };
-            
-          return _mapper.Map<Student>(studentDTO);
+            return null;
+       //  return _mapper.Map<Student>(studentDTO);
         }
     }
 }
