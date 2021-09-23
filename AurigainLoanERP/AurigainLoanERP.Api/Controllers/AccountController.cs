@@ -1,4 +1,5 @@
-﻿using AurigainLoanERP.Shared.ExtensionMethod;
+﻿using AurigainLoanERP.Services.UserRole;
+using AurigainLoanERP.Shared.ExtensionMethod;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 
@@ -9,9 +10,11 @@ namespace AurigainLoanERP.Api.Controllers
     public class AccountController : ControllerBase
     {
         private readonly Security _security;
-       
-        public AccountController(IConfiguration _configuration) 
+        public readonly IUserRoleService _userRoleService;
+
+        public AccountController(IUserRoleService userRoleService,IConfiguration _configuration) 
         {
+            _userRoleService = userRoleService;
             _security = new Security(_configuration); 
 
         }
@@ -23,6 +26,12 @@ namespace AurigainLoanERP.Api.Controllers
             return _security.CreateToken("abc","admin");
         }
 
+        [HttpGet]
+        public object get()
+        {
+
+            return _userRoleService.get();
+        }
 
 
     }

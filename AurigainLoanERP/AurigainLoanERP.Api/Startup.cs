@@ -1,18 +1,16 @@
+
+using AurigainLoanERP.Services.UserRole;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace AurigainLoanERP.Api
 {
@@ -34,7 +32,10 @@ namespace AurigainLoanERP.Api
         {
 
             services.AddControllers();
-          
+
+              services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            //services.AddAutoMapper(typeof(AutoMapperProfile));
+
             //swagger with auth option
             services.AddSwaggerGen(c =>
             {
@@ -85,11 +86,13 @@ namespace AurigainLoanERP.Api
                     };
                 });
 
-            services.AddMvc().AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = null);
+             services.AddMvc().AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = null);
 
+         
 
             //Inject service and using interface
-            //services.AddTransient<IRoleTypeService, RoleTypeService>();
+            services.AddTransient<IUserRoleService, UserRoleService>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
