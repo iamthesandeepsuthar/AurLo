@@ -63,7 +63,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="AurigainLoanERP.Database.publish.xml" />
-    <None Include="AurigainLoanERP_1.Database.publish.xml" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Users.sql" />

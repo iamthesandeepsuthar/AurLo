@@ -10,11 +10,11 @@ namespace AurigainLoanERP.Api.Controllers
     public class AccountController : ControllerBase
     {
         private readonly Security _security;
-        public readonly IUserRoleService _userRoleService;
+     //   public readonly IUserRoleService _userRoleService;
 
         public AccountController(IUserRoleService userRoleService,IConfiguration _configuration) 
         {
-            _userRoleService = userRoleService;
+          //  _userRoleService = userRoleService;
             _security = new Security(_configuration); 
 
         }
@@ -26,12 +26,12 @@ namespace AurigainLoanERP.Api.Controllers
             return _security.CreateToken("abc","admin");
         }
 
-        [HttpGet]
-        public object get()
-        {
+        //[HttpGet]
+        //public object get()
+        //{
 
-            return _userRoleService.get();
-        }
+        //    return _userRoleService.get();
+        //}
 
 
     }

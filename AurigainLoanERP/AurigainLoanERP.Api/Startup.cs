@@ -1,8 +1,10 @@
 
+using AurigainLoanERP.Data.Database;
 using AurigainLoanERP.Services.UserRole;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -68,8 +70,9 @@ namespace AurigainLoanERP.Api
             });
 
             //for Database connectivity
-            //services.AddDbContext<PracticesContext>(options =>
-            //       options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            //services.AddDbContext<AurigainContext>(options =>
+            //       options.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"]));
+
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
