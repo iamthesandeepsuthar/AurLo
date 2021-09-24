@@ -60,11 +60,15 @@
   <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
   <ItemGroup>
     <Folder Include="Properties" />
+    <Folder Include="PostScript" />
   </ItemGroup>
   <ItemGroup>
     <None Include="AurigainLoanERP.Database.publish.xml" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="Users.sql" />
+    <Build Include="UserRole.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <PostDeploy Include="PostScript\Script.PostDeployment.sql" />
   </ItemGroup>
 </Project>
