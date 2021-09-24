@@ -12,13 +12,13 @@ namespace AurigainLoanERP.Services.UserRole
    public class UserRoleService : BaseService, IUserRoleService
     {
 
-      
-        //public readonly IMapper _mapper;
 
-        //public UserRoleService(IMapper mapper)
-        //{
-        //    this._mapper = mapper;
-        //}
+        public readonly IMapper _mapper;
+
+        public UserRoleService(IMapper mapper)
+        {
+            this._mapper = mapper;
+        }
 
         public Student get()
         {
@@ -29,8 +29,8 @@ namespace AurigainLoanERP.Services.UserRole
                 Age = 25,
                 City = "New York"
             };
-            return null;
-       //  return _mapper.Map<Student>(studentDTO);
+        
+         return _mapper.Map<Student>(studentDTO);
         }
     }
 }
