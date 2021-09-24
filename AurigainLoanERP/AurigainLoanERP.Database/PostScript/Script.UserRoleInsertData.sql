@@ -9,4 +9,10 @@ Post-Deployment Script Template
                SELECT * FROM [$(TableName)]					
 --------------------------------------------------------------------------------------
 */
+IF (EXISTS(SELECT * FROM [dbo].[UserRole]))  
+BEGIN  
+    TRUNCATE TABLE [dbo].[MyReferenceTable]  
 Insert INTO UserRole (Name,CreatedBy) VALUES('Admin',1)
+
+
+END  

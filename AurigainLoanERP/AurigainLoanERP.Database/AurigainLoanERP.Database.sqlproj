@@ -69,6 +69,6 @@
     <Build Include="UserRole.sql" />
   </ItemGroup>
   <ItemGroup>
-    <PostDeploy Include="PostScript\Script.PostDeployment.sql" />
+    <None Include="PostScript\Script.UserRoleInsertData.sql" />
   </ItemGroup>
 </Project>
