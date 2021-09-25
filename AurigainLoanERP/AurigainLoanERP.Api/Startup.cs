@@ -1,7 +1,7 @@
 
 using AurigainLoanERP.Data.Database;
 using AurigainLoanERP.Services;
-using AurigainLoanERP.Services.UserRole;
+using AurigainLoanERP.Services.UserRoles;
 using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -22,6 +22,9 @@ namespace AurigainLoanERP.Api
     {
 
         public IConfiguration Configuration { get; }
+        const string JWT_Key = "Jwt:Key";
+        const string JWT_ISSUER = "Jwt:Issuer";
+        const string CONNECTION_STRING = "ConnectionStrings:DefaultConnection";
 
 
         public Startup(IConfiguration configuration)
@@ -75,27 +78,29 @@ namespace AurigainLoanERP.Api
                         ValidateAudience = true,
                         ValidateLifetime = true,
                         ValidateIssuerSigningKey = true,
-                        ValidIssuer = Configuration["Jwt:Issuer"],
-                        ValidAudience = Configuration["Jwt:Issuer"],
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
+                        ValidIssuer = Configuration[JWT_ISSUER],
+                        ValidAudience = Configuration[JWT_ISSUER],
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration[JWT_Key]))
                     };
                 });
 
             services.AddDbContext<AurigainContext>(options =>
-            options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            options.UseSqlServer(Configuration[CONNECTION_STRING]));
             // Auto Mapper Configurations
-            var mappingConfig = new MapperConfiguration(mc =>
-            {
-                mc.AddProfile(new AutoMapperProfile());
-            });
+            //var mappingConfig = new MapperConfiguration(mc =>
+            //{
+            //    mc.AddProfile(new AutoMapperProfile());
+            //});
 
-            IMapper mapper = mappingConfig.CreateMapper();
-            services.AddSingleton(mapper);
+            //IMapper mapper = mappingConfig.CreateMapper();
+            //services.AddSingleton(mapper);
 
+            services.AddAutoMapper(typeof(AutoMapperProfile));
             services.AddMvc().AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = null);
-            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+         
             RegisterServices(services);
 
+          
 
         }
 

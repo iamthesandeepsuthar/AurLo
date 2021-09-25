@@ -1,0 +1,45 @@
+iD=1
+Name = ADMIN
+isparent =Flase
+parentId =null
+
+
+
+iD=2
+Name = ZonalHead
+parentId =1
+
+	iD=3
+	Name = superwiser
+	
+	parentId =2
+
+		ID=4
+		Name = Agent
+		
+		parentID =3
+
+
+
+agent
+supervisor
+statehead
+zonalmanager - 
+Admin(WEB PORTAL)
+SuperAdmin
+
+
+
+
+
+
+
+
+PERM
+default admin -master
+specific zonal -kuldeep  -  branchma 
+
+
+
+
+

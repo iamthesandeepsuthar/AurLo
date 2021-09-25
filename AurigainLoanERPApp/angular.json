@@ -46,6 +46,7 @@
                             "src/assets"
                         ],
                         "styles": [
+                            "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
                             "src/assets/bootstrap/css/bootstrap.min.css",
                             "src/assets/css/plugins.css",
                             "src/assets/css/scrollspyNav.css",
@@ -154,6 +155,7 @@
                             "src/assets"
                         ],
                         "styles": [
+                            "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
                             "src/assets/bootstrap/css/bootstrap.min.css",
                             "src/assets/css/plugins.css"
                         ],

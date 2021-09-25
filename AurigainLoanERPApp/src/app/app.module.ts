@@ -17,6 +17,7 @@ import { LoaderService } from "./Shared/Helper/loader.service";
 import { SharedModule } from "./Shared/Helper/shared/shared.module";
 import { LoaderComponent } from './Content/Common/loader/loader.component';
 import { DashboardModule } from "./Content/dashboard/dashboard.module";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -26,8 +27,6 @@ import { DashboardModule } from "./Content/dashboard/dashboard.module";
     PageNotFoundComponent,
     NavigationComponent,
     LoaderComponent,
-
-  
   ],
   imports: [
     BrowserModule,
@@ -37,7 +36,8 @@ import { DashboardModule } from "./Content/dashboard/dashboard.module";
     CustomerModule,
     AgentModule,
     CommonModule,
-    DashboardModule
+    DashboardModule,
+    BrowserAnimationsModule
    
   ],
   providers: [ BaseAPIService, 
