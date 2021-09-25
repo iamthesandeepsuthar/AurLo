@@ -1,4 +1,4 @@
-import { Constants } from './constants';
+
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { Subject } from "rxjs";
@@ -21,7 +21,7 @@ export class AuthService {
   }
 
   Login(id: string) {
-    let url = `${this._baseService.Constants.Login_Api}`;
+    let url = `${this._baseService.API_Url.Login_Api}`;
     return this._baseService.get(url);
   }
 
@@ -52,8 +52,8 @@ export class AuthService {
     this._securityService.removeStorage('authToken');
     this._securityService.removeStorage('sessionTime');
     setTimeout(() => {
-      if (this._router.url !== Constants.LoginUrl) {
-        this._router.navigate([Constants.LoginUrl]);
+      if (this._router.url !== this._baseService.Routing_Url.LoginUrl) {
+        this._router.navigate([this._baseService.Routing_Url.LoginUrl]);
       }
     }, 10);
   }

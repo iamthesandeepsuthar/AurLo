@@ -1,4 +1,5 @@
-import { Constants } from './../../../../Shared/Helper/constants';
+import { Routing_Url } from './../../../../Shared/Helper/constants';
+
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -11,11 +12,12 @@ import { UserRoleService } from 'src/app/Shared/Services/user-role.service';
   selector: 'app-user-role',
   templateUrl: './user-role.component.html',
   styleUrls: ['./user-role.component.scss'],
-  providers :[ UserRoleService]
+  providers: [UserRoleService]
 })
 export class UserRoleComponent implements OnInit {
 
   //#region <<  Variable  >>
+  get routing_Url() { return Routing_Url }
 
   model!: UserRoleModel[];
   dataSource: any;
@@ -29,7 +31,6 @@ export class UserRoleComponent implements OnInit {
   //#endregion
 
   constructor(private readonly _userRole: UserRoleService) { }
-
   ngOnInit(): void {
     this.getList();
   }
@@ -37,7 +38,7 @@ export class UserRoleComponent implements OnInit {
   getList() {
     debugger
     this._userRole.GetRoleList(this.indexModel).subscribe(responce => {
-debugger
+      debugger
       if (responce.IsSuccess) {
         this.model = responce.Data as UserRoleModel[];
         this.dataSource = new MatTableDataSource<UserRoleModel>(this.model);

@@ -1,7 +1,7 @@
+import { Routing_Url } from './constants';
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
-import { Constants } from './constants';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +18,7 @@ export class AuthenticationGuard implements CanActivate {
       
       return true; }
     else {
-      this._router.navigate([Constants.LoginUrl])
+      this._router.navigate([Routing_Url.LoginUrl])
       return false;
     }
 

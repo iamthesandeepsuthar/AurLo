@@ -13,31 +13,31 @@ export class UserRoleService {
 
 
   GetRoleList(model: IndexModel): Observable<ApiResponse<UserRoleModel[]>> {
-    let url = `${this._baseService.Constants.UserRoleList_Api}`;
+    let url = `${this._baseService.API_Url.UserRoleList_Api}`;
     return this._baseService.post(url, model);
   }
 
   GetRole(id: number): Observable<ApiResponse<UserRoleModel[]>> {
-    let url = `${this._baseService.Constants.UserRoleDetail_Api}${id}`;
+    let url = `${this._baseService.API_Url.UserRoleDetail_Api}${id}`;
     return this._baseService.get(url);
   }
 
   AddUpdateRole(model: UserRolePostModel): Observable<ApiResponse<string>> {
-    let url = `${this._baseService.Constants.UserRoleAddUpdate_Api}`;
+    let url = `${this._baseService.API_Url.UserRoleAddUpdate_Api}`;
     return this._baseService.post(url, model);
   }
 
   ChangeActiveStatus(id:number, status? :string): Observable<ApiResponse<UserRoleModel[]>> {
-    let url = `${this._baseService.Constants.UserRoleChangeActiveStatus_Api}${id}`;
+    let url = `${this._baseService.API_Url.UserRoleChangeActiveStatus_Api}${id}`;
     return this._baseService.get(url);
   }
   DeleteRole(id: number): Observable<ApiResponse<UserRoleModel[]>> {
-    let url = `${this._baseService.Constants.UserRoleDelete_Api}${id}/${status}`;
+    let url = `${this._baseService.API_Url.UserRoleDelete_Api}${id}/${status}`;
     return this._baseService.Delete(url);
   }
 
   CheckRoleExist(name :string,id?: number): Observable<ApiResponse<UserRoleModel[]>> {
-    let url = `${this._baseService.Constants.UserRoleDetail_Api}${name}/${id}`;
+    let url = `${this._baseService.API_Url.UserRoleDetail_Api}${name}/${id}`;
     return this._baseService.get(url);
   }
 

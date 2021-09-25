@@ -1,4 +1,5 @@
-import { Constants } from './constants';
+import { API_Url, Routing_Url } from './constants';
+
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ApiResponse, IDictionary } from './common-model';
@@ -10,7 +11,8 @@ import { Observable } from 'rxjs';
 })
 export class BaseAPIService {
 
-    readonly Constants = Constants;
+    readonly Routing_Url = Routing_Url;
+    readonly API_Url = API_Url;
 
     constructor(private readonly _httpClient: HttpClient) { }
 
