@@ -12,7 +12,7 @@ export class AuthService {
   public IsAuthentication = new Subject<boolean>();
 
   constructor(private readonly _baseService: BaseAPIService, private _router: Router, private readonly _securityService: SecurityService) {
-
+    debugger
     this.IsAuthenticate();
   }
 

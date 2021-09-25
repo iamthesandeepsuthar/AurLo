@@ -3,7 +3,7 @@ import { environment } from "src/environments/environment";
 export class Constants {
 
 //#region << App URL >>
- static LoginUrl ="/login"
+ static LoginUrl ="login"
 //#endregion
 
 //#region <<Login>> 
