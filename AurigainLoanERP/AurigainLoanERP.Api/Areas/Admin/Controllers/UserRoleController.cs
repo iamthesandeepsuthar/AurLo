@@ -63,7 +63,7 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
         }
 
         // GET api/<UserRoleController>/5
-        [HttpGet("{id}/{status}")]
+        [HttpGet]
         public async Task<ApiServiceResponseModel<object>> ChangeActiveStatus(int id, bool? status = null)
         {
             return await _userRole.ChangeActiveStatus(id, status);
