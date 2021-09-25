@@ -19,6 +19,7 @@ import { LoaderComponent } from './Content/Common/loader/loader.component';
 import { DashboardModule } from "./Content/dashboard/dashboard.module";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HtmlComponent } from './Content/html/html.component';
+import { LoginComponent } from './Content/Common/login/login.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { HtmlComponent } from './Content/html/html.component';
     NavigationComponent,
     LoaderComponent,
     HtmlComponent,
+    LoginComponent,
 
   
   ],

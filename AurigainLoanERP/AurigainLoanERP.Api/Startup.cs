@@ -2,6 +2,8 @@
 using AurigainLoanERP.Data.Database;
 using AurigainLoanERP.Services;
 using AurigainLoanERP.Services.UserRoles;
+using AurigainLoanERP.Shared.Common;
+using AurigainLoanERP.Shared.ExtensionMethod;
 using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -14,6 +16,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace AurigainLoanERP.Api
@@ -32,7 +35,6 @@ namespace AurigainLoanERP.Api
             Configuration = configuration;
 
         }
-
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -94,6 +96,12 @@ namespace AurigainLoanERP.Api
 
             //IMapper mapper = mappingConfig.CreateMapper();
             //services.AddSingleton(mapper);
+            var allowedHosts = Configuration
+            .GetSection(Constants.ALLOWED_HOSTS_KEY)?
+            .GetChildren()?
+            .Select(host => host.Value)?
+            .ToArray();
+            services.AllowCors(allowedHosts);
 
             services.AddAutoMapper(typeof(AutoMapperProfile));
             services.AddMvc().AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = null);
@@ -117,6 +125,7 @@ namespace AurigainLoanERP.Api
             }
 
             app.UseRouting();
+            app.UseCors(Constants.ALLOW_ALL_ORIGINS);
             app.UseAuthentication();
             app.UseAuthorization();
 
@@ -126,7 +135,6 @@ namespace AurigainLoanERP.Api
             });
 
         }
-
 
         private void RegisterServices(IServiceCollection services)
         {
