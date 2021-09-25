@@ -189,14 +189,14 @@ code {
     padding: 8px 30px;
     border-top-right-radius: 6px;
     border-top-left-radius: 6px;
-    background: #e8e8e8;
+    background: #d3def1;
 }
 
 .widget.box .widget-header h1 {
     margin: 0px;
     font-size: 28px;
     color: #000;
-    font-weight: 500;
+    font-weight: 600;
 }
 
 .row [class*="col-"] .widget .widget-header h4 {
