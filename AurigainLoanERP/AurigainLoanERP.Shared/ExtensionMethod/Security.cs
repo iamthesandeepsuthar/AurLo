@@ -22,12 +22,12 @@ namespace AurigainLoanERP.Shared.ExtensionMethod
       
         public  string EncryptData(string strValue)
         {
-            byte[] key = { }; //Encryption Key   
+           try
+            {  byte[] key = { }; //Encryption Key   
             byte[] IV = { 10, 20, 30, 40, 50, 60, 70, 80 };
             byte[] inputByteArray;
             string strKey = _configuration.GetValue<string>("EncryptionKey");
-            try
-            {
+           
                 key = Encoding.UTF8.GetBytes(strKey);
                 // DESCryptoServiceProvider is a cryptography class defind in c#.  
                 DESCryptoServiceProvider ObjDES = new DESCryptoServiceProvider();
@@ -39,9 +39,9 @@ namespace AurigainLoanERP.Shared.ExtensionMethod
 
                 return Convert.ToBase64String(Objmst.ToArray());//encrypted string  
             }
-            catch (System.Exception ex)
+            catch 
             {
-                throw ex;
+                throw;
             }
         }
 
@@ -66,9 +66,9 @@ namespace AurigainLoanERP.Shared.ExtensionMethod
                 Encoding encoding = Encoding.UTF8;
                 return encoding.GetString(Objmst.ToArray());
             }
-            catch (System.Exception ex)
+            catch 
             {
-                throw ex;
+                throw;
             }
         }
 
