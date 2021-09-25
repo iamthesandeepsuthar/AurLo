@@ -6,6 +6,13 @@ export class Constants {
  static LoginUrl ="/login"
 //#endregion
 
+//#region <<Login>> 
+public static Login_Api =`${environment.apiEndPoint}account/login`;
+
+
+
+//#endregion
+
 //#region  << API URL>>
 
 //#region <<User Role>> 

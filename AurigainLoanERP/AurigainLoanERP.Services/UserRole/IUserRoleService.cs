@@ -41,7 +41,7 @@ namespace AurigainLoanERP.Services.UserRoles
         /// <param name="id">role id</param>
         /// <param name="status">true,false</param>
         /// <returns>true</returns>
-        Task<ApiServiceResponseModel<object>> UpateActiveStatus(int id,bool? status);
+        Task<ApiServiceResponseModel<object>> UpateActiveStatus(int id);
 
         /// <summary>
         /// Record Mark as delete
@@ -49,7 +49,7 @@ namespace AurigainLoanERP.Services.UserRoles
         /// <param name="id">role id</param>
         /// <param name="status">true,false</param>
         /// <returns>true</returns>
-        Task<ApiServiceResponseModel<object>> ChangeActiveStatus(int id, bool? status=null);
+        Task<ApiServiceResponseModel<object>> UpdateDeleteStatus(int id);
 
     }
 }

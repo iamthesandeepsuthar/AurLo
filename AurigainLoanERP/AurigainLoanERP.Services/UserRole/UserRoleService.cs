@@ -34,7 +34,7 @@ namespace AurigainLoanERP.Services.UserRoles
             try
             {
                 var result = (from role in _db.UserRoles
-                              where !role.IsDelete && role.IsActive == true && (string.IsNullOrEmpty(model.Search) || role.Name.Contains(model.Search))
+                              where !role.IsDelete  && (string.IsNullOrEmpty(model.Search) || role.Name.Contains(model.Search))
                               orderby model.OrderByAsc == 1 ? role.Id : 0, model.OrderByAsc != 1 ? 0 : role.Id descending
                               select role);
 
@@ -173,12 +173,12 @@ namespace AurigainLoanERP.Services.UserRoles
         /// <param name="id">role id</param>
         /// <param name="status">true,false</param>
         /// <returns>true</returns>
-        public async Task<ApiServiceResponseModel<object>> UpateActiveStatus(int id, bool? status = null)
+        public async Task<ApiServiceResponseModel<object>> UpateActiveStatus(int id)
         {
             try
             {
                 UserRole objRole = await _db.UserRoles.FirstOrDefaultAsync(r => r.Id == id);
-                objRole.IsActive = (status.HasValue ? status.Value : !objRole.IsActive);
+                objRole.IsActive = !objRole.IsActive;
                 objRole.ModifiedOn = DateTime.Now;
                 await _db.SaveChangesAsync();
                 return CreateResponse<object>(true, ResponseMessage.Update, true);
@@ -198,12 +198,12 @@ namespace AurigainLoanERP.Services.UserRoles
         /// <param name="id">role id</param>
         /// <param name="status">true,false</param>
         /// <returns>true</returns>
-        public async Task<ApiServiceResponseModel<object>> ChangeActiveStatus(int id, bool? status = null)
+        public async Task<ApiServiceResponseModel<object>> UpdateDeleteStatus(int id)
         {
             try
             {
                 UserRole objRole = await _db.UserRoles.FirstOrDefaultAsync(r => r.Id == id);
-                objRole.IsDelete = (status.HasValue ? status.Value : !objRole.IsDelete);
+                objRole.IsDelete =!objRole.IsDelete;
                 objRole.ModifiedOn = DateTime.Now;
                 await _db.SaveChangesAsync();
                 return CreateResponse<object>(true, ResponseMessage.Update, true);

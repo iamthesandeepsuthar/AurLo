@@ -1,5 +1,5 @@
 <app-loader></app-loader>
-<div class="main-container" id="container">
+<div class="main-container" id="container" *ngIf="isAuth; else NotValidUser">
     <div class="overlay"></div>
     <div class="search-overlay"></div>
     <app-header></app-header>
@@ -9,3 +9,12 @@
     </div>
 
 </div>
+
+<ng-template #NotValidUser>
+
+    <div id="content" class="main-content">
+        <router-outlet></router-outlet>
+
+    </div>
+
+</ng-template>
