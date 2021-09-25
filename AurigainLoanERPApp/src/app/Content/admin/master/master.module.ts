@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { MasterRoutingModule } from './master-routing.module';
 import { SharedModule } from 'src/app/Shared/Helper/shared/shared.module';
 import { UserRoleComponent } from './user-role/user-role.component';
