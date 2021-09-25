@@ -27,12 +27,12 @@ export class UserRoleComponent implements OnInit {
   displayedColumns: string[] = ['index', 'Name', 'IsActive', 'Action'];
   ViewdisplayedColumns = [{ Value: 'Name', Text: 'Name' }];
   indexModel = new IndexModel();
-  totalRecords?: number = 0;
+  totalRecords: number = 0;
   //#endregion
 
   constructor(private readonly _userRole: UserRoleService) { }
   ngOnInit(): void {
-    this.getList();
+   this.getList();
   }
 
   getList() {
@@ -42,7 +42,7 @@ export class UserRoleComponent implements OnInit {
       if (responce.IsSuccess) {
         this.model = responce.Data as UserRoleModel[];
         this.dataSource = new MatTableDataSource<UserRoleModel>(this.model);
-        this.totalRecords = responce.TotalRecord;
+        this.totalRecords = responce.TotalRecord as number;
         if (!this.indexModel.IsPostBack) {
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
