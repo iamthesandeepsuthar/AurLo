@@ -18,6 +18,7 @@ import { SharedModule } from "./Shared/Helper/shared/shared.module";
 import { LoaderComponent } from './Content/Common/loader/loader.component';
 import { DashboardModule } from "./Content/dashboard/dashboard.module";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HtmlComponent } from './Content/html/html.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     PageNotFoundComponent,
     NavigationComponent,
     LoaderComponent,
+    HtmlComponent,
+
+  
   ],
   imports: [
     BrowserModule,
