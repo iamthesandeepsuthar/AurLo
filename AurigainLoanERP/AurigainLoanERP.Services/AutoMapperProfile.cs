@@ -1,4 +1,5 @@
 ﻿using AurigainLoanERP.Data.ContractModel;
+using AurigainLoanERP.Data.Database;
 using AutoMapper;
 
 namespace AurigainLoanERP.Services
@@ -8,7 +9,9 @@ namespace AurigainLoanERP.Services
 
         public AutoMapperProfile()
         {
-            CreateMap<StudentDTO, Student>().ReverseMap();
+            CreateMap<UserRole, UserRoleModel>().ReverseMap();
+            CreateMap<UserRole, UserRolePostModel>().ReverseMap();
+
         }
 
     }

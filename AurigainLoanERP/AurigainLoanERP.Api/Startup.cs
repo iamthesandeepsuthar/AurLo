@@ -1,7 +1,9 @@
 
 using AurigainLoanERP.Data.Database;
 using AurigainLoanERP.Services;
-using AurigainLoanERP.Services.UserRole;
+using AurigainLoanERP.Services.UserRoles;
+using AurigainLoanERP.Shared.Common;
+using AurigainLoanERP.Shared.ExtensionMethod;
 using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -14,6 +16,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace AurigainLoanERP.Api
@@ -22,6 +25,9 @@ namespace AurigainLoanERP.Api
     {
 
         public IConfiguration Configuration { get; }
+        const string JWT_Key = "Jwt:Key";
+        const string JWT_ISSUER = "Jwt:Issuer";
+        const string CONNECTION_STRING = "ConnectionStrings:DefaultConnection";
 
 
         public Startup(IConfiguration configuration)
@@ -30,11 +36,10 @@ namespace AurigainLoanERP.Api
 
         }
 
-
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-     
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -75,26 +80,43 @@ namespace AurigainLoanERP.Api
                         ValidateAudience = true,
                         ValidateLifetime = true,
                         ValidateIssuerSigningKey = true,
-                        ValidIssuer = Configuration["Jwt:Issuer"],
-                        ValidAudience = Configuration["Jwt:Issuer"],
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
+                        ValidIssuer = Configuration[JWT_ISSUER],
+                        ValidAudience = Configuration[JWT_ISSUER],
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration[JWT_Key]))
                     };
                 });
 
             services.AddDbContext<AurigainContext>(options =>
-            options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            options.UseSqlServer(Configuration[CONNECTION_STRING]));
             // Auto Mapper Configurations
-            var mappingConfig = new MapperConfiguration(mc =>
-            {
-                mc.AddProfile(new AutoMapperProfile());
-            });
+            //var mappingConfig = new MapperConfiguration(mc =>
+            //{
+            //    mc.AddProfile(new AutoMapperProfile());
+            //});
 
-            IMapper mapper = mappingConfig.CreateMapper();
-            services.AddSingleton(mapper);
+            //IMapper mapper = mappingConfig.CreateMapper();
+            //services.AddSingleton(mapper);
+           
+            //var allowedHosts = Configuration
+            //.GetSection(Constants.ALLOWED_HOSTS_KEY)?
+            //.GetChildren()?
+            //.Select(host => host.Value)?
+            //.ToArray();
+            //services.AllowCors(allowedHosts);
 
+
+            services.AddCors(setupAction => setupAction.AddPolicy(Constants.ALLOW_ALL_ORIGINS,
+                options =>
+                    options.AllowAnyOrigin()
+                    .AllowAnyHeader()
+                    .AllowAnyMethod())); // allow CORS
+
+          
+            services.AddAutoMapper(typeof(AutoMapperProfile));
             services.AddMvc().AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = null);
-            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
             RegisterServices(services);
+
 
 
         }
@@ -112,6 +134,18 @@ namespace AurigainLoanERP.Api
             }
 
             app.UseRouting();
+
+
+            //    app.UseCors(Constants.ALLOW_ALL_ORIGINS);
+
+
+            app.UseCors(x => x
+         .AllowAnyOrigin()
+         .AllowAnyMethod()
+         .AllowAnyHeader());
+
+            app.UseHttpsRedirection();
+
             app.UseAuthentication();
             app.UseAuthorization();
 
@@ -121,7 +155,6 @@ namespace AurigainLoanERP.Api
             });
 
         }
-
 
         private void RegisterServices(IServiceCollection services)
         {

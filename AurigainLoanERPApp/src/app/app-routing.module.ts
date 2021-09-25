@@ -10,7 +10,7 @@ const routes: Routes = [
   { path: "dashboard", loadChildren: () => import('./Content/dashboard/dashboard.module').then(m => m.DashboardModule) },
   { path: "admin", loadChildren: () => import('./Content/admin/admin.module').then(m => m.AdminModule) },
   { path: "agent", loadChildren: () => import('./Content/agent/agent.module').then(m => m.AgentModule) },
-  { path: "customer", loadChildren: () => import('./Content/customer/customer.module').then(m => m.CustomerModule) },
+  { path: "customer", loadChildren: () => import('./Content/customer/customer.module').then(m => m.CustomerModule) }, 
   { path: 'manish', component: HtmlComponent },
   { path: '**', component: PageNotFoundComponent, canActivate: [AuthenticationGuard]},
 

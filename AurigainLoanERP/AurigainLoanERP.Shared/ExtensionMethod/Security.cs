@@ -1,15 +1,12 @@
-﻿using AurigainLoanERP.Shared.Common.Method;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.IO;
-using System.Linq;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
+
 
 namespace AurigainLoanERP.Shared.ExtensionMethod
 {
@@ -90,5 +87,7 @@ namespace AurigainLoanERP.Shared.ExtensionMethod
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
+
+
     }
 }

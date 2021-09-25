@@ -2,16 +2,28 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+
+
 const CommonModules = [
   HttpClientModule,
   ReactiveFormsModule,
- // FormsModule  //uncomment this after installing new module and remove form installedModule variable
-
+  FormsModule 
 ]
 
 const InstalledModule = [
-  FormsModule
+  MatDialogModule,
+  MatSnackBarModule,
+  MatTableModule,
+  MatSortModule,
+  MatPaginatorModule,
+  MatSortModule
 ]
+
 
 
 

@@ -1,7 +1,13 @@
+import { MasterModule } from './master/master.module';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-const routes: Routes = [];
+const routes: Routes = [
+
+  { path: "master", loadChildren: () => import('./master/master.module').then(m => m.MasterModule) },
+  {path: 'doorStep-agent',loadChildren: () => import('./door-step-agent/door-step-agent.module').then(m=>m.DoorStepAgentModule)},
+
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

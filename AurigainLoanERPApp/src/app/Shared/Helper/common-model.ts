@@ -66,9 +66,26 @@ export interface IDictionary<T> {
 }
 
 export class ApiResponse<T> {
-    Message!: string[];
     IsSuccess!: boolean;
-    Result!: T;
+    Message!: string | null;
+    StatusCode!: number;
+    Data!: T | null;
+    Exception!: string | null;
+    TotalRecord? :number;
   }
   
-  
+  export class IndexModel {
+    Page: number;
+    PageSize: number;
+    Search!: string;
+    OrderBy!: string;
+    OrderByAsc: number;
+    IsPostBack: boolean;
+    AdvanceSearchModel?: any;
+    constructor() {
+      this.PageSize = 10;
+      this.IsPostBack = false;
+      this.OrderByAsc = 0;
+          this.Page = 1;
+    }
+  }

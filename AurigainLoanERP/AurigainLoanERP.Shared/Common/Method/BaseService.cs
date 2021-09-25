@@ -6,18 +6,19 @@ using Microsoft.Extensions.Configuration;
 
 namespace AurigainLoanERP.Shared.Common.Method
 {
-   public class BaseService
+    public class BaseService
     {
 
         public readonly LoginUserViewModel _loginUserDetail;
-       // public IConfiguration _configuration;
+
+        // public IConfiguration _configuration;
         public BaseService()
         {
             _loginUserDetail = new LoginUserViewModel();
-          //  _configuration = configuration;
+            //  _configuration = configuration;
         }
 
-        public virtual ApiServiceResponseModel<T> CreateResponse<T>(T objData, string Message, bool IsSuccess, string exception = "", string validationMessage = "") where T : class
+        public virtual ApiServiceResponseModel<T> CreateResponse<T>(T objData, string Message, bool IsSuccess,  string exception = "", string validationMessage = "", int? TotalRecord = null) where T : class
         {
             ApiServiceResponseModel<T> objReturn = new ApiServiceResponseModel<T>();
 
@@ -25,7 +26,7 @@ namespace AurigainLoanERP.Shared.Common.Method
             objReturn.IsSuccess = IsSuccess;
             objReturn.Data = objData;
             objReturn.Exception = exception;
-
+            objReturn.TotalRecord = TotalRecord;
             return objReturn;
         }
 
@@ -53,7 +54,7 @@ namespace AurigainLoanERP.Shared.Common.Method
 
                 //BaseRoleType = staticClas.BaseRoleType;
                 //Name = staticClas.Name;
-              
+
                 //use thi on method for retrive data from jwt
                 // public object currentUser = HttpContext.User;
 
