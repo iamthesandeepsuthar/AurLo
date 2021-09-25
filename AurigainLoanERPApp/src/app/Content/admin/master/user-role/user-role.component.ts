@@ -35,9 +35,9 @@ export class UserRoleComponent implements OnInit {
   }
 
   getList() {
-
+    debugger
     this._userRole.GetRoleList(this.indexModel).subscribe(responce => {
-
+debugger
       if (responce.IsSuccess) {
         this.model = responce.Data as UserRoleModel[];
         this.dataSource = new MatTableDataSource<UserRoleModel>(this.model);

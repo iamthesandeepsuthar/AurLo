@@ -39,7 +39,7 @@ namespace AurigainLoanERP.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-     
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -96,19 +96,28 @@ namespace AurigainLoanERP.Api
 
             //IMapper mapper = mappingConfig.CreateMapper();
             //services.AddSingleton(mapper);
-            var allowedHosts = Configuration
-            .GetSection(Constants.ALLOWED_HOSTS_KEY)?
-            .GetChildren()?
-            .Select(host => host.Value)?
-            .ToArray();
-            services.AllowCors(allowedHosts);
+           
+            //var allowedHosts = Configuration
+            //.GetSection(Constants.ALLOWED_HOSTS_KEY)?
+            //.GetChildren()?
+            //.Select(host => host.Value)?
+            //.ToArray();
+            //services.AllowCors(allowedHosts);
 
-            services.AddAutoMapper(typeof(AutoMapperProfile));
-            services.AddMvc().AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = null);
-         
-            RegisterServices(services);
+
+            services.AddCors(setupAction => setupAction.AddPolicy(Constants.ALLOW_ALL_ORIGINS,
+                options =>
+                    options.AllowAnyOrigin()
+                    .AllowAnyHeader()
+                    .AllowAnyMethod())); // allow CORS
 
           
+            services.AddAutoMapper(typeof(AutoMapperProfile));
+            services.AddMvc().AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = null);
+
+            RegisterServices(services);
+
+
 
         }
 
@@ -125,7 +134,18 @@ namespace AurigainLoanERP.Api
             }
 
             app.UseRouting();
-            app.UseCors(Constants.ALLOW_ALL_ORIGINS);
+
+
+            //    app.UseCors(Constants.ALLOW_ALL_ORIGINS);
+
+
+            app.UseCors(x => x
+         .AllowAnyOrigin()
+         .AllowAnyMethod()
+         .AllowAnyHeader());
+
+            app.UseHttpsRedirection();
+
             app.UseAuthentication();
             app.UseAuthorization();
 

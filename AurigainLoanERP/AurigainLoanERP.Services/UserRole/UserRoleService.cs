@@ -38,7 +38,7 @@ namespace AurigainLoanERP.Services.UserRoles
                               orderby model.OrderByAsc == 1 ? role.Id : 0, model.OrderByAsc != 1 ? 0 : role.Id descending
                               select role);
 
-                var data = await result.Skip(((model.Page == 0 ? 1 : model.Page) - 1) * model.PageSize).Take(model.PageSize != 0 ? model.Page : int.MaxValue).ToListAsync();
+                var data = await result.Skip(((model.Page == 0 ? 1 : model.Page) -1) * (model.PageSize != 0 ? model.Page : int.MaxValue)).Take(model.PageSize != 0 ? model.PageSize : int.MaxValue).ToListAsync();
                 objResponse.Data = _mapper.Map<List<UserRoleModel>>(data);
 
 

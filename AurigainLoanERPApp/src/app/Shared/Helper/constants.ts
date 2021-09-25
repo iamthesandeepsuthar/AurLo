@@ -9,12 +9,12 @@ export class Constants {
 //#region  << API URL>>
 
 //#region <<User Role>> 
-public static UserRoleList_Api =`${environment.apiEndPoint}/UserRole/get`;
-public static UserRoleDetail_Api =`${environment.apiEndPoint}/UserRole/get/`;
-public static UserRoleAddUpdate_Api =`${environment.apiEndPoint}/UserRole/post`;
-public static UserRoleCheckRoleExist_Api =`${environment.apiEndPoint}/UserRole/CheckRoleExist/`;
-public static UserRoleChangeActiveStatus_Api =`${environment.apiEndPoint}/UserRole/ChangeActiveStatus/`;
-public static UserRoleDelete_Api =`${environment.apiEndPoint}/UserRole/delete/`;
+public static UserRoleList_Api =`${environment.apiEndPoint}UserRole/Get`;
+public static UserRoleDetail_Api =`${environment.apiEndPoint}UserRole/get/`;
+public static UserRoleAddUpdate_Api =`${environment.apiEndPoint}UserRole/post`;
+public static UserRoleCheckRoleExist_Api =`${environment.apiEndPoint}UserRole/CheckRoleExist/`;
+public static UserRoleChangeActiveStatus_Api =`${environment.apiEndPoint}UserRole/ChangeActiveStatus/`;
+public static UserRoleDelete_Api =`${environment.apiEndPoint}UserRole/delete/`;
 
 
 //#endregion
