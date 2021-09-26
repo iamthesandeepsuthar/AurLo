@@ -8,7 +8,7 @@
         <div class="form-form-wrap">
             <div class="form-container">
                 <div class="form-content">
-                    <form class="text-left">
+                    <form class="text-left" (ngSubmit)="onSubmit()">
                         <div class="form">
                             <h1 class="">Log In to <span>AurLo</span></h1>
                             <div id="username-field" class="field-wrapper input">
@@ -28,7 +28,7 @@
                             </div>
                             <div class="d-sm-flex justify-content-between">
                                 <div class="field-wrapper">
-                                    <button type="submit" class="btn btn-primary" (click)=" this.Login();">Log In</button>
+                                    <button type="submit" class="btn btn-primary" value="">Log In</button>
                                 </div>
                             </div>
 
