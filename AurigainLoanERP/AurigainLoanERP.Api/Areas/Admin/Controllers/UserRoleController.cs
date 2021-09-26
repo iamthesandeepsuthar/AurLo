@@ -63,17 +63,17 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
         }
 
         // GET api/<UserRoleController>/5
-        [HttpGet("{id}/{status}")]
-        public async Task<ApiServiceResponseModel<object>> ChangeActiveStatus(int id, bool? status = null)
+        [HttpGet("{id}")]
+        public async Task<ApiServiceResponseModel<object>> ChangeActiveStatus(int id)
         {
-            return await _userRole.ChangeActiveStatus(id, status);
+            return await _userRole.UpateActiveStatus(id);
         }
 
         // DELETE api/<UserRoleController>/5
-        [HttpDelete("{id}/{status}")]
-        public async Task<ApiServiceResponseModel<object>> Delete(int id, bool? status = null)
+        [HttpDelete("{id}")]
+        public async Task<ApiServiceResponseModel<object>> Delete(int id)
         {
-            return await _userRole.ChangeActiveStatus(id, status);
+            return await _userRole.UpdateDeleteStatus(id);
         }
     }
 }

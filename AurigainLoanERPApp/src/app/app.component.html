@@ -1,11 +1,35 @@
 <app-loader></app-loader>
-<div class="main-container" id="container">
+<div class="main-container" id="container" *ngIf="isAuth; else NotValidUser">
     <div class="overlay"></div>
     <div class="search-overlay"></div>
     <app-header></app-header>
     <div id="content" class="main-content">
-        <router-outlet></router-outlet>
+        <!--  START CONTENT AREA  -->
+       
+        <div class="layout-px-spacing">
+            <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12">
+                    <div class="statbox widget box box-shadow bg-white">
+
+                        <router-outlet></router-outlet>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <!--  END CONTENT AREA  -->
         <app-footer></app-footer>
     </div>
 
 </div>
+
+<ng-template #NotValidUser>
+
+    <div id="content" class="main-content">
+        <router-outlet></router-outlet>
+
+    </div>
+
+</ng-template>

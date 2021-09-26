@@ -1,3 +1,5 @@
+import { Routing_Url } from './Shared/Helper/constants';
+
 import { NgModule } from '@angular/core';
 import { NoPreloading, RouterModule, Routes } from '@angular/router';
 import { PageNotFoundComponent } from './Content/Common/page-not-found/page-not-found.component';
@@ -13,7 +15,7 @@ const routes: Routes = [
   { path: "agent", loadChildren: () => import('./Content/agent/agent.module').then(m => m.AgentModule) },
   { path: "customer", loadChildren: () => import('./Content/customer/customer.module').then(m => m.CustomerModule) }, 
   { path: 'manish', component: HtmlComponent },
-  { path: 'login', component: LoginComponent },
+  { path: Routing_Url.LoginUrl , component: LoginComponent },
   { path: '**', component: PageNotFoundComponent, canActivate: [AuthenticationGuard]},
 
 ];

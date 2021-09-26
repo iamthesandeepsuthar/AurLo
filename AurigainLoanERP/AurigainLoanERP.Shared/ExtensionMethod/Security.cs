@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using AurigainLoanERP.Shared.Common.Method;
+using AurigainLoanERP.Shared.Common.Model;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.IdentityModel.Tokens.Jwt;
@@ -10,7 +12,7 @@ using System.Text;
 
 namespace AurigainLoanERP.Shared.ExtensionMethod
 {
-    public class Security 
+    public class Security :BaseService
     {
         IConfiguration _configuration;
         public Security(IConfiguration configuration) {
@@ -69,7 +71,7 @@ namespace AurigainLoanERP.Shared.ExtensionMethod
             }
         }
 
-        public  string CreateToken(string UserName,string UserType)
+        public ApiServiceResponseModel<string> CreateToken(string UserName,string UserType)
         {
 
             var key = _configuration.GetValue<string>("Jwt:Key");
@@ -85,7 +87,7 @@ namespace AurigainLoanERP.Shared.ExtensionMethod
             var token = new JwtSecurityToken(issuer, issuer, claims, expires: DateTime.Now.AddMinutes(120),
                   signingCredentials: credentials);
 
-            return new JwtSecurityTokenHandler().WriteToken(token);
+            return CreateResponse<string>(new JwtSecurityTokenHandler().WriteToken(token), ResponseMessage.Success, true)  ;
         }
 
 

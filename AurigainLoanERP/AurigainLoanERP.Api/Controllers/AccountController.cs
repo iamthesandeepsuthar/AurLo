@@ -1,4 +1,5 @@
-﻿using AurigainLoanERP.Shared.ExtensionMethod;
+﻿using AurigainLoanERP.Shared.Common.Model;
+using AurigainLoanERP.Shared.ExtensionMethod;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 
@@ -17,9 +18,9 @@ namespace AurigainLoanERP.Api.Controllers
         }
 
         [HttpGet]
-        public object Login()
+        public ApiServiceResponseModel<string> Login()
         {
-            return _security.CreateToken("abc", "admin");
+            return  _security.CreateToken("abc", "admin");
         }
 
 

@@ -1,4 +1,5 @@
-import { Constants } from './../../../../Shared/Helper/constants';
+import { Routing_Url } from './../../../../Shared/Helper/constants';
+
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -11,11 +12,12 @@ import { UserRoleService } from 'src/app/Shared/Services/user-role.service';
   selector: 'app-user-role',
   templateUrl: './user-role.component.html',
   styleUrls: ['./user-role.component.scss'],
-  providers :[ UserRoleService]
+  providers: [UserRoleService]
 })
 export class UserRoleComponent implements OnInit {
 
   //#region <<  Variable  >>
+  get routing_Url() { return Routing_Url }
 
   model!: UserRoleModel[];
   dataSource: any;
@@ -25,23 +27,22 @@ export class UserRoleComponent implements OnInit {
   displayedColumns: string[] = ['index', 'Name', 'IsActive', 'Action'];
   ViewdisplayedColumns = [{ Value: 'Name', Text: 'Name' }];
   indexModel = new IndexModel();
-  totalRecords?: number = 0;
+  totalRecords: number = 0;
   //#endregion
 
   constructor(private readonly _userRole: UserRoleService) { }
-
   ngOnInit(): void {
     this.getList();
   }
 
-  getList() {
-    debugger
+  getList():void {
+    
     this._userRole.GetRoleList(this.indexModel).subscribe(responce => {
-debugger
+     
       if (responce.IsSuccess) {
         this.model = responce.Data as UserRoleModel[];
         this.dataSource = new MatTableDataSource<UserRoleModel>(this.model);
-        this.totalRecords = responce.TotalRecord;
+        this.totalRecords = responce.TotalRecord as number;
         if (!this.indexModel.IsPostBack) {
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
@@ -52,10 +53,14 @@ debugger
       });
   }
 
-  sortData(event: any) {
+  sortData(event: any):void {
     this.indexModel.OrderBy = event.active;
     this.indexModel.OrderByAsc = event.direction == 1 ? 1 : 0;
     this.indexModel.IsPostBack = true;
+    this.getList();
+  }
+  onSearch(){
+    this.indexModel.Page=1;
     this.getList();
   }
 
