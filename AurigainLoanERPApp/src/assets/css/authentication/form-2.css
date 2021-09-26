@@ -68,6 +68,7 @@ body {
 .form-form .form-container .form-content h1 {
     font-size: 35px;
     color: #3b3f5c;
+    font-weight: 600;
 }
 
 .form-form .form-container .form-content>p {
