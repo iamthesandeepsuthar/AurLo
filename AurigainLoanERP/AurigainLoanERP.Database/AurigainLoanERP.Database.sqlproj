@@ -69,6 +69,8 @@
     <Build Include="District.sql" />
     <Build Include="QualificationMaster.sql" />
     <Build Include="DocumentType.sql" />
+    <Build Include="UserMaster.sql" />
+    <Build Include="UserAgent.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PostScript\Script.UserRoleInsertData.sql" />

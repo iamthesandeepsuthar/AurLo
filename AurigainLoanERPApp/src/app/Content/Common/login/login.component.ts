@@ -1,7 +1,7 @@
-import { environment } from './../../../../environments/environment.stage';
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { AuthService } from 'src/app/Shared/Helper/auth.service';
+import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
+import { AuthService } from "src/app/Shared/Helper/auth.service";
+import { environment } from "src/environments/environment";
 
 @Component({
   selector: 'app-login',
@@ -16,25 +16,25 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    
+
   }
-  Login() {
+  onSubmit() {
 
 
-if (!environment.IsAutoLogin) {
-  this._authService.Login(this.userId).subscribe((res) => {
-    if (res.IsSuccess) {
-      this._authService.SaveUserToken(res.Data);
+    if (!environment.IsAutoLogin) {
+      this._authService.Login(this.userId).subscribe((res) => {
+        if (res.IsSuccess) {
+          this._authService.SaveUserToken(res.Data);
+          this._route.navigate(['']);
+        }
+      });
+    } else {
+      this._authService.SaveUserToken("testtoken");
       this._route.navigate(['']);
+
     }
-  });
-}else{
-  this._authService.SaveUserToken("testtoken");
-  this._route.navigate(['']);
 
-}
 
-   
 
 
 
