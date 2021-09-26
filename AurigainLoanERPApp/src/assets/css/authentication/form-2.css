@@ -238,9 +238,11 @@ body {
 .form-form .form-form-wrap form .field-wrapper button.btn {
     align-self: center;
     width: 100%;
-    padding: 11px 14px;
-    font-size: 16px;
-    letter-spacing: 2px;
+    padding: 8px 14px;
+    font-size: 18px;
+    /* letter-spacing: 2px; */
+    font-weight: 600;
+    text-transform: uppercase;
 }
 
 .form-form .form-form-wrap form .field-wrapper a.forgot-pass-link {
