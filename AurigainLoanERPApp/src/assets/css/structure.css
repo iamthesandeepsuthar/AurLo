@@ -19,8 +19,7 @@ body {
     color: #888ea8;
     height: 100%;
     font-size: 0.875rem;
-    background: #fff;
-    /* background: #f1f2f3; */
+    background: #f1f2f3;
     overflow-x: hidden;
     overflow-y: auto;
     letter-spacing: 0.0312rem;
