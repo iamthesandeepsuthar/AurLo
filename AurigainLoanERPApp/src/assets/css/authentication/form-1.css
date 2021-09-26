@@ -32,12 +32,13 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100%;
+    background: #fff;
 }
 
 .form-form .form-form-wrap {
     max-width: 480px;
     margin: 0 auto;
-    min-width: 340px;
+    min-width: 450px;
     min-height: 100%;
     height: 100vh;
     align-items: center;
@@ -142,20 +143,16 @@ body {
 .form-form .form-form-wrap form .field-wrapper input {
     display: inline-block;
     vertical-align: middle;
-    border-radius: 0;
+    border-radius: 6px;
     min-width: 50px;
     max-width: 635px;
     width: 100%;
-    min-height: 36px;
-    background-color: #ffffff;
-    border: none;
     -ms-transition: all 0.2s ease-in-out 0s;
     transition: all 0.2s ease-in-out 0s;
     color: #3b3f5c;
-    font-weight: 600;
+    font-weight: 500;
     font-size: 16px;
-    border-bottom: 1px solid #e0e6ed;
-    padding: 0px 0 10px 35px;
+    padding: 13px 35px 13px 46px;
 }
 
 .form-form .form-form-wrap form .field-wrapper input::-webkit-input-placeholder,
@@ -252,7 +249,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: #efd0b4;
+    background-color: #060818;
     background-position: center center;
     background-repeat: no-repeat;
     background-size: 75%;
