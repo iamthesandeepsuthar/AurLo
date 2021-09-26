@@ -34,11 +34,13 @@ namespace AurigainLoanERP.Services.UserRoles
             try
             {
                 var result = (from role in _db.UserRoles
-                              where !role.IsDelete  && (string.IsNullOrEmpty(model.Search) || role.Name.Contains(model.Search))
-                              orderby model.OrderByAsc == 1 ? role.Id : 0, model.OrderByAsc != 1 ? 0 : role.Id descending
-                              select role);
+                              where !role.IsDelete && (string.IsNullOrEmpty(model.Search) || role.Name.Contains(model.Search))
 
-                var data = await result.Skip(((model.Page == 0 ? 1 : model.Page) -1) * (model.PageSize != 0 ? model.PageSize : int.MaxValue)).Take(model.PageSize != 0 ? model.PageSize : int.MaxValue).ToListAsync();
+
+                              orderby (model.OrderByAsc == 1 && model.OrderBy == "Name" ? role.Name : "") ascending
+                              orderby (model.OrderByAsc != 1 && model.OrderBy == "Name" ? role.Name : "") descending
+                              select role);
+                var data = await result.Skip(((model.Page == 0 ? 1 : model.Page) - 1) * (model.PageSize != 0 ? model.PageSize : int.MaxValue)).Take(model.PageSize != 0 ? model.PageSize : int.MaxValue).ToListAsync();
                 objResponse.Data = _mapper.Map<List<UserRoleModel>>(data);
 
 
@@ -48,7 +50,7 @@ namespace AurigainLoanERP.Services.UserRoles
                 }
                 else
                 {
-                    return CreateResponse<List<UserRoleModel>>(null, ResponseMessage.NotFound, true);
+                    return CreateResponse<List<UserRoleModel>>(null, ResponseMessage.NotFound, true, TotalRecord: 0);
                 }
 
             }
@@ -71,8 +73,10 @@ namespace AurigainLoanERP.Services.UserRoles
             try
             {
                 var result = await (from c1 in _db.UserRoles
+                                   // join st in _db.UserRoles  on c1.ParentId equals st.Id
+
                                     where !c1.IsDelete && c1.IsActive.Value && c1.Id == id
-                                    select c1).FirstOrDefaultAsync();
+                                    select c1 ).FirstOrDefaultAsync();
 
                 if (result != null)
                 {
@@ -203,7 +207,7 @@ namespace AurigainLoanERP.Services.UserRoles
             try
             {
                 UserRole objRole = await _db.UserRoles.FirstOrDefaultAsync(r => r.Id == id);
-                objRole.IsDelete =!objRole.IsDelete;
+                objRole.IsDelete = !objRole.IsDelete;
                 objRole.ModifiedOn = DateTime.Now;
                 await _db.SaveChangesAsync();
                 return CreateResponse<object>(true, ResponseMessage.Update, true);

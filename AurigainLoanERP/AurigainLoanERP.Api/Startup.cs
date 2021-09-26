@@ -1,10 +1,9 @@
 
 using AurigainLoanERP.Data.Database;
 using AurigainLoanERP.Services;
+using AurigainLoanERP.Services.Common;
 using AurigainLoanERP.Services.UserRoles;
 using AurigainLoanERP.Shared.Common;
-using AurigainLoanERP.Shared.ExtensionMethod;
-using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -158,7 +157,9 @@ namespace AurigainLoanERP.Api
 
         private void RegisterServices(IServiceCollection services)
         {
-            services.AddTransient<IUserRoleService, UserRoleService>();
+            services.AddTransient<IUserRoleService, UserRoleService>().Reverse();
+            services.AddTransient<ICommonService, CommonService>().Reverse();
+
 
         }
     }

@@ -32,13 +32,13 @@ export class UserRoleComponent implements OnInit {
 
   constructor(private readonly _userRole: UserRoleService) { }
   ngOnInit(): void {
-   this.getList();
+    this.getList();
   }
 
-  getList() {
-    debugger
+  getList():void {
+    
     this._userRole.GetRoleList(this.indexModel).subscribe(responce => {
-      debugger
+     
       if (responce.IsSuccess) {
         this.model = responce.Data as UserRoleModel[];
         this.dataSource = new MatTableDataSource<UserRoleModel>(this.model);
@@ -53,10 +53,14 @@ export class UserRoleComponent implements OnInit {
       });
   }
 
-  sortData(event: any) {
+  sortData(event: any):void {
     this.indexModel.OrderBy = event.active;
     this.indexModel.OrderByAsc = event.direction == 1 ? 1 : 0;
     this.indexModel.IsPostBack = true;
+    this.getList();
+  }
+  onSearch(){
+    this.indexModel.Page=1;
     this.getList();
   }
 

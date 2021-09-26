@@ -2,18 +2,19 @@ import { environment } from "src/environments/environment";
 
 export class API_Url {
 
-    //#region << App URL >>
-    //#endregion
-
-    //#region <<Login>> 
-    public static Login_Api = `${environment.apiEndPoint}account/login`;
 
 
-
-    //#endregion
 
     //#region  << API URL>>
 
+    //#region <<Login>> 
+    public static Login_Api = `${environment.apiEndPoint}account/login`;
+    //#endregion
+
+    //#region <<Common >>
+    public static DropDown_Api = `${environment.apiEndPoint}Common/GetDropDown`;
+
+    //#endregion
     //#region <<User Role>> 
     public static UserRoleList_Api = `${environment.apiEndPoint}UserRole/Get`;
     public static UserRoleDetail_Api = `${environment.apiEndPoint}UserRole/get/`;
@@ -27,14 +28,7 @@ export class API_Url {
 
     //#endregion
 
-    //#region <<Alert Message >>
-    static SaveSucess = "Record Sucessfully saved...!"
-    static SaveFail = "Record faild to save...!"
-    static UpdateSucess = "Record Sucessfully updated...!"
-    static UpdateFail = "Record failed to update...!"
-    static ConfirmUpdate = "Are you Sure update this record?"
 
-    //#endregion
 
 
 }
@@ -52,4 +46,21 @@ export class Routing_Url {
 
 
     //#endregion
+}
+export class Message {
+
+    //#region <<Alert Message >>
+    static SaveSucess = "Record Sucessfully saved...!"
+    static SaveFail = "Record faild to save...!"
+    static UpdateSucess = "Record Sucessfully updated...!"
+    static UpdateFail = "Record failed to update...!"
+    static ConfirmUpdate = "Are you Sure update this record?"
+
+    //#endregion
+}
+
+export class DropDown_key{
+static ddlParentUserRole = "ddlParentUserRole";
+static ddlUserRole = "ddlUserRole";
+
 }

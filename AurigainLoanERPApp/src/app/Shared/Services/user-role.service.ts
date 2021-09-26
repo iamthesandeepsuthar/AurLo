@@ -17,7 +17,7 @@ export class UserRoleService {
     return this._baseService.post(url, model);
   }
 
-  GetRole(id: number): Observable<ApiResponse<UserRoleModel[]>> {
+  GetRole(id: number): Observable<ApiResponse<UserRoleModel>> {
     let url = `${this._baseService.API_Url.UserRoleDetail_Api}${id}`;
     return this._baseService.get(url);
   }
@@ -37,7 +37,7 @@ export class UserRoleService {
   }
 
   CheckRoleExist(name :string,id?: number): Observable<ApiResponse<UserRoleModel[]>> {
-    let url = `${this._baseService.API_Url.UserRoleDetail_Api}${name}/${id}`;
+    let url = `${this._baseService.API_Url.UserRoleCheckRoleExist_Api}${name}/${id}`;
     return this._baseService.get(url);
   }
 

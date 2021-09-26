@@ -56,7 +56,7 @@ export class Dictionary<T> implements IDictionary<T>
 }
 
 export interface IDictionary<T> {
-    Add(key: string, value: T):any;
+    Add(key: string, value: T): any;
     ContainsKey(key: string): boolean;
     Count(): number;
     Item(key: string): T;
@@ -71,10 +71,10 @@ export class ApiResponse<T> {
     StatusCode!: number;
     Data!: T | null;
     Exception!: string | null;
-    TotalRecord? :number;
-  }
-  
-  export class IndexModel {
+    TotalRecord?: number;
+}
+
+export class IndexModel {
     Page: number;
     PageSize: number;
     Search!: string;
@@ -83,9 +83,19 @@ export class ApiResponse<T> {
     IsPostBack: boolean;
     AdvanceSearchModel?: any;
     constructor() {
-      this.PageSize = 10;
-      this.IsPostBack = false;
-      this.OrderByAsc = 0;
-          this.Page = 1;
+        this.PageSize = 10;
+        this.IsPostBack = false;
+        this.OrderByAsc = 0;
+        this.Page = 1;
     }
-  }
+}
+
+export class DropDownModol {
+    ddlParentUserRole!: DropDownItem[];
+    ddlUserRole!: DropDownItem[];
+}
+
+export class DropDownItem {
+    Text: string = "";
+    Value: string = "";
+}

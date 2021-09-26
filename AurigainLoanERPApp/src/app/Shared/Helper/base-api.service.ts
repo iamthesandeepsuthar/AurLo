@@ -1,4 +1,4 @@
-import { API_Url, Routing_Url } from './constants';
+import { API_Url, DropDown_key, Routing_Url } from './constants';
 
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -13,6 +13,7 @@ export class BaseAPIService {
 
     readonly Routing_Url = Routing_Url;
     readonly API_Url = API_Url;
+    readonly DropDown_key = DropDown_key;
 
     constructor(private readonly _httpClient: HttpClient) { }
 

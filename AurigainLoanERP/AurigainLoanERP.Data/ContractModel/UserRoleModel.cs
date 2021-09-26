@@ -14,6 +14,8 @@ namespace AurigainLoanERP.Data.ContractModel
         public string Name { get; set; }
         public int? ParentId { get; set; }
         public bool? IsActive { get; set; }
+        public string ParentRole { get; set; }
+
         public bool IsDelete { get; set; }
         public DateTime CreatedOn { get; set; }
         public DateTime? ModifiedOn { get; set; }
