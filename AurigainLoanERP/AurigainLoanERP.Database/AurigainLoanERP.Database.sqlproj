@@ -71,6 +71,12 @@
     <Build Include="DocumentType.sql" />
     <Build Include="UserMaster.sql" />
     <Build Include="UserAgent.sql" />
+    <Build Include="UserKYC.sql" />
+    <Build Include="UserNominee.sql" />
+    <Build Include="UserBank.sql" />
+    <Build Include="UserDocument.sql" />
+    <Build Include="UserOTP.sql" />
+    <Build Include="UserReportingPerson.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PostScript\Script.UserRoleInsertData.sql" />
