@@ -35,8 +35,6 @@ namespace AurigainLoanERP.Services.UserRoles
             {
                 var result = (from role in _db.UserRoles
                               where !role.IsDelete && (string.IsNullOrEmpty(model.Search) || role.Name.Contains(model.Search))
-
-
                               orderby (model.OrderByAsc == 1 && model.OrderBy == "Name" ? role.Name : "") ascending
                               orderby (model.OrderByAsc != 1 && model.OrderBy == "Name" ? role.Name : "") descending
                               select role);

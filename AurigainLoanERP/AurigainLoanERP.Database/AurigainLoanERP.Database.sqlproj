@@ -9,8 +9,7 @@
     <ProjectGuid>{658f7346-eb89-472a-92d5-ad27c4d3d0da}</ProjectGuid>
     <DSP>Microsoft.Data.Tools.Schema.Sql.Sql150DatabaseSchemaProvider</DSP>
     <OutputType>Database</OutputType>
-    <RootPath>
-    </RootPath>
+    <RootPath />
     <RootNamespace>AurigainLoanERP.Database</RootNamespace>
     <AssemblyName>AurigainLoanERP.Database</AssemblyName>
     <ModelCollation>1033,CI</ModelCollation>
@@ -52,7 +51,6 @@
   </PropertyGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
-    <!-- Default to the v11.0 targets path if the targets file for the current VS version is not found -->
     <SSDTExists Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets')">True</SSDTExists>
     <VisualStudioVersion Condition="'$(SSDTExists)' == ''">11.0</VisualStudioVersion>
   </PropertyGroup>
@@ -67,8 +65,15 @@
   </ItemGroup>
   <ItemGroup>
     <Build Include="UserRole.sql" />
+    <Build Include="State.sql" />
+    <Build Include="District.sql" />
+    <Build Include="QualificationMaster.sql" />
+    <Build Include="DocumentType.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PostScript\Script.UserRoleInsertData.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="AurigainLoanERP.Database.refactorlog" />
   </ItemGroup>
 </Project>

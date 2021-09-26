@@ -14,4 +14,10 @@
     <ProjectReference Include="..\AurigainLoanERP.Shared\AurigainLoanERP.Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="KycDocumentType\" />
+    <Folder Include="User\" />
+    <Folder Include="Qualification\" />
+  </ItemGroup>
+
 </Project>
