@@ -25,6 +25,9 @@
     /* border-top-color: #b93350;
     -webkit-animation: spin 2s linear infinite;
     animation: spin 2s linear infinite; */
+    animation: bounce 0.8s;
+    animation-direction: alternate;
+    animation-iteration-count: infinite;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -56,6 +59,15 @@
     border-top-color: #8987ff9e;
     -webkit-animation: spin 1.5s linear infinite;
     animation: spin 1.5s linear infinite;
+}
+
+@keyframes bounce {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(-50px);
+    }
 }
 
 @-webkit-keyframes spin {
