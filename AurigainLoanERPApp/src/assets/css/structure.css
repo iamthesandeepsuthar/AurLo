@@ -1270,12 +1270,19 @@ code {
 #sidebar ul.menu-categories ul.submenu>li a {
     position: relative;
     display: flex;
-    justify-content: space-between;
-    padding: 10px 12px 10px 48px;
+    justify-content: start;
+    padding: 8px 12px 8px 48px;
     padding-left: 24px;
     margin-left: 10px;
-    font-size: 13px;
-    color: #515365;
+    font-size: 14px;
+    color: #002767;
+    font-weight: 600;
+    align-items: center;
+}
+
+#sidebar ul.menu-categories ul.submenu>li a i {
+    font-size: 13px !important;
+    margin-right: 6px;
 }
 
 #sidebar ul.menu-categories li.menu ul.submenu>li a:before {
@@ -1290,7 +1297,7 @@ code {
 }
 
 #sidebar ul.menu-categories ul.submenu>li.active a {
-    color: #4361ee;
+    color: #ff8400;
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
     font-weight: 600;
