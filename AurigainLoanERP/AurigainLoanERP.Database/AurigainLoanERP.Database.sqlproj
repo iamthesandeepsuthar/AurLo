@@ -77,6 +77,9 @@
     <Build Include="UserDocument.sql" />
     <Build Include="UserOTP.sql" />
     <Build Include="UserReportingPerson.sql" />
+    <Build Include="PaymentMode.sql" />
+    <Build Include="UserDoorStepAgent.sql" />
+    <Build Include="SecurityDepositDetails.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PostScript\Script.UserRoleInsertData.sql" />

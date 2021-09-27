@@ -5,23 +5,21 @@ using System.Collections.Generic;
 
 namespace AurigainLoanERP.Data.Database
 {
-    public partial class UserRole
+    public partial class PaymentMode
     {
-        public UserRole()
+        public PaymentMode()
         {
-            UserMasters = new HashSet<UserMaster>();
+            SecurityDepositDetails = new HashSet<SecurityDepositDetail>();
         }
 
         public int Id { get; set; }
-        public string Name { get; set; }
-        public int? ParentId { get; set; }
+        public string Mode { get; set; }
+        public long? MinimumValue { get; set; }
         public bool? IsActive { get; set; }
         public bool IsDelete { get; set; }
         public DateTime CreatedOn { get; set; }
         public DateTime? ModifiedOn { get; set; }
-        public long CreatedBy { get; set; }
-        public long? ModifiedBy { get; set; }
 
-        public virtual ICollection<UserMaster> UserMasters { get; set; }
+        public virtual ICollection<SecurityDepositDetail> SecurityDepositDetails { get; set; }
     }
 }

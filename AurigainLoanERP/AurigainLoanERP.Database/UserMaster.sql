@@ -6,6 +6,7 @@
     [Password] NVARCHAR(500) NOT NULL, 
     [Email] NVARCHAR(300) NULL, 
     [Mobile] NVARCHAR(20) NULL ,
+    [IsApproved] bit NOT NULL, 
     [DeviceToken] NVARCHAR(MAX) NULL, 
     [Token] NVARCHAR(MAX) NULL, 
     [IsActive] BIT NOT NULL DEFAULT 1, 
