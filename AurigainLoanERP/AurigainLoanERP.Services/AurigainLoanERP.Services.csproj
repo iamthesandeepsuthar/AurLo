@@ -15,9 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="KycDocumentType\" />
     <Folder Include="User\" />
-    <Folder Include="Qualification\" />
   </ItemGroup>
 
 </Project>

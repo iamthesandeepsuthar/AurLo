@@ -2,6 +2,10 @@
 using AurigainLoanERP.Data.Database;
 using AurigainLoanERP.Services;
 using AurigainLoanERP.Services.Common;
+using AurigainLoanERP.Services.KycDocumentType;
+using AurigainLoanERP.Services.PaymentMode;
+using AurigainLoanERP.Services.Qualification;
+using AurigainLoanERP.Services.StateAndDistrict;
 using AurigainLoanERP.Services.UserRoles;
 using AurigainLoanERP.Shared.Common;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -42,7 +46,7 @@ namespace AurigainLoanERP.Api
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "app", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Aurigain", Version = "v1" });
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
                     Description = @"JWT Authorization header using the Bearer scheme. \r\n\r\n 
@@ -159,8 +163,10 @@ namespace AurigainLoanERP.Api
         {
             services.AddTransient<IUserRoleService, UserRoleService>().Reverse();
             services.AddTransient<ICommonService, CommonService>().Reverse();
-
-
+            services.AddTransient<IStateAndDistrictService,StateAndDistrictSrivce>().Reverse();
+            services.AddTransient<IDocumentTypeService, DocumentTypeService>().Reverse();
+            services.AddTransient<IQualificationService, QualificationService>().Reverse();
+            services.AddTransient<IPaymentModeService, PaymentModeService>().Reverse();
         }
     }
 }

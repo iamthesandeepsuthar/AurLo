@@ -7,6 +7,12 @@ namespace AurigainLoanERP.Data.Database
 {
     public partial class District
     {
+        public District()
+        {
+            UserAgents = new HashSet<UserAgent>();
+            UserDoorStepAgents = new HashSet<UserDoorStepAgent>();
+        }
+
         public int Id { get; set; }
         public string Name { get; set; }
         public int StateId { get; set; }
@@ -16,5 +22,7 @@ namespace AurigainLoanERP.Data.Database
         public DateTime? ModifiedOn { get; set; }
 
         public virtual State State { get; set; }
+        public virtual ICollection<UserAgent> UserAgents { get; set; }
+        public virtual ICollection<UserDoorStepAgent> UserDoorStepAgents { get; set; }
     }
 }
