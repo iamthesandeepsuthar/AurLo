@@ -28,5 +28,6 @@ namespace AurigainLoanERP.Data.ContractModel
         public long? ModifiedBy { get; set; }
         public virtual DistrictModel District { get; set; }
         public virtual QualificationModel Qualification { get; set; }
+        public virtual UserBankDetailModel BankDetails { get; set; }
     }
 }

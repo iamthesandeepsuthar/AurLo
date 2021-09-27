@@ -62,6 +62,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="AurigainLoanERP.Database.publish.xml" />
+    <None Include="PostScript\DocumentTypeInsert.sql" />
+    <None Include="PostScript\UserRoleInsert.sql" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="UserRole.sql" />
@@ -82,9 +84,9 @@
     <Build Include="SecurityDepositDetails.sql" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="PostScript\Script.UserRoleInsertData.sql" />
+    <RefactorLog Include="AurigainLoanERP.Database.refactorlog" />
   </ItemGroup>
   <ItemGroup>
-    <RefactorLog Include="AurigainLoanERP.Database.refactorlog" />
+    <PostDeploy Include="Script.PostDeployment.sql" />
   </ItemGroup>
 </Project>

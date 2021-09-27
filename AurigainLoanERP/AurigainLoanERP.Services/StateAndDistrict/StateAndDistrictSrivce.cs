@@ -243,7 +243,8 @@ namespace AurigainLoanERP.Services.StateAndDistrict
                 var districts = await _db.Districts.Where(x=>x.StateId == id).Select(x => new DDLDistrictModel
                 {
                     Id = x.Id,
-                    Name = x.Name
+                    Name = x.Name,
+                    Pincode = x.Pincode
                 }).ToListAsync();
 
                 if (districts.Count > 0)

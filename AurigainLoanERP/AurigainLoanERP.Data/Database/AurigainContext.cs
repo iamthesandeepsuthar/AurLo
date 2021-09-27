@@ -39,7 +39,7 @@ namespace AurigainLoanERP.Data.Database
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=localhost\\SQLEXPRESS;Database=Aurigain;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer("Server=.\\SQLExpress;Database=Aurigain;Trusted_Connection=True;");
             }
         }
 
@@ -64,6 +64,10 @@ namespace AurigainLoanERP.Data.Database
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(500);
+
+                entity.Property(e => e.Pincode)
+                    .IsRequired()
+                    .HasMaxLength(30);
 
                 entity.Property(e => e.StateId).HasColumnName("State_Id");
 
@@ -222,7 +226,7 @@ namespace AurigainLoanERP.Data.Database
                 entity.HasOne(d => d.District)
                     .WithMany(p => p.UserAgents)
                     .HasForeignKey(d => d.DistrictId)
-                    .HasConstraintName("FK__UserAgent__Distr__04E4BC85");
+                    .HasConstraintName("FK__UserAgent__Distr__18EBB532");
 
                 entity.HasOne(d => d.Qualification)
                     .WithMany(p => p.UserAgents)
@@ -335,7 +339,7 @@ namespace AurigainLoanERP.Data.Database
                 entity.HasOne(d => d.District)
                     .WithMany(p => p.UserDoorStepAgents)
                     .HasForeignKey(d => d.DistrictId)
-                    .HasConstraintName("FK__UserDoorS__Distr__0A9D95DB");
+                    .HasConstraintName("FK__UserDoorS__Distr__19DFD96B");
 
                 entity.HasOne(d => d.Qualification)
                     .WithMany(p => p.UserDoorStepAgents)
