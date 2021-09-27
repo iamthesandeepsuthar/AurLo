@@ -19,7 +19,7 @@ body {
     color: #888ea8;
     height: 100%;
     font-size: 0.875rem;
-    background: #f1f2f3;
+    background: #fff;
     overflow-x: hidden;
     overflow-y: auto;
     letter-spacing: 0.0312rem;
@@ -120,7 +120,7 @@ code {
     position: relative;
     width: 100%;
     flex-grow: 8;
-    margin-top: 106px;
+    margin-top: 95px;
     margin-bottom: 0;
     margin-left: 212px;
     transition: .600s;
@@ -905,9 +905,9 @@ code {
     box-shadow: 0px 20px 20px rgba(126, 142, 177, 0.12);
     background: #fafafa;
     border-radius: 0;
-    padding: 9px 0;
+    padding: 8px 0;
     justify-content: flex-start;
-    min-height: 53px;
+    min-height: 30px;
     width: 100%;
     border-bottom: 1px solid #ebedf2;
 }
@@ -1076,7 +1076,7 @@ code {
     user-select: none;
     -webkit-user-drag: none;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-    top: 106px;
+    top: 91px;
     left: 0px;
     padding: 10px;
 }
