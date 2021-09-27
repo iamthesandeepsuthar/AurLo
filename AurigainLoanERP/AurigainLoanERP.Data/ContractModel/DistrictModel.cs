@@ -23,6 +23,6 @@ namespace AurigainLoanERP.Data.ContractModel
     public class DDLDistrictModel 
     {
         public int Id { get; set; }
-        public int Name { get; set; }
+        public string Name { get; set; }
     }
 }

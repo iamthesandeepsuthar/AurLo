@@ -15,11 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="KycDocumentType\" />
-    <Folder Include="DocumentType\" />
-    <Folder Include="PaymentMode\" />
     <Folder Include="User\" />
-    <Folder Include="Qualification\" />
   </ItemGroup>
 
 </Project>
