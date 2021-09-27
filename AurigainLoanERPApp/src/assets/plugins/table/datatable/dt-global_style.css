@@ -141,7 +141,7 @@ table.dataTable thead .sorting_desc:after {
 }
 
 .dataTable.table-striped tbody tr:nth-of-type(odd) {
-    background-color: #fafafa !important;
+    background-color: #efefef !important;
 }
 
 .table>tbody>tr:last-child>td .dropdown:not(.custom-dropdown-icon):not(.custom-dropdown) .dropdown-menu,
