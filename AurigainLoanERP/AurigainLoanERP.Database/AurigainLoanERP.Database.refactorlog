@@ -14,4 +14,11 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="IsDelete" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="827cff74-2e6a-4698-bc19-8aea5ceb38b0" ChangeDateTime="09/27/2021 17:46:09">
+    <Property Name="ElementName" Value="[dbo].[UserMaster].[Password]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[UserMaster]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="MPin" />
+  </Operation>
 </Operations>

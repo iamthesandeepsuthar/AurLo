@@ -3,7 +3,7 @@
 	[Id] BIGINT NOT NULL PRIMARY KEY IDENTITY, 
     [UserRoleId] INT NOT NULL references UserRole(Id),
     [UserName] NVARCHAR(500) NOT NULL, 
-    [Password] NVARCHAR(500) NOT NULL, 
+    [MPin] NVARCHAR(500) NOT NULL, 
     [Email] NVARCHAR(300) NULL, 
     [Mobile] NVARCHAR(20) NULL ,
     [IsApproved] bit NOT NULL, 
