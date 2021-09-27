@@ -39,17 +39,6 @@ h6 {
     outline: none;
 }
 
-::-moz-selection {
-    /* Code for Firefox */
-    color: #4361ee;
-    background: transparent;
-}
-
-::selection {
-    color: #4361ee;
-    background: transparent;
-}
-
 p {
     margin-top: 0;
     margin-bottom: 0.625rem;
