@@ -3160,6 +3160,29 @@ img {
     color: #000;
 }
 
+tr.mat-header-row {
+    height: auto !important;
+}
+
+.page-form-filter {
+    background: #002767;
+    padding: 15px;
+}
+
+.page-form-filter .form-control {
+    padding: 0px 10px;
+    height: 40px;
+    border-radius: 5px;
+    border: none;
+}
+
+.agent-door-profile-img {
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 0 20px 0 #eaeaea;
+    padding: 15px;
+}
+
 
 /* Color theme CSS start */
 
