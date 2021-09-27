@@ -39,17 +39,6 @@ h6 {
     outline: none;
 }
 
-::-moz-selection {
-    /* Code for Firefox */
-    color: #4361ee;
-    background: transparent;
-}
-
-::selection {
-    color: #4361ee;
-    background: transparent;
-}
-
 p {
     margin-top: 0;
     margin-bottom: 0.625rem;
@@ -275,7 +264,7 @@ code {
 
 .navbar {
     padding: 0;
-    background: #002767;
+    background: #000000;
 }
 
 .navbar .theme-brand {
@@ -1080,7 +1069,7 @@ code {
     width: 212px;
     position: fixed;
     z-index: 1028;
-    border-radius: 6px 6px 0 0;
+    border-radius: 0px;
     transition: .600s;
     height: 100vh;
     touch-action: none;
@@ -1088,11 +1077,12 @@ code {
     -webkit-user-drag: none;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
     top: 106px;
-    left: 16px;
+    left: 0px;
+    padding: 10px;
 }
 
 .sidebar-theme {
-    background: transparent;
+    background: #002767;
 }
 
 .sidebar-closed.main-container {
@@ -1141,6 +1131,7 @@ code {
     filter: blur(3px);
     background: -webkit-linear-gradient(180deg, #f1f2f3 49%, #f1f2f3f2 85%, #2C303C00);
     background: linear-gradient(#F2F4F4 41%, rgba(255, 255, 255, 0.11) 95%, rgba(255, 255, 255, 0));
+    display: none;
 }
 
 #sidebar ul.menu-categories {
@@ -1153,9 +1144,9 @@ code {
 
 #sidebar ul.menu-categories.ps {
     height: calc(100vh - 107px) !important;
-    margin-right: 0;
+    /* margin-right: 0;
     padding-right: 22px;
-    border-right: 1px solid #e0e6ed;
+    border-right: 1px solid #e0e6ed; */
 }
 
 #sidebar .ps__thumb-y {
@@ -1178,16 +1169,17 @@ code {
     width: 21px;
 }
 
-#sidebar ul.menu-categories li.menu:first-child>.dropdown-toggle {
+
+/* #sidebar ul.menu-categories li.menu:first-child>.dropdown-toggle {
     margin-top: 21px;
-}
+} */
 
 #sidebar ul.menu-categories li.menu>.dropdown-toggle {
     display: flex;
     justify-content: space-between;
     cursor: pointer;
     font-size: 13px;
-    color: #0e1726;
+    color: #fff;
     padding: 11px 14px;
     transition: .600s;
     margin-bottom: 4px;
@@ -1204,7 +1196,7 @@ code {
 }
 
 #sidebar ul.menu-categories li.menu>.dropdown-toggle svg {
-    color: #506690;
+    color: #fff;
     margin-right: 10px;
     vertical-align: middle;
     width: 20px;
@@ -1231,13 +1223,17 @@ code {
 
 #sidebar ul.menu-categories li.menu>.dropdown-toggle:hover,
 #sidebar ul.menu-categories li.menu>.dropdown-toggle.dropdown-toggle:not([data-active="true"]):not([aria-expanded="true"]):hover {
-    background: #bfc9d4;
+    background: #fff;
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
     border-radius: 6px;
 }
 
+#sidebar ul.menu-categories li.menu>.dropdown-toggle.dropdown-toggle:not([data-active="true"]):not([aria-expanded="true"]):hover span {
+    color: #000;
+}
+
 #sidebar ul.menu-categories li.menu>.dropdown-toggle[aria-expanded="true"]:not([data-active="true"]) {
-    background: #bfc9d4;
+    background: #fff;
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
     border-radius: 6px;
     color: #0e1726;
@@ -1275,7 +1271,7 @@ code {
     padding-left: 24px;
     margin-left: 10px;
     font-size: 14px;
-    color: #002767;
+    color: #fff;
     font-weight: 600;
     align-items: center;
 }
@@ -1308,7 +1304,7 @@ code {
 }
 
 #sidebar ul.menu-categories li.menu ul.submenu>li.active a:before {
-    background-color: #4361ee;
+    background-color: #ff8400;
 }
 
 #sidebar ul.menu-categories ul.submenu>li.active {
@@ -1316,11 +1312,11 @@ code {
 }
 
 #sidebar ul.menu-categories ul.submenu>li a:hover {
-    color: #4361ee;
+    color: #ff8400;
 }
 
 #sidebar ul.menu-categories ul.submenu>li a:hover:before {
-    background-color: #4361ee !important;
+    background-color: #ff8400 !important;
 }
 
 #sidebar ul.menu-categories ul.submenu>li a i {
@@ -1549,7 +1545,7 @@ code {
         backface-visibility: hidden;
         -webkit-backface-visibility: hidden;
         -webkit-transform: translate3d(0, 0, 0);
-        background: #f1f2f3;
+        /* background: #f1f2f3; */
     }
     .footer-wrapper {
         padding: 6px 16px 9px 16px;

@@ -39,17 +39,6 @@ h6 {
     outline: none;
 }
 
-::-moz-selection {
-    /* Code for Firefox */
-    color: #4361ee;
-    background: transparent;
-}
-
-::selection {
-    color: #4361ee;
-    background: transparent;
-}
-
 p {
     margin-top: 0;
     margin-bottom: 0.625rem;
@@ -3139,6 +3128,59 @@ img {
 .file-upload-preview-items-delete:hover {
     color: #fff;
     background: #ec6058;
+}
+
+::-moz-selection {
+    background: #4361ee;
+    color: #fff;
+}
+
+::selection {
+    background: #4361ee;
+    color: #fff;
+}
+
+.page-not-found {
+    padding: 50px 15px;
+}
+
+.page-not-found-img {
+    max-width: 500px;
+    margin: auto auto 40px auto;
+}
+
+.page-not-found h1 {
+    font-size: 60px;
+    font-weight: 700;
+    color: #ff9800;
+}
+
+.page-not-found p {
+    font-size: 20px;
+    color: #000;
+}
+
+tr.mat-header-row {
+    height: auto !important;
+}
+
+.page-form-filter {
+    background: #002767;
+    padding: 15px;
+}
+
+.page-form-filter .form-control {
+    padding: 0px 10px;
+    height: 40px;
+    border-radius: 5px;
+    border: none;
+}
+
+.agent-door-profile-img {
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 0 20px 0 #eaeaea;
+    padding: 15px;
 }
 
 
