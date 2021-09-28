@@ -287,6 +287,7 @@ namespace AurigainLoanERP.Services.StateAndDistrict
 
             try
             {
+                
                 if (model.Id == 0)
                 {
                     var district = _mapper.Map<District>(model);
