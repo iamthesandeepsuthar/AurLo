@@ -63,7 +63,7 @@ namespace AurigainLoanERP.Services.PaymentMode
                     Mode = x.Mode
                 }).ToListAsync();
 
-                if (modes.Count > 0)
+                if (modes.Count() > 0)
                 {
                     return CreateResponse<List<DDLPaymentModeModel>>(modes, ResponseMessage.Success, true);
                 }

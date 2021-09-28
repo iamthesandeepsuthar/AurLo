@@ -247,7 +247,7 @@ namespace AurigainLoanERP.Services.StateAndDistrict
                     Pincode = x.Pincode
                 }).ToListAsync();
 
-                if (districts.Count > 0)
+                if (districts.Count() > 0)
                 {
                     return CreateResponse<List<DDLDistrictModel>>(districts, ResponseMessage.Success, true);
                 }
