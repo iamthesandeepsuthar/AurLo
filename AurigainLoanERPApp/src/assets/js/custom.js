@@ -149,3 +149,16 @@ $(document).ready(function() {
     });
 });
 // Tooltip end
+
+
+$(document).ready(function() {
+    $(".ad-filter-btn").click(function() {
+        $("body").toggleClass("filter-overlay");
+    });
+    $(".advance-filter-footer-btn-grp .btn").click(function() {
+        $("body").toggleClass("filter-overlay");
+    });
+    $(".open-advance-filter-header a").click(function() {
+        $("body").toggleClass("filter-overlay");
+    });
+});

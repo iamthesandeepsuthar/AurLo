@@ -10,7 +10,6 @@ namespace AurigainLoanERP.Data.Database
         public QualificationMaster()
         {
             UserAgents = new HashSet<UserAgent>();
-            UserDoorStepAgents = new HashSet<UserDoorStepAgent>();
         }
 
         public int Id { get; set; }
@@ -21,6 +20,5 @@ namespace AurigainLoanERP.Data.Database
         public DateTime? ModifiedOn { get; set; }
 
         public virtual ICollection<UserAgent> UserAgents { get; set; }
-        public virtual ICollection<UserDoorStepAgent> UserDoorStepAgents { get; set; }
     }
 }

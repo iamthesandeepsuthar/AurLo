@@ -141,7 +141,7 @@ table.dataTable thead .sorting_desc:after {
 }
 
 .dataTable.table-striped tbody tr:nth-of-type(odd) {
-    background-color: #fafafa !important;
+    background-color: #efefef !important;
 }
 
 .table>tbody>tr:last-child>td .dropdown:not(.custom-dropdown-icon):not(.custom-dropdown) .dropdown-menu,
@@ -204,19 +204,20 @@ div.dataTables_wrapper div.dataTables_filter svg {
     top: 5px;
     right: 9px;
     width: 20px;
-    color: #d3d3d3;
+    color: #000;
 }
 
 .dataTables_wrapper .form-control {
     background: #fff;
     border: none;
-    -webkit-box-shadow: none;
     box-shadow: none;
     border-radius: 6px;
-    border: 1px solid #e0e6ed;
+    border: 1px solid #b9b9b9;
     padding: 6px 29px 8px 14px;
     height: auto;
-    font-size: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: normal;
 }
 
 .dataTables_wrapper .form-control:focus {
