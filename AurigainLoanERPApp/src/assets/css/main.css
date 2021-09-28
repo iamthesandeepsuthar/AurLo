@@ -3190,7 +3190,7 @@ tr.mat-header-row {
     margin-top: 10px;
     /* padding: 15px; */
     border-radius: 10px;
-    max-width: 500px;
+    max-width: 600px;
     /* box-shadow: 0 0 20px #dadada; */
     z-index: 9999999999999999;
     overflow: hidden;
@@ -3235,6 +3235,10 @@ tr.mat-header-row {
     height: 100%;
     width: 100%;
     z-index: 99999;
+}
+
+.open-advance-filter .form-control {
+    padding-right: 10px;
 }
 
 
@@ -3282,6 +3286,21 @@ tr.mat-header-row {
 
 
 /* Color theme CSS end */
+
+
+/* Responsive start */
+
+@media (max-width: 767px) {
+    .open-advance-filter {
+        right: 10px;
+        max-width: 95%;
+        position: fixed;
+        top: 0;
+    }
+}
+
+
+/* Responsive end */
 
 
 /* Manish CSS End */
