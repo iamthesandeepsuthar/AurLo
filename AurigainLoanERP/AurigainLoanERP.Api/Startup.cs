@@ -1,6 +1,7 @@
 
 using AurigainLoanERP.Data.Database;
 using AurigainLoanERP.Services;
+using AurigainLoanERP.Services.Account;
 using AurigainLoanERP.Services.Common;
 using AurigainLoanERP.Services.KycDocumentType;
 using AurigainLoanERP.Services.PaymentMode;
@@ -167,6 +168,7 @@ namespace AurigainLoanERP.Api
             services.AddTransient<IDocumentTypeService, DocumentTypeService>().Reverse();
             services.AddTransient<IQualificationService, QualificationService>().Reverse();
             services.AddTransient<IPaymentModeService, PaymentModeService>().Reverse();
+            services.AddTransient<IAccountService, AccountService>().Reverse();
         }
     }
 }

@@ -3,5 +3,5 @@ BEGIN
 
 Insert INTO DocumentType(DocumentName) VALUES('Aadhar Card');
 Insert INTO DocumentType(DocumentName) VALUES('Pan Card');
-
+Insert INTO DocumentType(DocumentName) VALUES('Cheque');
 END  

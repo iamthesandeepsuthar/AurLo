@@ -13,6 +13,7 @@ namespace AurigainLoanERP.Data.Database
             UserBanks = new HashSet<UserBank>();
             UserDocuments = new HashSet<UserDocument>();
             UserKycs = new HashSet<UserKyc>();
+            UserLoginLogs = new HashSet<UserLoginLog>();
             UserNominees = new HashSet<UserNominee>();
             UserOtps = new HashSet<UserOtp>();
             UserReportingPersonReportingUsers = new HashSet<UserReportingPerson>();
@@ -22,7 +23,7 @@ namespace AurigainLoanERP.Data.Database
         public long Id { get; set; }
         public int UserRoleId { get; set; }
         public string UserName { get; set; }
-        public string Password { get; set; }
+        public string Mpin { get; set; }
         public string Email { get; set; }
         public string Mobile { get; set; }
         public string DeviceToken { get; set; }
@@ -39,6 +40,7 @@ namespace AurigainLoanERP.Data.Database
         public virtual ICollection<UserBank> UserBanks { get; set; }
         public virtual ICollection<UserDocument> UserDocuments { get; set; }
         public virtual ICollection<UserKyc> UserKycs { get; set; }
+        public virtual ICollection<UserLoginLog> UserLoginLogs { get; set; }
         public virtual ICollection<UserNominee> UserNominees { get; set; }
         public virtual ICollection<UserOtp> UserOtps { get; set; }
         public virtual ICollection<UserReportingPerson> UserReportingPersonReportingUsers { get; set; }
