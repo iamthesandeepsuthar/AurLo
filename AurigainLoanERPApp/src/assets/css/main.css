@@ -3188,14 +3188,36 @@ tr.mat-header-row {
     position: absolute;
     right: 37px;
     margin-top: 10px;
-    padding: 15px;
+    /* padding: 15px; */
     border-radius: 10px;
     max-width: 500px;
     /* box-shadow: 0 0 20px #dadada; */
     z-index: 9999999999999999;
+    overflow: hidden;
 }
 
-.open-advance-filter:before {
+.open-advance-filter-body {
+    padding: 15px;
+}
+
+.open-advance-filter-header {
+    background: #00368a;
+    padding: 10px 15px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 18px;
+}
+
+.open-advance-filter-header a {
+    color: #fff;
+    font-weight: 100;
+    opacity: 0.6;
+}
+
+
+/* .open-advance-filter:before {
     background: #fff;
     content: "";
     position: absolute;
@@ -3204,10 +3226,10 @@ tr.mat-header-row {
     top: -4px;
     right: 12px;
     transform: rotate( 45deg);
-}
+} */
 
 .filter-overlay .main-container:before {
-    background: rgba(0, 0, 0, 0.6);
+    background: rgba(0, 0, 0, 0.8);
     position: fixed;
     content: "";
     height: 100%;

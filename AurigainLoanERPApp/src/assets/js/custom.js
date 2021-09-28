@@ -158,4 +158,7 @@ $(document).ready(function() {
     $(".advance-filter-footer-btn-grp .btn").click(function() {
         $("body").toggleClass("filter-overlay");
     });
+    $(".open-advance-filter-header a").click(function() {
+        $("body").toggleClass("filter-overlay");
+    });
 });
