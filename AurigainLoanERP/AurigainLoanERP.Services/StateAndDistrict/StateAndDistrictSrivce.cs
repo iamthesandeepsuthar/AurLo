@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace AurigainLoanERP.Services.StateAndDistrict
 {
-    public  class StateAndDistrictSrivce :  BaseService, IStateAndDistrictService
+    public class StateAndDistrictSrivce : BaseService, IStateAndDistrictService
     {
         public readonly IMapper _mapper;
         private AurigainContext _db;
@@ -83,7 +83,7 @@ namespace AurigainLoanERP.Services.StateAndDistrict
             }
 
         }
-        public async Task<ApiServiceResponseModel<List<DDLStateModel>>> GetStates() 
+        public async Task<ApiServiceResponseModel<List<DDLStateModel>>> GetStates()
         {
             try
             {
@@ -93,7 +93,7 @@ namespace AurigainLoanERP.Services.StateAndDistrict
                     Name = x.Name
                 }).ToListAsync();
 
-                if (states.Count >0)
+                if (states.Count > 0)
                 {
                     return CreateResponse<List<DDLStateModel>>(states, ResponseMessage.Success, true);
                 }
@@ -136,7 +136,7 @@ namespace AurigainLoanERP.Services.StateAndDistrict
                 if (model.Id == 0)
                 {
                     var state = _mapper.Map<State>(model);
-                    state.CreatedOn = DateTime.Now;                   
+                    state.CreatedOn = DateTime.Now;
                     var result = await _db.States.AddAsync(state);
                 }
                 else
@@ -216,7 +216,7 @@ namespace AurigainLoanERP.Services.StateAndDistrict
 
             try
             {
-                var result = await _db.Districts .Where(x=>x.Id == id ).FirstOrDefaultAsync();
+                var result = await _db.Districts.Where(x => x.Id == id).FirstOrDefaultAsync();
 
                 if (result != null)
                 {
@@ -240,7 +240,7 @@ namespace AurigainLoanERP.Services.StateAndDistrict
         {
             try
             {
-                var districts = await _db.Districts.Where(x=>x.StateId == id).Select(x => new DDLDistrictModel
+                var districts = await _db.Districts.Where(x => x.StateId == id).Select(x => new DDLDistrictModel
                 {
                     Id = x.Id,
                     Name = x.Name,
@@ -295,7 +295,7 @@ namespace AurigainLoanERP.Services.StateAndDistrict
                 }
                 else
                 {
-                    var district = await _db.Districts .FirstOrDefaultAsync(x => x.Id == model.Id);
+                    var district = await _db.Districts.FirstOrDefaultAsync(x => x.Id == model.Id);
                     district.Name = model.Name;
                     district.IsActive = model.IsActive;
                     district.ModifiedOn = DateTime.Now;
