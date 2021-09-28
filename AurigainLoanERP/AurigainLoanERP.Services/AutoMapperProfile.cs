@@ -21,6 +21,7 @@ namespace AurigainLoanERP.Services
             CreateMap<UserOtp, OtpModel>().ReverseMap();
             CreateMap<UserMaster, UserModel>().ReverseMap();
             CreateMap<UserReportingPerson, UserReportingPersonModel>().ReverseMap();
+            CreateMap<UserOtp, OtpModel>().ReverseMap();
         }
 
     }

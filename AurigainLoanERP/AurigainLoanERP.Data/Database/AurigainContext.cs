@@ -28,6 +28,7 @@ namespace AurigainLoanERP.Data.Database
         public virtual DbSet<UserDocument> UserDocuments { get; set; }
         public virtual DbSet<UserDoorStepAgent> UserDoorStepAgents { get; set; }
         public virtual DbSet<UserKyc> UserKycs { get; set; }
+        public virtual DbSet<UserLoginLog> UserLoginLogs { get; set; }
         public virtual DbSet<UserMaster> UserMasters { get; set; }
         public virtual DbSet<UserNominee> UserNominees { get; set; }
         public virtual DbSet<UserOtp> UserOtps { get; set; }
@@ -393,6 +394,23 @@ namespace AurigainLoanERP.Data.Database
                     .HasConstraintName("FK__UserKYC__UserId__0D7A0286");
             });
 
+            modelBuilder.Entity<UserLoginLog>(entity =>
+            {
+                entity.ToTable("UserLoginLog");
+
+                entity.Property(e => e.LoggedInTime)
+                    .HasColumnType("datetime")
+                    .HasColumnName("LoggedInTIme");
+
+                entity.Property(e => e.LoggedOutTime).HasColumnType("datetime");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.UserLoginLogs)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__UserLogin__UserI__1CBC4616");
+            });
+
             modelBuilder.Entity<UserMaster>(entity =>
             {
                 entity.ToTable("UserMaster");
@@ -411,9 +429,10 @@ namespace AurigainLoanERP.Data.Database
 
                 entity.Property(e => e.ModifiedOn).HasColumnType("datetime");
 
-                entity.Property(e => e.Password)
+                entity.Property(e => e.Mpin)
                     .IsRequired()
-                    .HasMaxLength(500);
+                    .HasMaxLength(500)
+                    .HasColumnName("MPin");
 
                 entity.Property(e => e.UserName)
                     .IsRequired()
