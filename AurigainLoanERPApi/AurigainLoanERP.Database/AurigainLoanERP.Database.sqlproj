@@ -83,6 +83,7 @@
     <Build Include="UserDoorStepAgent.sql" />
     <Build Include="SecurityDepositDetails.sql" />
     <Build Include="UserLoginLog.sql" />
+    <Build Include="UserDocumentFiles.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="AurigainLoanERP.Database.refactorlog" />

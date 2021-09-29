@@ -2,7 +2,6 @@
 (
 	[Id] BIGINT NOT NULL PRIMARY KEY IDENTITY,    
 	[DocumentTypeId] INT NOT NULL references DocumentType(Id), 
-	[DocumentUrl]  NVARCHAR(MAX), 
     [UserId] bigint references UserMaster(Id) NOT NULL,
     [IsActive] BIT NOT NULL DEFAULT 1, 
     [IsDelete] BIT NOT NULL DEFAULT 0, 

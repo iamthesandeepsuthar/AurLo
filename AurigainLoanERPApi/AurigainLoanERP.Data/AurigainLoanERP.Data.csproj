@@ -5,6 +5,36 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="obj\Debug\netcoreapp3.1\.NETCoreApp,Version=v3.1.AssemblyAttributes.cs" />
+    <Compile Include="obj\Debug\netcoreapp3.1\AurigainLoanERP.Data.AssemblyInfo.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="bin\Debug\netcoreapp3.1\AurigainLoanERP.Data.deps.json" />
+    <Content Include="bin\Debug\netcoreapp3.1\AurigainLoanERP.Data.runtimeconfig.dev.json" />
+    <Content Include="bin\Debug\netcoreapp3.1\AurigainLoanERP.Data.runtimeconfig.json" />
+    <Content Include="obj\AurigainLoanERP.Data.csproj.nuget.dgspec.json" />
+    <Content Include="obj\Debug\netcoreapp3.1\AurigainLoanERP.Data.csproj.FileListAbsolute.txt" />
+    <Content Include="obj\project.assets.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="bin\Debug\netcoreapp3.1\AurigainLoanERP.Data.dll" />
+    <None Include="bin\Debug\netcoreapp3.1\AurigainLoanERP.Data.pdb" />
+    <None Include="obj\AurigainLoanERP.Data.csproj.nuget.g.props" />
+    <None Include="obj\AurigainLoanERP.Data.csproj.nuget.g.targets" />
+    <None Include="obj\Debug\netcoreapp3.1\AurigainLoanERP.Data.AssemblyInfoInputs.cache" />
+    <None Include="obj\Debug\netcoreapp3.1\AurigainLoanERP.Data.assets.cache" />
+    <None Include="obj\Debug\netcoreapp3.1\AurigainLoanERP.Data.csproj.AssemblyReference.cache" />
+    <None Include="obj\Debug\netcoreapp3.1\AurigainLoanERP.Data.csproj.CoreCompileInputs.cache" />
+    <None Include="obj\Debug\netcoreapp3.1\AurigainLoanERP.Data.dll" />
+    <None Include="obj\Debug\netcoreapp3.1\AurigainLoanERP.Data.GeneratedMSBuildEditorConfig.editorconfig" />
+    <None Include="obj\Debug\netcoreapp3.1\AurigainLoanERP.Data.genruntimeconfig.cache" />
+    <None Include="obj\Debug\netcoreapp3.1\AurigainLoanERP.Data.pdb" />
+    <None Include="obj\project.nuget.cache" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.19" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.19">
       <PrivateAssets>all</PrivateAssets>

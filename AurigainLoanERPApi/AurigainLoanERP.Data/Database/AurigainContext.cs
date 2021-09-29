@@ -28,6 +28,7 @@ namespace AurigainLoanERP.Data.Database
         public virtual DbSet<UserAgent> UserAgent { get; set; }
         public virtual DbSet<UserBank> UserBank { get; set; }
         public virtual DbSet<UserDocument> UserDocument { get; set; }
+        public virtual DbSet<UserDocumentFiles> UserDocumentFiles { get; set; }
         public virtual DbSet<UserDoorStepAgent> UserDoorStepAgent { get; set; }
         public virtual DbSet<UserKyc> UserKyc { get; set; }
         public virtual DbSet<UserLoginLog> UserLoginLog { get; set; }
@@ -285,6 +286,33 @@ namespace AurigainLoanERP.Data.Database
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__UserDocum__UserI__42E1EEFE");
+            });
+
+            modelBuilder.Entity<UserDocumentFiles>(entity =>
+            {
+                entity.Property(e => e.CreatedOn)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.FileName).IsRequired();
+
+                entity.Property(e => e.FileType)
+                    .IsRequired()
+                    .HasMaxLength(500);
+
+                entity.Property(e => e.IsActive)
+                    .IsRequired()
+                    .HasDefaultValueSql("((1))");
+
+                entity.Property(e => e.ModifiedOn).HasColumnType("datetime");
+
+                entity.Property(e => e.Path).IsRequired();
+
+                entity.HasOne(d => d.Document)
+                    .WithMany(p => p.UserDocumentFiles)
+                    .HasForeignKey(d => d.DocumentId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__UserDocum__Docum__6AEFE058");
             });
 
             modelBuilder.Entity<UserDoorStepAgent>(entity =>

@@ -7,16 +7,13 @@ using System.Collections.Generic;
 
 namespace AurigainLoanERP.Data.Database
 {
-    public partial class UserDocument
+    public partial class UserDocumentFiles
     {
-        public UserDocument()
-        {
-            UserDocumentFiles = new HashSet<UserDocumentFiles>();
-        }
-
         public long Id { get; set; }
-        public int DocumentTypeId { get; set; }
-        public long UserId { get; set; }
+        public long DocumentId { get; set; }
+        public string FileName { get; set; }
+        public string FileType { get; set; }
+        public string Path { get; set; }
         public bool? IsActive { get; set; }
         public bool IsDelete { get; set; }
         public DateTime CreatedOn { get; set; }
@@ -24,8 +21,6 @@ namespace AurigainLoanERP.Data.Database
         public long? CreatedBy { get; set; }
         public long? ModifiedBy { get; set; }
 
-        public virtual DocumentType DocumentType { get; set; }
-        public virtual UserMaster User { get; set; }
-        public virtual ICollection<UserDocumentFiles> UserDocumentFiles { get; set; }
+        public virtual UserDocument Document { get; set; }
     }
 }
