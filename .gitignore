@@ -470,3 +470,5 @@ __pycache__/
 
 # Fody - auto-generated XML schema
 *.xsd
+*.zip
+
