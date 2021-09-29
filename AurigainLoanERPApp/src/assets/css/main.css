@@ -3250,6 +3250,7 @@ tr.mat-header-row {
     background: #fff;
     margin: 0px 4px;
     border-radius: 100%;
+    box-shadow: 0px 0px 25px 0px #000000;
 }
 
 .btn-theme-default {
@@ -3260,12 +3261,12 @@ tr.mat-header-row {
     background: #f7b900 !important;
 }
 
-.btn-theme-orange {
-    background: #fd8302 !important;
+.btn-theme-primary {
+    background: #4361ee !important;
 }
 
-.btn-theme-purple {
-    background: #c25df6 !important;
+.btn-theme-green {
+    background: #24695c !important;
 }
 
 .custom-breadcrum .breadcrumb .breadcrumb-item.active {
@@ -3283,6 +3284,70 @@ tr.mat-header-row {
     width: 48px;
     margin-left: 7px;
 }
+
+
+/* Theme Dark Start */
+
+.theme-dark .sidebar-theme {
+    background: #000;
+}
+
+.theme-dark #sidebar ul.menu-categories ul.submenu>li.active a,
+.theme-dark #sidebar ul.menu-categories ul.submenu>li a:hover {
+    color: #efb300;
+}
+
+.theme-dark .widget.box .widget-header {
+    background: #fff4d1;
+}
+
+.theme-dark .btn-dark {
+    background-color: #000000;
+    border-color: #000000;
+}
+
+.theme-dark .btn-primary {
+    color: #000 !important;
+    background-color: #f1b500 !important;
+    border-color: #efb300;
+}
+
+
+/* Theme Dark End */
+
+
+/* Theme Primary Start */
+
+.theme-primary .sidebar-theme {
+    background: #132da7;
+}
+
+
+/* Theme Primary End */
+
+
+/* Theme Green End */
+
+.theme-green .sidebar-theme {
+    background: #24695c;
+}
+
+.theme-green #sidebar ul.menu-categories ul.submenu>li.active a,
+.theme-green #sidebar ul.menu-categories ul.submenu>li a:hover {
+    color: #e49a57;
+}
+
+.theme-green .widget.box .widget-header {
+    background: #def3ef;
+}
+
+.theme-green .btn-dark {
+    background-color: #ba895d;
+    border-color: #ba895d;
+}
+
+
+/* Theme Green End */
 
 
 /* Color theme CSS end */
