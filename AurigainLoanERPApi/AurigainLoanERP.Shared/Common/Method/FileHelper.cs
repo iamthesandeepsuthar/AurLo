@@ -17,7 +17,7 @@ namespace AurigainLoanERP.Shared.Common
         /// <param name="filePath">save location file path</param>
         /// <param name="fileName">file name if required custom name</param>
         /// <returns></returns>
-        public static string SaveFile(string base64str, string filePath, string fileName)
+        public static string Saev(string base64str, string filePath, string fileName)
 
         {
             string saveFile = string.Empty;
@@ -46,7 +46,7 @@ namespace AurigainLoanERP.Shared.Common
             return saveFile;
         }
 
-        public static string GetFile(string filePath)
+        public static string Get(string filePath)
         {
             string base64 = string.Empty;
             try
@@ -66,6 +66,27 @@ namespace AurigainLoanERP.Shared.Common
                 throw;
             }
             return base64;
+        }
+
+        public static bool Delete(string filePath)
+        {
+            
+            try
+            {
+                filePath = filePath.GetPhysicalPath();
+
+                if (File.Exists(filePath))
+                {
+                    File.Delete(filePath);
+                    return true;
+                }
+            }
+            catch
+            {
+               
+            }
+
+            return false;
         }
 
 
@@ -92,9 +113,7 @@ namespace AurigainLoanERP.Shared.Common
 
             try
             {
-
                 return Path.Combine(_env.ContentRootPath, path.Replace("~", ""));
-
 
             }
             catch (Exception)

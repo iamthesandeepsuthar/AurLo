@@ -73,20 +73,6 @@ namespace AurigainLoanERP.Shared.ContractModel
 
     }
 
-    public class UserDocumentViewModel
-    {
-        public long Id { get; set; }
-        public int DocumentTypeId { get; set; }
-        public string DocumentUrl { get; set; }
-        public long UserId { get; set; }
-        public bool? IsActive { get; set; }
-        public bool IsDelete { get; set; }
-        public DateTime CreatedOn { get; set; }
-        public DateTime? ModifiedOn { get; set; }
-        public long? CreatedBy { get; set; }
-        public long? ModifiedBy { get; set; }
-        public DocumentTypeModel DocumentType { get; set; }
-    }
 
     public class UserReportingPersonViewModel
     {
@@ -180,6 +166,23 @@ namespace AurigainLoanERP.Shared.ContractModel
 
     }
 
+    public class UserDocumentViewModel
+    {
+
+        public long Id { get; set; }
+        public int DocumentTypeId { get; set; }
+        public long UserId { get; set; }
+        public bool? IsActive { get; set; }
+        public bool IsDelete { get; set; }
+        public DateTime CreatedOn { get; set; }
+        public DateTime? ModifiedOn { get; set; }
+        public long? CreatedBy { get; set; }
+        public long? ModifiedBy { get; set; }
+
+
+        public virtual ICollection<UserDocumentFilesViewModel> UserDocumentFiles { get; set; }
+    }
+
     #endregion
 
 
@@ -223,19 +226,7 @@ namespace AurigainLoanERP.Shared.ContractModel
         public bool? IsActive { get; set; }
     }
 
-    public class UserDocumentPostModel
-    {
-        public long Id { get; set; }
-        public int DocumentTypeId { get; set; }
-        public string Name { get; set; }
-        public string FileBase64 { get; set; }
-        /// <summary>
-        /// If Is Edit =true then Update file in database Document not blank, if ie edit = true and Document is blank then remove file
-        /// </summary>
-        public bool IsEditMode { get; set; }
-        public bool? IsActive { get; set; }
-
-    }
+  
 
     public class UserReportingPersonPostModel
     {
@@ -245,6 +236,21 @@ namespace AurigainLoanERP.Shared.ContractModel
 
     }
 
+    public class UserDocumentPostModel
+    {
+        public UserDocumentPostModel() {
+            Files = new List<FilePostModel>();
+        }
+
+        public long Id { get; set; }
+        public int DocumentTypeId { get; set; }
+        public long UserId { get; set; }
+        public bool? IsActive { get; set; }
+      
+
+        public List<FilePostModel> Files { get; set; }
+
+    }
 
     public class AgentPostModel
     {
@@ -321,5 +327,7 @@ namespace AurigainLoanERP.Shared.ContractModel
         public UserReportingPersonPostModel? ReportingPerson { get; set; }
 
     }
+
+
 
 }
