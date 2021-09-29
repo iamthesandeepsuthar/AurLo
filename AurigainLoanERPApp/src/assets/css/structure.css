@@ -122,7 +122,7 @@ code {
     flex-grow: 8;
     margin-top: 95px;
     margin-bottom: 0;
-    margin-left: 212px;
+    margin-left: 228px;
     transition: .600s;
 }
 
@@ -255,7 +255,7 @@ code {
 
 .header-container {
     z-index: 1030;
-    border-bottom: 1px solid #0e1726;
+    /* border-bottom: 1px solid #0e1726; */
 }
 
 .header-container .navbar {
@@ -758,26 +758,24 @@ code {
     font-weight: 600;
     margin: 0 9.6px;
     cursor: pointer;
-    color: #888ea8;
+    color: #bbbbbb;
     position: absolute;
-    width: 18px;
-    height: 18px;
-    top: 9px;
+    width: 23px;
+    height: 23px;
+    top: 6px;
 }
 
 .navbar .navbar-item .nav-item form.form-inline input.search-form-control {
     width: 100%;
     font-size: 14px;
-    background-color: rgba(81, 83, 101, 0.28);
+    background-color: rgba(255, 255, 255, 0.2);
     border: none;
-    -webkit-border-radius: 6px;
-    -moz-border-radius: 6px;
     border-radius: 6px;
-    color: #888ea8;
-    letter-spacing: 1px;
-    padding: 0px 4px 0px 35px;
+    color: #ffffff;
+    letter-spacing: normal;
+    padding: 0px 4px 0px 42px;
     height: 36px;
-    font-weight: 600;
+    font-weight: 500;
 }
 
 .navbar .navbar-item .nav-item form.form-inline input.search-form-control:focus {
@@ -1066,7 +1064,7 @@ code {
 */
 
 .sidebar-wrapper {
-    width: 212px;
+    width: 240px;
     position: fixed;
     z-index: 1028;
     border-radius: 0px;
