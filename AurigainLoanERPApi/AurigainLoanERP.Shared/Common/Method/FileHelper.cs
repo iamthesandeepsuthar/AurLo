@@ -17,7 +17,7 @@ namespace AurigainLoanERP.Shared.Common
         /// <param name="filePath">save location file path</param>
         /// <param name="fileName">file name if required custom name</param>
         /// <returns></returns>
-        public static string Saev(string base64str, string filePath, string fileName)
+        public static string Save(string base64str, string filePath, string fileName)
 
         {
             string saveFile = string.Empty;
@@ -89,7 +89,6 @@ namespace AurigainLoanERP.Shared.Common
             return false;
         }
 
-
         private static string GetFileExtension(this string base64String)
         {
             string ext = string.Empty;
@@ -138,7 +137,5 @@ namespace AurigainLoanERP.Shared.Common
                 throw;
             }
         }
-
-
     }
 }
