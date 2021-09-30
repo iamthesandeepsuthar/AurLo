@@ -1077,7 +1077,7 @@ code {
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
     top: 91px;
     left: 0px;
-    padding: 10px;
+    padding: 10px 0px;
 }
 
 .sidebar-theme {
@@ -1184,6 +1184,7 @@ code {
     margin-bottom: 4px;
     font-weight: 600;
     letter-spacing: 1px;
+    border-radius: 20px 0px 0px 20px !important;
 }
 
 #sidebar ul.menu-categories li.menu>.dropdown-toggle>div {
