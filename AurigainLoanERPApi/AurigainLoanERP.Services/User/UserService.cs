@@ -1,5 +1,6 @@
 ﻿using AurigainLoanERP.Data.Database;
 using AurigainLoanERP.Shared.Common;
+using AurigainLoanERP.Shared.Common.Method;
 using AurigainLoanERP.Shared.Common.Model;
 using AurigainLoanERP.Shared.ContractModel;
 using AutoMapper;
@@ -12,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace AurigainLoanERP.Services.User
 {
-    public class UserService : IUserService
+    public class UserService : BaseService, IUserService
     {
         public readonly IMapper _mapper;
         private AurigainContext _db;
@@ -25,22 +26,42 @@ namespace AurigainLoanERP.Services.User
         {
             try
             {
+
                 await _db.Database.BeginTransactionAsync();
 
-                await SaveUserBankAsync(model.BankDetails, 1);
-                await SaveUserReportingPersonAsync(model.ReportingPerson, 1);
-                await SaveUserDocumentAsync(model.Documents, 1);
-                await SaveUserKYCAsync(model.UserKYC, 1);
-                await SaveUserNomineeAsync(model.UserNominee, 1);
+                long UserId = await SaveUserAsync(model.User);
+                if (UserId>0)
+                {
+
+               
+                await SaveAgentAsync(model, UserId);
+                await SaveUserBankAsync(model.BankDetails, UserId);
+                await SaveUserReportingPersonAsync(model.ReportingPerson, UserId);
+                await SaveUserDocumentAsync(model.Documents, UserId);
+                await SaveUserKYCAsync(model.UserKYC, UserId);
+
+                await SaveUserNomineeAsync(model.UserNominee, UserId);
                 _db.Database.CommitTransaction();
+
+                return CreateResponse<string>(UserId.ToString(), ResponseMessage.Save, true);
+                }
+                else
+                {
+                    _db.Database.RollbackTransaction();
+                    return CreateResponse<string>(null, ResponseMessage.UserExist, false);
+                }
             }
             catch (Exception)
             {
                 _db.Database.RollbackTransaction();
-                throw;
+                return CreateResponse<string>(null, ResponseMessage.Fail, false);
+
             }
-            return null;
+
         }
+
+
+
         public Task<ApiServiceResponseModel<List<AgentViewModel>>> GetAsync(IndexModel model)
         {
             throw new NotImplementedException();
@@ -57,6 +78,83 @@ namespace AurigainLoanERP.Services.User
         {
             throw new NotImplementedException();
         }
+
+        private async Task<long> SaveUserAsync(UserPostModel model)
+        {
+            try
+            {
+                var existingUser = await _db.UserMaster.FirstOrDefaultAsync(x => (model.Id == 0 || x.Id != model.Id) && x.Mobile == model.Mobile || x.Email == model.Email);
+                if (existingUser == null)
+                {
+                    if (model.Id == default)
+                    {
+
+                        var objModel = _mapper.Map<UserMaster>(model);
+                        objModel.CreatedOn = DateTime.Now;
+
+                        var result = await _db.UserMaster.AddAsync(objModel);
+
+                        await _db.SaveChangesAsync();
+                        model.Id = result.Entity.Id;
+                    }
+                    else
+                    {
+                        var objModel = await _db.UserMaster.FirstOrDefaultAsync(x => x.Id == model.Id);
+                        objModel = _mapper.Map<UserMaster>(model);
+                        objModel.ModifiedOn = DateTime.Now;
+
+
+                        await _db.SaveChangesAsync();
+
+                    }
+                }
+                else {
+                    return 0;
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            };
+            return model.Id;
+        }
+
+        private async Task<bool> SaveAgentAsync(AgentPostModel model, long userId)
+        {
+            try
+            {
+
+                if (model.Id == default)
+                {
+                    var objModel = _mapper.Map<UserAgent>(model);
+                    objModel.CreatedOn = DateTime.Now;
+                    objModel.UserId = userId;
+                    var result = await _db.UserAgent.AddAsync(objModel);
+                    await _db.SaveChangesAsync();
+                    model.Id = result.Entity.Id;
+                }
+                else
+                {
+                    var objModel = await _db.UserAgent.FirstOrDefaultAsync(x => x.Id == model.Id);
+                    objModel = _mapper.Map<UserAgent>(model);
+                    objModel.ModifiedOn = DateTime.Now;
+
+
+                    await _db.SaveChangesAsync();
+
+                }
+                return true;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            };
+
+
+        }
+
         private async Task<bool> SaveUserDocumentAsync(List<UserDocumentPostModel> model, long userId)
         {
             try
@@ -133,7 +231,7 @@ namespace AurigainLoanERP.Services.User
 
                 throw;
             }
-            return false;
+
         }
         private async Task<bool> SaveUserReportingPersonAsync(UserReportingPersonPostModel model, long userId)
         {
@@ -168,7 +266,7 @@ namespace AurigainLoanERP.Services.User
 
                 throw;
             }
-            return false;
+
         }
         private async Task<bool> SaveUserBankAsync(UserBankDetailPostModel model, long userId)
         {
@@ -206,7 +304,7 @@ namespace AurigainLoanERP.Services.User
 
                 throw;
             }
-            return false;
+
         }
         private async Task<bool> SaveUserKYCAsync(UserKycPostModel model, long userId)
         {
@@ -242,7 +340,7 @@ namespace AurigainLoanERP.Services.User
 
                 throw;
             }
-            return false;
+
         }
         private async Task<bool> SaveUserNomineeAsync(UserNomineePostModel model, long userId)
         {
@@ -262,7 +360,7 @@ namespace AurigainLoanERP.Services.User
                 else
                 {
                     var objModel = await _db.UserNominee.FirstOrDefaultAsync(x => x.Id == model.Id && x.UserId == userId);
-                   
+
                     objModel.ModifiedOn = DateTime.Now;
                     objModel.RelationshipWithNominee = model.RelationshipWithNominee;
                     objModel.NamineeName = model.NamineeName;
@@ -275,10 +373,10 @@ namespace AurigainLoanERP.Services.User
             }
             catch (Exception)
             {
+                throw;
 
-               
             }
-            return false;
+
         }
     }
 }

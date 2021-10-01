@@ -283,11 +283,7 @@ namespace AurigainLoanERP.Shared.ContractModel
         public DateTime? DateOfBirth { get; set; }
         public string ProfilePictureUrl { get; set; }
         public bool? IsActive { get; set; }
-        public bool IsDelete { get; set; }
-        public DateTime CreatedOn { get; set; }
-        public DateTime? ModifiedOn { get; set; }
-        public long? CreatedBy { get; set; }
-        public long? ModifiedBy { get; set; }
+    
         public UserPostModel User { get; set; }
 
         public List<UserDocumentPostModel> Documents { get; set; }

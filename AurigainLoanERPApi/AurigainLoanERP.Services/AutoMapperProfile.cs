@@ -14,6 +14,8 @@ namespace AurigainLoanERP.Services
             CreateMap<State, StateModel>().ReverseMap();
             CreateMap<District, DistrictModel>().ReverseMap();
             CreateMap<DocumentType, DocumentTypeModel>().ReverseMap();
+         
+
             CreateMap<QualificationMaster, QualificationModel>().ReverseMap();
             CreateMap<Data.Database.PaymentMode, PaymentModeModel>().ReverseMap();
             CreateMap<UserAgent, AgentPostModel>().ReverseMap();
@@ -21,7 +23,10 @@ namespace AurigainLoanERP.Services
             CreateMap<UserOtp, OtpModel>().ReverseMap();
             CreateMap<UserMaster, UserPostModel>().ReverseMap();
             CreateMap<UserReportingPerson, UserReportingPersonPostModel>().ReverseMap();
-          
+            CreateMap<UserBank, UserBankDetailPostModel>().ReverseMap();
+            CreateMap<UserKyc, UserKycPostModel>().ReverseMap();
+            CreateMap<UserNominee, UserNomineePostModel>().ReverseMap();
+
         }
 
     }
