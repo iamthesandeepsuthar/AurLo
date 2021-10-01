@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AlertService } from 'src/app/Shared/Services/alert.service';
 
 @Component({
   selector: 'app-door-step-agent-registration',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DoorStepAgentRegistrationComponent implements OnInit {
 
-  constructor() { }
+  constructor(private readonly _alertService: AlertService) { }
 
   ngOnInit(): void {
+  }
+
+  Cancel() {
+    this._alertService.Warning('hey Aakash hope you doing well !');
   }
 
 }

@@ -6,7 +6,8 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { IndexModel } from 'src/app/Shared/Helper/common-model';
 import { UserRoleModel } from 'src/app/Shared/Model/user-role.model';
-import { UserRoleService } from 'src/app/Shared/Services/user-role.service';
+import { UserRoleService } from 'src/app/Shared/Services/master-services/user-role.service';
+
 
 @Component({
   selector: 'app-user-role',
@@ -36,9 +37,9 @@ export class UserRoleComponent implements OnInit {
   }
 
   getList():void {
-    
+
     this._userRole.GetRoleList(this.indexModel).subscribe(responce => {
-     
+
       if (responce.IsSuccess) {
         this.model = responce.Data as UserRoleModel[];
         this.dataSource = new MatTableDataSource<UserRoleModel>(this.model);

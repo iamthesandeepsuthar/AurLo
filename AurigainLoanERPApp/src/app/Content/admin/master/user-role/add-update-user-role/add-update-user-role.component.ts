@@ -5,7 +5,8 @@ import { DropDownModol } from 'src/app/Shared/Helper/common-model';
 import { DropDown_key, Routing_Url } from 'src/app/Shared/Helper/constants';
 import { UserRolePostModel } from 'src/app/Shared/Model/user-role.model';
 import { CommonService } from 'src/app/Shared/Services/common.service';
-import { UserRoleService } from 'src/app/Shared/Services/user-role.service';
+import { UserRoleService } from 'src/app/Shared/Services/master-services/user-role.service';
+
 
 @Component({
   selector: 'app-add-update-user-role',

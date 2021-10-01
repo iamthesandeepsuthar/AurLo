@@ -5,7 +5,7 @@ import { RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
 
   { path: "master", loadChildren: () => import('./master/master.module').then(m => m.MasterModule) },
-  {path: 'doorStep-agent',loadChildren: () => import('./door-step-agent/door-step-agent.module').then(m=>m.DoorStepAgentModule)},
+  {path: 'doorstep-agent',loadChildren: () => import('./door-step-agent/door-step-agent.module').then(m=>m.DoorStepAgentModule)},
 
 ];
 
