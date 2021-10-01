@@ -30,20 +30,20 @@ namespace AurigainLoanERP.Services.User
                 await _db.Database.BeginTransactionAsync();
 
                 long UserId = await SaveUserAsync(model.User);
-                if (UserId>0)
+                if (UserId > 0)
                 {
 
-               
-                await SaveAgentAsync(model, UserId);
-                await SaveUserBankAsync(model.BankDetails, UserId);
-                await SaveUserReportingPersonAsync(model.ReportingPerson, UserId);
-                await SaveUserDocumentAsync(model.Documents, UserId);
-                await SaveUserKYCAsync(model.UserKYC, UserId);
 
-                await SaveUserNomineeAsync(model.UserNominee, UserId);
-                _db.Database.CommitTransaction();
+                    await SaveAgentAsync(model, UserId);
+                    await SaveUserBankAsync(model.BankDetails, UserId);
+                    await SaveUserReportingPersonAsync(model.ReportingPerson, UserId);
+                    await SaveUserDocumentAsync(model.Documents, UserId);
+                    await SaveUserKYCAsync(model.UserKYC, UserId);
 
-                return CreateResponse<string>(UserId.ToString(), ResponseMessage.Save, true);
+                    await SaveUserNomineeAsync(model.UserNominee, UserId);
+                    _db.Database.CommitTransaction();
+
+                    return CreateResponse<string>(UserId.ToString(), ResponseMessage.Save, true);
                 }
                 else
                 {
@@ -51,7 +51,7 @@ namespace AurigainLoanERP.Services.User
                     return CreateResponse<string>(null, ResponseMessage.UserExist, false);
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 _db.Database.RollbackTransaction();
                 return CreateResponse<string>(null, ResponseMessage.Fail, false);
@@ -91,7 +91,7 @@ namespace AurigainLoanERP.Services.User
 
                         var objModel = _mapper.Map<UserMaster>(model);
                         objModel.CreatedOn = DateTime.Now;
-
+                        objModel.Mpin =new Random().Next().ToString("D6");
                         var result = await _db.UserMaster.AddAsync(objModel);
 
                         await _db.SaveChangesAsync();
@@ -108,7 +108,8 @@ namespace AurigainLoanERP.Services.User
 
                     }
                 }
-                else {
+                else
+                {
                     return 0;
                 }
             }
@@ -130,6 +131,7 @@ namespace AurigainLoanERP.Services.User
                     var objModel = _mapper.Map<UserAgent>(model);
                     objModel.CreatedOn = DateTime.Now;
                     objModel.UserId = userId;
+                    objModel.ProfilePictureUrl = !string.IsNullOrEmpty(model.ProfilePictureUrl) ? FileHelper.Save(model.ProfilePictureUrl, FilePathConstant.UserProfile):null;
                     var result = await _db.UserAgent.AddAsync(objModel);
                     await _db.SaveChangesAsync();
                     model.Id = result.Entity.Id;
@@ -138,9 +140,9 @@ namespace AurigainLoanERP.Services.User
                 {
                     var objModel = await _db.UserAgent.FirstOrDefaultAsync(x => x.Id == model.Id);
                     objModel = _mapper.Map<UserAgent>(model);
+                    objModel.ProfilePictureUrl = objModel.ProfilePictureUrl;
+
                     objModel.ModifiedOn = DateTime.Now;
-
-
                     await _db.SaveChangesAsync();
 
                 }
