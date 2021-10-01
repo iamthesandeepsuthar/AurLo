@@ -185,9 +185,7 @@ namespace AurigainLoanERP.Shared.ContractModel
 
     #endregion
 
-
-
-
+    #region <<User Post Model>>
     public class UserPostModel
     {
         public long Id { get; set; }
@@ -225,9 +223,6 @@ namespace AurigainLoanERP.Shared.ContractModel
         public int KycdocumentTypeId { get; set; }
         public bool? IsActive { get; set; }
     }
-
-  
-
     public class UserReportingPersonPostModel
     {
         public long Id { get; set; }
@@ -235,10 +230,10 @@ namespace AurigainLoanERP.Shared.ContractModel
         public long ReportingUserId { get; set; }
 
     }
-
     public class UserDocumentPostModel
     {
-        public UserDocumentPostModel() {
+        public UserDocumentPostModel()
+        {
             Files = new List<FilePostModel>();
         }
 
@@ -246,12 +241,23 @@ namespace AurigainLoanERP.Shared.ContractModel
         public int DocumentTypeId { get; set; }
         public long UserId { get; set; }
         public bool? IsActive { get; set; }
-      
 
         public List<FilePostModel> Files { get; set; }
 
     }
+    public class FilePostModel
+    {
+        public long Id { get; set; }
+        public long DocumentId { get; set; }
+        public string FileName { get; set; }
+        public string File { get; set; }
+        public string FileType { get; set; }
+        /// <summary>
+        /// If Is Edit =true then Update file in database Document not blank, if ie edit = true and Document is blank then remove file
+        /// </summary>
+        public bool IsEditMode { get; set; }
 
+    }
     public class AgentPostModel
     {
         public AgentPostModel()
@@ -291,7 +297,6 @@ namespace AurigainLoanERP.Shared.ContractModel
         public UserNomineePostModel UserNominee { get; set; }
         public UserReportingPersonPostModel? ReportingPerson { get; set; }
     }
-
     public class DoorStepAgentPostModel
     {
         public DoorStepAgentPostModel()
@@ -327,7 +332,6 @@ namespace AurigainLoanERP.Shared.ContractModel
         public UserReportingPersonPostModel? ReportingPerson { get; set; }
 
     }
-
-
+    #endregion
 
 }

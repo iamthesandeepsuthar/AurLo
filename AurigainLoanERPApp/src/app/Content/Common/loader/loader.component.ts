@@ -12,7 +12,7 @@ export class LoaderComponent implements AfterViewChecked {
   constructor(private loaderService: LoaderService, private cdRef: ChangeDetectorRef) {
 
   }
-  
+
   ngAfterViewChecked(): void {
     this.loaderService.isLoading.subscribe((isLoading) => {
       this.loading = isLoading;

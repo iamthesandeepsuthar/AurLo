@@ -21,7 +21,6 @@ namespace AurigainLoanERP.Services.User
             this._mapper = mapper;
             _db = db;
         }
-
         public async Task<ApiServiceResponseModel<string>> AddUpdateAgentAsync(AgentPostModel model)
         {
             try
@@ -43,29 +42,22 @@ namespace AurigainLoanERP.Services.User
             }
             return null;
         }
-
-
-
         public Task<ApiServiceResponseModel<List<AgentViewModel>>> GetAsync(IndexModel model)
         {
             throw new NotImplementedException();
         }
-
         public Task<ApiServiceResponseModel<AgentViewModel>> GetAsync(int id)
         {
             throw new NotImplementedException();
         }
-
         public Task<ApiServiceResponseModel<object>> UpateActiveStatus(int id)
         {
             throw new NotImplementedException();
         }
-
         public Task<ApiServiceResponseModel<object>> UpdateDeleteStatus(int id)
         {
             throw new NotImplementedException();
         }
-
         private async Task<bool> SaveUserDocumentAsync(List<UserDocumentPostModel> model, long userId)
         {
             try
@@ -289,6 +281,5 @@ namespace AurigainLoanERP.Services.User
             }
             return false;
         }
-
     }
 }

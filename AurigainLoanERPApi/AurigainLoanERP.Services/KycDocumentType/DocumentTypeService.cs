@@ -84,10 +84,10 @@ namespace AurigainLoanERP.Services.KycDocumentType
 
             try
             {
+                
                 var result = await (from c1 in _db.DocumentType
-                                    where !c1.IsDelete && c1.IsActive.Value && c1.Id == id
-                                    select c1).FirstOrDefaultAsync();
-
+                                        where !c1.IsDelete && c1.IsActive.Value && c1.Id == id
+                                        select c1).FirstOrDefaultAsync();               
                 if (result != null)
                 {
                     return CreateResponse<DocumentTypeModel>(_mapper.Map<DocumentTypeModel>(result), ResponseMessage.Success, true);
@@ -110,11 +110,14 @@ namespace AurigainLoanERP.Services.KycDocumentType
         {
             try
             {
+              //  model.DocumentName = null;
+                await _db.Database.BeginTransactionAsync();
                 if (model.Id == 0)
                 {
                     var type = _mapper.Map<DocumentType>(model);
                     type.CreatedOn = DateTime.Now;
-                    var result = await _db.DocumentType.AddAsync(type);
+                    var result = await _db.DocumentType.AddAsync(type);                   
+                   
                 }
                 else
                 {
@@ -122,13 +125,15 @@ namespace AurigainLoanERP.Services.KycDocumentType
                     type.DocumentName = model.DocumentName;
                     type.IsActive = model.IsActive;
                     type.ModifiedOn = DateTime.Now;
+
                 }
                 await _db.SaveChangesAsync();
+                _db.Database.CommitTransaction();
                 return CreateResponse<string>(model.DocumentName, model.Id > 0 ? ResponseMessage.Update : ResponseMessage.Save, true);
             }
             catch (Exception ex)
             {
-
+                _db.Database.RollbackTransaction();
                 return CreateResponse<string>(null, ResponseMessage.Fail, false, ex.Message ?? ex.InnerException.ToString());
 
             }
@@ -168,6 +173,5 @@ namespace AurigainLoanERP.Services.KycDocumentType
             }
         }
 
-       
     }
 }
