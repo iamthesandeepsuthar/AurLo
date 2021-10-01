@@ -3249,8 +3249,7 @@ tr.mat-header-row {
     padding: 8px 0px;
 }
 
-
-/* .menu-active {
+.menu-active {
     position: relative;
 }
 
@@ -3282,6 +3281,20 @@ tr.mat-header-row {
     border-right: 20px solid #25233c;
 }
 
+.menu-active>a::after {
+    content: "";
+    position: absolute;
+    top: 43px;
+    z-index: 0;
+    right: 0px;
+    bottom: 0;
+    height: 30px;
+    border-top-color: transparent;
+    border-left-color: transparent;
+    border-bottom: transparent;
+    border-radius: 0px 48px 0px 0px;
+}
+
 .menu-active>a::before {
     content: "";
     position: absolute;
@@ -3296,19 +3309,14 @@ tr.mat-header-row {
     border-radius: 0px 0px 48px 0px;
 }
 
-.menu-active>a::after {
-    content: "";
-    position: absolute;
-    top: 43px;
-    z-index: 0;
-    right: 0px;
-    bottom: 0;
-    height: 30px;
-    border-top-color: transparent;
-    border-left-color: transparent;
-    border-bottom: transparent;
-    border-radius: 0px 48px 0px 0px;
-} */
+.menu-active a,
+.menu-active div,
+.menu-active span,
+.menu-active li,
+.menu-active ul,
+.menu-active {
+    overflow: visible !important;
+}
 
 
 /* Color theme CSS start */
