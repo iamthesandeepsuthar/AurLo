@@ -35,12 +35,17 @@ namespace AurigainLoanERP.Services.User
 
 
                     await SaveAgentAsync(model, UserId);
-                    await SaveUserBankAsync(model.BankDetails, UserId);
-                    await SaveUserReportingPersonAsync(model.ReportingPerson, UserId);
-                    await SaveUserDocumentAsync(model.Documents, UserId);
-                    await SaveUserKYCAsync(model.UserKYC, UserId);
 
+                    await SaveUserBankAsync(model.BankDetails, UserId);
+                    
+                    await SaveUserReportingPersonAsync(model.ReportingPerson, UserId);
+                    
+                    await SaveUserDocumentAsync(model.Documents, UserId);
+                    
+                    await SaveUserKYCAsync(model.UserKYC, UserId);
+                    
                     await SaveUserNomineeAsync(model.UserNominee, UserId);
+                    
                     _db.Database.CommitTransaction();
 
                     return CreateResponse<string>(UserId.ToString(), ResponseMessage.Save, true);
@@ -78,7 +83,11 @@ namespace AurigainLoanERP.Services.User
         {
             throw new NotImplementedException();
         }
-
+        /// <summary>
+        /// Save User
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         private async Task<long> SaveUserAsync(UserPostModel model)
         {
             try
@@ -120,7 +129,12 @@ namespace AurigainLoanERP.Services.User
             };
             return model.Id;
         }
-
+        /// <summary>
+        /// Save Agent
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="userId"></param>
+        /// <returns></returns>
         private async Task<bool> SaveAgentAsync(AgentPostModel model, long userId)
         {
             try
