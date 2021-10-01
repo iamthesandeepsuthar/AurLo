@@ -1,0 +1,17 @@
+<div class="dropzone dropzone-light text-center" (click)="file.click()">
+  <input type="file" style="display: none;" [accept]="FileFilter" (change)="HandleFileInput($event.target.files)"
+    #file />
+  <div class="dz-default dz-message m-1">
+    <span><i class="ti-cloud-up"></i></span>
+  </div>
+
+</div>
+<ng-container *ngFor="let file of Files">
+  <div class="dropzone dropzone-light text-center mt-1" (click)="RemoveFile(file)">
+    <div class="dz-details">
+      <div class="dz-size"><span data-dz-size=""><strong>{{file.Size}}</strong> {{file.SizeSuffix}}</span></div>
+      <div class="dz-filename"><span data-dz-name="">{{file.Name}}</span></div>
+    </div>
+    <small class="text-danger">Click to remove file.</small>
+  </div>
+</ng-container>

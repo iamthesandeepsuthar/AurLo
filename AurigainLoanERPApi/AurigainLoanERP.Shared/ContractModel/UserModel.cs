@@ -185,10 +185,7 @@ namespace AurigainLoanERP.Shared.ContractModel
 
     #endregion
 
-
-
-
-
+    #region <<User Post Model>>
     public class UserPostModel
     {
         public long Id { get; set; }
@@ -225,7 +222,7 @@ namespace AurigainLoanERP.Shared.ContractModel
         public string Kycnumber { get; set; }
         public int KycdocumentTypeId { get; set; }
         public bool? IsActive { get; set; }
-    }  
+    }
     public class UserReportingPersonPostModel
     {
         public long Id { get; set; }
@@ -235,7 +232,8 @@ namespace AurigainLoanERP.Shared.ContractModel
     }
     public class UserDocumentPostModel
     {
-        public UserDocumentPostModel() {
+        public UserDocumentPostModel()
+        {
             Files = new List<FilePostModel>();
         }
 
@@ -243,7 +241,7 @@ namespace AurigainLoanERP.Shared.ContractModel
         public int DocumentTypeId { get; set; }
         public long UserId { get; set; }
         public bool? IsActive { get; set; }
-      
+
         public List<FilePostModel> Files { get; set; }
 
     }
@@ -260,7 +258,6 @@ namespace AurigainLoanERP.Shared.ContractModel
         public bool IsEditMode { get; set; }
 
     }
-
     public class AgentPostModel
     {
         public AgentPostModel()
@@ -300,7 +297,6 @@ namespace AurigainLoanERP.Shared.ContractModel
         public UserNomineePostModel UserNominee { get; set; }
         public UserReportingPersonPostModel? ReportingPerson { get; set; }
     }
-
     public class DoorStepAgentPostModel
     {
         public DoorStepAgentPostModel()
@@ -336,7 +332,6 @@ namespace AurigainLoanERP.Shared.ContractModel
         public UserReportingPersonPostModel? ReportingPerson { get; set; }
 
     }
-
-
+    #endregion
 
 }
