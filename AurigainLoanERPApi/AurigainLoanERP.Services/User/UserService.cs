@@ -37,7 +37,6 @@ namespace AurigainLoanERP.Services.User
             catch (Exception)
             {
                 _db.Database.RollbackTransaction();
-
                 throw;
             }
             return null;
