@@ -2,20 +2,16 @@ import { DoorStepAgentRegistrationComponent } from './door-step-agent-registrati
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthenticationGuard } from 'src/app/Shared/Helper/authentication.guard';
+import { ListDoorStepAgentComponent } from './list-door-step-agent/list-door-step-agent.component';
 
 const routes: Routes = [
   {
     path: 'registration', component: DoorStepAgentRegistrationComponent, canActivate: [AuthenticationGuard]
   },
-  // {
-  //   path: 'user-role/add', component: UserRoleComponent, canActivate: [AuthenticationGuard]
-  // },
-  // {
-  //   path: 'user-role/update:/id', component: UserRoleComponent, canActivate: [AuthenticationGuard]
-  // },
-  // {
-  //   path: 'user-role/detail/:id', component: UserRoleComponent, canActivate: [AuthenticationGuard]
-  // }
+  {
+    path: 'door-step-agents', component: ListDoorStepAgentComponent, canActivate: [AuthenticationGuard]
+  },
+
 ];
 
 @NgModule({

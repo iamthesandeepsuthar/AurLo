@@ -1,8 +1,7 @@
 import { environment } from 'src/environments/environment';
 
 export class API_Url {
-  //#region  << API URL>>
-
+ 
   //#region <<Login>>
   public static Login_Api = `${environment.apiEndPoint}account/login`;
   //#endregion
@@ -68,13 +67,27 @@ export class API_Url {
   public static Bank_Delete_Api = `${environment.apiEndPoint}UserRole/delete/`;
   //#endregion
 
+  //#region <<Doorstep Agent>>
+  public static Doorstep_Agent_List_Api = `${environment.apiEndPoint}UserRole/Get`;
+  public static Doorstep_Agent_Add_Update_Api = `${environment.apiEndPoint}UserRole/get/`;
+  public static Doorstep_Agent_Delete_Api = `${environment.apiEndPoint}UserRole/post`;
+  public static Doorstep_Agent_Active_Status_Api = `${environment.apiEndPoint}UserRole/ChangeActiveStatus/`;
+  public static Doorstep_Agent_Detail_Api = `${environment.apiEndPoint}UserRole/delete/`;
   //#endregion
+
+
 }
+
 export class Routing_Url {
+
+  //#region <<Module URL>>
   static MasterModule = 'admin/master/';
   static DoorStepModule = 'admin/doorstep-agent';
+  //#endregion
 
+  //#region <<Login URL>>
   static LoginUrl = 'login';
+  //#endregion
 
   //#region <User Role >
   static UserRoleListUrl = 'user-role';
@@ -112,8 +125,10 @@ export class Routing_Url {
 
   //#region <DoorStepAgent>
   static DoorStep_Agent_Registration_Url = '/registration';
+  static DoorStep_Agent_List_Url ='/door-step-agents';
   //#endregion
 }
+
 export class Message {
   //#region <<Alert Message >>
   static SaveSuccess = 'Record Successfully saved...!';
