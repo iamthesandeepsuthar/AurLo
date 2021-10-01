@@ -1,4 +1,4 @@
-﻿using AurigainLoanERP.Services.Agent;
+﻿using AurigainLoanERP.Services.User;
 using AurigainLoanERP.Shared.Common.Model;
 using AurigainLoanERP.Shared.ContractModel;
 using Microsoft.AspNetCore.Mvc;
@@ -13,10 +13,10 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
     [ApiController]
     public class AgentController : ControllerBase
     {
-        private readonly IAgentService _serivce;
-        public AgentController(IAgentService service)
+        private readonly IUserService _userSerivce;
+        public AgentController(IUserService userService)
         {
-            _serivce = service;
+            _userSerivce = userService;
         }
 
         // GET: api/<AgentController>
@@ -39,7 +39,7 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                return await _serivce.AddUpdateAsync(model);
+                return await _userSerivce.AddUpdateAgentAsync(model);
 
             }
             else

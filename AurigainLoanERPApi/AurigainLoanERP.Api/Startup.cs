@@ -1,12 +1,12 @@
 using AurigainLoanERP.Data.Database;
 using AurigainLoanERP.Services;
 using AurigainLoanERP.Services.Account;
-using AurigainLoanERP.Services.Agent;
 using AurigainLoanERP.Services.Common;
 using AurigainLoanERP.Services.KycDocumentType;
 using AurigainLoanERP.Services.PaymentMode;
 using AurigainLoanERP.Services.Qualification;
 using AurigainLoanERP.Services.StateAndDistrict;
+using AurigainLoanERP.Services.User;
 using AurigainLoanERP.Services.UserRoles;
 using AurigainLoanERP.Shared.Common;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -151,9 +151,7 @@ namespace AurigainLoanERP.Api
             services.AddTransient<IQualificationService, QualificationService>().Reverse();
             services.AddTransient<IPaymentModeService, PaymentModeService>().Reverse();
             services.AddTransient<IAccountService, AccountService>().Reverse();
-            services.AddTransient<IAgentService, AgentService>().Reverse();
-            services.AddTransient<IAgentService, AgentService>().Reverse();
-
+            services.AddTransient<IUserService, UserService>().Reverse();
         }
     }
 }
