@@ -3056,22 +3056,24 @@ td.table-action-btn a {
 
 .form-grp-w-border h2 {
     margin-top: -33px;
-    background: #264250;
+    background: #ffffff;
     width: -webkit-max-content;
     width: max-content;
     padding: 0px 15px;
-    font-size: 24px;
-    color: #ffffff;
+    font-size: 20px;
+    color: #000000;
     margin-bottom: 18px;
-    padding: 6px 25px;
+    padding: 4px 25px;
     border-radius: 50px;
     line-height: normal;
     display: flex;
     align-items: center;
+    border: solid 2px #ff8400;
+    font-weight: 600;
 }
 
 .form-grp-w-border h2 img {
-    max-width: 40px;
+    max-height: 36px;
     margin-right: 10px;
 }
 
@@ -3253,9 +3255,15 @@ tr.mat-header-row {
     position: relative;
 }
 
+li.menu span.shape1,
+li.menu span.shape2 {
+    display: none;
+}
+
 .menu-active .shape1,
 .menu-active .shape2 {
-    background: red;
+    background: #fff;
+    display: block !important;
 }
 
 .menu-active .shape1 {
@@ -3278,13 +3286,13 @@ tr.mat-header-row {
 
 .menu-active>a::after,
 .menu-active>a::before {
-    border-right: 20px solid #25233c;
+    border-right: 20px solid #002767;
 }
 
-.menu-active>a::after {
+.menu-active a::after {
     content: "";
     position: absolute;
-    top: 43px;
+    top: 42px;
     z-index: 0;
     right: 0px;
     bottom: 0;
@@ -3293,6 +3301,7 @@ tr.mat-header-row {
     border-left-color: transparent;
     border-bottom: transparent;
     border-radius: 0px 48px 0px 0px;
+    display: block !important;
 }
 
 .menu-active>a::before {
@@ -3431,6 +3440,13 @@ tr.mat-header-row {
 
 
 /* Responsive start */
+
+@media (max-width: 992px) {
+    .menu-active .shape1,
+    .menu-active .shape2 {
+        display: none !important;
+    }
+}
 
 @media (max-width: 1024px) {
     .open-advance-filter {
