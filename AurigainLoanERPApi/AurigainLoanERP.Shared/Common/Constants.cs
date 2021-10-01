@@ -15,5 +15,10 @@ namespace AurigainLoanERP.Shared.Common
 #else
         public const string ALLOWED_HOSTS_KEY = "AllowedHost:Production";
 #endif
+#if DEBUG
+        public const string CONNECTION_STRING = "ConnectionStrings:Development";     
+#else
+        public const string CONNECTION_STRING = "ConnectionStrings:Production";        
+#endif
     }
 }

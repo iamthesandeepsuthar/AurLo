@@ -42,7 +42,7 @@ namespace AurigainLoanERP.Api
         public IConfiguration Configuration { get; }
         const string JWT_Key = "Jwt:Key";
         const string JWT_ISSUER = "Jwt:Issuer";
-        const string CONNECTION_STRING = "ConnectionStrings:DefaultConnection";
+        const string CONNECTION_STRING = Constants.CONNECTION_STRING;
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
