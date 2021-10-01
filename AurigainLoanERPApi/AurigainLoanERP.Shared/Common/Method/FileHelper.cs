@@ -1,5 +1,6 @@
 ﻿using HeyRed.Mime;
 using Microsoft.AspNetCore.Hosting.Internal;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.IO;
 
@@ -17,10 +18,10 @@ namespace AurigainLoanERP.Shared.Common
         /// <param name="filePath">save location file path</param>
         /// <param name="fileName">file name if required custom name</param>
         /// <returns></returns>
-        public static string Save(string base64str, string filePath, string fileName)
+        public static string Save(string base64str, string filePath, string fileName=null)
 
         {
-            string saveFile = string.Empty;
+            string saveFile = null;
             try
             {
                 if (!string.IsNullOrEmpty(base64str) && !string.IsNullOrEmpty(filePath))
@@ -37,6 +38,8 @@ namespace AurigainLoanERP.Shared.Common
                     fileName = string.IsNullOrEmpty(fileName) ? Guid.NewGuid().ToString() + filePath.GetFileExtension() : fileName;
                     File.WriteAllBytes(filePath + fileName, byteArr);
                     saveFile = string.Concat(saveFile, "/", fileName);
+
+                    return fileName;
                 }
             }
             catch
@@ -44,6 +47,38 @@ namespace AurigainLoanERP.Shared.Common
                 throw;
             }
             return saveFile;
+        }
+
+        public static string Save(IFormFile file, string filePath, string fileName = null)
+        {
+
+            try
+            {
+                if (file != null && !string.IsNullOrEmpty(filePath))
+                {
+                    string path = Path.Combine(_env.WebRootPath, filePath);
+
+                    fileName = string.IsNullOrEmpty(fileName) ? Path.GetFileName(file.FileName) : fileName;
+
+                    if (!Directory.Exists(path))
+                    {
+                        Directory.CreateDirectory(path);
+                    }
+
+                    using (FileStream stream = new FileStream(Path.Combine(path, fileName), FileMode.Create))
+                    {
+                        file.CopyTo(stream);
+
+                    }
+                    return  fileName;
+                }
+
+            }
+            catch (Exception)
+            { 
+            }
+            return null;
+
         }
 
         public static string Get(string filePath)
@@ -70,7 +105,7 @@ namespace AurigainLoanERP.Shared.Common
 
         public static bool Delete(string filePath)
         {
-            
+
             try
             {
                 filePath = filePath.GetPhysicalPath();
@@ -83,13 +118,13 @@ namespace AurigainLoanERP.Shared.Common
             }
             catch
             {
-               
+
             }
 
             return false;
         }
 
-        private static string GetFileExtension(this string base64String)
+        public static string GetFileExtension(this string base64String)
         {
             string ext = string.Empty;
             try
@@ -124,7 +159,7 @@ namespace AurigainLoanERP.Shared.Common
 
         }
 
-        private static string GetMimeType(string filePath)
+        public static string GetMimeType(string filePath)
         {
             try
             {
@@ -137,5 +172,8 @@ namespace AurigainLoanERP.Shared.Common
                 throw;
             }
         }
+
+
+
     }
 }

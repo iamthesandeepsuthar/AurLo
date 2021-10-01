@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -48,7 +49,9 @@ namespace AurigainLoanERP.Shared.ContractModel
         public long Id { get; set; }
         public long DocumentId { get; set; }
         public string FileName { get; set; }
-        public string FileBase64 { get; set; }
+        //public IFormFile File { get; set; }
+        public string File { get; set; }
+
         public string FileType { get; set; }
         /// <summary>
         /// If Is Edit =true then Update file in database Document not blank, if ie edit = true and Document is blank then remove file
