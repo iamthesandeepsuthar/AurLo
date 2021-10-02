@@ -3379,6 +3379,7 @@ li.menu span.shape2 {
 }
 
 .theme-dark #sidebar ul.menu-categories ul.submenu>li.active a,
+.theme-dark #sidebar ul.menu-categories ul.submenu>li a.active,
 .theme-dark #sidebar ul.menu-categories ul.submenu>li a:hover {
     color: #efb300;
 }
@@ -3398,6 +3399,11 @@ li.menu span.shape2 {
     border-color: #efb300;
 }
 
+.theme-dark .menu-active>a::after,
+.theme-dark .menu-active>a::before {
+    border-right: 20px solid #000000;
+}
+
 
 /* Theme Dark End */
 
@@ -3406,6 +3412,11 @@ li.menu span.shape2 {
 
 .theme-primary .sidebar-theme {
     background: #132da7;
+}
+
+.theme-primary .menu-active>a::after,
+.theme-primary .menu-active>a::before {
+    border-right: 20px solid #132da7;
 }
 
 
@@ -3418,7 +3429,13 @@ li.menu span.shape2 {
     background: #24695c;
 }
 
+.theme-green .menu-active>a::after,
+.theme-green .menu-active>a::before {
+    border-right: 20px solid #24695c;
+}
+
 .theme-green #sidebar ul.menu-categories ul.submenu>li.active a,
+.theme-green #sidebar ul.menu-categories ul.submenu>li a.active,
 .theme-green #sidebar ul.menu-categories ul.submenu>li a:hover {
     color: #e49a57;
 }
