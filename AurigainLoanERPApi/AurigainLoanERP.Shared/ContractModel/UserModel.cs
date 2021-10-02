@@ -318,6 +318,7 @@ namespace AurigainLoanERP.Shared.ContractModel
         public string PinCode { get; set; }
         public DateTime? DateOfBirth { get; set; }
         public string ProfilePictureUrl { get; set; }
+        public bool SelfFunded { get; set; }
         public bool? IsActive { get; set; }
 
         public UserPostModel User { get; set; }

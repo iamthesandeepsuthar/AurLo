@@ -22,6 +22,11 @@ namespace AurigainLoanERP.Services.User
             this._mapper = mapper;
             _db = db;
         }
+        /// <summary>
+        /// Save AgentUser Detail
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public async Task<ApiServiceResponseModel<string>> AddUpdateAgentAsync(AgentPostModel model)
         {
             try
@@ -45,7 +50,6 @@ namespace AurigainLoanERP.Services.User
                     if (model.ReportingPerson != null)
                     {
                         await SaveUserReportingPersonAsync(model.ReportingPerson, userId);
-
                     }
                     if (model.Documents != null)
                     {
@@ -64,7 +68,6 @@ namespace AurigainLoanERP.Services.User
                     }
 
                     _db.Database.CommitTransaction();
-
                     return CreateResponse<string>(userId.ToString(), ResponseMessage.Save, true);
                 }
                 else
@@ -76,15 +79,14 @@ namespace AurigainLoanERP.Services.User
             catch (Exception ex)
             {
                 _db.Database.RollbackTransaction();
-                return CreateResponse<string>(null, ResponseMessage.Fail, false);
+                return CreateResponse<string>(null, ResponseMessage.Fail, false, ex.InnerException == null ? ex.Message : ex.InnerException.Message);
 
             }
 
         }
 
 
-
-        public Task<ApiServiceResponseModel<List<AgentViewModel>>> GetAsync(IndexModel model)
+        public Task<ApiServiceResponseModel<List<AgentViewModel>>> GetAgentAsync(IndexModel model)
         {
             throw new NotImplementedException();
         }
@@ -100,6 +102,9 @@ namespace AurigainLoanERP.Services.User
         {
             throw new NotImplementedException();
         }
+
+        #region << Private Method >>
+
         /// <summary>
         /// Save User
         /// </summary>
@@ -109,7 +114,7 @@ namespace AurigainLoanERP.Services.User
         {
             try
             {
-                var existingUser = await _db.UserMaster.FirstOrDefaultAsync(x => (model.Id == 0 || x.Id != model.Id) && x.Mobile == model.Mobile || x.Email == model.Email);
+                var existingUser = await _db.UserMaster.FirstOrDefaultAsync(x => (model.Id == default || x.Id != model.Id) && x.Mobile == model.Mobile || x.Email == model.Email);
                 if (existingUser == null)
                 {
                     if (model.Id == default)
@@ -117,7 +122,7 @@ namespace AurigainLoanERP.Services.User
 
                         var objModel = _mapper.Map<UserMaster>(model);
                         objModel.CreatedOn = DateTime.Now;
-                        objModel.Mpin = new Random().Next().ToString("D6");
+                        objModel.Mpin = new Random().Next(100000, 999999).ToString();
                         var result = await _db.UserMaster.AddAsync(objModel);
 
                         await _db.SaveChangesAsync();
@@ -148,7 +153,7 @@ namespace AurigainLoanERP.Services.User
             return model.Id;
         }
         /// <summary>
-        /// Save Agent
+        /// Add/update Agent
         /// </summary>
         /// <param name="model"></param>
         /// <param name="userId"></param>
@@ -163,18 +168,17 @@ namespace AurigainLoanERP.Services.User
                     var objModel = new UserAgent();
                     objModel.CreatedOn = DateTime.Now;
                     objModel.UserId = userId;
-
-                    objModel.FullName = model.FullName;
-                    objModel.FatherName = model.FatherName;
-                    objModel.UniqueId = model.UniqueId;
-                    objModel.Gender = model.Gender;
-                    objModel.QualificationId = model.QualificationId;
-                    objModel.Address = model.Address;
+                    objModel.FullName = !string.IsNullOrEmpty(model.FullName) ? model.FullName : null;
+                    objModel.FatherName = !string.IsNullOrEmpty(model.FatherName) ? model.FatherName : null;
+                    objModel.UniqueId = !string.IsNullOrEmpty(model.UniqueId) ? model.UniqueId : null;
+                    objModel.Gender = !string.IsNullOrEmpty(model.Gender) ? model.Gender : null;
+                    objModel.Address = !string.IsNullOrEmpty(model.Address) ? model.Address : null;
+                    objModel.DateOfBirth = model.DateOfBirth ?? null;
                     objModel.DistrictId = model.DistrictId;
                     objModel.PinCode = model.PinCode;
-                    objModel.DateOfBirth = model.DateOfBirth;
                     objModel.IsActive = model.IsActive;
-                    objModel.ProfilePictureUrl = !string.IsNullOrEmpty(model.ProfilePictureUrl) ? FileHelper.Save(model.ProfilePictureUrl, FilePathConstant.UserProfile) : null;
+                    objModel.ProfilePictureUrl = !string.IsNullOrEmpty(model.ProfilePictureUrl) ? Path.Combine(FilePathConstant.UserProfile, FileHelper.Save(model.ProfilePictureUrl, FilePathConstant.UserProfile)) : null;
+                    objModel.QualificationId = model.QualificationId;
                     var result = await _db.UserAgent.AddAsync(objModel);
                     await _db.SaveChangesAsync();
                     model.Id = result.Entity.Id;
@@ -182,8 +186,15 @@ namespace AurigainLoanERP.Services.User
                 else
                 {
                     var objModel = await _db.UserAgent.FirstOrDefaultAsync(x => x.Id == model.Id);
-                    objModel = _mapper.Map<UserAgent>(model);
-                    objModel.ProfilePictureUrl = objModel.ProfilePictureUrl;
+                    objModel.FullName = !string.IsNullOrEmpty(model.FullName) ? model.FullName : null;
+                    objModel.FatherName = !string.IsNullOrEmpty(model.FatherName) ? model.FatherName : null;
+                    objModel.Gender = !string.IsNullOrEmpty(model.Gender) ? model.Gender : null;
+                    objModel.Address = !string.IsNullOrEmpty(model.Address) ? model.Address : null;
+                    objModel.DateOfBirth = model.DateOfBirth ?? null;
+                    objModel.DistrictId = model.DistrictId;
+                    objModel.PinCode = model.PinCode;
+                    objModel.QualificationId = model.QualificationId;
+
 
                     objModel.ModifiedOn = DateTime.Now;
                     await _db.SaveChangesAsync();
@@ -200,18 +211,80 @@ namespace AurigainLoanERP.Services.User
 
         }
 
+        private async Task<bool> SaveDoorStepAgentAsync(DoorStepAgentPostModel model, long userId)
+        {
+            try
+            {
+
+                if (model.Id == default)
+                {
+                    var objModel = new UserDoorStepAgent();
+                    objModel.CreatedOn = DateTime.Now;
+                    objModel.UserId = userId;
+                    objModel.FullName = !string.IsNullOrEmpty(model.FullName) ? model.FullName : null;
+                    objModel.FatherName = !string.IsNullOrEmpty(model.FatherName) ? model.FatherName : null;
+                    objModel.UniqueId = !string.IsNullOrEmpty(model.UniqueId) ? model.UniqueId : null;
+                    objModel.Gender = !string.IsNullOrEmpty(model.Gender) ? model.Gender : null;
+                    objModel.Address = !string.IsNullOrEmpty(model.Address) ? model.Address : null;
+                    objModel.DateOfBirth = model.DateOfBirth ?? null;
+                    objModel.DistrictId = model.DistrictId;
+                    objModel.PinCode = model.PinCode;
+                    objModel.SelfFunded = model.SelfFunded;
+                    objModel.IsActive = model.IsActive;
+                    objModel.ProfilePictureUrl = !string.IsNullOrEmpty(model.ProfilePictureUrl) ? Path.Combine(FilePathConstant.UserProfile, FileHelper.Save(model.ProfilePictureUrl, FilePathConstant.UserProfile)) : null;
+                    objModel.QualificationId = model.QualificationId;
+                    var result = await _db.UserDoorStepAgent.AddAsync(objModel);
+                    await _db.SaveChangesAsync();
+                    model.Id = result.Entity.Id;
+                }
+                else
+                {
+                    var objModel = await _db.UserDoorStepAgent.FirstOrDefaultAsync(x => x.Id == model.Id);
+                    objModel.FullName = !string.IsNullOrEmpty(model.FullName) ? model.FullName : null;
+                    objModel.FatherName = !string.IsNullOrEmpty(model.FatherName) ? model.FatherName : null;
+                    objModel.Gender = !string.IsNullOrEmpty(model.Gender) ? model.Gender : null;
+                    objModel.Address = !string.IsNullOrEmpty(model.Address) ? model.Address : null;
+                    objModel.DateOfBirth = model.DateOfBirth ?? null;
+                    objModel.DistrictId = model.DistrictId;
+                    objModel.PinCode = model.PinCode;
+                    objModel.QualificationId = model.QualificationId;
+                    objModel.SelfFunded = model.SelfFunded;
+                 //   objModel.SecurityDepositId = null;
+
+                    objModel.ModifiedOn = DateTime.Now;
+                    await _db.SaveChangesAsync();
+
+                }
+                return true;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            };
+
+
+        }
+
+        /// <summary>
+        /// Save User Document
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="userId"></param>
+        /// <returns></returns>
         private async Task<bool> SaveUserDocumentAsync(List<UserDocumentPostModel> model, long userId)
         {
             try
             {
                 foreach (var item in model)
                 {
-                    long documentId = 0;
+                    long documentId = default;
                     if (item.Id == default)
                     {
-                        var objModel = _mapper.Map<UserDocument>(item);
+                        var objModel = new UserDocument();
                         objModel.CreatedOn = DateTime.Now;
                         objModel.UserId = userId;
+                        objModel.DocumentTypeId = item.DocumentTypeId;
 
                         var result = await _db.UserDocument.AddAsync(objModel);
                         await _db.SaveChangesAsync();
@@ -219,7 +292,7 @@ namespace AurigainLoanERP.Services.User
                     }
                     else
                     {
-                        var objDocment = await _db.UserDocument.FirstOrDefaultAsync(x => x.Id == item.Id && x.UserId == userId);
+                        var objDocment = await _db.UserDocument.FirstOrDefaultAsync(x => x.Id == item.Id);
                         objDocment.DocumentTypeId = item.DocumentTypeId;
                         await _db.SaveChangesAsync();
 
@@ -234,7 +307,7 @@ namespace AurigainLoanERP.Services.User
                         {
                             var objFileModel = await _db.UserDocumentFiles.FirstOrDefaultAsync(x => x.Id == fileitem.Id);
                             ////if File Not fount then remove old file
-                            if (fileitem.File == null)
+                            if (string.IsNullOrEmpty(fileitem.File))
                             {
                                 FileHelper.Delete(Path.Combine(objFileModel.Path, objFileModel.FileName));
                                 _db.UserDocumentFiles.Remove(objFileModel);
@@ -244,9 +317,9 @@ namespace AurigainLoanERP.Services.User
 
                             else
                             {
-                                objFileModel.DocumentId = objFileModel.DocumentId;
+                                objFileModel.DocumentId = documentId;
                                 objFileModel.FileName = FileHelper.Save(fileitem.File, FilePathConstant.UserAgentFile);
-                                objFileModel.Path = FilePathConstant.UserAgentFile;
+                                objFileModel.Path = Path.Combine(FilePathConstant.UserAgentFile, objFileModel.FileName);
                                 objFileModel.FileType = FileHelper.GetFileExtension(objFileModel.FileName); //fileitem.File.ContentType;
                             }
 
@@ -255,10 +328,11 @@ namespace AurigainLoanERP.Services.User
 
                         else
                         {
-                            var objFileModel = _mapper.Map<UserDocumentFiles>(item);
+                            var objFileModel = new UserDocumentFiles();
                             objFileModel.DocumentId = documentId;
                             objFileModel.FileName = FileHelper.Save(fileitem.File, FilePathConstant.UserAgentFile);
-                            objFileModel.Path = FilePathConstant.UserAgentFile;
+                            objFileModel.Path = Path.Combine(FilePathConstant.UserAgentFile, objFileModel.FileName);
+
                             objFileModel.FileType = FileHelper.GetFileExtension(objFileModel.FileName); //fileitem.File.ContentType;
                             await _db.UserDocumentFiles.AddAsync(objFileModel);
                         }
@@ -278,6 +352,12 @@ namespace AurigainLoanERP.Services.User
             }
 
         }
+        /// <summary>
+        /// Save User Reporting Person detail
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="userId"></param>
+        /// <returns></returns>
         private async Task<bool> SaveUserReportingPersonAsync(UserReportingPersonPostModel model, long userId)
         {
             try
@@ -288,6 +368,7 @@ namespace AurigainLoanERP.Services.User
                     var objModel = _mapper.Map<UserReportingPerson>(model);
                     objModel.CreatedOn = DateTime.Now;
                     objModel.UserId = userId;
+                    objModel.ReportingUserId = model.ReportingUserId;
 
                     var result = await _db.UserReportingPerson.AddAsync(objModel);
                     await _db.SaveChangesAsync();
@@ -295,7 +376,7 @@ namespace AurigainLoanERP.Services.User
                 }
                 else
                 {
-                    var objModel = await _db.UserReportingPerson.FirstOrDefaultAsync(x => x.Id == model.Id && x.UserId == userId);
+                    var objModel = await _db.UserReportingPerson.FirstOrDefaultAsync(x => x.Id == model.Id);
                     objModel.ModifiedOn = DateTime.Now;
                     objModel.UserId = userId;
                     objModel.ReportingUserId = model.ReportingUserId;
@@ -313,6 +394,12 @@ namespace AurigainLoanERP.Services.User
             }
 
         }
+        /// <summary>
+        /// Save User Bank detail
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="userId"></param>
+        /// <returns></returns>
         private async Task<bool> SaveUserBankAsync(UserBankDetailPostModel model, long userId)
         {
             try
@@ -320,10 +407,14 @@ namespace AurigainLoanERP.Services.User
 
                 if (model.Id == default)
                 {
-                    var objModel = _mapper.Map<UserBank>(model);
+                    var objModel = new UserBank();
                     objModel.CreatedOn = DateTime.Now;
                     objModel.UserId = userId;
-
+                    objModel.BankName = !string.IsNullOrEmpty(model.BankName) ? model.BankName : null;
+                    objModel.AccountNumber = !string.IsNullOrEmpty(model.AccountNumber) ? model.AccountNumber : null;
+                    objModel.Address = !string.IsNullOrEmpty(model.Address) ? model.Address : null;
+                    objModel.Ifsccode = !string.IsNullOrEmpty(model.Ifsccode) ? model.Ifsccode : null;
+                    objModel.IsActive = model.IsActive;
                     var result = await _db.UserBank.AddAsync(objModel);
                     await _db.SaveChangesAsync();
 
@@ -333,10 +424,10 @@ namespace AurigainLoanERP.Services.User
                     var objModel = await _db.UserBank.FirstOrDefaultAsync(x => x.Id == model.Id && x.UserId == userId);
                     objModel.ModifiedOn = DateTime.Now;
                     objModel.UserId = userId;
-                    objModel.BankName = model.BankName;
-                    objModel.AccountNumber = model.AccountNumber;
-                    objModel.Address = model.Address;
-                    objModel.Ifsccode = model.Ifsccode;
+                    objModel.BankName = !string.IsNullOrEmpty(model.BankName) ? model.BankName : null;
+                    objModel.AccountNumber = !string.IsNullOrEmpty(model.AccountNumber) ? model.AccountNumber : null;
+                    objModel.Address = !string.IsNullOrEmpty(model.Address) ? model.Address : null;
+                    objModel.Ifsccode = !string.IsNullOrEmpty(model.Ifsccode) ? model.Ifsccode : null;
 
                     await _db.SaveChangesAsync();
 
@@ -351,6 +442,12 @@ namespace AurigainLoanERP.Services.User
             }
 
         }
+        /// <summary>
+        /// Save User KYC detail
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="userId"></param>
+        /// <returns></returns>
         private async Task<bool> SaveUserKYCAsync(UserKycPostModel model, long userId)
         {
             try
@@ -358,9 +455,14 @@ namespace AurigainLoanERP.Services.User
 
                 if (model.Id == default)
                 {
-                    var objModel = _mapper.Map<UserKyc>(model);
+                    var objModel = new UserKyc();
                     objModel.CreatedOn = DateTime.Now;
                     objModel.UserId = userId;
+                    objModel.Kycnumber = model.Kycnumber ?? null;
+                    objModel.KycdocumentTypeId = model.KycdocumentTypeId;
+
+
+                    objModel.Kycnumber = !string.IsNullOrEmpty(model.Kycnumber) ? model.Kycnumber : null;
 
                     var result = await _db.UserKyc.AddAsync(objModel);
                     await _db.SaveChangesAsync();
@@ -371,7 +473,8 @@ namespace AurigainLoanERP.Services.User
                     var objModel = await _db.UserKyc.FirstOrDefaultAsync(x => x.Id == model.Id && x.UserId == userId);
                     objModel.ModifiedOn = DateTime.Now;
                     objModel.UserId = userId;
-                    objModel.Kycnumber = model.Kycnumber;
+                    objModel.Kycnumber = !string.IsNullOrEmpty(model.Kycnumber) ? model.Kycnumber : null;
+
                     objModel.KycdocumentTypeId = model.KycdocumentTypeId;
 
                     await _db.SaveChangesAsync();
@@ -387,6 +490,13 @@ namespace AurigainLoanERP.Services.User
             }
 
         }
+
+        /// <summary>
+        /// Save User Nominee
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="userId"></param>
+        /// <returns></returns>
         private async Task<bool> SaveUserNomineeAsync(UserNomineePostModel model, long userId)
         {
             try
@@ -394,9 +504,12 @@ namespace AurigainLoanERP.Services.User
 
                 if (model.Id == default)
                 {
-                    var objModel = _mapper.Map<UserNominee>(model);
+                    var objModel = new UserNominee();
                     objModel.CreatedOn = DateTime.Now;
                     objModel.UserId = userId;
+
+                    objModel.RelationshipWithNominee = !string.IsNullOrEmpty(model.RelationshipWithNominee) ? model.RelationshipWithNominee : null;
+                    objModel.NamineeName = !string.IsNullOrEmpty(model.NamineeName) ? model.NamineeName : null;
 
                     var result = await _db.UserNominee.AddAsync(objModel);
                     await _db.SaveChangesAsync();
@@ -404,11 +517,12 @@ namespace AurigainLoanERP.Services.User
                 }
                 else
                 {
-                    var objModel = await _db.UserNominee.FirstOrDefaultAsync(x => x.Id == model.Id && x.UserId == userId);
+                    var objModel = await _db.UserNominee.FirstOrDefaultAsync(x => x.Id == model.Id);
 
                     objModel.ModifiedOn = DateTime.Now;
-                    objModel.RelationshipWithNominee = model.RelationshipWithNominee;
-                    objModel.NamineeName = model.NamineeName;
+
+                    objModel.RelationshipWithNominee = !string.IsNullOrEmpty(model.RelationshipWithNominee) ? model.RelationshipWithNominee : null;
+                    objModel.NamineeName = !string.IsNullOrEmpty(model.NamineeName) ? model.NamineeName : null;
 
                     await _db.SaveChangesAsync();
 
@@ -423,5 +537,7 @@ namespace AurigainLoanERP.Services.User
             }
 
         }
+
+        #endregion
     }
 }

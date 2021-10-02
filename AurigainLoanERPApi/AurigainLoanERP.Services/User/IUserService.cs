@@ -14,7 +14,7 @@ namespace AurigainLoanERP.Services.User
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        Task<ApiServiceResponseModel<List<AgentViewModel>>> GetAsync(IndexModel model);
+        Task<ApiServiceResponseModel<List<AgentViewModel>>> GetAgentAsync(IndexModel model);
         /// <summary>
         /// Get Detail of Role
         /// </summary>
@@ -27,6 +27,8 @@ namespace AurigainLoanERP.Services.User
         /// <param name="model"></param>
         /// <returns></returns>
         Task<ApiServiceResponseModel<string>> AddUpdateAgentAsync(AgentPostModel model);
+
+
 
         /// <summary>
         /// Record Mark as Active or deactive
