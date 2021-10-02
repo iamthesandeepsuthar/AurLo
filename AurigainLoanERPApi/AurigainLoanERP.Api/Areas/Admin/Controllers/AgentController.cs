@@ -35,7 +35,7 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
 
         // POST api/<AgentController>
         [HttpPost]
-        public async Task<ApiServiceResponseModel<string>> Post([FromForm] AgentPostModel model)
+        public async Task<ApiServiceResponseModel<string>> Post([FromBody] AgentPostModel model)
         {
             if (ModelState.IsValid)
             {
