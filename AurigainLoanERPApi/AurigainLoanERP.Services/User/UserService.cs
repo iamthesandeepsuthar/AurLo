@@ -29,30 +29,43 @@ namespace AurigainLoanERP.Services.User
 
                 await _db.Database.BeginTransactionAsync();
 
-                long UserId = await SaveUserAsync(model.User);
-                if (UserId > 0)
+                long userId = await SaveUserAsync(model.User);
+                if (userId > 0)
                 {
 
 
-                    await SaveAgentAsync(model, UserId);
+                    await SaveAgentAsync(model, userId);
 
                     if (model.BankDetails != null)
                     {
-                        await SaveUserBankAsync(model.BankDetails, UserId);
+                        await SaveUserBankAsync(model.BankDetails, userId);
 
                     }
 
-                    await SaveUserReportingPersonAsync(model.ReportingPerson, UserId);
+                    if (model.ReportingPerson != null)
+                    {
+                        await SaveUserReportingPersonAsync(model.ReportingPerson, userId);
 
-                    await SaveUserDocumentAsync(model.Documents, UserId);
+                    }
+                    if (model.Documents != null)
+                    {
+                        await SaveUserDocumentAsync(model.Documents, userId);
 
-                    await SaveUserKYCAsync(model.UserKYC, UserId);
+                    }
+                    if (model.UserKYC != null)
+                    {
+                        await SaveUserKYCAsync(model.UserKYC, userId);
 
-                    await SaveUserNomineeAsync(model.UserNominee, UserId);
+                    }
+                    if (model.UserNominee != null)
+                    {
+                        await SaveUserNomineeAsync(model.UserNominee, userId);
+
+                    }
 
                     _db.Database.CommitTransaction();
 
-                    return CreateResponse<string>(UserId.ToString(), ResponseMessage.Save, true);
+                    return CreateResponse<string>(userId.ToString(), ResponseMessage.Save, true);
                 }
                 else
                 {
