@@ -36,16 +36,20 @@ namespace AurigainLoanERP.Services.User
 
                     await SaveAgentAsync(model, UserId);
 
-                    await SaveUserBankAsync(model.BankDetails, UserId);
-                    
+                    if (model.BankDetails != null)
+                    {
+                        await SaveUserBankAsync(model.BankDetails, UserId);
+
+                    }
+
                     await SaveUserReportingPersonAsync(model.ReportingPerson, UserId);
-                    
+
                     await SaveUserDocumentAsync(model.Documents, UserId);
-                    
+
                     await SaveUserKYCAsync(model.UserKYC, UserId);
-                    
+
                     await SaveUserNomineeAsync(model.UserNominee, UserId);
-                    
+
                     _db.Database.CommitTransaction();
 
                     return CreateResponse<string>(UserId.ToString(), ResponseMessage.Save, true);
@@ -100,10 +104,11 @@ namespace AurigainLoanERP.Services.User
 
                         var objModel = _mapper.Map<UserMaster>(model);
                         objModel.CreatedOn = DateTime.Now;
-                        objModel.Mpin =new Random().Next().ToString("D6");
+                        objModel.Mpin = new Random().Next().ToString("D6");
                         var result = await _db.UserMaster.AddAsync(objModel);
 
                         await _db.SaveChangesAsync();
+
                         model.Id = result.Entity.Id;
                     }
                     else
@@ -142,10 +147,21 @@ namespace AurigainLoanERP.Services.User
 
                 if (model.Id == default)
                 {
-                    var objModel = _mapper.Map<UserAgent>(model);
+                    var objModel = new UserAgent();
                     objModel.CreatedOn = DateTime.Now;
                     objModel.UserId = userId;
-                    objModel.ProfilePictureUrl = !string.IsNullOrEmpty(model.ProfilePictureUrl) ? FileHelper.Save(model.ProfilePictureUrl, FilePathConstant.UserProfile):null;
+
+                    objModel.FullName = model.FullName;
+                    objModel.FatherName = model.FatherName;
+                    objModel.UniqueId = model.UniqueId;
+                    objModel.Gender = model.Gender;
+                    objModel.QualificationId = model.QualificationId;
+                    objModel.Address = model.Address;
+                    objModel.DistrictId = model.DistrictId;
+                    objModel.PinCode = model.PinCode;
+                    objModel.DateOfBirth = model.DateOfBirth;
+                    objModel.IsActive = model.IsActive;
+                    objModel.ProfilePictureUrl = !string.IsNullOrEmpty(model.ProfilePictureUrl) ? FileHelper.Save(model.ProfilePictureUrl, FilePathConstant.UserProfile) : null;
                     var result = await _db.UserAgent.AddAsync(objModel);
                     await _db.SaveChangesAsync();
                     model.Id = result.Entity.Id;
