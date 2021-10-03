@@ -44,7 +44,7 @@ import { LoginComponent } from './Content/Common/login/login.component';
     CommonModule,
     DashboardModule,
     BrowserAnimationsModule
-   
+   ,
   ],
   providers: [ BaseAPIService, 
   

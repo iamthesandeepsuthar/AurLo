@@ -1,4 +1,4 @@
-import { Routing_Url } from './../../../../Shared/Helper/constants';
+import { Message, Routing_Url } from './../../../../Shared/Helper/constants';
 
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
@@ -7,7 +7,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { IndexModel } from 'src/app/Shared/Helper/common-model';
 import { UserRoleModel } from 'src/app/Shared/Model/user-role.model';
 import { UserRoleService } from 'src/app/Shared/Services/master-services/user-role.service';
-
+import { CommonService } from 'src/app/Shared/Services/common.service';
 
 @Component({
   selector: 'app-user-role',
@@ -31,12 +31,12 @@ export class UserRoleComponent implements OnInit {
   totalRecords: number = 0;
   //#endregion
 
-  constructor(private readonly _userRole: UserRoleService) { }
+  constructor(private readonly _userRole: UserRoleService, private readonly _commonService: CommonService) { }
   ngOnInit(): void {
     this.getList();
   }
 
-  getList():void {
+  getList(): void {
 
     this._userRole.GetRoleList(this.indexModel).subscribe(responce => {
 
@@ -54,14 +54,14 @@ export class UserRoleComponent implements OnInit {
       });
   }
 
-  sortData(event: any):void {
+  sortData(event: any): void {
     this.indexModel.OrderBy = event.active;
     this.indexModel.OrderByAsc = event.direction == 1 ? 1 : 0;
     this.indexModel.IsPostBack = true;
     this.getList();
   }
-  onSearch(){
-    this.indexModel.Page=1;
+  onSearch() {
+    this.indexModel.Page = 1;
     this.getList();
   }
 
@@ -74,53 +74,43 @@ export class UserRoleComponent implements OnInit {
 
   OnActiveStatus(Id: number) {
 
-    // const dialogRef = this._dialog.open(ConfirmationDialogComponent, {
-    //   width: '350px',
-    //   data: Constants.ConfirmUpdate,
-    //   disableClose: true
-    // });
-    // dialogRef.afterClosed().subscribe(isTrue => {
+    this._commonService.Question(Message.ConfirmUpdate as string).then(isTrue => {
 
-    //   if (isTrue) {
-    this._userRole.ChangeActiveStatus(Id).subscribe(
-      data => {
+      if (isTrue) {
+        this._userRole.ChangeActiveStatus(Id).subscribe(
+          data => {
+            if (data.IsSuccess) {
+              this._commonService.Success(data.Message as string)
+              this.getList();
+            }
+          },
+          error => {
+            this._commonService.Error(error.message as string)
 
-        if (data.IsSuccess) {
-          this.getList();
-          alert(data.Message);
-
-        }
-      },
-      error => {
-        // this._commonService.ScrollingTop();
-        alert(error.message);
+          }
+        );
       }
-    );
-    //   }
-    // });
+    });
 
   }
   updateDeleteStatus(id: number) {
-    // const dialogRef = this._dialog.open(ConfirmationDialogComponent, {
-    //   width: "350px",
-    //   data: GlobalMessagesModel.ConfirmDelete
-    // });
-    // dialogRef.afterClosed().subscribe(result => {
-    //   if (result) {
 
-    this._userRole.DeleteRole(id).subscribe(
-      data => {
-        if (data.IsSuccess) {
-          alert(data.Message);
-          this.getList();
-        }
-      },
-      error => {
-        alert(error.message);
+    this._commonService.Question(Message.ConfirmUpdate as string).then(result => {
+      if (result) {
+        this._userRole.DeleteRole(id).subscribe(
+          data => {
+            if (data.IsSuccess) {
+              this._commonService.Success(data.Message as string)
+              this.getList();
+            }
+          },
+          error => {
+            this._commonService.Error(error.message as string)
+
+          }
+        );
       }
-    );
-    //   }
-    // });
+    });
   }
 
 

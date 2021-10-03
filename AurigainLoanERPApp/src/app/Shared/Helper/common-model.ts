@@ -67,7 +67,7 @@ export interface IDictionary<T> {
 
 export class ApiResponse<T> {
     IsSuccess!: boolean;
-    Message!: string | null;
+    Message! : string | null;
     StatusCode!: number;
     Data!: T | null;
     Exception!: string | null;
