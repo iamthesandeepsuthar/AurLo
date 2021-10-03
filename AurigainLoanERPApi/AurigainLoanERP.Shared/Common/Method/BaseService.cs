@@ -1,6 +1,7 @@
 ﻿
 
 using AurigainLoanERP.Shared.Common.Model;
+using System;
 
 namespace AurigainLoanERP.Shared.Common.Method
 {
@@ -56,6 +57,19 @@ namespace AurigainLoanERP.Shared.Common.Method
                 //use thi on method for retrive data from jwt
                 // public object currentUser = HttpContext.User;
 
+            }
+        }
+
+
+        public string GenerateUniqueId() {
+            try
+            {
+                return new Random().Next(100000,999999).ToString();
+            }
+            catch (System.Exception)
+            {
+
+                throw;
             }
         }
     }
