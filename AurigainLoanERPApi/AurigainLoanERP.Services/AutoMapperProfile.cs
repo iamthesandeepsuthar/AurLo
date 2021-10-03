@@ -26,7 +26,9 @@ namespace AurigainLoanERP.Services
             CreateMap<UserBank, UserBankDetailPostModel>().ReverseMap();
             CreateMap<UserKyc, UserKycPostModel>().ReverseMap();
             CreateMap<UserNominee, UserNomineePostModel>().ReverseMap();
+            CreateMap<SecurityDepositDetails, UserSecurityDepositPostModel>().ReverseMap();
 
+            
         }
 
     }

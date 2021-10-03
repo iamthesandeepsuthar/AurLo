@@ -28,7 +28,6 @@ namespace AurigainLoanERP.Shared.ContractModel
     public class UserSecurityDepositPostModel
     {
         public int Id { get; set; }
-        public long UserId { get; set; }
         public int PaymentModeId { get; set; }
         public int? TransactionStatus { get; set; }
         public decimal Amount { get; set; }

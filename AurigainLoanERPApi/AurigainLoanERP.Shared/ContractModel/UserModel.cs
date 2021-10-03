@@ -239,7 +239,6 @@ namespace AurigainLoanERP.Shared.ContractModel
 
         public long Id { get; set; }
         public int DocumentTypeId { get; set; }
-        public long UserId { get; set; }
         public bool? IsActive { get; set; }
 
         public List<FilePostModel> Files { get; set; }

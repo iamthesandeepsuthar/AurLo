@@ -20,7 +20,7 @@ namespace AurigainLoanERP.Services.User
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        Task<ApiServiceResponseModel<AgentViewModel>> GetAsync(int id);
+        Task<ApiServiceResponseModel<AgentViewModel>> GetAsync(long id);
         /// <summary>
         /// Save Or Update Record 
         /// </summary>
@@ -36,7 +36,7 @@ namespace AurigainLoanERP.Services.User
         /// <param name="id">record id</param>
         /// <param name="status">true,false</param>
         /// <returns>true</returns>
-        Task<ApiServiceResponseModel<object>> UpateActiveStatus(int id);
+        Task<ApiServiceResponseModel<object>> UpateActiveStatus(long id);
 
         /// <summary>
         /// Record Mark as delete
@@ -44,6 +44,6 @@ namespace AurigainLoanERP.Services.User
         /// <param name="id">record id</param>
         /// <param name="status">true,false</param>
         /// <returns>true</returns>
-        Task<ApiServiceResponseModel<object>> UpdateDeleteStatus(int id);
+        Task<ApiServiceResponseModel<object>> UpdateDeleteStatus(long id);
     }
 }

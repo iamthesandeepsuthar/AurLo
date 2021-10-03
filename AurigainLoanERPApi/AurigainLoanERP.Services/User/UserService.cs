@@ -150,17 +150,45 @@ namespace AurigainLoanERP.Services.User
         {
             throw new NotImplementedException();
         }
-        public Task<ApiServiceResponseModel<AgentViewModel>> GetAsync(int id)
+        public Task<ApiServiceResponseModel<AgentViewModel>> GetAsync(long id)
         {
             throw new NotImplementedException();
         }
-        public Task<ApiServiceResponseModel<object>> UpateActiveStatus(int id)
+        public async Task<ApiServiceResponseModel<object>> UpateActiveStatus(long id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                await _db.Database.BeginTransactionAsync();
+                var user = await _db.UserMaster.FirstOrDefaultAsync(X => X.Id == id);
+                user.IsActive = !user.IsActive;
+                await _db.SaveChangesAsync();
+                _db.Database.CommitTransaction();
+                return CreateResponse(true as object, ResponseMessage.Update, true);
+            }
+            catch (Exception)
+            {
+                _db.Database.RollbackTransaction();
+                return CreateResponse(true as object, ResponseMessage.Fail, true);
+
+            }
         }
-        public Task<ApiServiceResponseModel<object>> UpdateDeleteStatus(int id)
+        public async Task<ApiServiceResponseModel<object>> UpdateDeleteStatus(long id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                await _db.Database.BeginTransactionAsync();
+                var user = await _db.UserMaster.FirstOrDefaultAsync(X => X.Id == id);
+                user.IsDelete = !user.IsDelete;
+                await _db.SaveChangesAsync();
+                _db.Database.CommitTransaction();
+                return CreateResponse(true as object, ResponseMessage.Update, true);
+            }
+            catch (Exception)
+            {
+                _db.Database.RollbackTransaction();
+                return CreateResponse(true as object, ResponseMessage.Fail, true);
+
+            }
         }
 
         #region << Private Method >>
@@ -599,7 +627,12 @@ namespace AurigainLoanERP.Services.User
             }
 
         }
-
+        /// <summary>
+        /// Save User Security Deposit
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="userId"></param>
+        /// <returns></returns>
         private async Task<bool> SaveUserSecurityDepositAsync(UserSecurityDepositPostModel model, long userId)
         {
             try
