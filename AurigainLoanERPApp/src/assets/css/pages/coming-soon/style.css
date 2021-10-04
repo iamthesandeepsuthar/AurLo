@@ -8,6 +8,7 @@
 			@Import	Mixins
 	===============================
 */
+@import "@ng-select/ng-select/themes/ant.design.theme.css";
 html {
   height: 100%; }
 
