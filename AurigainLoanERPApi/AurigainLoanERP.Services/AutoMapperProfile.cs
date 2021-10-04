@@ -9,8 +9,6 @@ namespace AurigainLoanERP.Services
 
         public AutoMapperProfile()
         {
-            CreateMap<UserRole, UserRoleModel>().ReverseMap();
-            CreateMap<UserRole, UserRolePostModel>().ReverseMap();
             CreateMap<State, StateModel>().ReverseMap();
             CreateMap<District, DistrictModel>().ReverseMap();
             CreateMap<DocumentType, DocumentTypeModel>().ReverseMap();
@@ -27,8 +25,22 @@ namespace AurigainLoanERP.Services
             CreateMap<UserKyc, UserKycPostModel>().ReverseMap();
             CreateMap<UserNominee, UserNomineePostModel>().ReverseMap();
             CreateMap<SecurityDepositDetails, UserSecurityDepositPostModel>().ReverseMap();
+            CreateMap<UserRole, UserRolePostModel>().ReverseMap();
 
-            
+
+            CreateMap<UserAgent, AgentViewModel>().ReverseMap();
+            CreateMap<UserViewModel, UserMaster>().ReverseMap();
+            CreateMap<UserDocumentViewModel, UserDocument>().ReverseMap();
+            CreateMap<UserReportingPersonViewModel, UserReportingPerson>().ReverseMap();
+            CreateMap<UserBankDetailViewModel, UserBank>().ReverseMap();
+            CreateMap<UserKycViewModel, UserKyc>().ReverseMap();
+            CreateMap<UserNomineeViewModel, UserNominee>().ReverseMap();
+            CreateMap<UserDocumentFilesViewModel, UserDocumentFiles>().ReverseMap();
+            CreateMap<UserSecurityDepositViewModel, SecurityDepositDetails>().ReverseMap();
+            CreateMap<UserRole, UserRoleViewModel>().ReverseMap();
+
+
+
         }
 
     }

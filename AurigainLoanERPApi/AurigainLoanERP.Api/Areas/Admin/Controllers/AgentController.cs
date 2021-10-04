@@ -28,9 +28,9 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
 
         // GET api/<AgentController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<ApiServiceResponseModel<AgentViewModel>> GetById(long id)
         {
-            return "value";
+            return  await _userSerivce.GetAgentDetailAsync(id);
         }
 
         // POST api/<AgentController>

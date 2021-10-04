@@ -1,13 +1,11 @@
 ﻿using AurigainLoanERP.Shared.Common.Model;
 using AurigainLoanERP.Shared.ContractModel;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace AurigainLoanERP.Services.User
 {
-  public  interface IUserService
+    public  interface IUserService
     {
         /// <summary>
         /// Get List of User Role
@@ -20,7 +18,9 @@ namespace AurigainLoanERP.Services.User
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        Task<ApiServiceResponseModel<AgentViewModel>> GetAsync(long id);
+        Task<ApiServiceResponseModel<AgentViewModel>> GetAgentDetailAsync(long id);
+
+        Task<ApiServiceResponseModel<DoorStepAgentViewModel>> GetDoorStepAgentDetailAsync(long id);
         /// <summary>
         /// Save Or Update Record 
         /// </summary>
