@@ -12,26 +12,23 @@ using AurigainLoanERP.Shared.Common;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace AurigainLoanERP.Api
 {
     public class Startup
     {
 
-        
+
 
 
         public Startup(IConfiguration configuration)
@@ -92,21 +89,12 @@ namespace AurigainLoanERP.Api
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration[JWT_Key]))
                 };
             });
-
-            services.AddDbContext<AurigainContext>(options =>
-            options.UseSqlServer(Configuration[CONNECTION_STRING]));
-            services.AddCors(setupAction => setupAction.AddPolicy(Constants.ALLOW_ALL_ORIGINS,
-             options =>
-                 options.AllowAnyOrigin()
-                 .AllowAnyHeader()
-                 .AllowAnyMethod())); // allow CORS
-
-
+            services.AddDbContext<AurigainContext>(options => options.UseSqlServer(Configuration[CONNECTION_STRING]));
+            services.AddCors(setupAction => setupAction.AddPolicy(Constants.ALLOW_ALL_ORIGINS, options =>
+                options.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod())); // allow CORS
             services.AddAutoMapper(typeof(AutoMapperProfile));
             services.AddMvc().AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = null);
-
             RegisterServices(services);
-
 
         }
 
@@ -120,23 +108,11 @@ namespace AurigainLoanERP.Api
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Aurigain Loan ERP (v1)"));
 
             }
-
             app.UseRouting();
-
-
-            //    app.UseCors(Constants.ALLOW_ALL_ORIGINS);
-
-
-            app.UseCors(x => x
-         .AllowAnyOrigin()
-         .AllowAnyMethod()
-         .AllowAnyHeader());
-
+            app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             app.UseHttpsRedirection();
-
             app.UseAuthentication();
             app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

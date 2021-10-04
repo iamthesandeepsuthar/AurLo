@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DropDownModol } from 'src/app/Shared/Helper/common-model';
-import { DropDown_key, Routing_Url } from 'src/app/Shared/Helper/constants';
+import { DropDown_key, Message, Routing_Url } from 'src/app/Shared/Helper/constants';
 import { UserRolePostModel } from 'src/app/Shared/Model/user-role.model';
 import { CommonService } from 'src/app/Shared/Services/common.service';
 import { UserRoleService } from 'src/app/Shared/Services/master-services/user-role.service';
@@ -74,6 +74,8 @@ export class AddUpdateUserRoleComponent implements OnInit {
       debugger
       this._userRole.AddUpdateRole(this.model).subscribe(res => {
         if (res.IsSuccess) {
+
+          this._commonService.Success(Message.SaveSuccess)
           this._router.navigate(['/' + this.routing_Url.MasterModule + this.routing_Url.UserRoleListUrl]);
 
         } else {
@@ -91,6 +93,7 @@ export class AddUpdateUserRoleComponent implements OnInit {
         this.model.Id = roleDetail!.Id
         this.model.ParentId = roleDetail!.ParentId ? String(roleDetail!.ParentId) : null;
         this.model.IsActive = roleDetail!.IsActive as boolean;
+        this.showParent = roleDetail!.ParentId ? true : false;
         this.UpdateValidation();
       } else {
 
@@ -102,6 +105,8 @@ export class AddUpdateUserRoleComponent implements OnInit {
     this._commonService.GetAllDDL([DropDown_key.ddlUserRole]).subscribe(res => {
       if (res.IsSuccess) {
         this.dropDown = res.Data;
+
+        
       }
 
     });

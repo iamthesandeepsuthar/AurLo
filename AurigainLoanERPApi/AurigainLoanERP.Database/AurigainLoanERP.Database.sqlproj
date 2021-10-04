@@ -7,7 +7,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectVersion>4.1</ProjectVersion>
     <ProjectGuid>{658f7346-eb89-472a-92d5-ad27c4d3d0da}</ProjectGuid>
-    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql150DatabaseSchemaProvider</DSP>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql130DatabaseSchemaProvider</DSP>
     <OutputType>Database</OutputType>
     <RootPath />
     <RootNamespace>AurigainLoanERP.Database</RootNamespace>
@@ -25,6 +25,7 @@
     <AnsiNulls>False</AnsiNulls>
     <QuotedIdentifier>False</QuotedIdentifier>
     <DefaultFilegroup>PRIMARY</DefaultFilegroup>
+    <GenerateCreateScript>False</GenerateCreateScript>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <OutputPath>bin\Release\</OutputPath>

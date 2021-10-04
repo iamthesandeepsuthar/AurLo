@@ -1,3 +1,4 @@
+import { AlertService } from './alert.service';
 import { ApiResponse } from './../Helper/common-model';
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
@@ -7,9 +8,11 @@ import { mode } from 'crypto-js';
 @Injectable({
   providedIn: 'root'
 })
-export class CommonService {
+export class CommonService extends AlertService {
 
-  constructor(private readonly _baseService: BaseAPIService) { }
+  constructor(private readonly _baseService: BaseAPIService) {
+    super();
+   }
 
   GetAllDDL(model: string[]): Observable<ApiResponse<any>> {
   

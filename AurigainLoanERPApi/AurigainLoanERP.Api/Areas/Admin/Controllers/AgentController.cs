@@ -35,7 +35,7 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
 
         // POST api/<AgentController>
         [HttpPost]
-        public async Task<ApiServiceResponseModel<string>> Post([FromBody] AgentPostModel model)
+        public async Task<ApiServiceResponseModel<string>> AddUpdate([FromBody] AgentPostModel model)
         {
             if (ModelState.IsValid)
             {
@@ -53,16 +53,17 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
             }
         }
 
-        // PUT api/<AgentController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
         // DELETE api/<AgentController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<ApiServiceResponseModel<object>> Delete(long id)
         {
+            return await _userSerivce.UpdateDeleteStatus(id);
+        }
+        // GET api/<AgentController>/5
+        [HttpGet("{id}")]
+        public async Task<ApiServiceResponseModel<object>> UpdatActiveStatus(long id)
+        {
+            return await _userSerivce.UpdateDeleteStatus(id);
         }
     }
 }

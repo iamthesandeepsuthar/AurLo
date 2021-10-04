@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AurigainLoanERP.Services.User;
+using AurigainLoanERP.Shared.Common.Model;
+using AurigainLoanERP.Shared.ContractModel;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -11,5 +14,44 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
     [ApiController]
     public class DoorStepAgentController : ControllerBase
     {
+        private readonly IUserService _userSerivce;
+        public DoorStepAgentController(IUserService userService)
+        {
+            _userSerivce = userService;
+        }
+
+
+        [HttpPost]
+        public async Task<ApiServiceResponseModel<string>> AddUpdate([FromBody] DoorStepAgentPostModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                return await _userSerivce.AddUpdateDoorStepAgentAsync(model);
+
+            }
+            else
+            {
+                ApiServiceResponseModel<string> obj = new ApiServiceResponseModel<string>();
+                obj.Data = null;
+                obj.IsSuccess = false;
+                obj.Message = ResponseMessage.InvalidData;
+                obj.Exception = ModelState.ErrorCount.ToString();
+                return obj;
+            }
+        }
+
+        // DELETE api/<AgentController>/5
+        [HttpDelete("{id}")]
+        public async Task<ApiServiceResponseModel<object>> Delete(long id)
+        {
+            return await _userSerivce.UpdateDeleteStatus(id);
+        }
+        // GET api/<AgentController>/5
+        [HttpGet("{id}")]
+        public async Task<ApiServiceResponseModel<object>> UpdatActiveStatus(long id)
+        {
+            return await _userSerivce.UpdateDeleteStatus(id);
+        }
+
     }
 }

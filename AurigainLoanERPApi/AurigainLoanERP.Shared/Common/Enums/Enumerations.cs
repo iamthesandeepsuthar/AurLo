@@ -10,6 +10,7 @@ namespace AurigainLoanERP.Shared.Common.Enums
     {
         public enum NomineeRelationShipEnum
         {
+          //  [Value("")]
             Mother,
             Father,
             Son,

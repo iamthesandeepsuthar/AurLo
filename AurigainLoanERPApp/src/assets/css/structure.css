@@ -1139,6 +1139,7 @@ code {
     width: 100%;
     height: calc(100vh - 127px) !important;
     overflow: hidden;
+    padding-top: 16px;
 }
 
 #sidebar ul.menu-categories.ps {

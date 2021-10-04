@@ -18,10 +18,9 @@ namespace AurigainLoanERP.Shared.Common
         /// <param name="filePath">save location file path</param>
         /// <param name="fileName">file name if required custom name</param>
         /// <returns></returns>
-        public static string Save(string base64str, string filePath, string fileName=null)
+        public static string Save(string base64str, string filePath, string fileName = null)
 
         {
-            string saveFile = null;
             try
             {
                 if (!string.IsNullOrEmpty(base64str) && !string.IsNullOrEmpty(filePath))
@@ -29,24 +28,24 @@ namespace AurigainLoanERP.Shared.Common
                     string[] Fileinfo = base64str.Split(';');
                     byte[] byteArr = Convert.FromBase64String(Fileinfo[1].Substring(Fileinfo[1].IndexOf(',') + 1));
 
-                    saveFile = filePath;
-                    filePath = filePath.GetPhysicalPath();
-                    if (!Directory.Exists(filePath))
+                    //  saveFile = filePath;
+                    string path = filePath.GetPhysicalPath();
+                    if (!Directory.Exists(path))
                     {
-                        Directory.CreateDirectory(filePath);
+                        Directory.CreateDirectory(path);
                     }
-                    fileName = string.IsNullOrEmpty(fileName) ? Guid.NewGuid().ToString() + filePath.GetFileExtension() : fileName;
-                    File.WriteAllBytes(filePath + fileName, byteArr);
-                    saveFile = string.Concat(saveFile, "/", fileName);
+                    fileName = string.IsNullOrEmpty(fileName) ? Guid.NewGuid().ToString() + base64str.GetFileExtension() : fileName;
+                    File.WriteAllBytes(Path.Combine(path, fileName), byteArr);
 
                     return fileName;
+
                 }
             }
             catch
             {
                 throw;
             }
-            return saveFile;
+            return null;
         }
 
         public static string Save(IFormFile file, string filePath, string fileName = null)
@@ -56,7 +55,7 @@ namespace AurigainLoanERP.Shared.Common
             {
                 if (file != null && !string.IsNullOrEmpty(filePath))
                 {
-                    string path = Path.Combine(_env.WebRootPath, filePath);
+                    string path = filePath.GetPhysicalPath();
 
                     fileName = string.IsNullOrEmpty(fileName) ? Path.GetFileName(file.FileName) : fileName;
 
@@ -70,12 +69,12 @@ namespace AurigainLoanERP.Shared.Common
                         file.CopyTo(stream);
 
                     }
-                    return  fileName;
+                    return   fileName;
                 }
 
             }
             catch (Exception)
-            { 
+            {
             }
             return null;
 

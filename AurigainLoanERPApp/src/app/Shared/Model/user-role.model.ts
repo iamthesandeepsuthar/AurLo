@@ -10,7 +10,7 @@ export class UserRoleModel {
     ModifiedBy!: number | null;
 }
 export class UserRolePostModel {
-    Id!: number;
+    Id!: number | string;
     Name!: string;
     ParentId!: number | string|null;
     IsActive!: boolean;

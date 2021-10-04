@@ -1,3 +1,4 @@
+
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http'
@@ -7,12 +8,12 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-
-
+import { NgSelectModule } from '@ng-select/ng-select';
 const CommonModules = [
   HttpClientModule,
   ReactiveFormsModule,
-  FormsModule 
+  FormsModule,
+  
 ]
 
 const InstalledModule = [
@@ -21,7 +22,8 @@ const InstalledModule = [
   MatTableModule,
   MatSortModule,
   MatPaginatorModule,
-  MatSortModule
+  MatSortModule,
+  NgSelectModule
 ]
 
 
