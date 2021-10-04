@@ -83,7 +83,8 @@ export class FileSelectorComponent {
             this._files.splice(index, 1);
     }
 
-    HandleFileInput(files: FileList) {
+    HandleFileInput(event: any) {
+      let files = event.target.Files;
         if (files.length == 0) {
             this.FileSelected.emit(undefined);
             return;
