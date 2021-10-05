@@ -1,7 +1,7 @@
 import { environment } from 'src/environments/environment';
 
 export class API_Url {
- 
+
   //#region <<Login>>
   public static Login_Api = `${environment.apiEndPoint}account/login`;
   //#endregion
@@ -28,6 +28,7 @@ export class API_Url {
   public static State_Delete_Api = `${environment.apiEndPoint}UserRole/delete/`;
 
   public static State_Dropdown_Api = `${environment.apiEndPoint}UserRole/Get`;
+  public static District_Dropdown_Api = `${environment.apiEndPoint}UserRole/Get`;
   public static District_List_Api = `${environment.apiEndPoint}UserRole/Get`;
   public static District_Detail_Api = `${environment.apiEndPoint}UserRole/get/`;
   public static District_Add_Update_Api = `${environment.apiEndPoint}UserRole/post`;
@@ -52,11 +53,12 @@ export class API_Url {
   //#endregion
 
   //#region <<Kyc Document Type>>
+  public static Kyc_Document_Type_Dropdown_Api =`${environment.apiEndPoint}UserRole/Get`;
   public static Kyc_Document_Type_List_Api = `${environment.apiEndPoint}UserRole/Get`;
-  public static Kyc_Document_Type_List_Detail_Api = `${environment.apiEndPoint}UserRole/get/`;
-  public static Kyc_Document_Type_List_Add_Update_Api = `${environment.apiEndPoint}UserRole/post`;
-  public static Kyc_Document_Type_List_Active_Status_Api = `${environment.apiEndPoint}UserRole/ChangeActiveStatus/`;
-  public static Kyc_Document_Type_List_Delete_Api = `${environment.apiEndPoint}UserRole/delete/`;
+  public static Kyc_Document_Type_Detail_Api = `${environment.apiEndPoint}UserRole/get/`;
+  public static Kyc_Document_Type_Add_Update_Api = `${environment.apiEndPoint}UserRole/post`;
+  public static Kyc_Document_Type_Active_Status_Api = `${environment.apiEndPoint}UserRole/ChangeActiveStatus/`;
+  public static Kyc_Document_Type_Delete_Api = `${environment.apiEndPoint}UserRole/delete/`;
   //#endregion
 
   //#region <<Banks>>

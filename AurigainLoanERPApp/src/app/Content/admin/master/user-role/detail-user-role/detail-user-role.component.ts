@@ -1,10 +1,11 @@
-import { UserRoleModel } from 'src/app/Shared/Model/user-role.model';
+
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CommonService } from 'src/app/Shared/Services/common.service';
 
 import { Routing_Url } from 'src/app/Shared/Helper/constants';
 import { UserRoleService } from 'src/app/Shared/Services/master-services/user-role.service';
+import { UserRoleModel } from 'src/app/Shared/Model/master-model/user-role.model';
 
 @Component({
   selector: 'app-detail-user-role',

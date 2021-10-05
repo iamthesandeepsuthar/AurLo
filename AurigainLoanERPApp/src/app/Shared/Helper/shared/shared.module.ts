@@ -13,7 +13,7 @@ const CommonModules = [
   HttpClientModule,
   ReactiveFormsModule,
   FormsModule,
-  
+
 ]
 
 const InstalledModule = [

@@ -5,9 +5,10 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { IndexModel } from 'src/app/Shared/Helper/common-model';
-import { UserRoleModel } from 'src/app/Shared/Model/user-role.model';
+
 import { UserRoleService } from 'src/app/Shared/Services/master-services/user-role.service';
 import { CommonService } from 'src/app/Shared/Services/common.service';
+import { UserRoleModel } from 'src/app/Shared/Model/master-model/user-role.model';
 
 @Component({
   selector: 'app-user-role',
@@ -38,16 +39,18 @@ export class UserRoleComponent implements OnInit {
 
   getList(): void {
 
-    this._userRole.GetRoleList(this.indexModel).subscribe(responce => {
+    this._userRole.GetRoleList(this.indexModel).subscribe(response => {
 
-      if (responce.IsSuccess) {
-        this.model = responce.Data as UserRoleModel[];
+      if (response.IsSuccess) {
+        this.model = response.Data as UserRoleModel[];
         this.dataSource = new MatTableDataSource<UserRoleModel>(this.model);
-        this.totalRecords = responce.TotalRecord as number;
+        this.totalRecords = response.TotalRecord as number;
         if (!this.indexModel.IsPostBack) {
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
         }
+      } else {
+        // Toast message if  return false ;
       }
     },
       error => {

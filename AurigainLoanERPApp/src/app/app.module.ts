@@ -31,8 +31,6 @@ import { LoginComponent } from './Content/Common/login/login.component';
     LoaderComponent,
     HtmlComponent,
     LoginComponent,
-
-  
   ],
   imports: [
     BrowserModule,
@@ -46,8 +44,8 @@ import { LoginComponent } from './Content/Common/login/login.component';
     BrowserAnimationsModule
    ,
   ],
-  providers: [ BaseAPIService, 
-  
+  providers: [ BaseAPIService,
+
     LoaderService, { provide: HTTP_INTERCEPTORS, useClass: AppInterceptor, multi: true }, {provide: LocationStrategy, useClass: PathLocationStrategy}],
   bootstrap: [AppComponent]
 })

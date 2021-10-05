@@ -3,7 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DropDownModol } from 'src/app/Shared/Helper/common-model';
 import { DropDown_key, Message, Routing_Url } from 'src/app/Shared/Helper/constants';
-import { UserRolePostModel } from 'src/app/Shared/Model/user-role.model';
+import { UserRolePostModel } from 'src/app/Shared/Model/master-model/user-role.model';
+
 import { CommonService } from 'src/app/Shared/Services/common.service';
 import { UserRoleService } from 'src/app/Shared/Services/master-services/user-role.service';
 
@@ -106,7 +107,7 @@ export class AddUpdateUserRoleComponent implements OnInit {
       if (res.IsSuccess) {
         this.dropDown = res.Data;
 
-        
+
       }
 
     });
