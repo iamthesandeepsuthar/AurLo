@@ -128,6 +128,8 @@ namespace AurigainLoanERP.Api
             services.AddTransient<IPaymentModeService, PaymentModeService>().Reverse();
             services.AddTransient<IAccountService, AccountService>().Reverse();
             services.AddTransient<IUserService, UserService>().Reverse();
+
+
         }
     }
 }

@@ -27,9 +27,9 @@ namespace AurigainLoanERP.Services.UserRoles
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public async Task<ApiServiceResponseModel<List<UserRoleModel>>> GetAsync(IndexModel model)
+        public async Task<ApiServiceResponseModel<List<UserRoleViewModel>>> GetAsync(IndexModel model)
         {
-            ApiServiceResponseModel<List<UserRoleModel>> objResponse = new ApiServiceResponseModel<List<UserRoleModel>>();
+            ApiServiceResponseModel<List<UserRoleViewModel>> objResponse = new ApiServiceResponseModel<List<UserRoleViewModel>>();
             try
             {
                 var result = (from role in _db.UserRole
@@ -38,23 +38,23 @@ namespace AurigainLoanERP.Services.UserRoles
                               orderby (model.OrderByAsc != 1 && model.OrderBy == "Name" ? role.Name : "") descending
                               select role);
                 var data = await result.Skip(((model.Page == 0 ? 1 : model.Page) - 1) * (model.PageSize != 0 ? model.PageSize : int.MaxValue)).Take(model.PageSize != 0 ? model.PageSize : int.MaxValue).ToListAsync();
-                objResponse.Data = _mapper.Map<List<UserRoleModel>>(data);
+                objResponse.Data = _mapper.Map<List<UserRoleViewModel>>(data);
 
 
                 if (result != null)
                 {
-                    return CreateResponse<List<UserRoleModel>>(objResponse.Data, ResponseMessage.Success, true, TotalRecord: result.Count());
+                    return CreateResponse<List<UserRoleViewModel>>(objResponse.Data, ResponseMessage.Success, true, TotalRecord: result.Count());
                 }
                 else
                 {
-                    return CreateResponse<List<UserRoleModel>>(null, ResponseMessage.NotFound, true, TotalRecord: 0);
+                    return CreateResponse<List<UserRoleViewModel>>(null, ResponseMessage.NotFound, true, TotalRecord: 0);
                 }
 
             }
             catch (Exception ex)
             {
 
-                return CreateResponse<List<UserRoleModel>>(null, ResponseMessage.Fail, false, ex.Message ?? ex.InnerException.ToString());
+                return CreateResponse<List<UserRoleViewModel>>(null, ResponseMessage.Fail, false, ex.Message ?? ex.InnerException.ToString());
 
             }
 
@@ -64,7 +64,7 @@ namespace AurigainLoanERP.Services.UserRoles
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<ApiServiceResponseModel<UserRoleModel>> GetAsync(int id)
+        public async Task<ApiServiceResponseModel<UserRoleViewModel>> GetAsync(int id)
         {
 
             try
@@ -77,18 +77,18 @@ namespace AurigainLoanERP.Services.UserRoles
 
                 if (result != null)
                 {
-                    return CreateResponse<UserRoleModel>(_mapper.Map<UserRoleModel>(result), ResponseMessage.Success, true);
+                    return CreateResponse<UserRoleViewModel>(_mapper.Map<UserRoleViewModel>(result), ResponseMessage.Success, true);
                 }
                 else
                 {
-                    return CreateResponse<UserRoleModel>(null, ResponseMessage.NotFound, true);
+                    return CreateResponse<UserRoleViewModel>(null, ResponseMessage.NotFound, true);
                 }
 
             }
             catch (Exception ex)
             {
 
-                return CreateResponse<UserRoleModel>(null, ResponseMessage.NotFound, false, ex.Message ?? ex.InnerException.ToString());
+                return CreateResponse<UserRoleViewModel>(null, ResponseMessage.NotFound, false, ex.Message ?? ex.InnerException.ToString());
 
             }
 

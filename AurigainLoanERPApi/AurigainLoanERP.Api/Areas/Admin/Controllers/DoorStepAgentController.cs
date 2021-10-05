@@ -40,6 +40,12 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
             }
         }
 
+        [HttpGet("{id}")]
+        public async Task<ApiServiceResponseModel<DoorStepAgentViewModel>> GetById(long id)
+        {
+            return await _userSerivce.GetDoorStepAgentDetailAsync(id);
+        }
+
         // DELETE api/<AgentController>/5
         [HttpDelete("{id}")]
         public async Task<ApiServiceResponseModel<object>> Delete(long id)

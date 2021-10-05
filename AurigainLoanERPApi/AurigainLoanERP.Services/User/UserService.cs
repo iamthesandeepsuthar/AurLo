@@ -3,11 +3,14 @@ using AurigainLoanERP.Shared.Common;
 using AurigainLoanERP.Shared.Common.Method;
 using AurigainLoanERP.Shared.Common.Model;
 using AurigainLoanERP.Shared.ContractModel;
-using AutoMapper;
+using AurigainLoanERP.Shared.ExtensionMethod;
+using AutoMapper; 
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -17,11 +20,19 @@ namespace AurigainLoanERP.Services.User
     {
         public readonly IMapper _mapper;
         private AurigainContext _db;
-        public UserService(IMapper mapper, AurigainContext db)
+        private readonly Security _security;
+
+        public UserService(IMapper mapper, AurigainContext db, IConfiguration _configuration)
         {
             this._mapper = mapper;
             _db = db;
+            _security = new Security(_configuration);
+
+
         }
+
+        #region <<Agent User>>
+
         /// <summary>
         /// Save AgentUser Detail
         /// </summary>
@@ -84,6 +95,117 @@ namespace AurigainLoanERP.Services.User
             }
 
         }
+
+        /// <summary>
+        /// Get Agent
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public Task<ApiServiceResponseModel<List<AgentViewModel>>> GetAgentAsync(IndexModel model)
+        {
+            throw new NotImplementedException();
+        }
+        /// <summary>
+        /// Get Agent Detail 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<ApiServiceResponseModel<AgentViewModel>> GetAgentDetailAsync(long id)
+        {
+
+            try
+            {
+
+                UserAgent objAgent = await _db.UserAgent.Where(x => x.Id == id)
+                    .Include(x => x.District).Include(x => x.District.State)
+                    .Include(x => x.User).Include(x => x.User.UserRole)
+                    .Include(x => x.Qualification)
+                    .Include(x => x.User.UserNominee)
+                    .Include(x => x.User.UserKyc)
+                    .Include(x => x.User.UserBank)
+                    .Include(x => x.User.UserDocument)
+                    .Include(x => x.User.UserRole).Include(x => x.User.UserReportingPersonUser).FirstOrDefaultAsync();
+                if (objAgent != null)
+                {
+                    AgentViewModel objAgentModel = _mapper.Map<AgentViewModel>(objAgent);
+
+                    if (objAgent.User != null)
+                    {
+                        if (objAgent.User != null)
+                        {
+                            objAgentModel.User = _mapper.Map<UserViewModel>(objAgent.User ?? null);
+                            objAgentModel.User.MPin = null;
+
+                        }
+
+                        if (objAgent.User.UserBank != null)
+                        {
+                            objAgentModel.BankDetails = _mapper.Map<UserBankDetailViewModel>(objAgent.User.UserBank.FirstOrDefault() ?? null);
+
+                        }
+                        if (objAgent.User.UserReportingPersonUser != null)
+                        {
+                            objAgentModel.ReportingPerson = _mapper.Map<UserReportingPersonViewModel>(objAgent.User.UserReportingPersonUser.FirstOrDefault() ?? null);
+
+                        }
+                        if (objAgent.User.UserKyc != null)
+                        {
+                            objAgentModel.UserKYC = _mapper.Map<List<UserKycViewModel>>(objAgent.User.UserKyc.ToList() ?? null);
+
+                        }
+                        if (objAgent.User.UserDocument != null)
+                        {
+                            foreach (var item in objAgent.User.UserDocument.Select((value, i) => new { i, value }))
+                            {
+                                objAgentModel.Documents.Add(_mapper.Map<UserDocumentViewModel>(item.value));
+                                if (item.value.UserDocumentFiles != null)
+                                {
+                                    foreach (var fileitem in item.value.UserDocumentFiles)
+                                    {
+                                        objAgentModel.Documents[item.i].UserDocumentFiles.Add(
+                                        new UserDocumentFilesViewModel
+                                        {
+                                            Id = fileitem.Id,
+                                            DocumentId = fileitem.DocumentId,
+                                            FileName = fileitem.FileName,
+                                            FileType = fileitem.FileType,
+                                            Path = fileitem.Path.ToAbsoluteUrl()
+                                        });
+
+                                    }
+
+                                }
+                            }
+                        }
+                        if (objAgent.User.UserNominee != null)
+                        {
+                            objAgentModel.UserNominee = _mapper.Map<UserNomineeViewModel>(objAgent.User.UserNominee.FirstOrDefault() ?? null);
+
+                        }
+                        objAgentModel.DistrictName = objAgent.District.Name;
+                        objAgentModel.StateName = objAgent.District.State.Name;
+                        objAgentModel.QualificationName = objAgent.Qualification.Name;
+                        objAgentModel.User.UserRoleName = objAgent.User.UserRole.Name;
+                    }
+                    return CreateResponse(objAgentModel, ResponseMessage.Success, true);
+                }
+                else
+                {
+                    return CreateResponse<AgentViewModel>(null, ResponseMessage.NotFound, true);
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                return CreateResponse<AgentViewModel>(null, ResponseMessage.Fail, false, ex.InnerException != null ? ex.InnerException.Message : ex.Message);
+            }
+
+        }
+
+        #endregion
+
+        #region <<Door-step Agent>>
         public async Task<ApiServiceResponseModel<string>> AddUpdateDoorStepAgentAsync(DoorStepAgentPostModel model)
         {
             try
@@ -146,14 +268,109 @@ namespace AurigainLoanERP.Services.User
             }
 
         }
-        public Task<ApiServiceResponseModel<List<AgentViewModel>>> GetAgentAsync(IndexModel model)
+
+        public async Task<ApiServiceResponseModel<DoorStepAgentViewModel>> GetDoorStepAgentDetailAsync(long id)
         {
-            throw new NotImplementedException();
+
+            try
+            {
+
+                UserDoorStepAgent objDoorStepAgent = await _db.UserDoorStepAgent.Where(x => x.Id == id)
+                    .Include(x => x.District).Include(x => x.District.State)
+                    .Include(x => x.User).Include(x => x.User.UserRole)
+                    .Include(x => x.Qualification)
+                    .Include(x => x.User.UserNominee)
+                    .Include(x => x.User.UserKyc)
+                    .Include(x => x.User.UserBank)
+                    .Include(x => x.User.UserDocument)
+                    .Include(x => x.User.SecurityDepositDetails)
+                    .Include(x => x.User.UserRole).Include(x => x.User.UserReportingPersonUser).FirstOrDefaultAsync();
+                if (objDoorStepAgent != null)
+                {
+                    DoorStepAgentViewModel objDoorStepAgentModel = _mapper.Map<DoorStepAgentViewModel>(objDoorStepAgent);
+
+                    if (objDoorStepAgent.User != null)
+                    {
+
+                        if (objDoorStepAgent.User != null)
+                        {
+                            objDoorStepAgentModel.User = _mapper.Map<UserViewModel>(objDoorStepAgent.User ?? null);
+
+                        }
+
+                        if (objDoorStepAgent.User.UserBank != null)
+                        {
+                            objDoorStepAgentModel.BankDetails = _mapper.Map<UserBankDetailViewModel>(objDoorStepAgent.User.UserBank.FirstOrDefault() ?? null);
+
+                        }
+                        if (objDoorStepAgent.User.UserReportingPersonUser != null)
+                        {
+                            objDoorStepAgentModel.ReportingPerson = _mapper.Map<UserReportingPersonViewModel>(objDoorStepAgent.User.UserReportingPersonUser.FirstOrDefault() ?? null);
+
+                        }
+                        if (objDoorStepAgent.User.UserKyc != null)
+                        {
+                            objDoorStepAgentModel.UserKYC = _mapper.Map<List<UserKycViewModel>>(objDoorStepAgent.User.UserKyc.ToList() ?? null);
+
+                        }
+                        if (objDoorStepAgent.User.UserDocument != null)
+                        {
+                            foreach (var item in objDoorStepAgent.User.UserDocument.Select((value, i) => new { i, value }))
+                            {
+                                objDoorStepAgentModel.Documents.Add(_mapper.Map<UserDocumentViewModel>(item.value));
+                                if (item.value.UserDocumentFiles != null)
+                                {
+                                    foreach (var fileitem in item.value.UserDocumentFiles)
+                                    {
+                                        objDoorStepAgentModel.Documents[item.i].UserDocumentFiles.Add(
+                                        new UserDocumentFilesViewModel
+                                        {
+                                            Id = fileitem.Id,
+                                            DocumentId = fileitem.DocumentId,
+                                            FileName = fileitem.FileName,
+                                            FileType = fileitem.FileType,
+                                            Path = fileitem.Path.ToAbsoluteUrl()
+                                        });
+
+                                    }
+
+                                }
+                            }
+                        }
+                        if (objDoorStepAgent.User.UserNominee != null)
+                        {
+                            objDoorStepAgentModel.UserNominee = _mapper.Map<UserNomineeViewModel>(objDoorStepAgent.User.UserNominee.FirstOrDefault() ?? null);
+
+                        }
+                        if (objDoorStepAgent.SecurityDeposit != null)
+                        {
+                            objDoorStepAgentModel.SecurityDeposit = _mapper.Map<UserSecurityDepositViewModel>(objDoorStepAgent.User.SecurityDepositDetails.FirstOrDefault() ?? null);
+
+                        }
+
+                        objDoorStepAgentModel.DistrictName = objDoorStepAgent.District.Name;
+                        objDoorStepAgentModel.StateName = objDoorStepAgent.District.State.Name;
+                        objDoorStepAgentModel.QualificationName = objDoorStepAgent.Qualification.Name;
+                        objDoorStepAgentModel.User.UserRoleName = objDoorStepAgent.User.UserRole.Name;
+                    }
+                    return CreateResponse(objDoorStepAgentModel, ResponseMessage.Success, true);
+                }
+                else
+                {
+                    return CreateResponse<DoorStepAgentViewModel>(null, ResponseMessage.NotFound, true);
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                return CreateResponse<DoorStepAgentViewModel>(null, ResponseMessage.Fail, false, ex.InnerException != null ? ex.InnerException.Message : ex.Message);
+            }
+
         }
-        public Task<ApiServiceResponseModel<AgentViewModel>> GetAsync(long id)
-        {
-            throw new NotImplementedException();
-        }
+        #endregion
+
+        #region <<Common Method>>
         public async Task<ApiServiceResponseModel<object>> UpateActiveStatus(long id)
         {
             try
@@ -190,6 +407,7 @@ namespace AurigainLoanERP.Services.User
 
             }
         }
+        #endregion
 
         #region << Private Method >>
 
@@ -210,11 +428,9 @@ namespace AurigainLoanERP.Services.User
 
                         var objModel = _mapper.Map<UserMaster>(model);
                         objModel.CreatedOn = DateTime.Now;
-                        objModel.Mpin = GenerateUniqueId();
+                        objModel.Mpin = _security.EncryptData(GenerateUniqueId());
                         var result = await _db.UserMaster.AddAsync(objModel);
-
                         await _db.SaveChangesAsync();
-
                         model.Id = result.Entity.Id;
                     }
                     else
@@ -222,8 +438,6 @@ namespace AurigainLoanERP.Services.User
                         var objModel = await _db.UserMaster.FirstOrDefaultAsync(x => x.Id == model.Id);
                         objModel = _mapper.Map<UserMaster>(model);
                         objModel.ModifiedOn = DateTime.Now;
-
-
                         await _db.SaveChangesAsync();
 
                     }
@@ -549,9 +763,8 @@ namespace AurigainLoanERP.Services.User
                             var objModel = new UserKyc();
                             objModel.CreatedOn = DateTime.Now;
                             objModel.UserId = userId;
-                            objModel.Kycnumber = item.Kycnumber ?? null;
-                            objModel.KycdocumentTypeId = item.KycdocumentTypeId;
-                            objModel.Kycnumber = !string.IsNullOrEmpty(item.Kycnumber) ? item.Kycnumber : null;
+                              objModel.KycdocumentTypeId = item.KycdocumentTypeId;
+                            objModel.Kycnumber = !string.IsNullOrEmpty(item.Kycnumber) ? _security.EncryptData(item.Kycnumber) : null;
                             var result = await _db.UserKyc.AddAsync(objModel);
 
                         }
@@ -560,7 +773,7 @@ namespace AurigainLoanERP.Services.User
                             var objModel = await _db.UserKyc.FirstOrDefaultAsync(x => x.Id == item.Id && x.UserId == userId);
                             objModel.ModifiedOn = DateTime.Now;
                             objModel.UserId = userId;
-                            objModel.Kycnumber = !string.IsNullOrEmpty(item.Kycnumber) ? item.Kycnumber : null;
+                            objModel.Kycnumber = !string.IsNullOrEmpty(item.Kycnumber) ? _security.EncryptData(item.Kycnumber) : null; 
                             objModel.KycdocumentTypeId = item.KycdocumentTypeId;
 
 

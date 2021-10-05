@@ -12,13 +12,13 @@ namespace AurigainLoanERP.Services.UserRoles
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        Task<ApiServiceResponseModel<List<UserRoleModel>>> GetAsync(IndexModel model);
+        Task<ApiServiceResponseModel<List<UserRoleViewModel>>> GetAsync(IndexModel model);
         /// <summary>
         /// Get Detail of Role
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        Task<ApiServiceResponseModel<UserRoleModel>> GetAsync(int id);
+        Task<ApiServiceResponseModel<UserRoleViewModel>> GetAsync(int id);
         /// <summary>
         /// Save Or Update Record 
         /// </summary>

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace AurigainLoanERP.Shared.ContractModel
 {
-    public class UserRoleModel
+    public class UserRoleViewModel
     {
         public int Id { get; set; }
         public string Name { get; set; }
