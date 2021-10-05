@@ -5,7 +5,6 @@ import { BrowserModule } from "@angular/platform-browser";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { AdminModule } from "./Content/admin/admin.module";
-import { AgentModule } from "./Content/agent/agent.module";
 import { FooterComponent } from "./Content/Common/footer/footer.component";
 import { HeaderComponent } from "./Content/Common/header/header.component";
 import { NavigationComponent } from "./Content/Common/navigation/navigation.component";
@@ -38,7 +37,6 @@ import { LoginComponent } from './Content/Common/login/login.component';
     SharedModule,
     AdminModule,
     CustomerModule,
-    AgentModule,
     CommonModule,
     DashboardModule,
     BrowserAnimationsModule
