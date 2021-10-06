@@ -58,8 +58,9 @@ export class UserRoleComponent implements OnInit {
   }
 
   sortData(event: any): void {
+    debugger
     this.indexModel.OrderBy = event.active;
-    this.indexModel.OrderByAsc = event.direction == 1 ? 1 : 0;
+    this.indexModel.OrderByAsc = event.direction == "asc" ? true : false;
     this.indexModel.IsPostBack = true;
     this.getList();
   }

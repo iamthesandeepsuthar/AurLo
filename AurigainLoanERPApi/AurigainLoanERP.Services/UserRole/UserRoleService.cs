@@ -44,10 +44,8 @@ namespace AurigainLoanERP.Services.UserRoles
                     case "IsActive":
                         result = model.OrderByAsc ? (from orderData in result orderby orderData.IsActive ascending select orderData) : (from orderData in result orderby orderData.IsActive descending select orderData);
                         break;
-
                     default:
                         result = model.OrderByAsc ? (from orderData in result orderby orderData.Name ascending select orderData) : (from orderData in result orderby orderData.Name descending select orderData);
-
                         break;
                 }
 
