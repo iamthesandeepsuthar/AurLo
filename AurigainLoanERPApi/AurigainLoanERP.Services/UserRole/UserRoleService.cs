@@ -34,9 +34,23 @@ namespace AurigainLoanERP.Services.UserRoles
             {
                 var result = (from role in _db.UserRole
                               where !role.IsDelete && (string.IsNullOrEmpty(model.Search) || role.Name.Contains(model.Search))
-                              orderby (model.OrderByAsc == 1 && model.OrderBy == "Name" ? role.Name : "") ascending
-                              orderby (model.OrderByAsc != 1 && model.OrderBy == "Name" ? role.Name : "") descending
                               select role);
+
+                switch (model.OrderBy)
+                {
+                    case "Name":
+                        result = model.OrderByAsc ? (from orderData in result orderby orderData.Name ascending select orderData) : (from orderData in result orderby orderData.Name descending select orderData);
+                        break;
+                    case "IsActive":
+                        result = model.OrderByAsc ? (from orderData in result orderby orderData.IsActive ascending select orderData) : (from orderData in result orderby orderData.IsActive descending select orderData);
+                        break;
+
+                    default:
+                        result = model.OrderByAsc ? (from orderData in result orderby orderData.Name ascending select orderData) : (from orderData in result orderby orderData.Name descending select orderData);
+
+                        break;
+                }
+
                 var data = await result.Skip(((model.Page == 0 ? 1 : model.Page) - 1) * (model.PageSize != 0 ? model.PageSize : int.MaxValue)).Take(model.PageSize != 0 ? model.PageSize : int.MaxValue).ToListAsync();
                 objResponse.Data = _mapper.Map<List<UserRoleViewModel>>(data);
 
@@ -70,10 +84,10 @@ namespace AurigainLoanERP.Services.UserRoles
             try
             {
                 var result = await (from c1 in _db.UserRole
-                                   // join st in _db.UserRole  on c1.ParentId equals st.Id
+                                        // join st in _db.UserRole  on c1.ParentId equals st.Id
 
                                     where !c1.IsDelete && c1.IsActive.Value && c1.Id == id
-                                    select c1 ).FirstOrDefaultAsync();
+                                    select c1).FirstOrDefaultAsync();
 
                 if (result != null)
                 {
