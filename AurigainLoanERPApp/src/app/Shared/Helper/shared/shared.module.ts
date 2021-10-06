@@ -9,6 +9,11 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { ToastrModule } from 'ngx-toastr';
+import { UserBankDetailSectionComponent } from './UserRegistration/user-bank-detail-section/user-bank-detail-section.component';
+import { UserDocumentDetailSectionComponent } from './UserRegistration/user-document-detail-section/user-document-detail-section.component';
+import { UserKYCDetailSectionComponent } from './UserRegistration/user-kycdetail-section/user-kycdetail-section.component';
+import { UserNomineeDetailSectionComponent } from './UserRegistration/user-nominee-detail-section/user-nominee-detail-section.component';
 const CommonModules = [
   HttpClientModule,
   ReactiveFormsModule,
@@ -23,15 +28,28 @@ const InstalledModule = [
   MatSortModule,
   MatPaginatorModule,
   MatSortModule,
-  NgSelectModule
+  NgSelectModule,
+  ToastrModule.forRoot({
+    timeOut:3000,
+    closeButton:true,
+    autoDismiss:true,
+    maxOpened:5
+  }),
+]
+
+const SharedComponent =[
+  UserNomineeDetailSectionComponent,
+  UserKYCDetailSectionComponent,
+  UserDocumentDetailSectionComponent,
+  UserBankDetailSectionComponent
 ]
 
 
 
-
-
 @NgModule({
-  declarations: [],
+  declarations: [
+    SharedComponent
+  ],
   imports: [
     CommonModule,
     CommonModules,
@@ -39,7 +57,8 @@ const InstalledModule = [
   ],
   exports: [
     CommonModules,
-    InstalledModule
+    InstalledModule,
+    SharedComponent
   ]
 })
 export class SharedModule { }

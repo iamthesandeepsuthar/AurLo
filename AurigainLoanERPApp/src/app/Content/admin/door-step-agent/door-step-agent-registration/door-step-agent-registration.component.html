@@ -29,10 +29,10 @@
             <div class="form-group col-md-4">
                 <label>Qualification</label>
                 <select class="form-control">
-                                        <option>--Select--</option>
-                                        <option>--Select--</option>
-                                        <option>--Select--</option>
-                                    </select>
+                    <option>--Select--</option>
+                    <option>--Select--</option>
+                    <option>--Select--</option>
+                </select>
             </div>
             <div class="form-group col-md-4">
                 <label>Personal Email ID</label>
@@ -43,15 +43,15 @@
                 <div class="form-radio-check-grp">
                     <div class="n-chk d-inline">
                         <label class="new-control new-radio radio-classic-info">
-                                      <input type="radio" class="new-control-input" name="custom-radio-2" checked>
-                                      <span class="new-control-indicator"></span>Yes
-                                    </label>
+                            <input type="radio" class="new-control-input" name="custom-radio-2" checked>
+                            <span class="new-control-indicator"></span>Yes
+                        </label>
                     </div>
                     <div class="n-chk d-inline">
                         <label class="new-control new-radio radio-classic-info">
-                                      <input type="radio" class="new-control-input" name="custom-radio-2">
-                                      <span class="new-control-indicator"></span>No
-                                    </label>
+                            <input type="radio" class="new-control-input" name="custom-radio-2">
+                            <span class="new-control-indicator"></span>No
+                        </label>
                     </div>
                 </div>
             </div>
@@ -61,21 +61,21 @@
                 <div class="form-radio-check-grp">
                     <div class="n-chk d-inline">
                         <label class="new-control new-radio radio-classic-info">
-                                      <input type="radio" class="new-control-input" name="custom-radio-2" checked>
-                                      <span class="new-control-indicator"></span>Male
-                                    </label>
+                            <input type="radio" class="new-control-input" name="custom-radio-2" checked>
+                            <span class="new-control-indicator"></span>Male
+                        </label>
                     </div>
                     <div class="n-chk d-inline">
                         <label class="new-control new-radio radio-classic-info">
-                                      <input type="radio" class="new-control-input" name="custom-radio-2">
-                                      <span class="new-control-indicator"></span>Female
-                                    </label>
+                            <input type="radio" class="new-control-input" name="custom-radio-2">
+                            <span class="new-control-indicator"></span>Female
+                        </label>
                     </div>
                     <div class="n-chk d-inline">
                         <label class="new-control new-radio radio-classic-info">
-                                      <input type="radio" class="new-control-input" name="custom-radio-2">
-                                      <span class="new-control-indicator"></span>Other
-                                    </label>
+                            <input type="radio" class="new-control-input" name="custom-radio-2">
+                            <span class="new-control-indicator"></span>Other
+                        </label>
                     </div>
                 </div>
             </div>
@@ -86,18 +86,18 @@
             <div class="form-group col-md-4">
                 <label>State</label>
                 <select class="form-control">
-                                        <option>--Select State--</option>
-                                        <option>--Select State--</option>
-                                        <option>--Select State--</option>
-                                    </select>
+                    <option>--Select State--</option>
+                    <option>--Select State--</option>
+                    <option>--Select State--</option>
+                </select>
             </div>
             <div class="form-group col-md-4">
                 <label>District</label>
                 <select class="form-control">
-                                        <option>--Select District--</option>
-                                        <option>--Select District--</option>
-                                        <option>--Select District--</option>
-                                    </select>
+                    <option>--Select District--</option>
+                    <option>--Select District--</option>
+                    <option>--Select District--</option>
+                </select>
             </div>
             <div class="form-group col-md-4">
                 <label>Pincode</label>
@@ -109,7 +109,9 @@
 
     </div>
 </div>
-<div class="widget-content widget-content p-3 form-grp-w-border">
+
+<app-user-nominee-detail-section></app-user-nominee-detail-section>
+<!-- <div class="widget-content widget-content p-3 form-grp-w-border">
     <h2> <img src="assets/img/nominee_details_white.png"> Nominee Details</h2>
     <div class="form-row">
         <div class="form-group col-md-4">
@@ -139,6 +141,9 @@
 
     </div>
 </div>
+ -->
+<app-user-bank-detail-section></app-user-bank-detail-section>
+<!-- 
 <div class="widget-content widget-content p-3 form-grp-w-border">
     <h2> <img src="assets/img/bank_details_white.png"> Bank Details</h2>
     <div class="form-row">
@@ -156,17 +161,18 @@
         </div>
 
     </div>
-</div>
-<div class="widget-content widget-content p-3 form-grp-w-border">
+</div> -->
+<app-user-kycdetail-section></app-user-kycdetail-section>
+<!-- <div class="widget-content widget-content p-3 form-grp-w-border">
     <h2> <img src="assets/img/kyc_details_white.png"> KYC Details</h2>
     <div class="form-row">
         <div class="form-group col-md-6">
             <label>Document Type</label>
             <select class="form-control">
-                                    <option>--Select Type--</option>
-                                    <option>--Select Type--</option>
-                                    <option>--Select Type--</option>
-                                </select>
+                <option>--Select Type--</option>
+                <option>--Select Type--</option>
+                <option>--Select Type--</option>
+            </select>
         </div>
         <div class="form-group col-md-6">
             <label>Document number</label>
@@ -175,7 +181,9 @@
 
 
     </div>
-</div>
+</div> -->
+<app-user-document-detail-section></app-user-document-detail-section>
+<!-- 
 <div class="widget-content widget-content p-3 form-grp-w-border">
     <h2> <img src="assets/img/document_pictures_white.png"> Document Proof</h2>
     <div class="form-row">
@@ -183,7 +191,8 @@
             <label>Profile Picture</label>
             <input type="file" class="form-control" id="file1" placeholder="Enter number">
             <div class="file-upload-preview d-flex flex-wrap">
-                <div class="file-upload-preview-items d-flex align-items-center justify-content-center position-relative">
+                <div
+                    class="file-upload-preview-items d-flex align-items-center justify-content-center position-relative">
                     <a href="#" class="file-upload-preview-items-delete"><i class="fas fa-times"></i></a>
                     <img src="assets/img/default.jpg">
                 </div>
@@ -193,11 +202,13 @@
             <label>Aadhaar Card Picture</label>
             <input type="file" class="form-control" id="file1" placeholder="Enter number">
             <div class="file-upload-preview d-flex flex-wrap">
-                <div class="file-upload-preview-items d-flex align-items-center justify-content-center position-relative">
+                <div
+                    class="file-upload-preview-items d-flex align-items-center justify-content-center position-relative">
                     <a href="#" class="file-upload-preview-items-delete"><i class="fas fa-times"></i></a>
                     <img src="assets/img/default.jpg">
                 </div>
-                <div class="file-upload-preview-items d-flex align-items-center justify-content-center position-relative">
+                <div
+                    class="file-upload-preview-items d-flex align-items-center justify-content-center position-relative">
                     <a href="#" class="file-upload-preview-items-delete"><i class="fas fa-times"></i></a>
                     <img src="assets/img/default.jpg">
                 </div>
@@ -207,11 +218,13 @@
             <label>PAN Card Picture</label>
             <input type="file" class="form-control" id="file1" placeholder="Enter number">
             <div class="file-upload-preview d-flex flex-wrap">
-                <div class="file-upload-preview-items d-flex align-items-center justify-content-center position-relative">
+                <div
+                    class="file-upload-preview-items d-flex align-items-center justify-content-center position-relative">
                     <a href="#" class="file-upload-preview-items-delete"><i class="fas fa-times"></i></a>
                     <img src="assets/img/default.jpg">
                 </div>
-                <div class="file-upload-preview-items d-flex align-items-center justify-content-center position-relative">
+                <div
+                    class="file-upload-preview-items d-flex align-items-center justify-content-center position-relative">
                     <a href="#" class="file-upload-preview-items-delete"><i class="fas fa-times"></i></a>
                     <img src="assets/img/default.jpg">
                 </div>
@@ -221,11 +234,13 @@
             <label>Cancelled Cheque Picture</label>
             <input type="file" class="form-control" id="file1" placeholder="Enter number">
             <div class="file-upload-preview d-flex flex-wrap">
-                <div class="file-upload-preview-items d-flex align-items-center justify-content-center position-relative">
+                <div
+                    class="file-upload-preview-items d-flex align-items-center justify-content-center position-relative">
                     <a href="#" class="file-upload-preview-items-delete"><i class="fas fa-times"></i></a>
                     <img src="assets/img/default.jpg">
                 </div>
-                <div class="file-upload-preview-items d-flex align-items-center justify-content-center position-relative">
+                <div
+                    class="file-upload-preview-items d-flex align-items-center justify-content-center position-relative">
                     <a href="#" class="file-upload-preview-items-delete"><i class="fas fa-times"></i></a>
                     <img src="assets/img/default.jpg">
                 </div>
@@ -235,11 +250,12 @@
 
 
     </div>
-</div>
+</div> -->
 
 <div class="form-footer-btn-grp mt-3 mb-3 widget-content widget-content p-3 text-center">
     <button type="submit" class="btn btn-success mr-3"> <i class="fas fa-check mr-1"></i> Save application</button>
     <button type="submit" class="btn btn-primary mr-3"> <i class="fas fa-redo-alt mr-1"></i> Reset</button>
-    <button type="button" (click)="Cancel()" class="btn btn-outline-danger"> <i class="fas fa-times mr-1"></i> Cancel</button>
+    <button type="button" (click)="Cancel()" class="btn btn-outline-danger"> <i class="fas fa-times mr-1"></i>
+        Cancel</button>
 </div>
 <!-- DOOR STEP AGENT END -->

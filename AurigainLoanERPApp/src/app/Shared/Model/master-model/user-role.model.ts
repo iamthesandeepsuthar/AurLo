@@ -2,6 +2,7 @@ export class UserRoleModel {
     Id!: number;
     Name!: string;
     ParentId!: number | null;
+    ParentRole! : string ;
     IsActive!: boolean | null;
     IsDelete!: boolean;
     CreatedOn!: string;

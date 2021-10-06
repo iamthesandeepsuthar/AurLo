@@ -26,8 +26,8 @@ export class UserRoleComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort!: MatSort;
   id!: number;
-  displayedColumns: string[] = ['index', 'Name', 'IsActive', 'Action'];
-  ViewdisplayedColumns = [{ Value: 'Name', Text: 'Name' }];
+  displayedColumns: string[] = ['index', 'Name', 'ParentRole', 'IsActive', 'Action'];
+  ViewdisplayedColumns = [{ Value: 'Name', Text: 'Name' }, { Value: 'ParentRole', Text: 'Parent Role' }];
   indexModel = new IndexModel();
   totalRecords: number = 0;
   //#endregion
@@ -42,6 +42,7 @@ export class UserRoleComponent implements OnInit {
     this._userRole.GetRoleList(this.indexModel).subscribe(response => {
 
       if (response.IsSuccess) {
+        debugger
         this.model = response.Data as UserRoleModel[];
         this.dataSource = new MatTableDataSource<UserRoleModel>(this.model);
         this.totalRecords = response.TotalRecord as number;

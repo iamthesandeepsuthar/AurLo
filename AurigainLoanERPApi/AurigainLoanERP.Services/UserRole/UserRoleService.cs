@@ -33,24 +33,44 @@ namespace AurigainLoanERP.Services.UserRoles
             try
             {
                 var result = (from role in _db.UserRole
-                              where !role.IsDelete && (string.IsNullOrEmpty(model.Search) || role.Name.Contains(model.Search))
-                              select role);
-
+                              join c2 in _db.UserRole on role.ParentId equals c2.Id
+                               into parentRoleData
+                              from c2 in parentRoleData.DefaultIfEmpty()
+                              where !role.IsDelete && (string.IsNullOrEmpty(model.Search) || role.Name.Contains(model.Search) || c2.Name.Contains(model.Search))
+                              select new
+                              {
+                                  role = role,
+                                  parentRole = c2
+                              });
                 switch (model.OrderBy)
                 {
                     case "Name":
-                        result = model.OrderByAsc ? (from orderData in result orderby orderData.Name ascending select orderData) : (from orderData in result orderby orderData.Name descending select orderData);
+                        result = model.OrderByAsc ? (from orderData in result orderby orderData.role.Name ascending select orderData) : (from orderData in result orderby orderData.role.Name descending select orderData);
+                        break;
+                    case "ParentRole":
+                        result = model.OrderByAsc ? (from orderData in result orderby orderData.parentRole.Name ascending select orderData) : (from orderData in result orderby orderData.parentRole.Name descending select orderData);
                         break;
                     case "IsActive":
-                        result = model.OrderByAsc ? (from orderData in result orderby orderData.IsActive ascending select orderData) : (from orderData in result orderby orderData.IsActive descending select orderData);
+                        result = model.OrderByAsc ? (from orderData in result orderby orderData.role.IsActive ascending select orderData) : (from orderData in result orderby orderData.role.IsActive descending select orderData);
                         break;
                     default:
-                        result = model.OrderByAsc ? (from orderData in result orderby orderData.Name ascending select orderData) : (from orderData in result orderby orderData.Name descending select orderData);
+                        result = model.OrderByAsc ? (from orderData in result orderby orderData.role.Name ascending select orderData) : (from orderData in result orderby orderData.role.Name descending select orderData);
                         break;
                 }
 
-                var data = await result.Skip(((model.Page == 0 ? 1 : model.Page) - 1) * (model.PageSize != 0 ? model.PageSize : int.MaxValue)).Take(model.PageSize != 0 ? model.PageSize : int.MaxValue).ToListAsync();
-                objResponse.Data = _mapper.Map<List<UserRoleViewModel>>(data);
+                var data = result.Skip(((model.Page == 0 ? 1 : model.Page) - 1) * (model.PageSize != 0 ? model.PageSize : int.MaxValue)).Take(model.PageSize != 0 ? model.PageSize : int.MaxValue);
+                objResponse.Data = await (from c1 in data
+                                          select new UserRoleViewModel
+                                          {
+                                              Id = c1.role.Id,
+                                              Name = c1.role.Name,
+                                              ParentId = c1.role.ParentId ?? null,
+                                              IsActive = c1.role.IsActive,
+                                              ParentRole = c1.parentRole.Name ?? string.Empty,
+                                              IsDelete = c1.role.IsDelete,
+                                              CreatedOn = c1.role.CreatedOn,
+                                              CreatedBy = c1.role.CreatedBy
+                                          }).ToListAsync();
 
 
                 if (result != null)
@@ -82,14 +102,23 @@ namespace AurigainLoanERP.Services.UserRoles
             try
             {
                 var result = await (from c1 in _db.UserRole
-                                        // join st in _db.UserRole  on c1.ParentId equals st.Id
-
+                                    join c2 in _db.UserRole on c1.ParentId equals c2.Id
                                     where !c1.IsDelete && c1.IsActive.Value && c1.Id == id
-                                    select c1).FirstOrDefaultAsync();
+                                    select new UserRoleViewModel
+                                    {
+                                        Id = c1.Id,
+                                        Name = c1.Name,
+                                        ParentId = c1.ParentId,
+                                        IsActive = c1.IsActive,
+                                        ParentRole = c2.Name,
+                                        IsDelete = c1.IsDelete,
+                                        CreatedOn = c1.CreatedOn,
+                                        CreatedBy = c1.CreatedBy
+                                    }).FirstOrDefaultAsync();
 
                 if (result != null)
                 {
-                    return CreateResponse<UserRoleViewModel>(_mapper.Map<UserRoleViewModel>(result), ResponseMessage.Success, true);
+                    return CreateResponse<UserRoleViewModel>(result, ResponseMessage.Success, true);
                 }
                 else
                 {

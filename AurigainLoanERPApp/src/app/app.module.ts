@@ -18,9 +18,7 @@ import { LoaderComponent } from './Content/Common/loader/loader.component';
 import { DashboardModule } from "./Content/dashboard/dashboard.module";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HtmlComponent } from './Content/html/html.component';
-import { LoginComponent } from './Content/Common/login/login.component';
-import { ToastrModule } from "ngx-toastr";
-import { timeout } from "rxjs/operators";
+import { LoginComponent } from './Content/Common/login/login.component'; 
 
 @NgModule({
   declarations: [
@@ -42,12 +40,7 @@ import { timeout } from "rxjs/operators";
     CommonModule,
     DashboardModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot({
-      timeOut:3000,
-      closeButton:true,
-      autoDismiss:true,
-      maxOpened:5
-    }),
+  
   ],
   providers: [ BaseAPIService,
 
