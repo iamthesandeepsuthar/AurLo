@@ -9,7 +9,7 @@
                     <li class="breadcrumb-item"><a href="#">Home</a></li>
                     <li class="breadcrumb-item"><a href="javascript:void(0)">Master</a></li>
                     <li class="breadcrumb-item"><a
-                            routerLink="{{'/' + this.routing_Url.MasterModule + this.routing_Url.UserRoleListUrl}}">
+                            routerLink="{{ '../../../' + this.routing_Url.UserRoleListUrl}}">
                             User Role
                             Master </a></li>
                     <li class="breadcrumb-item active" aria-current="page">Role Detail
@@ -33,9 +33,9 @@
         </div>
 
 
-        <div class="form-group col-md-4" *ngIf="model.ParentId">
+        <div class="form-group col-md-4" *ngIf="model?.ParentId">
             <label>Parent Role</label>
-            <label>{{model.ParentId}}</label>
+            <label>{{model.ParentRole}}</label>
 
         </div>
 

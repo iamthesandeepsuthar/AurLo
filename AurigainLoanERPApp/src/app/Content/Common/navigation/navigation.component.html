@@ -9,7 +9,12 @@
             <li class="menu" routerLinkActive="menu-active">
                 <a routerLink="/dashboard" aria-expanded="false" class="dropdown-toggle">
                     <div class="">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="feather feather-home">
+                            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                        </svg>
                         <span>Dashboard</span>
                     </div>
                     <span class="shape1"></span>
@@ -18,23 +23,43 @@
             </li>
 
             <li class="menu" routerLinkActive="menu-active">
-                <a href="#Dropdown-menu-1" data-toggle="collapse" data-active="true" aria-expanded="true" class="dropdown-toggle">
+                <a href="#Dropdown-menu-1" data-toggle="collapse" data-active="true" aria-expanded="true"
+                    class="dropdown-toggle">
                     <div class="">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-box"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="feather feather-box">
+                            <path
+                                d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z">
+                            </path>
+                            <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                            <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                        </svg>
                         <span>Master</span>
                     </div>
                     <div>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="feather feather-chevron-right">
+                            <polyline points="9 18 15 12 9 6"></polyline>
+                        </svg>
                     </div>
                     <span class="shape1"></span>
                     <span class="shape2"></span>
                 </a>
                 <ul class="collapse submenu list-unstyled" id="Dropdown-menu-1" data-parent="#accordionExample">
                     <li>
-                        <a routerLinkActive="active" [routerLink]='this.routing_Url.MasterModule + this.routing_Url.UserRoleListUrl'><i class="fas fa-user-tag"></i> User Role </a>
+                        <a routerLinkActive="active"
+                            routerLink="{{this.routing_Url.AdminModule+'/'+this.routing_Url.MasterModule +'/'+ this.routing_Url.UserRoleListUrl}}"><i
+                                class="fas fa-user-tag"></i> User Role </a>
                     </li>
                     <li>
-                        <a routerLinkActive="active" [routerLink]='this.routing_Url.DoorStepModule + this.routing_Url.DoorStep_Agent_Registration_Url'><i class="fas fa-user-tag"></i> Door Step Agent</a>
+                        <a routerLinkActive="active"
+                            routerLink="{{this.routing_Url.AdminModule+'/'+this.routing_Url.DoorStepModule+'/'+this.routing_Url.DoorStepAgentListUrl}}"><i
+                                class="fas fa-user-tag"></i> Door Step Agent</a>
+                    </li>
+                    <li>
+                        <a routerLinkActive="active" routerLink='manish'><i class="fas fa-user-tag"></i>HTML </a>
                     </li>
                 </ul>
 

@@ -53,7 +53,7 @@ export class API_Url {
   //#endregion
 
   //#region <<Kyc Document Type>>
-  public static Kyc_Document_Type_Dropdown_Api =`${environment.apiEndPoint}UserRole/Get`;
+  public static Kyc_Document_Type_Dropdown_Api = `${environment.apiEndPoint}UserRole/Get`;
   public static Kyc_Document_Type_List_Api = `${environment.apiEndPoint}UserRole/Get`;
   public static Kyc_Document_Type_Detail_Api = `${environment.apiEndPoint}UserRole/get/`;
   public static Kyc_Document_Type_Add_Update_Api = `${environment.apiEndPoint}UserRole/post`;
@@ -70,11 +70,11 @@ export class API_Url {
   //#endregion
 
   //#region <<Doorstep Agent>>
-  public static Doorstep_Agent_List_Api = `${environment.apiEndPoint}UserRole/Get`;
-  public static Doorstep_Agent_Add_Update_Api = `${environment.apiEndPoint}UserRole/get/`;
-  public static Doorstep_Agent_Delete_Api = `${environment.apiEndPoint}UserRole/post`;
-  public static Doorstep_Agent_Active_Status_Api = `${environment.apiEndPoint}UserRole/ChangeActiveStatus/`;
-  public static Doorstep_Agent_Detail_Api = `${environment.apiEndPoint}UserRole/delete/`;
+  public static DoorstepAgentListApi = `${environment.apiEndPoint}DoorStepAgent/Get`;
+  public static DoorstepAgentAddUpdateApi = `${environment.apiEndPoint}DoorStepAgent/AddUpdate`;
+  public static DoorstepAgentDeleteApi = `${environment.apiEndPoint}DoorStepAgent/Delete/`;
+  public static DoorstepAgentActiveStatusApi = `${environment.apiEndPoint}DoorStepAgent/ChangeActiveStatus/`;
+  public static DoorstepAgentDetailApi = `${environment.apiEndPoint}DoorStepAgent/GetById/`;
   //#endregion
 
 
@@ -83,8 +83,11 @@ export class API_Url {
 export class Routing_Url {
 
   //#region <<Module URL>>
-  static MasterModule = 'admin/master/';
-  static DoorStepModule = 'admin/doorstep-agent';
+  static AdminModule = 'admin';
+  static MasterModule = 'master';
+  static DoorStepModule = 'door-step-agent';
+  static AgentModule = 'agent';
+
   //#endregion
 
   //#region <<Login URL>>
@@ -126,9 +129,11 @@ export class Routing_Url {
   //#endregion
 
   //#region <DoorStepAgent>
-  static DoorStep_Agent_Registration_Url = '/registration';
-  static DoorStep_Agent_List_Url ='/door-step-agents';
+  static DoorStepAgentRegistrationUrl = '/registration/';
+  static DoorStepAgentListUrl = 'door-step-agents';
   //#endregion
+
+
 }
 
 export class Message {

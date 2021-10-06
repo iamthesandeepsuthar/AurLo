@@ -91,6 +91,7 @@ export class AddUpdateUserRoleComponent implements OnInit {
   onGetDetail() {
     this._userRole.GetRole(this.Id).subscribe(res => {
       if (res.IsSuccess) {
+        debugger
         let roleDetail = res.Data;
         this.model.Name = roleDetail?.Name as string;
         this.model.Id = roleDetail!.Id
