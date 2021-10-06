@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { DropDownModol } from 'src/app/Shared/Helper/common-model';
 import { DropDown_key, Message, Routing_Url } from 'src/app/Shared/Helper/constants';
 import { UserRolePostModel } from 'src/app/Shared/Model/master-model/user-role.model';
@@ -26,7 +27,8 @@ export class AddUpdateUserRoleComponent implements OnInit {
   get routing_Url() { return Routing_Url }
 
   constructor(private readonly fb: FormBuilder, private readonly _userRole: UserRoleService,
-    private _activatedRoute: ActivatedRoute, private _router: Router, private readonly _commonService: CommonService) {
+              private _activatedRoute: ActivatedRoute, private _router: Router,
+              private readonly _commonService: CommonService, private readonly _toast : ToastrService) {
 
     if (this._activatedRoute.snapshot.params.id) {
       this.Id = this._activatedRoute.snapshot.params.id;
@@ -72,11 +74,11 @@ export class AddUpdateUserRoleComponent implements OnInit {
   onSubmit() {
     this.userRoleForm.markAllAsTouched();
     if (this.userRoleForm.valid) {
-      debugger
-      this._userRole.AddUpdateRole(this.model).subscribe(res => {
+        this._userRole.AddUpdateRole(this.model).subscribe(res => {
         if (res.IsSuccess) {
 
           this._commonService.Success(Message.SaveSuccess)
+          this._toast.success('Save successful record');
           this._router.navigate(['/' + this.routing_Url.MasterModule + this.routing_Url.UserRoleListUrl]);
 
         } else {

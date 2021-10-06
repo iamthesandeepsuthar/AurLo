@@ -53,8 +53,7 @@
                             "src/assets/plugins/table/datatable/dt-global_style.css",
                             "src/assets/css/forms/theme-checkbox-radio.css",
                             "node_modules/sweetalert2/src/sweetalert2.scss",
-                            "src/assets/css/authentication/form-1.css",
-                            "src/assets/css/authentication/form-2.css"
+                            "node_modules/ngx-toastr/toastr.css"
                         ],
                         "scripts": [
                             "src/assets/js/libs/jquery-3.1.1.min.js",

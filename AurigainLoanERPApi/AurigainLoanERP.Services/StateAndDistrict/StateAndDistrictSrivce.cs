@@ -160,7 +160,7 @@ namespace AurigainLoanERP.Services.StateAndDistrict
         public async Task<ApiServiceResponseModel<object>> UpateStateActiveStatus(int id)
         {
             try
-            {
+            {         
                 State state = await _db.State.FirstOrDefaultAsync(r => r.Id == id);
                 state.IsActive = !state.IsActive;
                 state.ModifiedOn = DateTime.Now;
