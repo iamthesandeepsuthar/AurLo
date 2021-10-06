@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
@@ -12,6 +12,13 @@
   <ItemGroup>
     <ProjectReference Include="..\AurigainLoanERP.Data\AurigainLoanERP.Data.csproj" />
     <ProjectReference Include="..\AurigainLoanERP.Shared\AurigainLoanERP.Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="FreshLead\" />
+    <Folder Include="BalanceTransferLead\" />
+    <Folder Include="Bank\" />
+    <Folder Include="Product\" />
   </ItemGroup>
 
 </Project>

@@ -52,7 +52,8 @@
                             "src/assets/plugins/table/datatable/datatables.css",
                             "src/assets/plugins/table/datatable/dt-global_style.css",
                             "src/assets/css/forms/theme-checkbox-radio.css",
-                            "node_modules/sweetalert2/src/sweetalert2.scss"
+                            "node_modules/sweetalert2/src/sweetalert2.scss",
+                            "node_modules/ngx-toastr/toastr.css"
                         ],
                         "scripts": [
                             "src/assets/js/libs/jquery-3.1.1.min.js",
