@@ -1,11 +1,10 @@
+import { ToastrService } from 'ngx-toastr';
 import { Message, Routing_Url } from './../../../../Shared/Helper/constants';
-
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { IndexModel } from 'src/app/Shared/Helper/common-model';
-
 import { UserRoleService } from 'src/app/Shared/Services/master-services/user-role.service';
 import { CommonService } from 'src/app/Shared/Services/common.service';
 import { UserRoleModel } from 'src/app/Shared/Model/master-model/user-role.model';
@@ -32,7 +31,9 @@ export class UserRoleComponent implements OnInit {
   totalRecords: number = 0;
   //#endregion
 
-  constructor(private readonly _userRole: UserRoleService, private readonly _commonService: CommonService) { }
+  constructor(private readonly _userRole: UserRoleService,
+              private readonly _commonService: CommonService,
+              private readonly _toast: ToastrService) { }
   ngOnInit(): void {
     this.getList();
   }
@@ -42,7 +43,6 @@ export class UserRoleComponent implements OnInit {
     this._userRole.GetRoleList(this.indexModel).subscribe(response => {
 
       if (response.IsSuccess) {
-        debugger
         this.model = response.Data as UserRoleModel[];
         this.dataSource = new MatTableDataSource<UserRoleModel>(this.model);
         this.totalRecords = response.TotalRecord as number;
@@ -51,15 +51,15 @@ export class UserRoleComponent implements OnInit {
           this.dataSource.sort = this.sort;
         }
       } else {
-        // Toast message if  return false ;
+        this._toast.warning(response.Message as string , 'No Record');
       }
     },
       error => {
+        this._toast.error(error as string , 'Error');
       });
   }
 
   sortData(event: any): void {
-    debugger
     this.indexModel.OrderBy = event.active;
     this.indexModel.OrderByAsc = event.direction == "asc" ? true : false;
     this.indexModel.IsPostBack = true;
@@ -78,14 +78,14 @@ export class UserRoleComponent implements OnInit {
   }
 
   OnActiveStatus(Id: number) {
-
     this._commonService.Question(Message.ConfirmUpdate as string).then(isTrue => {
 
       if (isTrue) {
         this._userRole.ChangeActiveStatus(Id).subscribe(
           data => {
             if (data.IsSuccess) {
-              this._commonService.Success(data.Message as string)
+              this._toast.success('Status update successful','Change Status');
+            //  this._commonService.Success(data.Message as string)
               this.getList();
             }
           },
@@ -99,19 +99,17 @@ export class UserRoleComponent implements OnInit {
 
   }
   updateDeleteStatus(id: number) {
-
     this._commonService.Question(Message.ConfirmUpdate as string).then(result => {
       if (result) {
         this._userRole.DeleteRole(id).subscribe(
           data => {
             if (data.IsSuccess) {
-              this._commonService.Success(data.Message as string)
+              this._toast.success('Record deleted successful','Delete');
               this.getList();
             }
           },
           error => {
-            this._commonService.Error(error.message as string)
-
+            this._toast.error(error.message as string , 'Error');
           }
         );
       }
