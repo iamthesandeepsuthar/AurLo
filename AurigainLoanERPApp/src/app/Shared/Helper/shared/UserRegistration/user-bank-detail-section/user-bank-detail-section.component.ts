@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { BankDetailsPostModel } from 'src/app/Shared/Model/doorstep-agent-model/door-step-agent.model';
 
 @Component({
   selector: 'app-user-bank-detail-section',
@@ -6,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./user-bank-detail-section.component.scss']
 })
 export class UserBankDetailSectionComponent implements OnInit {
-
+  @Input()  bankModel : BankDetailsPostModel={} as BankDetailsPostModel;
   constructor() { }
 
   ngOnInit(): void {

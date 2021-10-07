@@ -40,12 +40,67 @@ namespace AurigainLoanERP.Services.Common
                             objData.Add(item, await GetUserRole());
                             break;
 
+                        case DropDownKey.ddlState:
+
+                            objData.Add(item, await GetState());
+                            break;
+                        case DropDownKey.ddlDistrict:
+
+                            objData.Add(item, await GetDistrict());
+                            break;
+                        case DropDownKey.ddlQualification:
+
+                            objData.Add(item, await GetQualification());
+                            break;
+                        case DropDownKey.ddlDocumentType:
+
+                            objData.Add(item, await GetDocumentType());
+                            break;
 
                         default:
                             break;
                     }
 
-                   
+
+
+                }
+
+                return CreateResponse(objData, ResponseMessage.Success, true);
+            }
+            catch (Exception ex)
+            {
+
+                return CreateResponse<Dictionary<string, object>>(null, ResponseMessage.Success, true, ex.Message.ToString());
+
+            }
+
+        }
+
+        public async Task<ApiServiceResponseModel<Dictionary<string, object>>> GetFilterDropDown(FilterDropDownPostModel[] model)
+        {
+            Dictionary<string, object> objData = new Dictionary<string, object>();
+            try
+            {
+                foreach (var item in model)
+                {
+
+                    switch (item.Key)
+                    {
+
+                        case DropDownKey.ddlDistrict:
+                            if (item.FileterFromKey.ToLower() == DropDownKey.ddlState.ToLower().ToString())
+                            {
+                                objData.Add(item.Key, await GetDistrict(item.Values));
+                            }
+
+                            break;
+
+
+                        default:
+                            break;
+                    }
+
+
 
                 }
 
@@ -81,6 +136,67 @@ namespace AurigainLoanERP.Services.Common
                 return null;
             }
         }
+
+        private async Task<object> GetQualification()
+        {
+            try
+            {
+                return await (from data in _db.QualificationMaster where data.IsActive == true && !data.IsDelete select data)
+                     .Select(item => new { Text = item.Name, Value = item.Id })
+                     .ToListAsync();
+            }
+            catch (Exception)
+            {
+
+                return null;
+            }
+        }
+
+        private async Task<object> GetState()
+        {
+            try
+            {
+                return await (from data in _db.State where data.IsActive == true && !data.IsDelete select data)
+                     .Select(item => new { Text = item.Name, Value = item.Id })
+                     .ToListAsync();
+            }
+            catch (Exception)
+            {
+
+                return null;
+            }
+        }
+
+        private async Task<object> GetDistrict(int[] stateId = null)
+        {
+            try
+            {
+                return await (from data in _db.District where data.IsActive == true && !data.IsDelete && (stateId == null || stateId.Contains(data.StateId)) select data)
+                     .Select(r => new { Text = r.Name, Value = r.Id })
+                     .ToListAsync();
+            }
+            catch (Exception)
+            {
+
+                return null;
+            }
+        }
+
+        private async Task<object> GetDocumentType()
+        {
+            try
+            {
+                return await (from data in _db.DocumentType where data.IsActive == true && !data.IsDelete select data)
+                     .Select(item => new { Text = item.DocumentName, Value = item.Id })
+                     .ToListAsync();
+            }
+            catch (Exception)
+            {
+
+                return null;
+            }
+        }
+
         #endregion
     }
 }

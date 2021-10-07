@@ -21,7 +21,7 @@ export interface DoorStepAgentPostModel {
   SecurityDeposit: SecurityDepositPostModel;
 }
 
-interface SecurityDepositPostModel {
+export interface SecurityDepositPostModel {
   Id: number;
   PaymentModeId: number;
   TransactionStatus: number;
@@ -33,14 +33,14 @@ interface SecurityDepositPostModel {
   IsActive: boolean;
 }
 
-interface DocumentPostModel {
+export interface DocumentPostModel {
   Id: number;
   DocumentTypeId: number;
   IsActive: boolean;
   Files: File[];
 }
 
-interface FilePostModel {
+export interface FilePostModel {
   Id: number;
   FileName: string;
   File: string;
@@ -48,27 +48,27 @@ interface FilePostModel {
   IsEditMode: boolean;
 }
 
-interface ReportingPersonPostModel {
+export interface ReportingPersonPostModel {
   Id: number;
   UserId: number;
   ReportingUserId: number;
 }
 
-interface UserNomineePostModel {
+export interface UserNomineePostModel {
   Id: number;
   NamineeName: string;
   RelationshipWithNominee: string;
   IsActive: boolean;
 }
 
-interface UserKYCPostModel {
+export interface UserKYCPostModel {
   Id: number;
   Kycnumber: string;
   KycdocumentTypeId: number;
   IsActive: boolean;
 }
 
-interface BankDetailsPostModel {
+export interface BankDetailsPostModel {
   Id: number;
   BankName: string;
   AccountNumber: string;
@@ -77,7 +77,7 @@ interface BankDetailsPostModel {
   IsActive: boolean;
 }
 
-interface UserPostModel {
+export interface UserPostModel {
   Id: number;
   UserRoleId: number;
   UserName: string;

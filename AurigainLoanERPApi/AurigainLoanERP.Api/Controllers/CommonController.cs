@@ -26,5 +26,11 @@ namespace AurigainLoanERP.Api.Controllers
             return await _common.GetDropDown(key);
         }
 
+        [HttpPost]
+        public async Task<ApiServiceResponseModel<Dictionary<string, object>>> GetFilterDropDown(FilterDropDownPostModel[] model)
+        {
+            return await _common.GetFilterDropDown(model);
+        }
+
     }
 }

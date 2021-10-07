@@ -1,4 +1,6 @@
+import { mode } from 'crypto-js';
 import { Component, OnInit } from '@angular/core';
+import { DoorStepAgentPostModel } from 'src/app/Shared/Model/doorstep-agent-model/door-step-agent.model';
 import { AlertService } from 'src/app/Shared/Services/alert.service';
 
 @Component({
@@ -8,9 +10,11 @@ import { AlertService } from 'src/app/Shared/Services/alert.service';
 })
 export class DoorStepAgentRegistrationComponent implements OnInit {
 
+  model :DoorStepAgentPostModel = {} as DoorStepAgentPostModel;
   constructor(private readonly _alertService: AlertService) { }
 
   ngOnInit(): void {
+    
   }
 
   Cancel() {
