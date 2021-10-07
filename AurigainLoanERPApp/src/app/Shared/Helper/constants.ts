@@ -129,8 +129,8 @@ export class Routing_Url {
   //#endregion
 
   //#region <DoorStepAgent>
-  static DoorStepAgentRegistrationUrl = '/registration/';
-  static DoorStepAgentListUrl = 'door-step-agents';
+  static DoorStepAgentRegistrationUrl = 'registration';
+  static DoorStepAgentListUrl = 'door-step-agents-list';
   //#endregion
 
 
