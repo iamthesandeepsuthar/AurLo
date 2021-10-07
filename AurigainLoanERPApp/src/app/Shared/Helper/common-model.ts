@@ -79,13 +79,13 @@ export class IndexModel {
     PageSize: number;
     Search!: string;
     OrderBy!: string;
-    OrderByAsc: number;
+    OrderByAsc: boolean;
     IsPostBack: boolean;
     AdvanceSearchModel?: any;
     constructor() {
         this.PageSize = 10;
         this.IsPostBack = false;
-        this.OrderByAsc = 0;
+        this.OrderByAsc = true;
         this.Page = 1;
     }
 }

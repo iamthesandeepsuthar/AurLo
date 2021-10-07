@@ -140,7 +140,7 @@
 
             <ng-container [matColumnDef]="column.Value" *ngFor="let column of ViewdisplayedColumns">
 
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> {{column.Text}} </th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header > {{column.Text}} </th>
                 <td mat-cell *matCellDef="let element"> {{element[column.Value]}} </td>
             </ng-container>
 

@@ -60,7 +60,7 @@
                     [(ngModel)]="model.ParentId">
                     <option value="undefined">Select</option>
                     <ng-container *ngFor="let item of dropDown.ddlUserRole">
-                        <option *ngIf="item.Value!= model.Id" value="{{item.Value}}">{{item.Text}}</option>
+                        <option *ngIf="item.Value != model?.Id" value="{{item.Value}}">{{item.Text}}</option>
 
                     </ng-container>
 
@@ -94,8 +94,7 @@
                 <button type="submit" class="btn btn-primary w-100"> <i class="fas fa-check mr-1"></i> Submit</button>
             </div>
             <div class="col-6">
-                <button type="button"
-                    routerLink="{{'/' + this.routing_Url.MasterModule + this.routing_Url.UserRoleListUrl}}"
+                <button type="button" routerLink="{{'../../../'  + this.routing_Url.UserRoleListUrl}}"
                     class="btn btn-outline-danger w-100"> <i class="fas fa-times mr-1"></i> Cancel</button>
             </div>
         </div>

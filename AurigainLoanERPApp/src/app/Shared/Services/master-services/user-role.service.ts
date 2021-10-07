@@ -1,8 +1,10 @@
+
 import { ApiResponse, IndexModel } from 'src/app/Shared/Helper/common-model';
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { BaseAPIService } from '../../Helper/base-api.service';
-import { UserRoleModel, UserRolePostModel } from '../../Model/user-role.model';
+import { UserRoleModel, UserRolePostModel } from '../../Model/master-model/user-role.model';
+
 
 
 @Injectable()

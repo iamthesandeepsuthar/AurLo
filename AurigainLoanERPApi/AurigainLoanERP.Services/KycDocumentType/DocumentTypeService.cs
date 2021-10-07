@@ -27,8 +27,8 @@ namespace AurigainLoanERP.Services.KycDocumentType
             {
                 var result = (from role in _db.DocumentType
                               where !role.IsDelete && (string.IsNullOrEmpty(model.Search) || role.DocumentName.Contains(model.Search))
-                              orderby (model.OrderByAsc == 1 && model.OrderBy == "Name" ? role.DocumentName : "") ascending
-                              orderby (model.OrderByAsc != 1 && model.OrderBy == "Name" ? role.DocumentName : "") descending
+                              orderby (model.OrderByAsc  && model.OrderBy == "Name" ? role.DocumentName : "") ascending
+                              orderby (!model.OrderByAsc && model.OrderBy == "Name" ? role.DocumentName : "") descending
                               select role);
                 var data = await result.Skip(((model.Page == 0 ? 1 : model.Page) - 1) * (model.PageSize != 0 ? model.PageSize : int.MaxValue)).Take(model.PageSize != 0 ? model.PageSize : int.MaxValue).ToListAsync();
                 objResponse.Data = _mapper.Map<List<DocumentTypeModel>>(data);

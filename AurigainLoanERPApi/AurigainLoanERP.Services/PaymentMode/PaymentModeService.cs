@@ -27,8 +27,8 @@ namespace AurigainLoanERP.Services.PaymentMode
             {
                 var result = (from role in _db.PaymentMode
                               where !role.IsDelete && (string.IsNullOrEmpty(model.Search) || role.Mode.Contains(model.Search))
-                              orderby (model.OrderByAsc == 1 && model.OrderBy == "Name" ? role.Mode : "") ascending
-                              orderby (model.OrderByAsc != 1 && model.OrderBy == "Name" ? role.Mode : "") descending
+                              orderby (model.OrderByAsc && model.OrderBy == "Name" ? role.Mode : "") ascending
+                              orderby (!model.OrderByAsc && model.OrderBy == "Name" ? role.Mode : "") descending
                               select role);
                 var data = await result.Skip(((model.Page == 0 ? 1 : model.Page) - 1) * (model.PageSize != 0 ? model.PageSize : int.MaxValue)).Take(model.PageSize != 0 ? model.PageSize : int.MaxValue).ToListAsync();
                 objResponse.Data = _mapper.Map<List<PaymentModeModel>>(data);

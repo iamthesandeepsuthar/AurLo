@@ -5,7 +5,6 @@ import { BrowserModule } from "@angular/platform-browser";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { AdminModule } from "./Content/admin/admin.module";
-import { AgentModule } from "./Content/agent/agent.module";
 import { FooterComponent } from "./Content/Common/footer/footer.component";
 import { HeaderComponent } from "./Content/Common/header/header.component";
 import { NavigationComponent } from "./Content/Common/navigation/navigation.component";
@@ -19,7 +18,7 @@ import { LoaderComponent } from './Content/Common/loader/loader.component';
 import { DashboardModule } from "./Content/dashboard/dashboard.module";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HtmlComponent } from './Content/html/html.component';
-import { LoginComponent } from './Content/Common/login/login.component';
+import { LoginComponent } from './Content/Common/login/login.component'; 
 
 @NgModule({
   declarations: [
@@ -31,8 +30,6 @@ import { LoginComponent } from './Content/Common/login/login.component';
     LoaderComponent,
     HtmlComponent,
     LoginComponent,
-
-  
   ],
   imports: [
     BrowserModule,
@@ -40,14 +37,13 @@ import { LoginComponent } from './Content/Common/login/login.component';
     SharedModule,
     AdminModule,
     CustomerModule,
-    AgentModule,
     CommonModule,
     DashboardModule,
-    BrowserAnimationsModule
-   ,
-  ],
-  providers: [ BaseAPIService, 
+    BrowserAnimationsModule,
   
+  ],
+  providers: [ BaseAPIService,
+
     LoaderService, { provide: HTTP_INTERCEPTORS, useClass: AppInterceptor, multi: true }, {provide: LocationStrategy, useClass: PathLocationStrategy}],
   bootstrap: [AppComponent]
 })

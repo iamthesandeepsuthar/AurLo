@@ -28,8 +28,8 @@ namespace AurigainLoanERP.Services.StateAndDistrict
             {
                 var result = (from role in _db.State
                               where !role.IsDelete && (string.IsNullOrEmpty(model.Search) || role.Name.Contains(model.Search))
-                              orderby (model.OrderByAsc == 1 && model.OrderBy == "Name" ? role.Name : "") ascending
-                              orderby (model.OrderByAsc != 1 && model.OrderBy == "Name" ? role.Name : "") descending
+                              orderby (model.OrderByAsc  && model.OrderBy == "Name" ? role.Name : "") ascending
+                              orderby (!model.OrderByAsc  && model.OrderBy == "Name" ? role.Name : "") descending
                               select role);
                 var data = await result.Skip(((model.Page == 0 ? 1 : model.Page) - 1) * (model.PageSize != 0 ? model.PageSize : int.MaxValue)).Take(model.PageSize != 0 ? model.PageSize : int.MaxValue).ToListAsync();
                 objResponse.Data = _mapper.Map<List<StateModel>>(data);
@@ -160,7 +160,7 @@ namespace AurigainLoanERP.Services.StateAndDistrict
         public async Task<ApiServiceResponseModel<object>> UpateStateActiveStatus(int id)
         {
             try
-            {
+            {         
                 State state = await _db.State.FirstOrDefaultAsync(r => r.Id == id);
                 state.IsActive = !state.IsActive;
                 state.ModifiedOn = DateTime.Now;
@@ -185,8 +185,8 @@ namespace AurigainLoanERP.Services.StateAndDistrict
             {
                 var result = (from district in _db.District
                               where !district.IsDelete && (string.IsNullOrEmpty(model.Search) || district.Name.Contains(model.Search))
-                              orderby (model.OrderByAsc == 1 && model.OrderBy == "Name" ? district.Name : "") ascending
-                              orderby (model.OrderByAsc != 1 && model.OrderBy == "Name" ? district.Name : "") descending
+                              orderby (model.OrderByAsc  && model.OrderBy == "Name" ? district.Name : "") ascending
+                              orderby (!model.OrderByAsc && model.OrderBy == "Name" ? district.Name : "") descending
                               select district);
                 var data = await result.Skip(((model.Page == 0 ? 1 : model.Page) - 1) * (model.PageSize != 0 ? model.PageSize : int.MaxValue)).Take(model.PageSize != 0 ? model.PageSize : int.MaxValue).ToListAsync();
                 objResponse.Data = _mapper.Map<List<DistrictModel>>(data);

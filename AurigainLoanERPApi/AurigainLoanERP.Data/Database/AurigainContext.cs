@@ -43,7 +43,7 @@ namespace AurigainLoanERP.Data.Database
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=LAPTOP-VC0IBCS1;Database=Aurigain;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer("Server=208.91.198.174;Database=aurigain;Trusted_Connection=True;password=Aurigain@123#;User ID=admin_aurigain;");
             }
         }
 
