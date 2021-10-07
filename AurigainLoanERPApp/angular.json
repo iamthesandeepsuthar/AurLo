@@ -53,7 +53,9 @@
                             "src/assets/plugins/table/datatable/dt-global_style.css",
                             "src/assets/css/forms/theme-checkbox-radio.css",
                             "node_modules/sweetalert2/src/sweetalert2.scss",
-                            "node_modules/ngx-toastr/toastr.css"
+                            "node_modules/ngx-toastr/toastr.css",
+                            "src/assets/css/authentication/form-1.css",
+                            "src/assets/css/authentication/form-2.css"
                         ],
                         "scripts": [
                             "src/assets/js/libs/jquery-3.1.1.min.js",
@@ -157,9 +159,26 @@
                         ],
                         "styles": [
                             "src/assets/bootstrap/css/bootstrap.min.css",
-                            "src/assets/css/plugins.css"
+                            "src/assets/css/plugins.css",
+                            "src/assets/css/scrollspyNav.css",
+                            "src/assets/plugins/table/datatable/datatables.css",
+                            "src/assets/plugins/table/datatable/dt-global_style.css",
+                            "src/assets/css/forms/theme-checkbox-radio.css",
+                            "node_modules/sweetalert2/src/sweetalert2.scss",
+                            "node_modules/ngx-toastr/toastr.css",
+                            "src/assets/css/authentication/form-1.css",
+                            "src/assets/css/authentication/form-2.css"
                         ],
-                        "scripts": []
+                        "scripts": [
+                            "src/assets/js/libs/jquery-3.1.1.min.js",
+                            "src/assets/bootstrap/js/popper.min.js",
+                            "src/assets/bootstrap/js/bootstrap.min.js",
+                            "src/assets/plugins/perfect-scrollbar/perfect-scrollbar.min.js",
+                            "src/assets/js/app.js",
+                            "src/assets/plugins/highlight/highlight.pack.js",
+                            "src/assets/js/custom.js",
+                            "src/assets/js/scrollspyNav.js"
+                        ]
                     }
                 }
             }
