@@ -93,14 +93,10 @@ namespace AurigainLoanERP.Services.Common
                                 objData.Add(item.Key, await GetDistrict(item.Values));
                             }
 
-                            break;
-
-
+                            break; 
                         default:
                             break;
-                    }
-
-
+                    } 
 
                 }
 
