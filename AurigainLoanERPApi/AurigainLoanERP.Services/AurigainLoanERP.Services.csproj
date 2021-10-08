@@ -15,10 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="FreshLead\" />
-    <Folder Include="BalanceTransferLead\" />
-    <Folder Include="Bank\" />
-    <Folder Include="Product\" />
+    <Folder Include="Customer\" />
   </ItemGroup>
 
 </Project>

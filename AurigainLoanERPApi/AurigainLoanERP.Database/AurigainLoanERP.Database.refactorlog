@@ -21,4 +21,11 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="MPin" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="3c82456c-bc8a-4f55-bd49-3251bbfd4081" ChangeDateTime="10/08/2021 10:01:02">
+    <Property Name="ElementName" Value="[dbo].[BankMaster].[Website]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[BankMaster]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Website_Url" />
+  </Operation>
 </Operations>
