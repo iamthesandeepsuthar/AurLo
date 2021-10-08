@@ -1,12 +1,14 @@
 ﻿using AurigainLoanERP.Data.Database;
 using AurigainLoanERP.Shared.Common.Method;
 using AurigainLoanERP.Shared.Common.Model;
+using AurigainLoanERP.Shared.ExtensionMethod;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using static AurigainLoanERP.Shared.Enums.FixedValueEnums;
 
 namespace AurigainLoanERP.Services.Common
 {
@@ -28,9 +30,9 @@ namespace AurigainLoanERP.Services.Common
                 foreach (var item in key)
                 {
 
-                    switch (item)
+                    switch (item.ToLower())
                     {
-                        case DropDownKey.ddlParentUserRole:
+                        case  DropDownKey.ddlParentUserRole :
 
                             objData.Add(item, await GetUserRole(true));
                             break;
@@ -55,6 +57,11 @@ namespace AurigainLoanERP.Services.Common
                         case DropDownKey.ddlDocumentType:
 
                             objData.Add(item, await GetDocumentType());
+                            break;
+
+                        case DropDownKey.ddlRelationship:
+
+                         //   objData.Add(item, await GetRelationship());
                             break;
 
                         default:
@@ -84,7 +91,7 @@ namespace AurigainLoanERP.Services.Common
                 foreach (var item in model)
                 {
 
-                    switch (item.Key)
+                    switch (item.Key.ToLower())
                     {
 
                         case DropDownKey.ddlDistrict:
@@ -93,10 +100,10 @@ namespace AurigainLoanERP.Services.Common
                                 objData.Add(item.Key, await GetDistrict(item.Values));
                             }
 
-                            break; 
+                            break;
                         default:
                             break;
-                    } 
+                    }
 
                 }
 
@@ -192,6 +199,21 @@ namespace AurigainLoanERP.Services.Common
                 return null;
             }
         }
+
+
+        private async Task<object> GetRelationship()
+        {
+            try
+            {
+                return Enum.GetValues(typeof(RelationshipEnum)).Cast<RelationshipEnum>().Select(v => new { Value = v.ToString(), Text = v.GetStringValue() }).ToList();
+            }
+            catch (Exception ex)
+            {
+
+                return null;
+            }
+        }
+
 
         #endregion
     }

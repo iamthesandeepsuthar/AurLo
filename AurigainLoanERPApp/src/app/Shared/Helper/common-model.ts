@@ -93,9 +93,19 @@ export class IndexModel {
 export class DropDownModol {
     ddlParentUserRole!: DropDownItem[];
     ddlUserRole!: DropDownItem[];
+   ddlState!: DropDownItem[];
+    ddlDistrict!: DropDownItem[];
+    ddlQualification!: DropDownItem[];
+    ddlDocumentType!: DropDownItem[];
+    ddlRelationship!: DropDownItem[];
 }
 
 export class DropDownItem {
     Text: string = "";
     Value: string = "";
+}
+export interface FilterDropDownPostModel {
+  Key: string;
+  FileterFromKey: string;
+  Values: number[];
 }

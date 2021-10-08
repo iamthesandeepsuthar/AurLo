@@ -106,11 +106,9 @@ export class AddUpdateUserRoleComponent implements OnInit {
   }
 
   GetDropDown() {
-    this._commonService.GetAllDDL([DropDown_key.ddlUserRole]).subscribe(res => {
+    this._commonService.GetDropDown([DropDown_key.ddlUserRole]).subscribe(res => {
       if (res.IsSuccess) {
         this.dropDown = res.Data;
-
-
       }
 
     });

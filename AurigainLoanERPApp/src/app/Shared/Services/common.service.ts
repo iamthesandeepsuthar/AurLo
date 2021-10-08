@@ -1,5 +1,5 @@
 import { AlertService } from './alert.service';
-import { ApiResponse } from './../Helper/common-model';
+import { ApiResponse, FilterDropDownPostModel } from './../Helper/common-model';
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { BaseAPIService } from '../Helper/base-api.service';
@@ -14,8 +14,19 @@ export class CommonService extends AlertService {
     super();
    }
 
-  GetAllDDL(model: string[]): Observable<ApiResponse<any>> {
+  GetDropDown(key: string[]): Observable<ApiResponse<any>> {
   
-    return this._baseService.post(this._baseService.API_Url.DropDown_Api, model);
+    return this._baseService.post(this._baseService.API_Url.DropDown_Api, key);
   }
+
+  GetFilterDropDown(model: FilterDropDownPostModel): Observable<ApiResponse<any>> {
+  
+    return this._baseService.post(this._baseService.API_Url.FilterDropDown_Api, model);
+  }
+
+  GetMultipleFilterDropDown(model: FilterDropDownPostModel[]): Observable<ApiResponse<any>> {
+  
+    return this._baseService.post(this._baseService.API_Url.MultipleFilterDropDown_Api, model);
+  }
+  
 }

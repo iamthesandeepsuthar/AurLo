@@ -1,4 +1,5 @@
 export interface DoorStepAgentPostModel {
+  
   Id: number;
   FullName: string;
   FatherName: string;
@@ -7,6 +8,7 @@ export interface DoorStepAgentPostModel {
   QualificationId: number;
   Address: string;
   DistrictId: number;
+  StateId: number;
   PinCode: string;
   DateOfBirth: string;
   ProfilePictureUrl: string;

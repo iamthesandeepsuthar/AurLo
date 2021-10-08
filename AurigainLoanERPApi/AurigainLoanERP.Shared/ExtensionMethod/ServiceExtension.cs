@@ -1,8 +1,10 @@
-﻿using AurigainLoanERP.Shared.Common;
+﻿using AurigainLoanERP.Shared.Attribute;
+using AurigainLoanERP.Shared.Common;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Hosting.Internal;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Reflection;
 using System.Transactions;
 
 namespace AurigainLoanERP.Shared.ExtensionMethod
@@ -33,6 +35,14 @@ namespace AurigainLoanERP.Shared.ExtensionMethod
              
         }
 
+
+        public static string GetStringValue(this Enum value)
+        {
+            Type type = value.GetType();
+            FieldInfo fieldInfo = type.GetField(value.ToString());
+            StringValueAttribute[] attribs = fieldInfo.GetCustomAttributes(typeof(StringValueAttribute), false) as StringValueAttribute[];
+            return attribs.Length > 0 ? attribs[0].StringValue : null;
+        }
 
     }
 }

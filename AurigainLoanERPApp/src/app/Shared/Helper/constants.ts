@@ -8,7 +8,9 @@ export class API_Url {
 
   //#region <<Common >>
   public static DropDown_Api = `${environment.apiEndPoint}Common/GetDropDown`;
-
+  public static FilterDropDown_Api = `${environment.apiEndPoint}Common/GetFilterDropDown`;
+  public static MultipleFilterDropDown_Api = `${environment.apiEndPoint}Common/GetMultipleFilterDropDown`;
+  
   //#endregion
 
   //#region <<User Role>>
@@ -150,4 +152,9 @@ export class Message {
 export class DropDown_key {
   static ddlParentUserRole = 'ddlParentUserRole';
   static ddlUserRole = 'ddlUserRole';
+  static ddlState = "ddlState";
+  static ddlDistrict = "ddlDistrict";
+  static ddlQualification = "ddlQualification";
+  static ddlDocumentType = "ddlDocumentType";
+  static ddlRelationship = "ddlRelationship";
 }

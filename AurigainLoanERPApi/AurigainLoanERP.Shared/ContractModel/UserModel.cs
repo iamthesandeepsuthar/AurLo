@@ -332,6 +332,7 @@ namespace AurigainLoanERP.Shared.ContractModel
         public int QualificationId { get; set; }
         public string Address { get; set; }
         public int? DistrictId { get; set; }
+        public int? StateId { get; set; }
         public string PinCode { get; set; }
         public DateTime? DateOfBirth { get; set; }
         public string ProfilePictureUrl { get; set; }

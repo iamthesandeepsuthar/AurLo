@@ -4,7 +4,7 @@ using AurigainLoanERP.Shared.Common.Method;
 using AurigainLoanERP.Shared.Common.Model;
 using AurigainLoanERP.Shared.ContractModel;
 using AurigainLoanERP.Shared.ExtensionMethod;
-using AutoMapper; 
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -211,53 +211,68 @@ namespace AurigainLoanERP.Services.User
             try
             {
 
-                await _db.Database.BeginTransactionAsync();
 
-                long userId = await SaveUserAsync(model.User);
-                if (userId > 0)
+                if (model != null)
                 {
-                    await SaveDoorStepAgentAsync(model, userId);
+                    await _db.Database.BeginTransactionAsync();
 
-
-                    if (model.BankDetails != null)
+                    long userId = 0;
+                    if (model.User != null)
                     {
-                        await SaveUserBankAsync(model.BankDetails, userId);
+                        userId = await SaveUserAsync(model.User);
 
                     }
-
-                    if (model.ReportingPerson != null)
+                    if (userId > 0)
                     {
-                        await SaveUserReportingPersonAsync(model.ReportingPerson, userId);
+
+                        await SaveDoorStepAgentAsync(model, userId);
+
+
+                        if (model.BankDetails != null)
+                        {
+                            await SaveUserBankAsync(model.BankDetails, userId);
+
+                        }
+
+                        if (model.ReportingPerson != null)
+                        {
+                            await SaveUserReportingPersonAsync(model.ReportingPerson, userId);
+                        }
+                        if (model.Documents != null)
+                        {
+                            await SaveUserDocumentAsync(model.Documents, userId);
+
+                        }
+                        if (model.UserKYC != null)
+                        {
+                            await SaveUserKYCAsync(model.UserKYC, userId);
+
+                        }
+                        if (model.UserNominee != null)
+                        {
+                            await SaveUserNomineeAsync(model.UserNominee, userId);
+
+                        }
+                        if (model.SecurityDeposit != null)
+                        {
+                            await SaveUserSecurityDepositAsync(model.SecurityDeposit, userId);
+
+                        }
+
+
+                        _db.Database.CommitTransaction();
+                        return CreateResponse<string>(userId.ToString(), ResponseMessage.Save, true);
                     }
-                    if (model.Documents != null)
+                    else
                     {
-                        await SaveUserDocumentAsync(model.Documents, userId);
-
+                        _db.Database.RollbackTransaction();
+                        return CreateResponse<string>(null, ResponseMessage.UserExist, false);
                     }
-                    if (model.UserKYC != null)
-                    {
-                        await SaveUserKYCAsync(model.UserKYC, userId);
-
-                    }
-                    if (model.UserNominee != null)
-                    {
-                        await SaveUserNomineeAsync(model.UserNominee, userId);
-
-                    }
-                    if (model.SecurityDeposit != null)
-                    {
-                        await SaveUserSecurityDepositAsync(model.SecurityDeposit, userId);
-
-                    }
-
-
-                    _db.Database.CommitTransaction();
-                    return CreateResponse<string>(userId.ToString(), ResponseMessage.Save, true);
                 }
                 else
                 {
-                    _db.Database.RollbackTransaction();
-                    return CreateResponse<string>(null, ResponseMessage.UserExist, false);
+                    return CreateResponse<string>(null, ResponseMessage.InvalidData, false);
+
                 }
             }
             catch (Exception ex)
@@ -763,7 +778,7 @@ namespace AurigainLoanERP.Services.User
                             var objModel = new UserKyc();
                             objModel.CreatedOn = DateTime.Now;
                             objModel.UserId = userId;
-                              objModel.KycdocumentTypeId = item.KycdocumentTypeId;
+                            objModel.KycdocumentTypeId = item.KycdocumentTypeId;
                             objModel.Kycnumber = !string.IsNullOrEmpty(item.Kycnumber) ? _security.EncryptData(item.Kycnumber) : null;
                             var result = await _db.UserKyc.AddAsync(objModel);
 
@@ -773,7 +788,7 @@ namespace AurigainLoanERP.Services.User
                             var objModel = await _db.UserKyc.FirstOrDefaultAsync(x => x.Id == item.Id && x.UserId == userId);
                             objModel.ModifiedOn = DateTime.Now;
                             objModel.UserId = userId;
-                            objModel.Kycnumber = !string.IsNullOrEmpty(item.Kycnumber) ? _security.EncryptData(item.Kycnumber) : null; 
+                            objModel.Kycnumber = !string.IsNullOrEmpty(item.Kycnumber) ? _security.EncryptData(item.Kycnumber) : null;
                             objModel.KycdocumentTypeId = item.KycdocumentTypeId;
 
 
