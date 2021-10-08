@@ -19,9 +19,13 @@ namespace AurigainLoanERP.Data.Database
         {
         }
 
+        public virtual DbSet<BankBranchMaster> BankBranchMaster { get; set; }
+        public virtual DbSet<BankMaster> BankMaster { get; set; }
         public virtual DbSet<District> District { get; set; }
         public virtual DbSet<DocumentType> DocumentType { get; set; }
+        public virtual DbSet<Managers> Managers { get; set; }
         public virtual DbSet<PaymentMode> PaymentMode { get; set; }
+        public virtual DbSet<ProductCategory> ProductCategory { get; set; }
         public virtual DbSet<QualificationMaster> QualificationMaster { get; set; }
         public virtual DbSet<SecurityDepositDetails> SecurityDepositDetails { get; set; }
         public virtual DbSet<State> State { get; set; }
@@ -43,12 +47,82 @@ namespace AurigainLoanERP.Data.Database
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=localhost\\SQLEXPRESS01;Database=Aurigain;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer("Server=LAPTOP-VC0IBCS1;Database=Aurigain;Trusted_Connection=True;");
             }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<BankBranchMaster>(entity =>
+            {
+                entity.Property(e => e.Address)
+                    .IsRequired()
+                    .HasMaxLength(2000);
+
+                entity.Property(e => e.BranchCode)
+                    .IsRequired()
+                    .HasMaxLength(100);
+
+                entity.Property(e => e.BranchEmailId).HasMaxLength(200);
+
+                entity.Property(e => e.BranchName)
+                    .IsRequired()
+                    .HasMaxLength(10)
+                    .IsFixedLength();
+
+                entity.Property(e => e.ConfigurationSettingJson).HasColumnName("ConfigurationSettingJSON");
+
+                entity.Property(e => e.ContactNumber).HasMaxLength(50);
+
+                entity.Property(e => e.CreatedDate)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.Ifsc)
+                    .IsRequired()
+                    .HasColumnName("IFSC")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.IsActive)
+                    .IsRequired()
+                    .HasDefaultValueSql("((1))");
+
+                entity.Property(e => e.ModifiedDate).HasColumnType("datetime");
+
+                entity.HasOne(d => d.Bank)
+                    .WithMany(p => p.BankBranchMaster)
+                    .HasForeignKey(d => d.BankId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__BankBranc__BankI__03BB8E22");
+            });
+
+            modelBuilder.Entity<BankMaster>(entity =>
+            {
+                entity.Property(e => e.BankLogoUrl).HasMaxLength(1000);
+
+                entity.Property(e => e.ContactNumber).HasMaxLength(20);
+
+                entity.Property(e => e.CreatedDate)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.FaxNumber).HasMaxLength(50);
+
+                entity.Property(e => e.IsActive)
+                    .IsRequired()
+                    .HasDefaultValueSql("((1))");
+
+                entity.Property(e => e.ModifiedDate).HasColumnType("datetime");
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(1000);
+
+                entity.Property(e => e.WebsiteUrl)
+                    .HasColumnName("Website_Url")
+                    .HasMaxLength(200);
+            });
+
             modelBuilder.Entity<District>(entity =>
             {
                 entity.Property(e => e.CreatedOn)
@@ -93,6 +167,18 @@ namespace AurigainLoanERP.Data.Database
                 entity.Property(e => e.ModifiedOn).HasColumnType("datetime");
             });
 
+            modelBuilder.Entity<Managers>(entity =>
+            {
+                entity.Property(e => e.FullName)
+                    .IsRequired()
+                    .HasMaxLength(1000);
+
+                entity.Property(e => e.MobileNumber)
+                    .IsRequired()
+                    .HasColumnName("MobileNUmber")
+                    .HasMaxLength(20);
+            });
+
             modelBuilder.Entity<PaymentMode>(entity =>
             {
                 entity.Property(e => e.CreatedOn)
@@ -108,6 +194,23 @@ namespace AurigainLoanERP.Data.Database
                     .HasMaxLength(200);
 
                 entity.Property(e => e.ModifiedOn).HasColumnType("datetime");
+            });
+
+            modelBuilder.Entity<ProductCategory>(entity =>
+            {
+                entity.Property(e => e.CreatedDate)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.IsActive)
+                    .IsRequired()
+                    .HasDefaultValueSql("((1))");
+
+                entity.Property(e => e.ModifiedDate).HasColumnType("datetime");
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(200);
             });
 
             modelBuilder.Entity<QualificationMaster>(entity =>
