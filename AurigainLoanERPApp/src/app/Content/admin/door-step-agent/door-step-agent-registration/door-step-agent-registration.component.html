@@ -1,4 +1,33 @@
 <!-- DOOR STEP AGENT START -->
+
+<!-- Page Header Title start -->
+<div class="widget-header">
+    <div class="row d-block d-sm-flex align-items-center justify-content-between text-center text-sm-left">
+        <div>
+            <h1>Add door step agent</h1>
+            <!-- Breadcrumb Start -->
+            <nav class="custom-breadcrum">
+                <ol class="breadcrumb justify-content-center justify-content-sm-start">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item"><a href="#">Door Step Agent Registration</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Add door step agent</li>
+                </ol>
+            </nav>
+            <!-- Breadcrumb End -->
+        </div>
+        <label class="switch s-icons s-outline s-outline-success switch-active-not switch-custom-d">
+            <div class="d-inline switch-t-dactive text-danger font-w-800">Deactive</div>
+            <input type="checkbox" checked>
+            <span class="slider round"></span>
+            <div class="d-inline switch-t-active font-w-800">Active</div>
+        </label>
+
+    </div>
+</div>
+<!-- Page Header Title end -->
+
+
+
 <div class="widget-content widget-content p-3 form-grp-w-border">
     <h2> <img src="assets/img/personal_detail.png"> Personal Details</h2>
     <div class="form-row">
@@ -12,35 +41,29 @@
         <div class="col-lg-9 col-xl-10 row">
             <div class="form-group col-md-4">
                 <label>Name</label>
-                <input type="email" [(ngModel)]="model.FullName" class="form-control" id="input1"
-                    placeholder="Enter name">
+                <input type="email" [(ngModel)]="model.FullName" class="form-control" id="input1" placeholder="Enter name">
             </div>
             <div class="form-group col-md-4">
                 <label>Date of birth</label>
-                <input type="date" [(ngModel)]="model.DateOfBirth" class="form-control" id="input2"
-                    placeholder="20-02-1998">
+                <input type="date" [(ngModel)]="model.DateOfBirth" class="form-control" id="input2" placeholder="20-02-1998">
             </div>
             <div class="form-group col-md-4">
                 <label>Father name</label>
-                <input type="text" [(ngModel)]="model.FatherName" class="form-control" id="input3"
-                    placeholder="Father name">
+                <input type="text" [(ngModel)]="model.FatherName" class="form-control" id="input3" placeholder="Father name">
             </div>
             <div class="form-group col-md-4">
                 <label>Mobile number</label>
-                <input type="text" [(ngModel)]="model.User.Mobile" class="form-control" id="input3"
-                    placeholder="962358654">
+                <input type="text" [(ngModel)]="model.User.Mobile" class="form-control" id="input3" placeholder="962358654">
             </div>
             <div class="form-group col-md-4">
                 <label>Qualification</label>
 
-                <ng-select [items]="dropDown!.ddlQualification" bindLabel="Text" bindValue="Value"
-                    placeholder="Qualification" appendTo="body" [(ngModel)]="model.QualificationId">
+                <ng-select [items]="dropDown!.ddlQualification" bindLabel="Text" bindValue="Value" placeholder="Qualification" appendTo="body" [(ngModel)]="model.QualificationId">
                 </ng-select>
             </div>
             <div class="form-group col-md-4">
                 <label>Personal Email ID</label>
-                <input type="email" [(ngModel)]="model.User.Email" class="form-control" id="input3"
-                    placeholder="test@gmail.com">
+                <input type="email" [(ngModel)]="model.User.Email" class="form-control" id="input3" placeholder="test@gmail.com">
             </div>
             <div class="form-group col-md-4">
                 <label>Ability to self fund</label>
@@ -99,22 +122,18 @@
             </div>
             <div class="form-group col-md-12">
                 <label>Address</label>
-                <textarea class="form-control" [(ngModel)]="model.Address" id="exampleFormControlTextarea1"
-                    rows="3"></textarea>
+                <textarea class="form-control" [(ngModel)]="model.Address" id="exampleFormControlTextarea1" rows="3"></textarea>
             </div>
             <div class="form-group col-md-4">
                 <label>State</label>
 
-                <ng-select [items]="dropDown!.ddlState" bindLabel="Text" bindValue="Value" placeholder="State"
-                    appendTo="body" (ngModelChange)="GetFilterDropDown(ddlkeys.ddlDistrict,ddlkeys.ddlState,$event)"
-                    [(ngModel)]="model.StateId">
+                <ng-select [items]="dropDown!.ddlState" bindLabel="Text" bindValue="Value" placeholder="State" appendTo="body" (ngModelChange)="GetFilterDropDown(ddlkeys.ddlDistrict,ddlkeys.ddlState,$event)" [(ngModel)]="model.StateId">
                 </ng-select>
 
             </div>
             <div class="form-group col-md-4">
                 <label>District</label>
-                <ng-select [items]="dropDown!.ddlDistrict" bindLabel="Text" bindValue="Value" placeholder="District"
-                    appendTo="body" [(ngModel)]="model.DistrictId">
+                <ng-select [items]="dropDown!.ddlDistrict" bindLabel="Text" bindValue="Value" placeholder="District" appendTo="body" [(ngModel)]="model.DistrictId">
                 </ng-select>
 
 
