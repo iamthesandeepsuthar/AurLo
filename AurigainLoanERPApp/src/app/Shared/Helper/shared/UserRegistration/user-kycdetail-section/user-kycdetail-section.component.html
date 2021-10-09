@@ -13,8 +13,8 @@
             <input type="text" class="form-control" id="input1" [(ngModel)]="this.model.Kycnumber"
                 placeholder="Enter number">
         </div>
-        <div class="form-group col-md-2">
-            <button (click)="AddEditKycItem()">edit</button>
+        <div class="form-group col-md-2" *ngIf="model.KycdocumentTypeId && this.model.Kycnumber">
+            <button (click)="AddEditKycItem()"><i class="fas fa-plus"></i></button>
         </div>
 
     </div>
@@ -23,16 +23,23 @@
         <div class="form-group col-md-12">
             <table>
                 <thead>
-                    <tr>Document Type</tr>
-                    <tr>Document Number</tr>
-                    <tr></tr>
+                    <tr>
 
+                    
+                    <td>Document Type</td>
+                    <td>Document Number</td>
+                    <td>Action</td>
+</tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let item of kycModel; let i=index" >
                         <td>{{getDocumentType(item.KycdocumentTypeId)}}</td>
                         <td>{{item.Kycnumber}}</td>
-                        <td> <button (click)="editKycItem(i)">edit</button>
+                        <td> 
+                            <button (click)="fillKycItem(i)"><i class="fas fa-pencil-alt"></i></button>
+                            <button (click)="removeKycItem(i)">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
                         </td>
 
                     </tr>

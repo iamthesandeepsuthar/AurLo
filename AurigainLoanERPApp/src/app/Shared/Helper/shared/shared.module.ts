@@ -14,6 +14,7 @@ import { UserBankDetailSectionComponent } from './UserRegistration/user-bank-det
 import { UserDocumentDetailSectionComponent } from './UserRegistration/user-document-detail-section/user-document-detail-section.component';
 import { UserKYCDetailSectionComponent } from './UserRegistration/user-kycdetail-section/user-kycdetail-section.component';
 import { UserNomineeDetailSectionComponent } from './UserRegistration/user-nominee-detail-section/user-nominee-detail-section.component';
+import { FileSelectorComponent } from 'src/app/Content/Common/file-selector/file-selector.component';
 const CommonModules = [
   HttpClientModule,
   ReactiveFormsModule,
@@ -41,7 +42,8 @@ const SharedComponent =[
   UserNomineeDetailSectionComponent,
   UserKYCDetailSectionComponent,
   UserDocumentDetailSectionComponent,
-  UserBankDetailSectionComponent
+  UserBankDetailSectionComponent,
+  FileSelectorComponent
 ]
 
 

@@ -84,7 +84,8 @@ export class FileSelectorComponent {
     }
 
     HandleFileInput(event: any) {
-      let files = event.target.Files;
+        debugger
+      let files = event.target.files;
         if (files.length == 0) {
             this.FileSelected.emit(undefined);
             return;

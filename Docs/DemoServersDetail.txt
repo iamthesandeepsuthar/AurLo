@@ -1,0 +1,20 @@
+Ftp DataBase Detail
+Host :  allaboutitdemo.co.in\sqlexpress,1143
+Database:  allaboutitdemo_aurigain
+User:   allaboutitdemo
+Password:  hLxgGoeYCbtgLoLj5sDT
+
+
+Ftp Api Detail 
+Server Name :  173.212.250.245
+UserName: allaboutitdemo
+Password:  hLxgGoeYCbtgLoLj5sDT
+Url: http://allaboutitdemo.co.in
+Site Path:  allaboutitdemo.co.in
+
+
+SubDomain Detail
+Site path:  http://api.allaboutitdemo.co.in/
+UserName: allaboutitdemo
+Password:  hLxgGoeYCbtgLoLj5sDT
+Server Name :  173.212.250.245

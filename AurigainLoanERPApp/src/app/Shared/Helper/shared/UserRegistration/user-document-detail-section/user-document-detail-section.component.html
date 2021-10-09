@@ -13,45 +13,21 @@
         </div> -->
         <div class="form-group col-md-12">
             <label>Aadhaar Card Picture</label>
-            <input type="file" class="form-control" id="file1" placeholder="Enter number">
-            <div class="file-upload-preview d-flex flex-wrap">
-                <div class="file-upload-preview-items d-flex align-items-center justify-content-center position-relative">
-                    <a href="#" class="file-upload-preview-items-delete"><i class="fas fa-times"></i></a>
-                    <img src="assets/img/default.jpg">
-                </div>
-                <div class="file-upload-preview-items d-flex align-items-center justify-content-center position-relative">
-                    <a href="#" class="file-upload-preview-items-delete"><i class="fas fa-times"></i></a>
-                    <img src="assets/img/default.jpg">
-                </div>
-            </div>
+            <app-file-selector (FilesChanged)="DocumentFiles = $event;">
+            </app-file-selector>
+            <!-- <input type="file" class="form-control" id="file1" placeholder="Enter number">
+       -->
+
         </div>
         <div class="form-group col-md-12">
             <label>PAN Card Picture</label>
-            <input type="file" class="form-control" id="file1" placeholder="Enter number">
-            <div class="file-upload-preview d-flex flex-wrap">
-                <div class="file-upload-preview-items d-flex align-items-center justify-content-center position-relative">
-                    <a href="#" class="file-upload-preview-items-delete"><i class="fas fa-times"></i></a>
-                    <img src="assets/img/default.jpg">
-                </div>
-                <div class="file-upload-preview-items d-flex align-items-center justify-content-center position-relative">
-                    <a href="#" class="file-upload-preview-items-delete"><i class="fas fa-times"></i></a>
-                    <img src="assets/img/default.jpg">
-                </div>
-            </div>
+            <app-file-selector (FilesChanged)="DocumentFiles = $event;">
+            </app-file-selector>
         </div>
         <div class="form-group col-md-12">
             <label>Cancelled Cheque Picture</label>
-            <input type="file" class="form-control" id="file1" placeholder="Enter number">
-            <div class="file-upload-preview d-flex flex-wrap">
-                <div class="file-upload-preview-items d-flex align-items-center justify-content-center position-relative">
-                    <a href="#" class="file-upload-preview-items-delete"><i class="fas fa-times"></i></a>
-                    <img src="assets/img/default.jpg">
-                </div>
-                <div class="file-upload-preview-items d-flex align-items-center justify-content-center position-relative">
-                    <a href="#" class="file-upload-preview-items-delete"><i class="fas fa-times"></i></a>
-                    <img src="assets/img/default.jpg">
-                </div>
-            </div>
+            <app-file-selector (FilesChanged)="DocumentFiles = $event;">
+            </app-file-selector>
         </div>
 
 
