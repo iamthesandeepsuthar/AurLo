@@ -1,6 +1,6 @@
 import { AlertService } from './../../../../Services/alert.service';
-import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { CommonService } from 'src/app/Shared/Services/common.service';
 import { UserKYCPostModel } from '../../../../Model/doorstep-agent-model/door-step-agent.model';
 import { DropDownModol } from '../../../common-model';
@@ -13,16 +13,18 @@ import { DropDown_key } from '../../../constants';
 })
 export class UserKYCDetailSectionComponent implements OnInit {
   @Input() kycModel: UserKYCPostModel[] = [] as UserKYCPostModel[];
+  @Output() onSubmit = new EventEmitter<UserKYCPostModel[]>();
 
   model: UserKYCPostModel = {} as UserKYCPostModel;
   dropDown = new DropDownModol();
   get ddlkeys() { return DropDown_key };
-
+  formGroup!: FormGroup;
+  get f() { return this.formGroup.controls; }
   constructor(private readonly fb: FormBuilder, private readonly _commonService: CommonService, private readonly _alertService: AlertService) { }
 
   ngOnInit(): void {
     this.GetDropDown();
-    this.model.Kycnumber
+   
   }
 
   GetDropDown() {
@@ -69,4 +71,7 @@ export class UserKYCDetailSectionComponent implements OnInit {
     }
   }
 
+  onFrmSubmit(){
+    this.onSubmit.emit(this.kycModel);
+  }
 }

@@ -3,15 +3,15 @@
     <div class="form-row">
         <div class="form-group col-md-4">
             <label>A/C number</label>
-            <input type="email" class="form-control" id="input1" placeholder="Enter number">
+            <input type="text" class="form-control" id="bnkinput1" [(ngModel)]="bankModel.AccountNumber" placeholder="Enter number">
         </div>
         <div class="form-group col-md-4">
             <label>IFSC Code</label>
-            <input type="email" class="form-control" id="input1" placeholder="Enter Code">
+            <input type="text" class="form-control" id="bnkinput2" [(ngModel)]="bankModel.Ifsccode" placeholder="Enter Code">
         </div>
         <div class="form-group col-md-4">
             <label>Bank name</label>
-            <input type="email" class="form-control" id="input1" placeholder="Enter Bank name">
+            <input type="text" class="form-control" id="bnkinput2" [(ngModel)]="bankModel.BankName" placeholder="Enter Bank name">
         </div>
 
     </div>

@@ -1,8 +1,8 @@
 import { UserNomineePostModel } from './../../../../Model/doorstep-agent-model/door-step-agent.model';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
 import { DropDownModol } from '../../../common-model';
 import { DropDown_key } from '../../../constants';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { CommonService } from 'src/app/Shared/Services/common.service';
 
 @Component({
@@ -12,9 +12,11 @@ import { CommonService } from 'src/app/Shared/Services/common.service';
 })
 export class UserNomineeDetailSectionComponent implements OnInit {
   @Input() nomineeModel: UserNomineePostModel = {} as UserNomineePostModel;
+  @Output() onSubmit = new EventEmitter<UserNomineePostModel>();
   dropDown = new DropDownModol();
   get ddlkeys() { return DropDown_key };
-
+  formGroup!: FormGroup;
+  get f() { return this.formGroup.controls; }
   constructor(private readonly fb: FormBuilder, private readonly _commonService: CommonService) { }
 
   ngOnInit(): void {
@@ -22,7 +24,7 @@ export class UserNomineeDetailSectionComponent implements OnInit {
   }
 
   GetDropDown() {
-    
+
     this._commonService.GetDropDown([DropDown_key.ddlRelationship]).subscribe(res => {
       if (res.IsSuccess) {
         debugger
@@ -30,5 +32,8 @@ export class UserNomineeDetailSectionComponent implements OnInit {
         this.dropDown.ddlRelationship = ddls.ddlRelationship;
       }
     });
+  }
+  onFrmSubmit() {
+    this.onSubmit.emit(this.nomineeModel);
   }
 }

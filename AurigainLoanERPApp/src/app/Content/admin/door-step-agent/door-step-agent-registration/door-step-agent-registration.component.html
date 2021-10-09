@@ -147,7 +147,7 @@
     </div>
 </div>
 
-<app-user-nominee-detail-section [nomineeModel]="model.UserNominee"></app-user-nominee-detail-section>
+<app-user-nominee-detail-section [nomineeModel]="model.UserNominee" (onSubmit)="model.UserNominee=$event"></app-user-nominee-detail-section>
 <!-- <div class="widget-content widget-content p-3 form-grp-w-border">
     <h2> <img src="assets/img/nominee_details_white.png"> Nominee Details</h2>
     <div class="form-row">
@@ -179,7 +179,7 @@
     </div>
 </div>
  -->
-<app-user-bank-detail-section [bankModel]="model.BankDetails"></app-user-bank-detail-section>
+<app-user-bank-detail-section [bankModel]="model.BankDetails" (onSubmit)="model.BankDetails=$event"></app-user-bank-detail-section>
 <!-- 
 <div class="widget-content widget-content p-3 form-grp-w-border">
     <h2> <img src="assets/img/bank_details_white.png"> Bank Details</h2>
@@ -199,7 +199,7 @@
 
     </div>
 </div> -->
-<app-user-kycdetail-section [kycModel]="model.UserKYC"></app-user-kycdetail-section>
+<app-user-kycdetail-section [kycModel]="model.UserKYC" (onSubmit)="model.UserKYC=$event"></app-user-kycdetail-section>
 <!-- <div class="widget-content widget-content p-3 form-grp-w-border">
     <h2> <img src="assets/img/kyc_details_white.png"> KYC Details</h2>
     <div class="form-row">
@@ -219,7 +219,7 @@
 
     </div>
 </div> -->
-<app-user-document-detail-section [documentModel]="model.Documents"></app-user-document-detail-section>
+<app-user-document-detail-section [documentModel]="model.Documents" (onSubmit)="model.Documents=$event"></app-user-document-detail-section>
 <!-- 
 <div class="widget-content widget-content p-3 form-grp-w-border">
     <h2> <img src="assets/img/document_pictures_white.png"> Document Proof</h2>

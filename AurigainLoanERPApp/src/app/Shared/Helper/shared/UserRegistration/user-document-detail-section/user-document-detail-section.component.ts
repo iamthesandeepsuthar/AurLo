@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { FileInfo } from 'src/app/Content/Common/file-selector/file-selector.component';
 import { DocumentPostModel } from 'src/app/Shared/Model/doorstep-agent-model/door-step-agent.model';
 
@@ -9,13 +10,18 @@ import { DocumentPostModel } from 'src/app/Shared/Model/doorstep-agent-model/doo
 })
 export class UserDocumentDetailSectionComponent implements OnInit {
   @Input() documentModel: DocumentPostModel[] = [] as DocumentPostModel[];
+  @Output() onSubmit = new EventEmitter<DocumentPostModel[]>();
   DocumentFiles!: FileInfo[];
-  constructor() { 
+  formGroup!: FormGroup;
+  get f() { return this.formGroup.controls; }
+  constructor() {
 
-    
+
   }
 
   ngOnInit(): void {
   }
-
+  onFrmSubmit() {
+    this.onSubmit.emit(this.documentModel);
+  }
 }
