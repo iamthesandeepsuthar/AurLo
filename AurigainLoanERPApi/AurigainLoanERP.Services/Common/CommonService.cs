@@ -32,7 +32,7 @@ namespace AurigainLoanERP.Services.Common
 
                     switch (item.ToLower())
                     {
-                        case  DropDownKey.ddlParentUserRole :
+                        case DropDownKey.ddlParentUserRole:
 
                             objData.Add(item, await GetUserRole(true));
                             break;
@@ -61,7 +61,11 @@ namespace AurigainLoanERP.Services.Common
 
                         case DropDownKey.ddlRelationship:
 
-                         //   objData.Add(item, await GetRelationship());
+                            objData.Add(item, GetEnumDropDown<RelationshipEnum>());
+                            break;
+                        case DropDownKey.ddlGender:
+
+                            objData.Add(item, GetEnumDropDown<GenderEnum>());
                             break;
 
                         default:
@@ -200,12 +204,14 @@ namespace AurigainLoanERP.Services.Common
             }
         }
 
-
-        private async Task<object> GetRelationship()
+        private object GetEnumDropDown<T>() where T : Enum
         {
             try
             {
-                return Enum.GetValues(typeof(RelationshipEnum)).Cast<RelationshipEnum>().Select(v => new { Value = v.ToString(), Text = v.GetStringValue() }).ToList();
+                return Enum.GetValues(typeof(T)).Cast<T>()
+              .Select(v => new { Value = v.ToString(), Text = v.GetStringValue() })
+              .ToList();
+
             }
             catch (Exception ex)
             {

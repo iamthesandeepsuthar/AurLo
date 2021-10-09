@@ -82,7 +82,7 @@
     <Build Include="UserReportingPerson.sql" />
     <Build Include="PaymentMode.sql" />
     <Build Include="UserDoorStepAgent.sql" />
-    <Build Include="SecurityDepositDetails.sql" />
+    <Build Include="UserSecurityDepositDetails.sql" />
     <Build Include="UserLoginLog.sql" />
     <Build Include="UserDocumentFiles.sql" />
     <Build Include="BankMaster.sql" />

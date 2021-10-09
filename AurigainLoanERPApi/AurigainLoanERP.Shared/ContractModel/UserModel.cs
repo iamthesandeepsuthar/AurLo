@@ -226,21 +226,20 @@ namespace AurigainLoanERP.Shared.ContractModel
         public string AccountNumber { get; set; }
         public string Ifsccode { get; set; }
         public string Address { get; set; }
-        public bool? IsActive { get; set; }
     }
     public class UserNomineePostModel
     {
         public long Id { get; set; }
         public string NamineeName { get; set; }
         public string RelationshipWithNominee { get; set; }
-        public bool? IsActive { get; set; }
+        public bool IsSelfDeclaration { get; set; }
+
     }
     public class UserKycPostModel
     {
         public long Id { get; set; }
         public string Kycnumber { get; set; }
         public int KycdocumentTypeId { get; set; }
-        public bool? IsActive { get; set; }
     }
     public class UserReportingPersonPostModel
     {
@@ -258,7 +257,6 @@ namespace AurigainLoanERP.Shared.ContractModel
 
         public long Id { get; set; }
         public int DocumentTypeId { get; set; }
-        public bool? IsActive { get; set; }
 
         public List<FilePostModel> Files { get; set; }
 
@@ -327,7 +325,6 @@ namespace AurigainLoanERP.Shared.ContractModel
 
         public string FullName { get; set; }
         public string FatherName { get; set; }
-        public string UniqueId { get; set; }
         public string Gender { get; set; }
         public int QualificationId { get; set; }
         public string Address { get; set; }
@@ -340,7 +337,6 @@ namespace AurigainLoanERP.Shared.ContractModel
         public bool? IsActive { get; set; }
 
         public UserPostModel User { get; set; }
-
         public UserBankDetailPostModel BankDetails { get; set; }
         public List<UserKycPostModel> UserKYC { get; set; }
         public UserNomineePostModel UserNominee { get; set; }

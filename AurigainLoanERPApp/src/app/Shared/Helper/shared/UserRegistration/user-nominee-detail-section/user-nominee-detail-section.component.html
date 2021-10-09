@@ -3,7 +3,7 @@
     <div class="form-row">
         <div class="form-group col-md-4">
             <label>Relationship</label>
-            <ng-select [items]="dropDown!.ddlDistrict" bindLabel="Text" bindValue="Value" placeholder="Relationship"
+            <ng-select [items]="dropDown!.ddlRelationship" bindLabel="Text" bindValue="Value" placeholder="Relationship"
                 appendTo="body" [(ngModel)]="nomineeModel.RelationshipWithNominee">
             </ng-select>
         </div>
@@ -18,7 +18,7 @@
             <div class="form-radio-check-grp">
                 <div class="n-chk d-inline">
                     <label class="new-control new-checkbox checkbox-info">
-                        <input type="checkbox" class="new-control-input" checked>
+                        <input type="checkbox" class="new-control-input" [(ngModel)]="nomineeModel.IsSelfDeclaration">
                         <span class="new-control-indicator"></span>Self Declaration String
                     </label>
                 </div>

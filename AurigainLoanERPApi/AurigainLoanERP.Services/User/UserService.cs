@@ -298,7 +298,7 @@ namespace AurigainLoanERP.Services.User
                     .Include(x => x.User.UserKyc)
                     .Include(x => x.User.UserBank)
                     .Include(x => x.User.UserDocument)
-                    .Include(x => x.User.SecurityDepositDetails)
+                    .Include(x => x.User.UserSecurityDepositDetails)
                     .Include(x => x.User.UserRole).Include(x => x.User.UserReportingPersonUser).FirstOrDefaultAsync();
                 if (objDoorStepAgent != null)
                 {
@@ -359,7 +359,7 @@ namespace AurigainLoanERP.Services.User
                         }
                         if (objDoorStepAgent.SecurityDeposit != null)
                         {
-                            objDoorStepAgentModel.SecurityDeposit = _mapper.Map<UserSecurityDepositViewModel>(objDoorStepAgent.User.SecurityDepositDetails.FirstOrDefault() ?? null);
+                            objDoorStepAgentModel.SecurityDeposit = _mapper.Map<UserSecurityDepositViewModel>(objDoorStepAgent.User.UserSecurityDepositDetails.FirstOrDefault() ?? null);
 
                         }
 
@@ -539,7 +539,7 @@ namespace AurigainLoanERP.Services.User
                     objModel.UserId = userId;
                     objModel.FullName = !string.IsNullOrEmpty(model.FullName) ? model.FullName : null;
                     objModel.FatherName = !string.IsNullOrEmpty(model.FatherName) ? model.FatherName : null;
-                    objModel.UniqueId = !string.IsNullOrEmpty(model.UniqueId) ? model.UniqueId : null;
+                    objModel.UniqueId =// !string.IsNullOrEmpty(model.UniqueId) ? model.UniqueId : null;
                     objModel.Gender = !string.IsNullOrEmpty(model.Gender) ? model.Gender : null;
                     objModel.Address = !string.IsNullOrEmpty(model.Address) ? model.Address : null;
                     objModel.DateOfBirth = model.DateOfBirth ?? null;
@@ -730,8 +730,7 @@ namespace AurigainLoanERP.Services.User
                     objModel.AccountNumber = !string.IsNullOrEmpty(model.AccountNumber) ? model.AccountNumber : null;
                     objModel.Address = !string.IsNullOrEmpty(model.Address) ? model.Address : null;
                     objModel.Ifsccode = !string.IsNullOrEmpty(model.Ifsccode) ? model.Ifsccode : null;
-                    objModel.IsActive = model.IsActive;
-                    var result = await _db.UserBank.AddAsync(objModel);
+                   var result = await _db.UserBank.AddAsync(objModel);
                     await _db.SaveChangesAsync();
 
                 }
@@ -828,7 +827,7 @@ namespace AurigainLoanERP.Services.User
 
                     objModel.RelationshipWithNominee = !string.IsNullOrEmpty(model.RelationshipWithNominee) ? model.RelationshipWithNominee : null;
                     objModel.NamineeName = !string.IsNullOrEmpty(model.NamineeName) ? model.NamineeName : null;
-
+                    objModel.IsSelfDeclaration = model.IsSelfDeclaration;
                     var result = await _db.UserNominee.AddAsync(objModel);
                     await _db.SaveChangesAsync();
 
@@ -838,9 +837,9 @@ namespace AurigainLoanERP.Services.User
                     var objModel = await _db.UserNominee.FirstOrDefaultAsync(x => x.Id == model.Id);
 
                     objModel.ModifiedOn = DateTime.Now;
-
-                    objModel.RelationshipWithNominee = !string.IsNullOrEmpty(model.RelationshipWithNominee) ? model.RelationshipWithNominee : null;
-                    objModel.NamineeName = !string.IsNullOrEmpty(model.NamineeName) ? model.NamineeName : null;
+                    objModel.RelationshipWithNominee = !string.IsNullOrEmpty(model.RelationshipWithNominee) ? model.RelationshipWithNominee : objModel.RelationshipWithNominee;
+                    objModel.NamineeName = !string.IsNullOrEmpty(model.NamineeName) ? model.NamineeName : objModel.NamineeName;
+                    objModel.IsSelfDeclaration = model.IsSelfDeclaration;
 
                     await _db.SaveChangesAsync();
 
@@ -868,7 +867,7 @@ namespace AurigainLoanERP.Services.User
 
                 if (model.Id == default)
                 {
-                    var objModel = new SecurityDepositDetails();
+                    var objModel = new UserSecurityDepositDetails();
                     objModel.CreatedOn = DateTime.Now;
                     objModel.UserId = userId;
                     objModel.PaymentModeId = model.PaymentModeId;
@@ -879,7 +878,7 @@ namespace AurigainLoanERP.Services.User
                     objModel.AccountNumber = !string.IsNullOrEmpty(model.AccountNumber) ? model.AccountNumber : null;
                     objModel.BankName = !string.IsNullOrEmpty(model.BankName) ? model.BankName : null;
                     objModel.IsActive = model.IsActive;
-                    var result = await _db.SecurityDepositDetails.AddAsync(objModel);
+                    var result = await _db.UserSecurityDepositDetails.AddAsync(objModel);
                     var user = await _db.UserDoorStepAgent.FirstOrDefaultAsync(x => x.Id == userId);
                     user.SecurityDepositId = result.Entity.Id;
                     await _db.SaveChangesAsync();
@@ -887,7 +886,7 @@ namespace AurigainLoanERP.Services.User
                 }
                 else
                 {
-                    var objModel = await _db.SecurityDepositDetails.FirstOrDefaultAsync(x => x.Id == model.Id);
+                    var objModel = await _db.UserSecurityDepositDetails.FirstOrDefaultAsync(x => x.Id == model.Id);
                     objModel.ModifiedDate = DateTime.Now;
                     objModel.PaymentModeId = model.PaymentModeId;
                     objModel.TransactionStatus = model.TransactionStatus;

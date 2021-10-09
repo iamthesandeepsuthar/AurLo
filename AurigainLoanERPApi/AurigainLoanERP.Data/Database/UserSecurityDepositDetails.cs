@@ -7,9 +7,9 @@ using System.Collections.Generic;
 
 namespace AurigainLoanERP.Data.Database
 {
-    public partial class SecurityDepositDetails
+    public partial class UserSecurityDepositDetails
     {
-        public SecurityDepositDetails()
+        public UserSecurityDepositDetails()
         {
             UserDoorStepAgent = new HashSet<UserDoorStepAgent>();
         }

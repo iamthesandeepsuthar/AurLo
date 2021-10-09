@@ -157,4 +157,5 @@ export class DropDown_key {
   static ddlQualification = "ddlQualification";
   static ddlDocumentType = "ddlDocumentType";
   static ddlRelationship = "ddlRelationship";
+  static ddlGender="ddlGender"
 }

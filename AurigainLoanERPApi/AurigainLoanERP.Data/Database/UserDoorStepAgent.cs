@@ -32,7 +32,7 @@ namespace AurigainLoanERP.Data.Database
 
         public virtual District District { get; set; }
         public virtual QualificationMaster Qualification { get; set; }
-        public virtual SecurityDepositDetails SecurityDeposit { get; set; }
+        public virtual UserSecurityDepositDetails SecurityDeposit { get; set; }
         public virtual UserMaster User { get; set; }
     }
 }

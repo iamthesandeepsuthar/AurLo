@@ -26,10 +26,22 @@ namespace AurigainLoanERP.Shared.Enums
             [StringValue("Daughter")]
             Daughter = 8,
             [StringValue("Grand Father")]
-            GrandFathe = 9,
+            GrandFather = 9,
             [StringValue("Grand Mother")]
             GrandMother = 10,
         }
+
+        public enum GenderEnum
+        {
+            [StringValue("Male")]
+            Male = 1,
+            [StringValue("Female")]
+            Female = 2,
+            [StringValue("Other")]
+            Other = 3,
+           
+        }
+
     }
 
 

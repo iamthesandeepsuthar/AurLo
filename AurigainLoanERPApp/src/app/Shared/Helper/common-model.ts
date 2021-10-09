@@ -98,6 +98,7 @@ export class DropDownModol {
     ddlQualification!: DropDownItem[];
     ddlDocumentType!: DropDownItem[];
     ddlRelationship!: DropDownItem[];
+    ddlGender!:DropDownItem[];
 }
 
 export class DropDownItem {

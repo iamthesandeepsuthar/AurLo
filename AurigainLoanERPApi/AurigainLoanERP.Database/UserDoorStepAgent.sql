@@ -19,6 +19,6 @@
     [ModifiedOn] DATETIME NULL, 
     [CreatedBy] BIGINT NULL, 
     [ModifiedBy] BIGINT NULL, 
-    [SecurityDepositId] INT references SecurityDepositDetails(Id) NULL, 
+    [SecurityDepositId] INT references UserSecurityDepositDetails(Id) NULL, 
 
 )

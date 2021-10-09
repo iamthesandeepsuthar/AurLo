@@ -15,15 +15,15 @@ export interface DoorStepAgentPostModel {
   SelfFunded: boolean;
   IsActive: boolean;
   User: UserPostModel;
-  BankDetails: BankDetailsPostModel;
+  BankDetails: UserBankDetailsPostModel;
   UserKYC: UserKYCPostModel[];
   UserNominee: UserNomineePostModel;
-  ReportingPerson: ReportingPersonPostModel;
+  ReportingPerson: UserReportingPersonPostModel;
   Documents: DocumentPostModel[];
-  SecurityDeposit: SecurityDepositPostModel;
+  SecurityDeposit: UserSecurityDepositPostModel;
 }
 
-export interface SecurityDepositPostModel {
+export interface UserSecurityDepositPostModel {
   Id: number;
   PaymentModeId: number;
   TransactionStatus: number;
@@ -32,13 +32,11 @@ export interface SecurityDepositPostModel {
   ReferanceNumber: string;
   AccountNumber: string;
   BankName: string;
-  IsActive: boolean;
 }
 
 export interface DocumentPostModel {
   Id: number;
   DocumentTypeId: number;
-  IsActive: boolean;
   Files: File[];
 }
 
@@ -50,7 +48,7 @@ export interface FilePostModel {
   IsEditMode: boolean;
 }
 
-export interface ReportingPersonPostModel {
+export interface UserReportingPersonPostModel {
   Id: number;
   UserId: number;
   ReportingUserId: number;
@@ -60,23 +58,21 @@ export interface UserNomineePostModel {
   Id: number;
   NamineeName: string;
   RelationshipWithNominee: string;
-  IsActive: boolean;
+  IsSelfDeclaration :boolean;
 }
 
 export interface UserKYCPostModel {
   Id: number;
   Kycnumber: string;
   KycdocumentTypeId: number;
-  IsActive: boolean;
 }
 
-export interface BankDetailsPostModel {
+export interface UserBankDetailsPostModel {
   Id: number;
   BankName: string;
   AccountNumber: string;
   Ifsccode: string;
   Address: string;
-  IsActive: boolean;
 }
 
 export interface UserPostModel {

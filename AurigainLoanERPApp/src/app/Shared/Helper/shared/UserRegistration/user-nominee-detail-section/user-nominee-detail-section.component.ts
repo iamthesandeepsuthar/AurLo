@@ -22,9 +22,10 @@ export class UserNomineeDetailSectionComponent implements OnInit {
   }
 
   GetDropDown() {
-    debugger
+    
     this._commonService.GetDropDown([DropDown_key.ddlRelationship]).subscribe(res => {
       if (res.IsSuccess) {
+        debugger
         let ddls = res.Data as DropDownModol;
         this.dropDown.ddlRelationship = ddls.ddlRelationship;
       }

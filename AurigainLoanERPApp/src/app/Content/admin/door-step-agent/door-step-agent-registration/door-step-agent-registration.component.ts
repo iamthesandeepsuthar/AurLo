@@ -1,15 +1,13 @@
 import { Component, OnInit } from "@angular/core";
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormGroup, FormBuilder } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { ToastrService } from "ngx-toastr";
-import { DropDownModol } from "src/app/Shared/Helper/common-model";
+import { DropDownModol, FilterDropDownPostModel } from "src/app/Shared/Helper/common-model";
 import { DropDown_key, Routing_Url } from "src/app/Shared/Helper/constants";
-import { DoorStepAgentPostModel } from "src/app/Shared/Model/doorstep-agent-model/door-step-agent.model";
 import { AlertService } from "src/app/Shared/Services/alert.service";
 import { CommonService } from "src/app/Shared/Services/common.service";
-import { DoorStepAgentService } from '../../../../Shared/Services/door-step-agent-services/door-step-agent.service';
-import { DropDownItem, FilterDropDownPostModel } from '../../../../Shared/Helper/common-model';
-import { UserPostModel } from '../../../../Shared/Model/doorstep-agent-model/door-step-agent.model';
+import { DoorStepAgentService } from "src/app/Shared/Services/door-step-agent-services/door-step-agent.service";
+import { DoorStepAgentPostModel, UserPostModel, UserKYCPostModel, UserNomineePostModel, UserBankDetailsPostModel, DocumentPostModel, UserSecurityDepositPostModel } from "./../../../../Shared/Model/doorstep-agent-model/door-step-agent.model";
 
 @Component({
   selector: 'app-door-step-agent-registration',
@@ -36,7 +34,12 @@ export class DoorStepAgentRegistrationComponent implements OnInit {
       this.Id = this._activatedRoute.snapshot.params.id;
     }
     this.model.User = {} as UserPostModel;
-    this.dropDown.ddlParentUserRole
+    this.model.UserKYC = [] as UserKYCPostModel[];
+    this.model.UserNominee = {} as UserNomineePostModel;
+    this.model.BankDetails = {} as UserBankDetailsPostModel;
+    this.model.Documents = [] as DocumentPostModel[];
+    this.model.SecurityDeposit = {} as UserSecurityDepositPostModel;
+
 
   }
 
@@ -46,11 +49,13 @@ export class DoorStepAgentRegistrationComponent implements OnInit {
 
 
   GetDropDown() {
-    this._commonService.GetDropDown([DropDown_key.ddlQualification, DropDown_key.ddlState]).subscribe(res => {
+    this._commonService.GetDropDown([DropDown_key.ddlQualification, DropDown_key.ddlState,DropDown_key.ddlGender]).subscribe(res => {
       if (res.IsSuccess) {
+        debugger;
         let ddls = res.Data as DropDownModol;
         this.dropDown.ddlState = ddls.ddlState;
         this.dropDown.ddlQualification = ddls.ddlQualification;
+        this.dropDown.ddlGender = ddls.ddlGender;
 
 
       }
@@ -58,7 +63,7 @@ export class DoorStepAgentRegistrationComponent implements OnInit {
   }
 
   GetFilterDropDown(key: string, FilterFrom: string, Values: any) {
-    debugger
+    
     let model = {
       Key: key,
       FileterFromKey: FilterFrom,

@@ -17,6 +17,7 @@ namespace AurigainLoanERP.Shared.Common.Model
         public const string ddlQualification = "ddlqualification";
         public const string ddlDocumentType = "ddldocumenttype";
         public const string ddlRelationship = "ddlrelationship";
+        public const string ddlGender = "ddlgender";
 
     }
 }

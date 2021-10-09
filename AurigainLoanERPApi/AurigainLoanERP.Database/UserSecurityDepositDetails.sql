@@ -1,4 +1,4 @@
-﻿CREATE TABLE [dbo].[SecurityDepositDetails]
+﻿CREATE TABLE [dbo].[UserSecurityDepositDetails]
 (
 	[Id] INT NOT NULL PRIMARY KEY Identity,
 	[UserId] bigint references UserMaster(Id) NOT NULL,
