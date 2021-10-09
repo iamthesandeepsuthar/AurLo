@@ -55,7 +55,8 @@
                             "node_modules/sweetalert2/src/sweetalert2.scss",
                             "node_modules/ngx-toastr/toastr.css",
                             "src/assets/css/authentication/form-1.css",
-                            "src/assets/css/authentication/form-2.css"
+                            "src/assets/css/authentication/form-2.css",
+                            "src/assets/css/forms/switches.css"
                         ],
                         "scripts": [
                             "src/assets/js/libs/jquery-3.1.1.min.js",
@@ -167,7 +168,8 @@
                             "node_modules/sweetalert2/src/sweetalert2.scss",
                             "node_modules/ngx-toastr/toastr.css",
                             "src/assets/css/authentication/form-1.css",
-                            "src/assets/css/authentication/form-2.css"
+                            "src/assets/css/authentication/form-2.css",
+                            "src/assets/css/forms/switches.css"
                         ],
                         "scripts": [
                             "src/assets/js/libs/jquery-3.1.1.min.js",
