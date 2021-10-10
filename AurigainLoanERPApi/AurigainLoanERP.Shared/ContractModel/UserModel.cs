@@ -334,14 +334,14 @@ namespace AurigainLoanERP.Shared.ContractModel
         public bool SelfFunded { get; set; }
 
         public UserPostModel User { get; set; }
-        public UserBankDetailPostModel BankDetails { get; set; }
-        public List<UserKycPostModel> UserKYC { get; set; }
-        public UserNomineePostModel UserNominee { get; set; }
+        public UserBankDetailPostModel? BankDetails { get; set; }
+        public List<UserKycPostModel>? UserKYC { get; set; }
+        public UserNomineePostModel? UserNominee { get; set; }
     
 
         public UserReportingPersonPostModel? ReportingPerson { get; set; }
-        public List<UserDocumentPostModel> Documents { get; set; }
-        public UserSecurityDepositPostModel SecurityDeposit { get; set; }
+        public List<UserDocumentPostModel>? Documents { get; set; }
+        public UserSecurityDepositPostModel? SecurityDeposit { get; set; }
 
     }
     #endregion

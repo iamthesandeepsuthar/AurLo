@@ -654,7 +654,7 @@ namespace AurigainLoanERP.Services.User
                         {
                             var objFileModel = new UserDocumentFiles();
                             objFileModel.DocumentId = documentId;
-                            objFileModel.FileName = _fileHelper.Save(fileitem.File, FilePathConstant.UserAgentFile);
+                            objFileModel.FileName = _fileHelper.Save(fileitem.File, FilePathConstant.UserAgentFile, fileitem.FileName);
                             objFileModel.Path = Path.Combine(FilePathConstant.UserAgentFile, objFileModel.FileName);
 
                             objFileModel.FileType = _fileHelper.GetFileExtension(fileitem.File); //fileitem.File.ContentType;

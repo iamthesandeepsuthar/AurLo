@@ -46,7 +46,7 @@ export class DoorStepAgentRegistrationComponent implements OnInit {
     this.model.UserNominee = new UserNomineePostModel();
     this.model.BankDetails = new UserBankDetailsPostModel();
     this.model.Documents = [] as DocumentPostModel[];
-    this.model.SecurityDeposit = new UserSecurityDepositPostModel();
+  //  this.model.SecurityDeposit = new UserSecurityDepositPostModel();
 
 
   }
