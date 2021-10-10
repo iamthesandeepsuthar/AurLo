@@ -1,6 +1,7 @@
 ﻿using AurigainLoanERP.Services.UserRoles;
 using AurigainLoanERP.Shared.Common.Model;
 using AurigainLoanERP.Shared.ContractModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -9,6 +10,7 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
+    [Authorize]
     public class UserRoleController : ControllerBase
     {
         private readonly IUserRoleService _userRole;
