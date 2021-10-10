@@ -3477,6 +3477,83 @@ table tbody tr:nth-of-type(odd) .table-data-name span {
     background: #ffebd6;
 }
 
+.table-borderless {
+    border-collapse: unset;
+}
+
+.table-font-17 td {
+    font-size: 17px !important;
+}
+
+.table-data-info strong {
+    font-weight: 900;
+    color: #000;
+}
+
+.table-data-info tr td {
+    padding: 9px 0px !important;
+}
+
+.small-media-items-img {
+    height: 80px;
+    width: 100px;
+    border-radius: 5px;
+    position: relative;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center center;
+    flex: 0 0 75px;
+    background-color: #fff;
+    overflow: hidden;
+}
+
+.small-media-items i {
+    position: absolute;
+    right: -5px;
+    top: -9px;
+    padding: 5px;
+    border-radius: 100%;
+    color: #135da4;
+    font-size: 18px;
+}
+
+.modal-btn-with-no-header {
+    position: absolute;
+    top: -15px;
+    right: -12px;
+    background: #ff5253 !important;
+    height: 32px;
+    width: 32px;
+    z-index: 9999999999;
+    opacity: 10;
+    border-radius: 100%;
+    line-height: 34px;
+    text-shadow: none;
+    color: #fff !important;
+    font-size: 17px;
+    opacity: 9 !important;
+}
+
+.modal-btn-with-no-header:hover {
+    background: #002767 !important;
+}
+
+.show-gallery .modal-dialog {
+    max-width: max-content;
+}
+
+.modal-doc-show img {
+    max-width: 700px;
+}
+
+.modal-backdrop.show {
+    opacity: 0.8;
+}
+
+.modal-open .modal {
+    padding: 0px !important;
+}
+
 
 /* Theme Dark Start */
 
@@ -3626,6 +3703,14 @@ table tbody tr:nth-of-type(odd) .table-data-name span {
     }
     .table-data-name span {
         display: none !important;
+    }
+    .modal-doc-show img {
+        max-width: 100%;
+    }
+    .table-data-info tr td {
+        display: block;
+        padding: 5px 0px !important;
+        font-size: 16px !important;
     }
 }
 
