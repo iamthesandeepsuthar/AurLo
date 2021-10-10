@@ -9,10 +9,13 @@ using static Microsoft.AspNetCore.Hosting.Internal.HostingApplication;
 
 namespace AurigainLoanERP.Shared.Common
 {
-    public static class FileHelper
+    public class FileHelper
     {
-        private static IServiceProvider _serviceProvider;
         static IHostingEnvironment _env;
+        public FileHelper(IHostingEnvironment environment)
+        {
+            _env = environment;
+        }
 
         /// <summary>
         /// Save File from base64 string
@@ -21,7 +24,7 @@ namespace AurigainLoanERP.Shared.Common
         /// <param name="filePath">save location file path</param>
         /// <param name="fileName">file name if required custom name</param>
         /// <returns></returns>
-        public static string Save(string base64str, string filePath, string fileName = null)
+        public string Save(string base64str, string filePath, string fileName = null)
 
         {
             try
@@ -37,7 +40,7 @@ namespace AurigainLoanERP.Shared.Common
                     {
                         Directory.CreateDirectory(path);
                     }
-                    fileName = string.IsNullOrEmpty(fileName) ? Guid.NewGuid().ToString() + base64str.GetFileExtension() : fileName;
+                    fileName = string.IsNullOrEmpty(fileName) ? Guid.NewGuid().ToString() + GetFileExtension(base64str) : fileName;
                     File.WriteAllBytes(Path.Combine(path, fileName), byteArr);
 
                     return fileName;
@@ -51,7 +54,7 @@ namespace AurigainLoanERP.Shared.Common
             return null;
         }
 
-        public static string Save(IFormFile file, string filePath, string fileName = null)
+        public string Save(IFormFile file, string filePath, string fileName = null)
         {
 
             try
@@ -83,26 +86,25 @@ namespace AurigainLoanERP.Shared.Common
 
         }
 
-        public static string Get(string filePath)
+        public string Get(string filePath)
         {
             string base64 = string.Empty;
             try
             {
 
-                using (var scope = _serviceProvider.CreateScope())
-                {
-                    var context = scope.ServiceProvider.GetRequiredService<Context>();
-                    filePath = GetPhysicalPath(filePath);
-                     _env = new HostingEnvironment();
 
-                    if (File.Exists(filePath))
-                    {
-                        base64 = "Data:" + GetMimeType(filePath) + ";base64,";
-                        ;
-                        byte[] bytarr = File.ReadAllBytes(Path.Combine(_env.ContentRootPath, filePath));
-                        base64 += Convert.ToBase64String(bytarr);
-                    }
+
+                filePath = GetPhysicalPath(filePath);
+                _env = new HostingEnvironment();
+
+                if (File.Exists(filePath))
+                {
+                    base64 = "Data:" + GetMimeType(filePath) + ";base64,";
+                    ;
+                    byte[] bytarr = File.ReadAllBytes(Path.Combine(_env.ContentRootPath, filePath));
+                    base64 += Convert.ToBase64String(bytarr);
                 }
+
             }
             catch
             {
@@ -111,7 +113,7 @@ namespace AurigainLoanERP.Shared.Common
             return base64;
         }
 
-        public static bool Delete(string filePath)
+        public bool Delete(string filePath)
         {
 
             try
@@ -132,14 +134,14 @@ namespace AurigainLoanERP.Shared.Common
             return false;
         }
 
-        public static string GetFileExtension(this string base64String)
+        public string GetFileExtension(string base64String)
         {
             string ext = string.Empty;
             try
             {
                 string mime = (base64String.Split(';')[0]).Split(':')[1];
                 ext = MimeTypesMap.GetExtension(mime);
-
+                ext = string.Concat(".", ext);
             }
             catch (Exception)
             {
@@ -150,18 +152,13 @@ namespace AurigainLoanERP.Shared.Common
 
         }
 
-        private static string GetPhysicalPath( string path)
+        private string GetPhysicalPath(string path)
         {
 
             try
             {
-                using (var scope = _serviceProvider.CreateScope())
-                {
-                    var context = scope.ServiceProvider.GetRequiredService<Context>();                  
-                 _env = new HostingEnvironment();
+                return string.Concat(_env.ContentRootPath, path.Replace("~", "\\"));
 
-                    return Path.Combine(_env.ContentRootPath, path.Replace("~", ""));
-                }
             }
             catch (Exception)
             {
@@ -172,7 +169,7 @@ namespace AurigainLoanERP.Shared.Common
 
         }
 
-        public static string GetMimeType(string filePath)
+        public string GetMimeType(string filePath)
         {
             try
             {
