@@ -13,7 +13,8 @@ export class UserDocumentDetailSectionComponent implements OnInit {
   @Input() documentModel: DocumentPostModel[] = [] as DocumentPostModel[];
   @Output() onSubmit = new EventEmitter<DocumentPostModel[]>();
   DocumentFiles!: FileInfo[];
-  formGroup!: FormGroup;
+  formGroup = {} as FormGroup;
+
   get f() { return this.formGroup.controls; }
   constructor() {
 
@@ -26,7 +27,7 @@ export class UserDocumentDetailSectionComponent implements OnInit {
     this.onSubmit.emit(this.documentModel);
   }
   onDocumentAttach(docuemtnTypeId: number, file: FileInfo[], isEdit: boolean) {
-    debugger;
+   
     let doc = {} as DocumentPostModel;
     doc.DocumentTypeId = 1;
     doc.Files = [] as FilePostModel[];

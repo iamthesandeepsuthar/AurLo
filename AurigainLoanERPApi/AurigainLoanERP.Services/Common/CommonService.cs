@@ -152,7 +152,7 @@ namespace AurigainLoanERP.Services.Common
                      .Select(item => new { Text = item.Name, Value = item.Id })
                      .ToListAsync();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
                 return null;
@@ -167,7 +167,7 @@ namespace AurigainLoanERP.Services.Common
                      .Select(item => new { Text = item.Name, Value = item.Id })
                      .ToListAsync();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
                 return null;
@@ -197,7 +197,7 @@ namespace AurigainLoanERP.Services.Common
                      .Select(item => new { Text = item.DocumentName, Value = item.Id })
                      .ToListAsync();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
                 return null;

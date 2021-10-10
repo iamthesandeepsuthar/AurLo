@@ -18,7 +18,8 @@ export class UserKYCDetailSectionComponent implements OnInit {
   model: UserKYCPostModel = {} as UserKYCPostModel;
   dropDown = new DropDownModol();
   get ddlkeys() { return DropDown_key };
-  formGroup!: FormGroup;
+  formGroup = {} as FormGroup;
+
   get f() { return this.formGroup.controls; }
   constructor(private readonly fb: FormBuilder, private readonly _commonService: CommonService, private readonly _alertService: AlertService) { }
 
@@ -31,7 +32,7 @@ export class UserKYCDetailSectionComponent implements OnInit {
 
     this._commonService.GetDropDown([DropDown_key.ddlDocumentType]).subscribe(res => {
       if (res.IsSuccess) {
-        debugger
+        
         let ddls = res.Data as DropDownModol;
         this.dropDown.ddlDocumentType = ddls.ddlDocumentType;
       }

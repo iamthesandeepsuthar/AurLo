@@ -59,7 +59,7 @@ export class DoorStepAgentRegistrationComponent implements OnInit {
   GetDropDown() {
     this._commonService.GetDropDown([DropDown_key.ddlQualification, DropDown_key.ddlState, DropDown_key.ddlGender]).subscribe(res => {
       if (res.IsSuccess) {
-        debugger;
+        
         let ddls = res.Data as DropDownModol;
         this.dropDown.ddlState = ddls.ddlState;
         this.dropDown.ddlQualification = ddls.ddlQualification;
@@ -89,33 +89,33 @@ export class DoorStepAgentRegistrationComponent implements OnInit {
   }
 
   onFrmSubmit() {
-    let ChildValid: boolean = this.submitChildData();
-    if (this.formGroup.valid && ChildValid) {
-      let serv = this._userDoorStepService.AddUpdateDoorStepAgent(this.model).subscribe(res => {
-        serv.unsubscribe();
-        if (res.IsSuccess) {
-          this._alertService.Success(Message.SaveSuccess);
-        } else {
-          this._alertService.Error(Message.SaveFail);
+    //  let ChildValid: boolean = this.submitChildData();
+    //  if (this.formGroup.valid && ChildValid) {
+    let serv = this._userDoorStepService.AddUpdateDoorStepAgent(this.model).subscribe(res => {
+      serv.unsubscribe();
+      if (res.IsSuccess) {
+        this._alertService.Success(Message.SaveSuccess);
+      } else {
+        this._alertService.Error(Message.SaveFail);
 
-        }
-      });
-    }
+      }
+    });
+    //   }
   }
 
   submitChildData(): boolean {
     let isValid = true;
     if (this._childUserBankDetailSection) {
-      this._childUserBankDetailSection.formGroup.markAllAsTouched();
+      //    this._childUserBankDetailSection.formGroup.markAllAsTouched();
     }
     if (this._childUserDocumentDetailSection) {
-      this._childUserDocumentDetailSection.formGroup.markAllAsTouched();
+      //      this._childUserDocumentDetailSection.formGroup.markAllAsTouched();
     }
     if (this._childUserKYCDetailSection) {
-      this._childUserKYCDetailSection.formGroup.markAllAsTouched();
+      //      this._childUserKYCDetailSection.formGroup.markAllAsTouched();
     }
     if (this._childUserNomineeDetailSection) {
-      this._childUserNomineeDetailSection.formGroup.markAllAsTouched();
+      //     this._childUserNomineeDetailSection.formGroup.markAllAsTouched();
     }
 
     if (this._childUserBankDetailSection && this._childUserBankDetailSection.formGroup.valid) {

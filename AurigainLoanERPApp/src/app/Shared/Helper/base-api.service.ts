@@ -27,7 +27,7 @@ export class BaseAPIService {
     }
 
     post(endPoint: string, requestObject: any): Observable<ApiResponse<any>> {
-        return this._httpClient.post(endPoint, requestObject, { headers: { 'Accept': 'application/*' } }).pipe(map(res => JSON.parse(JSON.stringify(res))));
+        return this._httpClient.post(endPoint,  requestObject, { headers: { 'Accept': 'application/*' } }).pipe(map(res => JSON.parse(JSON.stringify(res))));
     }
 
     public put(endPoint: string, requestObject: any): Observable<ApiResponse<any>> {

@@ -15,7 +15,8 @@ export class UserNomineeDetailSectionComponent implements OnInit {
   @Output() onSubmit = new EventEmitter<UserNomineePostModel>();
   dropDown = new DropDownModol();
   get ddlkeys() { return DropDown_key };
-  formGroup!: FormGroup;
+  formGroup = {} as FormGroup;
+
   get f() { return this.formGroup.controls; }
   constructor(private readonly fb: FormBuilder, private readonly _commonService: CommonService) { }
 
@@ -27,7 +28,7 @@ export class UserNomineeDetailSectionComponent implements OnInit {
 
     this._commonService.GetDropDown([DropDown_key.ddlRelationship]).subscribe(res => {
       if (res.IsSuccess) {
-        debugger
+        
         let ddls = res.Data as DropDownModol;
         this.dropDown.ddlRelationship = ddls.ddlRelationship;
       }

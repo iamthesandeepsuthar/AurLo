@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import {  UserBankDetailsPostModel } from 'src/app/Shared/Model/doorstep-agent-model/door-step-agent.model';
+import { UserBankDetailsPostModel } from 'src/app/Shared/Model/doorstep-agent-model/door-step-agent.model';
 
 @Component({
   selector: 'app-user-bank-detail-section',
@@ -8,9 +8,9 @@ import {  UserBankDetailsPostModel } from 'src/app/Shared/Model/doorstep-agent-m
   styleUrls: ['./user-bank-detail-section.component.scss']
 })
 export class UserBankDetailSectionComponent implements OnInit {
-  @Input()  bankModel : UserBankDetailsPostModel={} as UserBankDetailsPostModel;
+  @Input() bankModel: UserBankDetailsPostModel = {} as UserBankDetailsPostModel;
   @Output() onSubmit = new EventEmitter<UserBankDetailsPostModel>();
-  formGroup!: FormGroup;
+  formGroup = {} as FormGroup;
 
   get f() { return this.formGroup.controls; }
   constructor() { }
@@ -18,7 +18,7 @@ export class UserBankDetailSectionComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onFrmSubmit(){
+  onFrmSubmit() {
     this.onSubmit.emit(this.bankModel);
   }
 }
