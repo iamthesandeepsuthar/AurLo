@@ -27,79 +27,87 @@
 <!-- Page Header Title end -->
 
 
+<!-- <form (ngSubmit)="onFrmSubmit()"> -->
 
-<div class="widget-content widget-content p-3 form-grp-w-border">
-    <h2> <img src="assets/img/personal_detail.png"> Personal Details</h2>
-    <div class="form-row">
 
-        <div class="col-lg-3 col-xl-2 pr-4 mb-4 mb-lg-0">
-            <div class="agent-door-profile-img d-flex align-items-center justify-content-center">
-                <img src="assets/img/user-default.jpg">
-            </div>
-        </div>
+    <div class="widget-content widget-content p-3 form-grp-w-border">
+        <h2> <img src="assets/img/personal_detail.png"> Personal Details</h2>
+        <div class="form-row">
 
-        <div class="col-lg-9 col-xl-10 row">
-            <div class="form-group col-md-4">
-                <label>Name</label>
-                <input type="email" [(ngModel)]="model.FullName" class="form-control" id="input1" placeholder="Enter name">
-            </div>
-            <div class="form-group col-md-4">
-                <label>Date of birth</label>
-                <input type="date" [(ngModel)]="model.DateOfBirth" class="form-control" id="input2" placeholder="20-02-1998">
-            </div>
-            <div class="form-group col-md-4">
-                <label>Father name</label>
-                <input type="text" [(ngModel)]="model.FatherName" class="form-control" id="input3" placeholder="Father name">
-            </div>
-            <div class="form-group col-md-4">
-                <label>Mobile number</label>
-                <input type="text" [(ngModel)]="model.User.Mobile" class="form-control" id="input3" placeholder="962358654">
-            </div>
-            <div class="form-group col-md-4">
-                <label>Qualification</label>
-
-                <ng-select [items]="dropDown!.ddlQualification" bindLabel="Text" bindValue="Value" placeholder="Qualification" appendTo="body" [(ngModel)]="model.QualificationId">
-                </ng-select>
-            </div>
-            <div class="form-group col-md-4">
-                <label>Personal Email ID</label>
-                <input type="email" [(ngModel)]="model.User.Email" class="form-control" id="input3" placeholder="test@gmail.com">
-            </div>
-            <div class="form-group col-md-4">
-                <label>Ability to self fund</label>
-                <div class="form-radio-check-grp">
-                    <div class="n-chk d-inline">
-                        <label class="new-control new-radio radio-classic-info">
-                            <input type="radio" class="new-control-input" value="true" [(ngModel)]="model.SelfFunded"
-                                name="selfFund">
-                            <span class="new-control-indicator"></span>Yes
-                        </label>
-                    </div>
-                    <div class="n-chk d-inline">
-                        <label class="new-control new-radio radio-classic-info">
-                            <input type="radio" class="new-control-input" value="false" [(ngModel)]="model.SelfFunded"
-                                name="selfFund">
-                            <span class="new-control-indicator"></span>No
-                        </label>
-                    </div>
+            <div class="col-lg-3 col-xl-2 pr-4 mb-4 mb-lg-0">
+                <div class="agent-door-profile-img d-flex align-items-center justify-content-center">
+                    <img src="assets/img/user-default.jpg">
                 </div>
             </div>
 
-            <div class="form-group col-md-4">
-                <label>Gender</label>
-                <div class="form-radio-check-grp">
+            <div class="col-lg-9 col-xl-10 row">
+                <div class="form-group col-md-4">
+                    <label>Name</label>
+                    <input type="email" [(ngModel)]="model.FullName" class="form-control" id="input1"
+                        placeholder="Enter name">
+                </div>
+                <div class="form-group col-md-4">
+                    <label>Date of birth</label>
+                    <input type="date" [(ngModel)]="model.DateOfBirth" class="form-control" id="input2"
+                        placeholder="20-02-1998">
+                </div>
+                <div class="form-group col-md-4">
+                    <label>Father name</label>
+                    <input type="text" [(ngModel)]="model.FatherName" class="form-control" id="input3"
+                        placeholder="Father name">
+                </div>
+                <div class="form-group col-md-4">
+                    <label>Mobile number</label>
+                    <input type="text" [(ngModel)]="model.User.Mobile" class="form-control" id="input3"
+                        placeholder="962358654">
+                </div>
+                <div class="form-group col-md-4">
+                    <label>Qualification</label>
 
-                    <ng-container *ngFor="let item of dropDown!.ddlGender">
+                    <ng-select [items]="dropDown!.ddlQualification" bindLabel="Text" bindValue="Value"
+                        placeholder="Qualification" appendTo="body" [(ngModel)]="model.QualificationId">
+                    </ng-select>
+                </div>
+                <div class="form-group col-md-4">
+                    <label>Personal Email ID</label>
+                    <input type="email" [(ngModel)]="model.User.Email" class="form-control" id="input3"
+                        placeholder="test@gmail.com">
+                </div>
+                <div class="form-group col-md-4">
+                    <label>Ability to self fund</label>
+                    <div class="form-radio-check-grp">
                         <div class="n-chk d-inline">
                             <label class="new-control new-radio radio-classic-info">
-                                <input type="radio" class="new-control-input" value="{{item.Value}}" name="Gender" [(ngModel)]="model.Gender"
-                                    >
-                                <span class="new-control-indicator"></span>{{item.Text}}
+                                <input type="radio" class="new-control-input" value="true"
+                                    [(ngModel)]="model.SelfFunded" name="selfFund">
+                                <span class="new-control-indicator"></span>Yes
                             </label>
                         </div>
-                    </ng-container>
+                        <div class="n-chk d-inline">
+                            <label class="new-control new-radio radio-classic-info">
+                                <input type="radio" class="new-control-input" value="false"
+                                    [(ngModel)]="model.SelfFunded" name="selfFund">
+                                <span class="new-control-indicator"></span>No
+                            </label>
+                        </div>
+                    </div>
+                </div>
 
-                    <!-- <div class="n-chk d-inline">
+                <div class="form-group col-md-4">
+                    <label>Gender</label>
+                    <div class="form-radio-check-grp">
+
+                        <ng-container *ngFor="let item of dropDown!.ddlGender">
+                            <div class="n-chk d-inline">
+                                <label class="new-control new-radio radio-classic-info">
+                                    <input type="radio" class="new-control-input" value="{{item.Value}}" name="Gender"
+                                        [(ngModel)]="model.Gender">
+                                    <span class="new-control-indicator"></span>{{item.Text}}
+                                </label>
+                            </div>
+                        </ng-container>
+
+                        <!-- <div class="n-chk d-inline">
                         <label class="new-control new-radio radio-classic-info">
                             <input type="radio" class="new-control-input" name="Gender" [(ngModel)]="model.Gender"
                                 checked>
@@ -118,37 +126,42 @@
                             <span class="new-control-indicator"></span>Other
                         </label>
                     </div> -->
+                    </div>
+                </div>
+                <div class="form-group col-md-12">
+                    <label>Address</label>
+                    <textarea class="form-control" [(ngModel)]="model.Address" id="exampleFormControlTextarea1"
+                        rows="3"></textarea>
+                </div>
+                <div class="form-group col-md-4">
+                    <label>State</label>
+
+                    <ng-select [items]="dropDown!.ddlState" bindLabel="Text" bindValue="Value" placeholder="State"
+                        appendTo="body" (ngModelChange)="GetFilterDropDown(ddlkeys.ddlDistrict,ddlkeys.ddlState,$event)"
+                        [(ngModel)]="model.StateId">
+                    </ng-select>
+
+                </div>
+                <div class="form-group col-md-4">
+                    <label>District</label>
+                    <ng-select [items]="dropDown!.ddlDistrict" bindLabel="Text" bindValue="Value" placeholder="District"
+                        appendTo="body" [(ngModel)]="model.DistrictId">
+                    </ng-select>
+
+
+                </div>
+                <div class="form-group col-md-4">
+                    <label>Pincode</label>
+                    <input type="number" class="form-control" [(ngModel)]="model.PinCode" placeholder="235698" disabled>
                 </div>
             </div>
-            <div class="form-group col-md-12">
-                <label>Address</label>
-                <textarea class="form-control" [(ngModel)]="model.Address" id="exampleFormControlTextarea1" rows="3"></textarea>
-            </div>
-            <div class="form-group col-md-4">
-                <label>State</label>
 
-                <ng-select [items]="dropDown!.ddlState" bindLabel="Text" bindValue="Value" placeholder="State" appendTo="body" (ngModelChange)="GetFilterDropDown(ddlkeys.ddlDistrict,ddlkeys.ddlState,$event)" [(ngModel)]="model.StateId">
-                </ng-select>
-
-            </div>
-            <div class="form-group col-md-4">
-                <label>District</label>
-                <ng-select [items]="dropDown!.ddlDistrict" bindLabel="Text" bindValue="Value" placeholder="District" appendTo="body" [(ngModel)]="model.DistrictId">
-                </ng-select>
-
-
-            </div>
-            <div class="form-group col-md-4">
-                <label>Pincode</label>
-                <input type="number" class="form-control" [(ngModel)]="model.PinCode" placeholder="235698" disabled>
-            </div>
         </div>
-
     </div>
-</div>
 
-<app-user-nominee-detail-section [nomineeModel]="model.UserNominee" (onSubmit)="model.UserNominee=$event"></app-user-nominee-detail-section>
-<!-- <div class="widget-content widget-content p-3 form-grp-w-border">
+    <app-user-nominee-detail-section [nomineeModel]="model.UserNominee" (onSubmit)="model.UserNominee=$event">
+    </app-user-nominee-detail-section>
+    <!-- <div class="widget-content widget-content p-3 form-grp-w-border">
     <h2> <img src="assets/img/nominee_details_white.png"> Nominee Details</h2>
     <div class="form-row">
         <div class="form-group col-md-4">
@@ -179,8 +192,9 @@
     </div>
 </div>
  -->
-<app-user-bank-detail-section [bankModel]="model.BankDetails" (onSubmit)="model.BankDetails=$event"></app-user-bank-detail-section>
-<!-- 
+    <app-user-bank-detail-section [bankModel]="model.BankDetails" (onSubmit)="model.BankDetails=$event">
+    </app-user-bank-detail-section>
+    <!-- 
 <div class="widget-content widget-content p-3 form-grp-w-border">
     <h2> <img src="assets/img/bank_details_white.png"> Bank Details</h2>
     <div class="form-row">
@@ -199,8 +213,9 @@
 
     </div>
 </div> -->
-<app-user-kycdetail-section [kycModel]="model.UserKYC" (onSubmit)="model.UserKYC=$event"></app-user-kycdetail-section>
-<!-- <div class="widget-content widget-content p-3 form-grp-w-border">
+    <app-user-kycdetail-section [kycModel]="model.UserKYC" (onSubmit)="model.UserKYC=$event">
+    </app-user-kycdetail-section>
+    <!-- <div class="widget-content widget-content p-3 form-grp-w-border">
     <h2> <img src="assets/img/kyc_details_white.png"> KYC Details</h2>
     <div class="form-row">
         <div class="form-group col-md-6">
@@ -219,8 +234,9 @@
 
     </div>
 </div> -->
-<app-user-document-detail-section [documentModel]="model.Documents" (onSubmit)="model.Documents=$event"></app-user-document-detail-section>
-<!-- 
+    <app-user-document-detail-section [documentModel]="model.Documents" (onSubmit)="model.Documents=$event">
+    </app-user-document-detail-section>
+    <!-- 
 <div class="widget-content widget-content p-3 form-grp-w-border">
     <h2> <img src="assets/img/document_pictures_white.png"> Document Proof</h2>
     <div class="form-row">
@@ -289,10 +305,10 @@
     </div>
 </div> -->
 
-<div class="form-footer-btn-grp mt-3 mb-3 widget-content widget-content p-3 text-center">
-    <button type="submit" class="btn btn-success mr-3"> <i class="fas fa-check mr-1"></i> Save application</button>
-    <button type="submit" class="btn btn-primary mr-3"> <i class="fas fa-redo-alt mr-1"></i> Reset</button>
-    <button type="button" class="btn btn-outline-danger"> <i class="fas fa-times mr-1"></i>
-        Cancel</button>
-</div>
+    <div class="form-footer-btn-grp mt-3 mb-3 widget-content widget-content p-3 text-center">
+        <button type="submit" class="btn btn-success mr-3"> <i class="fas fa-check mr-1"></i> Save application</button>
+        <button type="button" class="btn btn-primary mr-3"> <i class="fas fa-redo-alt mr-1"></i> Reset</button>
+        <button type="button" class="btn btn-outline-danger"> <i class="fas fa-times mr-1"></i> Cancel</button>
+    </div>
+<!-- </form> -->
 <!-- DOOR STEP AGENT END -->

@@ -84,12 +84,13 @@ export class FileSelectorComponent {
     }
 
     HandleFileInput(event: any) {
-        debugger
+        
       let files = event.target.files;
         if (files.length == 0) {
             this.FileSelected.emit(undefined);
             return;
         }
+        
         for (let index = 0; index < files.length; index++) {
             let file = files.item(index);
             let extIndex = file!.name.lastIndexOf('.');

@@ -37,7 +37,7 @@ export interface UserSecurityDepositPostModel {
 export interface DocumentPostModel {
   Id: number;
   DocumentTypeId: number;
-  Files: File[];
+  Files: FilePostModel[];
 }
 
 export interface FilePostModel {
