@@ -2,8 +2,10 @@
 using AurigainLoanERP.Shared.Common.Method;
 using AurigainLoanERP.Shared.Common.Model;
 using AurigainLoanERP.Shared.ContractModel;
+using AurigainLoanERP.Shared.ExtensionMethod;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,9 +17,11 @@ namespace AurigainLoanERP.Services.Account
     {
         public readonly IMapper _mapper;
         private AurigainContext _db;
-        public AccountService(IMapper mapper, AurigainContext db)
+        private readonly Security _security;
+        public AccountService(IMapper mapper, AurigainContext db, IConfiguration _configuration)
         {
             this._mapper = mapper;
+            _security = new Security(_configuration);
             _db = db;
         }
         public async Task<ApiServiceResponseModel<OtpModel>> GetOtp(OtpRequestModel model)
@@ -100,43 +104,60 @@ namespace AurigainLoanERP.Services.Account
             {
                 if (model.Plateform == "mobile") // For mobile Permission
                 {
-                    var user = await _db.UserMaster.Where(x => x.Mobile == model.MobileNumber && x.Mpin == model.Password).FirstOrDefaultAsync();                    
-                    if (user == null)
+                    var user = await _db.UserMaster.Where(x => x.Mobile == model.MobileNumber && x.Mpin == model.Password).Include(x=>x.UserRole).FirstOrDefaultAsync();
+                    if (user != null)
                     {
-                        UserLoginLog log = new UserLoginLog {
+                        UserLoginLog log = new UserLoginLog
+                        {
                             LoggedInTime = DateTime.Now,
+                            LoggedOutTime = DateTime.Now.AddDays(30),
                             UserId = user.Id
                         };
-                        await  _db.UserLoginLog.AddAsync(log);
+                        await _db.UserLoginLog.AddAsync(log);                      
+                        var fresh_token = _security.CreateToken(model.MobileNumber, user.UserRole.Name);
+                        if (!string.IsNullOrEmpty(fresh_token.Data)) {
+                            user.Token = fresh_token.Data;                           
+                        }
                         await _db.SaveChangesAsync();
-                        return CreateResponse<string>(null, ResponseMessage.NotFound, true);                        
+                        return CreateResponse<string>(fresh_token.Data, "Login Successful", true);
                     }
-                    var data = user.UserAgent as UserAgent;
-                    return CreateResponse<string>(data.FullName, "Login Successful", true);
+                    else 
+                    {
+                        return CreateResponse<string>(null, "You have not register with us,Please Signup", false);
+                    }
+                    
                 }
                 else // For web permission 
                 {
                     var user = await _db.UserMaster.Where(x => x.Mobile == model.MobileNumber && x.Mpin == model.Password).FirstOrDefaultAsync();
-                    if (user == null)
+                    if (user != null)
                     {
                         UserLoginLog log = new UserLoginLog
                         {
                             LoggedInTime = DateTime.Now,
                             UserId = user.Id
                         };
-                        await _db.UserLoginLog.AddAsync(log);
-                        await _db.SaveChangesAsync();
-                        return CreateResponse<string>(null, ResponseMessage.NotFound, true);
+                        await _db.UserLoginLog.AddAsync(log);                       
+                        var fresh_token = _security.CreateToken(model.MobileNumber, user.UserRole.Name);
+                        if (string.IsNullOrEmpty(fresh_token.Data))
+                        {
+                            user.Token = fresh_token.Data;
+                           // _db.SaveChanges();
+
+                        }
+                         await _db.SaveChangesAsync();
+                        return CreateResponse<string>(fresh_token.Data, "Login Successful", true);
                     }
-                    var data = user.UserAgent as UserAgent;
-                    return CreateResponse<string>(data.FullName, "Login Successful", true);
+                    else 
+                    {
+                        return CreateResponse<string>(null ,"You have no access to use web portal, Please contact with authority !", false);
+                    }                   
                 }              
             }
             catch (Exception ex) {
                 return CreateResponse<string>(null, ResponseMessage.NotFound, false, ex.Message ?? ex.InnerException.ToString());
             }
         }
-
         public async Task<ApiServiceResponseModel<string>> VerifiedPin(OtpVerifiedModel model) 
         {
             try

@@ -827,7 +827,7 @@ namespace AurigainLoanERP.Services.User
 
                     objModel.RelationshipWithNominee = !string.IsNullOrEmpty(model.RelationshipWithNominee) ? model.RelationshipWithNominee : null;
                     objModel.NamineeName = !string.IsNullOrEmpty(model.NamineeName) ? model.NamineeName : null;
-                    objModel.IsSelfDeclaration = model.IsSelfDeclaration;
+                  //  objModel.IsSelfDeclaration = model.IsSelfDeclaration;
                     var result = await _db.UserNominee.AddAsync(objModel);
                     await _db.SaveChangesAsync();
 
@@ -839,7 +839,7 @@ namespace AurigainLoanERP.Services.User
                     objModel.ModifiedOn = DateTime.Now;
                     objModel.RelationshipWithNominee = !string.IsNullOrEmpty(model.RelationshipWithNominee) ? model.RelationshipWithNominee : objModel.RelationshipWithNominee;
                     objModel.NamineeName = !string.IsNullOrEmpty(model.NamineeName) ? model.NamineeName : objModel.NamineeName;
-                    objModel.IsSelfDeclaration = model.IsSelfDeclaration;
+                  //  objModel.IsSelfDeclaration = model.IsSelfDeclaration;
 
                     await _db.SaveChangesAsync();
 
