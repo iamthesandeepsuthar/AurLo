@@ -234,7 +234,7 @@ namespace AurigainLoanERP.Services.User
 
                         }
 
-                        if (model.ReportingPerson != null)
+                        if (model.ReportingPerson != null && model.ReportingPerson.ReportingUserId > 0)
                         {
                             await SaveUserReportingPersonAsync(model.ReportingPerson, userId);
                         }
@@ -442,8 +442,10 @@ namespace AurigainLoanERP.Services.User
                     {
 
                         var objModel = _mapper.Map<UserMaster>(model);
+                        objModel.UserName = model.UserName ?? model.Email;
+
                         objModel.CreatedOn = DateTime.Now;
-                        objModel.Mpin = _security.EncryptData(GenerateUniqueId());
+                        objModel.Mpin = "123123";//_security.EncryptData(GenerateUniqueId());
                         var result = await _db.UserMaster.AddAsync(objModel);
                         await _db.SaveChangesAsync();
                         model.Id = result.Entity.Id;
@@ -467,7 +469,7 @@ namespace AurigainLoanERP.Services.User
 
                 throw;
             };
-            return model.Id;
+            return model.Id.Value;
         }
         /// <summary>
         /// Add/update Agent
@@ -531,7 +533,6 @@ namespace AurigainLoanERP.Services.User
         {
             try
             {
-
                 if (model.Id == default)
                 {
                     var objModel = new UserDoorStepAgent();
@@ -539,14 +540,14 @@ namespace AurigainLoanERP.Services.User
                     objModel.UserId = userId;
                     objModel.FullName = !string.IsNullOrEmpty(model.FullName) ? model.FullName : null;
                     objModel.FatherName = !string.IsNullOrEmpty(model.FatherName) ? model.FatherName : null;
-                    objModel.UniqueId =// !string.IsNullOrEmpty(model.UniqueId) ? model.UniqueId : null;
+                    objModel.UniqueId = GenerateUniqueId();
                     objModel.Gender = !string.IsNullOrEmpty(model.Gender) ? model.Gender : null;
                     objModel.Address = !string.IsNullOrEmpty(model.Address) ? model.Address : null;
                     objModel.DateOfBirth = model.DateOfBirth ?? null;
                     objModel.DistrictId = model.DistrictId;
                     objModel.PinCode = model.PinCode;
                     objModel.SelfFunded = model.SelfFunded;
-                    objModel.IsActive = model.IsActive;
+                    objModel.IsActive = true;
                     objModel.ProfilePictureUrl = !string.IsNullOrEmpty(model.ProfilePictureUrl) ? Path.Combine(FilePathConstant.UserProfile, FileHelper.Save(model.ProfilePictureUrl, FilePathConstant.UserProfile)) : null;
                     objModel.QualificationId = model.QualificationId;
                     var result = await _db.UserDoorStepAgent.AddAsync(objModel);
@@ -565,8 +566,6 @@ namespace AurigainLoanERP.Services.User
                     objModel.PinCode = model.PinCode;
                     objModel.QualificationId = model.QualificationId;
                     objModel.SelfFunded = model.SelfFunded;
-                    //   objModel.SecurityDepositId = null;
-
                     objModel.ModifiedOn = DateTime.Now;
                     await _db.SaveChangesAsync();
 
@@ -730,7 +729,7 @@ namespace AurigainLoanERP.Services.User
                     objModel.AccountNumber = !string.IsNullOrEmpty(model.AccountNumber) ? model.AccountNumber : null;
                     objModel.Address = !string.IsNullOrEmpty(model.Address) ? model.Address : null;
                     objModel.Ifsccode = !string.IsNullOrEmpty(model.Ifsccode) ? model.Ifsccode : null;
-                   var result = await _db.UserBank.AddAsync(objModel);
+                    var result = await _db.UserBank.AddAsync(objModel);
                     await _db.SaveChangesAsync();
 
                 }
@@ -827,7 +826,7 @@ namespace AurigainLoanERP.Services.User
 
                     objModel.RelationshipWithNominee = !string.IsNullOrEmpty(model.RelationshipWithNominee) ? model.RelationshipWithNominee : null;
                     objModel.NamineeName = !string.IsNullOrEmpty(model.NamineeName) ? model.NamineeName : null;
-                  //  objModel.IsSelfDeclaration = model.IsSelfDeclaration;
+                    //  objModel.IsSelfDeclaration = model.IsSelfDeclaration;
                     var result = await _db.UserNominee.AddAsync(objModel);
                     await _db.SaveChangesAsync();
 
@@ -839,7 +838,7 @@ namespace AurigainLoanERP.Services.User
                     objModel.ModifiedOn = DateTime.Now;
                     objModel.RelationshipWithNominee = !string.IsNullOrEmpty(model.RelationshipWithNominee) ? model.RelationshipWithNominee : objModel.RelationshipWithNominee;
                     objModel.NamineeName = !string.IsNullOrEmpty(model.NamineeName) ? model.NamineeName : objModel.NamineeName;
-                  //  objModel.IsSelfDeclaration = model.IsSelfDeclaration;
+                    //  objModel.IsSelfDeclaration = model.IsSelfDeclaration;
 
                     await _db.SaveChangesAsync();
 

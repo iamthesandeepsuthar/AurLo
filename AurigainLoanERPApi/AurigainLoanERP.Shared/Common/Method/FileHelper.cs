@@ -1,15 +1,18 @@
 ﻿using HeyRed.Mime;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Hosting.Internal;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.IO;
+using static Microsoft.AspNetCore.Hosting.Internal.HostingApplication;
 
 namespace AurigainLoanERP.Shared.Common
 {
     public static class FileHelper
     {
-
-        private static HostingEnvironment _env = new HostingEnvironment();
+        private static IServiceProvider _serviceProvider;
+        static IHostingEnvironment _env;
 
         /// <summary>
         /// Save File from base64 string
@@ -29,7 +32,7 @@ namespace AurigainLoanERP.Shared.Common
                     byte[] byteArr = Convert.FromBase64String(Fileinfo[1].Substring(Fileinfo[1].IndexOf(',') + 1));
 
                     //  saveFile = filePath;
-                    string path = filePath.GetPhysicalPath();
+                    string path = GetPhysicalPath(filePath);
                     if (!Directory.Exists(path))
                     {
                         Directory.CreateDirectory(path);
@@ -55,7 +58,7 @@ namespace AurigainLoanERP.Shared.Common
             {
                 if (file != null && !string.IsNullOrEmpty(filePath))
                 {
-                    string path = filePath.GetPhysicalPath();
+                    string path = GetPhysicalPath(filePath);
 
                     fileName = string.IsNullOrEmpty(fileName) ? Path.GetFileName(file.FileName) : fileName;
 
@@ -69,7 +72,7 @@ namespace AurigainLoanERP.Shared.Common
                         file.CopyTo(stream);
 
                     }
-                    return   fileName;
+                    return fileName;
                 }
 
             }
@@ -85,14 +88,20 @@ namespace AurigainLoanERP.Shared.Common
             string base64 = string.Empty;
             try
             {
-                filePath = filePath.GetPhysicalPath();
 
-                if (File.Exists(filePath))
+                using (var scope = _serviceProvider.CreateScope())
                 {
-                    base64 = "Data:" + GetMimeType(filePath) + ";base64,";
-                    ;
-                    byte[] bytarr = File.ReadAllBytes(Path.Combine(_env.ContentRootPath, filePath));
-                    base64 += Convert.ToBase64String(bytarr);
+                    var context = scope.ServiceProvider.GetRequiredService<Context>();
+                    filePath = GetPhysicalPath(filePath);
+                     _env = new HostingEnvironment();
+
+                    if (File.Exists(filePath))
+                    {
+                        base64 = "Data:" + GetMimeType(filePath) + ";base64,";
+                        ;
+                        byte[] bytarr = File.ReadAllBytes(Path.Combine(_env.ContentRootPath, filePath));
+                        base64 += Convert.ToBase64String(bytarr);
+                    }
                 }
             }
             catch
@@ -107,7 +116,7 @@ namespace AurigainLoanERP.Shared.Common
 
             try
             {
-                filePath = filePath.GetPhysicalPath();
+                filePath = GetPhysicalPath(filePath);
 
                 if (File.Exists(filePath))
                 {
@@ -141,13 +150,18 @@ namespace AurigainLoanERP.Shared.Common
 
         }
 
-        private static string GetPhysicalPath(this string path)
+        private static string GetPhysicalPath( string path)
         {
 
             try
             {
-                return Path.Combine(_env.ContentRootPath, path.Replace("~", ""));
+                using (var scope = _serviceProvider.CreateScope())
+                {
+                    var context = scope.ServiceProvider.GetRequiredService<Context>();                  
+                 _env = new HostingEnvironment();
 
+                    return Path.Combine(_env.ContentRootPath, path.Replace("~", ""));
+                }
             }
             catch (Exception)
             {

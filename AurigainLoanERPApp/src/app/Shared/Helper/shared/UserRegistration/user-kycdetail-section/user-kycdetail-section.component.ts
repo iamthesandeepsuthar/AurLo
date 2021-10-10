@@ -12,7 +12,7 @@ import { DropDown_key } from '../../../constants';
   styleUrls: ['./user-kycdetail-section.component.scss']
 })
 export class UserKYCDetailSectionComponent implements OnInit {
-  @Input() kycModel: UserKYCPostModel[] = [] as UserKYCPostModel[];
+  @Input() kycModel = [] as UserKYCPostModel[];
   @Output() onSubmit = new EventEmitter<UserKYCPostModel[]>();
 
   model: UserKYCPostModel = {} as UserKYCPostModel;

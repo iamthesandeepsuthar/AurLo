@@ -22,7 +22,7 @@ import { Message } from '../../../../Shared/Helper/constants';
 })
 export class DoorStepAgentRegistrationComponent implements OnInit {
   Id: number = 0;
-  model: DoorStepAgentPostModel = {} as DoorStepAgentPostModel;
+  model=new  DoorStepAgentPostModel();
   formGroup!: FormGroup;
   dropDown = new DropDownModol();
   get ddlkeys() { return DropDown_key };
@@ -41,12 +41,12 @@ export class DoorStepAgentRegistrationComponent implements OnInit {
     if (this._activatedRoute.snapshot.params.id) {
       this.Id = this._activatedRoute.snapshot.params.id;
     }
-    this.model.User = {} as UserPostModel;
+    this.model.User = new UserPostModel();
     this.model.UserKYC = [] as UserKYCPostModel[];
-    this.model.UserNominee = {} as UserNomineePostModel;
-    this.model.BankDetails = {} as UserBankDetailsPostModel;
+    this.model.UserNominee = new UserNomineePostModel();
+    this.model.BankDetails = new UserBankDetailsPostModel();
     this.model.Documents = [] as DocumentPostModel[];
-    this.model.SecurityDeposit = {} as UserSecurityDepositPostModel;
+    this.model.SecurityDeposit = new UserSecurityDepositPostModel();
 
 
   }
@@ -59,7 +59,7 @@ export class DoorStepAgentRegistrationComponent implements OnInit {
   GetDropDown() {
     this._commonService.GetDropDown([DropDown_key.ddlQualification, DropDown_key.ddlState, DropDown_key.ddlGender]).subscribe(res => {
       if (res.IsSuccess) {
-        
+
         let ddls = res.Data as DropDownModol;
         this.dropDown.ddlState = ddls.ddlState;
         this.dropDown.ddlQualification = ddls.ddlQualification;
@@ -91,8 +91,15 @@ export class DoorStepAgentRegistrationComponent implements OnInit {
   onFrmSubmit() {
     //  let ChildValid: boolean = this.submitChildData();
     //  if (this.formGroup.valid && ChildValid) {
+
+    this.model.User.UserName = this.model.User.UserName ? this.model.User.UserName : this.model.User.Email;
+    this.model.User.UserRoleId = this.model.User.UserRoleId ? this.model.User.UserRoleId : 1;
+    this.model.User.IsApproved = false;
+  
+    this.model.SelfFunded = Boolean(this.model.SelfFunded);
+    debugger
     let serv = this._userDoorStepService.AddUpdateDoorStepAgent(this.model).subscribe(res => {
-      serv.unsubscribe();
+      //  serv.unsubscribe();
       if (res.IsSuccess) {
         this._alertService.Success(Message.SaveSuccess);
       } else {

@@ -11,7 +11,7 @@ import { CommonService } from 'src/app/Shared/Services/common.service';
   styleUrls: ['./user-nominee-detail-section.component.scss']
 })
 export class UserNomineeDetailSectionComponent implements OnInit {
-  @Input() nomineeModel: UserNomineePostModel = {} as UserNomineePostModel;
+  @Input() nomineeModel= new UserNomineePostModel();
   @Output() onSubmit = new EventEmitter<UserNomineePostModel>();
   dropDown = new DropDownModol();
   get ddlkeys() { return DropDown_key };

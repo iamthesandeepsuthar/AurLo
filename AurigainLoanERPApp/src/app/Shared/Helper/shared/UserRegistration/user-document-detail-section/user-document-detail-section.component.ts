@@ -10,7 +10,7 @@ import { FilePostModel } from '../../../../Model/doorstep-agent-model/door-step-
   styleUrls: ['./user-document-detail-section.component.scss']
 })
 export class UserDocumentDetailSectionComponent implements OnInit {
-  @Input() documentModel: DocumentPostModel[] = [] as DocumentPostModel[];
+  @Input() documentModel= [] as DocumentPostModel[];
   @Output() onSubmit = new EventEmitter<DocumentPostModel[]>();
   DocumentFiles!: FileInfo[];
   formGroup = {} as FormGroup;
@@ -40,7 +40,7 @@ export class UserDocumentDetailSectionComponent implements OnInit {
       File.IsEditMode = false;
       doc.Files.push(File);
     });
-
+    this.documentModel.push(doc);
 
   }
 }

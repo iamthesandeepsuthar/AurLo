@@ -81,7 +81,7 @@ namespace AurigainLoanERP.Shared.ContractModel
         public long Id { get; set; }
         public long UserId { get; set; }
         public long ReportingUserId { get; set; }
-      
+
 
         public DateTime CreatedOn { get; set; }
         public DateTime? ModifiedOn { get; set; }
@@ -134,7 +134,7 @@ namespace AurigainLoanERP.Shared.ContractModel
 
         //public virtual Object District { get; set; }
         //public virtual Object Qualification { get; set; }
-      
+
     }
 
     public class DoorStepAgentViewModel
@@ -143,7 +143,7 @@ namespace AurigainLoanERP.Shared.ContractModel
         {
             User = new UserViewModel();
             BankDetails = new UserBankDetailViewModel();
-            ReportingPerson = new UserReportingPersonViewModel(); 
+            ReportingPerson = new UserReportingPersonViewModel();
             UserKYC = new List<UserKycViewModel>();
             UserNominee = new UserNomineeViewModel();
             Documents = new List<UserDocumentViewModel>();
@@ -207,16 +207,13 @@ namespace AurigainLoanERP.Shared.ContractModel
     #region <<User Post Model>>
     public class UserPostModel
     {
-        public long Id { get; set; }
-        public int UserRoleId { get; set; }
+        public long? Id { get; set; }
+        public int? UserRoleId { get; set; }
         public string UserName { get; set; }
-        public string Password { get; set; }
         public string Email { get; set; }
         public string Mobile { get; set; }
-        public bool IsApproved { get; set; }
+        public bool? IsApproved { get; set; }
         public string DeviceToken { get; set; }
-        public string Token { get; set; }
-        public bool? IsActive { get; set; }
 
     }
     public class UserBankDetailPostModel
@@ -315,8 +312,9 @@ namespace AurigainLoanERP.Shared.ContractModel
             BankDetails = new UserBankDetailPostModel();
             UserKYC = new List<UserKycPostModel>();
             UserNominee = new UserNomineePostModel();
-            ReportingPerson = new UserReportingPersonPostModel();
+         //   ReportingPerson = new UserReportingPersonPostModel();
             Documents = new List<UserDocumentPostModel>();
+         //   SecurityDeposit = new UserSecurityDepositPostModel();
 
 
         }
@@ -334,12 +332,13 @@ namespace AurigainLoanERP.Shared.ContractModel
         public DateTime? DateOfBirth { get; set; }
         public string ProfilePictureUrl { get; set; }
         public bool SelfFunded { get; set; }
-        public bool? IsActive { get; set; }
 
         public UserPostModel User { get; set; }
         public UserBankDetailPostModel BankDetails { get; set; }
         public List<UserKycPostModel> UserKYC { get; set; }
         public UserNomineePostModel UserNominee { get; set; }
+    
+
         public UserReportingPersonPostModel? ReportingPerson { get; set; }
         public List<UserDocumentPostModel> Documents { get; set; }
         public UserSecurityDepositPostModel SecurityDeposit { get; set; }

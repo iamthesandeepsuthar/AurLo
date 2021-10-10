@@ -113,6 +113,6 @@ export class FileSelectorComponent {
         }
         setTimeout(() => {
             this.FilesChanged.emit(this.Files);
-        }, 10);
+        }, 150);
     }
 }
