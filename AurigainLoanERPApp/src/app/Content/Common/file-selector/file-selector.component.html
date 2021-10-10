@@ -1,5 +1,6 @@
-<div class="dropzone dropzone-light text-center" (click)="file.click()">
-  <input type="file" style="display: none;" [accept]="FileFilter" (change)="HandleFileInput($event)"
+<!-- (click)="file.click()" -->
+ <div class="dropzone dropzone-light text-center" >
+  <input type="file" style="display: block;" [accept]="FileFilter" (change)="HandleFileInput($event)"
     #file />
   <div class="dz-default dz-message m-1">
     <span><i class="ti-cloud-up"></i></span>

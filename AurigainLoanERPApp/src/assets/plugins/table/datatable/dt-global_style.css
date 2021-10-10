@@ -141,7 +141,7 @@ table.dataTable thead .sorting_desc:after {
 }
 
 .dataTable.table-striped tbody tr:nth-of-type(odd) {
-    background-color: #efefef !important;
+    background-color: #ebf0f3 !important;
 }
 
 .table>tbody>tr:last-child>td .dropdown:not(.custom-dropdown-icon):not(.custom-dropdown) .dropdown-menu,
@@ -155,13 +155,14 @@ table.dataTable thead .sorting_desc:after {
 }
 
 .table>tbody>tr>td {
-    font-size: 13px;
+    font-size: 14px;
     border: none;
     padding: 0;
     padding: 10px 21px 10px 21px;
     color: #515365;
     letter-spacing: normal;
-    white-space: nowrap;
+    white-space: normal;
+    font-weight: 600;
 }
 
 .table-striped tbody tr:nth-of-type(odd) {

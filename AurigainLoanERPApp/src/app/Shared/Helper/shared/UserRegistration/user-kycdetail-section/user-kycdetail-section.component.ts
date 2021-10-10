@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { AlertService } from './../../../../Services/alert.service';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { CommonService } from 'src/app/Shared/Services/common.service';
 import { UserKYCPostModel } from '../../../../Model/doorstep-agent-model/door-step-agent.model';
 import { DropDownModol } from '../../../common-model';
@@ -12,16 +13,18 @@ import { DropDown_key } from '../../../constants';
 })
 export class UserKYCDetailSectionComponent implements OnInit {
   @Input() kycModel: UserKYCPostModel[] = [] as UserKYCPostModel[];
+  @Output() onSubmit = new EventEmitter<UserKYCPostModel[]>();
 
   model: UserKYCPostModel = {} as UserKYCPostModel;
   dropDown = new DropDownModol();
   get ddlkeys() { return DropDown_key };
-
-  constructor(private readonly fb: FormBuilder, private readonly _commonService: CommonService) { }
+  formGroup!: FormGroup;
+  get f() { return this.formGroup.controls; }
+  constructor(private readonly fb: FormBuilder, private readonly _commonService: CommonService, private readonly _alertService: AlertService) { }
 
   ngOnInit(): void {
     this.GetDropDown();
-    this.model.Kycnumber
+   
   }
 
   GetDropDown() {
@@ -39,28 +42,36 @@ export class UserKYCDetailSectionComponent implements OnInit {
     return this.dropDown.ddlDocumentType.find(x => x.Value == value)?.Text;
   }
   AddEditKycItem() {
-    if (this.model.Kycnumber.length > 0 && this.model.KycdocumentTypeId > 0) {
-      if (this.model.Id >= 0) {
-        let indx = this.kycModel.findIndex(x => x.Id == this.model.Id);
-        if (indx >= 0) {
-          this.kycModel[indx]  = this.model ;
-         
-        }
-      }
-      else {
-        this.kycModel.push(this.model);
 
+    if (this.model.Kycnumber.length > 0 && this.model.KycdocumentTypeId > 0) {
+      let itm = this.kycModel.findIndex(x => x.KycdocumentTypeId == this.model.KycdocumentTypeId);
+      if (itm < 0) {
+        this.kycModel.push(this.model);
+      } else {
+        this._alertService.Warning("Kyc Document Detail Already exist!");
       }
       this.model = {} as UserKYCPostModel;
     }
   }
-  editKycItem(index: number) {
+
+  fillKycItem(index: number) {
     if (index >= 0) {
       let item = this.kycModel.find((x, i) => i == index) as UserKYCPostModel;
       this.model = {} as UserKYCPostModel;
       this.model.Id = item!.Id;
       this.model.KycdocumentTypeId = item!.KycdocumentTypeId;
       this.model.Kycnumber = item!.Kycnumber;
+      this.kycModel.splice(index, 1);
     }
+  }
+  removeKycItem(index: number) {
+    if (index >= 0) {
+
+      this.kycModel.splice(index, 1);
+    }
+  }
+
+  onFrmSubmit(){
+    this.onSubmit.emit(this.kycModel);
   }
 }
