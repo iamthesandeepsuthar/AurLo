@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using static AurigainLoanERP.Shared.Enums.FixedValueEnums;
 
 namespace AurigainLoanERP.Services.Account
 {
@@ -47,9 +48,9 @@ namespace AurigainLoanERP.Services.Account
                         await _db.UserOtp.AddAsync(otp);
                         await _db.SaveChangesAsync();
                         var response = _mapper.Map<OtpModel>(otp);
-                        return CreateResponse<OtpModel>(response, ResponseMessage.Success, true);
+                        return CreateResponse<OtpModel>(response, ResponseMessage.Success, true ,((int)ApiStatusCode.Ok));
                     }
-                    return CreateResponse<OtpModel>(null, ResponseMessage.NotFound, true);
+                    return CreateResponse<OtpModel>(null, ResponseMessage.NotFound, true, ((int)ApiStatusCode.RecordNotFound));
                 }
                 else
                 {
@@ -64,15 +65,15 @@ namespace AurigainLoanERP.Services.Account
                         otp.ExpireOn = DateTime.Now.AddSeconds(180);                       
                         await _db.SaveChangesAsync();
                         var response = _mapper.Map<OtpModel>(otp);
-                        return CreateResponse<OtpModel>(response, ResponseMessage.Success, true);
+                        return CreateResponse<OtpModel>(response, ResponseMessage.Success, true, ((int)ApiStatusCode.Ok));
                     }
-                    return CreateResponse<OtpModel>(null, ResponseMessage.NotFound, true);
+                    return CreateResponse<OtpModel>(null, ResponseMessage.NotFound, true , ((int)ApiStatusCode.RecordNotFound));
                 }
             }
             catch (Exception ex)
             {
 
-                return CreateResponse<OtpModel>(null, ResponseMessage.NotFound, false, ex.Message ?? ex.InnerException.ToString());
+                return CreateResponse<OtpModel>(null, ResponseMessage.NotFound, false, ((int)ApiStatusCode.ServerException), ex.Message ?? ex.InnerException.ToString());
 
             }
 
@@ -86,20 +87,21 @@ namespace AurigainLoanERP.Services.Account
                 {
                     user.Mpin = model.Password;
                     await _db.SaveChangesAsync();
-                    return CreateResponse<string>(model.MobileNumber,"pin update successful", true);
+                    return CreateResponse<string>(model.MobileNumber,"pin update successful", true , ((int)ApiStatusCode.Ok));
                 }
                 else
                 {
-                    return CreateResponse<string>(null, ResponseMessage.NotFound, true);
+                    return CreateResponse<string>(null, ResponseMessage.NotFound, true, ((int)ApiStatusCode.RecordNotFound));
                 }
             }
             catch (Exception ex)
             {
-                return CreateResponse<string>(null, ResponseMessage.NotFound, false, ex.Message ?? ex.InnerException.ToString());
+                return CreateResponse<string>(null, ResponseMessage.NotFound, false, ((int)ApiStatusCode.ServerException),ex.Message ?? ex.InnerException.ToString());
             }
         }
         public async Task<ApiServiceResponseModel<string>> Login(LoginModel model)
         {
+            ApiServiceResponseModel<string> ResponseObject = new Shared.Common.Model.ApiServiceResponseModel<string>();
             try
             {
                 if (model.Plateform == "mobile") // For mobile Permission
@@ -118,12 +120,12 @@ namespace AurigainLoanERP.Services.Account
                         if (!string.IsNullOrEmpty(fresh_token.Data)) {
                             user.Token = fresh_token.Data;                           
                         }
-                        await _db.SaveChangesAsync();
-                        return CreateResponse<string>(fresh_token.Data, "Login Successful", true);
+                        await _db.SaveChangesAsync();                        
+                        return CreateResponse<string>(fresh_token.Data, "Login Successful", true ,((int)ApiStatusCode.Ok));
                     }
                     else 
                     {
-                        return CreateResponse<string>(null, "You have not register with us,Please Signup", false);
+                        return CreateResponse<string>(null, "You have not register with us,Please Signup", false, ((int)ApiStatusCode.RecordNotFound));
                     }
                     
                 }
@@ -146,16 +148,16 @@ namespace AurigainLoanERP.Services.Account
 
                         }
                          await _db.SaveChangesAsync();
-                        return CreateResponse<string>(fresh_token.Data, "Login Successful", true);
+                        return CreateResponse<string>(fresh_token.Data, "Login Successful", true , ((int)ApiStatusCode.Ok));
                     }
                     else 
                     {
-                        return CreateResponse<string>(null ,"You have no access to use web portal, Please contact with authority !", false);
+                        return CreateResponse<string>(null ,"You have no access to use web portal, Please contact with authority !", false , ((int)ApiStatusCode.RecordNotFound));
                     }                   
                 }              
             }
             catch (Exception ex) {
-                return CreateResponse<string>(null, ResponseMessage.NotFound, false, ex.Message ?? ex.InnerException.ToString());
+                return CreateResponse<string>(null, ResponseMessage.NotFound, false, ((int)ApiStatusCode.ServerException) ,ex.Message ?? ex.InnerException.ToString());
             }
         }
         public async Task<ApiServiceResponseModel<string>> VerifiedPin(OtpVerifiedModel model) 
@@ -165,15 +167,15 @@ namespace AurigainLoanERP.Services.Account
                 var otp =await  _db.UserOtp.Where(x => x.Mobile == model.MobileNumber && x.Otp == model.Otp).FirstOrDefaultAsync();
                 if (otp == null) 
                 {
-                    return CreateResponse<string>(null, ResponseMessage.NotFound, true);
+                    return CreateResponse<string>(null, ResponseMessage.NotFound, true, ((int)ApiStatusCode.RecordNotFound));
                 }
                 _db.UserOtp.Remove(otp);
                 _db.SaveChanges();
-                return CreateResponse<string>(null, "Otp varified successful.", true);
+                return CreateResponse<string>(null, "Otp varified successful.", true,((int)ApiStatusCode.Ok));
             }
             catch (Exception ex)
             {
-                return CreateResponse<string>(null, ResponseMessage.NotFound, false, ex.Message ?? ex.InnerException.ToString());
+                return CreateResponse<string>(null, ResponseMessage.NotFound, false, ((int)ApiStatusCode.ServerException),ex.Message ?? ex.InnerException.ToString());
             }
         }
     }

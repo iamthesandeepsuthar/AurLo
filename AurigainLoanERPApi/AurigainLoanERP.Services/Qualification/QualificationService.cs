@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using static AurigainLoanERP.Shared.Enums.FixedValueEnums;
 
 namespace AurigainLoanERP.Services.Qualification
 {
@@ -27,7 +28,7 @@ namespace AurigainLoanERP.Services.Qualification
             {
                 var result = (from role in _db.QualificationMaster
                               where !role.IsDelete && (string.IsNullOrEmpty(model.Search) || role.Name.Contains(model.Search))
-                              orderby (model.OrderByAsc  && model.OrderBy == "Name" ? role.Name : "") ascending
+                              orderby (model.OrderByAsc && model.OrderBy == "Name" ? role.Name : "") ascending
                               orderby (!model.OrderByAsc && model.OrderBy == "Name" ? role.Name : "") descending
                               select role);
                 var data = await result.Skip(((model.Page == 0 ? 1 : model.Page) - 1) * (model.PageSize != 0 ? model.PageSize : int.MaxValue)).Take(model.PageSize != 0 ? model.PageSize : int.MaxValue).ToListAsync();
@@ -36,18 +37,18 @@ namespace AurigainLoanERP.Services.Qualification
 
                 if (result != null)
                 {
-                    return CreateResponse<List<QualificationModel>>(objResponse.Data, ResponseMessage.Success, true, TotalRecord: result.Count());
+                    return CreateResponse<List<QualificationModel>>(objResponse.Data, ResponseMessage.Success, true, ((int)ApiStatusCode.Ok), TotalRecord: result.Count());
                 }
                 else
                 {
-                    return CreateResponse<List<QualificationModel>>(null, ResponseMessage.NotFound, true, TotalRecord: 0);
+                    return CreateResponse<List<QualificationModel>>(null, ResponseMessage.NotFound, true, ((int)ApiStatusCode.RecordNotFound), TotalRecord: 0);
                 }
 
             }
             catch (Exception ex)
             {
 
-                return CreateResponse<List<QualificationModel>>(null, ResponseMessage.Fail, false, ex.Message ?? ex.InnerException.ToString());
+                return CreateResponse<List<QualificationModel>>(null, ResponseMessage.Fail, false, ((int)ApiStatusCode.ServerException), ex.Message ?? ex.InnerException.ToString());
 
             }
 
@@ -64,18 +65,18 @@ namespace AurigainLoanERP.Services.Qualification
 
                 if (qualification.Count() > 0)
                 {
-                    return CreateResponse<List<DDLQualificationModel>>(qualification, ResponseMessage.Success, true);
+                    return CreateResponse<List<DDLQualificationModel>>(qualification, ResponseMessage.Success, true, ((int)ApiStatusCode.Ok));
                 }
                 else
                 {
-                    return CreateResponse<List<DDLQualificationModel>>(null, ResponseMessage.NotFound, true);
+                    return CreateResponse<List<DDLQualificationModel>>(null, ResponseMessage.NotFound, true, ((int)ApiStatusCode.RecordNotFound));
                 }
 
             }
             catch (Exception ex)
             {
 
-                return CreateResponse<List<DDLQualificationModel>>(null, ResponseMessage.NotFound, false, ex.Message ?? ex.InnerException.ToString());
+                return CreateResponse<List<DDLQualificationModel>>(null, ResponseMessage.NotFound, false, ((int)ApiStatusCode.ServerException), ex.Message ?? ex.InnerException.ToString());
 
             }
         }
@@ -84,24 +85,24 @@ namespace AurigainLoanERP.Services.Qualification
 
             try
             {
-                var result = await (from c1 in _db.QualificationMaster                                      
+                var result = await (from c1 in _db.QualificationMaster
                                     where !c1.IsDelete && c1.IsActive.Value && c1.Id == id
                                     select c1).FirstOrDefaultAsync();
 
                 if (result != null)
                 {
-                    return CreateResponse<QualificationModel>(_mapper.Map<QualificationModel>(result), ResponseMessage.Success, true);
+                    return CreateResponse<QualificationModel>(_mapper.Map<QualificationModel>(result), ResponseMessage.Success, true, ((int)ApiStatusCode.Ok));
                 }
                 else
                 {
-                    return CreateResponse<QualificationModel>(null, ResponseMessage.NotFound, true);
+                    return CreateResponse<QualificationModel>(null, ResponseMessage.NotFound, true, ((int)ApiStatusCode.RecordNotFound));
                 }
 
             }
             catch (Exception ex)
             {
 
-                return CreateResponse<QualificationModel>(null, ResponseMessage.NotFound, false, ex.Message ?? ex.InnerException.ToString());
+                return CreateResponse<QualificationModel>(null, ResponseMessage.NotFound, false, ((int)ApiStatusCode.ServerException), ex.Message ?? ex.InnerException.ToString());
 
             }
 
@@ -124,12 +125,12 @@ namespace AurigainLoanERP.Services.Qualification
                     qualification.ModifiedOn = DateTime.Now;
                 }
                 await _db.SaveChangesAsync();
-                return CreateResponse<string>(model.Name, model.Id > 0 ? ResponseMessage.Update : ResponseMessage.Save, true);
+                return CreateResponse<string>(model.Name, model.Id > 0 ? ResponseMessage.Update : ResponseMessage.Save, true, ((int)ApiStatusCode.Ok));
             }
             catch (Exception ex)
             {
 
-                return CreateResponse<string>(null, ResponseMessage.Fail, false, ex.Message ?? ex.InnerException.ToString());
+                return CreateResponse<string>(null, ResponseMessage.Fail, false, ((int)ApiStatusCode.ServerException), ex.Message ?? ex.InnerException.ToString());
 
             }
 
@@ -142,13 +143,13 @@ namespace AurigainLoanERP.Services.Qualification
                 objRole.IsDelete = !objRole.IsDelete;
                 objRole.ModifiedOn = DateTime.Now;
                 await _db.SaveChangesAsync();
-                return CreateResponse<object>(true, ResponseMessage.Update, true);
+                return CreateResponse<object>(true, ResponseMessage.Update, true, ((int)ApiStatusCode.Ok));
 
             }
             catch (Exception)
             {
 
-                return CreateResponse<object>(false, ResponseMessage.Fail, false);
+                return CreateResponse<object>(false, ResponseMessage.Fail, false, ((int)ApiStatusCode.ServerException));
 
             }
         }
@@ -160,12 +161,14 @@ namespace AurigainLoanERP.Services.Qualification
                 qualification.IsActive = !qualification.IsActive;
                 qualification.ModifiedOn = DateTime.Now;
                 await _db.SaveChangesAsync();
-                return CreateResponse<object>(true, ResponseMessage.Update, true);
+                return CreateResponse<object>(true, ResponseMessage.Update, true, ((int)ApiStatusCode.Ok));
             }
             catch (Exception)
             {
-                return CreateResponse<object>(false, ResponseMessage.Fail, false);
+                return CreateResponse<object>(false, ResponseMessage.Fail, false, ((int)ApiStatusCode.ServerException));
             }
+
+
         }
     }
 }
