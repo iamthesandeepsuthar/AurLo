@@ -25,14 +25,20 @@ export class UserDocumentDetailSectionComponent implements OnInit {
   onFrmSubmit() {
     this.onSubmit.emit(this.documentModel);
   }
-  onDocumentAttach(docuemtnTypeId: number, file: FileInfo, isEdit: boolean) {
+  onDocumentAttach(docuemtnTypeId: number, file: FileInfo[], isEdit: boolean) {
     debugger;
-    let doc  = {} as DocumentPostModel;
-    doc.Files = [] as FilePostModel[];
+    let doc = {} as DocumentPostModel;
     doc.DocumentTypeId = 1;
-    doc.Files[0].File = file.FileBase64;
-    doc.Files[0].FileName = file.Name;
-    doc.Files[0].IsEditMode = false;
+    doc.Files = [] as FilePostModel[];
+
+    file.forEach(element => {
+      let File = {} as FilePostModel;
+      console.log(element.FileBase64);
+      File.File = element.FileBase64;
+      File.FileName = element.Name;
+      File.IsEditMode = false;
+      doc.Files.push(File);
+    });
 
 
   }
