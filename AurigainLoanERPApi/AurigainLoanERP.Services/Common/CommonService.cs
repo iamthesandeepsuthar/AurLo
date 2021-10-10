@@ -76,12 +76,12 @@ namespace AurigainLoanERP.Services.Common
 
                 }
 
-                return CreateResponse(objData, ResponseMessage.Success, true);
+                return CreateResponse(objData, ResponseMessage.Success, true, ((int)ApiStatusCode.Ok));
             }
             catch (Exception ex)
             {
 
-                return CreateResponse<Dictionary<string, object>>(null, ResponseMessage.Success, true, ex.Message.ToString());
+                return CreateResponse<Dictionary<string, object>>(null, ResponseMessage.Success, true, ((int)ApiStatusCode.ServerException), ex.Message.ToString());
 
             }
 
@@ -111,12 +111,12 @@ namespace AurigainLoanERP.Services.Common
 
                 }
 
-                return CreateResponse(objData, ResponseMessage.Success, true);
+                return CreateResponse(objData, ResponseMessage.Success, true , ((int)ApiStatusCode.Ok));
             }
             catch (Exception ex)
             {
 
-                return CreateResponse<Dictionary<string, object>>(null, ResponseMessage.Success, true, ex.Message.ToString());
+                return CreateResponse<Dictionary<string, object>>(null, ResponseMessage.Success, true,((int)ApiStatusCode.ServerException) ,ex.Message.ToString());
 
             }
 

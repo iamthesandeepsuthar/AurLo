@@ -13,6 +13,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static AurigainLoanERP.Shared.Enums.FixedValueEnums;
 
 namespace AurigainLoanERP.Services.User
 {
@@ -79,18 +80,18 @@ namespace AurigainLoanERP.Services.User
                     }
 
                     _db.Database.CommitTransaction();
-                    return CreateResponse<string>(userId.ToString(), ResponseMessage.Save, true);
+                    return CreateResponse<string>(userId.ToString(), ResponseMessage.Save, true ,((int)ApiStatusCode.Ok));
                 }
                 else
                 {
                     _db.Database.RollbackTransaction();
-                    return CreateResponse<string>(null, ResponseMessage.UserExist, false);
+                    return CreateResponse<string>(null, ResponseMessage.UserExist, false , ((int)ApiStatusCode.DataBaseTransactionFailed));
                 }
             }
             catch (Exception ex)
             {
                 _db.Database.RollbackTransaction();
-                return CreateResponse<string>(null, ResponseMessage.Fail, false, ex.InnerException == null ? ex.Message : ex.InnerException.Message);
+                return CreateResponse<string>(null, ResponseMessage.Fail, false,((int)ApiStatusCode.ServerException) ,ex.InnerException == null ? ex.Message : ex.InnerException.Message);
 
             }
 
@@ -187,18 +188,18 @@ namespace AurigainLoanERP.Services.User
                         objAgentModel.QualificationName = objAgent.Qualification.Name;
                         objAgentModel.User.UserRoleName = objAgent.User.UserRole.Name;
                     }
-                    return CreateResponse(objAgentModel, ResponseMessage.Success, true);
+                    return CreateResponse(objAgentModel, ResponseMessage.Success, true, ((int)ApiStatusCode.Ok));
                 }
                 else
                 {
-                    return CreateResponse<AgentViewModel>(null, ResponseMessage.NotFound, true);
+                    return CreateResponse<AgentViewModel>(null, ResponseMessage.NotFound, true,((int)ApiStatusCode.RecordNotFound));
                 }
 
             }
             catch (Exception ex)
             {
 
-                return CreateResponse<AgentViewModel>(null, ResponseMessage.Fail, false, ex.InnerException != null ? ex.InnerException.Message : ex.Message);
+                return CreateResponse<AgentViewModel>(null, ResponseMessage.Fail, false, ((int)ApiStatusCode.ServerException),ex.InnerException != null ? ex.InnerException.Message : ex.Message);
             }
 
         }
@@ -261,24 +262,24 @@ namespace AurigainLoanERP.Services.User
 
 
                         _db.Database.CommitTransaction();
-                        return CreateResponse<string>(userId.ToString(), ResponseMessage.Save, true);
+                        return CreateResponse<string>(userId.ToString(), ResponseMessage.Save, true , ((int)ApiStatusCode.Ok));
                     }
                     else
                     {
                         _db.Database.RollbackTransaction();
-                        return CreateResponse<string>(null, ResponseMessage.UserExist, false);
+                        return CreateResponse<string>(null, ResponseMessage.UserExist, false , ((int)ApiStatusCode.DataBaseTransactionFailed));
                     }
                 }
                 else
                 {
-                    return CreateResponse<string>(null, ResponseMessage.InvalidData, false);
+                    return CreateResponse<string>(null, ResponseMessage.InvalidData, false, ((int)ApiStatusCode.InvaildModel));
 
                 }
             }
             catch (Exception ex)
             {
                 _db.Database.RollbackTransaction();
-                return CreateResponse<string>(null, ResponseMessage.Fail, false, ex.InnerException == null ? ex.Message : ex.InnerException.Message);
+                return CreateResponse<string>(null, ResponseMessage.Fail, false,((int)ApiStatusCode.ServerException) ,ex.InnerException == null ? ex.Message : ex.InnerException.Message);
 
             }
 
@@ -368,18 +369,18 @@ namespace AurigainLoanERP.Services.User
                         objDoorStepAgentModel.QualificationName = objDoorStepAgent.Qualification.Name;
                         objDoorStepAgentModel.User.UserRoleName = objDoorStepAgent.User.UserRole.Name;
                     }
-                    return CreateResponse(objDoorStepAgentModel, ResponseMessage.Success, true);
+                    return CreateResponse(objDoorStepAgentModel, ResponseMessage.Success, true, ((int)ApiStatusCode.Ok));
                 }
                 else
                 {
-                    return CreateResponse<DoorStepAgentViewModel>(null, ResponseMessage.NotFound, true);
+                    return CreateResponse<DoorStepAgentViewModel>(null, ResponseMessage.NotFound, true,((int)ApiStatusCode.RecordNotFound));
                 }
 
             }
             catch (Exception ex)
             {
 
-                return CreateResponse<DoorStepAgentViewModel>(null, ResponseMessage.Fail, false, ex.InnerException != null ? ex.InnerException.Message : ex.Message);
+                return CreateResponse<DoorStepAgentViewModel>(null, ResponseMessage.Fail, false, ((int)ApiStatusCode.ServerException) ,ex.InnerException != null ? ex.InnerException.Message : ex.Message);
             }
 
         }
@@ -395,12 +396,12 @@ namespace AurigainLoanERP.Services.User
                 user.IsActive = !user.IsActive;
                 await _db.SaveChangesAsync();
                 _db.Database.CommitTransaction();
-                return CreateResponse(true as object, ResponseMessage.Update, true);
+                return CreateResponse(true as object, ResponseMessage.Update, true,((int)ApiStatusCode.Ok));
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 _db.Database.RollbackTransaction();
-                return CreateResponse(true as object, ResponseMessage.Fail, true);
+                return CreateResponse(true as object, ResponseMessage.Fail, true, ((int)ApiStatusCode.ServerException),ex.Message);
 
             }
         }
@@ -413,12 +414,12 @@ namespace AurigainLoanERP.Services.User
                 user.IsDelete = !user.IsDelete;
                 await _db.SaveChangesAsync();
                 _db.Database.CommitTransaction();
-                return CreateResponse(true as object, ResponseMessage.Update, true);
+                return CreateResponse(true as object, ResponseMessage.Update, true,((int)ApiStatusCode.Ok));
             }
             catch (Exception)
             {
                 _db.Database.RollbackTransaction();
-                return CreateResponse(true as object, ResponseMessage.Fail, true);
+                return CreateResponse(true as object, ResponseMessage.Fail, true ,((int)ApiStatusCode.DataBaseTransactionFailed));
 
             }
         }

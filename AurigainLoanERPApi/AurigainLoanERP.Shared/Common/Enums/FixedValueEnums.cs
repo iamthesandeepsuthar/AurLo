@@ -42,6 +42,18 @@ namespace AurigainLoanERP.Shared.Enums
            
         }
 
+        public enum ApiStatusCode { 
+         Ok = 200,
+         RecordNotFound = 204,
+         AlreadyExist = 205,
+         NotFound = 404,
+         UnAuthorized = 401,      
+         InternalServerError = 501,
+         ServerException = 405,
+         DataBaseTransactionFailed = 406,
+         InvaildModel=407
+        }
+
     }
 
 

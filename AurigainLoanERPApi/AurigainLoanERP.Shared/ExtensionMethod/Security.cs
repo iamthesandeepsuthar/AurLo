@@ -8,7 +8,7 @@ using System.IO;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
-
+using static AurigainLoanERP.Shared.Enums.FixedValueEnums;
 
 namespace AurigainLoanERP.Shared.ExtensionMethod
 {
@@ -87,7 +87,7 @@ namespace AurigainLoanERP.Shared.ExtensionMethod
             var token = new JwtSecurityToken(issuer, issuer, claims, expires: DateTime.Now.AddMinutes(120),
                   signingCredentials: credentials);
 
-            return CreateResponse<string>(new JwtSecurityTokenHandler().WriteToken(token), ResponseMessage.Success, true)  ;
+            return CreateResponse<string>(new JwtSecurityTokenHandler().WriteToken(token), ResponseMessage.Success, true,((int)ApiStatusCode.Ok))  ;
         }
 
 
