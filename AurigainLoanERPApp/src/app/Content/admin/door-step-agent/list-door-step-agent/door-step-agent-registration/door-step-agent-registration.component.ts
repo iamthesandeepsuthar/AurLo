@@ -11,8 +11,8 @@ import { UserNomineeDetailSectionComponent } from "src/app/Shared/Helper/shared/
 import { AlertService } from "src/app/Shared/Services/alert.service";
 import { CommonService } from "src/app/Shared/Services/common.service";
 import { DoorStepAgentService } from "src/app/Shared/Services/door-step-agent-services/door-step-agent.service";
-import { DoorStepAgentPostModel, UserPostModel, UserKYCPostModel, UserNomineePostModel, UserBankDetailsPostModel, DocumentPostModel, UserSecurityDepositPostModel } from "./../../../../Shared/Model/doorstep-agent-model/door-step-agent.model";
-import { Message } from '../../../../Shared/Helper/constants';
+import { DoorStepAgentPostModel, UserPostModel, UserKYCPostModel, UserNomineePostModel, UserBankDetailsPostModel, DocumentPostModel, UserSecurityDepositPostModel } from "../../../../../Shared/Model/doorstep-agent-model/door-step-agent.model";
+import { Message } from '../../../../../Shared/Helper/constants';
 
 @Component({
   selector: 'app-door-step-agent-registration',

@@ -345,7 +345,7 @@ namespace AurigainLoanERP.Data.Database
                     .WithMany(p => p.UserDocument)
                     .HasForeignKey(d => d.DocumentTypeId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__UserDocum__Docum__17F790F9");
+                    .HasConstraintName("FK__UserDocum__Docum__18B6AB08");
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.UserDocument)
@@ -461,7 +461,7 @@ namespace AurigainLoanERP.Data.Database
                     .WithMany(p => p.UserKyc)
                     .HasForeignKey(d => d.KycdocumentTypeId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__UserKYC__KYCDocu__19DFD96B");
+                    .HasConstraintName("FK__UserKYC__KYCDocu__19AACF41");
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.UserKyc)
