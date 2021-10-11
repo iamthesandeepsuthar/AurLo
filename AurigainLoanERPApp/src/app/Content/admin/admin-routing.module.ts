@@ -1,6 +1,6 @@
-import { MasterModule } from './master/master.module';
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { Routes, RouterModule } from '@angular/router';
+
 
 const routes: Routes = [
 

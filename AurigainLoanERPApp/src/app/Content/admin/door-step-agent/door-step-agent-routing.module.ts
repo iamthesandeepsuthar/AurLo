@@ -1,4 +1,4 @@
-import { DoorStepAgentRegistrationComponent } from './door-step-agent-registration/door-step-agent-registration.component';
+import { DoorStepAgentRegistrationComponent } from './list-door-step-agent/door-step-agent-registration/door-step-agent-registration.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthenticationGuard } from 'src/app/Shared/Helper/authentication.guard';
