@@ -89,7 +89,7 @@ export class DoorStepAgentRegistrationComponent implements OnInit {
   }
 
   onFrmSubmit() {
-    //  let ChildValid: boolean = this.submitChildData();
+      let ChildValid: boolean = this.submitChildData();
     //  if (this.formGroup.valid && ChildValid) {
 
     this.model.User.UserName = this.model.User.UserName ? this.model.User.UserName : this.model.User.Email;
@@ -147,5 +147,9 @@ export class DoorStepAgentRegistrationComponent implements OnInit {
     }
 
     return isValid;
+  }
+  bindDocs(docs : DocumentPostModel[]){
+    debugger
+    this.model.Documents=docs;
   }
 }

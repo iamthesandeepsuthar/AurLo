@@ -55,17 +55,23 @@
 
             <div class="form-group col-md-12" *ngIf="showParent">
                 <label>Parent Role</label>
-                <select class="form-control" [ngClass]="{ 'is-invalid': f.ParentRole.errors && f.ParentRole.touched}"
-                    class="form-control" id="input1" placeholder="Parent Role" formControlName="ParentRole"
+                <div class="form-control" [ngClass]='{ "is-invalid": f.ParentRole.errors && f.ParentRole.touched}'>
+
+
+                    <ng-select #ParentRole [items]="dropDown!.ddlUserRole" bindLabel="Text" bindValue="Value"
+                        placeholder="Parent Role" formControlName="ParentRole" [(ngModel)]="model.ParentId">
+                    </ng-select>
+                </div>
+                
+                <!-- <select class="form-control" [ngClass]="{ 'is-invalid': f.ParentRole.errors && f.ParentRole.touched}"
+                    id="input1" placeholder="Parent Role" formControlName="ParentRole"
                     [(ngModel)]="model.ParentId">
                     <option value="undefined">Select</option>
                     <ng-container *ngFor="let item of dropDown.ddlUserRole">
                         <option *ngIf="item.Value != model?.Id" value="{{item.Value}}">{{item.Text}}</option>
 
                     </ng-container>
-
-
-                </select>
+                </select> -->
                 <div class="invalid-feedback"
                     *ngIf="(userRoleForm.get('ParentRole')?.hasError('required') && userRoleForm.get('ParentRole')?.touched)">
                     Please Select Parent Role...! </div>

@@ -15,7 +15,7 @@ export class UserNomineeDetailSectionComponent implements OnInit {
   @Output() onSubmit = new EventEmitter<UserNomineePostModel>();
   dropDown = new DropDownModol();
   get ddlkeys() { return DropDown_key };
-  formGroup = {} as FormGroup;
+  formGroup = new FormGroup({});
 
   get f() { return this.formGroup.controls; }
   constructor(private readonly fb: FormBuilder, private readonly _commonService: CommonService) { }
