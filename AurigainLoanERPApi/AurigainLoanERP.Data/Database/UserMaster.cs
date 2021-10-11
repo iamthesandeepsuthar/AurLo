@@ -11,7 +11,6 @@ namespace AurigainLoanERP.Data.Database
     {
         public UserMaster()
         {
-            SecurityDepositDetails = new HashSet<SecurityDepositDetails>();
             UserAgent = new HashSet<UserAgent>();
             UserBank = new HashSet<UserBank>();
             UserDocument = new HashSet<UserDocument>();
@@ -22,6 +21,7 @@ namespace AurigainLoanERP.Data.Database
             UserOtp = new HashSet<UserOtp>();
             UserReportingPersonReportingUser = new HashSet<UserReportingPerson>();
             UserReportingPersonUser = new HashSet<UserReportingPerson>();
+            UserSecurityDepositDetails = new HashSet<UserSecurityDepositDetails>();
         }
 
         public long Id { get; set; }
@@ -41,7 +41,6 @@ namespace AurigainLoanERP.Data.Database
         public long? ModifiedBy { get; set; }
 
         public virtual UserRole UserRole { get; set; }
-        public virtual ICollection<SecurityDepositDetails> SecurityDepositDetails { get; set; }
         public virtual ICollection<UserAgent> UserAgent { get; set; }
         public virtual ICollection<UserBank> UserBank { get; set; }
         public virtual ICollection<UserDocument> UserDocument { get; set; }
@@ -52,5 +51,6 @@ namespace AurigainLoanERP.Data.Database
         public virtual ICollection<UserOtp> UserOtp { get; set; }
         public virtual ICollection<UserReportingPerson> UserReportingPersonReportingUser { get; set; }
         public virtual ICollection<UserReportingPerson> UserReportingPersonUser { get; set; }
+        public virtual ICollection<UserSecurityDepositDetails> UserSecurityDepositDetails { get; set; }
     }
 }

@@ -1,12 +1,9 @@
 ﻿using AurigainLoanERP.Services.User;
 using AurigainLoanERP.Shared.Common.Model;
 using AurigainLoanERP.Shared.ContractModel;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
+using static AurigainLoanERP.Shared.Enums.FixedValueEnums;
 
 namespace AurigainLoanERP.Api.Areas.Admin.Controllers
 {
@@ -36,6 +33,7 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
                 obj.IsSuccess = false;
                 obj.Message = ResponseMessage.InvalidData;
                 obj.Exception = ModelState.ErrorCount.ToString();
+                obj.StatusCode = (int)ApiStatusCode.InvaildModel;
                 return obj;
             }
         }

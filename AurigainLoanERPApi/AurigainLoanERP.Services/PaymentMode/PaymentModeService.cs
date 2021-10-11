@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using static AurigainLoanERP.Shared.Enums.FixedValueEnums;
 
 namespace AurigainLoanERP.Services.PaymentMode
 {
@@ -36,18 +37,18 @@ namespace AurigainLoanERP.Services.PaymentMode
 
                 if (result != null)
                 {
-                    return CreateResponse<List<PaymentModeModel>>(objResponse.Data, ResponseMessage.Success, true, TotalRecord: result.Count());
+                    return CreateResponse<List<PaymentModeModel>>(objResponse.Data, ResponseMessage.Success, true,((int)ApiStatusCode.Ok), TotalRecord: result.Count());
                 }
                 else
                 {
-                    return CreateResponse<List<PaymentModeModel>>(null, ResponseMessage.NotFound, true, TotalRecord: 0);
+                    return CreateResponse<List<PaymentModeModel>>(null, ResponseMessage.NotFound, true,((int)ApiStatusCode.RecordNotFound), TotalRecord: 0);
                 }
 
             }
             catch (Exception ex)
             {
 
-                return CreateResponse<List<PaymentModeModel>>(null, ResponseMessage.Fail, false, ex.Message ?? ex.InnerException.ToString());
+                return CreateResponse<List<PaymentModeModel>>(null, ResponseMessage.Fail, false, ((int)ApiStatusCode.ServerException), ex.Message ?? ex.InnerException.ToString());
 
             }
 
@@ -64,18 +65,18 @@ namespace AurigainLoanERP.Services.PaymentMode
 
                 if (modes.Count() > 0)
                 {
-                    return CreateResponse<List<DDLPaymentModeModel>>(modes, ResponseMessage.Success, true);
+                    return CreateResponse<List<DDLPaymentModeModel>>(modes, ResponseMessage.Success, true,((int)ApiStatusCode.Ok));
                 }
                 else
                 {
-                    return CreateResponse<List<DDLPaymentModeModel>>(null, ResponseMessage.NotFound, true);
+                    return CreateResponse<List<DDLPaymentModeModel>>(null, ResponseMessage.NotFound, true,((int)ApiStatusCode.RecordNotFound));
                 }
 
             }
             catch (Exception ex)
             {
 
-                return CreateResponse<List<DDLPaymentModeModel>>(null, ResponseMessage.NotFound, false, ex.Message ?? ex.InnerException.ToString());
+                return CreateResponse<List<DDLPaymentModeModel>>(null, ResponseMessage.NotFound, false, ((int)ApiStatusCode.ServerException), ex.Message ?? ex.InnerException.ToString());
 
             }
         }
@@ -90,18 +91,18 @@ namespace AurigainLoanERP.Services.PaymentMode
 
                 if (result != null)
                 {
-                    return CreateResponse<PaymentModeModel>(_mapper.Map<PaymentModeModel>(result), ResponseMessage.Success, true);
+                    return CreateResponse<PaymentModeModel>(_mapper.Map<PaymentModeModel>(result), ResponseMessage.Success, true,((int)ApiStatusCode.Ok));
                 }
                 else
                 {
-                    return CreateResponse<PaymentModeModel>(null, ResponseMessage.NotFound, true);
+                    return CreateResponse<PaymentModeModel>(null, ResponseMessage.NotFound, true,((int)ApiStatusCode.RecordNotFound));
                 }
 
             }
             catch (Exception ex)
             {
 
-                return CreateResponse<PaymentModeModel>(null, ResponseMessage.NotFound, false, ex.Message ?? ex.InnerException.ToString());
+                return CreateResponse<PaymentModeModel>(null, ResponseMessage.NotFound, false, ((int)ApiStatusCode.ServerException), ex.Message ?? ex.InnerException.ToString());
 
             }
 
@@ -124,12 +125,12 @@ namespace AurigainLoanERP.Services.PaymentMode
                     mode.ModifiedOn = DateTime.Now;
                 }
                 await _db.SaveChangesAsync();
-                return CreateResponse<string>(model.Mode, model.Id > 0 ? ResponseMessage.Update : ResponseMessage.Save, true);
+                return CreateResponse<string>(model.Mode, model.Id > 0 ? ResponseMessage.Update : ResponseMessage.Save, true,((int)ApiStatusCode.Ok));
             }
             catch (Exception ex)
             {
 
-                return CreateResponse<string>(null, ResponseMessage.Fail, false, ex.Message ?? ex.InnerException.ToString());
+                return CreateResponse<string>(null, ResponseMessage.Fail, false, ((int)ApiStatusCode.ServerException), ex.Message ?? ex.InnerException.ToString());
 
             }
 
@@ -142,11 +143,11 @@ namespace AurigainLoanERP.Services.PaymentMode
                 objRole.IsDelete = !objRole.IsDelete;
                 objRole.ModifiedOn = DateTime.Now;
                 await _db.SaveChangesAsync();
-                return CreateResponse<object>(true, ResponseMessage.Update, true);
+                return CreateResponse<object>(true, ResponseMessage.Update, true,((int)ApiStatusCode.Ok));
             }
             catch (Exception)
             {
-                return CreateResponse<object>(false, ResponseMessage.Fail, false);
+                return CreateResponse<object>(false, ResponseMessage.Fail, false, ((int)ApiStatusCode.ServerException));
             }
         }
         public async Task<ApiServiceResponseModel<object>> UpateActiveStatus(int id)
@@ -157,11 +158,11 @@ namespace AurigainLoanERP.Services.PaymentMode
                 mode.IsActive = !mode.IsActive;
                 mode.ModifiedOn = DateTime.Now;
                 await _db.SaveChangesAsync();
-                return CreateResponse<object>(true, ResponseMessage.Update, true);
+                return CreateResponse<object>(true, ResponseMessage.Update, true,((int)ApiStatusCode.Ok));
             }
             catch (Exception)
             {
-                return CreateResponse<object>(false, ResponseMessage.Fail, false);
+                return CreateResponse<object>(false, ResponseMessage.Fail, false, ((int)ApiStatusCode.ServerException));
             }
         }
     }

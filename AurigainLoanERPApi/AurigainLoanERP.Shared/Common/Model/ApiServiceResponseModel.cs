@@ -17,4 +17,12 @@ namespace AurigainLoanERP.Shared.Common.Model
         public string Exception { get; set; }
         public int? TotalRecord { get; set; }
     }
+
+    public class FilterDropDownPostModel {
+        public string Key { get; set; }
+        public string FileterFromKey { get; set; }
+        public int[] Values { get; set; }
+
+
+    }
 }

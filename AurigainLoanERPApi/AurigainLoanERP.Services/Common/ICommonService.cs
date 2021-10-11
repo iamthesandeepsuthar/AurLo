@@ -11,6 +11,6 @@ namespace AurigainLoanERP.Services.Common
     {
 
         Task<ApiServiceResponseModel<Dictionary<string, object>>> GetDropDown(string[] key);
-
+        Task<ApiServiceResponseModel<Dictionary<string, object>>> GetFilterDropDown(FilterDropDownPostModel[] model);
     }
 }

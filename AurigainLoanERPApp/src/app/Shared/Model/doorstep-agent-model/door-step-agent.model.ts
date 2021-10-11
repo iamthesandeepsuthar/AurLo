@@ -1,93 +1,128 @@
-export interface DoorStepAgentPostModel {
-  Id: number;
-  FullName: string;
-  FatherName: string;
-  UniqueId: string;
-  Gender: string;
-  QualificationId: number;
-  Address: string;
-  DistrictId: number;
-  PinCode: string;
-  DateOfBirth: string;
-  ProfilePictureUrl: string;
+export class DoorStepAgentPostModel {
+  constructor() {
+    this.User = new UserPostModel();
+    this.BankDetails = new UserBankDetailsPostModel();
+    this.UserKYC = [];
+    this.UserNominee = new UserNomineePostModel();
+    //  this.ReportingPerson = new UserReportingPersonPostModel();
+    this.Documents = [];
+    //  this.SecurityDeposit = new UserSecurityDepositPostModel();
+    this.SelfFunded=false;
+  }
+  Id!: number;
+  FullName!: string;
+  FatherName!: string;
+  UniqueId!: string;
+  Gender!: string;
+  QualificationId!: number;
+  Address!: string;
+  DistrictId!: number;
+  StateId!: number;
+  PinCode!: string;
+  DateOfBirth!: string;
+  ProfilePictureUrl!: string;
   SelfFunded: boolean;
-  IsActive: boolean;
-  User: UserPostModel;
-  BankDetails: BankDetailsPostModel;
-  UserKYC: UserKYCPostModel[];
-  UserNominee: UserNomineePostModel;
-  ReportingPerson: ReportingPersonPostModel;
-  Documents: DocumentPostModel[];
-  SecurityDeposit: SecurityDepositPostModel;
+  User!: UserPostModel;
+  BankDetails!: UserBankDetailsPostModel;
+  UserKYC: UserKYCPostModel[] = [];
+  UserNominee!: UserNomineePostModel;
+  ReportingPerson!: UserReportingPersonPostModel;
+  Documents: DocumentPostModel[] = [];
+  SecurityDeposit!: UserSecurityDepositPostModel;
 }
 
-interface SecurityDepositPostModel {
-  Id: number;
-  PaymentModeId: number;
-  TransactionStatus: number;
-  Amount: number;
-  CreditDate: string;
-  ReferanceNumber: string;
-  AccountNumber: string;
-  BankName: string;
-  IsActive: boolean;
+export class UserSecurityDepositPostModel {
+  constructor() {
+    this.Id = 0;
+    this.PaymentModeId = 0;
+    this.TransactionStatus = 0;
+    this.Amount = 0;
+  }
+  Id!: number;
+  PaymentModeId!: number;
+  TransactionStatus!: number;
+  Amount!: number;
+  CreditDate!: Date;
+  ReferanceNumber!: string;
+  AccountNumber!: string;
+  BankName!: string;
 }
 
-interface DocumentPostModel {
-  Id: number;
+export class DocumentPostModel {
+  constructor() {
+    // this.Id = 0;
+    this.DocumentTypeId = 0;
+    this.Files = [] as FilePostModel[];
+  }
+  Id!: number;
   DocumentTypeId: number;
-  IsActive: boolean;
-  Files: File[];
+  Files: FilePostModel[] = [];
 }
 
-interface FilePostModel {
-  Id: number;
-  FileName: string;
-  File: string;
-  FileType: string;
+export class FilePostModel {
+  constructor() {
+    // this.Id = 0;
+    this.IsEditMode = false;
+  }
+  Id!: number;
+  FileName!: string;
+  File!: string;
+  FileType!: string;
   IsEditMode: boolean;
 }
 
-interface ReportingPersonPostModel {
-  Id: number;
-  UserId: number;
-  ReportingUserId: number;
+export class UserReportingPersonPostModel {
+ 
+  Id!: number;
+  UserId!: number;
+  ReportingUserId!: number;
 }
 
-interface UserNomineePostModel {
-  Id: number;
-  NamineeName: string;
-  RelationshipWithNominee: string;
-  IsActive: boolean;
+export class UserNomineePostModel {
+  constructor() {
+    // this.Id = 0;
+    this.IsSelfDeclaration = true;
+  }
+  Id!: number;
+  NamineeName!: string;
+  RelationshipWithNominee!: string;
+  IsSelfDeclaration: boolean;
 }
 
-interface UserKYCPostModel {
-  Id: number;
-  Kycnumber: string;
-  KycdocumentTypeId: number;
-  IsActive: boolean;
+export class UserKYCPostModel {
+  constructor() {
+    // this.Id = 0;
+  }
+  Id!: number;
+  Kycnumber!: string;
+  KycdocumentTypeId!: number;
 }
 
-interface BankDetailsPostModel {
-  Id: number;
-  BankName: string;
-  AccountNumber: string;
-  Ifsccode: string;
-  Address: string;
-  IsActive: boolean;
+export class UserBankDetailsPostModel {
+  constructor() {
+    // this.Id = 0;
+  }
+  Id!: number;
+  BankName!: string;
+  AccountNumber!: string;
+  Ifsccode!: string;
+  Address!: string;
 }
 
-interface UserPostModel {
-  Id: number;
-  UserRoleId: number;
-  UserName: string;
-  Password: string;
-  Email: string;
-  Mobile: string;
-  IsApproved: boolean;
-  DeviceToken: string;
-  Token: string;
-  IsActive: boolean;
+export class UserPostModel {
+  constructor() {
+    // this.Id = 0;
+    this.UserRoleId = 0;
+    this.IsApproved = false;
+
+  }
+  Id!: number;
+  UserRoleId!: number;
+  UserName!: string;
+  Email!: string;
+  Mobile!: string;
+  IsApproved!: boolean;
+  DeviceToken!: string;
 }
 
 

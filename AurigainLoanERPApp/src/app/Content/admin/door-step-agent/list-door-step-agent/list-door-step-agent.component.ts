@@ -43,7 +43,7 @@ export class ListDoorStepAgentComponent implements OnInit {
     this._service.GetDoorStepAgentList(this.indexModel).subscribe(response => {
 
       if (response.IsSuccess) {
-        debugger
+        
         this.model = response.Data as DoorStepAgentViewModel[];
         this.dataSource = new MatTableDataSource<DoorStepAgentViewModel>(this.model);
         this.totalRecords = response.TotalRecord as number;
@@ -60,7 +60,7 @@ export class ListDoorStepAgentComponent implements OnInit {
   }
 
   sortData(event: any): void {
-    debugger
+    
     this.indexModel.OrderBy = event.active;
     this.indexModel.OrderByAsc = event.direction == "asc" ? true : false;
     this.indexModel.IsPostBack = true;

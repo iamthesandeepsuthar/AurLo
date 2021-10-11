@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using static AurigainLoanERP.Shared.Enums.FixedValueEnums;
 
 namespace AurigainLoanERP.Services.StateAndDistrict
 {
@@ -37,18 +38,18 @@ namespace AurigainLoanERP.Services.StateAndDistrict
 
                 if (result != null)
                 {
-                    return CreateResponse<List<StateModel>>(objResponse.Data, ResponseMessage.Success, true, TotalRecord: result.Count());
+                    return CreateResponse<List<StateModel>>(objResponse.Data, ResponseMessage.Success, true,((int)ApiStatusCode.Ok), TotalRecord: result.Count());
                 }
                 else
                 {
-                    return CreateResponse<List<StateModel>>(null, ResponseMessage.NotFound, true, TotalRecord: 0);
+                    return CreateResponse<List<StateModel>>(null, ResponseMessage.NotFound, true,((int)ApiStatusCode.RecordNotFound), TotalRecord: 0);
                 }
 
             }
             catch (Exception ex)
             {
 
-                return CreateResponse<List<StateModel>>(null, ResponseMessage.Fail, false, ex.Message ?? ex.InnerException.ToString());
+                return CreateResponse<List<StateModel>>(null, ResponseMessage.Fail, false, ((int)ApiStatusCode.ServerException), ex.Message ?? ex.InnerException.ToString());
 
             }
 
@@ -66,18 +67,18 @@ namespace AurigainLoanERP.Services.StateAndDistrict
 
                 if (result != null)
                 {
-                    return CreateResponse<StateModel>(_mapper.Map<StateModel>(result), ResponseMessage.Success, true);
+                    return CreateResponse<StateModel>(_mapper.Map<StateModel>(result), ResponseMessage.Success, true, ((int)ApiStatusCode.Ok));
                 }
                 else
                 {
-                    return CreateResponse<StateModel>(null, ResponseMessage.NotFound, true);
+                    return CreateResponse<StateModel>(null, ResponseMessage.NotFound, true,((int)ApiStatusCode.RecordNotFound));
                 }
 
             }
             catch (Exception ex)
             {
 
-                return CreateResponse<StateModel>(null, ResponseMessage.NotFound, false, ex.Message ?? ex.InnerException.ToString());
+                return CreateResponse<StateModel>(null, ResponseMessage.NotFound, false, ((int)ApiStatusCode.ServerException), ex.Message ?? ex.InnerException.ToString());
 
             }
 
@@ -94,18 +95,18 @@ namespace AurigainLoanERP.Services.StateAndDistrict
 
                 if (states.Count > 0)
                 {
-                    return CreateResponse<List<DDLStateModel>>(states, ResponseMessage.Success, true);
+                    return CreateResponse<List<DDLStateModel>>(states, ResponseMessage.Success, true,((int)ApiStatusCode.Ok));
                 }
                 else
                 {
-                    return CreateResponse<List<DDLStateModel>>(null, ResponseMessage.NotFound, true);
+                    return CreateResponse<List<DDLStateModel>>(null, ResponseMessage.NotFound, true,((int)ApiStatusCode.RecordNotFound));
                 }
 
             }
             catch (Exception ex)
             {
 
-                return CreateResponse<List<DDLStateModel>>(null, ResponseMessage.NotFound, false, ex.Message ?? ex.InnerException.ToString());
+                return CreateResponse<List<DDLStateModel>>(null, ResponseMessage.NotFound, false,((int)ApiStatusCode.ServerException), ex.Message ?? ex.InnerException.ToString());
 
             }
         }
@@ -117,13 +118,13 @@ namespace AurigainLoanERP.Services.StateAndDistrict
                 objRole.IsDelete = !objRole.IsDelete;
                 objRole.ModifiedOn = DateTime.Now;
                 await _db.SaveChangesAsync();
-                return CreateResponse<object>(true, ResponseMessage.Update, true);
+                return CreateResponse<object>(true, ResponseMessage.Update, true,((int)ApiStatusCode.Ok));
 
             }
             catch (Exception)
             {
 
-                return CreateResponse<object>(false, ResponseMessage.Fail, false);
+                return CreateResponse<object>(false, ResponseMessage.Fail, false,((int)ApiStatusCode.ServerException));
 
             }
         }
@@ -147,12 +148,12 @@ namespace AurigainLoanERP.Services.StateAndDistrict
 
                 }
                 await _db.SaveChangesAsync();
-                return CreateResponse<string>(model.Name, model.Id > 0 ? ResponseMessage.Update : ResponseMessage.Save, true);
+                return CreateResponse<string>(model.Name, model.Id > 0 ? ResponseMessage.Update : ResponseMessage.Save, true , ((int)ApiStatusCode.Ok));
             }
             catch (Exception ex)
             {
 
-                return CreateResponse<string>(null, ResponseMessage.Fail, false, ex.Message ?? ex.InnerException.ToString());
+                return CreateResponse<string>(null, ResponseMessage.Fail, false, ((int)ApiStatusCode.ServerException) ,ex.Message ?? ex.InnerException.ToString());
 
             }
 
@@ -165,13 +166,13 @@ namespace AurigainLoanERP.Services.StateAndDistrict
                 state.IsActive = !state.IsActive;
                 state.ModifiedOn = DateTime.Now;
                 await _db.SaveChangesAsync();
-                return CreateResponse<object>(true, ResponseMessage.Update, true);
+                return CreateResponse<object>(true, ResponseMessage.Update, true,((int)ApiStatusCode.Ok));
 
             }
             catch (Exception)
             {
 
-                return CreateResponse<object>(false, ResponseMessage.Fail, false);
+                return CreateResponse<object>(false, ResponseMessage.Fail, false, ((int)ApiStatusCode.ServerException));
 
             }
         }
@@ -194,18 +195,18 @@ namespace AurigainLoanERP.Services.StateAndDistrict
 
                 if (result != null)
                 {
-                    return CreateResponse<List<DistrictModel>>(objResponse.Data, ResponseMessage.Success, true, TotalRecord: result.Count());
+                    return CreateResponse<List<DistrictModel>>(objResponse.Data, ResponseMessage.Success, true,((int)ApiStatusCode.Ok) ,TotalRecord: result.Count());
                 }
                 else
                 {
-                    return CreateResponse<List<DistrictModel>>(null, ResponseMessage.NotFound, true, TotalRecord: 0);
+                    return CreateResponse<List<DistrictModel>>(null, ResponseMessage.NotFound,true, ((int)ApiStatusCode.RecordNotFound), TotalRecord: 0);
                 }
 
             }
             catch (Exception ex)
             {
 
-                return CreateResponse<List<DistrictModel>>(null, ResponseMessage.Fail, false, ex.Message ?? ex.InnerException.ToString());
+                return CreateResponse<List<DistrictModel>>(null, ResponseMessage.Fail, false, ((int)ApiStatusCode.ServerException) ,ex.Message ?? ex.InnerException.ToString());
 
             }
 
@@ -219,18 +220,18 @@ namespace AurigainLoanERP.Services.StateAndDistrict
 
                 if (result != null)
                 {
-                    return CreateResponse<DistrictModel>(_mapper.Map<DistrictModel>(result), ResponseMessage.Success, true);
+                    return CreateResponse<DistrictModel>(_mapper.Map<DistrictModel>(result), ResponseMessage.Success, true,((int)ApiStatusCode.Ok));
                 }
                 else
                 {
-                    return CreateResponse<DistrictModel>(null, ResponseMessage.NotFound, true);
+                    return CreateResponse<DistrictModel>(null, ResponseMessage.NotFound, true,((int)ApiStatusCode.RecordNotFound));
                 }
 
             }
             catch (Exception ex)
             {
 
-                return CreateResponse<DistrictModel>(null, ResponseMessage.NotFound, false, ex.Message ?? ex.InnerException.ToString());
+                return CreateResponse<DistrictModel>(null, ResponseMessage.NotFound, false, ((int)ApiStatusCode.ServerException), ex.Message ?? ex.InnerException.ToString());
 
             }
 
@@ -248,18 +249,18 @@ namespace AurigainLoanERP.Services.StateAndDistrict
 
                 if (districts.Count() > 0)
                 {
-                    return CreateResponse<List<DDLDistrictModel>>(districts, ResponseMessage.Success, true);
+                    return CreateResponse<List<DDLDistrictModel>>(districts, ResponseMessage.Success, true,((int)ApiStatusCode.Ok));
                 }
                 else
                 {
-                    return CreateResponse<List<DDLDistrictModel>>(null, ResponseMessage.NotFound, true);
+                    return CreateResponse<List<DDLDistrictModel>>(null, ResponseMessage.NotFound, true,((int)ApiStatusCode.RecordNotFound));
                 }
 
             }
             catch (Exception ex)
             {
 
-                return CreateResponse<List<DDLDistrictModel>>(null, ResponseMessage.NotFound, false, ex.Message ?? ex.InnerException.ToString());
+                return CreateResponse<List<DDLDistrictModel>>(null, ResponseMessage.NotFound, false, ((int)ApiStatusCode.ServerException), ex.Message ?? ex.InnerException.ToString());
 
             }
         }
@@ -271,13 +272,13 @@ namespace AurigainLoanERP.Services.StateAndDistrict
                 objRole.IsDelete = !objRole.IsDelete;
                 objRole.ModifiedOn = DateTime.Now;
                 await _db.SaveChangesAsync();
-                return CreateResponse<object>(true, ResponseMessage.Update, true);
+                return CreateResponse<object>(true, ResponseMessage.Update, true,((int)ApiStatusCode.Ok));
 
             }
             catch (Exception)
             {
 
-                return CreateResponse<object>(false, ResponseMessage.Fail, false);
+                return CreateResponse<object>(false, ResponseMessage.Fail, false,((int)ApiStatusCode.ServerException));
 
             }
         }
@@ -301,12 +302,12 @@ namespace AurigainLoanERP.Services.StateAndDistrict
                     district.ModifiedOn = DateTime.Now;
                 }
                 await _db.SaveChangesAsync();
-                return CreateResponse<string>(model.Name, model.Id > 0 ? ResponseMessage.Update : ResponseMessage.Save, true);
+                return CreateResponse<string>(model.Name, model.Id > 0 ? ResponseMessage.Update : ResponseMessage.Save, true,((int)ApiStatusCode.Ok));
             }
             catch (Exception ex)
             {
 
-                return CreateResponse<string>(null, ResponseMessage.Fail, false, ex.Message ?? ex.InnerException.ToString());
+                return CreateResponse<string>(null, ResponseMessage.Fail, false, ((int)ApiStatusCode.ServerException), ex.Message ?? ex.InnerException.ToString());
 
             }
 
@@ -319,11 +320,11 @@ namespace AurigainLoanERP.Services.StateAndDistrict
                 district.IsActive = !district.IsActive;
                 district.ModifiedOn = DateTime.Now;
                 await _db.SaveChangesAsync();
-                return CreateResponse<object>(true, ResponseMessage.Update, true);
+                return CreateResponse<object>(true, ResponseMessage.Update, true,((int)ApiStatusCode.Ok));
             }
             catch (Exception)
             {
-                return CreateResponse<object>(false, ResponseMessage.Fail, false);
+                return CreateResponse<object>(false, ResponseMessage.Fail, false, ((int)ApiStatusCode.ServerException));
             }
         }
 

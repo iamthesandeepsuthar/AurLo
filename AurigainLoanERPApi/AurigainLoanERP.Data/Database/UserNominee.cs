@@ -13,6 +13,7 @@ namespace AurigainLoanERP.Data.Database
         public string NamineeName { get; set; }
         public string RelationshipWithNominee { get; set; }
         public long UserId { get; set; }
+        public bool IsSelfDeclaration { get; set; }
         public bool? IsActive { get; set; }
         public bool IsDelete { get; set; }
         public DateTime CreatedOn { get; set; }

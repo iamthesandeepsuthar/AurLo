@@ -81,7 +81,7 @@ namespace AurigainLoanERP.Shared.ContractModel
         public long Id { get; set; }
         public long UserId { get; set; }
         public long ReportingUserId { get; set; }
-      
+
 
         public DateTime CreatedOn { get; set; }
         public DateTime? ModifiedOn { get; set; }
@@ -134,7 +134,7 @@ namespace AurigainLoanERP.Shared.ContractModel
 
         //public virtual Object District { get; set; }
         //public virtual Object Qualification { get; set; }
-      
+
     }
 
     public class DoorStepAgentViewModel
@@ -143,7 +143,7 @@ namespace AurigainLoanERP.Shared.ContractModel
         {
             User = new UserViewModel();
             BankDetails = new UserBankDetailViewModel();
-            ReportingPerson = new UserReportingPersonViewModel(); 
+            ReportingPerson = new UserReportingPersonViewModel();
             UserKYC = new List<UserKycViewModel>();
             UserNominee = new UserNomineeViewModel();
             Documents = new List<UserDocumentViewModel>();
@@ -207,16 +207,13 @@ namespace AurigainLoanERP.Shared.ContractModel
     #region <<User Post Model>>
     public class UserPostModel
     {
-        public long Id { get; set; }
-        public int UserRoleId { get; set; }
+        public long? Id { get; set; }
+        public int? UserRoleId { get; set; }
         public string UserName { get; set; }
-        public string Password { get; set; }
         public string Email { get; set; }
         public string Mobile { get; set; }
-        public bool IsApproved { get; set; }
+        public bool? IsApproved { get; set; }
         public string DeviceToken { get; set; }
-        public string Token { get; set; }
-        public bool? IsActive { get; set; }
 
     }
     public class UserBankDetailPostModel
@@ -226,21 +223,20 @@ namespace AurigainLoanERP.Shared.ContractModel
         public string AccountNumber { get; set; }
         public string Ifsccode { get; set; }
         public string Address { get; set; }
-        public bool? IsActive { get; set; }
     }
     public class UserNomineePostModel
     {
         public long Id { get; set; }
         public string NamineeName { get; set; }
         public string RelationshipWithNominee { get; set; }
-        public bool? IsActive { get; set; }
+        public bool IsSelfDeclaration { get; set; }
+
     }
     public class UserKycPostModel
     {
         public long Id { get; set; }
         public string Kycnumber { get; set; }
         public int KycdocumentTypeId { get; set; }
-        public bool? IsActive { get; set; }
     }
     public class UserReportingPersonPostModel
     {
@@ -258,7 +254,6 @@ namespace AurigainLoanERP.Shared.ContractModel
 
         public long Id { get; set; }
         public int DocumentTypeId { get; set; }
-        public bool? IsActive { get; set; }
 
         public List<FilePostModel> Files { get; set; }
 
@@ -317,8 +312,9 @@ namespace AurigainLoanERP.Shared.ContractModel
             BankDetails = new UserBankDetailPostModel();
             UserKYC = new List<UserKycPostModel>();
             UserNominee = new UserNomineePostModel();
-            ReportingPerson = new UserReportingPersonPostModel();
+         //   ReportingPerson = new UserReportingPersonPostModel();
             Documents = new List<UserDocumentPostModel>();
+         //   SecurityDeposit = new UserSecurityDepositPostModel();
 
 
         }
@@ -327,25 +323,25 @@ namespace AurigainLoanERP.Shared.ContractModel
 
         public string FullName { get; set; }
         public string FatherName { get; set; }
-        public string UniqueId { get; set; }
         public string Gender { get; set; }
         public int QualificationId { get; set; }
         public string Address { get; set; }
         public int? DistrictId { get; set; }
+        public int? StateId { get; set; }
         public string PinCode { get; set; }
         public DateTime? DateOfBirth { get; set; }
         public string ProfilePictureUrl { get; set; }
         public bool SelfFunded { get; set; }
-        public bool? IsActive { get; set; }
 
         public UserPostModel User { get; set; }
+        public UserBankDetailPostModel? BankDetails { get; set; }
+        public List<UserKycPostModel>? UserKYC { get; set; }
+        public UserNomineePostModel? UserNominee { get; set; }
+    
 
-        public UserBankDetailPostModel BankDetails { get; set; }
-        public List<UserKycPostModel> UserKYC { get; set; }
-        public UserNomineePostModel UserNominee { get; set; }
         public UserReportingPersonPostModel? ReportingPerson { get; set; }
-        public List<UserDocumentPostModel> Documents { get; set; }
-        public UserSecurityDepositPostModel SecurityDeposit { get; set; }
+        public List<UserDocumentPostModel>? Documents { get; set; }
+        public UserSecurityDepositPostModel? SecurityDeposit { get; set; }
 
     }
     #endregion

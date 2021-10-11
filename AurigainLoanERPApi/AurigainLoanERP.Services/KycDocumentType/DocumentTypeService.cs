@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using static AurigainLoanERP.Shared.Enums.FixedValueEnums;
 
 namespace AurigainLoanERP.Services.KycDocumentType
 {
@@ -36,18 +37,18 @@ namespace AurigainLoanERP.Services.KycDocumentType
 
                 if (result != null)
                 {
-                    return CreateResponse<List<DocumentTypeModel>>(objResponse.Data, ResponseMessage.Success, true, TotalRecord: result.Count());
+                    return CreateResponse<List<DocumentTypeModel>>(objResponse.Data, ResponseMessage.Success, true, ((int)ApiStatusCode.Ok), TotalRecord: result.Count());
                 }
                 else
                 {
-                    return CreateResponse<List<DocumentTypeModel>>(null, ResponseMessage.NotFound, true, TotalRecord: 0);
+                    return CreateResponse<List<DocumentTypeModel>>(null, ResponseMessage.NotFound, true,((int)ApiStatusCode.RecordNotFound), TotalRecord: 0);
                 }
 
             }
             catch (Exception ex)
             {
 
-                return CreateResponse<List<DocumentTypeModel>>(null, ResponseMessage.Fail, false, ex.Message ?? ex.InnerException.ToString());
+                return CreateResponse<List<DocumentTypeModel>>(null, ResponseMessage.Fail, false, ((int)ApiStatusCode.ServerException), ex.Message ?? ex.InnerException.ToString());
 
             }
 
@@ -64,18 +65,18 @@ namespace AurigainLoanERP.Services.KycDocumentType
 
                 if (types.Count > 0)
                 {
-                    return CreateResponse<List<DDLDocumentTypeModel>>(types, ResponseMessage.Success, true);
+                    return CreateResponse<List<DDLDocumentTypeModel>>(types, ResponseMessage.Success, true,((int)ApiStatusCode.Ok));
                 }
                 else
                 {
-                    return CreateResponse<List<DDLDocumentTypeModel>>(null, ResponseMessage.NotFound, true);
+                    return CreateResponse<List<DDLDocumentTypeModel>>(null, ResponseMessage.NotFound, true,((int)ApiStatusCode.RecordNotFound));
                 }
 
             }
             catch (Exception ex)
             {
 
-                return CreateResponse<List<DDLDocumentTypeModel>>(null, ResponseMessage.NotFound, false, ex.Message ?? ex.InnerException.ToString());
+                return CreateResponse<List<DDLDocumentTypeModel>>(null, ResponseMessage.NotFound, false, ((int)ApiStatusCode.ServerException), ex.Message ?? ex.InnerException.ToString());
 
             }
         }
@@ -90,18 +91,18 @@ namespace AurigainLoanERP.Services.KycDocumentType
                                         select c1).FirstOrDefaultAsync();               
                 if (result != null)
                 {
-                    return CreateResponse<DocumentTypeModel>(_mapper.Map<DocumentTypeModel>(result), ResponseMessage.Success, true);
+                    return CreateResponse<DocumentTypeModel>(_mapper.Map<DocumentTypeModel>(result), ResponseMessage.Success, true,((int)ApiStatusCode.Ok));
                 }
                 else
                 {
-                    return CreateResponse<DocumentTypeModel>(null, ResponseMessage.NotFound, true);
+                    return CreateResponse<DocumentTypeModel>(null, ResponseMessage.NotFound, true,((int)ApiStatusCode.RecordNotFound));
                 }
 
             }
             catch (Exception ex)
             {
 
-                return CreateResponse<DocumentTypeModel>(null, ResponseMessage.NotFound, false, ex.Message ?? ex.InnerException.ToString());
+                return CreateResponse<DocumentTypeModel>(null, ResponseMessage.NotFound, false, ((int)ApiStatusCode.ServerException), ex.Message ?? ex.InnerException.ToString());
 
             }
 
@@ -129,12 +130,12 @@ namespace AurigainLoanERP.Services.KycDocumentType
                 }
                 await _db.SaveChangesAsync();
                 _db.Database.CommitTransaction();
-                return CreateResponse<string>(model.DocumentName, model.Id > 0 ? ResponseMessage.Update : ResponseMessage.Save, true);
+                return CreateResponse<string>(model.DocumentName, model.Id > 0 ? ResponseMessage.Update : ResponseMessage.Save, true,((int)ApiStatusCode.Ok));
             }
             catch (Exception ex)
             {
                 _db.Database.RollbackTransaction();
-                return CreateResponse<string>(null, ResponseMessage.Fail, false, ex.Message ?? ex.InnerException.ToString());
+                return CreateResponse<string>(null, ResponseMessage.Fail, false, ((int)ApiStatusCode.ServerException), ex.Message ?? ex.InnerException.ToString());
 
             }
 
@@ -147,13 +148,13 @@ namespace AurigainLoanERP.Services.KycDocumentType
                 objRole.IsDelete = !objRole.IsDelete;
                 objRole.ModifiedOn = DateTime.Now;
                 await _db.SaveChangesAsync();
-                return CreateResponse<object>(true, ResponseMessage.Update, true);
+                return CreateResponse<object>(true, ResponseMessage.Update, true,((int)ApiStatusCode.Ok));
 
             }
             catch (Exception)
             {
 
-                return CreateResponse<object>(false, ResponseMessage.Fail, false);
+                return CreateResponse<object>(false, ResponseMessage.Fail, false, ((int)ApiStatusCode.ServerException));
 
             }
         }
@@ -165,11 +166,11 @@ namespace AurigainLoanERP.Services.KycDocumentType
                 type.IsActive = !type.IsActive;
                 type.ModifiedOn = DateTime.Now;
                 await _db.SaveChangesAsync();
-                return CreateResponse<object>(true, ResponseMessage.Update, true);
+                return CreateResponse<object>(true, ResponseMessage.Update, true,((int)ApiStatusCode.Ok));
             }
             catch (Exception)
             {
-                return CreateResponse<object>(false, ResponseMessage.Fail, false);
+                return CreateResponse<object>(false, ResponseMessage.Fail, false, ((int)ApiStatusCode.ServerException));
             }
         }
 

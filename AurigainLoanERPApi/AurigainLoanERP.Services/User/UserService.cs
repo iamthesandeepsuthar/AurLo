@@ -4,7 +4,8 @@ using AurigainLoanERP.Shared.Common.Method;
 using AurigainLoanERP.Shared.Common.Model;
 using AurigainLoanERP.Shared.ContractModel;
 using AurigainLoanERP.Shared.ExtensionMethod;
-using AutoMapper; 
+using AutoMapper;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -13,6 +14,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static AurigainLoanERP.Shared.Enums.FixedValueEnums;
 
 namespace AurigainLoanERP.Services.User
 {
@@ -21,13 +23,13 @@ namespace AurigainLoanERP.Services.User
         public readonly IMapper _mapper;
         private AurigainContext _db;
         private readonly Security _security;
-
-        public UserService(IMapper mapper, AurigainContext db, IConfiguration _configuration)
+        private readonly FileHelper _fileHelper;
+        public UserService(IMapper mapper, AurigainContext db, IConfiguration _configuration, IHostingEnvironment environment)
         {
             this._mapper = mapper;
             _db = db;
             _security = new Security(_configuration);
-
+            _fileHelper = new FileHelper(environment);
 
         }
 
@@ -79,18 +81,18 @@ namespace AurigainLoanERP.Services.User
                     }
 
                     _db.Database.CommitTransaction();
-                    return CreateResponse<string>(userId.ToString(), ResponseMessage.Save, true);
+                    return CreateResponse<string>(userId.ToString(), ResponseMessage.Save, true, ((int)ApiStatusCode.Ok));
                 }
                 else
                 {
                     _db.Database.RollbackTransaction();
-                    return CreateResponse<string>(null, ResponseMessage.UserExist, false);
+                    return CreateResponse<string>(null, ResponseMessage.UserExist, false, ((int)ApiStatusCode.DataBaseTransactionFailed));
                 }
             }
             catch (Exception ex)
             {
                 _db.Database.RollbackTransaction();
-                return CreateResponse<string>(null, ResponseMessage.Fail, false, ex.InnerException == null ? ex.Message : ex.InnerException.Message);
+                return CreateResponse<string>(null, ResponseMessage.Fail, false, ((int)ApiStatusCode.ServerException), ex.InnerException == null ? ex.Message : ex.InnerException.Message);
 
             }
 
@@ -187,18 +189,18 @@ namespace AurigainLoanERP.Services.User
                         objAgentModel.QualificationName = objAgent.Qualification.Name;
                         objAgentModel.User.UserRoleName = objAgent.User.UserRole.Name;
                     }
-                    return CreateResponse(objAgentModel, ResponseMessage.Success, true);
+                    return CreateResponse(objAgentModel, ResponseMessage.Success, true, ((int)ApiStatusCode.Ok));
                 }
                 else
                 {
-                    return CreateResponse<AgentViewModel>(null, ResponseMessage.NotFound, true);
+                    return CreateResponse<AgentViewModel>(null, ResponseMessage.NotFound, true, ((int)ApiStatusCode.RecordNotFound));
                 }
 
             }
             catch (Exception ex)
             {
 
-                return CreateResponse<AgentViewModel>(null, ResponseMessage.Fail, false, ex.InnerException != null ? ex.InnerException.Message : ex.Message);
+                return CreateResponse<AgentViewModel>(null, ResponseMessage.Fail, false, ((int)ApiStatusCode.ServerException), ex.InnerException != null ? ex.InnerException.Message : ex.Message);
             }
 
         }
@@ -211,59 +213,74 @@ namespace AurigainLoanERP.Services.User
             try
             {
 
-                await _db.Database.BeginTransactionAsync();
 
-                long userId = await SaveUserAsync(model.User);
-                if (userId > 0)
+                if (model != null)
                 {
-                    await SaveDoorStepAgentAsync(model, userId);
+                    await _db.Database.BeginTransactionAsync();
 
-
-                    if (model.BankDetails != null)
+                    long userId = 0;
+                    if (model.User != null)
                     {
-                        await SaveUserBankAsync(model.BankDetails, userId);
+                        userId = await SaveUserAsync(model.User);
 
                     }
-
-                    if (model.ReportingPerson != null)
+                    if (userId > 0)
                     {
-                        await SaveUserReportingPersonAsync(model.ReportingPerson, userId);
+
+                        await SaveDoorStepAgentAsync(model, userId);
+
+
+                        if (model.BankDetails != null)
+                        {
+                            await SaveUserBankAsync(model.BankDetails, userId);
+
+                        }
+
+                        if (model.ReportingPerson != null && model.ReportingPerson.ReportingUserId > 0)
+                        {
+                            await SaveUserReportingPersonAsync(model.ReportingPerson, userId);
+                        }
+                        if (model.Documents != null)
+                        {
+                            await SaveUserDocumentAsync(model.Documents, userId);
+
+                        }
+                        if (model.UserKYC != null)
+                        {
+                            await SaveUserKYCAsync(model.UserKYC, userId);
+
+                        }
+                        if (model.UserNominee != null)
+                        {
+                            await SaveUserNomineeAsync(model.UserNominee, userId);
+
+                        }
+                        if (model.SecurityDeposit != null && !string.IsNullOrEmpty( model.SecurityDeposit.AccountNumber))
+                        {
+                            await SaveUserSecurityDepositAsync(model.SecurityDeposit, userId);
+
+                        }
+
+
+                        _db.Database.CommitTransaction();
+                        return CreateResponse<string>(userId.ToString(), ResponseMessage.Save, true, ((int)ApiStatusCode.Ok));
                     }
-                    if (model.Documents != null)
+                    else
                     {
-                        await SaveUserDocumentAsync(model.Documents, userId);
-
+                        _db.Database.RollbackTransaction();
+                        return CreateResponse<string>(null, ResponseMessage.UserExist, false, ((int)ApiStatusCode.DataBaseTransactionFailed));
                     }
-                    if (model.UserKYC != null)
-                    {
-                        await SaveUserKYCAsync(model.UserKYC, userId);
-
-                    }
-                    if (model.UserNominee != null)
-                    {
-                        await SaveUserNomineeAsync(model.UserNominee, userId);
-
-                    }
-                    if (model.SecurityDeposit != null)
-                    {
-                        await SaveUserSecurityDepositAsync(model.SecurityDeposit, userId);
-
-                    }
-
-
-                    _db.Database.CommitTransaction();
-                    return CreateResponse<string>(userId.ToString(), ResponseMessage.Save, true);
                 }
                 else
                 {
-                    _db.Database.RollbackTransaction();
-                    return CreateResponse<string>(null, ResponseMessage.UserExist, false);
+                    return CreateResponse<string>(null, ResponseMessage.InvalidData, false, ((int)ApiStatusCode.InvaildModel));
+
                 }
             }
             catch (Exception ex)
             {
                 _db.Database.RollbackTransaction();
-                return CreateResponse<string>(null, ResponseMessage.Fail, false, ex.InnerException == null ? ex.Message : ex.InnerException.Message);
+                return CreateResponse<string>(null, ResponseMessage.Fail, false, ((int)ApiStatusCode.ServerException), ex.InnerException == null ? ex.Message : ex.InnerException.Message);
 
             }
 
@@ -283,7 +300,7 @@ namespace AurigainLoanERP.Services.User
                     .Include(x => x.User.UserKyc)
                     .Include(x => x.User.UserBank)
                     .Include(x => x.User.UserDocument)
-                    .Include(x => x.User.SecurityDepositDetails)
+                    .Include(x => x.User.UserSecurityDepositDetails)
                     .Include(x => x.User.UserRole).Include(x => x.User.UserReportingPersonUser).FirstOrDefaultAsync();
                 if (objDoorStepAgent != null)
                 {
@@ -344,7 +361,7 @@ namespace AurigainLoanERP.Services.User
                         }
                         if (objDoorStepAgent.SecurityDeposit != null)
                         {
-                            objDoorStepAgentModel.SecurityDeposit = _mapper.Map<UserSecurityDepositViewModel>(objDoorStepAgent.User.SecurityDepositDetails.FirstOrDefault() ?? null);
+                            objDoorStepAgentModel.SecurityDeposit = _mapper.Map<UserSecurityDepositViewModel>(objDoorStepAgent.User.UserSecurityDepositDetails.FirstOrDefault() ?? null);
 
                         }
 
@@ -353,18 +370,18 @@ namespace AurigainLoanERP.Services.User
                         objDoorStepAgentModel.QualificationName = objDoorStepAgent.Qualification.Name;
                         objDoorStepAgentModel.User.UserRoleName = objDoorStepAgent.User.UserRole.Name;
                     }
-                    return CreateResponse(objDoorStepAgentModel, ResponseMessage.Success, true);
+                    return CreateResponse(objDoorStepAgentModel, ResponseMessage.Success, true, ((int)ApiStatusCode.Ok));
                 }
                 else
                 {
-                    return CreateResponse<DoorStepAgentViewModel>(null, ResponseMessage.NotFound, true);
+                    return CreateResponse<DoorStepAgentViewModel>(null, ResponseMessage.NotFound, true, ((int)ApiStatusCode.RecordNotFound));
                 }
 
             }
             catch (Exception ex)
             {
 
-                return CreateResponse<DoorStepAgentViewModel>(null, ResponseMessage.Fail, false, ex.InnerException != null ? ex.InnerException.Message : ex.Message);
+                return CreateResponse<DoorStepAgentViewModel>(null, ResponseMessage.Fail, false, ((int)ApiStatusCode.ServerException), ex.InnerException != null ? ex.InnerException.Message : ex.Message);
             }
 
         }
@@ -380,12 +397,12 @@ namespace AurigainLoanERP.Services.User
                 user.IsActive = !user.IsActive;
                 await _db.SaveChangesAsync();
                 _db.Database.CommitTransaction();
-                return CreateResponse(true as object, ResponseMessage.Update, true);
+                return CreateResponse(true as object, ResponseMessage.Update, true, ((int)ApiStatusCode.Ok));
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 _db.Database.RollbackTransaction();
-                return CreateResponse(true as object, ResponseMessage.Fail, true);
+                return CreateResponse(true as object, ResponseMessage.Fail, true, ((int)ApiStatusCode.ServerException), ex.Message);
 
             }
         }
@@ -398,12 +415,12 @@ namespace AurigainLoanERP.Services.User
                 user.IsDelete = !user.IsDelete;
                 await _db.SaveChangesAsync();
                 _db.Database.CommitTransaction();
-                return CreateResponse(true as object, ResponseMessage.Update, true);
+                return CreateResponse(true as object, ResponseMessage.Update, true, ((int)ApiStatusCode.Ok));
             }
             catch (Exception)
             {
                 _db.Database.RollbackTransaction();
-                return CreateResponse(true as object, ResponseMessage.Fail, true);
+                return CreateResponse(true as object, ResponseMessage.Fail, true, ((int)ApiStatusCode.DataBaseTransactionFailed));
 
             }
         }
@@ -427,8 +444,10 @@ namespace AurigainLoanERP.Services.User
                     {
 
                         var objModel = _mapper.Map<UserMaster>(model);
+                        objModel.UserName = model.UserName ?? model.Email;
+
                         objModel.CreatedOn = DateTime.Now;
-                        objModel.Mpin = _security.EncryptData(GenerateUniqueId());
+                        objModel.Mpin = GenerateUniqueId();//_security.EncryptData(GenerateUniqueId());
                         var result = await _db.UserMaster.AddAsync(objModel);
                         await _db.SaveChangesAsync();
                         model.Id = result.Entity.Id;
@@ -452,7 +471,7 @@ namespace AurigainLoanERP.Services.User
 
                 throw;
             };
-            return model.Id;
+            return model.Id.Value;
         }
         /// <summary>
         /// Add/update Agent
@@ -479,7 +498,7 @@ namespace AurigainLoanERP.Services.User
                     objModel.DistrictId = model.DistrictId;
                     objModel.PinCode = model.PinCode;
                     objModel.IsActive = model.IsActive;
-                    objModel.ProfilePictureUrl = !string.IsNullOrEmpty(model.ProfilePictureUrl) ? Path.Combine(FilePathConstant.UserProfile, FileHelper.Save(model.ProfilePictureUrl, FilePathConstant.UserProfile)) : null;
+                    objModel.ProfilePictureUrl = !string.IsNullOrEmpty(model.ProfilePictureUrl) ? Path.Combine(FilePathConstant.UserProfile, _fileHelper.Save(model.ProfilePictureUrl, FilePathConstant.UserProfile)) : null;
                     objModel.QualificationId = model.QualificationId;
                     var result = await _db.UserAgent.AddAsync(objModel);
                     await _db.SaveChangesAsync();
@@ -516,7 +535,6 @@ namespace AurigainLoanERP.Services.User
         {
             try
             {
-
                 if (model.Id == default)
                 {
                     var objModel = new UserDoorStepAgent();
@@ -524,15 +542,15 @@ namespace AurigainLoanERP.Services.User
                     objModel.UserId = userId;
                     objModel.FullName = !string.IsNullOrEmpty(model.FullName) ? model.FullName : null;
                     objModel.FatherName = !string.IsNullOrEmpty(model.FatherName) ? model.FatherName : null;
-                    objModel.UniqueId = !string.IsNullOrEmpty(model.UniqueId) ? model.UniqueId : null;
+                    objModel.UniqueId = GenerateUniqueId();
                     objModel.Gender = !string.IsNullOrEmpty(model.Gender) ? model.Gender : null;
                     objModel.Address = !string.IsNullOrEmpty(model.Address) ? model.Address : null;
                     objModel.DateOfBirth = model.DateOfBirth ?? null;
                     objModel.DistrictId = model.DistrictId;
                     objModel.PinCode = model.PinCode;
                     objModel.SelfFunded = model.SelfFunded;
-                    objModel.IsActive = model.IsActive;
-                    objModel.ProfilePictureUrl = !string.IsNullOrEmpty(model.ProfilePictureUrl) ? Path.Combine(FilePathConstant.UserProfile, FileHelper.Save(model.ProfilePictureUrl, FilePathConstant.UserProfile)) : null;
+                    objModel.IsActive = true;
+                    objModel.ProfilePictureUrl = !string.IsNullOrEmpty(model.ProfilePictureUrl) ? Path.Combine(FilePathConstant.UserProfile, _fileHelper.Save(model.ProfilePictureUrl, FilePathConstant.UserProfile)) : null;
                     objModel.QualificationId = model.QualificationId;
                     var result = await _db.UserDoorStepAgent.AddAsync(objModel);
                     await _db.SaveChangesAsync();
@@ -550,8 +568,6 @@ namespace AurigainLoanERP.Services.User
                     objModel.PinCode = model.PinCode;
                     objModel.QualificationId = model.QualificationId;
                     objModel.SelfFunded = model.SelfFunded;
-                    //   objModel.SecurityDepositId = null;
-
                     objModel.ModifiedOn = DateTime.Now;
                     await _db.SaveChangesAsync();
 
@@ -607,21 +623,28 @@ namespace AurigainLoanERP.Services.User
                         if (fileitem.IsEditMode)
                         {
                             var objFileModel = await _db.UserDocumentFiles.FirstOrDefaultAsync(x => x.Id == fileitem.Id);
+
+                            if (objFileModel != null)
+                            {
+                                _fileHelper.Delete(Path.Combine(objFileModel.Path, objFileModel.FileName));
+
+                            }
+
                             ////if File Not fount then remove old file
                             if (string.IsNullOrEmpty(fileitem.File))
                             {
-                                FileHelper.Delete(Path.Combine(objFileModel.Path, objFileModel.FileName));
                                 _db.UserDocumentFiles.Remove(objFileModel);
 
                             }
+
                             ////if File  fount then update the file and entry
 
                             else
                             {
                                 objFileModel.DocumentId = documentId;
-                                objFileModel.FileName = FileHelper.Save(fileitem.File, FilePathConstant.UserAgentFile);
+                                objFileModel.FileName = _fileHelper.Save(fileitem.File, FilePathConstant.UserAgentFile, fileitem.FileName);
                                 objFileModel.Path = Path.Combine(FilePathConstant.UserAgentFile, objFileModel.FileName);
-                                objFileModel.FileType = FileHelper.GetFileExtension(objFileModel.FileName); //fileitem.File.ContentType;
+                                objFileModel.FileType = _fileHelper.GetFileExtension(objFileModel.FileName); //fileitem.File.ContentType;
                             }
 
                         }
@@ -631,10 +654,10 @@ namespace AurigainLoanERP.Services.User
                         {
                             var objFileModel = new UserDocumentFiles();
                             objFileModel.DocumentId = documentId;
-                            objFileModel.FileName = FileHelper.Save(fileitem.File, FilePathConstant.UserAgentFile);
+                            objFileModel.FileName = _fileHelper.Save(fileitem.File, FilePathConstant.UserAgentFile, fileitem.FileName);
                             objFileModel.Path = Path.Combine(FilePathConstant.UserAgentFile, objFileModel.FileName);
 
-                            objFileModel.FileType = FileHelper.GetFileExtension(objFileModel.FileName); //fileitem.File.ContentType;
+                            objFileModel.FileType = _fileHelper.GetFileExtension(fileitem.File); //fileitem.File.ContentType;
                             await _db.UserDocumentFiles.AddAsync(objFileModel);
                         }
 
@@ -715,7 +738,6 @@ namespace AurigainLoanERP.Services.User
                     objModel.AccountNumber = !string.IsNullOrEmpty(model.AccountNumber) ? model.AccountNumber : null;
                     objModel.Address = !string.IsNullOrEmpty(model.Address) ? model.Address : null;
                     objModel.Ifsccode = !string.IsNullOrEmpty(model.Ifsccode) ? model.Ifsccode : null;
-                    objModel.IsActive = model.IsActive;
                     var result = await _db.UserBank.AddAsync(objModel);
                     await _db.SaveChangesAsync();
 
@@ -763,8 +785,8 @@ namespace AurigainLoanERP.Services.User
                             var objModel = new UserKyc();
                             objModel.CreatedOn = DateTime.Now;
                             objModel.UserId = userId;
-                              objModel.KycdocumentTypeId = item.KycdocumentTypeId;
-                            objModel.Kycnumber = !string.IsNullOrEmpty(item.Kycnumber) ? _security.EncryptData(item.Kycnumber) : null;
+                            objModel.KycdocumentTypeId = item.KycdocumentTypeId;
+                            objModel.Kycnumber = !string.IsNullOrEmpty(item.Kycnumber) ? item.Kycnumber : null; //_security.EncryptData(item.Kycnumber)
                             var result = await _db.UserKyc.AddAsync(objModel);
 
                         }
@@ -773,7 +795,7 @@ namespace AurigainLoanERP.Services.User
                             var objModel = await _db.UserKyc.FirstOrDefaultAsync(x => x.Id == item.Id && x.UserId == userId);
                             objModel.ModifiedOn = DateTime.Now;
                             objModel.UserId = userId;
-                            objModel.Kycnumber = !string.IsNullOrEmpty(item.Kycnumber) ? _security.EncryptData(item.Kycnumber) : null; 
+                            objModel.Kycnumber = !string.IsNullOrEmpty(item.Kycnumber) ? item.Kycnumber : null; //_security.EncryptData(item.Kycnumber)
                             objModel.KycdocumentTypeId = item.KycdocumentTypeId;
 
 
@@ -813,7 +835,7 @@ namespace AurigainLoanERP.Services.User
 
                     objModel.RelationshipWithNominee = !string.IsNullOrEmpty(model.RelationshipWithNominee) ? model.RelationshipWithNominee : null;
                     objModel.NamineeName = !string.IsNullOrEmpty(model.NamineeName) ? model.NamineeName : null;
-
+                    //  objModel.IsSelfDeclaration = model.IsSelfDeclaration;
                     var result = await _db.UserNominee.AddAsync(objModel);
                     await _db.SaveChangesAsync();
 
@@ -823,9 +845,9 @@ namespace AurigainLoanERP.Services.User
                     var objModel = await _db.UserNominee.FirstOrDefaultAsync(x => x.Id == model.Id);
 
                     objModel.ModifiedOn = DateTime.Now;
-
-                    objModel.RelationshipWithNominee = !string.IsNullOrEmpty(model.RelationshipWithNominee) ? model.RelationshipWithNominee : null;
-                    objModel.NamineeName = !string.IsNullOrEmpty(model.NamineeName) ? model.NamineeName : null;
+                    objModel.RelationshipWithNominee = !string.IsNullOrEmpty(model.RelationshipWithNominee) ? model.RelationshipWithNominee : objModel.RelationshipWithNominee;
+                    objModel.NamineeName = !string.IsNullOrEmpty(model.NamineeName) ? model.NamineeName : objModel.NamineeName;
+                    //  objModel.IsSelfDeclaration = model.IsSelfDeclaration;
 
                     await _db.SaveChangesAsync();
 
@@ -853,7 +875,7 @@ namespace AurigainLoanERP.Services.User
 
                 if (model.Id == default)
                 {
-                    var objModel = new SecurityDepositDetails();
+                    var objModel = new UserSecurityDepositDetails();
                     objModel.CreatedOn = DateTime.Now;
                     objModel.UserId = userId;
                     objModel.PaymentModeId = model.PaymentModeId;
@@ -864,7 +886,7 @@ namespace AurigainLoanERP.Services.User
                     objModel.AccountNumber = !string.IsNullOrEmpty(model.AccountNumber) ? model.AccountNumber : null;
                     objModel.BankName = !string.IsNullOrEmpty(model.BankName) ? model.BankName : null;
                     objModel.IsActive = model.IsActive;
-                    var result = await _db.SecurityDepositDetails.AddAsync(objModel);
+                    var result = await _db.UserSecurityDepositDetails.AddAsync(objModel);
                     var user = await _db.UserDoorStepAgent.FirstOrDefaultAsync(x => x.Id == userId);
                     user.SecurityDepositId = result.Entity.Id;
                     await _db.SaveChangesAsync();
@@ -872,7 +894,7 @@ namespace AurigainLoanERP.Services.User
                 }
                 else
                 {
-                    var objModel = await _db.SecurityDepositDetails.FirstOrDefaultAsync(x => x.Id == model.Id);
+                    var objModel = await _db.UserSecurityDepositDetails.FirstOrDefaultAsync(x => x.Id == model.Id);
                     objModel.ModifiedDate = DateTime.Now;
                     objModel.PaymentModeId = model.PaymentModeId;
                     objModel.TransactionStatus = model.TransactionStatus;

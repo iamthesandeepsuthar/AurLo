@@ -1,8 +1,10 @@
-﻿using AurigainLoanERP.Shared.Common;
+﻿using AurigainLoanERP.Shared.Attribute;
+using AurigainLoanERP.Shared.Common;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Hosting.Internal;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Reflection;
 using System.Transactions;
 
 namespace AurigainLoanERP.Shared.ExtensionMethod
@@ -11,7 +13,7 @@ namespace AurigainLoanERP.Shared.ExtensionMethod
     {
         private static IHostingEnvironment _hostingEnvironment;
 
-        static ServiceExtension()
+         static ServiceExtension()
         {
             _hostingEnvironment = new HostingEnvironment();
         }
@@ -33,6 +35,8 @@ namespace AurigainLoanERP.Shared.ExtensionMethod
              
         }
 
+
+      
 
     }
 }

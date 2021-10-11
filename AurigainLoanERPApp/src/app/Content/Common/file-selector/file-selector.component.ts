@@ -22,7 +22,7 @@ export class FileInfo {
 
         this._file = file;
         this._name = file.name;
-
+        this._fileBase64 = this.FileBase64;
         const DECIMALS = 2;
         const KB = 1024;
         const DECIMAL_MARKER = DECIMALS < 0 ? 0 : DECIMALS;
@@ -57,7 +57,7 @@ export class FileInfo {
 })
 export class FileSelectorComponent {
     private _files: FileInfo[];
-    private _allowFiles:string [];
+    private _allowFiles: string[];
 
     @Output() readonly FileSelected: EventEmitter<FileInfo>;
     @Output() readonly FilesChanged: EventEmitter<FileInfo[]>;
@@ -66,8 +66,8 @@ export class FileSelectorComponent {
         this.FileSelected = new EventEmitter();
         this.FilesChanged = new EventEmitter();
         this._files = [];
-         this.FileFilter = "image/*,.doc,.docx,.ppt,.pptx,.pdf,.xlx,.xlsx,.txt";
-        this._allowFiles = ['.jpeg','.gif','.png','.jpg','.TIFF','.PSD','.EPS','.RAW','.INDD','.AI','.doc','.docx','.ppt','.pptx','.pdf','.txt','.xlx','.xlsx','.BMP','.SVG'];
+        this.FileFilter = "image/*,.doc,.docx,.ppt,.pptx,.pdf,.xlx,.xlsx,.txt";
+        this._allowFiles = ['.jpeg', '.gif', '.png', '.jpg', '.TIFF', '.PSD', '.EPS', '.RAW', '.INDD', '.AI', '.doc', '.docx', '.ppt', '.pptx', '.pdf', '.txt', '.xlx', '.xlsx', '.BMP', '.SVG'];
 
     }
 
@@ -84,30 +84,35 @@ export class FileSelectorComponent {
     }
 
     HandleFileInput(event: any) {
-      let files = event.target.Files;
+
+        let files = event.target.files;
         if (files.length == 0) {
             this.FileSelected.emit(undefined);
             return;
         }
+
         for (let index = 0; index < files.length; index++) {
             let file = files.item(index);
             let extIndex = file!.name.lastIndexOf('.');
-            let ext  = file!.name.substring(extIndex);
-           let  isAllowed =  this._allowFiles.some(x=>x === ext);
-           if(!isAllowed)
-            {
-               this._alertService.Error('Selected  file  format not allowed to upload','File Upload');
+            let ext = file!.name.substring(extIndex);
+            let isAllowed = this._allowFiles.some(x => x === ext);
+            if (!isAllowed) {
+                this._alertService.Error('Selected  file  format not allowed to upload', 'File Upload');
                 return;
             }
-            if (file == null || file.size == 0)
+            if (file == null || file.size == 0) {
                 continue;
+            }
 
             let fileInfo = new FileInfo(file);
+           
             this._files.push(fileInfo);
 
             this.FileSelected.emit(fileInfo);
-        }
 
-        this.FilesChanged.emit(this.Files);
+        }
+        setTimeout(() => {
+            this.FilesChanged.emit(this.Files);
+        }, 150);
     }
 }

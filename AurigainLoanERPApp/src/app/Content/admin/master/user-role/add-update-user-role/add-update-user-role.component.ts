@@ -91,7 +91,7 @@ export class AddUpdateUserRoleComponent implements OnInit {
   onGetDetail() {
     this._userRole.GetRole(this.Id).subscribe(res => {
       if (res.IsSuccess) {
-        debugger
+        
         let roleDetail = res.Data;
         this.model.Name = roleDetail?.Name as string;
         this.model.Id = roleDetail!.Id
@@ -106,11 +106,9 @@ export class AddUpdateUserRoleComponent implements OnInit {
   }
 
   GetDropDown() {
-    this._commonService.GetAllDDL([DropDown_key.ddlUserRole]).subscribe(res => {
+    this._commonService.GetDropDown([DropDown_key.ddlUserRole]).subscribe(res => {
       if (res.IsSuccess) {
         this.dropDown = res.Data;
-
-
       }
 
     });

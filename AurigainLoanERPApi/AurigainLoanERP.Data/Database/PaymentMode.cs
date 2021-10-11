@@ -11,7 +11,7 @@ namespace AurigainLoanERP.Data.Database
     {
         public PaymentMode()
         {
-            SecurityDepositDetails = new HashSet<SecurityDepositDetails>();
+            UserSecurityDepositDetails = new HashSet<UserSecurityDepositDetails>();
         }
 
         public int Id { get; set; }
@@ -22,6 +22,6 @@ namespace AurigainLoanERP.Data.Database
         public DateTime CreatedOn { get; set; }
         public DateTime? ModifiedOn { get; set; }
 
-        public virtual ICollection<SecurityDepositDetails> SecurityDepositDetails { get; set; }
+        public virtual ICollection<UserSecurityDepositDetails> UserSecurityDepositDetails { get; set; }
     }
 }
