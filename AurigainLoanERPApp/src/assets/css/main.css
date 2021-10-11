@@ -3565,6 +3565,33 @@ table tbody tr:nth-of-type(odd) .table-data-name span {
     vertical-align: top !important;
 }
 
+.upload-btn-wrapper {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.btn-upload {
+    font-size: 20px;
+    border: none;
+    background: transparent;
+    color: #000;
+    cursor: pointer;
+}
+
+.upload-btn-wrapper input[type=file] {
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    width: 100%;
+    padding: 0px;
+    /* z-index: -1; */
+}
+
 
 /* Theme Dark Start */
 
