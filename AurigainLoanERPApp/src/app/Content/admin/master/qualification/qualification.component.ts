@@ -16,7 +16,7 @@ import { UserRoleService } from 'src/app/Shared/Services/master-services/user-ro
 })
 export class QualificationComponent implements OnInit {
 
-  
+
   //#region <<  Variable  >>
   get routing_Url() { return Routing_Url }
 
@@ -37,11 +37,9 @@ export class QualificationComponent implements OnInit {
   }
 
   getList(): void {
-
     this._userRole.GetRoleList(this.indexModel).subscribe(response => {
 
       if (response.IsSuccess) {
-        debugger
         this.model = response.Data as UserRoleModel[];
         this.dataSource = new MatTableDataSource<UserRoleModel>(this.model);
         this.totalRecords = response.TotalRecord as number;
@@ -58,12 +56,12 @@ export class QualificationComponent implements OnInit {
   }
 
   sortData(event: any): void {
-    debugger
     this.indexModel.OrderBy = event.active;
     this.indexModel.OrderByAsc = event.direction == "asc" ? true : false;
     this.indexModel.IsPostBack = true;
     this.getList();
   }
+
   onSearch() {
     this.indexModel.Page = 1;
     this.getList();
@@ -116,8 +114,6 @@ export class QualificationComponent implements OnInit {
       }
     });
   }
-
-
   //#endregion
 
 }
