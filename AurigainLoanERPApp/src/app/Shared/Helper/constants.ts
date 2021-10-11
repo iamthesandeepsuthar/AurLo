@@ -39,11 +39,11 @@ export class API_Url {
   //#endregion
 
   //#region <<Qualification>>
-  public static Qualification_List_Api = `${environment.apiEndPoint}UserRole/Get`;
-  public static Qualification_Detail_Api = `${environment.apiEndPoint}UserRole/get/`;
-  public static Qualification_Add_Update_Api = `${environment.apiEndPoint}UserRole/post`;
-  public static Qualification_Active_Status_Api = `${environment.apiEndPoint}UserRole/ChangeActiveStatus/`;
-  public static Qualification_Delete_Api = `${environment.apiEndPoint}UserRole/delete/`;
+  public static Qualification_List_Api = `${environment.apiEndPoint}Qualification/Get`;
+  public static Qualification_Detail_Api = `${environment.apiEndPoint}Qualification/GetQualificationById/`;
+  public static Qualification_Add_Update_Api = `${environment.apiEndPoint}Qualification/SubmitQualification`;
+  public static Qualification_Active_Status_Api = `${environment.apiEndPoint}Qualification/ChangeActiveStatus/`;
+  public static Qualification_Delete_Api = `${environment.apiEndPoint}Qualification/DeleteQualification/`;
   //#endregion
 
   //#region <<Payment Mode>>

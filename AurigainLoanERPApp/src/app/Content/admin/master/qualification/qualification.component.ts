@@ -1,18 +1,18 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
-import { IndexModel } from 'src/app/Shared/Helper/common-model';
-import { Routing_Url, Message } from 'src/app/Shared/Helper/constants';
-import { UserRoleModel } from 'src/app/Shared/Model/master-model/user-role.model';
-import { CommonService } from 'src/app/Shared/Services/common.service';
-import { UserRoleService } from 'src/app/Shared/Services/master-services/user-role.service';
+import { Component, OnInit, ViewChild } from "@angular/core";
+import { MatPaginator } from "@angular/material/paginator";
+import { MatSort } from "@angular/material/sort";
+import { MatTableDataSource } from "@angular/material/table";
+import { IndexModel } from "src/app/Shared/Helper/common-model";
+import { Routing_Url, Message } from "src/app/Shared/Helper/constants";
+import { QualificationModel } from "src/app/Shared/Model/master-model/qualification.model";
+import { CommonService } from "src/app/Shared/Services/common.service";
+import { QualificationService } from "src/app/Shared/Services/master-services/qualification.service";
 
 @Component({
   selector: 'app-qualification',
   templateUrl: './qualification.component.html',
   styleUrls: ['./qualification.component.scss'],
-  providers: [UserRoleService]
+  providers: [QualificationService]
 })
 export class QualificationComponent implements OnInit {
 
@@ -20,28 +20,28 @@ export class QualificationComponent implements OnInit {
   //#region <<  Variable  >>
   get routing_Url() { return Routing_Url }
 
-  model!: UserRoleModel[];
+  model!: QualificationModel[];
   dataSource: any;
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort!: MatSort;
   id!: number;
-  displayedColumns: string[] = ['index', 'Name', 'ParentRole', 'IsActive', 'Action'];
-  ViewdisplayedColumns = [{ Value: 'Name', Text: 'Name' }, { Value: 'ParentRole', Text: 'Parent Role' }];
+  displayedColumns: string[] = ['index', 'Name', 'IsActive', 'Action'];
+  ViewdisplayedColumns = [{ Value: 'Name', Text: 'Name' }];
   indexModel = new IndexModel();
   totalRecords: number = 0;
   //#endregion
 
-  constructor(private readonly _userRole: UserRoleService, private readonly _commonService: CommonService) { }
+  constructor(private readonly _serviceQualification: QualificationService, private readonly _commonService: CommonService) { }
   ngOnInit(): void {
     this.getList();
   }
 
   getList(): void {
-    this._userRole.GetRoleList(this.indexModel).subscribe(response => {
+    this._serviceQualification.GetQualificationList(this.indexModel).subscribe(response => {
 
       if (response.IsSuccess) {
-        this.model = response.Data as UserRoleModel[];
-        this.dataSource = new MatTableDataSource<UserRoleModel>(this.model);
+        this.model = response.Data as QualificationModel[];
+        this.dataSource = new MatTableDataSource<QualificationModel>(this.model);
         this.totalRecords = response.TotalRecord as number;
         if (!this.indexModel.IsPostBack) {
           this.dataSource.paginator = this.paginator;
@@ -79,7 +79,7 @@ export class QualificationComponent implements OnInit {
     this._commonService.Question(Message.ConfirmUpdate as string).then(isTrue => {
 
       if (isTrue) {
-        this._userRole.ChangeActiveStatus(Id).subscribe(
+        this._serviceQualification.ChangeActiveStatus(Id).subscribe(
           data => {
             if (data.IsSuccess) {
               this._commonService.Success(data.Message as string)
@@ -95,11 +95,12 @@ export class QualificationComponent implements OnInit {
     });
 
   }
+
   updateDeleteStatus(id: number) {
 
     this._commonService.Question(Message.ConfirmUpdate as string).then(result => {
       if (result) {
-        this._userRole.DeleteRole(id).subscribe(
+        this._serviceQualification.DeleteQualification(id).subscribe(
           data => {
             if (data.IsSuccess) {
               this._commonService.Success(data.Message as string)
