@@ -22,8 +22,8 @@ import { Message } from '../../../../../Shared/Helper/constants';
 })
 export class DoorStepAgentRegistrationComponent implements OnInit {
   Id: number = 0;
-  model=new  DoorStepAgentPostModel();
-  formGroup!: FormGroup;
+  model = new DoorStepAgentPostModel();
+  formGroup = new FormGroup({});
   dropDown = new DropDownModol();
   get ddlkeys() { return DropDown_key };
   get f() { return this.formGroup.controls; }
@@ -46,7 +46,7 @@ export class DoorStepAgentRegistrationComponent implements OnInit {
     this.model.UserNominee = new UserNomineePostModel();
     this.model.BankDetails = new UserBankDetailsPostModel();
     this.model.Documents = [] as DocumentPostModel[];
-  //  this.model.SecurityDeposit = new UserSecurityDepositPostModel();
+    //  this.model.SecurityDeposit = new UserSecurityDepositPostModel();
 
 
   }
@@ -89,40 +89,39 @@ export class DoorStepAgentRegistrationComponent implements OnInit {
   }
 
   onFrmSubmit() {
-      let ChildValid: boolean = this.submitChildData();
-    //  if (this.formGroup.valid && ChildValid) {
+    let ChildValid: boolean = this.submitChildData();
+    if (this.formGroup.valid && ChildValid) {
 
-    this.model.User.UserName = this.model.User.UserName ? this.model.User.UserName : this.model.User.Email;
-    this.model.User.UserRoleId = this.model.User.UserRoleId ? this.model.User.UserRoleId : 1;
-    this.model.User.IsApproved = false;
-  
-    this.model.SelfFunded = Boolean(this.model.SelfFunded);
-    debugger
-    let serv = this._userDoorStepService.AddUpdateDoorStepAgent(this.model).subscribe(res => {
-      //  serv.unsubscribe();
-      if (res.IsSuccess) {
-        this._alertService.Success(Message.SaveSuccess);
-      } else {
-        this._alertService.Error(Message.SaveFail);
+      this.model.User.UserName = this.model.User.UserName ? this.model.User.UserName : this.model.User.Email;
+      this.model.User.UserRoleId = this.model.User.UserRoleId ? this.model.User.UserRoleId : 1;
+      this.model.User.IsApproved = false; 
+      this.model.SelfFunded = Boolean(this.model.SelfFunded);
+      debugger
+      let serv = this._userDoorStepService.AddUpdateDoorStepAgent(this.model).subscribe(res => {
+        serv.unsubscribe();
+        if (res.IsSuccess) {
+          this._alertService.Success(Message.SaveSuccess);
+        } else {
+          this._alertService.Error(Message.SaveFail);
 
-      }
-    });
-    //   }
+        }
+      });
+    }
   }
 
   submitChildData(): boolean {
     let isValid = true;
     if (this._childUserBankDetailSection) {
-      //    this._childUserBankDetailSection.formGroup.markAllAsTouched();
+      this._childUserBankDetailSection.formGroup.markAllAsTouched();
     }
     if (this._childUserDocumentDetailSection) {
-      //      this._childUserDocumentDetailSection.formGroup.markAllAsTouched();
+      this._childUserDocumentDetailSection.formGroup.markAllAsTouched();
     }
     if (this._childUserKYCDetailSection) {
-      //      this._childUserKYCDetailSection.formGroup.markAllAsTouched();
+      this._childUserKYCDetailSection.formGroup.markAllAsTouched();
     }
     if (this._childUserNomineeDetailSection) {
-      //     this._childUserNomineeDetailSection.formGroup.markAllAsTouched();
+      this._childUserNomineeDetailSection.formGroup.markAllAsTouched();
     }
 
     if (this._childUserBankDetailSection && this._childUserBankDetailSection.formGroup.valid) {
@@ -148,8 +147,8 @@ export class DoorStepAgentRegistrationComponent implements OnInit {
 
     return isValid;
   }
-  bindDocs(docs : DocumentPostModel[]){
+  bindDocs(docs: DocumentPostModel[]) {
     debugger
-    this.model.Documents=docs;
+    this.model.Documents = docs;
   }
 }
