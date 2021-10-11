@@ -60,7 +60,9 @@ namespace AurigainLoanERP.Services.KycDocumentType
                 var types = await _db.DocumentType.Select(x => new DDLDocumentTypeModel
                 {
                     Id = x.Id,
-                    Name = x.DocumentName
+                    Name = x.DocumentName,
+                    IsNumeric = x.IsNumeric,
+                    DocumentNumberLength = x.DocumentNumberLength?? null
                 }).ToListAsync();
 
                 if (types.Count > 0)

@@ -10,7 +10,7 @@ export class API_Url {
   public static DropDown_Api = `${environment.apiEndPoint}Common/GetDropDown`;
   public static FilterDropDown_Api = `${environment.apiEndPoint}Common/GetFilterDropDown`;
   public static MultipleFilterDropDown_Api = `${environment.apiEndPoint}Common/GetMultipleFilterDropDown`;
-  
+
   //#endregion
 
   //#region <<User Role>>
@@ -103,7 +103,7 @@ export class Routing_Url {
   //#endregion
 
   //#region <Qualification>
-  static Qualification_List_Url = 'user-role';
+  static Qualification_List_Url = '/qualifications';
   static Qualification_Detail_Url = '/detail/';
   static Qualification_AddUpdate_Url = '/add-update/';
   //#endregion

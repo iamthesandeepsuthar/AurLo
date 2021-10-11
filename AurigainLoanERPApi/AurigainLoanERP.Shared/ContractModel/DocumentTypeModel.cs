@@ -23,6 +23,8 @@ namespace AurigainLoanERP.Shared.ContractModel
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public bool IsNumeric { get; set; }
+        public int? DocumentNumberLength { get; set; }
     }
 
 
@@ -33,12 +35,12 @@ namespace AurigainLoanERP.Shared.ContractModel
         public string FileName { get; set; }
         public string FileType { get; set; }
         public string Path { get; set; }
-        
-      
-         
+
+
+
     }
 
-  
+
 
     //public class FilePostModel
     //{
@@ -51,6 +53,6 @@ namespace AurigainLoanERP.Shared.ContractModel
     //    /// If Is Edit =true then Update file in database Document not blank, if ie edit = true and Document is blank then remove file
     //    /// </summary>
     //    public bool IsEditMode { get; set; }
-       
+
     //}
 }

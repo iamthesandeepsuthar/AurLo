@@ -1,3 +1,6 @@
+import { DetailQualificationComponent } from './qualification/detail-qualification/detail-qualification.component';
+import { QualificationComponent } from './qualification/qualification.component';
+import { AddUpdateQualificationComponent } from './qualification/add-update-qualification/add-update-qualification.component';
 import { DetailUserRoleComponent } from './user-role/detail-user-role/detail-user-role.component';
 import { AddUpdateUserRoleComponent } from './user-role/add-update-user-role/add-update-user-role.component';
 import { Routing_Url } from './../../../Shared/Helper/constants';
@@ -15,6 +18,15 @@ const routes: Routes = [
   },
   {
     path: `${Routing_Url.UserRoleListUrl+Routing_Url.UserRoleDetailUrl}:id`, component: DetailUserRoleComponent, canActivate: [AuthenticationGuard]
+  },
+  {
+    path: "qualifications/add-qualification:id", component: AddUpdateQualificationComponent, canActivate: [AuthenticationGuard]
+  },
+  {
+    path: "qualifications", component: QualificationComponent, canActivate: [AuthenticationGuard]
+  },
+  {
+    path: "qualifications/detail-qualification", component: DetailQualificationComponent, canActivate: [AuthenticationGuard]
   }
 ];
 
