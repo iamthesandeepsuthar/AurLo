@@ -7,7 +7,7 @@ export class DoorStepAgentPostModel {
     //  this.ReportingPerson = new UserReportingPersonPostModel();
     this.Documents = [];
     //  this.SecurityDeposit = new UserSecurityDepositPostModel();
-    this.SelfFunded=false;
+    this.SelfFunded = false;
   }
   Id!: number;
   FullName!: string;
@@ -72,7 +72,7 @@ export class FilePostModel {
 }
 
 export class UserReportingPersonPostModel {
- 
+
   Id!: number;
   UserId!: number;
   ReportingUserId!: number;
@@ -153,15 +153,15 @@ export interface DoorStepAgentViewModel {
   ModifiedBy: number;
   SecurityDepositId: number;
   User: UserViewModel;
-  BankDetails: BankDetailViewModel;
+  BankDetails: UserBankDetailViewModel;
   UserKYC: UserKYCViewModel[];
   UserNominee: UserNomineeViewModel;
   ReportingPerson: ReportingPersonViewModel;
   Documents: DocumentViewModel[];
-  SecurityDeposit: SecurityDepositViewModel;
+  SecurityDeposit: UserSecurityDepositViewModel;
 }
 
-interface SecurityDepositViewModel {
+export interface UserSecurityDepositViewModel {
   Id: number;
   UserId: number;
   PaymentModeId: number;
@@ -178,7 +178,7 @@ interface SecurityDepositViewModel {
   PaymentMode: PaymentModeViewModel;
 }
 
-interface PaymentModeViewModel {
+export interface PaymentModeViewModel {
   Id: number;
   Mode: string;
   MinimumValue: number;
@@ -188,9 +188,11 @@ interface PaymentModeViewModel {
   ModifiedOn: string;
 }
 
-interface DocumentViewModel {
+export interface DocumentViewModel {
   Id: number;
   DocumentTypeId: number;
+  DocumentTypeName: string;
+
   UserId: number;
   IsActive: boolean;
   IsDelete: boolean;
@@ -201,7 +203,7 @@ interface DocumentViewModel {
   UserDocumentFiles: UserDocumentFileViewModel[];
 }
 
-interface UserDocumentFileViewModel {
+export interface UserDocumentFileViewModel {
   Id: number;
   DocumentId: number;
   FileName: string;
@@ -209,7 +211,7 @@ interface UserDocumentFileViewModel {
   Path: string;
 }
 
-interface ReportingPersonViewModel {
+export interface ReportingPersonViewModel {
   Id: number;
   UserId: number;
   ReportingUserId: number;
@@ -220,7 +222,7 @@ interface ReportingPersonViewModel {
   ReportingUser: UserViewModel;
 }
 
-interface UserNomineeViewModel {
+export interface UserNomineeViewModel {
   Id: number;
   NamineeName: string;
   RelationshipWithNominee: string;
@@ -233,10 +235,11 @@ interface UserNomineeViewModel {
   ModifiedBy: number;
 }
 
-interface UserKYCViewModel {
+export interface UserKYCViewModel {
   Id: number;
   Kycnumber: string;
   KycdocumentTypeId: number;
+  KycdocumentTypeName: string;
   UserId: number;
   IsActive: boolean;
   IsDelete: boolean;
@@ -246,7 +249,7 @@ interface UserKYCViewModel {
   ModifiedBy: number;
 }
 
-interface BankDetailViewModel {
+export interface UserBankDetailViewModel {
   Id: number;
   BankName: string;
   AccountNumber: string;
@@ -261,7 +264,7 @@ interface BankDetailViewModel {
   ModifiedBy: number;
 }
 
-interface UserViewModel {
+export interface UserViewModel {
   Id: number;
   UserRoleId: number;
   UserRoleName: string;

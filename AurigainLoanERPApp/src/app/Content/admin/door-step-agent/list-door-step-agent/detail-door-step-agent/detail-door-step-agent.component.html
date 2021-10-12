@@ -2,49 +2,50 @@
     <div class="widget-content widget-content p-3 form-grp-w-border mt-3">
         <h2> <img src="assets/img/personal_detail.png"> Personal Details</h2>
 
-        <div class="page-profile d-flex align-items-center justify-content-center mx-auto mb-3"><img src="assets/img/user-default.jpg"></div>
+        <div class="page-profile d-flex align-items-center justify-content-center mx-auto mb-3"><img
+                src="assets/img/user-default.jpg"></div>
         <table class="table  table-borderless table-data-info table-font-17 table-v-align-top m-0">
             <tbody>
                 <tr>
                     <td style="width: 18%;"> <strong> Name: </strong> </td>
-                    <td style="width: 32%;">Akash agarwal</td>
+                    <td style="width: 32%;">{{this.model?.FullName ?? 'N/A'}}</td>
                     <td style="width: 18%;"><strong> Date of birth: </strong> </td>
-                    <td style="width: 32%;">20-20-1997</td>
+                    <td style="width: 32%;">{{this.model?.DateOfBirth | date :'dd-MM-yyyy'}}</td>
                 </tr>
 
                 <tr>
                     <td><strong> Father name: </strong> </td>
-                    <td>Enter name</td>
+                    <td>{{model?.FatherName?? 'N/A'}}</td>
                     <td><strong> Mobile number: </strong> </td>
-                    <td>+91 8953078951</td>
+                    <td>{{model?.User?.Mobile?? 'N/A'}}</td>
                 </tr>
 
                 <tr>
                     <td><strong> Qualification: </strong> </td>
-                    <td>Enter Qualification</td>
+                    <td>{{model?.QualificationName?? 'N/A'}}</td>
                     <td><strong> Personal Email ID: </strong> </td>
-                    <td>test@gmail.com</td>
+                    <td>{{model?.User?.Email?? 'N/A'}}</td>
                 </tr>
 
                 <tr>
                     <td><strong> Ability to self fund: </strong> </td>
-                    <td>Yes</td>
+                    <td>{{model?.SelfFunded ? 'Yes': 'No' ?? 'N/A'}}</td>
                     <td><strong> Gender: </strong> </td>
-                    <td>Male</td>
+                    <td>{{model?.Gender?? 'N/A' }}</td>
                 </tr>
 
                 <tr>
                     <td><strong> Address: </strong> </td>
-                    <td>Kemp House 152 – 160 City Road London EC1V 2NX</td>
+                    <td>{{model?.Address?? 'N/A'}}</td>
                     <td><strong> State: </strong> </td>
-                    <td>Rajasthan</td>
+                    <td>{{model?.StateName?? 'N/A'}}</td>
                 </tr>
 
                 <tr>
                     <td><strong> District: </strong> </td>
-                    <td>Jaipur</td>
+                    <td>{{model?.DistrictName ?? 'N/A'}}</td>
                     <td><strong> Pincode: </strong> </td>
-                    <td>302008</td>
+                    <td>{{model?.PinCode ?? 'N/A'}}</td>
                 </tr>
 
             </tbody>
@@ -58,17 +59,17 @@
 
                 <tr>
                     <td style="width: 220px;"><strong> Relationship: </strong> </td>
-                    <td>Enter Relationship</td>
+                    <td>{{this.model?.UserNominee?.RelationshipWithNominee?? 'N/A'}}</td>
                 </tr>
                 <tr>
                     <td> <strong> Name: </strong> </td>
-                    <td>Akash agarwal</td>
+                    <td>{{this.model?.UserNominee?.NamineeName?? 'N/A'}}</td>
                 </tr>
 
-                <tr>
+                <!-- <tr>
                     <td><strong> Self Declaration String: </strong> </td>
                     <td>Yes</td>
-                </tr>
+                </tr> -->
             </tbody>
         </table>
     </div>
@@ -80,16 +81,17 @@
 
                 <tr>
                     <td style="width: 220px;"><strong> A/C number: </strong> </td>
-                    <td>5987235896125874</td>
+                    <td>{{model.BankDetails.AccountNumber?? 'N/A'}}</td>
                 </tr>
                 <tr>
                     <td> <strong> IFSC Code: </strong> </td>
-                    <td>HDFC0098</td>
+                    <td>{{model.BankDetails.Ifsccode?? 'N/A'}}</td>
                 </tr>
 
                 <tr>
                     <td><strong> Bank name: </strong> </td>
-                    <td>HDFC Bank</td>
+                    <td>{{model.BankDetails.BankName?? 'N/A'}}</td>
+
                 </tr>
             </tbody>
         </table>
@@ -99,31 +101,15 @@
         <h2> <img src="assets/img/kyc_details_white.png">KYC Details</h2>
 
         <div class="row door-kyc-details">
-            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 mt-3 mt-xl-0">
-                <div class="custom-card-1">
-                    <div class="custom-card-1-header"><i class="fas fa-address-card"></i> Aadhar card</div>
-                    <div class="custom-card-1-body">8952-1569-8794-0015</div>
+            <ng-container *ngFor="let kycItem of model.UserKYC">
+                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 mt-3 mt-xl-0">
+                    <div class="custom-card-1">
+                        <div class="custom-card-1-header"><i class="fas fa-address-card"></i>
+                            {{kycItem.KycdocumentTypeName ?? 'N/A'}}</div>
+                        <div class="custom-card-1-body">{{kycItem.Kycnumber ?? 'N/A'}}</div>
+                    </div>
                 </div>
-            </div>
-            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 mt-3 mt-xl-0">
-                <div class="custom-card-1">
-                    <div class="custom-card-1-header"><i class="fas fa-address-card"></i> Pan card</div>
-                    <div class="custom-card-1-body">8952-1569-8794-0015</div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 mt-3 mt-xl-0">
-                <div class="custom-card-1">
-                    <div class="custom-card-1-header"><i class="fas fa-address-card"></i> Votar card</div>
-                    <div class="custom-card-1-body">8952-1569-8794-0015</div>
-                </div>
-            </div>
-
-            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 mt-3 mt-xl-0">
-                <div class="custom-card-1">
-                    <div class="custom-card-1-header"><i class="fas fa-address-card"></i> Driving licence</div>
-                    <div class="custom-card-1-body">8952-1569-8794-0015</div>
-                </div>
-            </div>
+            </ng-container>
 
 
         </div>
@@ -134,23 +120,62 @@
         <table class="table  table-borderless table-data-info table-font-17 table-v-align-top m-0">
             <tbody>
 
-                <tr>
-                    <td style="width: 220px;"><strong> Aadhaar Card Picture: </strong> </td>
+                <tr *ngFor="let item of model?.Documents">
+                    <td style="width: 220px;"><strong> {{item?.DocumentTypeName?? 'N/A'}} : </strong> </td>
                     <td>
                         <div class="d-flex align-items-center">
-                            <a href="" data-toggle="modal" data-target="#Doc-Popup" class="small-media-items position-relative mr-3">
-                                <div class="small-media-items-img" style="background-image: url('assets/img/default.jpg')"></div> <i class="fas fa-link"></i> </a>
-                            <a href="" data-toggle="modal" data-target="#Doc-Popup" class="small-media-items position-relative">
-                                <div class="small-media-items-img" style="background-image: url('assets/img/default.jpg')"></div> <i class="fas fa-link"></i> </a>
+                            <ng-container *ngFor="let file of item.UserDocumentFiles; let fileIndex=index">
+                                <a href="" data-toggle="modal"
+                                    data-target="#Doc-Popup_{{item?.DocumentTypeId}}_{{fileIndex}}"
+                                    class="small-media-items position-relative mr-3">
+                                    <!-- {{file | json}} -->
+                                    <div class="small-media-items-img"
+                                        style="background-image: url('{{file.Path}}')"></div>
+                                    <i class="fas fa-link"></i>
+                                </a>
+
+                                <!-- Gallery popup start -->
+                                <div class="modal fade show-gallery modal-doc-show"
+                                    id="Doc-Popup_{{item?.DocumentTypeId}}_{{fileIndex}}" tabindex="-1" role="dialog"
+                                    aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                                        <div class="modal-content bg-transparent">
+                                            <button type="button" class="close modal-btn-with-no-header"
+                                                data-dismiss="modal" aria-label="Close"> <i
+                                                    class="fas fa-times"></i></button>
+                                            <div class="modal-body p-0 text-center">
+                                                <img src="{{file.Path}}" alt="" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Gallery popup  End -->
+                            </ng-container>
+                            <!-- <a href="" data-toggle="modal" data-target="#Doc-Popup"
+                                class="small-media-items position-relative mr-3">
+                                <div class="small-media-items-img"
+                                    style="background-image: url('assets/img/default.jpg')"></div> <i
+                                    class="fas fa-link"></i>
+                            </a>
+                            <a href="" data-toggle="modal" data-target="#Doc-Popup"
+                                class="small-media-items position-relative">
+                                <div class="small-media-items-img"
+                                    style="background-image: url('assets/img/default.jpg')"></div> <i
+                                    class="fas fa-link"></i>
+                            </a> -->
                         </div>
                     </td>
                 </tr>
-                <tr>
+                <!-- <tr>
                     <td> <strong> PAN Card Picture: </strong> </td>
                     <td>
                         <div class="d-flex align-items-center">
-                            <a href="" data-toggle="modal" data-target="#Doc-Popup" class="small-media-items position-relative mr-3">
-                                <div class="small-media-items-img" style="background-image: url('assets/img/300x300.jpg')"></div> <i class="fas fa-link"></i> </a>
+                            <a href="" data-toggle="modal" data-target="#Doc-Popup"
+                                class="small-media-items position-relative mr-3">
+                                <div class="small-media-items-img"
+                                    style="background-image: url('assets/img/300x300.jpg')"></div> <i
+                                    class="fas fa-link"></i>
+                            </a>
 
                         </div>
                     </td>
@@ -159,27 +184,21 @@
                     <td> <strong> Cancelled Cheque Picture: </strong> </td>
                     <td>
                         <div class="d-flex align-items-center">
-                            <a href="" data-toggle="modal" data-target="#Doc-Popup" class="small-media-items position-relative mr-3">
-                                <div class="small-media-items-img" style="background-image: url('assets/img/document_pictures_white.png')"></div> <i class="fas fa-link"></i> </a>
+                            <a href="" data-toggle="modal" data-target="#Doc-Popup"
+                                class="small-media-items position-relative mr-3">
+                                <div class="small-media-items-img"
+                                    style="background-image: url('assets/img/document_pictures_white.png')"></div> <i
+                                    class="fas fa-link"></i>
+                            </a>
 
                         </div>
                     </td>
-                </tr>
+                </tr> -->
             </tbody>
         </table>
     </div>
 
 
-    <!-- Gallery popup start -->
-    <div class="modal fade show-gallery modal-doc-show" id="Doc-Popup" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-            <div class="modal-content bg-transparent">
-                <button type="button" class="close modal-btn-with-no-header" data-dismiss="modal" aria-label="Close"> <i class="fas fa-times"></i></button>
-                <div class="modal-body p-0 text-center">
-                    <img src="assets/img/default.jpg" alt="" /> </div>
-            </div>
-        </div>
-    </div>
-    <!-- Gallery popup  End -->
+
 
 </section>

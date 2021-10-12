@@ -4,7 +4,7 @@ using AutoMapper;
 
 namespace AurigainLoanERP.Services
 {
-    public  class AutoMapperProfile : Profile
+    public class AutoMapperProfile : Profile
     {
 
         public AutoMapperProfile()
@@ -12,7 +12,7 @@ namespace AurigainLoanERP.Services
             CreateMap<State, StateModel>().ReverseMap();
             CreateMap<District, DistrictModel>().ReverseMap();
             CreateMap<DocumentType, DocumentTypeModel>().ReverseMap();
-         
+
 
             CreateMap<QualificationMaster, QualificationModel>().ReverseMap();
             CreateMap<Data.Database.PaymentMode, PaymentModeModel>().ReverseMap();
@@ -27,7 +27,7 @@ namespace AurigainLoanERP.Services
             CreateMap<UserSecurityDepositDetails, UserSecurityDepositPostModel>().ReverseMap();
             CreateMap<UserRole, UserRolePostModel>().ReverseMap();
 
-
+            CreateMap<UserDoorStepAgent, DoorStepAgentViewModel>().ReverseMap();
             CreateMap<UserAgent, AgentViewModel>().ReverseMap();
             CreateMap<UserViewModel, UserMaster>().ReverseMap();
             CreateMap<UserDocumentViewModel, UserDocument>().ReverseMap();

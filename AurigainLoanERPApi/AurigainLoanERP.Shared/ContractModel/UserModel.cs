@@ -51,6 +51,8 @@ namespace AurigainLoanERP.Shared.ContractModel
         public long Id { get; set; }
         public string Kycnumber { get; set; }
         public int KycdocumentTypeId { get; set; }
+        public string KycdocumentTypeName{ get; set; }
+
         public long UserId { get; set; }
         public bool? IsActive { get; set; }
         public bool IsDelete { get; set; }
@@ -190,6 +192,8 @@ namespace AurigainLoanERP.Shared.ContractModel
 
         public long Id { get; set; }
         public int DocumentTypeId { get; set; }
+        public string DocumentTypeName{ get; set; }
+
         public long UserId { get; set; }
         public bool? IsActive { get; set; }
         public bool IsDelete { get; set; }
