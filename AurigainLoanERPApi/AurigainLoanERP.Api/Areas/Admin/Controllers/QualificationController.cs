@@ -24,6 +24,11 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
 
         }
 
+        [HttpPost]
+        public async Task<ApiServiceResponseModel<List<QualificationModel>>> Get(IndexModel model)
+        {
+            return await _qualificationService.GetAllAsync(model);
+        }
         // POST api/Qualification/SubmitQualification
         [HttpPost("[action]")]
         public async Task<ApiServiceResponseModel<string>> SubmitQualification(QualificationModel model)

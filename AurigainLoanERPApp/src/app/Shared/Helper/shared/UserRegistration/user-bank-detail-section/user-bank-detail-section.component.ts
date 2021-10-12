@@ -10,7 +10,7 @@ import { UserBankDetailsPostModel } from 'src/app/Shared/Model/doorstep-agent-mo
 export class UserBankDetailSectionComponent implements OnInit {
   @Input() bankModel= new UserBankDetailsPostModel();
   @Output() onSubmit = new EventEmitter<UserBankDetailsPostModel>();
-  formGroup = {} as FormGroup;
+  formGroup = new FormGroup({});
 
   get f() { return this.formGroup.controls; }
   constructor() { }

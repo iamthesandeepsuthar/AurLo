@@ -15,6 +15,7 @@ import { UserDocumentDetailSectionComponent } from './UserRegistration/user-docu
 import { UserKYCDetailSectionComponent } from './UserRegistration/user-kycdetail-section/user-kycdetail-section.component';
 import { UserNomineeDetailSectionComponent } from './UserRegistration/user-nominee-detail-section/user-nominee-detail-section.component';
 import { FileSelectorComponent } from 'src/app/Content/Common/file-selector/file-selector.component';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 const CommonModules = [
   HttpClientModule,
   ReactiveFormsModule,
@@ -30,15 +31,16 @@ const InstalledModule = [
   MatPaginatorModule,
   MatSortModule,
   NgSelectModule,
+  BsDatepickerModule.forRoot(),
   ToastrModule.forRoot({
-    timeOut:3000,
-    closeButton:true,
-    autoDismiss:true,
-    maxOpened:5
+    timeOut: 3000,
+    closeButton: true,
+    autoDismiss: true,
+    maxOpened: 5
   }),
 ]
 
-const SharedComponent =[
+const SharedComponent = [
   UserNomineeDetailSectionComponent,
   UserKYCDetailSectionComponent,
   UserDocumentDetailSectionComponent,

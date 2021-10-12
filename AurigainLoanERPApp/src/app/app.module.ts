@@ -18,7 +18,8 @@ import { LoaderComponent } from './Content/Common/loader/loader.component';
 import { DashboardModule } from "./Content/dashboard/dashboard.module";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HtmlComponent } from './Content/html/html.component';
-import { LoginComponent } from './Content/Common/login/login.component'; 
+import { LoginComponent } from './Content/Common/login/login.component';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker'; 
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { LoginComponent } from './Content/Common/login/login.component';
     CommonModule,
     DashboardModule,
     BrowserAnimationsModule,
+    BsDatepickerModule.forRoot(),
   
   ],
   providers: [ BaseAPIService,

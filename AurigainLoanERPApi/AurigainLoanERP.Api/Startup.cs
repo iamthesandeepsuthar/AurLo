@@ -12,6 +12,7 @@ using AurigainLoanERP.Shared.Common;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Rewrite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -26,11 +27,7 @@ using System.Text;
 namespace AurigainLoanERP.Api
 {
     public class Startup
-    {
-
-
-
-
+    { 
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -94,6 +91,7 @@ namespace AurigainLoanERP.Api
                 options.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod())); // allow CORS
             services.AddAutoMapper(typeof(AutoMapperProfile));
             services.AddMvc().AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = null);
+
             RegisterServices(services);
 
         }
@@ -106,12 +104,21 @@ namespace AurigainLoanERP.Api
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Aurigain Loan ERP (v1)"));
+               
             }
             else {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Aurigain Loan ERP (v1)"));
             }
+            //var option = new RewriteOptions();
+            //option.AddRedirect("^$", "swagger");
+            //app.UseRewriter(option);
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Aurigain Loan ERP (v1)");
+                c.RoutePrefix = string.Empty;  // Set Swagger UI at apps root
+            });
             app.UseRouting();
             app.UseStaticFiles();
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
