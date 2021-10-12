@@ -3743,6 +3743,32 @@ table tbody tr:nth-of-type(odd) .table-data-name span {
     overflow: hidden;
 }
 
+.text-black {
+    color: #000;
+}
+
+.font-w-600 {
+    font-weight: 600;
+}
+
+.page-mid-data-table-center {
+    max-width: 900px;
+    margin: auto;
+}
+
+.table-green thead {
+    background: #009688;
+}
+
+table.table.table-striped.dataTable.table-header.table-green tbody tr:nth-of-type(odd) {
+    background: #fff9ee !important;
+}
+
+.table-no-border tr,
+.table-no-border td {
+    border: none !important;
+}
+
 
 /* Theme Dark Start */
 
