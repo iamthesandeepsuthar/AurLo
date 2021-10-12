@@ -3589,6 +3589,9 @@ table tbody tr:nth-of-type(odd) .table-data-name span {
     opacity: 0;
     width: 100%;
     padding: 0px;
+    max-width: 50px;
+    left: 50%;
+    transform: translateX(-50%);
     /* z-index: -1; */
 }
 
@@ -3731,6 +3734,13 @@ table tbody tr:nth-of-type(odd) .table-data-name span {
 
 .dropdown.card-action-box ul.dropdown-menu li a:hover {
     background: #fff0f0;
+}
+
+.page-profile-w-edit {
+    max-width: 200px;
+    margin: auto;
+    position: relative;
+    overflow: hidden;
 }
 
 
