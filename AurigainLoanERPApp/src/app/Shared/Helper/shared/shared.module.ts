@@ -24,14 +24,15 @@ const CommonModules = [
 ]
 
 const InstalledModule = [
+  
+  BsDatepickerModule.forRoot(),
   MatDialogModule,
   MatSnackBarModule,
   MatTableModule,
   MatSortModule,
   MatPaginatorModule,
   MatSortModule,
-  NgSelectModule,
-  BsDatepickerModule.forRoot(),
+  NgSelectModule,  
   ToastrModule.forRoot({
     timeOut: 3000,
     closeButton: true,
