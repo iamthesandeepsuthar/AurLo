@@ -3683,13 +3683,12 @@ table tbody tr:nth-of-type(odd) .table-data-name span {
 
 .table-view-btn {
     text-align: right;
-    margin-bottom: 15px;
 }
 
 .btn-change-view {
     background: #e7e7e7;
     border: none;
-    padding: 4px 10px;
+    padding: 5px 11px;
     border-radius: 8px;
     font-size: 18px;
 }

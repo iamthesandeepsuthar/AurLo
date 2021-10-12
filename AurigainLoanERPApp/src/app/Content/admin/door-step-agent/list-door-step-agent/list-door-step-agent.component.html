@@ -29,7 +29,7 @@
 
         <div class="dt--top-section mx-0">
             <div class="row position-relative">
-                <div class="col-12 col-sm-6 d-flex justify-content-sm-start justify-content-center">
+                <div class="col-12 col-md-4 d-flex justify-content-sm-start justify-content-center">
                     <div class="dataTables_length" id="zero-config_length"><label>Results :
                         <select name="zero-config_length" [(ngModel)]="indexModel.PageSize" (change)="getList()"
                             aria-controls="zero-config" class="form-control">
@@ -39,7 +39,7 @@
                             <option value="50">50</option>
                         </select></label></div>
                 </div>
-                <div class="col-12 col-sm-6 d-flex justify-content-sm-end justify-content-center mt-sm-0 mt-3">
+                <div class="col-12 col-md-8 d-flex justify-content-sm-end justify-content-center mt-sm-0 mt-3">
                     <div id="zero-config_filter" class="dataTables_filter"><label>
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -56,6 +56,11 @@
                             title="Advance filter">
                     </button>
                     </div>
+                    <div class="table-view-btn ml-4">
+                        <button type="button" class="btn-change-view"><i class="fa fa-bars"></i></button>
+                        <button type="button" class="btn-change-view ml-2 active"><i class="fa fa-th-large"></i></button>
+                    </div>
+
                 </div>
             </div>
             <div class="collapse open-advance-filter" id="advance-filter1">
@@ -191,10 +196,6 @@
         </div>
     </div>
 
-    <div class="table-view-btn">
-        <button type="button" class="btn-change-view"><i class="fa fa-bars"></i></button>
-        <button type="button" class="btn-change-view ml-2 active"><i class="fa fa-th-large"></i></button>
-    </div>
 
     <section class="door-step-agent-grid-view">
         <div class="row">
@@ -226,13 +227,183 @@
                     <button type="submit" class="btn btn-primary w-100 mt-auto"><i class="fas fa-check mr-1"></i> Edit Availibity</button>
                 </div>
             </div>
-
             <div class="col-sm-6 col-md-4 col-lg-6 col-xl-3 mb-3">
                 <div class="custom-card-2 d-flex flex-column">
                     <div class="custom-card-2-header text-center">
                         <div class="custom-card-2-img d-flex align-items-center justify-content-center"><img src="assets/img/user-default.jpg"></div>
                         <h3>Akash kumar sharma</h3>
                         <small>#985636987</small>
+                        <div class="dropdown card-action-box">
+                            <button class="" type="button" data-toggle="dropdown"><i class="fas fa-ellipsis-v"></i></button>
+                            <ul class="dropdown-menu">
+                                <li><a href="#"><i class="fas fa-eye"></i> View</a></li>
+                                <li><a href="#"><i class="fas fa-plus"></i> Add</a></li>
+                                <li><a href="#"><i class="fas fa-edit"></i> Edit</a></li>
+                                <li><a href="#"><i class="fas fa-trash-alt"></i> Delete</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="custom-card-2-body">
+                        <ul class="p-0 pt-2 pb-2 m-0">
+                            <li> <strong>Working Days</strong> <span>Mon-sat</span> </li>
+                            <li> <strong>Working Hours</strong> <span>8:30AM to 3PM</span> </li>
+                            <li> <strong>Capacity</strong> <span>05</span> </li>
+                            <li> <strong>Location</strong> <span> Banglore, India </span> </li>
+                        </ul>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100 mt-auto"><i class="fas fa-check mr-1"></i> Edit Availibity</button>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-6 col-xl-3 mb-3">
+                <div class="custom-card-2 d-flex flex-column">
+                    <div class="custom-card-2-header text-center">
+                        <div class="custom-card-2-img d-flex align-items-center justify-content-center"><img src="assets/img/user-default.jpg"></div>
+                        <h3>Akash kumar sharma</h3>
+                        <small>#985636987</small>
+                        <div class="dropdown card-action-box">
+                            <button class="" type="button" data-toggle="dropdown"><i class="fas fa-ellipsis-v"></i></button>
+                            <ul class="dropdown-menu">
+                                <li><a href="#"><i class="fas fa-eye"></i> View</a></li>
+                                <li><a href="#"><i class="fas fa-plus"></i> Add</a></li>
+                                <li><a href="#"><i class="fas fa-edit"></i> Edit</a></li>
+                                <li><a href="#"><i class="fas fa-trash-alt"></i> Delete</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="custom-card-2-body">
+                        <ul class="p-0 pt-2 pb-2 m-0">
+                            <li> <strong>Working Days</strong> <span>Mon-sat</span> </li>
+                            <li> <strong>Working Hours</strong> <span>8:30AM to 3PM</span> </li>
+                            <li> <strong>Capacity</strong> <span>05</span> </li>
+                            <li> <strong>Location</strong> <span> Banglore, India </span> </li>
+                        </ul>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100 mt-auto"><i class="fas fa-check mr-1"></i> Edit Availibity</button>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-6 col-xl-3 mb-3">
+                <div class="custom-card-2 d-flex flex-column">
+                    <div class="custom-card-2-header text-center">
+                        <div class="custom-card-2-img d-flex align-items-center justify-content-center"><img src="assets/img/user-default.jpg"></div>
+                        <h3>Akash kumar sharma</h3>
+                        <small>#985636987</small>
+                        <div class="dropdown card-action-box">
+                            <button class="" type="button" data-toggle="dropdown"><i class="fas fa-ellipsis-v"></i></button>
+                            <ul class="dropdown-menu">
+                                <li><a href="#"><i class="fas fa-eye"></i> View</a></li>
+                                <li><a href="#"><i class="fas fa-plus"></i> Add</a></li>
+                                <li><a href="#"><i class="fas fa-edit"></i> Edit</a></li>
+                                <li><a href="#"><i class="fas fa-trash-alt"></i> Delete</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="custom-card-2-body">
+                        <ul class="p-0 pt-2 pb-2 m-0">
+                            <li> <strong>Working Days</strong> <span>Mon-sat</span> </li>
+                            <li> <strong>Working Hours</strong> <span>8:30AM to 3PM</span> </li>
+                            <li> <strong>Capacity</strong> <span>05</span> </li>
+                            <li> <strong>Location</strong> <span> Banglore, India </span> </li>
+                        </ul>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100 mt-auto"><i class="fas fa-check mr-1"></i> Edit Availibity</button>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-6 col-xl-3 mb-3">
+                <div class="custom-card-2 d-flex flex-column">
+                    <div class="custom-card-2-header text-center">
+                        <div class="custom-card-2-img d-flex align-items-center justify-content-center"><img src="assets/img/user-default.jpg"></div>
+                        <h3>Akash kumar sharma</h3>
+                        <small>#985636987</small>
+                        <div class="dropdown card-action-box">
+                            <button class="" type="button" data-toggle="dropdown"><i class="fas fa-ellipsis-v"></i></button>
+                            <ul class="dropdown-menu">
+                                <li><a href="#"><i class="fas fa-eye"></i> View</a></li>
+                                <li><a href="#"><i class="fas fa-plus"></i> Add</a></li>
+                                <li><a href="#"><i class="fas fa-edit"></i> Edit</a></li>
+                                <li><a href="#"><i class="fas fa-trash-alt"></i> Delete</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="custom-card-2-body">
+                        <ul class="p-0 pt-2 pb-2 m-0">
+                            <li> <strong>Working Days</strong> <span>Mon-sat</span> </li>
+                            <li> <strong>Working Hours</strong> <span>8:30AM to 3PM</span> </li>
+                            <li> <strong>Capacity</strong> <span>05</span> </li>
+                            <li> <strong>Location</strong> <span> Banglore, India </span> </li>
+                        </ul>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100 mt-auto"><i class="fas fa-check mr-1"></i> Edit Availibity</button>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-6 col-xl-3 mb-3">
+                <div class="custom-card-2 d-flex flex-column">
+                    <div class="custom-card-2-header text-center">
+                        <div class="custom-card-2-img d-flex align-items-center justify-content-center"><img src="assets/img/user-default.jpg"></div>
+                        <h3>Akash kumar sharma</h3>
+                        <small>#985636987</small>
+                        <div class="dropdown card-action-box">
+                            <button class="" type="button" data-toggle="dropdown"><i class="fas fa-ellipsis-v"></i></button>
+                            <ul class="dropdown-menu">
+                                <li><a href="#"><i class="fas fa-eye"></i> View</a></li>
+                                <li><a href="#"><i class="fas fa-plus"></i> Add</a></li>
+                                <li><a href="#"><i class="fas fa-edit"></i> Edit</a></li>
+                                <li><a href="#"><i class="fas fa-trash-alt"></i> Delete</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="custom-card-2-body">
+                        <ul class="p-0 pt-2 pb-2 m-0">
+                            <li> <strong>Working Days</strong> <span>Mon-sat</span> </li>
+                            <li> <strong>Working Hours</strong> <span>8:30AM to 3PM</span> </li>
+                            <li> <strong>Capacity</strong> <span>05</span> </li>
+                            <li> <strong>Location</strong> <span> Banglore, India </span> </li>
+                        </ul>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100 mt-auto"><i class="fas fa-check mr-1"></i> Edit Availibity</button>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-6 col-xl-3 mb-3">
+                <div class="custom-card-2 d-flex flex-column">
+                    <div class="custom-card-2-header text-center">
+                        <div class="custom-card-2-img d-flex align-items-center justify-content-center"><img src="assets/img/user-default.jpg"></div>
+                        <h3>Akash kumar sharma</h3>
+                        <small>#985636987</small>
+                        <div class="dropdown card-action-box">
+                            <button class="" type="button" data-toggle="dropdown"><i class="fas fa-ellipsis-v"></i></button>
+                            <ul class="dropdown-menu">
+                                <li><a href="#"><i class="fas fa-eye"></i> View</a></li>
+                                <li><a href="#"><i class="fas fa-plus"></i> Add</a></li>
+                                <li><a href="#"><i class="fas fa-edit"></i> Edit</a></li>
+                                <li><a href="#"><i class="fas fa-trash-alt"></i> Delete</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="custom-card-2-body">
+                        <ul class="p-0 pt-2 pb-2 m-0">
+                            <li> <strong>Working Days</strong> <span>Mon-sat</span> </li>
+                            <li> <strong>Working Hours</strong> <span>8:30AM to 3PM</span> </li>
+                            <li> <strong>Capacity</strong> <span>05</span> </li>
+                            <li> <strong>Location</strong> <span> Banglore, India </span> </li>
+                        </ul>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100 mt-auto"><i class="fas fa-check mr-1"></i> Edit Availibity</button>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-6 col-xl-3 mb-3">
+                <div class="custom-card-2 d-flex flex-column">
+                    <div class="custom-card-2-header text-center">
+                        <div class="custom-card-2-img d-flex align-items-center justify-content-center"><img src="assets/img/user-default.jpg"></div>
+                        <h3>Akash kumar sharma</h3>
+                        <small>#985636987</small>
+                        <div class="dropdown card-action-box">
+                            <button class="" type="button" data-toggle="dropdown"><i class="fas fa-ellipsis-v"></i></button>
+                            <ul class="dropdown-menu">
+                                <li><a href="#"><i class="fas fa-eye"></i> View</a></li>
+                                <li><a href="#"><i class="fas fa-plus"></i> Add</a></li>
+                                <li><a href="#"><i class="fas fa-edit"></i> Edit</a></li>
+                                <li><a href="#"><i class="fas fa-trash-alt"></i> Delete</a></li>
+                            </ul>
+                        </div>
                     </div>
                     <div class="custom-card-2-body">
                         <ul class="p-0 pt-2 pb-2 m-0">
@@ -246,119 +417,6 @@
                 </div>
             </div>
 
-            <div class="col-sm-6 col-md-4 col-lg-6 col-xl-3 mb-3">
-                <div class="custom-card-2 d-flex flex-column">
-                    <div class="custom-card-2-header text-center">
-                        <div class="custom-card-2-img d-flex align-items-center justify-content-center"><img src="assets/img/user-default.jpg"></div>
-                        <h3>Akash kumar sharma</h3>
-                        <small>#985636987</small>
-                    </div>
-                    <div class="custom-card-2-body">
-                        <ul class="p-0 pt-2 pb-2 m-0">
-                            <li> <strong>Working Days</strong> <span>Mon-sat</span> </li>
-                            <li> <strong>Working Hours</strong> <span>8:30AM to 3PM</span> </li>
-                            <li> <strong>Capacity</strong> <span>05</span> </li>
-                            <li> <strong>Location</strong> <span> Banglore, India </span> </li>
-                        </ul>
-                    </div>
-                    <button type="submit" class="btn btn-primary w-100 mt-auto"><i class="fas fa-check mr-1"></i> Edit Availibity</button>
-                </div>
-            </div>
-
-            <div class="col-sm-6 col-md-4 col-lg-6 col-xl-3 mb-3">
-                <div class="custom-card-2 d-flex flex-column">
-                    <div class="custom-card-2-header text-center">
-                        <div class="custom-card-2-img d-flex align-items-center justify-content-center"><img src="assets/img/user-default.jpg"></div>
-                        <h3>Akash kumar sharma</h3>
-                        <small>#985636987</small>
-                    </div>
-                    <div class="custom-card-2-body">
-                        <ul class="p-0 pt-2 pb-2 m-0">
-                            <li> <strong>Working Days</strong> <span>Mon-sat</span> </li>
-                            <li> <strong>Working Hours</strong> <span>8:30AM to 3PM</span> </li>
-                            <li> <strong>Capacity</strong> <span>05</span> </li>
-                            <li> <strong>Location</strong> <span> Banglore, India </span> </li>
-                        </ul>
-                    </div>
-                    <button type="submit" class="btn btn-primary w-100 mt-auto"><i class="fas fa-check mr-1"></i> Edit Availibity</button>
-                </div>
-            </div>
-
-            <div class="col-sm-6 col-md-4 col-lg-6 col-xl-3 mb-3">
-                <div class="custom-card-2 d-flex flex-column">
-                    <div class="custom-card-2-header text-center">
-                        <div class="custom-card-2-img d-flex align-items-center justify-content-center"><img src="assets/img/user-default.jpg"></div>
-                        <h3>Akash kumar sharma</h3>
-                        <small>#985636987</small>
-                    </div>
-                    <div class="custom-card-2-body">
-                        <ul class="p-0 pt-2 pb-2 m-0">
-                            <li> <strong>Working Days</strong> <span>Mon-sat</span> </li>
-                            <li> <strong>Working Hours</strong> <span>8:30AM to 3PM</span> </li>
-                            <li> <strong>Capacity</strong> <span>05</span> </li>
-                            <li> <strong>Location</strong> <span> Banglore, India </span> </li>
-                        </ul>
-                    </div>
-                    <button type="submit" class="btn btn-primary w-100 mt-auto"><i class="fas fa-check mr-1"></i> Edit Availibity</button>
-                </div>
-            </div>
-
-            <div class="col-sm-6 col-md-4 col-lg-6 col-xl-3 mb-3">
-                <div class="custom-card-2 d-flex flex-column">
-                    <div class="custom-card-2-header text-center">
-                        <div class="custom-card-2-img d-flex align-items-center justify-content-center"><img src="assets/img/user-default.jpg"></div>
-                        <h3>Akash kumar sharma</h3>
-                        <small>#985636987</small>
-                    </div>
-                    <div class="custom-card-2-body">
-                        <ul class="p-0 pt-2 pb-2 m-0">
-                            <li> <strong>Working Days</strong> <span>Mon-sat</span> </li>
-                            <li> <strong>Working Hours</strong> <span>8:30AM to 3PM</span> </li>
-                            <li> <strong>Capacity</strong> <span>05</span> </li>
-                            <li> <strong>Location</strong> <span> Banglore, India </span> </li>
-                        </ul>
-                    </div>
-                    <button type="submit" class="btn btn-primary w-100 mt-auto"><i class="fas fa-check mr-1"></i> Edit Availibity</button>
-                </div>
-            </div>
-
-            <div class="col-sm-6 col-md-4 col-lg-6 col-xl-3 mb-3">
-                <div class="custom-card-2 d-flex flex-column">
-                    <div class="custom-card-2-header text-center">
-                        <div class="custom-card-2-img d-flex align-items-center justify-content-center"><img src="assets/img/user-default.jpg"></div>
-                        <h3>Akash kumar sharma</h3>
-                        <small>#985636987</small>
-                    </div>
-                    <div class="custom-card-2-body">
-                        <ul class="p-0 pt-2 pb-2 m-0">
-                            <li> <strong>Working Days</strong> <span>Mon-sat</span> </li>
-                            <li> <strong>Working Hours</strong> <span>8:30AM to 3PM</span> </li>
-                            <li> <strong>Capacity</strong> <span>05</span> </li>
-                            <li> <strong>Location</strong> <span> Banglore, India </span> </li>
-                        </ul>
-                    </div>
-                    <button type="submit" class="btn btn-primary w-100 mt-auto"><i class="fas fa-check mr-1"></i> Edit Availibity</button>
-                </div>
-            </div>
-
-            <div class="col-sm-6 col-md-4 col-lg-6 col-xl-3 mb-3">
-                <div class="custom-card-2 d-flex flex-column">
-                    <div class="custom-card-2-header text-center">
-                        <div class="custom-card-2-img d-flex align-items-center justify-content-center"><img src="assets/img/user-default.jpg"></div>
-                        <h3>Akash kumar sharma</h3>
-                        <small>#985636987</small>
-                    </div>
-                    <div class="custom-card-2-body">
-                        <ul class="p-0 pt-2 pb-2 m-0">
-                            <li> <strong>Working Days</strong> <span>Mon-sat</span> </li>
-                            <li> <strong>Working Hours</strong> <span>8:30AM to 3PM</span> </li>
-                            <li> <strong>Capacity</strong> <span>05</span> </li>
-                            <li> <strong>Location</strong> <span> Banglore, India </span> </li>
-                        </ul>
-                    </div>
-                    <button type="submit" class="btn btn-primary w-100 mt-auto"><i class="fas fa-check mr-1"></i> Edit Availibity</button>
-                </div>
-            </div>
 
 
         </div>
