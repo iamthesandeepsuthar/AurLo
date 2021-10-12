@@ -8,8 +8,7 @@
                 <ol class="breadcrumb justify-content-center justify-content-sm-start">
                     <li class="breadcrumb-item"><a href="#">Home</a></li>
                     <li class="breadcrumb-item"><a href="javascript:void(0)">Master</a></li>
-                    <li class="breadcrumb-item"><a
-                            routerLink="{{'/' + this.routing_Url.MasterModule + this.routing_Url.UserRoleListUrl}}">
+                    <li class="breadcrumb-item"><a routerLink="{{'/' + this.routing_Url.MasterModule + this.routing_Url.UserRoleListUrl}}">
                             User Role
                             Master </a></li>
                     <li class="breadcrumb-item active" aria-current="page">{{Id==0 ?'Add User Role':'Update User Role'}}
@@ -29,12 +28,8 @@
         <div class="form-row">
             <div class="form-group col-md-12">
                 <label>Name</label>
-                <input type="text" formControlName="Name" [(ngModel)]="model.Name"
-                    [ngClass]="{ 'is-invalid': f.Name.errors && f.Name.touched}" class="form-control" id="input1"
-                    placeholder="Name">
-                <div class="invalid-feedback"
-                    *ngIf="(userRoleForm.get('Name')?.hasError('required') && userRoleForm.get('Name')?.touched)">Please
-                    Enter Role Name...! </div>
+                <input type="text" formControlName="Name" [(ngModel)]="model.Name" [ngClass]="{ 'is-invalid': f.Name.errors && f.Name.touched}" class="form-control" id="input1" placeholder="Name">
+                <div class="invalid-feedback" *ngIf="(userRoleForm.get('Name')?.hasError('required') && userRoleForm.get('Name')?.touched)">Please Enter Role Name...! </div>
 
             </div>
 
@@ -55,14 +50,13 @@
 
             <div class="form-group col-md-12" *ngIf="showParent">
                 <label>Parent Role</label>
-                <div class="form-control" [ngClass]='{ "is-invalid": f.ParentRole.errors && f.ParentRole.touched}'>
+                <div [ngClass]='{ "is-invalid": f.ParentRole.errors && f.ParentRole.touched}'>
 
 
-                    <ng-select #ParentRole [items]="dropDown!.ddlUserRole" bindLabel="Text" bindValue="Value"
-                        placeholder="Parent Role" formControlName="ParentRole" [(ngModel)]="model.ParentId">
+                    <ng-select #ParentRole [items]="dropDown!.ddlUserRole" bindLabel="Text" bindValue="Value" placeholder="Parent Role" formControlName="ParentRole" [(ngModel)]="model.ParentId">
                     </ng-select>
                 </div>
-                
+
                 <!-- <select class="form-control" [ngClass]="{ 'is-invalid': f.ParentRole.errors && f.ParentRole.touched}"
                     id="input1" placeholder="Parent Role" formControlName="ParentRole"
                     [(ngModel)]="model.ParentId">
@@ -72,8 +66,7 @@
 
                     </ng-container>
                 </select> -->
-                <div class="invalid-feedback"
-                    *ngIf="(userRoleForm.get('ParentRole')?.hasError('required') && userRoleForm.get('ParentRole')?.touched)">
+                <div class="invalid-feedback" *ngIf="(userRoleForm.get('ParentRole')?.hasError('required') && userRoleForm.get('ParentRole')?.touched)">
                     Please Select Parent Role...! </div>
             </div>
 
@@ -100,8 +93,7 @@
                 <button type="submit" class="btn btn-primary w-100"> <i class="fas fa-check mr-1"></i> Submit</button>
             </div>
             <div class="col-6">
-                <button type="button" routerLink="{{'../../../'  + this.routing_Url.UserRoleListUrl}}"
-                    class="btn btn-outline-danger w-100"> <i class="fas fa-times mr-1"></i> Cancel</button>
+                <button type="button" routerLink="{{'../../../'  + this.routing_Url.UserRoleListUrl}}" class="btn btn-outline-danger w-100"> <i class="fas fa-times mr-1"></i> Cancel</button>
             </div>
         </div>
 

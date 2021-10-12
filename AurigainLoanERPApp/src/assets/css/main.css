@@ -3589,6 +3589,9 @@ table tbody tr:nth-of-type(odd) .table-data-name span {
     opacity: 0;
     width: 100%;
     padding: 0px;
+    max-width: 50px;
+    left: 50%;
+    transform: translateX(-50%);
     /* z-index: -1; */
 }
 
@@ -3630,6 +3633,114 @@ table tbody tr:nth-of-type(odd) .table-data-name span {
 .custom-card-1-header i {
     margin-right: 5px;
     opacity: 0.2;
+}
+
+.is-invalid .ng-select-container {
+    border-color: #dc3545 !important;
+}
+
+.custom-card-2 {
+    border-radius: 30px;
+    background: #f9f9f9;
+    overflow: hidden;
+    border: solid 1px #dfeff7;
+    padding: 15px;
+    height: 100%;
+    position: relative;
+}
+
+.custom-card-2-img {
+    height: 100px;
+    width: 100px;
+    border-radius: 100%;
+    background: #000;
+    margin: auto;
+    box-shadow: 0 0 20px #d5d5d5;
+    overflow: hidden;
+    border: none;
+}
+
+.custom-card-2-header h3 {
+    margin: 5px 0px 0px 0px;
+    font-size: 22px;
+    font-weight: 600;
+    color: #002767;
+}
+
+.custom-card-2-body ul li {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    padding: 2px 0px;
+}
+
+.custom-card-2-body ul li strong {
+    color: #000;
+}
+
+.custom-card-2-body ul li srong,
+.custom-card-2-body ul li span {
+    flex: 0 0 50%;
+    text-align: right;
+}
+
+.table-view-btn {
+    text-align: right;
+}
+
+.btn-change-view {
+    background: #e7e7e7;
+    border: none;
+    padding: 5px 11px;
+    border-radius: 8px;
+    font-size: 18px;
+}
+
+.btn-change-view.active,
+.btn-change-view:hover {
+    background: #20488b;
+    color: #fff;
+}
+
+.dropdown.card-action-box {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+}
+
+.dropdown.card-action-box>button {
+    background: transparent;
+    border: none;
+    padding: 0px;
+}
+
+.dropdown.card-action-box ul.dropdown-menu li a {
+    padding: 5px 10px;
+    display: block;
+    font-size: 14px;
+    letter-spacing: normal;
+    color: #000;
+}
+
+.dropdown.card-action-box ul.dropdown-menu li a i {
+    margin-right: 5px;
+}
+
+.dropdown.card-action-box ul.dropdown-menu {
+    box-shadow: 0 0 20px #e5efff !important;
+    border: none !important;
+    padding: 0px !important;
+}
+
+.dropdown.card-action-box ul.dropdown-menu li a:hover {
+    background: #fff0f0;
+}
+
+.page-profile-w-edit {
+    max-width: 200px;
+    margin: auto;
+    position: relative;
+    overflow: hidden;
 }
 
 
