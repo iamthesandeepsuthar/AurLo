@@ -2,6 +2,7 @@
 using AurigainLoanERP.Shared.Common;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Hosting.Internal;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Reflection;
@@ -11,11 +12,10 @@ namespace AurigainLoanERP.Shared.ExtensionMethod
 {
     public static class ServiceExtension
     {
-        private static IHostingEnvironment _hostingEnvironment;
-
-         static ServiceExtension()
+        private static IHttpContextAccessor _httpContext;
+        static ServiceExtension()
         {
-            _hostingEnvironment = new HostingEnvironment();
+            _httpContext = new HttpContextAccessor();
         }
         public static IServiceCollection AllowCors(this IServiceCollection services, params string[] origins)
         {
@@ -28,15 +28,30 @@ namespace AurigainLoanERP.Shared.ExtensionMethod
             return services;
         }
 
-        public static string ToAbsoluteUrl(this string path)
-        {
+        public static string ToAbsolutePath(this string filePath)
 
-            return string.Concat(_hostingEnvironment.WebRootPath, path.Replace("~/", "/"));
-             
+        {
+            try
+            {
+                if (!string.IsNullOrEmpty(filePath))
+                {
+                    HttpRequest request = _httpContext.HttpContext.Request;
+
+                    return string.Concat(request.HttpContext.Request.Host.Value, filePath.Replace("~", "").Replace("\\", "//"));
+
+                }
+                return null;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+
+
         }
 
 
-      
+
 
     }
 }

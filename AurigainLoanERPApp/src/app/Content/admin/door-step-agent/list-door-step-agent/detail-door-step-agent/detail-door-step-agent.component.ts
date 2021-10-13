@@ -4,12 +4,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DoorStepAgentService } from 'src/app/Shared/Services/door-step-agent-services/door-step-agent.service';
 import { UserViewModel } from '../../../../../Shared/Model/doorstep-agent-model/door-step-agent.model';
 import { Routing_Url } from 'src/app/Shared/Helper/constants';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-detail-door-step-agent',
   templateUrl: './detail-door-step-agent.component.html',
   styleUrls: ['./detail-door-step-agent.component.scss'],
-  providers:[DoorStepAgentService]
+  providers: [DoorStepAgentService]
 })
 export class DetailDoorStepAgentComponent implements OnInit {
   //#region <<Variable>>
@@ -18,9 +19,8 @@ export class DetailDoorStepAgentComponent implements OnInit {
 
   //#endregion
 
-  constructor(private readonly _userDoorStepService: DoorStepAgentService,
-    private _activatedRoute: ActivatedRoute, private _router: Router,
-  ) {
+  constructor(private readonly _userDoorStepService: DoorStepAgentService, private _activatedRoute: ActivatedRoute,
+    private _router: Router,public domSanitizer: DomSanitizer) {
     if (this._activatedRoute.snapshot.params.id) {
       this.Id = this._activatedRoute.snapshot.params.id;
     }
@@ -31,7 +31,7 @@ export class DetailDoorStepAgentComponent implements OnInit {
     this.model.Documents = [] as DocumentViewModel[];
     this.model.SecurityDeposit = {} as UserSecurityDepositViewModel;
 
-
+    
   }
   //#region <<Method>>
   ngOnInit(): void {
@@ -46,7 +46,7 @@ export class DetailDoorStepAgentComponent implements OnInit {
           this.model = response?.Data as DoorStepAgentViewModel;
 
         } else {
-          this._router.navigate([`.${Routing_Url.DoorStepAgentListUrl}`]);
+          this._router.navigate([`../${Routing_Url.DoorStepAgentListUrl}`]);
         }
       }
     });

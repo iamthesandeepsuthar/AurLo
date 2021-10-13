@@ -12,6 +12,7 @@ using AurigainLoanERP.Shared.Common;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Rewrite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -73,6 +74,7 @@ namespace AurigainLoanERP.Api
         });
 
             });
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {
                 options.TokenValidationParameters = new TokenValidationParameters
@@ -134,6 +136,7 @@ namespace AurigainLoanERP.Api
             {
                 endpoints.MapControllers();
             });
+
         }
         private void RegisterServices(IServiceCollection services)
         {

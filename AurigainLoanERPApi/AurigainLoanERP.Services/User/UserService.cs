@@ -182,7 +182,7 @@ namespace AurigainLoanERP.Services.User
                                             DocumentId = fileitem.DocumentId,
                                             FileName = fileitem.FileName,
                                             FileType = fileitem.FileType,
-                                            Path = fileitem.Path.ToAbsoluteUrl()
+                                            Path = fileitem.Path.ToAbsolutePath()
                                         });
 
                                     }
@@ -389,7 +389,7 @@ namespace AurigainLoanERP.Services.User
                                         DocumentId = fileitem.DocumentId,
                                         FileName = fileitem.FileName,
                                         FileType = fileitem.FileType,
-                                        Path = fileitem.Path.ToAbsoluteUrl()
+                                        Path = fileitem.Path.ToAbsolutePath()
                                     }).ToList() ?? null
                                 });
 

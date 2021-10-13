@@ -183,6 +183,17 @@ namespace AurigainLoanERP.Shared.Common
             }
         }
 
+        //public  string GetAbsoluteUrl( string path)
+        //{
+        //    if (string.IsNullOrWhiteSpace(_env.WebRootPath))
+        //    {
+        //        return string.Concat(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot"), path.Replace("~/", "/"));
+        //    }
+
+        //    return string.Concat(_env.WebRootPath, path.Replace("~/", "/"));
+
+        //}
+
 
 
     }

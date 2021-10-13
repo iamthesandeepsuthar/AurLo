@@ -125,7 +125,7 @@
                             <ng-container *ngFor="let file of item.UserDocumentFiles; let fileIndex=index">
                                 <a href="" data-toggle="modal" data-target="#Doc-Popup_{{item?.DocumentTypeId}}_{{fileIndex}}" class="small-media-items position-relative mr-3">
                                     <!-- {{file | json}} -->
-                                    <div class="small-media-items-img" style="background-image: url('{{file.Path}}')"></div>
+                                    <div class="small-media-items-img" [ngStyle]="{'background': 'url(' + domSanitizer.bypassSecurityTrustUrl(file.Path) + ') no-repeat 0 0 / cover'}"></div>
                                     <i class="fas fa-link"></i>
                                 </a>
 

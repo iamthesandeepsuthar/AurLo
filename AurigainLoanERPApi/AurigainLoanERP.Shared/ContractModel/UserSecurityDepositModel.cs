@@ -21,8 +21,6 @@ namespace AurigainLoanERP.Shared.ContractModel
         public bool IsDelete { get; set; }
         public DateTime CreatedOn { get; set; }
         public DateTime? ModifiedDate { get; set; }
-
-        public virtual PaymentModeModel PaymentMode { get; set; }
     }
 
     public class UserSecurityDepositPostModel
