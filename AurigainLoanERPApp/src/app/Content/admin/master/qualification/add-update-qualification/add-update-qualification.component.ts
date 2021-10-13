@@ -8,8 +8,8 @@ import { QualificationService } from 'src/app/Shared/Services/master-services/qu
 @Component({
   selector: 'app-add-update-qualification',
   templateUrl: './add-update-qualification.component.html',
-  styleUrls: ['./add-update-qualification.component.scss']
-  
+  styleUrls: ['./add-update-qualification.component.scss'],
+  providers:[QualificationService]
 })
 export class AddUpdateQualificationComponent implements OnInit {
   Id: number = 0;

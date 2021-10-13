@@ -20,13 +20,13 @@ const routes: Routes = [
     path: `${Routing_Url.UserRoleListUrl+Routing_Url.UserRoleDetailUrl}:id`, component: DetailUserRoleComponent, canActivate: [AuthenticationGuard]
   },
   {
-    path: "qualifications/add-qualification:id", component: AddUpdateQualificationComponent, canActivate: [AuthenticationGuard]
+    path: "qualifications/add-qualification/:id", component: AddUpdateQualificationComponent, canActivate: [AuthenticationGuard]
   },
   {
     path: "qualifications", component: QualificationComponent, canActivate: [AuthenticationGuard]
   },
   {
-    path: "qualifications/detail-qualification", component: DetailQualificationComponent, canActivate: [AuthenticationGuard]
+    path: "qualifications/detail-qualification/:id", component: DetailQualificationComponent, canActivate: [AuthenticationGuard]
   }
 ];
 

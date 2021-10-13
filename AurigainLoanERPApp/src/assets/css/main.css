@@ -3004,7 +3004,13 @@ table .badge-dark {
 
 /* Manish CSS Start */
 
-td.table-action-btn a {
+td.table-action-btn button {
+    border: none;
+    background: transparent;
+}
+
+td.table-action-btn a,
+td.table-action-btn button {
     margin-right: 10px;
     font-size: 18px;
 }
@@ -3183,7 +3189,8 @@ tr.mat-header-row {
     border-radius: 20px;
     overflow: hidden;
     box-shadow: 0 0 20px 0 #eaeaea;
-    padding: 15px;
+    padding: 0;
+    border: solid 2px #5e9afd;
 }
 
 .open-advance-filter {

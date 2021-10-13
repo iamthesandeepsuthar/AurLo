@@ -46,12 +46,12 @@ import { UserRoleComponent } from "./user-role/user-role.component";
     DetailDocumentTypeComponent,
     BanksComponent,
     DetailBankComponent,
-    
+
   ],
   imports: [
     CommonModule,
     MasterRoutingModule,
-    SharedModule,
+    SharedModule
 
   ]
 })
