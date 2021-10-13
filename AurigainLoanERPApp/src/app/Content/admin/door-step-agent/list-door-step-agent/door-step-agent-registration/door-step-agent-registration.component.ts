@@ -81,7 +81,13 @@ export class DoorStepAgentRegistrationComponent implements OnInit {
     this._commonService.GetFilterDropDown(model).subscribe(res => {
       if (res.IsSuccess) {
         let ddls = res.Data as DropDownModol;
-        this.dropDown.ddlDistrict = ddls.ddlDistrict;
+        if(ddls.ddlDistrict){
+          this.dropDown.ddlDistrict = ddls.ddlDistrict;
+
+        }else{
+          this.dropDown.ddlDistrict=[];
+        }
+
 
 
       }
@@ -94,7 +100,7 @@ export class DoorStepAgentRegistrationComponent implements OnInit {
 
       this.model.User.UserName = this.model.User.UserName ? this.model.User.UserName : this.model.User.Email;
       this.model.User.UserRoleId = this.model.User.UserRoleId ? this.model.User.UserRoleId : 1;
-      this.model.User.IsApproved = false; 
+      this.model.User.IsApproved = false;
       this.model.SelfFunded = Boolean(this.model.SelfFunded);
       debugger
       let serv = this._userDoorStepService.AddUpdateDoorStepAgent(this.model).subscribe(res => {

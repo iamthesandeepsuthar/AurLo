@@ -142,13 +142,13 @@
                 </ng-container>
 
 
-                <td> <span> A </span> Airi Satou</td>
+                <!-- <td> <span> A </span> Airi Satou</td> -->
 
 
                 <ng-container [matColumnDef]="column.Value" *ngFor="let column of ViewdisplayedColumns, let in=index">
 
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> {{column.Text}} </th>
-                    <td [ngClass]="{'sorting_1 table-data-name': in==0}" mat-cell *matCellDef="let element"> <span> {{element[column.Value].substring(0,1)}} </span> {{element[column.Value]}} </td>
+                    <td [ngClass]="{'sorting_1 table-data-name': in==0}" mat-cell *matCellDef="let element"> <span  *ngIf="in==0"> {{element[column.Value].substring(0,1)}} </span> {{element[column.Value]}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="IsActive">
