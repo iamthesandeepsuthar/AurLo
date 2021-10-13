@@ -3760,13 +3760,35 @@ table tbody tr:nth-of-type(odd) .table-data-name span {
     background: #009688;
 }
 
-table.table.table-striped.dataTable.table-header.table-green tbody tr:nth-of-type(odd) {
+.table-blue thead {
+    background: #002767;
+}
+
+table.table.table-striped.dataTable.table-header.table-blue tbody tr:nth-of-type(odd) {
     background: #fff9ee !important;
 }
 
 .table-no-border tr,
 .table-no-border td {
     border: none !important;
+}
+
+.big-checkbox span.new-control-indicator {
+    height: 30px !important;
+    width: 30px !important;
+}
+
+.big-checkbox {
+    margin: 0px;
+    height: 30px;
+    width: 30px;
+}
+
+.big-checkbox span.new-control-indicator:after {
+    margin-left: -2px !important;
+    margin-top: -6px !important;
+    width: 6px !important;
+    height: 10px !important;
 }
 
 

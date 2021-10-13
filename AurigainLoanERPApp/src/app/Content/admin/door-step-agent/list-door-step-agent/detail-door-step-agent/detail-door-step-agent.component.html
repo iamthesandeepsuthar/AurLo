@@ -2,8 +2,7 @@
     <div class="widget-content widget-content p-3 form-grp-w-border mt-3">
         <h2> <img src="assets/img/personal_detail.png"> Personal Details</h2>
 
-        <div class="page-profile d-flex align-items-center justify-content-center mx-auto mb-3"><img
-                src="assets/img/user-default.jpg"></div>
+        <div class="page-profile d-flex align-items-center justify-content-center mx-auto mb-3"><img src="assets/img/user-default.jpg"></div>
         <table class="table  table-borderless table-data-info table-font-17 table-v-align-top m-0">
             <tbody>
                 <tr>
@@ -104,8 +103,7 @@
             <ng-container *ngFor="let kycItem of model.UserKYC">
                 <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 mt-3 mt-xl-0">
                     <div class="custom-card-1">
-                        <div class="custom-card-1-header"><i class="fas fa-address-card"></i>
-                            {{kycItem.KycdocumentTypeName ?? 'N/A'}}</div>
+                        <div class="custom-card-1-header"><i class="fas fa-address-card"></i> {{kycItem.KycdocumentTypeName ?? 'N/A'}}</div>
                         <div class="custom-card-1-body">{{kycItem.Kycnumber ?? 'N/A'}}</div>
                     </div>
                 </div>
@@ -125,23 +123,17 @@
                     <td>
                         <div class="d-flex align-items-center">
                             <ng-container *ngFor="let file of item.UserDocumentFiles; let fileIndex=index">
-                                <a href="" data-toggle="modal"
-                                    data-target="#Doc-Popup_{{item?.DocumentTypeId}}_{{fileIndex}}"
-                                    class="small-media-items position-relative mr-3">
+                                <a href="" data-toggle="modal" data-target="#Doc-Popup_{{item?.DocumentTypeId}}_{{fileIndex}}" class="small-media-items position-relative mr-3">
                                     <!-- {{file | json}} -->
-                                    <div class="small-media-items-img"
-                                        style="background-image: url('{{file.Path}}')"></div>
+                                    <div class="small-media-items-img" style="background-image: url('{{file.Path}}')"></div>
                                     <i class="fas fa-link"></i>
                                 </a>
 
                                 <!-- Gallery popup start -->
-                                <div class="modal fade show-gallery modal-doc-show"
-                                    id="Doc-Popup_{{item?.DocumentTypeId}}_{{fileIndex}}" tabindex="-1" role="dialog"
-                                    aria-hidden="true">
+                                <div class="modal fade show-gallery modal-doc-show" id="Doc-Popup_{{item?.DocumentTypeId}}_{{fileIndex}}" tabindex="-1" role="dialog" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                                         <div class="modal-content bg-transparent">
-                                            <button type="button" class="close modal-btn-with-no-header"
-                                                data-dismiss="modal" aria-label="Close"> <i
+                                            <button type="button" class="close modal-btn-with-no-header" data-dismiss="modal" aria-label="Close"> <i
                                                     class="fas fa-times"></i></button>
                                             <div class="modal-body p-0 text-center">
                                                 <img src="{{file.Path}}" alt="" />
