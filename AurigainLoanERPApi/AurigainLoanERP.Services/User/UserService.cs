@@ -389,7 +389,7 @@ namespace AurigainLoanERP.Services.User
                                         DocumentId = fileitem.DocumentId,
                                         FileName = fileitem.FileName,
                                         FileType = fileitem.FileType,
-                                        Path = fileitem.Path.Replace("~/", "/") //.ToAbsoluteUrl()
+                                        Path = fileitem.Path.ToAbsoluteUrl()
                                     }).ToList() ?? null
                                 });
 

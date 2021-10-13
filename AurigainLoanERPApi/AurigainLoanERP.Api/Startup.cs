@@ -106,7 +106,7 @@ namespace AurigainLoanERP.Api
                 app.UseSwaggerUI(c =>
                 {
                     c.SwaggerEndpoint("/swagger/v1/swagger.json", "Aurigain Loan ERP (v1)");
-                  c.RoutePrefix = string.Empty;
+                  c.RoutePrefix = "swagger";
                 });
 
             }
@@ -117,7 +117,7 @@ namespace AurigainLoanERP.Api
                 app.UseSwaggerUI(c =>
                 {
                     c.SwaggerEndpoint("/swagger/v1/swagger.json", "Aurigain Loan ERP (v1)");
-                   c.RoutePrefix = string.Empty;
+                   c.RoutePrefix = "swagger";
                 });
             }
             //var option = new RewriteOptions();
