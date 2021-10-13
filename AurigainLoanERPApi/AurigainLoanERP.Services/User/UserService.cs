@@ -46,47 +46,58 @@ namespace AurigainLoanERP.Services.User
             {
 
                 await _db.Database.BeginTransactionAsync();
-
-                long userId = await SaveUserAsync(model.User);
-                if (userId > 0)
+                long userId = 0;
+                if (model.User != null)
                 {
+                    model.User.UserRoleId = (int)UserRoleEnum.Agent;
+                    userId = await SaveUserAsync(model.User);
 
-
-                    await SaveAgentAsync(model, userId);
-
-                    if (model.BankDetails != null)
+                    if (userId > 0)
                     {
-                        await SaveUserBankAsync(model.BankDetails, userId);
 
+
+                        await SaveAgentAsync(model, userId);
+
+                        if (model.BankDetails != null)
+                        {
+                            await SaveUserBankAsync(model.BankDetails, userId);
+
+                        }
+
+                        if (model.ReportingPerson != null)
+                        {
+                            await SaveUserReportingPersonAsync(model.ReportingPerson, userId);
+                        }
+                        if (model.Documents != null)
+                        {
+                            await SaveUserDocumentAsync(model.Documents, userId);
+
+                        }
+                        if (model.UserKYC != null)
+                        {
+                            await SaveUserKYCAsync(model.UserKYC, userId);
+
+                        }
+                        if (model.UserNominee != null)
+                        {
+                            await SaveUserNomineeAsync(model.UserNominee, userId);
+
+                        }
+
+                        _db.Database.CommitTransaction();
+                        return CreateResponse<string>(userId.ToString(), ResponseMessage.Save, true, ((int)ApiStatusCode.Ok));
                     }
 
-                    if (model.ReportingPerson != null)
+                    else
                     {
-                        await SaveUserReportingPersonAsync(model.ReportingPerson, userId);
+                        _db.Database.RollbackTransaction();
+                        return CreateResponse<string>(null, ResponseMessage.UserExist, false, ((int)ApiStatusCode.DataBaseTransactionFailed));
                     }
-                    if (model.Documents != null)
-                    {
-                        await SaveUserDocumentAsync(model.Documents, userId);
-
-                    }
-                    if (model.UserKYC != null)
-                    {
-                        await SaveUserKYCAsync(model.UserKYC, userId);
-
-                    }
-                    if (model.UserNominee != null)
-                    {
-                        await SaveUserNomineeAsync(model.UserNominee, userId);
-
-                    }
-
-                    _db.Database.CommitTransaction();
-                    return CreateResponse<string>(userId.ToString(), ResponseMessage.Save, true, ((int)ApiStatusCode.Ok));
                 }
                 else
                 {
-                    _db.Database.RollbackTransaction();
-                    return CreateResponse<string>(null, ResponseMessage.UserExist, false, ((int)ApiStatusCode.DataBaseTransactionFailed));
+                    return CreateResponse<string>(null, ResponseMessage.InvalidData, false, ((int)ApiStatusCode.InvaildModel));
+
                 }
             }
             catch (Exception ex)
@@ -110,7 +121,7 @@ namespace AurigainLoanERP.Services.User
         /// <summary>
         /// Get Agent Detail 
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="id">User Id</param>
         /// <returns></returns>
         public async Task<ApiServiceResponseModel<AgentViewModel>> GetAgentDetailAsync(long id)
         {
@@ -118,7 +129,7 @@ namespace AurigainLoanERP.Services.User
             try
             {
 
-                UserAgent objAgent = await _db.UserAgent.Where(x => x.Id == id)
+                UserAgent objAgent = await _db.UserAgent.Where(x => x.UserId == id)
                     .Include(x => x.District).Include(x => x.District.State)
                     .Include(x => x.User).Include(x => x.User.UserRole)
                     .Include(x => x.Qualification)
@@ -208,6 +219,11 @@ namespace AurigainLoanERP.Services.User
         #endregion
 
         #region <<Door-step Agent>>
+        /// <summary>
+        /// Add Update Door Step Agent 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public async Task<ApiServiceResponseModel<string>> AddUpdateDoorStepAgentAsync(DoorStepAgentPostModel model)
         {
             try
@@ -221,6 +237,7 @@ namespace AurigainLoanERP.Services.User
                     long userId = 0;
                     if (model.User != null)
                     {
+                        model.User.UserRoleId = (int)UserRoleEnum.DoorStepAgent;
                         userId = await SaveUserAsync(model.User);
 
                     }
@@ -255,7 +272,7 @@ namespace AurigainLoanERP.Services.User
                             await SaveUserNomineeAsync(model.UserNominee, userId);
 
                         }
-                        if (model.SecurityDeposit != null && !string.IsNullOrEmpty( model.SecurityDeposit.AccountNumber))
+                        if (model.SecurityDeposit != null && !string.IsNullOrEmpty(model.SecurityDeposit.AccountNumber))
                         {
                             await SaveUserSecurityDepositAsync(model.SecurityDeposit, userId);
 
@@ -285,14 +302,18 @@ namespace AurigainLoanERP.Services.User
             }
 
         }
-
+        /// <summary>
+        /// Get Door Step Agent Detail
+        /// </summary>
+        /// <param name="id">User Id</param>
+        /// <returns></returns>
         public async Task<ApiServiceResponseModel<DoorStepAgentViewModel>> GetDoorStepAgentDetailAsync(long id)
         {
 
             try
             {
 
-                UserDoorStepAgent objDoorStepAgent = await _db.UserDoorStepAgent.Where(x => x.Id == id)
+                UserDoorStepAgent objDoorStepAgent = await _db.UserDoorStepAgent.Where(x => x.UserId == id)
                     .Include(x => x.District).Include(x => x.District.State)
                     .Include(x => x.User).Include(x => x.User.UserRole)
                     .Include(x => x.Qualification)
@@ -325,33 +346,70 @@ namespace AurigainLoanERP.Services.User
                             objDoorStepAgentModel.ReportingPerson = _mapper.Map<UserReportingPersonViewModel>(objDoorStepAgent.User.UserReportingPersonUser.FirstOrDefault() ?? null);
 
                         }
-                        if (objDoorStepAgent.User.UserKyc != null)
+                        if (objDoorStepAgent.User.UserKyc != null && objDoorStepAgent.User.UserKyc.Count > 0)
                         {
-                            objDoorStepAgentModel.UserKYC = _mapper.Map<List<UserKycViewModel>>(objDoorStepAgent.User.UserKyc.ToList() ?? null);
 
+
+                            objDoorStepAgentModel.UserKYC = objDoorStepAgent.User.UserKyc.Select(x => new UserKycViewModel
+                            {
+
+                                Id = x.Id,
+                                Kycnumber = x.Kycnumber ?? null,
+                                KycdocumentTypeId = x.KycdocumentTypeId,
+                                KycdocumentTypeName =  _db.DocumentType.FirstOrDefault(z=>z.Id==x.KycdocumentTypeId).DocumentName ?? null,
+                                IsActive = x.IsActive ?? null,
+                                IsDelete = x.IsDelete,
+                                CreatedOn = x.CreatedOn,
+                                ModifiedOn = x.ModifiedOn ?? null,
+                                CreatedBy = x.CreatedBy ?? null,
+                                ModifiedBy = x.ModifiedBy ?? null,
+
+                            }).ToList();
                         }
                         if (objDoorStepAgent.User.UserDocument != null)
                         {
-                            foreach (var item in objDoorStepAgent.User.UserDocument.Select((value, i) => new { i, value }))
+                            foreach (var item in objDoorStepAgent.User.UserDocument)
                             {
-                                objDoorStepAgentModel.Documents.Add(_mapper.Map<UserDocumentViewModel>(item.value));
-                                if (item.value.UserDocumentFiles != null)
+                                //  objDoorStepAgentModel.Documents.Add(_mapper.Map<UserDocumentViewModel>(item.value));
+                                objDoorStepAgentModel.Documents.Add(new UserDocumentViewModel
                                 {
-                                    foreach (var fileitem in item.value.UserDocumentFiles)
+                                    Id = item.Id,
+                                    DocumentTypeId = item.DocumentTypeId,
+                                    DocumentTypeName = _db.DocumentType.FirstOrDefault(z => z.Id == item.DocumentTypeId).DocumentName ?? null,
+                                    UserId = item.UserId,
+                                    IsActive = item.IsActive ?? null,
+                                    IsDelete = item.IsDelete,
+                                    CreatedOn = item.CreatedOn,
+                                    ModifiedOn = item.ModifiedOn ?? null,
+                                    CreatedBy = item.CreatedBy ?? null,
+                                    ModifiedBy = item.ModifiedBy ?? null,
+                                    UserDocumentFiles = _db.UserDocumentFiles.Where(x=> x.DocumentId==item.Id).Select(fileitem => new UserDocumentFilesViewModel
                                     {
-                                        objDoorStepAgentModel.Documents[item.i].UserDocumentFiles.Add(
-                                        new UserDocumentFilesViewModel
-                                        {
-                                            Id = fileitem.Id,
-                                            DocumentId = fileitem.DocumentId,
-                                            FileName = fileitem.FileName,
-                                            FileType = fileitem.FileType,
-                                            Path = fileitem.Path.ToAbsoluteUrl()
-                                        });
+                                        Id = fileitem.Id,
+                                        DocumentId = fileitem.DocumentId,
+                                        FileName = fileitem.FileName,
+                                        FileType = fileitem.FileType,
+                                        Path = fileitem.Path.Replace("~/", "/") //.ToAbsoluteUrl()
+                                    }).ToList() ?? null
+                                });
 
-                                    }
+                                //if (item.value.UserDocumentFiles != null)
+                                //{
+                                //    foreach (var fileitem in item.value.UserDocumentFiles)
+                                //    {
+                                //        objDoorStepAgentModel.Documents[item.i].UserDocumentFiles.Add(
+                                //        new UserDocumentFilesViewModel
+                                //        {
+                                //            Id = fileitem.Id,
+                                //            DocumentId = fileitem.DocumentId,
+                                //            FileName = fileitem.FileName,
+                                //            FileType = fileitem.FileType,
+                                //            Path = fileitem.Path.ToAbsoluteUrl()
+                                //        });
 
-                                }
+                                //    }
+
+                                //}
                             }
                         }
                         if (objDoorStepAgent.User.UserNominee != null)

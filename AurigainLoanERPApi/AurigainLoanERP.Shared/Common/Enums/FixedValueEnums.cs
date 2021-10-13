@@ -39,21 +39,35 @@ namespace AurigainLoanERP.Shared.Enums
             Female = 2,
             [StringValue("Other")]
             Other = 3,
-           
+
         }
 
-        public enum ApiStatusCode { 
-         Ok = 200,
-         RecordNotFound = 204,
-         AlreadyExist = 205,
-         NotFound = 404,
-         UnAuthorized = 401,      
-         InternalServerError = 501,
-         ServerException = 405,
-         DataBaseTransactionFailed = 406,
-         InvaildModel=407
+        public enum ApiStatusCode
+        {
+            Ok = 200,
+            RecordNotFound = 204,
+            AlreadyExist = 205,
+            NotFound = 404,
+            UnAuthorized = 401,
+            InternalServerError = 501,
+            ServerException = 405,
+            DataBaseTransactionFailed = 406,
+            InvaildModel = 407
         }
 
+        public enum UserRoleEnum
+        {
+            [StringValue("Super Admin")]
+            SuperAdmin = 1,
+            [StringValue("Admin (Web)")]
+            Admin = 2,
+            [StringValue("Zonal Manager")]
+            ZonalManager = 3,
+            [StringValue("Agent")]
+            Agent = 4,
+            [StringValue("Door Step Agent")]
+            DoorStepAgent = 5,
+        }
     }
 
 
