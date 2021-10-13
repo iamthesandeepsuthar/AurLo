@@ -27,7 +27,7 @@ using System.Text;
 namespace AurigainLoanERP.Api
 {
     public class Startup
-    { 
+    {
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -103,13 +103,22 @@ namespace AurigainLoanERP.Api
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Aurigain Loan ERP (v1)"));
-               
+                app.UseSwaggerUI(c =>
+                {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Aurigain Loan ERP (v1)");
+                    c.RoutePrefix = string.Empty;
+                });
+
             }
-            else {
+            else
+            {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Aurigain Loan ERP (v1)"));
+                app.UseSwaggerUI(c =>
+                {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Aurigain Loan ERP (v1)");
+                    c.RoutePrefix = string.Empty;
+                });
             }
             //var option = new RewriteOptions();
             //option.AddRedirect("^$", "swagger");
@@ -117,6 +126,7 @@ namespace AurigainLoanERP.Api
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Aurigain Loan ERP (v1)");
+
                 c.RoutePrefix = string.Empty;  // Set Swagger UI at apps root
             });
             app.UseRouting();

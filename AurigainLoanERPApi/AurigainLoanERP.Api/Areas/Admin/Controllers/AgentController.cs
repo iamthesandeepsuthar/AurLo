@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace AurigainLoanERP.Api.Areas.Admin.Controllers
 {
-    [Authorize]
+   // [Authorize]
     [Route("api/[controller]/[action]")]
     [ApiController]
     public class AgentController : ControllerBase
