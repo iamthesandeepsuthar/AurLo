@@ -65,6 +65,7 @@
     <None Include="AurigainLoanERP.Database.publish.xml" />
     <None Include="PostScript\DocumentTypeInsert.sql" />
     <None Include="PostScript\UserRoleInsert.sql" />
+    <None Include="AurigainLoanERP_1.Database.publish.xml" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="UserRole.sql" />
