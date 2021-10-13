@@ -21,7 +21,7 @@ namespace AurigainLoanERP.Api
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
-                    webBuilder.UseContentRoot("Content");
+                //    webBuilder.UseContentRoot("Content");
                 });
     }
 }
