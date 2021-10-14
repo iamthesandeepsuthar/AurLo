@@ -40,7 +40,7 @@ namespace AurigainLoanERP.Shared.Common
                     {
                         Directory.CreateDirectory(path);
                     }
-                    fileName = string.IsNullOrEmpty(fileName) ? Guid.NewGuid().ToString() + GetFileExtension(base64str) : fileName;
+                    fileName = string.IsNullOrEmpty(fileName) ? Guid.NewGuid().ToString() + GetFileExtension(base64str) : fileName.Replace(" ","_");
                     File.WriteAllBytes(Path.Combine(path, fileName), byteArr);
 
                     return fileName;
@@ -63,7 +63,7 @@ namespace AurigainLoanERP.Shared.Common
                 {
                     string path = GetPhysicalPath(filePath);
 
-                    fileName = string.IsNullOrEmpty(fileName) ? Path.GetFileName(file.FileName) : fileName;
+                    fileName = string.IsNullOrEmpty(fileName) ? Path.GetFileName(file.FileName) : fileName.Replace(" ","_");
 
                     if (!Directory.Exists(path))
                     {

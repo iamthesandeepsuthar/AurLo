@@ -356,7 +356,7 @@ namespace AurigainLoanERP.Services.User
                                 Id = x.Id,
                                 Kycnumber = x.Kycnumber ?? null,
                                 KycdocumentTypeId = x.KycdocumentTypeId,
-                                KycdocumentTypeName =  _db.DocumentType.FirstOrDefault(z=>z.Id==x.KycdocumentTypeId).DocumentName ?? null,
+                                KycdocumentTypeName = _db.DocumentType.FirstOrDefault(z => z.Id == x.KycdocumentTypeId).DocumentName ?? null,
                                 IsActive = x.IsActive ?? null,
                                 IsDelete = x.IsDelete,
                                 CreatedOn = x.CreatedOn,
@@ -383,7 +383,7 @@ namespace AurigainLoanERP.Services.User
                                     ModifiedOn = item.ModifiedOn ?? null,
                                     CreatedBy = item.CreatedBy ?? null,
                                     ModifiedBy = item.ModifiedBy ?? null,
-                                    UserDocumentFiles = _db.UserDocumentFiles.Where(x=> x.DocumentId==item.Id).Select(fileitem => new UserDocumentFilesViewModel
+                                    UserDocumentFiles = _db.UserDocumentFiles.Where(x => x.DocumentId == item.Id).Select(fileitem => new UserDocumentFilesViewModel
                                     {
                                         Id = fileitem.Id,
                                         DocumentId = fileitem.DocumentId,
@@ -495,10 +495,11 @@ namespace AurigainLoanERP.Services.User
         {
             try
             {
-                var existingUser = await _db.UserMaster.FirstOrDefaultAsync(x => (model.Id == default || x.Id != model.Id) && x.Mobile == model.Mobile || x.Email == model.Email);
+                var existingUser = await _db.UserMaster.FirstOrDefaultAsync(x => (model.Id == null || model.Id == 0 || x.Id != model.Id) && ((!string.IsNullOrEmpty(model.Mobile) && x.Mobile == model.Mobile) || (!string.IsNullOrEmpty(model.Email) && x.Email == model.Email) || (!string.IsNullOrEmpty(model.UserName) && x.UserName == model.UserName)));
+
                 if (existingUser == null)
                 {
-                    if (model.Id == default)
+                    if (model.Id == null || model.Id < 1)
                     {
 
                         var objModel = _mapper.Map<UserMaster>(model);
