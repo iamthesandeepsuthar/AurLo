@@ -3001,6 +3001,36 @@ table .badge-dark {
     position: relative;
 }
 
+.bs-datepicker-container {
+    padding: 0px;
+}
+
+.theme-green .bs-datepicker-head {
+    background: #002767;
+}
+
+.theme-green .bs-datepicker-body table td span.selected,
+.theme-green .bs-datepicker-body table td.selected span,
+.theme-green .bs-datepicker-body table td span[class*=select-]:after,
+.theme-green .bs-datepicker-body table td[class*=select-] span:after {
+    background: #ff8300;
+}
+
+.theme-green .bs-datepicker-body table td.week span {
+    color: #000000;
+}
+
+.date-icon-with-label .fa-calendar-alt {
+    position: absolute;
+    top: 43px;
+    right: 30px;
+    font-size: 20px;
+}
+
+.date-icon-with-label {
+    position: relative;
+}
+
 
 /* Manish CSS Start */
 
