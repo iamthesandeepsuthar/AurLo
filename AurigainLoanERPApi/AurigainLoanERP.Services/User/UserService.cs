@@ -33,7 +33,7 @@ namespace AurigainLoanERP.Services.User
 
         }
 
-        #region <<Agent User>>
+        #region << Agent User >>
 
         /// <summary>
         /// Save AgentUser Detail
@@ -114,9 +114,81 @@ namespace AurigainLoanERP.Services.User
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public Task<ApiServiceResponseModel<List<AgentViewModel>>> GetAgentAsync(IndexModel model)
+        public async Task<ApiServiceResponseModel<List<AgentListViewModel>>> GetAgentAsync(IndexModel model)
         {
-            throw new NotImplementedException();
+
+            ApiServiceResponseModel<List<AgentListViewModel>> objResponse = new ApiServiceResponseModel<List<AgentListViewModel>>();
+            try
+            {
+                var result = (from agent in _db.UserAgent
+                                  //join user in _db.UserMaster on agent.UserId equals user.Id
+                                  //join role in _db.UserRole on user.UserRoleId equals role.Id
+                              where !agent.IsDelete && (string.IsNullOrEmpty(model.Search) || agent.FullName.Contains(model.Search) || agent.User.Email.Contains(model.Search) || agent.User.UserName.Contains(model.Search))
+                              select agent);
+                switch (model.OrderBy)
+                {
+                    case "FullName":
+                        result = model.OrderByAsc ? (from orderData in result orderby orderData.FullName ascending select orderData) : (from orderData in result orderby orderData.FullName descending select orderData);
+                        break;
+                    case "Mobile":
+                        result = model.OrderByAsc ? (from orderData in result orderby orderData.User.Mobile ascending select orderData) : (from orderData in result orderby orderData.User.Mobile descending select orderData);
+                        break;
+                    case "Email":
+                        result = model.OrderByAsc ? (from orderData in result orderby orderData.User.Email ascending select orderData) : (from orderData in result orderby orderData.User.Email descending select orderData);
+                        break;
+
+                    case "PinCode":
+                        result = model.OrderByAsc ? (from orderData in result orderby orderData.PinCode ascending select orderData) : (from orderData in result orderby orderData.PinCode descending select orderData);
+                        break;
+
+                    case "IsActive":
+                        result = model.OrderByAsc ? (from orderData in result orderby orderData.User.IsActive ascending select orderData) : (from orderData in result orderby orderData.User.IsActive descending select orderData);
+                        break;
+                    default:
+                        result = model.OrderByAsc ? (from orderData in result orderby orderData.User.UserRole.Name ascending select orderData) : (from orderData in result orderby orderData.User.UserRole.Name descending select orderData);
+                        break;
+                }
+
+                var data = result.Skip(((model.Page == 0 ? 1 : model.Page) - 1) * (model.PageSize != 0 ? model.PageSize : int.MaxValue)).Take(model.PageSize != 0 ? model.PageSize : int.MaxValue);
+                objResponse.Data = await (from detail in data
+                                          select new AgentListViewModel
+                                          {
+                                              Id = detail.Id,
+                                              UserId = detail.User != null ? detail.User.Id : default,
+                                              FullName = detail.FullName ?? null,
+                                              Email = detail.User != null ? detail.User.Email : null,
+                                              Mobile = detail.User != null ? detail.User.Mobile : null,
+                                              Role = detail.User != null && detail.User.UserRole != null ? detail.User.UserRole.Name : null,
+                                              UniqueId = detail.UniqueId ?? null,
+                                              Gender = detail.Gender ?? null,
+                                              QualificationName = detail.Qualification.Name ?? null,
+                                              Address = detail.Address ?? null,
+                                              DistrictName = detail.District != null ? detail.District.Name : null,
+                                              StateName = detail.District != null && detail.District.State != null ? detail.District.State.Name : null,
+                                              PinCode = detail.PinCode ?? null,
+                                              DateOfBirth = detail.DateOfBirth ?? null,
+                                              ProfilePictureUrl = detail.ProfilePictureUrl.ToAbsolutePath() ?? null,
+                                              IsActive = detail.IsActive,
+                                              IsDelete = detail.IsDelete,
+                                              CreatedOn = detail.CreatedOn,
+                                              CreatedBy = detail.CreatedBy
+                                          }).ToListAsync();
+
+
+                if (result != null)
+                {
+                    return CreateResponse(objResponse.Data, ResponseMessage.Success, true, ((int)ApiStatusCode.Ok), TotalRecord: result.Count());
+                }
+                else
+                {
+                    return CreateResponse<List<AgentListViewModel>>(null, ResponseMessage.NotFound, true, ((int)ApiStatusCode.RecordNotFound), TotalRecord: 0);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return CreateResponse<List<AgentListViewModel>>(null, ResponseMessage.Fail, false, ((int)ApiStatusCode.ServerException), ex.Message ?? ex.InnerException.ToString());
+            }
         }
         /// <summary>
         /// Get Agent Detail 
@@ -218,7 +290,87 @@ namespace AurigainLoanERP.Services.User
 
         #endregion
 
-        #region <<Door-step Agent>>
+        #region << Door-step Agent >>
+
+        public async Task<ApiServiceResponseModel<List<DoorStepAgentListModel>>> GetDoorStepAgentAsync(IndexModel model)
+        {
+
+            ApiServiceResponseModel<List<DoorStepAgentListModel>> objResponse = new ApiServiceResponseModel<List<DoorStepAgentListModel>>();
+            try
+            {
+                var result = (from agent in _db.UserDoorStepAgent
+                                  //join user in _db.UserMaster on agent.UserId equals user.Id
+                                  //join role in _db.UserRole on user.UserRoleId equals role.Id
+                              where !agent.IsDelete && (string.IsNullOrEmpty(model.Search) || agent.FullName.Contains(model.Search) || agent.User.Email.Contains(model.Search) || agent.User.UserName.Contains(model.Search))
+                              select agent);
+                switch (model.OrderBy)
+                {
+                    case "FullName":
+                        result = model.OrderByAsc ? (from orderData in result orderby orderData.FullName ascending select orderData) : (from orderData in result orderby orderData.FullName descending select orderData);
+                        break;
+                    case "Mobile":
+                        result = model.OrderByAsc ? (from orderData in result orderby orderData.User.Mobile ascending select orderData) : (from orderData in result orderby orderData.User.Mobile descending select orderData);
+                        break;
+                    case "Email":
+                        result = model.OrderByAsc ? (from orderData in result orderby orderData.User.Email ascending select orderData) : (from orderData in result orderby orderData.User.Email descending select orderData);
+                        break;
+
+                    case "PinCode":
+                        result = model.OrderByAsc ? (from orderData in result orderby orderData.PinCode ascending select orderData) : (from orderData in result orderby orderData.PinCode descending select orderData);
+                        break;
+
+                    case "IsActive":
+                        result = model.OrderByAsc ? (from orderData in result orderby orderData.User.IsActive ascending select orderData) : (from orderData in result orderby orderData.User.IsActive descending select orderData);
+                        break;
+                    default:
+                        result = model.OrderByAsc ? (from orderData in result orderby orderData.User.UserRole.Name ascending select orderData) : (from orderData in result orderby orderData.User.UserRole.Name descending select orderData);
+                        break;
+                }
+
+                var data = result.Skip(((model.Page == 0 ? 1 : model.Page) - 1) * (model.PageSize != 0 ? model.PageSize : int.MaxValue)).Take(model.PageSize != 0 ? model.PageSize : int.MaxValue);
+                objResponse.Data = await (from detail in data
+                                          select new DoorStepAgentListModel
+                                          {
+                                              Id = detail.Id,
+                                              UserId = detail.User != null ? detail.User.Id : default,
+                                              FullName = detail.FullName ?? null,
+                                              Email = detail.User != null ? detail.User.Email : null,
+                                              Mobile = detail.User != null ? detail.User.Mobile : null,
+                                              RoleId = detail.User != null ? detail.User.UserRoleId: default,
+                                              FatherName= detail.FatherName?? null,
+                                              Role = detail.User != null && detail.User.UserRole != null ? detail.User.UserRole.Name : null,
+                                              UniqueId = detail.UniqueId ?? null,
+                                              Gender = detail.Gender ?? null,
+                                              QualificationName = detail.Qualification.Name ?? null,
+                                              Address = detail.Address ?? null,
+                                              DistrictName = detail.District != null ? detail.District.Name : null,
+                                              StateName = detail.District != null && detail.District.State != null ? detail.District.State.Name : null,
+                                              PinCode = detail.PinCode ?? null,
+                                              DateOfBirth = detail.DateOfBirth ?? null,
+                                              ProfilePictureUrl = detail.ProfilePictureUrl.ToAbsolutePath() ?? null,
+                                              IsActive = detail.IsActive,
+                                              IsDelete = detail.IsDelete,
+                                              CreatedOn = detail.CreatedOn,
+                                              CreatedBy = detail.CreatedBy
+                                          }).ToListAsync();
+
+
+                if (result != null)
+                {
+                    return CreateResponse(objResponse.Data, ResponseMessage.Success, true, ((int)ApiStatusCode.Ok), TotalRecord: result.Count());
+                }
+                else
+                {
+                    return CreateResponse<List<DoorStepAgentListModel>>(null, ResponseMessage.NotFound, true, ((int)ApiStatusCode.RecordNotFound), TotalRecord: 0);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return CreateResponse<List<DoorStepAgentListModel>>(null, ResponseMessage.Fail, false, ((int)ApiStatusCode.ServerException), ex.Message ?? ex.InnerException.ToString());
+            }
+        }
+
         /// <summary>
         /// Add Update Door Step Agent 
         /// </summary>
@@ -445,7 +597,7 @@ namespace AurigainLoanERP.Services.User
         }
         #endregion
 
-        #region <<Common Method>>
+        #region << Common Method >>
         public async Task<ApiServiceResponseModel<object>> UpateActiveStatus(long id)
         {
             try
@@ -503,8 +655,7 @@ namespace AurigainLoanERP.Services.User
                     {
 
                         var objModel = _mapper.Map<UserMaster>(model);
-                        objModel.UserName = model.UserName ?? model.Email;
-
+                        objModel.UserName = model.UserName ?? model.Email; 
                         objModel.CreatedOn = DateTime.Now;
                         objModel.Mpin = GenerateUniqueId();//_security.EncryptData(GenerateUniqueId());
                         var result = await _db.UserMaster.AddAsync(objModel);
@@ -894,7 +1045,7 @@ namespace AurigainLoanERP.Services.User
 
                     objModel.RelationshipWithNominee = !string.IsNullOrEmpty(model.RelationshipWithNominee) ? model.RelationshipWithNominee : null;
                     objModel.NamineeName = !string.IsNullOrEmpty(model.NamineeName) ? model.NamineeName : null;
-                    //  objModel.IsSelfDeclaration = model.IsSelfDeclaration;
+                      objModel.IsSelfDeclaration = model.IsSelfDeclaration;
                     var result = await _db.UserNominee.AddAsync(objModel);
                     await _db.SaveChangesAsync();
 

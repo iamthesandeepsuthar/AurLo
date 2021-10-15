@@ -13,7 +13,8 @@
             </nav>
             <!-- Breadcrumb End -->
         </div>
-        <a class="btn btn-dark btn-sm mt-2 mt-sm-0" routerLink="../{{routing_Url.DoorStepAgentRegistrationUrl+'/0'}}"> <i class="fas fa-plus"></i> Add door step agent</a>
+        <a class="btn btn-dark btn-sm mt-2 mt-sm-0" routerLink="../{{routing_Url.DoorStepAgentRegistrationUrl+'/0'}}">
+            <i class="fas fa-plus"></i> Add door step agent</a>
     </div>
 </div>
 <!-- Page Header Title end -->
@@ -31,34 +32,35 @@
             <div class="row position-relative">
                 <div class="col-12 col-md-4 d-flex justify-content-sm-start justify-content-center">
                     <div class="dataTables_length" id="zero-config_length"><label>Results :
-                        <select name="zero-config_length" [(ngModel)]="indexModel.PageSize" (change)="getList()"
-                            aria-controls="zero-config" class="form-control">
-                            <option value="101">All</option>
-                            <option value="10">10</option>
-                            <option value="20">20</option>
-                            <option value="50">50</option>
-                        </select></label></div>
+                            <select name="zero-config_length" [(ngModel)]="indexModel.PageSize" (change)="getList()"
+                                aria-controls="zero-config" class="form-control">
+                                <option value="101">All</option>
+                                <option value="10">10</option>
+                                <option value="20">20</option>
+                                <option value="50">50</option>
+                            </select></label></div>
                 </div>
                 <div class="col-12 col-md-8 d-flex justify-content-sm-end justify-content-center mt-sm-0 mt-3">
                     <div id="zero-config_filter" class="dataTables_filter"><label>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="feather feather-search">
-                            <circle cx="11" cy="11" r="8"></circle>
-                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                        </svg>
-                        <input type="search" [(ngModel)]="indexModel.Search" (blur)="onSearch()" class="form-control"
-                            placeholder="Search..." aria-controls="zero-config"></label></div>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="feather feather-search">
+                                <circle cx="11" cy="11" r="8"></circle>
+                                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                            </svg>
+                            <input type="search" [(ngModel)]="indexModel.Search" (blur)="onSearch()"
+                                class="form-control" placeholder="Search..." aria-controls="zero-config"></label></div>
 
                     <div class="ad-filter-btn-grp">
                         <button data-toggle="collapse" href="#advance-filter1" type="submit" class="ad-filter-btn"> <img
-                            src="assets/img/filter.png" data-toggle="tooltip" data-placement="bottom"
-                            title="Advance filter">
-                    </button>
+                                src="assets/img/filter.png" data-toggle="tooltip" data-placement="bottom"
+                                title="Advance filter">
+                        </button>
                     </div>
                     <div class="table-view-btn ml-4">
                         <button type="button" class="btn-change-view"><i class="fa fa-bars"></i></button>
-                        <button type="button" class="btn-change-view ml-2 active"><i class="fa fa-th-large"></i></button>
+                        <button type="button" class="btn-change-view ml-2 active"><i
+                                class="fa fa-th-large"></i></button>
                     </div>
 
                 </div>
@@ -84,10 +86,10 @@
                         </div>
                         <div class="col-md-6 mb-3">
                             <select class="form-control">
-                            <option>--Select Document Type--</option>
-                            <option>--Select Type--</option>
-                            <option>--Select Type--</option>
-                        </select>
+                                <option>--Select Document Type--</option>
+                                <option>--Select Type--</option>
+                                <option>--Select Type--</option>
+                            </select>
                         </div>
 
                         <div class="col-md-6 mb-3">
@@ -95,10 +97,10 @@
                         </div>
                         <div class="col-md-6 mb-3">
                             <select class="form-control">
-                            <option>--Select Document Type--</option>
-                            <option>--Select Type--</option>
-                            <option>--Select Type--</option>
-                        </select>
+                                <option>--Select Document Type--</option>
+                                <option>--Select Type--</option>
+                                <option>--Select Type--</option>
+                            </select>
                         </div>
 
                         <div class="col-md-6 mb-3">
@@ -106,10 +108,10 @@
                         </div>
                         <div class="col-md-6 mb-3">
                             <select class="form-control">
-                            <option>--Select Document Type--</option>
-                            <option>--Select Type--</option>
-                            <option>--Select Type--</option>
-                        </select>
+                                <option>--Select Document Type--</option>
+                                <option>--Select Type--</option>
+                                <option>--Select Type--</option>
+                            </select>
                         </div>
 
 
@@ -122,10 +124,10 @@
 
 
                 <div class="col-md-12 advance-filter-footer-btn-grp text-right">
-                    <button type="submit" class="btn btn-success mr-3" data-toggle="collapse" href="#advance-filter1"> <i
-                        class="fas fa-check mr-1"></i> Apply</button>
+                    <button type="submit" class="btn btn-success mr-3" data-toggle="collapse" href="#advance-filter1">
+                        <i class="fas fa-check mr-1"></i> Apply</button>
                     <button type="submit" class="btn btn-default" data-toggle="collapse" href="#advance-filter1"> <i
-                        class="fas fa-redo-alt mr-1"></i> Reset</button>
+                            class="fas fa-redo-alt mr-1"></i> Reset</button>
                 </div>
 
 
@@ -137,7 +139,9 @@
 
         <div class="table-responsive">
 
-            <table class="custom-mat-table" mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 table table-striped dataTable table-header" style="width: 100%;" role="grid" aria-describedby="zero-config_info" (matSortChange)="sortData($event)">
+            <table class="custom-mat-table" mat-table [dataSource]="dataSource" matSort
+                class="mat-elevation-z8 table table-striped dataTable table-header" style="width: 100%;" role="grid"
+                aria-describedby="zero-config_info" (matSortChange)="sortData($event)">
 
                 <ng-container matColumnDef="index">
                     <th mat-header-cell *matHeaderCellDef>#</th>
@@ -145,10 +149,12 @@
                         {{(indexModel.Page-1)*indexModel.PageSize +(i+1)}}</td>
                 </ng-container>
 
-                <ng-container [matColumnDef]="column.Value" *ngFor="let column of ViewdisplayedColumns">
+                <ng-container [matColumnDef]="column.Value" *ngFor="let column of ViewdisplayedColumns, let in=index">
 
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> {{column.Text}} </th>
-                    <td mat-cell *matCellDef="let element"> {{element[column.Value]}} </td>
+                    <td [ngClass]="{'sorting_1 table-data-name': in==0}" mat-cell *matCellDef="let element"> <span
+                            *ngIf="in==0"> {{element[column.Value].substring(0,1)}} </span> {{element[column.Value]}}
+                    </td>
                 </ng-container>
 
                 <ng-container matColumnDef="IsActive">
@@ -165,10 +171,12 @@
                 <ng-container matColumnDef="Action">
                     <th width="150" mat-header-cell *matHeaderCellDef> Action </th>
                     <td mat-cell *matCellDef="let row" class="table-action-btn">
-                        <a class="table-action-btn-edit" routerLink=".{{routing_Url.UserRoleAddUpdateUrl+row.Id}}" title="Edit">
+                        <a class="table-action-btn-edit" routerLink="..{{routing_Url.UserRoleAddUpdateUrl+row.Userid}}"
+                            title="Edit">
                             <i class="fas fa-edit"></i>
                         </a>
-                        <a class="table-action-btn-view" routerLink=".{{routing_Url.UserRoleDetailUrl+row.Id}}" title="Detail">
+                        <a class="table-action-btn-view" routerLink="..{{routing_Url.UserRoleDetailUrl+row.UserId}}"
+                            title="Detail">
                             <i class="fas fa-eye"></i>
                         </a>
                         <a class="table-action-btn-delete" (click)="updateDeleteStatus(row.Id)" title="Delete">
@@ -188,7 +196,8 @@
                     <ul class="pagination">
 
 
-                        <mat-paginator #paginator [length]="totalRecords" [pageSize]="indexModel.PageSize" (page)="onPaginateChange($event)" showFirstLastButtons *ngIf="totalRecords!=0">
+                        <mat-paginator #paginator [length]="totalRecords" [pageSize]="indexModel.PageSize"
+                            (page)="onPaginateChange($event)" showFirstLastButtons *ngIf="totalRecords!=0">
                         </mat-paginator>
                     </ul>
                 </div>
@@ -203,11 +212,13 @@
             <div class="col-sm-6 col-md-4 col-lg-6 col-xl-3 mb-3">
                 <div class="custom-card-2 d-flex flex-column">
                     <div class="custom-card-2-header text-center">
-                        <div class="custom-card-2-img d-flex align-items-center justify-content-center"><img src="assets/img/user-default.jpg"></div>
+                        <div class="custom-card-2-img d-flex align-items-center justify-content-center"><img
+                                src="assets/img/user-default.jpg"></div>
                         <h3>Akash kumar sharma</h3>
                         <small>#985636987</small>
                         <div class="dropdown card-action-box">
-                            <button class="" type="button" data-toggle="dropdown"><i class="fas fa-ellipsis-v"></i></button>
+                            <button class="" type="button" data-toggle="dropdown"><i
+                                    class="fas fa-ellipsis-v"></i></button>
                             <ul class="dropdown-menu">
                                 <li><a href="#"><i class="fas fa-eye"></i> View</a></li>
                                 <li><a href="#"><i class="fas fa-plus"></i> Add</a></li>
@@ -224,17 +235,20 @@
                             <li> <strong>Location</strong> <span> Banglore, India </span> </li>
                         </ul>
                     </div>
-                    <button type="submit" class="btn btn-primary w-100 mt-auto"><i class="fas fa-check mr-1"></i> Edit Availibity</button>
+                    <button type="submit" class="btn btn-primary w-100 mt-auto"><i class="fas fa-check mr-1"></i> Edit
+                        Availibity</button>
                 </div>
             </div>
             <div class="col-sm-6 col-md-4 col-lg-6 col-xl-3 mb-3">
                 <div class="custom-card-2 d-flex flex-column">
                     <div class="custom-card-2-header text-center">
-                        <div class="custom-card-2-img d-flex align-items-center justify-content-center"><img src="assets/img/user-default.jpg"></div>
+                        <div class="custom-card-2-img d-flex align-items-center justify-content-center"><img
+                                src="assets/img/user-default.jpg"></div>
                         <h3>Akash kumar sharma</h3>
                         <small>#985636987</small>
                         <div class="dropdown card-action-box">
-                            <button class="" type="button" data-toggle="dropdown"><i class="fas fa-ellipsis-v"></i></button>
+                            <button class="" type="button" data-toggle="dropdown"><i
+                                    class="fas fa-ellipsis-v"></i></button>
                             <ul class="dropdown-menu">
                                 <li><a href="#"><i class="fas fa-eye"></i> View</a></li>
                                 <li><a href="#"><i class="fas fa-plus"></i> Add</a></li>
@@ -251,17 +265,20 @@
                             <li> <strong>Location</strong> <span> Banglore, India </span> </li>
                         </ul>
                     </div>
-                    <button type="submit" class="btn btn-primary w-100 mt-auto"><i class="fas fa-check mr-1"></i> Edit Availibity</button>
+                    <button type="submit" class="btn btn-primary w-100 mt-auto"><i class="fas fa-check mr-1"></i> Edit
+                        Availibity</button>
                 </div>
             </div>
             <div class="col-sm-6 col-md-4 col-lg-6 col-xl-3 mb-3">
                 <div class="custom-card-2 d-flex flex-column">
                     <div class="custom-card-2-header text-center">
-                        <div class="custom-card-2-img d-flex align-items-center justify-content-center"><img src="assets/img/user-default.jpg"></div>
+                        <div class="custom-card-2-img d-flex align-items-center justify-content-center"><img
+                                src="assets/img/user-default.jpg"></div>
                         <h3>Akash kumar sharma</h3>
                         <small>#985636987</small>
                         <div class="dropdown card-action-box">
-                            <button class="" type="button" data-toggle="dropdown"><i class="fas fa-ellipsis-v"></i></button>
+                            <button class="" type="button" data-toggle="dropdown"><i
+                                    class="fas fa-ellipsis-v"></i></button>
                             <ul class="dropdown-menu">
                                 <li><a href="#"><i class="fas fa-eye"></i> View</a></li>
                                 <li><a href="#"><i class="fas fa-plus"></i> Add</a></li>
@@ -278,17 +295,20 @@
                             <li> <strong>Location</strong> <span> Banglore, India </span> </li>
                         </ul>
                     </div>
-                    <button type="submit" class="btn btn-primary w-100 mt-auto"><i class="fas fa-check mr-1"></i> Edit Availibity</button>
+                    <button type="submit" class="btn btn-primary w-100 mt-auto"><i class="fas fa-check mr-1"></i> Edit
+                        Availibity</button>
                 </div>
             </div>
             <div class="col-sm-6 col-md-4 col-lg-6 col-xl-3 mb-3">
                 <div class="custom-card-2 d-flex flex-column">
                     <div class="custom-card-2-header text-center">
-                        <div class="custom-card-2-img d-flex align-items-center justify-content-center"><img src="assets/img/user-default.jpg"></div>
+                        <div class="custom-card-2-img d-flex align-items-center justify-content-center"><img
+                                src="assets/img/user-default.jpg"></div>
                         <h3>Akash kumar sharma</h3>
                         <small>#985636987</small>
                         <div class="dropdown card-action-box">
-                            <button class="" type="button" data-toggle="dropdown"><i class="fas fa-ellipsis-v"></i></button>
+                            <button class="" type="button" data-toggle="dropdown"><i
+                                    class="fas fa-ellipsis-v"></i></button>
                             <ul class="dropdown-menu">
                                 <li><a href="#"><i class="fas fa-eye"></i> View</a></li>
                                 <li><a href="#"><i class="fas fa-plus"></i> Add</a></li>
@@ -305,17 +325,20 @@
                             <li> <strong>Location</strong> <span> Banglore, India </span> </li>
                         </ul>
                     </div>
-                    <button type="submit" class="btn btn-primary w-100 mt-auto"><i class="fas fa-check mr-1"></i> Edit Availibity</button>
+                    <button type="submit" class="btn btn-primary w-100 mt-auto"><i class="fas fa-check mr-1"></i> Edit
+                        Availibity</button>
                 </div>
             </div>
             <div class="col-sm-6 col-md-4 col-lg-6 col-xl-3 mb-3">
                 <div class="custom-card-2 d-flex flex-column">
                     <div class="custom-card-2-header text-center">
-                        <div class="custom-card-2-img d-flex align-items-center justify-content-center"><img src="assets/img/user-default.jpg"></div>
+                        <div class="custom-card-2-img d-flex align-items-center justify-content-center"><img
+                                src="assets/img/user-default.jpg"></div>
                         <h3>Akash kumar sharma</h3>
                         <small>#985636987</small>
                         <div class="dropdown card-action-box">
-                            <button class="" type="button" data-toggle="dropdown"><i class="fas fa-ellipsis-v"></i></button>
+                            <button class="" type="button" data-toggle="dropdown"><i
+                                    class="fas fa-ellipsis-v"></i></button>
                             <ul class="dropdown-menu">
                                 <li><a href="#"><i class="fas fa-eye"></i> View</a></li>
                                 <li><a href="#"><i class="fas fa-plus"></i> Add</a></li>
@@ -332,17 +355,20 @@
                             <li> <strong>Location</strong> <span> Banglore, India </span> </li>
                         </ul>
                     </div>
-                    <button type="submit" class="btn btn-primary w-100 mt-auto"><i class="fas fa-check mr-1"></i> Edit Availibity</button>
+                    <button type="submit" class="btn btn-primary w-100 mt-auto"><i class="fas fa-check mr-1"></i> Edit
+                        Availibity</button>
                 </div>
             </div>
             <div class="col-sm-6 col-md-4 col-lg-6 col-xl-3 mb-3">
                 <div class="custom-card-2 d-flex flex-column">
                     <div class="custom-card-2-header text-center">
-                        <div class="custom-card-2-img d-flex align-items-center justify-content-center"><img src="assets/img/user-default.jpg"></div>
+                        <div class="custom-card-2-img d-flex align-items-center justify-content-center"><img
+                                src="assets/img/user-default.jpg"></div>
                         <h3>Akash kumar sharma</h3>
                         <small>#985636987</small>
                         <div class="dropdown card-action-box">
-                            <button class="" type="button" data-toggle="dropdown"><i class="fas fa-ellipsis-v"></i></button>
+                            <button class="" type="button" data-toggle="dropdown"><i
+                                    class="fas fa-ellipsis-v"></i></button>
                             <ul class="dropdown-menu">
                                 <li><a href="#"><i class="fas fa-eye"></i> View</a></li>
                                 <li><a href="#"><i class="fas fa-plus"></i> Add</a></li>
@@ -359,17 +385,20 @@
                             <li> <strong>Location</strong> <span> Banglore, India </span> </li>
                         </ul>
                     </div>
-                    <button type="submit" class="btn btn-primary w-100 mt-auto"><i class="fas fa-check mr-1"></i> Edit Availibity</button>
+                    <button type="submit" class="btn btn-primary w-100 mt-auto"><i class="fas fa-check mr-1"></i> Edit
+                        Availibity</button>
                 </div>
             </div>
             <div class="col-sm-6 col-md-4 col-lg-6 col-xl-3 mb-3">
                 <div class="custom-card-2 d-flex flex-column">
                     <div class="custom-card-2-header text-center">
-                        <div class="custom-card-2-img d-flex align-items-center justify-content-center"><img src="assets/img/user-default.jpg"></div>
+                        <div class="custom-card-2-img d-flex align-items-center justify-content-center"><img
+                                src="assets/img/user-default.jpg"></div>
                         <h3>Akash kumar sharma</h3>
                         <small>#985636987</small>
                         <div class="dropdown card-action-box">
-                            <button class="" type="button" data-toggle="dropdown"><i class="fas fa-ellipsis-v"></i></button>
+                            <button class="" type="button" data-toggle="dropdown"><i
+                                    class="fas fa-ellipsis-v"></i></button>
                             <ul class="dropdown-menu">
                                 <li><a href="#"><i class="fas fa-eye"></i> View</a></li>
                                 <li><a href="#"><i class="fas fa-plus"></i> Add</a></li>
@@ -386,17 +415,20 @@
                             <li> <strong>Location</strong> <span> Banglore, India </span> </li>
                         </ul>
                     </div>
-                    <button type="submit" class="btn btn-primary w-100 mt-auto"><i class="fas fa-check mr-1"></i> Edit Availibity</button>
+                    <button type="submit" class="btn btn-primary w-100 mt-auto"><i class="fas fa-check mr-1"></i> Edit
+                        Availibity</button>
                 </div>
             </div>
             <div class="col-sm-6 col-md-4 col-lg-6 col-xl-3 mb-3">
                 <div class="custom-card-2 d-flex flex-column">
                     <div class="custom-card-2-header text-center">
-                        <div class="custom-card-2-img d-flex align-items-center justify-content-center"><img src="assets/img/user-default.jpg"></div>
+                        <div class="custom-card-2-img d-flex align-items-center justify-content-center"><img
+                                src="assets/img/user-default.jpg"></div>
                         <h3>Akash kumar sharma</h3>
                         <small>#985636987</small>
                         <div class="dropdown card-action-box">
-                            <button class="" type="button" data-toggle="dropdown"><i class="fas fa-ellipsis-v"></i></button>
+                            <button class="" type="button" data-toggle="dropdown"><i
+                                    class="fas fa-ellipsis-v"></i></button>
                             <ul class="dropdown-menu">
                                 <li><a href="#"><i class="fas fa-eye"></i> View</a></li>
                                 <li><a href="#"><i class="fas fa-plus"></i> Add</a></li>
@@ -413,7 +445,8 @@
                             <li> <strong>Location</strong> <span> Banglore, India </span> </li>
                         </ul>
                     </div>
-                    <button type="submit" class="btn btn-primary w-100 mt-auto"><i class="fas fa-check mr-1"></i> Edit Availibity</button>
+                    <button type="submit" class="btn btn-primary w-100 mt-auto"><i class="fas fa-check mr-1"></i> Edit
+                        Availibity</button>
                 </div>
             </div>
 

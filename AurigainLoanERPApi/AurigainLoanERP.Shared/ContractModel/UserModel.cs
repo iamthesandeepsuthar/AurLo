@@ -92,6 +92,25 @@ namespace AurigainLoanERP.Shared.ContractModel
         public virtual UserViewModel ReportingUser { get; set; }
     }
 
+    public class UserDocumentViewModel
+    {
+
+        public long Id { get; set; }
+        public int DocumentTypeId { get; set; }
+        public string DocumentTypeName{ get; set; }
+
+        public long UserId { get; set; }
+        public bool? IsActive { get; set; }
+        public bool IsDelete { get; set; }
+        public DateTime CreatedOn { get; set; }
+        public DateTime? ModifiedOn { get; set; }
+        public long? CreatedBy { get; set; }
+        public long? ModifiedBy { get; set; }
+
+
+        public virtual List<UserDocumentFilesViewModel> UserDocumentFiles { get; set; }
+    }
+
     public class AgentViewModel
     {
         public AgentViewModel()
@@ -105,7 +124,6 @@ namespace AurigainLoanERP.Shared.ContractModel
         }
         public long Id { get; set; }
 
-        public UserViewModel User { get; set; }
         public string FullName { get; set; }
         public string FatherName { get; set; }
         public string UniqueId { get; set; }
@@ -127,6 +145,7 @@ namespace AurigainLoanERP.Shared.ContractModel
         public long? CreatedBy { get; set; }
         public long? ModifiedBy { get; set; }
         public List<UserDocumentViewModel>? Documents { get; set; }
+        public UserViewModel User { get; set; }
 
         public UserBankDetailViewModel? BankDetails { get; set; }
         public List<UserKycViewModel>? UserKYC { get; set; }
@@ -138,7 +157,66 @@ namespace AurigainLoanERP.Shared.ContractModel
         //public virtual Object Qualification { get; set; }
 
     }
+    public class AgentListViewModel
+    {
 
+        public long Id { get; set; }
+        public long UserId { get; set; }
+        public int RoleId { get; set; }
+        public string Role { get; set; }
+        public string Email { get; set; }
+        public string Mobile { get; set; }
+        public string FullName { get; set; }
+        public string FatherName { get; set; }
+        public string UniqueId { get; set; }
+        public string Gender { get; set; }
+        public string QualificationName { get; set; }
+
+        public string Address { get; set; }
+        public string DistrictName { get; set; }
+        public string StateName { get; set; }
+        public string PinCode { get; set; }
+        public DateTime? DateOfBirth { get; set; }
+        public string ProfilePictureUrl { get; set; }
+        public bool? IsActive { get; set; }
+        public bool IsDelete { get; set; }
+        public DateTime CreatedOn { get; set; }
+        public DateTime? ModifiedOn { get; set; }
+        public long? CreatedBy { get; set; }
+        public long? ModifiedBy { get; set; }
+
+    }
+
+    public class DoorStepAgentListModel
+    {
+    
+        public long Id { get; set; }
+        public long UserId { get; set; }
+        public int RoleId { get; set; }
+        public string Role { get; set; } 
+        public string Email { get; set; }
+        public string Mobile { get; set; }
+        public string FullName { get; set; }
+        public string FatherName { get; set; }
+        public string UniqueId { get; set; }
+        public string Gender { get; set; }
+        public string QualificationName { get; set; }
+
+        public string Address { get; set; }
+        public string DistrictName { get; set; }
+        public string StateName { get; set; }
+        public string PinCode { get; set; }
+        public DateTime? DateOfBirth { get; set; }
+        public string ProfilePictureUrl { get; set; }
+        public bool? IsActive { get; set; }
+        public bool IsDelete { get; set; }
+        public DateTime CreatedOn { get; set; }
+        public DateTime? ModifiedOn { get; set; }
+        public long? CreatedBy { get; set; }
+        public long? ModifiedBy { get; set; }
+      
+    }
+     
     public class DoorStepAgentViewModel
     {
         public DoorStepAgentViewModel()
@@ -187,24 +265,6 @@ namespace AurigainLoanERP.Shared.ContractModel
         public UserSecurityDepositViewModel SecurityDeposit { get; set; }
     }
 
-    public class UserDocumentViewModel
-    {
-
-        public long Id { get; set; }
-        public int DocumentTypeId { get; set; }
-        public string DocumentTypeName{ get; set; }
-
-        public long UserId { get; set; }
-        public bool? IsActive { get; set; }
-        public bool IsDelete { get; set; }
-        public DateTime CreatedOn { get; set; }
-        public DateTime? ModifiedOn { get; set; }
-        public long? CreatedBy { get; set; }
-        public long? ModifiedBy { get; set; }
-
-
-        public virtual List<UserDocumentFilesViewModel> UserDocumentFiles { get; set; }
-    }
 
     #endregion
 

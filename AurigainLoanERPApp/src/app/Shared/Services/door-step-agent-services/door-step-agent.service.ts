@@ -1,3 +1,4 @@
+import { DoorStepAgentListModel } from './../../Model/doorstep-agent-model/door-step-agent.model';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { BaseAPIService } from '../../Helper/base-api.service';
@@ -11,7 +12,7 @@ export class DoorStepAgentService {
   constructor(private readonly _baseService: BaseAPIService) { }
 
 
-  GetDoorStepAgentList(model: IndexModel): Observable<ApiResponse<DoorStepAgentViewModel[]>> {
+  GetDoorStepAgentList(model: IndexModel): Observable<ApiResponse<DoorStepAgentListModel[]>> {
     let url = `${this._baseService.API_Url.DoorstepAgentListApi}`;
     return this._baseService.post(url, model);
   }

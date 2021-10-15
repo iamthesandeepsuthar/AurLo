@@ -20,7 +20,7 @@ export class DetailDoorStepAgentComponent implements OnInit {
   //#endregion
 
   constructor(private readonly _userDoorStepService: DoorStepAgentService, private _activatedRoute: ActivatedRoute,
-    private _router: Router,public domSanitizer: DomSanitizer) {
+    private _router: Router, public domSanitizer: DomSanitizer) {
     if (this._activatedRoute.snapshot.params.id) {
       this.Id = this._activatedRoute.snapshot.params.id;
     }
@@ -31,7 +31,7 @@ export class DetailDoorStepAgentComponent implements OnInit {
     this.model.Documents = [] as DocumentViewModel[];
     this.model.SecurityDeposit = {} as UserSecurityDepositViewModel;
 
-    
+
   }
   //#region <<Method>>
   ngOnInit(): void {
@@ -51,6 +51,10 @@ export class DetailDoorStepAgentComponent implements OnInit {
       }
     });
 
+  }
+  safeURL(url: string) {
+    console.log(url)
+    return this.domSanitizer.bypassSecurityTrustResourceUrl(url);
   }
 
   //#endregion

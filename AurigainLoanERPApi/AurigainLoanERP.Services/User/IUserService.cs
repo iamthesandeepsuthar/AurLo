@@ -5,28 +5,29 @@ using System.Threading.Tasks;
 
 namespace AurigainLoanERP.Services.User
 {
-    public  interface IUserService
+    public interface IUserService
     {
         /// <summary>
         /// Get List of User Role
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        Task<ApiServiceResponseModel<List<AgentViewModel>>> GetAgentAsync(IndexModel model);
+        Task<ApiServiceResponseModel<List<AgentListViewModel>>> GetAgentAsync(IndexModel model);
         /// <summary>
         /// Get Detail of Role
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
         Task<ApiServiceResponseModel<AgentViewModel>> GetAgentDetailAsync(long id);
+        Task<ApiServiceResponseModel<string>> AddUpdateAgentAsync(AgentPostModel model);
 
+        Task<ApiServiceResponseModel<List<DoorStepAgentListModel>>> GetDoorStepAgentAsync(IndexModel model);
         Task<ApiServiceResponseModel<DoorStepAgentViewModel>> GetDoorStepAgentDetailAsync(long id);
         /// <summary>
         /// Save Or Update Record 
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        Task<ApiServiceResponseModel<string>> AddUpdateAgentAsync(AgentPostModel model);
 
         Task<ApiServiceResponseModel<string>> AddUpdateDoorStepAgentAsync(DoorStepAgentPostModel model);
 

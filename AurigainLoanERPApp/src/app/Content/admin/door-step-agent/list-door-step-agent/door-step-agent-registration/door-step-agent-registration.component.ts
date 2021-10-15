@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
-import { FormGroup, FormBuilder } from "@angular/forms";
+import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { ToastrService } from "ngx-toastr";
 import { DropDownModol, FilterDropDownPostModel } from "src/app/Shared/Helper/common-model";
@@ -23,12 +23,14 @@ import { Message } from '../../../../../Shared/Helper/constants';
 export class DoorStepAgentRegistrationComponent implements OnInit {
   Id: number = 0;
   model = new DoorStepAgentPostModel();
-  formGroup = new FormGroup({});
+  formGroup!:  FormGroup;
   dropDown = new DropDownModol();
   get ddlkeys() { return DropDown_key };
+
   get f() { return this.formGroup.controls; }
   get routing_Url() { return Routing_Url }
-
+  get minDate() { return new Date() };
+  get maxDate() { return new Date() };
 
   @ViewChild(UserBankDetailSectionComponent, { static: false }) _childUserBankDetailSection!: UserBankDetailSectionComponent;
   @ViewChild(UserDocumentDetailSectionComponent, { static: false }) _childUserDocumentDetailSection!: UserDocumentDetailSectionComponent;
@@ -48,11 +50,12 @@ export class DoorStepAgentRegistrationComponent implements OnInit {
     this.model.Documents = [] as DocumentPostModel[];
     //  this.model.SecurityDeposit = new UserSecurityDepositPostModel();
 
-
   }
 
   ngOnInit(): void {
-    this.GetDropDown()
+    this.GetDropDown();
+    this.formInit();
+
   }
 
 
@@ -81,11 +84,11 @@ export class DoorStepAgentRegistrationComponent implements OnInit {
     this._commonService.GetFilterDropDown(model).subscribe(res => {
       if (res.IsSuccess) {
         let ddls = res.Data as DropDownModol;
-        if(ddls.ddlDistrict){
+        if (ddls.ddlDistrict) {
           this.dropDown.ddlDistrict = ddls.ddlDistrict;
 
-        }else{
-          this.dropDown.ddlDistrict=[];
+        } else {
+          this.dropDown.ddlDistrict = [];
         }
 
 
@@ -95,6 +98,7 @@ export class DoorStepAgentRegistrationComponent implements OnInit {
   }
 
   onFrmSubmit() {
+    this.formGroup.markAllAsTouched();
     let ChildValid: boolean = this.submitChildData();
     if (this.formGroup.valid && ChildValid) {
 
@@ -102,7 +106,7 @@ export class DoorStepAgentRegistrationComponent implements OnInit {
       this.model.User.UserRoleId = this.model.User.UserRoleId ? this.model.User.UserRoleId : 1;
       this.model.User.IsApproved = false;
       this.model.SelfFunded = Boolean(this.model.SelfFunded);
-      debugger
+      
       let serv = this._userDoorStepService.AddUpdateDoorStepAgent(this.model).subscribe(res => {
         serv.unsubscribe();
         if (res.IsSuccess) {
@@ -156,5 +160,23 @@ export class DoorStepAgentRegistrationComponent implements OnInit {
   bindDocs(docs: DocumentPostModel[]) {
     debugger
     this.model.Documents = docs;
+  }
+
+  formInit() {
+    this.formGroup = this.fb.group({
+      FullName: [undefined, Validators.required],
+      FatherName: [undefined, Validators.required],
+      Gender: [undefined, Validators.required],
+      QualificationId: [undefined, Validators.required],
+      Address: [undefined, Validators.required],
+      DistrictId: [undefined, Validators.required],
+      StateId: [undefined, Validators.required],
+      PinCode: [undefined, Validators.required],
+      DateOfBirth: [undefined, Validators.required],
+      ProfilePictureUrl: [undefined, Validators.required],
+      SelfFunded: [false, Validators.required],
+      IsActive: [true, Validators.required],
+
+    });
   }
 }
