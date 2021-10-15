@@ -30,6 +30,7 @@ namespace AurigainLoanERP.Data.Database
         public string Mpin { get; set; }
         public string Email { get; set; }
         public string Mobile { get; set; }
+        public string ProfilePath { get; set; }
         public bool IsApproved { get; set; }
         public string DeviceToken { get; set; }
         public string Token { get; set; }

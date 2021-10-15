@@ -97,5 +97,6 @@
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment.sql" />
+    <None Include="PostScript\QualificationMaster.sql" />
   </ItemGroup>
 </Project>

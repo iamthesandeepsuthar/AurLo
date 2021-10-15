@@ -3042,7 +3042,7 @@ td.table-action-btn button {
 td.table-action-btn a,
 td.table-action-btn button {
     margin-right: 10px;
-    font-size: 18px;
+    font-size: 15px;
 }
 
 .table-action-btn .table-action-btn-edit {
@@ -3220,7 +3220,29 @@ tr.mat-header-row {
     overflow: hidden;
     box-shadow: 0 0 20px 0 #eaeaea;
     padding: 0;
-    border: solid 2px #5e9afd;
+    border: solid 2px #e5e5e5;
+    width: 100%;
+    position: relative;
+}
+
+.agent-door-profile-img-box button {
+    background: transparent;
+    border: none;
+    font-size: 30px;
+    color: #fd8300;
+    margin-top: 8px;
+}
+
+.agent-door-profile-img input[type=file] {
+    max-width: 100% !important;
+    height: 100%;
+    z-index: 999999 !important;
+    cursor: pointer;
+}
+
+.agent-door-profile-img .btn-upload {
+    position: absolute;
+    bottom: 5px;
 }
 
 .open-advance-filter {
@@ -3542,6 +3564,10 @@ table tbody tr:nth-of-type(odd) .table-data-name span {
     flex: 0 0 75px;
     background-color: #fff;
     overflow: hidden;
+}
+
+.small-media-items-img img {
+    max-width: 70px;
 }
 
 .small-media-items i {
