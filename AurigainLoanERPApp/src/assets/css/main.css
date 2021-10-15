@@ -3221,6 +3221,20 @@ tr.mat-header-row {
     box-shadow: 0 0 20px 0 #eaeaea;
     padding: 0;
     border: solid 2px #5e9afd;
+    width: 100%;
+    position: relative;
+}
+
+.agent-door-profile-img input[type=file] {
+    max-width: 100% !important;
+    height: 100%;
+    z-index: 999999 !important;
+    cursor: pointer;
+}
+
+.agent-door-profile-img .btn-upload {
+    position: absolute;
+    bottom: 5px;
 }
 
 .open-advance-filter {
