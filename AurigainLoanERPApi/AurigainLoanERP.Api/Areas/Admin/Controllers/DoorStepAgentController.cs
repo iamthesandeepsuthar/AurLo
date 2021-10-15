@@ -63,5 +63,11 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
             return await _userSerivce.UpdateDeleteStatus(id);
         }
 
+        [HttpPost]
+
+        public async Task<ApiServiceResponseModel<string>> SetUserAvailibilty([FromBody]  UserAvailibilityPostModel model) {
+            return await _userSerivce.SetUserAvailibilty(model);
+
+        }
     }
 }

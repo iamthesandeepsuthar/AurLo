@@ -29,6 +29,7 @@ namespace AurigainLoanERP.Data.Database
         public virtual DbSet<QualificationMaster> QualificationMaster { get; set; }
         public virtual DbSet<State> State { get; set; }
         public virtual DbSet<UserAgent> UserAgent { get; set; }
+        public virtual DbSet<UserAvailability> UserAvailability { get; set; }
         public virtual DbSet<UserBank> UserBank { get; set; }
         public virtual DbSet<UserDocument> UserDocument { get; set; }
         public virtual DbSet<UserDocumentFiles> UserDocumentFiles { get; set; }
@@ -295,6 +296,55 @@ namespace AurigainLoanERP.Data.Database
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__UserAgent__UserI__06CD04F7");
+            });
+
+            modelBuilder.Entity<UserAvailability>(entity =>
+            {
+                entity.Property(e => e.Capacity).HasColumnName("Capacity ");
+
+                entity.Property(e => e.CreatedOn)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.FridayEt).HasColumnName("FridayET");
+
+                entity.Property(e => e.FridaySt).HasColumnName("FridayST");
+
+                entity.Property(e => e.IsActive)
+                    .IsRequired()
+                    .HasDefaultValueSql("((1))");
+
+                entity.Property(e => e.ModifiedOn).HasColumnType("datetime");
+
+                entity.Property(e => e.MondayEt).HasColumnName("MondayET");
+
+                entity.Property(e => e.MondaySt).HasColumnName("MondayST");
+
+                entity.Property(e => e.SaturdayEt).HasColumnName("SaturdayET");
+
+                entity.Property(e => e.SaturdaySt).HasColumnName("SaturdayST");
+
+                entity.Property(e => e.SundayEt).HasColumnName("SundayET");
+
+                entity.Property(e => e.SundaySt).HasColumnName("SundayST");
+
+                entity.Property(e => e.ThursdayEt).HasColumnName("ThursdayET");
+
+                entity.Property(e => e.ThursdaySt).HasColumnName("ThursdayST");
+
+                entity.Property(e => e.TuesdayEt).HasColumnName("TuesdayET");
+
+                entity.Property(e => e.TuesdaySt).HasColumnName("TuesdayST");
+
+                entity.Property(e => e.WednesdayEt).HasColumnName("WednesdayET");
+
+                entity.Property(e => e.WednesdaySt).HasColumnName("WednesdayST");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.UserAvailability)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_UserAvailability_ToTable");
             });
 
             modelBuilder.Entity<UserBank>(entity =>
