@@ -9,7 +9,7 @@
     [QualificationId] INT NOT NULL references QualificationMaster(Id), 
     [Address] NVARCHAR(MAX) NULL, 
     [PinCode] NVARCHAR(50) NULL, 
-    [DistrictId] INT NULL references District(Id),
+    [DistrictId] Bigint NULL references District(Id),
     [DateOfBirth] DateTime,
     [IsActive] BIT NOT NULL DEFAULT 1, 
     [IsDelete] BIT NOT NULL DEFAULT 0, 

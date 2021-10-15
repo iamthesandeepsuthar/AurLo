@@ -597,6 +597,48 @@ namespace AurigainLoanERP.Services.User
         }
         #endregion
 
+        #region <<Manager User>>
+        public async Task<ApiServiceResponseModel<string>> AddUpdateManagerAsync(UserManagerPostModel model)
+        {
+            try
+            {
+                await _db.Database.BeginTransactionAsync();
+                long userId = 0;
+                if (model.User != null)
+                {
+                    userId = await SaveUserAsync(model.User);
+
+                    if (userId > 0)
+                    {
+
+
+                        await SaveUserManagerAsync(model, userId);
+
+                        _db.Database.CommitTransaction();
+                        return CreateResponse<string>(userId.ToString(), ResponseMessage.Save, true, ((int)ApiStatusCode.Ok));
+                    }
+
+                    else
+                    {
+                        _db.Database.RollbackTransaction();
+                        return CreateResponse<string>(null, ResponseMessage.UserExist, false, ((int)ApiStatusCode.DataBaseTransactionFailed));
+                    }
+                }
+                else
+                {
+                    return CreateResponse<string>(null, ResponseMessage.InvalidData, false, ((int)ApiStatusCode.InvaildModel));
+
+                }
+            }
+            catch (Exception ex)
+            {
+                _db.Database.RollbackTransaction();
+                return CreateResponse<string>(null, ResponseMessage.Fail, false, ((int)ApiStatusCode.ServerException), ex.InnerException == null ? ex.Message : ex.InnerException.Message);
+
+            }
+        }
+        #endregion
+
         #region << Common Method >>
         public async Task<ApiServiceResponseModel<object>> UpateActiveStatus(long id)
         {
@@ -1232,6 +1274,54 @@ namespace AurigainLoanERP.Services.User
 
         }
 
-        #endregion
+        private async Task<bool> SaveUserManagerAsync(UserManagerPostModel model, long userId)
+        {
+            try
+            {
+                if (model.Id == default)
+                {
+                    Managers manager = new Managers
+                    {
+                        FullName = model.FullName,
+                        FatherName = model.FatherName,
+                        DateOfBirth = model.DateOfBirth,
+                        UserId = userId,
+                        Gender = model.Gender,
+                        DistrictId = model.DistrictId,
+                        IsActive = model.IsActive,
+                        IsDelete = model.IsDelete,
+                        Pincode = model.Pincode,
+                        Address = model.Address,
+                        Setting = model.Setting,
+                        CreatedBy = (int)UserRoleEnum.Admin,
+                        ModifiedDate = DateTime.Now
+                    };
+                    var result = await _db.Managers.AddAsync(manager);
+                    await _db.SaveChangesAsync();
+                }
+                else
+                {
+                    var manager = await _db.UserAgent.FirstOrDefaultAsync(x => x.Id == model.Id);
+                    if (manager != null)
+                    {
+                        manager.FullName = model.FullName;
+                        manager.FatherName = model.FatherName;
+                        manager.Gender = model.Gender;
+                        manager.ModifiedOn = DateTime.Now;
+                        // manager.DistrictId.Value =(long)model.DistrictId;
+
+
+
+                    }
+                }
+                return true;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            #endregion
+        }
     }
 }

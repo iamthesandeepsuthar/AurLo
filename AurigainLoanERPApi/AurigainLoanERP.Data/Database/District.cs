@@ -15,7 +15,7 @@ namespace AurigainLoanERP.Data.Database
             UserDoorStepAgent = new HashSet<UserDoorStepAgent>();
         }
 
-        public int Id { get; set; }
+        public long Id { get; set; }
         public string Name { get; set; }
         public string Pincode { get; set; }
         public int StateId { get; set; }
