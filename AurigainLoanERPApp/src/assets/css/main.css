@@ -4013,6 +4013,17 @@ table.table.table-striped.dataTable.table-header.table-blue tbody tr:nth-of-type
         font-size: 16px !important;
         width: 100% !important;
     }
+    .form-grp-w-border {
+        margin: 40px 0px;
+        border-radius: 10px;
+        box-shadow: none;
+    }
+    .form-row>.col,
+    .form-row>[class*=col-] {
+        padding: 0px !important;
+        width: 100%;
+        flex: 100%;
+    }
 }
 
 
