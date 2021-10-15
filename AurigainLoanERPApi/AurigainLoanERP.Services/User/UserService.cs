@@ -642,15 +642,21 @@ namespace AurigainLoanERP.Services.User
                 if (model != null && !string.IsNullOrEmpty(model.ProfileBase64) && model.Userid > 0)
                 {
 
-                }
-                await _db.Database.BeginTransactionAsync();
-                var user = await _db.UserMaster.FirstOrDefaultAsync(X => X.Id == model.Userid);
-                string savedFilePath = !string.IsNullOrEmpty(model.ProfileBase64) ? Path.Combine(FilePathConstant.UserProfile, _fileHelper.Save(model.ProfileBase64, FilePathConstant.UserProfile, model.FileName)) : null;
-                user.ProfilePath = savedFilePath;
-                await _db.SaveChangesAsync();
 
-                _db.Database.CommitTransaction();
-                return CreateResponse<string>(savedFilePath, ResponseMessage.Update, true, ((int)ApiStatusCode.Ok));
+                    await _db.Database.BeginTransactionAsync();
+                    var user = await _db.UserMaster.FirstOrDefaultAsync(X => X.Id == model.Userid);
+                    string savedFilePath = !string.IsNullOrEmpty(model.ProfileBase64) ? Path.Combine(FilePathConstant.UserProfile, _fileHelper.Save(model.ProfileBase64, FilePathConstant.UserProfile, model.FileName)) : null;
+                    user.ProfilePath = savedFilePath;
+                    await _db.SaveChangesAsync();
+
+                    _db.Database.CommitTransaction();
+                    return CreateResponse<string>(savedFilePath, ResponseMessage.Update, true, ((int)ApiStatusCode.Ok));
+                }
+                else
+                {
+                    return CreateResponse<string>(null, ResponseMessage.InvalidData, true, ((int)ApiStatusCode.InvaildModel));
+
+                }
             }
             catch (Exception)
             {
@@ -659,6 +665,80 @@ namespace AurigainLoanERP.Services.User
 
             }
         }
+
+        public async Task<ApiServiceResponseModel<string>> SetUserAvailibilty(UserAvailibilityPostModel model)
+        {
+            try
+            {
+                if (model != null && model.UserId > 0)
+                {
+                    await _db.Database.BeginTransactionAsync();
+                    var userAvailability = await _db.UserAvailability.FirstOrDefaultAsync(X => X.UserId == model.UserId && X.IsActive == true);
+
+                    if (userAvailability != null)
+                    {
+                        userAvailability.MondaySt = model.MondaySt ?? null;
+                        userAvailability.MondayEt = model.MondayEt ?? null;
+                        userAvailability.TuesdaySt = model.TuesdaySt ?? null;
+                        userAvailability.TuesdayEt = model.TuesdayEt ?? null;
+                        userAvailability.WednesdaySt = model.WednesdaySt ?? null;
+                        userAvailability.WednesdayEt = model.WednesdayEt ?? null;
+                        userAvailability.ThursdaySt = model.ThursdaySt ?? null;
+                        userAvailability.ThursdayEt = model.ThursdayEt ?? null;
+                        userAvailability.FridaySt = model.FridaySt ?? null;
+                        userAvailability.FridayEt = model.FridayEt ?? null;
+                        userAvailability.SaturdaySt = model.SaturdaySt ?? null;
+                        userAvailability.SaturdayEt = model.SaturdayEt ?? null;
+                        userAvailability.SundaySt = model.SundaySt ?? null;
+                        userAvailability.SundayEt = model.SundayEt ?? null;
+                        userAvailability.Capacity = model.Capacity ?? null;
+                        userAvailability.PinCode = model.PinCode ?? null;
+                        userAvailability.DistrictId = model.DistrictId ?? null;
+
+                    }
+                    else
+                    {
+                        UserAvailability userAvail = new UserAvailability();
+                        userAvail.UserId = model.UserId;
+                        userAvail.MondaySt = model.MondaySt ?? null;
+                        userAvail.MondayEt = model.MondayEt ?? null;
+                        userAvail.TuesdaySt = model.TuesdaySt ?? null;
+                        userAvail.TuesdayEt = model.TuesdayEt ?? null;
+                        userAvail.WednesdaySt = model.WednesdaySt ?? null;
+                        userAvail.WednesdayEt = model.WednesdayEt ?? null;
+                        userAvail.ThursdaySt = model.ThursdaySt ?? null;
+                        userAvail.ThursdayEt = model.ThursdayEt ?? null;
+                        userAvail.FridaySt = model.FridaySt ?? null;
+                        userAvail.FridayEt = model.FridayEt ?? null;
+                        userAvail.SaturdaySt = model.SaturdaySt ?? null;
+                        userAvail.SaturdayEt = model.SaturdayEt ?? null;
+                        userAvail.SundaySt = model.SundaySt ?? null;
+                        userAvail.SundayEt = model.SundayEt ?? null;
+                        userAvail.Capacity = model.Capacity ?? null;
+                        userAvail.PinCode = model.PinCode ?? null;
+                        userAvail.DistrictId = model.DistrictId ?? null;
+                        _db.UserAvailability.Add(userAvail);
+                    }
+
+                    await _db.SaveChangesAsync();
+
+                    _db.Database.CommitTransaction();
+                    return CreateResponse<string>(null, ResponseMessage.Update, true, ((int)ApiStatusCode.Ok));
+                }
+                else
+                {
+                    return CreateResponse<string>(null, ResponseMessage.InvalidData, true, ((int)ApiStatusCode.InvaildModel));
+
+                }
+            }
+            catch (Exception)
+            {
+                _db.Database.RollbackTransaction();
+                return CreateResponse<string>(null, ResponseMessage.Fail, true, ((int)ApiStatusCode.DataBaseTransactionFailed));
+
+            }
+        }
+
         #endregion
 
         #region << Private Method >>
