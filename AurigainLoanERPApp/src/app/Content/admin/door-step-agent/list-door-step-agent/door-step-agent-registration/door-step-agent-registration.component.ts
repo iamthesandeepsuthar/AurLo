@@ -167,7 +167,7 @@ export class DoorStepAgentRegistrationComponent implements OnInit {
       FullName: [undefined, Validators.required],
       FatherName: [undefined, Validators.required],
       Gender: [undefined, Validators.required],
-      QualificationId: [undefined, Validators.required],
+      Qualification: [undefined, Validators.required],
       Address: [undefined, Validators.required],
       DistrictId: [undefined, Validators.required],
       StateId: [undefined, Validators.required],
@@ -176,6 +176,8 @@ export class DoorStepAgentRegistrationComponent implements OnInit {
       ProfilePictureUrl: [undefined, Validators.required],
       SelfFunded: [false, Validators.required],
       IsActive: [true, Validators.required],
+      Mobile: [false, Validators.required],
+      Email: [false, Validators.required],
 
     });
   }

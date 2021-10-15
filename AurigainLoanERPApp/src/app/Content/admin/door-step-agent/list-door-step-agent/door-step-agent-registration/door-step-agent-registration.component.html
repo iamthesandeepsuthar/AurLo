@@ -53,35 +53,44 @@
             <div class="col-lg-9 col-xl-10 row">
                 <div class="form-group col-md-4">
                     <label>Name</label>
-                    <input type="text" [(ngModel)]="model.FullName" [ngClass]="{ 'is-invalid': f.FullName.errors && f.FullName.touched}" class="form-control" id="input1" placeholder="Enter name">
+                    <input type="text"  formControlName="FullName" [(ngModel)]="model.FullName"  formControlName="FullName"  [ngClass]="{ 'is-invalid': f.FullName.errors && f.FullName.touched}" class="form-control" id="input1" placeholder="Enter name">
                     <div class="invalid-feedback" *ngIf="(formGroup.get('FullName')?.hasError('required') && formGroup.get('FullName')?.touched)">
                         Please Full Name...! </div>
 
                 </div>
                 <div class="form-group col-md-4 date-icon-with-label">
                     <label>Date of birth</label>
-                    <input class="form-control" #datepickerYMD="bsDatepicker" bsDatepicker [(ngModel)]="model.DateOfBirth" [maxDate]="maxDate" [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', adaptivePosition: true,isAnimated: true, showWeekNumbers: false }">
+                    <input class="form-control" #datepickerYMD="bsDatepicker" formControlName="DateOfBirth" [ngClass]="{ 'is-invalid': f.DateOfBirth.errors && f.DateOfBirth.touched}"  bsDatepicker [(ngModel)]="model.DateOfBirth" [maxDate]="maxDate" [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', adaptivePosition: true,isAnimated: true, showWeekNumbers: false }">
                     <i class="fas fa-calendar-alt"></i>
-
-                    <!-- <input type="date" [(ngModel)]="model.DateOfBirth" class="form-control" id="input2" placeholder="20-02-1998"> -->
+                    <div class="invalid-feedback" *ngIf="(formGroup.get('DateOfBirth')?.hasError('required') && formGroup.get('DateOfBirth')?.touched)">
+                        Please Select Date...! </div>
+ 
                 </div>
                 <div class="form-group col-md-4">
                     <label>Father name</label>
-                    <input type="text" [(ngModel)]="model.FatherName" class="form-control" id="input3" placeholder="Father name">
+                    <input type="text" [(ngModel)]="model.FatherName" formControlName="FatherName"  [ngClass]="{ 'is-invalid': f.FatherName.errors && f.FatherName.touched}"  class="form-control" id="input3" placeholder="Father name">
+                    <div class="invalid-feedback" *ngIf="(formGroup.get('FatherName')?.hasError('required') && formGroup.get('FatherName')?.touched)">
+                        Please Father  Name...! </div>
                 </div>
                 <div class="form-group col-md-4">
                     <label>Mobile number</label>
-                    <input type="text" [(ngModel)]="model.User.Mobile" class="form-control" id="input4" placeholder="962358654">
+                    <input type="text" [(ngModel)]="model.User.Mobile" formControlName="Mobile"  [ngClass]="{ 'is-invalid': f.Mobile.errors && f.Mobile.touched}"  class="form-control" id="input4" placeholder="962358654">
+                    <div class="invalid-feedback" *ngIf="(formGroup.get('Mobile')?.hasError('required') && formGroup.get('Mobile')?.touched)">
+                        Please Mobile number...! </div>
                 </div>
                 <div class="form-group col-md-4">
                     <label>Qualification</label>
 
-                    <ng-select [items]="dropDown!.ddlQualification" bindLabel="Text" bindValue="Value" placeholder="Qualification" appendTo="body" [(ngModel)]="model.QualificationId">
+                    <ng-select [items]="dropDown!.ddlQualification"  formControlName="Qualification"  [ngClass]="{ 'is-invalid': f.Qualification.errors && f.Qualification.touched}"  bindLabel="Text" bindValue="Value" placeholder="Qualification" appendTo="body" [(ngModel)]="model.QualificationId">
                     </ng-select>
+                    <div class="invalid-feedback" *ngIf="(formGroup.get('Qualification')?.hasError('required') && formGroup.get('Qualification')?.touched)">
+                        Please Select Qualification...! </div>
                 </div>
                 <div class="form-group col-md-4">
                     <label>Personal Email ID</label>
-                    <input type="email" [(ngModel)]="model.User.Email" class="form-control" id="input3" placeholder="test@gmail.com">
+                    <input type="email" formControlName="Email"  [ngClass]="{ 'is-invalid': f.Email.errors && f.Email.touched}" [(ngModel)]="model.User.Email" class="form-control" id="input3" placeholder="test@gmail.com">
+                    <div class="invalid-feedback" *ngIf="(formGroup.get('Qualification')?.hasError('required') && formGroup.get('Qualification')?.touched)">
+                        Please fill Email...! </div>
                 </div>
                 <div class="form-group col-md-4">
                     <label>Ability to self fund</label>
