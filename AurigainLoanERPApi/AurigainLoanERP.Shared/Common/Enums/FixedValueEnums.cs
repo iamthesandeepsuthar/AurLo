@@ -63,10 +63,12 @@ namespace AurigainLoanERP.Shared.Enums
             Admin = 2,
             [StringValue("Zonal Manager")]
             ZonalManager = 3,
+            [StringValue("Supervisor")]
+            Supervisor = 4,
             [StringValue("Agent")]
-            Agent = 4,
+            Agent = 5,
             [StringValue("Door Step Agent")]
-            DoorStepAgent = 5,
+            DoorStepAgent = 6,
         }
     }
 
