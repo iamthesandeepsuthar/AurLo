@@ -90,6 +90,7 @@
     <Build Include="BankBranchMaster.sql" />
     <Build Include="ProductCategory.sql" />
     <Build Include="Managers.sql" />
+    <Build Include="Product.sql" />
     <Build Include="UserAvailability.sql" />
   </ItemGroup>
   <ItemGroup>

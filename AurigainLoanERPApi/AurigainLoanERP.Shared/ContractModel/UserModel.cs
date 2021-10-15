@@ -343,7 +343,7 @@ namespace AurigainLoanERP.Shared.ContractModel
             Documents = new List<UserDocumentPostModel>();
             UserKYC = new List<UserKycPostModel>();
             UserNominee = new UserNomineePostModel();
-            ReportingPerson = new UserReportingPersonPostModel();
+           // ReportingPerson = new UserReportingPersonPostModel();
         }
 
         public long Id { get; set; }
