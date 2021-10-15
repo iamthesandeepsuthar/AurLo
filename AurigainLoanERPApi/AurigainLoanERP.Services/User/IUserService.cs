@@ -46,5 +46,11 @@ namespace AurigainLoanERP.Services.User
         /// <param name="status">true,false</param>
         /// <returns>true</returns>
         Task<ApiServiceResponseModel<object>> UpdateDeleteStatus(long id);
+        /// <summary>
+        /// Update User Profile
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        Task<ApiServiceResponseModel<string>> UpdateProfile(UserSettingPostModel model);
     }
 }

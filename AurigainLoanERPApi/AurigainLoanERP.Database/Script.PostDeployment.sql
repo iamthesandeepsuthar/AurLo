@@ -11,3 +11,4 @@ Post-Deployment Script Template
 */
 :r .\PostScript\DocumentTypeInsert.sql
 :r .\PostScript\UserRoleInsert.sql
+:r .\PostScript\QualificationMaster.sql

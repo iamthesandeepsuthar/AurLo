@@ -12,7 +12,6 @@
     [PinCode] NVARCHAR(50) NULL, 
     [DistrictId] INT NULL references District(Id),
     [DateOfBirth] DateTime,
-    [ProfilePictureUrl] NVARCHAR(MAX),
     [IsActive] BIT NOT NULL DEFAULT 1, 
     [IsDelete] BIT NOT NULL DEFAULT 0, 
     [CreatedOn] DATETIME NOT NULL DEFAULT GETDATE(), 

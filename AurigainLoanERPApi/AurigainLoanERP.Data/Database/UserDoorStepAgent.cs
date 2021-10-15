@@ -21,7 +21,6 @@ namespace AurigainLoanERP.Data.Database
         public string PinCode { get; set; }
         public int? DistrictId { get; set; }
         public DateTime? DateOfBirth { get; set; }
-        public string ProfilePictureUrl { get; set; }
         public bool? IsActive { get; set; }
         public bool IsDelete { get; set; }
         public DateTime CreatedOn { get; set; }

@@ -167,7 +167,7 @@ namespace AurigainLoanERP.Services.User
                                               StateName = detail.District != null && detail.District.State != null ? detail.District.State.Name : null,
                                               PinCode = detail.PinCode ?? null,
                                               DateOfBirth = detail.DateOfBirth ?? null,
-                                              ProfilePictureUrl = detail.ProfilePictureUrl.ToAbsolutePath() ?? null,
+                                              ProfilePictureUrl = detail.User.ProfilePath.ToAbsolutePath() ?? null,
                                               IsActive = detail.IsActive,
                                               IsDelete = detail.IsDelete,
                                               CreatedOn = detail.CreatedOn,
@@ -336,8 +336,8 @@ namespace AurigainLoanERP.Services.User
                                               FullName = detail.FullName ?? null,
                                               Email = detail.User != null ? detail.User.Email : null,
                                               Mobile = detail.User != null ? detail.User.Mobile : null,
-                                              RoleId = detail.User != null ? detail.User.UserRoleId: default,
-                                              FatherName= detail.FatherName?? null,
+                                              RoleId = detail.User != null ? detail.User.UserRoleId : default,
+                                              FatherName = detail.FatherName ?? null,
                                               Role = detail.User != null && detail.User.UserRole != null ? detail.User.UserRole.Name : null,
                                               UniqueId = detail.UniqueId ?? null,
                                               Gender = detail.Gender ?? null,
@@ -347,7 +347,7 @@ namespace AurigainLoanERP.Services.User
                                               StateName = detail.District != null && detail.District.State != null ? detail.District.State.Name : null,
                                               PinCode = detail.PinCode ?? null,
                                               DateOfBirth = detail.DateOfBirth ?? null,
-                                              ProfilePictureUrl = detail.ProfilePictureUrl.ToAbsolutePath() ?? null,
+                                              ProfilePictureUrl = detail.User.ProfilePath.ToAbsolutePath() ?? null,
                                               IsActive = detail.IsActive,
                                               IsDelete = detail.IsDelete,
                                               CreatedOn = detail.CreatedOn,
@@ -634,6 +634,31 @@ namespace AurigainLoanERP.Services.User
 
             }
         }
+
+        public async Task<ApiServiceResponseModel<string>> UpdateProfile(UserSettingPostModel model)
+        {
+            try
+            {
+                if (model != null && !string.IsNullOrEmpty(model.ProfileBase64) && model.Userid > 0)
+                {
+
+                }
+                await _db.Database.BeginTransactionAsync();
+                var user = await _db.UserMaster.FirstOrDefaultAsync(X => X.Id == model.Userid);
+                string savedFilePath = !string.IsNullOrEmpty(model.ProfileBase64) ? Path.Combine(FilePathConstant.UserProfile, _fileHelper.Save(model.ProfileBase64, FilePathConstant.UserProfile, model.FileName)) : null;
+                user.ProfilePath = savedFilePath;
+                await _db.SaveChangesAsync();
+
+                _db.Database.CommitTransaction();
+                return CreateResponse<string>(savedFilePath, ResponseMessage.Update, true, ((int)ApiStatusCode.Ok));
+            }
+            catch (Exception)
+            {
+                _db.Database.RollbackTransaction();
+                return CreateResponse<string>(null, ResponseMessage.Fail, true, ((int)ApiStatusCode.DataBaseTransactionFailed));
+
+            }
+        }
         #endregion
 
         #region << Private Method >>
@@ -655,7 +680,7 @@ namespace AurigainLoanERP.Services.User
                     {
 
                         var objModel = _mapper.Map<UserMaster>(model);
-                        objModel.UserName = model.UserName ?? model.Email; 
+                        objModel.UserName = model.UserName ?? model.Email;
                         objModel.CreatedOn = DateTime.Now;
                         objModel.Mpin = GenerateUniqueId();//_security.EncryptData(GenerateUniqueId());
                         var result = await _db.UserMaster.AddAsync(objModel);
@@ -708,7 +733,7 @@ namespace AurigainLoanERP.Services.User
                     objModel.DistrictId = model.DistrictId;
                     objModel.PinCode = model.PinCode;
                     objModel.IsActive = model.IsActive;
-                    objModel.ProfilePictureUrl = !string.IsNullOrEmpty(model.ProfilePictureUrl) ? Path.Combine(FilePathConstant.UserProfile, _fileHelper.Save(model.ProfilePictureUrl, FilePathConstant.UserProfile)) : null;
+
                     objModel.QualificationId = model.QualificationId;
                     var result = await _db.UserAgent.AddAsync(objModel);
                     await _db.SaveChangesAsync();
@@ -760,7 +785,7 @@ namespace AurigainLoanERP.Services.User
                     objModel.PinCode = model.PinCode;
                     objModel.SelfFunded = model.SelfFunded;
                     objModel.IsActive = true;
-                    objModel.ProfilePictureUrl = !string.IsNullOrEmpty(model.ProfilePictureUrl) ? Path.Combine(FilePathConstant.UserProfile, _fileHelper.Save(model.ProfilePictureUrl, FilePathConstant.UserProfile)) : null;
+
                     objModel.QualificationId = model.QualificationId;
                     var result = await _db.UserDoorStepAgent.AddAsync(objModel);
                     await _db.SaveChangesAsync();
@@ -1045,7 +1070,7 @@ namespace AurigainLoanERP.Services.User
 
                     objModel.RelationshipWithNominee = !string.IsNullOrEmpty(model.RelationshipWithNominee) ? model.RelationshipWithNominee : null;
                     objModel.NamineeName = !string.IsNullOrEmpty(model.NamineeName) ? model.NamineeName : null;
-                      objModel.IsSelfDeclaration = model.IsSelfDeclaration;
+                    objModel.IsSelfDeclaration = model.IsSelfDeclaration;
                     var result = await _db.UserNominee.AddAsync(objModel);
                     await _db.SaveChangesAsync();
 

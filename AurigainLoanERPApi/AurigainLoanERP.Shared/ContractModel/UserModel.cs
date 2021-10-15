@@ -356,8 +356,7 @@ namespace AurigainLoanERP.Shared.ContractModel
         public int? DistrictId { get; set; }
         public string PinCode { get; set; }
         public DateTime? DateOfBirth { get; set; }
-        public string ProfilePictureUrl { get; set; }
-        public bool? IsActive { get; set; }
+          public bool? IsActive { get; set; }
 
         public UserPostModel User { get; set; }
 
@@ -393,8 +392,7 @@ namespace AurigainLoanERP.Shared.ContractModel
         public int? DistrictId { get; set; }
         public int? StateId { get; set; }
         public string PinCode { get; set; }
-        public DateTime? DateOfBirth { get; set; }
-        public string ProfilePictureUrl { get; set; }
+        public DateTime? DateOfBirth { get; set; } 
         public bool SelfFunded { get; set; }
 
         public UserPostModel User { get; set; }
@@ -406,6 +404,14 @@ namespace AurigainLoanERP.Shared.ContractModel
         public UserReportingPersonPostModel? ReportingPerson { get; set; }
         public List<UserDocumentPostModel>? Documents { get; set; }
         public UserSecurityDepositPostModel? SecurityDeposit { get; set; }
+
+    }
+
+    public class UserSettingPostModel {
+        public long Userid { get; set; }
+        public string ProfileBase64 { get; set; }
+        public string FileName { get; set; }
+
 
     }
     #endregion
