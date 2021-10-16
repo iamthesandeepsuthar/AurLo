@@ -13,17 +13,21 @@ import { CommonService } from "src/app/Shared/Services/common.service";
 import { DoorStepAgentService } from "src/app/Shared/Services/door-step-agent-services/door-step-agent.service";
 import { DoorStepAgentPostModel, UserPostModel, UserKYCPostModel, UserNomineePostModel, UserBankDetailsPostModel, DocumentPostModel, UserSecurityDepositPostModel } from "../../../../../Shared/Model/doorstep-agent-model/door-step-agent.model";
 import { Message } from '../../../../../Shared/Helper/constants';
+import { UserSettingService } from "src/app/Shared/Services/user-setting-services/user-setting.service";
+import { UserSettingPostModel } from "src/app/Shared/Model/User-setting-model/user-setting.model";
+import { FileInfo } from '../../../../Common/file-selector/file-selector.component';
 
 @Component({
   selector: 'app-door-step-agent-registration',
   templateUrl: './door-step-agent-registration.component.html',
   styleUrls: ['./door-step-agent-registration.component.scss'],
-  providers: [DoorStepAgentService]
+  providers: [DoorStepAgentService, UserSettingService]
 })
 export class DoorStepAgentRegistrationComponent implements OnInit {
   Id: number = 0;
   model = new DoorStepAgentPostModel();
-  formGroup!:  FormGroup;
+  profileModel = {} as UserSettingPostModel;
+  formGroup!: FormGroup;
   dropDown = new DropDownModol();
   get ddlkeys() { return DropDown_key };
 
@@ -39,7 +43,7 @@ export class DoorStepAgentRegistrationComponent implements OnInit {
 
   constructor(private readonly _alertService: AlertService, private readonly fb: FormBuilder,
     private readonly _userDoorStepService: DoorStepAgentService, private _activatedRoute: ActivatedRoute, private _router: Router,
-    private readonly _commonService: CommonService, private readonly _toast: ToastrService) {
+     readonly _commonService: CommonService, private readonly _toast: ToastrService, private readonly _userSettingService: UserSettingService) {
     if (this._activatedRoute.snapshot.params.id) {
       this.Id = this._activatedRoute.snapshot.params.id;
     }
@@ -106,7 +110,7 @@ export class DoorStepAgentRegistrationComponent implements OnInit {
       this.model.User.UserRoleId = this.model.User.UserRoleId ? this.model.User.UserRoleId : 1;
       this.model.User.IsApproved = false;
       this.model.SelfFunded = Boolean(this.model.SelfFunded);
-      
+
       let serv = this._userDoorStepService.AddUpdateDoorStepAgent(this.model).subscribe(res => {
         serv.unsubscribe();
         if (res.IsSuccess) {
@@ -157,8 +161,9 @@ export class DoorStepAgentRegistrationComponent implements OnInit {
 
     return isValid;
   }
+
   bindDocs(docs: DocumentPostModel[]) {
-    debugger
+
     this.model.Documents = docs;
   }
 
@@ -180,5 +185,17 @@ export class DoorStepAgentRegistrationComponent implements OnInit {
       Email: [false, Validators.required],
 
     });
+  }
+
+  onUpdateProfileImage(file: FileInfo) {
+    if (this.Id > 0) {
+      this.profileModel.ProfileBase64 = file.FileBase64;
+      this.profileModel.FileName = file.Name;
+      this.profileModel.UserId= this.Id;
+      this._userSettingService.UpdateUserProfile(this.profileModel).subscribe(res => {
+
+      });
+    }
+
   }
 }

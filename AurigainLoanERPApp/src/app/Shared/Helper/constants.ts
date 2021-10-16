@@ -79,6 +79,12 @@ export class API_Url {
   public static DoorstepAgentDetailApi = `${environment.apiEndPoint}DoorStepAgent/GetById/`;
   //#endregion
 
+  //#region <<Doorstep Agent>>
+  public static UserUpdateProfileApi = `${environment.apiEndPoint}UserSetting/UpdateProfile`;
+  
+  //#endregion
+
+
 
 }
 

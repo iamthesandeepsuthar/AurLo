@@ -639,12 +639,12 @@ namespace AurigainLoanERP.Services.User
         {
             try
             {
-                if (model != null && !string.IsNullOrEmpty(model.ProfileBase64) && model.Userid > 0)
+                if (model != null && !string.IsNullOrEmpty(model.ProfileBase64) && model.UserId > 0)
                 {
 
 
                     await _db.Database.BeginTransactionAsync();
-                    var user = await _db.UserMaster.FirstOrDefaultAsync(X => X.Id == model.Userid);
+                    var user = await _db.UserMaster.FirstOrDefaultAsync(X => X.Id == model.UserId);
                     string savedFilePath = !string.IsNullOrEmpty(model.ProfileBase64) ? Path.Combine(FilePathConstant.UserProfile, _fileHelper.Save(model.ProfileBase64, FilePathConstant.UserProfile, model.FileName)) : null;
                     user.ProfilePath = savedFilePath;
                     await _db.SaveChangesAsync();

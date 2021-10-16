@@ -408,7 +408,7 @@ namespace AurigainLoanERP.Shared.ContractModel
     }
 
     public class UserSettingPostModel {
-        public long Userid { get; set; }
+        public long UserId { get; set; }
         public string ProfileBase64 { get; set; }
         public string FileName { get; set; }
 

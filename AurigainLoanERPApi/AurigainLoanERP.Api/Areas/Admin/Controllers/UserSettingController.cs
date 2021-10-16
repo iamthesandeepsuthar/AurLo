@@ -24,7 +24,7 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<ApiServiceResponseModel<string>> Post([FromBody] UserSettingPostModel Model)
+        public async Task<ApiServiceResponseModel<string>> UpdateProfile([FromBody] UserSettingPostModel Model)
         {
             if (ModelState.IsValid)
             {

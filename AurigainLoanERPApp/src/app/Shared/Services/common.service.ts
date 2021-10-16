@@ -15,18 +15,73 @@ export class CommonService extends AlertService {
    }
 
   GetDropDown(key: string[]): Observable<ApiResponse<any>> {
-  
+
     return this._baseService.post(this._baseService.API_Url.DropDown_Api, key);
   }
 
   GetFilterDropDown(model: FilterDropDownPostModel): Observable<ApiResponse<any>> {
-  
+
     return this._baseService.post(this._baseService.API_Url.FilterDropDown_Api, model);
   }
 
   GetMultipleFilterDropDown(model: FilterDropDownPostModel[]): Observable<ApiResponse<any>> {
-  
+
     return this._baseService.post(this._baseService.API_Url.MultipleFilterDropDown_Api, model);
   }
-  
+
+  NumberOnly(event:any, isCommaOrDash: boolean = false): boolean {
+
+    const charCode = event.which ? event.which : event.keyCode;
+    if (isCommaOrDash) {
+      if (charCode == 44 || charCode == 45) {
+        return true;
+      }
+    }
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+      return false;
+    }
+    return true;
+  }
+
+  checkDecimalNumberOnly(event:any, txt :string): boolean {
+
+    var charCode = (event.which) ? event.which : event.keyCode;
+    if (charCode == 46) {
+      //Check if the text already contains the . character
+      if (txt.indexOf('.') === -1) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+    else {
+      if (txt.split('.').length > 1 && txt.split('.')[1].length > 1) {
+        return false;
+      }
+      else if (charCode > 31 && (charCode < 48 || charCode > 57))
+        return false;
+    }
+    return true;
+  }
+
+  AlphaNumericOnly(e:any) {
+    var keyCode = e.keyCode || e.which;
+    var regex = /^[A-Za-z0-9]+$/;
+    var isValid = regex.test(String.fromCharCode(keyCode));
+    if (!isValid) {
+      //alert("Only Alphabets and Numbers are allowed.");
+    }
+    return isValid;
+  }
+
+  AlphabetOnly(e:any) {
+    var keyCode = e.keyCode || e.which;
+    var regex = /^[a-zA-Z& ]*$/;;
+    var isValid = regex.test(String.fromCharCode(keyCode));
+    if (!isValid) {
+      //alert("Only Alphabets and Numbers are allowed.");
+    }
+    return isValid;
+  }
+
 }
