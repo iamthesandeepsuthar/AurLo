@@ -38,6 +38,8 @@ namespace AurigainLoanERP.Services
             CreateMap<UserDocumentFilesViewModel, UserDocumentFiles>().ReverseMap();
             CreateMap<UserSecurityDepositViewModel, UserSecurityDepositDetails>().ReverseMap();
             CreateMap<UserRole, UserRoleViewModel>().ReverseMap();
+            CreateMap<Managers, UserManagerPostModel>().ReverseMap();
+            CreateMap<Managers, UserManagerViewModel>().ReverseMap();
 
 
 

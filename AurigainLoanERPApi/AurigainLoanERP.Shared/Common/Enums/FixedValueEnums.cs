@@ -70,6 +70,11 @@ namespace AurigainLoanERP.Shared.Enums
             [StringValue("Door Step Agent")]
             DoorStepAgent = 6,
         }
+
+        public enum RateOfInterestType { 
+         Flat =1,
+         Reducing =0
+        }
     }
 
 

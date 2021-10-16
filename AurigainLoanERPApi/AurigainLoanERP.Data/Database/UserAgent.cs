@@ -18,7 +18,7 @@ namespace AurigainLoanERP.Data.Database
         public int QualificationId { get; set; }
         public string Address { get; set; }
         public string PinCode { get; set; }
-        public int? DistrictId { get; set; }
+        public long? DistrictId { get; set; }
         public DateTime? DateOfBirth { get; set; }
         public bool? IsActive { get; set; }
         public bool IsDelete { get; set; }

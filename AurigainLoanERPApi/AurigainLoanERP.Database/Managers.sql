@@ -2,5 +2,16 @@
 (
 	[Id] Bigint NOT NULL PRIMARY KEY Identity(0,1), 
     [FullName] NVARCHAR(1000) NOT NULL, 
-    [MobileNUmber] NVARCHAR(20) NOT NULL
+    [DateOfBirth] datetime Null,
+    [Gender] NVARCHAR(50) NOT NULL, 
+    [FatherName] NVARCHAR(500) NULL, 
+    [Address] NVARCHAR(2000) NULL, 
+    [UserId] BIGINT NOT NULL references UserMaster(Id), 
+    [DistrictId] BIGINT NOT NULL, 
+    [Pincode] nvarchar(200) null,
+    [IsActive] BIT NOT NULL DEFAULT 1, 
+    [IsDelete] BIT NOT NULL DEFAULT 0, 
+    [ModifiedDate] DATETIME NULL, 
+    [CreatedBy] BIGINT NULL, 
+    [Setting] NVARCHAR(MAX) NULL
 )

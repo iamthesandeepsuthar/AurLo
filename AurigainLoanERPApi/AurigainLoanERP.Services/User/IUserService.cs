@@ -55,5 +55,12 @@ namespace AurigainLoanERP.Services.User
         /// <param name="model"></param>
         /// <returns></returns>
         Task<ApiServiceResponseModel<string>> UpdateProfile(UserSettingPostModel model);
+
+        /// <summary>
+        ///  Add and Update Manager Type User 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        Task<ApiServiceResponseModel<string>> AddUpdateManagerAsync(UserManagerPostModel model);
     }
 }
