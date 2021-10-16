@@ -43,9 +43,10 @@ export class DoorStepAgentRegistrationComponent implements OnInit {
 
   constructor(private readonly _alertService: AlertService, private readonly fb: FormBuilder,
     private readonly _userDoorStepService: DoorStepAgentService, private _activatedRoute: ActivatedRoute, private _router: Router,
-     readonly _commonService: CommonService, private readonly _toast: ToastrService, private readonly _userSettingService: UserSettingService) {
+    readonly _commonService: CommonService, private readonly _toast: ToastrService, private readonly _userSettingService: UserSettingService) {
     if (this._activatedRoute.snapshot.params.id) {
       this.Id = this._activatedRoute.snapshot.params.id;
+
     }
     this.model.User = new UserPostModel();
     this.model.UserKYC = [] as UserKYCPostModel[];
@@ -60,6 +61,9 @@ export class DoorStepAgentRegistrationComponent implements OnInit {
     this.GetDropDown();
     this.formInit();
 
+    if(this.Id>0){
+      this.onGetDetail();
+    }
   }
 
 
@@ -173,16 +177,16 @@ export class DoorStepAgentRegistrationComponent implements OnInit {
       FatherName: [undefined, Validators.required],
       Gender: [undefined, Validators.required],
       Qualification: [undefined, Validators.required],
-      Address: [undefined, Validators.required],
+      Address: [undefined, undefined],
       DistrictId: [undefined, Validators.required],
       StateId: [undefined, Validators.required],
-      PinCode: [undefined, Validators.required],
+      PinCode: [undefined, Validators.compose([Validators.required, Validators.maxLength(6), Validators.minLength(6)])],
       DateOfBirth: [undefined, Validators.required],
       ProfilePictureUrl: [undefined, Validators.required],
       SelfFunded: [false, Validators.required],
       IsActive: [true, Validators.required],
       Mobile: [false, Validators.required],
-      Email: [false, Validators.required],
+      Email: [false, Validators.compose([Validators.required, Validators.email])],
 
     });
   }
@@ -191,9 +195,17 @@ export class DoorStepAgentRegistrationComponent implements OnInit {
     if (this.Id > 0) {
       this.profileModel.ProfileBase64 = file.FileBase64;
       this.profileModel.FileName = file.Name;
-      this.profileModel.UserId= this.Id;
+      this.profileModel.UserId = this.Id;
       this._userSettingService.UpdateUserProfile(this.profileModel).subscribe(res => {
 
+      });
+    }
+
+  }
+  onGetDetail() {
+    if (this.Id > 0) {
+      this._userDoorStepService.GetDoorStepAgent(this.Id).subscribe(res => {
+        if (res.IsSuccess) { }
       });
     }
 

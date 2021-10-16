@@ -38,9 +38,9 @@
             <div class="col-lg-3 col-xl-2 pr-4 mb-4 mb-lg-0 agent-door-profile-img-box upload-btn-wrapper">
                 <div class="agent-door-profile-img d-flex align-items-center justify-content-center">
                     <img src="assets/img/user-default.jpg">
-                    <input type="file" name="myfile" />
+                    <input *ngIf="Id>0" type="file" name="myfile" />
                 </div>
-                <button type="submit" data-toggle="tooltip" data-placement="bottom" title="Upload Profile"><i class="fas fa-cloud-upload-alt"></i></button>
+                <button *ngIf="Id>0" type="submit" data-toggle="tooltip" data-placement="bottom" title="Upload Profile"><i class="fas fa-cloud-upload-alt"></i></button>
             </div>
 
             <!-- <div class="upload-btn-wrapper">
@@ -74,9 +74,11 @@
                 </div>
                 <div class="form-group col-md-4">
                     <label>Mobile number</label>
-                    <input type="text" [(ngModel)]="model.User.Mobile" (keypress)="_commonService.NumberOnly($event)" [maxLength]="12" formControlName="Mobile"  [ngClass]="{ 'is-invalid': f.Mobile.errors && f.Mobile.touched}"  class="form-control" id="input4" placeholder="962358654">
+                    <input type="text" [(ngModel)]="model.User.Mobile" (keypress)="_commonService.NumberOnly($event)"  [minlength]="10" [maxLength]="12" formControlName="Mobile"  [ngClass]="{ 'is-invalid': f.Mobile.errors && f.Mobile.touched}"  class="form-control" id="input4" placeholder="962358654">
                     <div class="invalid-feedback" *ngIf="(formGroup.get('Mobile')?.hasError('required') && formGroup.get('Mobile')?.touched)">
                         Please fill Mobile number...! </div>
+                        <div class="invalid-feedback"  *ngIf="((formGroup.get('Mobile')?.hasError('maxlength') || formGroup.get('Mobile')?.hasError('minlength')) && formGroup.get('PinCode')?.touched) || (formGroup.get('PinCode')?.hasError('maxlength') || formGroup.get('PinCode')?.hasError('minlength'))">
+                          Pin code lenght must be 10-12 digit...! </div>
                 </div>
                 <div class="form-group col-md-4">
                     <label>Qualification</label>
@@ -89,8 +91,10 @@
                 <div class="form-group col-md-4">
                     <label>Personal Email ID</label>
                     <input type="email" formControlName="Email"  [ngClass]="{ 'is-invalid': f.Email.errors && f.Email.touched}" [(ngModel)]="model.User.Email" class="form-control" id="input3" placeholder="test@gmail.com">
-                    <div class="invalid-feedback" *ngIf="(formGroup.get('Qualification')?.hasError('required') && formGroup.get('Qualification')?.touched)">
+                    <div class="invalid-feedback" *ngIf="(formGroup.get('Email')?.hasError('required') && formGroup.get('Email')?.touched)">
                         Please fill Email...! </div>
+                        <div class="invalid-feedback"  *ngIf="!formGroup.get('Email')?.hasError('required') && formGroup.get('Email')?.touched && formGroup.get('Email')?.invalid">
+                          Please fill Correct Email...! </div>
                 </div>
                 <div class="form-group col-md-4">
                     <label>Ability to self fund</label>
@@ -149,8 +153,11 @@
                 </div>
                 <div class="form-group col-md-12">
                     <label>Address</label>
-                    <textarea class="form-control" [(ngModel)]="model.Address" id="exampleFormControlTextarea1" rows="3"></textarea>
-                </div>
+                    <textarea class="form-control" [ngClass]="{ 'is-invalid': f.Address.errors && f.Address.touched}" [(ngModel)]="model.Address" id="exampleFormControlTextarea1" rows="3"></textarea>
+                    <div class="invalid-feedback" *ngIf="(formGroup.get('Address')?.hasError('required') && formGroup.get('Address')?.touched)">
+                      Please fill Address...! </div>
+
+                  </div>
                 <div class="form-group col-md-4">
                     <label>State</label>
 
@@ -167,8 +174,13 @@
                 </div>
                 <div class="form-group col-md-4">
                     <label>Pincode</label>
-                    <input type="number" class="form-control" [(ngModel)]="model.PinCode" placeholder="235698">
-                </div>
+                    <input type="number" class="form-control"  [ngClass]="{ 'is-invalid': f.PinCode.errors && f.PinCode.touched}"  (keypress)="_commonService.NumberOnly($event)"   [maxLength]="6" [(ngModel)]="model.PinCode" placeholder="235698">
+                    <div class="invalid-feedback" *ngIf="(formGroup.get('PinCode')?.hasError('required') && formGroup.get('PinCode')?.touched)">
+                      Please fill Pin Code...! </div>
+                    <div class="invalid-feedback"  *ngIf="((formGroup.get('PinCode')?.hasError('maxlength') || formGroup.get('PinCode')?.hasError('minlength')) && formGroup.get('PinCode')?.touched) || (formGroup.get('PinCode')?.hasError('maxlength') || formGroup.get('PinCode')?.hasError('minlength'))">
+                     Pin code lenght must be 6 digit...! </div>
+
+                  </div>
             </div>
 
         </div>
