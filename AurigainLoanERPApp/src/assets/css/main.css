@@ -3628,13 +3628,21 @@ table tbody tr:nth-of-type(odd) .table-data-name span {
     vertical-align: top !important;
 }
 
-.upload-btn-wrapper {
+
+/* .upload-btn-wrapper {
     position: relative;
     overflow: hidden;
     display: inline-block;
     width: 100%;
     text-align: center;
     margin-top: 10px;
+} */
+
+.upload-btn-wrapper {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    text-align: center;
 }
 
 .btn-upload {
@@ -3645,7 +3653,8 @@ table tbody tr:nth-of-type(odd) .table-data-name span {
     cursor: pointer;
 }
 
-.upload-btn-wrapper input[type=file] {
+
+/* .upload-btn-wrapper input[type=file] {
     position: absolute;
     left: 0;
     top: 0;
@@ -3655,7 +3664,16 @@ table tbody tr:nth-of-type(odd) .table-data-name span {
     max-width: 50px;
     left: 50%;
     transform: translateX(-50%);
-    /* z-index: -1; */
+} */
+
+.upload-btn-wrapper input[type=file] {
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    width: 100%;
+    z-index: 999999999;
+    cursor: pointer;
 }
 
 .custom-card-1 {
@@ -3852,6 +3870,48 @@ table.table.table-striped.dataTable.table-header.table-blue tbody tr:nth-of-type
     margin-top: -6px !important;
     width: 6px !important;
     height: 10px !important;
+}
+
+.btn-upload-border i {
+    margin-right: 12px;
+}
+
+.btn-upload-border {
+    background: transparent;
+    border: dotted 2px #dae0ff;
+    padding: 5px 20px;
+    font-size: 20px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #4361ee;
+}
+
+.file-upload-details {
+    background: #ffffff;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px #ededed;
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.file-upload-details .dz-details {
+    flex: 100%;
+}
+
+.file-upload-details .file-upload-details-remove {
+    font-size: 16px;
+    cursor: pointer;
+    flex: 0 0 20px;
+    text-align: center;
+}
+
+.file-upload-details .dz-details .dz-filename {
+    color: #000;
+    font-size: 15px;
 }
 
 
