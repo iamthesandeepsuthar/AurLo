@@ -185,7 +185,7 @@ export class DoorStepAgentRegistrationComponent implements OnInit {
       ProfilePictureUrl: [undefined, Validators.required],
       SelfFunded: [false, Validators.required],
       IsActive: [true, Validators.required],
-      Mobile: [false, Validators.required],
+      Mobile: [undefined,  Validators.compose([Validators.required , Validators.maxLength(12), Validators.minLength(10)])],
       Email: [false, Validators.compose([Validators.required, Validators.email])],
 
     });
