@@ -77,11 +77,13 @@ export class API_Url {
   public static DoorstepAgentDeleteApi = `${environment.apiEndPoint}DoorStepAgent/Delete/`;
   public static DoorstepAgentActiveStatusApi = `${environment.apiEndPoint}DoorStepAgent/ChangeActiveStatus/`;
   public static DoorstepAgentDetailApi = `${environment.apiEndPoint}DoorStepAgent/GetById/`;
+  public static DoorstepAgentAvailibilityApi = `${environment.apiEndPoint}DoorStepAgent/SetUserAvailibilty`;
+
   //#endregion
 
   //#region <<Doorstep Agent>>
   public static UserUpdateProfileApi = `${environment.apiEndPoint}UserSetting/UpdateProfile`;
-  
+
   //#endregion
 
 
@@ -139,7 +141,7 @@ export class Routing_Url {
   //#region <DoorStepAgent>
   static DoorStepAgentRegistrationUrl = 'registration';
   static DoorStepAgenDetailUrl = 'detail';
-   
+  static DoorStepAgentAvailibityUrl = 'user-availibility';
   static DoorStepAgentListUrl = 'door-step-agents-list';
   //#endregion
 

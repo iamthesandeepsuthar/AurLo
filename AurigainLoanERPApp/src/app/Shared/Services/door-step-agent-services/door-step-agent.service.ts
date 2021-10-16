@@ -5,6 +5,7 @@ import { BaseAPIService } from '../../Helper/base-api.service';
 import { ApiResponse, IndexModel } from '../../Helper/common-model';
 import { DoorStepAgentPostModel, DoorStepAgentViewModel } from '../../Model/doorstep-agent-model/door-step-agent.model';
 import { UserRoleModel } from '../../Model/master-model/user-role.model';
+import { UserAvailibilityPostModel } from '../../Model/User-setting-model/user-availibility.model';
 
 @Injectable()
 export class DoorStepAgentService {
@@ -35,4 +36,10 @@ export class DoorStepAgentService {
     let url = `${this._baseService.API_Url.DoorstepAgentDeleteApi}${id}`;
     return this._baseService.Delete(url);
   }
+  SetUserAvailibility(model: UserAvailibilityPostModel): Observable<ApiResponse<string>> {
+    let url = `${this._baseService.API_Url.DoorstepAgentAvailibilityApi}`;
+    return this._baseService.post(url, model);
+  }
+
+
 }

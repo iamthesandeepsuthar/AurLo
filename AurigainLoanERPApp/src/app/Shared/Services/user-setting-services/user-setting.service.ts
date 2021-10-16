@@ -12,5 +12,5 @@ export class UserSettingService {
   UpdateUserProfile(model: UserSettingPostModel): Observable<ApiResponse<string>> {
     let url = `${this._baseService.API_Url.UserUpdateProfileApi}`;
     return this._baseService.post(url, model);
-  } 
+  }
 }
