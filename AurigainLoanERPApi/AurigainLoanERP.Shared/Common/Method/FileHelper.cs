@@ -41,7 +41,6 @@ namespace AurigainLoanERP.Shared.Common
                     else
                     {
                         byteArr = Convert.FromBase64String(base64str);
-
                     }
                    
 
