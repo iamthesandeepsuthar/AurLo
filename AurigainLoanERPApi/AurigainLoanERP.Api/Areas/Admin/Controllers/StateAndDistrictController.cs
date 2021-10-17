@@ -79,7 +79,7 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
         }
         // DELETE api/StateAndDistrict/DeleteDistrict/5
         [HttpDelete("[action]/{id}")]
-        public async Task<ApiServiceResponseModel<object>> DeleteDistrict(int id)
+        public async Task<ApiServiceResponseModel<object>> DeleteDistrict(long id)
         {
             return await _serivce.UpdateDistrictDeleteStatus(id);
         }
@@ -92,7 +92,7 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
         }
         // GET api/StateAndDistrict/GetDistrictById/5
         [HttpGet("[action]/{id}")]
-        public async Task<ApiServiceResponseModel<DistrictModel>> GetDistrictById(int id)
+        public async Task<ApiServiceResponseModel<DistrictModel>> GetDistrictById(long id)
         {
             return await _serivce.GetDistrictById(id);
 
