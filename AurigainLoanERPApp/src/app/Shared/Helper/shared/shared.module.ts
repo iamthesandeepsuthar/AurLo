@@ -16,6 +16,7 @@ import { UserKYCDetailSectionComponent } from './UserRegistration/user-kycdetail
 import { UserNomineeDetailSectionComponent } from './UserRegistration/user-nominee-detail-section/user-nominee-detail-section.component';
 import { FileSelectorComponent } from 'src/app/Content/Common/file-selector/file-selector.component';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { UserSecurityDepositComponent } from './UserRegistration/user-security-deposit/user-security-deposit.component';
 const CommonModules = [
   HttpClientModule,
   ReactiveFormsModule,
@@ -24,7 +25,7 @@ const CommonModules = [
 ]
 
 const InstalledModule = [
-  
+
   BsDatepickerModule.forRoot(),
   MatDialogModule,
   MatSnackBarModule,
@@ -32,7 +33,7 @@ const InstalledModule = [
   MatSortModule,
   MatPaginatorModule,
   MatSortModule,
-  NgSelectModule,  
+  NgSelectModule,
   ToastrModule.forRoot({
     timeOut: 3000,
     closeButton: true,
@@ -46,6 +47,7 @@ const SharedComponent = [
   UserKYCDetailSectionComponent,
   UserDocumentDetailSectionComponent,
   UserBankDetailSectionComponent,
+  UserSecurityDepositComponent,
   FileSelectorComponent
 ]
 
@@ -53,7 +55,8 @@ const SharedComponent = [
 
 @NgModule({
   declarations: [
-    SharedComponent
+    SharedComponent,
+    UserSecurityDepositComponent
   ],
   imports: [
     CommonModule,

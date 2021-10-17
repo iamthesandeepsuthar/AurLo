@@ -61,7 +61,7 @@
             placeholder="Enter name">
           <div class="invalid-feedback"
             *ngIf="(formGroup.get('FullName')?.hasError('required') && formGroup.get('FullName')?.touched)">
-            Please Full Name...! </div>
+            Please fill Name...! </div>
 
         </div>
 
@@ -198,10 +198,12 @@
         </div>
         <div class="form-group col-md-4">
           <label>District</label>
-          <ng-select [items]="dropDown!.ddlDistrict" bindLabel="Text" bindValue="Value" placeholder="District"
+          <ng-select [ngClass]="{ 'is-invalid': f.District?.errors && f.District?.touched}"  [items]="dropDown!.ddlDistrict" bindLabel="Text" bindValue="Value" placeholder="District"
             appendTo="body" [(ngModel)]="model.DistrictId" formControlName="District">
           </ng-select>
-
+          <div class="invalid-feedback"
+          *ngIf="(formGroup.get('District')?.hasError('required') && formGroup.get('District')?.touched)">
+          Please select District...! </div>
 
         </div>
         <div class="form-group col-md-4">
@@ -230,6 +232,8 @@
 </app-user-bank-detail-section>
 <app-user-kycdetail-section [kycModel]="model.UserKYC" (onSubmit)="model.UserKYC=$event">
 </app-user-kycdetail-section>
+<app-user-security-deposit [userSecurity]="model.SecurityDeposit" (onSubmit)="model.SecurityDeposit=$event"></app-user-security-deposit>
+
 <app-user-document-detail-section [documentModel]="model.Documents" (onSubmit)="bindDocs($event)">
 </app-user-document-detail-section>
 

@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserBankDetailsPostModel } from 'src/app/Shared/Model/doorstep-agent-model/door-step-agent.model';
+import { CommonService } from 'src/app/Shared/Services/common.service';
 
 @Component({
   selector: 'app-user-bank-detail-section',
@@ -8,17 +9,34 @@ import { UserBankDetailsPostModel } from 'src/app/Shared/Model/doorstep-agent-mo
   styleUrls: ['./user-bank-detail-section.component.scss']
 })
 export class UserBankDetailSectionComponent implements OnInit {
-  @Input() bankModel= new UserBankDetailsPostModel();
+  @Input() bankModel = new UserBankDetailsPostModel();
   @Output() onSubmit = new EventEmitter<UserBankDetailsPostModel>();
   formGroup = new FormGroup({});
 
   get f() { return this.formGroup.controls; }
-  constructor() { }
+  constructor(private readonly fb: FormBuilder, private readonly _commonService: CommonService) { }
 
   ngOnInit(): void {
+    this.formInit();
   }
 
+
   onFrmSubmit() {
-    this.onSubmit.emit(this.bankModel);
+    this.formGroup.markAllAsTouched();
+    if (this.formGroup.valid) {
+      this.onSubmit.emit(this.bankModel);
+
+    }
   }
+
+
+  formInit() {
+    this.formGroup = this.fb.group({
+      AccountNumber: [undefined, Validators.required],
+      Ifsccode: [undefined, Validators.required],
+      BankName: [undefined, Validators.required]
+
+    });
+  }
+
 }

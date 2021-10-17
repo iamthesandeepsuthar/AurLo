@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { ToastrService } from "ngx-toastr";
-import { DropDownModol, FilterDropDownPostModel } from "src/app/Shared/Helper/common-model";
+import { DropDownModel, FilterDropDownPostModel } from "src/app/Shared/Helper/common-model";
 import { DropDown_key, Routing_Url } from "src/app/Shared/Helper/constants";
 import { UserBankDetailSectionComponent } from "src/app/Shared/Helper/shared/UserRegistration/user-bank-detail-section/user-bank-detail-section.component";
 import { UserDocumentDetailSectionComponent } from "src/app/Shared/Helper/shared/UserRegistration/user-document-detail-section/user-document-detail-section.component";
@@ -16,6 +16,7 @@ import { Message } from '../../../../../Shared/Helper/constants';
 import { UserSettingService } from "src/app/Shared/Services/user-setting-services/user-setting.service";
 import { UserSettingPostModel } from "src/app/Shared/Model/User-setting-model/user-setting.model";
 import { FileInfo } from '../../../../Common/file-selector/file-selector.component';
+import { UserSecurityDepositComponent } from '../../../../../Shared/Helper/shared/UserRegistration/user-security-deposit/user-security-deposit.component';
 
 @Component({
   selector: 'app-door-step-agent-registration',
@@ -28,7 +29,7 @@ export class DoorStepAgentRegistrationComponent implements OnInit {
   model = new DoorStepAgentPostModel();
   profileModel = {} as UserSettingPostModel;
   formGroup!: FormGroup;
-  dropDown = new DropDownModol();
+  dropDown = new DropDownModel();
   get ddlkeys() { return DropDown_key };
 
   get f() { return this.formGroup.controls; }
@@ -40,6 +41,7 @@ export class DoorStepAgentRegistrationComponent implements OnInit {
   @ViewChild(UserDocumentDetailSectionComponent, { static: false }) _childUserDocumentDetailSection!: UserDocumentDetailSectionComponent;
   @ViewChild(UserKYCDetailSectionComponent, { static: false }) _childUserKYCDetailSection!: UserKYCDetailSectionComponent;
   @ViewChild(UserNomineeDetailSectionComponent, { static: false }) _childUserNomineeDetailSection!: UserNomineeDetailSectionComponent;
+  @ViewChild(UserSecurityDepositComponent, { static: false }) _childUserSecurityDepositSection!: UserSecurityDepositComponent;
 
   constructor(private readonly _alertService: AlertService, private readonly fb: FormBuilder,
     private readonly _userDoorStepService: DoorStepAgentService, private _activatedRoute: ActivatedRoute, private _router: Router,
@@ -53,7 +55,7 @@ export class DoorStepAgentRegistrationComponent implements OnInit {
     this.model.UserNominee = new UserNomineePostModel();
     this.model.BankDetails = new UserBankDetailsPostModel();
     this.model.Documents = [] as DocumentPostModel[];
-    //  this.model.SecurityDeposit = new UserSecurityDepositPostModel();
+     this.model.SecurityDeposit = new UserSecurityDepositPostModel();
 
   }
 
@@ -72,7 +74,7 @@ export class DoorStepAgentRegistrationComponent implements OnInit {
     this._commonService.GetDropDown([DropDown_key.ddlQualification, DropDown_key.ddlState, DropDown_key.ddlGender]).subscribe(res => {
       if (res.IsSuccess) {
 
-        let ddls = res.Data as DropDownModol;
+        let ddls = res.Data as DropDownModel;
         this.dropDown.ddlState = ddls.ddlState;
         this.dropDown.ddlQualification = ddls.ddlQualification;
         this.dropDown.ddlGender = ddls.ddlGender;
@@ -83,7 +85,7 @@ export class DoorStepAgentRegistrationComponent implements OnInit {
   }
 
   GetFilterDropDown(key: string, FilterFrom: string, Values: any) {
-    debugger
+
     if (Values) {
       let model = {
         Key: key,
@@ -93,7 +95,7 @@ export class DoorStepAgentRegistrationComponent implements OnInit {
       } as FilterDropDownPostModel;
       this._commonService.GetFilterDropDown(model).subscribe(res => {
         if (res.IsSuccess) {
-          let ddls = res.Data as DropDownModol;
+          let ddls = res.Data as DropDownModel;
           if (ddls.ddlDistrict) {
             this.dropDown.ddlDistrict = ddls.ddlDistrict;
 
@@ -160,6 +162,13 @@ export class DoorStepAgentRegistrationComponent implements OnInit {
     } else {
       isValid = false;
     }
+
+    if (this._childUserSecurityDepositSection && this._childUserSecurityDepositSection.formGroup.valid) {
+      this._childUserSecurityDepositSection.onFrmSubmit();
+    } else {
+      isValid = false;
+    }
+
     if (this._childUserNomineeDetailSection && this._childUserNomineeDetailSection.formGroup.valid) {
       this._childUserNomineeDetailSection.onFrmSubmit();
     } else {

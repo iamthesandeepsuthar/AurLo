@@ -1,0 +1,90 @@
+<div class="widget-content widget-content p-3 form-grp-w-border">
+  <h2> <img src="assets/img/security-deposit.png">Security Deposit</h2>
+  <form [formGroup]="formGroup">
+
+    <div class="form-row">
+
+
+      <div class="form-group col-md-4">
+        <label>Payment Mode</label>
+
+        <ng-select formControlName="PaymentMode" [items]="dropDown!.ddlPaymentMode"
+          [ngClass]="{ 'is-invalid': f.PaymentMode?.errors && f.PaymentMode?.touched}" bindLabel="Text"
+          bindValue="Value" placeholder="PaymentMode" appendTo="body" [(ngModel)]="userSecurity.PaymentModeId">
+        </ng-select>
+        <div class="invalid-feedback"
+          *ngIf="(formGroup.get('PaymentMode')?.hasError('required') && formGroup.get('PaymentMode')?.touched)">
+          Please Select Payment Mode...! </div>
+      </div>
+
+
+      <div class="form-group col-md-4">
+        <label>Amount</label>
+        <input type="text" class="form-control" id="bnkinput1" [(ngModel)]="userSecurity.Amount"
+          formControlName="Amount" [ngClass]="{ 'is-invalid': f.Amount?.errors && f.Amount?.touched}"
+          placeholder="Enter number">
+
+        <div class="invalid-feedback"
+          *ngIf="(formGroup.get('Amount')?.hasError('required') && formGroup.get('Amount')?.touched)">
+          Please fill Amount...! </div>
+
+      </div>
+
+      <div class="form-group col-md-4 date-icon-with-label">
+        <label>Credit Date</label>
+        <input class="form-control" #datepickerYMD="bsDatepicker" formControlName="CreditDate"
+          [ngClass]="{ 'is-invalid': f.CreditDate?.errors && f.CreditDate?.touched}" bsDatepicker
+          [(ngModel)]="userSecurity.CreditDate"
+          [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', adaptivePosition: true,isAnimated: true, showWeekNumbers: false }">
+        <i class="fas fa-calendar-alt"></i>
+        <div class="invalid-feedback"
+          *ngIf="(formGroup.get('CreditDate')?.hasError('required') && formGroup.get('CreditDate')?.touched)">
+          Please Select Credit Date...! </div>
+
+      </div>
+
+
+
+      <div class="form-group col-md-4">
+        <label>Referance Number</label>
+        <input type="text" class="form-control" id="bnkinput1" [(ngModel)]="userSecurity.ReferanceNumber"
+          formControlName="ReferanceNumber"
+          [ngClass]="{ 'is-invalid': f.ReferanceNumber?.errors && f.ReferanceNumber?.touched}"
+          placeholder="Enter number">
+
+        <div class="invalid-feedback"
+          *ngIf="(formGroup.get('ReferanceNumber')?.hasError('required') && formGroup.get('ReferanceNumber')?.touched)">
+          Please fill Referance Number...! </div>
+
+      </div>
+
+      <div class="form-group col-md-4">
+        <label>A/C number</label>
+        <input type="text" class="form-control" id="bnkinput1" [(ngModel)]="userSecurity.AccountNumber"
+          formControlName="AccountNumber"
+          [ngClass]="{ 'is-invalid': f.AccountNumber?.errors && f.AccountNumber?.touched}" placeholder="Enter number">
+
+        <div class="invalid-feedback"
+          *ngIf="(formGroup.get('AccountNumber')?.hasError('required') && formGroup.get('AccountNumber')?.touched)">
+          Please fill Account Number...! </div>
+
+      </div>
+
+
+      <div class="form-group col-md-4">
+        <label>Bank name</label>
+        <input type="text" class="form-control" id="bnkinput2" [(ngModel)]="userSecurity.BankName"
+          formControlName="BankName" [ngClass]="{ 'is-invalid': f.BankName?.errors && f.BankName?.touched}"
+          placeholder="Enter Bank name">
+
+        <div class="invalid-feedback"
+          *ngIf="(formGroup.get('BankName')?.hasError('required') && formGroup.get('BankName')?.touched)">
+          Please fill Bank Name...! </div>
+
+      </div>
+
+
+
+    </div>
+  </form>
+</div>

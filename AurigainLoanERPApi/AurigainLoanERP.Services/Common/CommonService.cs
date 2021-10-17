@@ -68,6 +68,11 @@ namespace AurigainLoanERP.Services.Common
                             objData.Add(item, GetEnumDropDown<GenderEnum>());
                             break;
 
+                        case DropDownKey.ddlPaymentMode:
+
+                            objData.Add(item, await GetPaymentMode());
+                            break;
+
                         default:
                             break;
                     }
@@ -211,6 +216,22 @@ namespace AurigainLoanERP.Services.Common
               .Select(v => new { Value = v.ToString(), Text = v.GetStringValue() })
               .ToList();
 
+            }
+            catch (Exception ex)
+            {
+
+                return null;
+            }
+        }
+
+
+        private async Task<object> GetPaymentMode()
+        {
+            try
+            {
+                return await (from data in _db.PaymentMode where data.IsActive == true && !data.IsDelete select data)
+                     .Select(item => new { Text = item.Mode, Value = item.Id })
+                     .ToListAsync();
             }
             catch (Exception ex)
             {

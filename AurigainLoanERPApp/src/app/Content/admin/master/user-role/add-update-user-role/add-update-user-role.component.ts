@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { DropDownModol } from 'src/app/Shared/Helper/common-model';
+import { DropDownModel } from 'src/app/Shared/Helper/common-model';
 import { DropDown_key, Message, Routing_Url } from 'src/app/Shared/Helper/constants';
 import { UserRolePostModel } from 'src/app/Shared/Model/master-model/user-role.model';
 
@@ -21,7 +21,7 @@ export class AddUpdateUserRoleComponent implements OnInit {
   model = new UserRolePostModel();
   showParent: boolean = true;
   userRoleForm!: FormGroup;
-  dropDown = new DropDownModol();
+  dropDown = new DropDownModel();
 
   get f() { return this.userRoleForm.controls; }
   get routing_Url() { return Routing_Url }
