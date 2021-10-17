@@ -35,13 +35,15 @@
   <form [formGroup]="formGroup" (ngSubmit)="onFrmSubmit()">
     <div class="form-row">
 
-      <div class="col-lg-3 col-xl-2 pr-4 mb-4 mb-lg-0 agent-door-profile-img-box upload-btn-wrapper">
+      <div *ngIf="Id>0" class="col-lg-3 col-xl-2 pr-4 mb-4 mb-lg-0 agent-door-profile-img-box upload-btn-wrapper">
         <div class="agent-door-profile-img d-flex align-items-center justify-content-center">
           <img src="assets/img/user-default.jpg">
-          <input *ngIf="Id>0" type="file" name="myfile" />
+          <input type="file" name="myfile" />
         </div>
-        <button *ngIf="Id>0" type="submit" data-toggle="tooltip" data-placement="bottom" title="Upload Profile"><i
-            class="fas fa-cloud-upload-alt"></i></button>
+        <button type="button" data-toggle="tooltip" data-placement="bottom" title="Upload Profile">
+          <i class="fas fa-cloud-upload-alt"></i>
+          <!-- <i class="fas fa-cloud-upload-alt"></i> -->
+        </button>
       </div>
 
       <!-- <div class="upload-btn-wrapper">
@@ -62,6 +64,7 @@
             Please Full Name...! </div>
 
         </div>
+
         <div class="form-group col-md-4 date-icon-with-label">
           <label>Date of birth</label>
           <input class="form-control" #datepickerYMD="bsDatepicker" formControlName="DateOfBirth"
@@ -96,10 +99,11 @@
             *ngIf="!formGroup.get('Mobile')?.hasError('required') && ((formGroup.get('Mobile')?.hasError('maxlength') || formGroup.get('Mobile')?.hasError('minlength')) && formGroup.get('Mobile')?.touched) || (formGroup.get('Mobile')?.hasError('maxlength') || formGroup.get('Mobile')?.hasError('minlength'))">
             Mobile lenght must be 10-12 digit...! </div>
         </div>
+
         <div class="form-group col-md-4">
           <label>Qualification</label>
 
-          <ng-select [items]="dropDown!.ddlQualification" formControlName="Qualification"
+          <ng-select formControlName="Qualification" [items]="dropDown!.ddlQualification"
             [ngClass]="{ 'is-invalid': f.Qualification.errors && f.Qualification.touched}" bindLabel="Text"
             bindValue="Value" placeholder="Qualification" appendTo="body" [(ngModel)]="model.QualificationId">
           </ng-select>
@@ -107,6 +111,7 @@
             *ngIf="(formGroup.get('Qualification')?.hasError('required') && formGroup.get('Qualification')?.touched)">
             Please Select Qualification...! </div>
         </div>
+
         <div class="form-group col-md-4">
           <label>Personal Email ID</label>
           <input type="email" formControlName="Email" [ngClass]="{ 'is-invalid': f.Email.errors && f.Email.touched}"
@@ -123,15 +128,15 @@
           <div class="form-radio-check-grp">
             <div class="n-chk d-inline">
               <label class="new-control new-radio radio-classic-info">
-                <input type="radio" class="new-control-input" value="{{true}}" [(ngModel)]="model.SelfFunded"
-                  name="selfFund">
+                <input type="radio" class="new-control-input" value="{{true}}" formControlName="SelfFunded"
+                  [(ngModel)]="model.SelfFunded" name="SelfFunded">
                 <span class="new-control-indicator"></span>Yes
               </label>
             </div>
             <div class="n-chk d-inline">
               <label class="new-control new-radio radio-classic-info">
-                <input type="radio" class="new-control-input" value="{{false}}" [(ngModel)]="model.SelfFunded"
-                  name="selfFund">
+                <input type="radio" class="new-control-input" value="{{false}}" formControlName="SelfFunded"
+                  [(ngModel)]="model.SelfFunded" name="SelfFunded">
                 <span class="new-control-indicator"></span>No
               </label>
             </div>
@@ -145,8 +150,8 @@
             <ng-container *ngFor="let item of dropDown!.ddlGender">
               <div class="n-chk d-inline">
                 <label class="new-control new-radio radio-classic-info">
-                  <input type="radio" class="new-control-input" value="{{item.Value}}" name="Gender"
-                    [(ngModel)]="model.Gender">
+                  <input type="radio" formControlName="Gender" class="new-control-input" value="{{item.Value}}"
+                    name="Gender" [(ngModel)]="model.Gender">
                   <span class="new-control-indicator"></span>{{item.Text}}
                 </label>
               </div>
@@ -176,7 +181,7 @@
         <div class="form-group col-md-12">
           <label>Address</label>
           <textarea class="form-control" [ngClass]="{ 'is-invalid': f.Address.errors && f.Address.touched}"
-            [(ngModel)]="model.Address" id="exampleFormControlTextarea1" rows="3"></textarea>
+            [(ngModel)]="model.Address" id="exampleFormControlTextarea1" formControlName="Address" rows="3"></textarea>
           <div class="invalid-feedback"
             *ngIf="(formGroup.get('Address')?.hasError('required') && formGroup.get('Address')?.touched)">
             Please fill Address...! </div>
@@ -186,15 +191,15 @@
           <label>State</label>
 
           <ng-select [items]="dropDown!.ddlState" bindLabel="Text" bindValue="Value" placeholder="State" appendTo="body"
-            (ngModelChange)="GetFilterDropDown(ddlkeys.ddlDistrict,ddlkeys.ddlState,$event)"
-            [(ngModel)]="model.StateId">
+            (ngModelChange)="GetFilterDropDown(ddlkeys.ddlDistrict,ddlkeys.ddlState,$event)" [(ngModel)]="model.StateId"
+            formControlName="State">
           </ng-select>
 
         </div>
         <div class="form-group col-md-4">
           <label>District</label>
           <ng-select [items]="dropDown!.ddlDistrict" bindLabel="Text" bindValue="Value" placeholder="District"
-            appendTo="body" [(ngModel)]="model.DistrictId">
+            appendTo="body" [(ngModel)]="model.DistrictId" formControlName="District">
           </ng-select>
 
 
@@ -221,149 +226,12 @@
 
 <app-user-nominee-detail-section [nomineeModel]="model.UserNominee" (onSubmit)="model.UserNominee=$event">
 </app-user-nominee-detail-section>
-<!-- <div class="widget-content widget-content p-3 form-grp-w-border">
-    <h2> <img src="assets/img/nominee_details_white.png"> Nominee Details</h2>
-    <div class="form-row">
-        <div class="form-group col-md-4">
-            <label>Relationship</label>
-            <select class="form-control">
-                                    <option>--Select--</option>
-                                    <option>--Select--</option>
-                                    <option>--Select--</option>
-                                </select>
-        </div>
-        <div class="form-group col-md-4">
-            <label>Name</label>
-            <input type="email" class="form-control" id="input1" placeholder="Enter name">
-        </div>
-
-        <div class="form-group col-md-4">
-            <label>&nbsp;</label>
-            <div class="form-radio-check-grp">
-                <div class="n-chk d-inline">
-                    <label class="new-control new-checkbox checkbox-info">
-                                      <input type="checkbox" class="new-control-input" checked>
-                                      <span class="new-control-indicator"></span>Self Declaration String
-                        </label>
-                </div>
-            </div>
-        </div>
-
-    </div>
-</div>
- -->
 <app-user-bank-detail-section [bankModel]="model.BankDetails" (onSubmit)="model.BankDetails=$event">
 </app-user-bank-detail-section>
-<!--
-<div class="widget-content widget-content p-3 form-grp-w-border">
-    <h2> <img src="assets/img/bank_details_white.png"> Bank Details</h2>
-    <div class="form-row">
-        <div class="form-group col-md-4">
-            <label>A/C number</label>
-            <input type="email" class="form-control" id="input1" placeholder="Enter number">
-        </div>
-        <div class="form-group col-md-4">
-            <label>IFSC Code</label>
-            <input type="email" class="form-control" id="input1" placeholder="Enter Code">
-        </div>
-        <div class="form-group col-md-4">
-            <label>Bank name</label>
-            <input type="email" class="form-control" id="input1" placeholder="Enter Bank name">
-        </div>
-
-    </div>
-</div> -->
 <app-user-kycdetail-section [kycModel]="model.UserKYC" (onSubmit)="model.UserKYC=$event">
 </app-user-kycdetail-section>
-<!-- <div class="widget-content widget-content p-3 form-grp-w-border">
-    <h2> <img src="assets/img/kyc_details_white.png"> KYC Details</h2>
-    <div class="form-row">
-        <div class="form-group col-md-6">
-            <label>Document Type</label>
-            <select class="form-control">
-                <option>--Select Type--</option>
-                <option>--Select Type--</option>
-                <option>--Select Type--</option>
-            </select>
-        </div>
-        <div class="form-group col-md-6">
-            <label>Document number</label>
-            <input type="email" class="form-control" id="input1" placeholder="Enter number">
-        </div>
-
-
-    </div>
-</div> -->
 <app-user-document-detail-section [documentModel]="model.Documents" (onSubmit)="bindDocs($event)">
 </app-user-document-detail-section>
-<!--
-<div class="widget-content widget-content p-3 form-grp-w-border">
-    <h2> <img src="assets/img/document_pictures_white.png"> Document Proof</h2>
-    <div class="form-row">
-        <div class="form-group col-md-12">
-            <label>Profile Picture</label>
-            <input type="file" class="form-control" id="file1" placeholder="Enter number">
-            <div class="file-upload-preview d-flex flex-wrap">
-                <div
-                    class="file-upload-preview-items d-flex align-items-center justify-content-center position-relative">
-                    <a href="#" class="file-upload-preview-items-delete"><i class="fas fa-times"></i></a>
-                    <img src="assets/img/default.jpg">
-                </div>
-            </div>
-        </div>
-        <div class="form-group col-md-12">
-            <label>Aadhaar Card Picture</label>
-            <input type="file" class="form-control" id="file1" placeholder="Enter number">
-            <div class="file-upload-preview d-flex flex-wrap">
-                <div
-                    class="file-upload-preview-items d-flex align-items-center justify-content-center position-relative">
-                    <a href="#" class="file-upload-preview-items-delete"><i class="fas fa-times"></i></a>
-                    <img src="assets/img/default.jpg">
-                </div>
-                <div
-                    class="file-upload-preview-items d-flex align-items-center justify-content-center position-relative">
-                    <a href="#" class="file-upload-preview-items-delete"><i class="fas fa-times"></i></a>
-                    <img src="assets/img/default.jpg">
-                </div>
-            </div>
-        </div>
-        <div class="form-group col-md-12">
-            <label>PAN Card Picture</label>
-            <input type="file" class="form-control" id="file1" placeholder="Enter number">
-            <div class="file-upload-preview d-flex flex-wrap">
-                <div
-                    class="file-upload-preview-items d-flex align-items-center justify-content-center position-relative">
-                    <a href="#" class="file-upload-preview-items-delete"><i class="fas fa-times"></i></a>
-                    <img src="assets/img/default.jpg">
-                </div>
-                <div
-                    class="file-upload-preview-items d-flex align-items-center justify-content-center position-relative">
-                    <a href="#" class="file-upload-preview-items-delete"><i class="fas fa-times"></i></a>
-                    <img src="assets/img/default.jpg">
-                </div>
-            </div>
-        </div>
-        <div class="form-group col-md-12">
-            <label>Cancelled Cheque Picture</label>
-            <input type="file" class="form-control" id="file1" placeholder="Enter number">
-            <div class="file-upload-preview d-flex flex-wrap">
-                <div
-                    class="file-upload-preview-items d-flex align-items-center justify-content-center position-relative">
-                    <a href="#" class="file-upload-preview-items-delete"><i class="fas fa-times"></i></a>
-                    <img src="assets/img/default.jpg">
-                </div>
-                <div
-                    class="file-upload-preview-items d-flex align-items-center justify-content-center position-relative">
-                    <a href="#" class="file-upload-preview-items-delete"><i class="fas fa-times"></i></a>
-                    <img src="assets/img/default.jpg">
-                </div>
-            </div>
-        </div>
-
-
-
-    </div>
-</div> -->
 
 <div class="form-footer-btn-grp mt-3 mb-3 widget-content widget-content p-3 text-center">
   <button type="submit" class="btn btn-success mr-3" (click)="onFrmSubmit()"> <i class="fas fa-check mr-1"></i> Save

@@ -23,10 +23,16 @@ export class DoorStepAgentAvailabilityComponent implements OnInit {
   }
 
   SetUserAvailibility() {
+    debugger
     this._userDoorStepService.SetUserAvailibility(this.model).subscribe(res => {
       if (res.IsSuccess) {
 
       }
     });
+  }
+
+  al(){
+    debugger
+    console.log(this.model)
   }
 }

@@ -58,10 +58,11 @@ export class DoorStepAgentRegistrationComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.GetDropDown();
-    this.formInit();
 
-    if(this.Id>0){
+    this.formInit();
+    this.GetDropDown();
+    if (this.Id > 0) {
+      alert
       this.onGetDetail();
     }
   }
@@ -82,27 +83,29 @@ export class DoorStepAgentRegistrationComponent implements OnInit {
   }
 
   GetFilterDropDown(key: string, FilterFrom: string, Values: any) {
+    debugger
+    if (Values) {
+      let model = {
+        Key: key,
+        FileterFromKey: FilterFrom,
+        Values: [Values],
 
-    let model = {
-      Key: key,
-      FileterFromKey: FilterFrom,
-      Values: [Values],
+      } as FilterDropDownPostModel;
+      this._commonService.GetFilterDropDown(model).subscribe(res => {
+        if (res.IsSuccess) {
+          let ddls = res.Data as DropDownModol;
+          if (ddls.ddlDistrict) {
+            this.dropDown.ddlDistrict = ddls.ddlDistrict;
 
-    } as FilterDropDownPostModel;
-    this._commonService.GetFilterDropDown(model).subscribe(res => {
-      if (res.IsSuccess) {
-        let ddls = res.Data as DropDownModol;
-        if (ddls.ddlDistrict) {
-          this.dropDown.ddlDistrict = ddls.ddlDistrict;
+          } else {
+            this.dropDown.ddlDistrict = [];
+          }
 
-        } else {
-          this.dropDown.ddlDistrict = [];
+
+
         }
-
-
-
-      }
-    });
+      });
+    }
   }
 
   onFrmSubmit() {
@@ -178,14 +181,14 @@ export class DoorStepAgentRegistrationComponent implements OnInit {
       Gender: [undefined, Validators.required],
       Qualification: [undefined, Validators.required],
       Address: [undefined, undefined],
-      DistrictId: [undefined, Validators.required],
-      StateId: [undefined, Validators.required],
+      District: [undefined, Validators.required],
+      State: [undefined, Validators.required],
       PinCode: [undefined, Validators.compose([Validators.required, Validators.maxLength(6), Validators.minLength(6)])],
       DateOfBirth: [undefined, Validators.required],
       ProfilePictureUrl: [undefined, Validators.required],
       SelfFunded: [false, Validators.required],
       IsActive: [true, Validators.required],
-      Mobile: [undefined,  Validators.compose([Validators.required , Validators.maxLength(12), Validators.minLength(10)])],
+      Mobile: [undefined, Validators.compose([Validators.required, Validators.maxLength(12), Validators.minLength(10)])],
       Email: [false, Validators.compose([Validators.required, Validators.email])],
 
     });
@@ -202,6 +205,7 @@ export class DoorStepAgentRegistrationComponent implements OnInit {
     }
 
   }
+
   onGetDetail() {
     if (this.Id > 0) {
       this._userDoorStepService.GetDoorStepAgent(this.Id).subscribe(res => {

@@ -31,8 +31,19 @@ namespace AurigainLoanERP.Shared.Common
             {
                 if (!string.IsNullOrEmpty(base64str) && !string.IsNullOrEmpty(filePath))
                 {
-                    string[] Fileinfo = base64str.Split(';');
-                    byte[] byteArr = Convert.FromBase64String(Fileinfo[1].Substring(Fileinfo[1].IndexOf(',') + 1));
+                    byte[] byteArr;
+                    if (base64str.Split(';').Length>0)
+                    {
+                        string[] Fileinfo = base64str.Split(';');
+                        byteArr = Convert.FromBase64String(Fileinfo[1].Substring(Fileinfo[1].IndexOf(',') + 1));
+
+                    }
+                    else
+                    {
+                        byteArr = Convert.FromBase64String(base64str);
+
+                    }
+                   
 
                     //  saveFile = filePath;
                     string path = GetPhysicalPath(filePath);
@@ -40,7 +51,7 @@ namespace AurigainLoanERP.Shared.Common
                     {
                         Directory.CreateDirectory(path);
                     }
-                    fileName = string.IsNullOrEmpty(fileName) ? Guid.NewGuid().ToString() + GetFileExtension(base64str) : fileName.Replace(" ","_");
+                    fileName = string.IsNullOrEmpty(fileName) ? Guid.NewGuid().ToString() + GetFileExtension(base64str) : fileName.Replace(" ", "_");
                     File.WriteAllBytes(Path.Combine(path, fileName), byteArr);
 
                     return fileName;
@@ -63,7 +74,7 @@ namespace AurigainLoanERP.Shared.Common
                 {
                     string path = GetPhysicalPath(filePath);
 
-                    fileName = string.IsNullOrEmpty(fileName) ? Path.GetFileName(file.FileName) : fileName.Replace(" ","_");
+                    fileName = string.IsNullOrEmpty(fileName) ? Path.GetFileName(file.FileName) : fileName.Replace(" ", "_");
 
                     if (!Directory.Exists(path))
                     {
@@ -100,7 +111,7 @@ namespace AurigainLoanERP.Shared.Common
                 if (File.Exists(filePath))
                 {
                     base64 = "Data:" + GetMimeType(filePath) + ";base64,";
-                    ;
+
                     byte[] bytarr = File.ReadAllBytes(Path.Combine(_env.ContentRootPath, filePath));
                     base64 += Convert.ToBase64String(bytarr);
                 }
@@ -139,8 +150,10 @@ namespace AurigainLoanERP.Shared.Common
             string ext = string.Empty;
             try
             {
+
                 string mime = (base64String.Split(';')[0]).Split(':')[1];
                 ext = MimeTypesMap.GetExtension(mime);
+
                 ext = string.Concat(".", ext);
             }
             catch (Exception)

@@ -111,12 +111,12 @@ namespace AurigainLoanERP.Services.Common
 
                 }
 
-                return CreateResponse(objData, ResponseMessage.Success, true , ((int)ApiStatusCode.Ok));
+                return CreateResponse(objData, ResponseMessage.Success, true, ((int)ApiStatusCode.Ok));
             }
             catch (Exception ex)
             {
 
-                return CreateResponse<Dictionary<string, object>>(null, ResponseMessage.Success, true,((int)ApiStatusCode.ServerException) ,ex.Message.ToString());
+                return CreateResponse<Dictionary<string, object>>(null, ResponseMessage.Success, true, ((int)ApiStatusCode.ServerException), ex.Message.ToString());
 
             }
 
@@ -164,8 +164,7 @@ namespace AurigainLoanERP.Services.Common
             try
             {
                 return await (from data in _db.State where data.IsActive == true && !data.IsDelete select data)
-                     .Select(item => new { Text = item.Name, Value = item.Id })
-                     .ToListAsync();
+                     .Select(item => new { Text = item.Name, Value = item.Id }).ToListAsync();
             }
             catch (Exception ex)
             {

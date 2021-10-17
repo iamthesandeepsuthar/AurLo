@@ -28,11 +28,11 @@ export class DoorStepAgentService {
     return this._baseService.post(url, model);
   }
 
-  ChangeActiveStatus(id: number, status?: string): Observable<ApiResponse<DoorStepAgentViewModel[]>> {
+  ChangeActiveStatus(id: number, status?: string): Observable<ApiResponse<string>> {
     let url = `${this._baseService.API_Url.DoorstepAgentActiveStatusApi}${id}`;
     return this._baseService.get(url);
   }
-  DeleteDoorStepAgent(id: number): Observable<ApiResponse<DoorStepAgentViewModel[]>> {
+  DeleteDoorStepAgent(id: number): Observable<ApiResponse<string>> {
     let url = `${this._baseService.API_Url.DoorstepAgentDeleteApi}${id}`;
     return this._baseService.Delete(url);
   }
