@@ -55,7 +55,7 @@ export class DoorStepAgentRegistrationComponent implements OnInit {
     this.model.UserNominee = new UserNomineePostModel();
     this.model.BankDetails = new UserBankDetailsPostModel();
     this.model.Documents = [] as DocumentPostModel[];
-     this.model.SecurityDeposit = new UserSecurityDepositPostModel();
+    this.model.SecurityDeposit = new UserSecurityDepositPostModel();
 
   }
 
@@ -64,7 +64,7 @@ export class DoorStepAgentRegistrationComponent implements OnInit {
     this.formInit();
     this.GetDropDown();
     if (this.Id > 0) {
-      alert
+
       this.onGetDetail();
     }
   }
@@ -73,13 +73,10 @@ export class DoorStepAgentRegistrationComponent implements OnInit {
   GetDropDown() {
     this._commonService.GetDropDown([DropDown_key.ddlQualification, DropDown_key.ddlState, DropDown_key.ddlGender]).subscribe(res => {
       if (res.IsSuccess) {
-
         let ddls = res.Data as DropDownModel;
         this.dropDown.ddlState = ddls.ddlState;
         this.dropDown.ddlQualification = ddls.ddlQualification;
         this.dropDown.ddlGender = ddls.ddlGender;
-
-
       }
     });
   }
@@ -146,30 +143,34 @@ export class DoorStepAgentRegistrationComponent implements OnInit {
     if (this._childUserNomineeDetailSection) {
       this._childUserNomineeDetailSection.formGroup.markAllAsTouched();
     }
+    if (this._childUserSecurityDepositSection) {
+      this._childUserSecurityDepositSection.formGroup.markAllAsTouched();
+    }
+
 
     if (this._childUserBankDetailSection && this._childUserBankDetailSection.formGroup.valid) {
       this._childUserBankDetailSection.onFrmSubmit();
     } else {
       isValid = false;
     }
-    if (this._childUserDocumentDetailSection && this._childUserDocumentDetailSection.formGroup.valid) {
+    if (isValid && this._childUserDocumentDetailSection && this._childUserDocumentDetailSection.formGroup.valid) {
       this._childUserDocumentDetailSection.onFrmSubmit();
     } else {
       isValid = false;
     }
-    if (this._childUserKYCDetailSection && this._childUserKYCDetailSection.formGroup.valid) {
+    if (isValid && this._childUserKYCDetailSection && this._childUserKYCDetailSection.formGroup.valid) {
       this._childUserKYCDetailSection.onFrmSubmit();
     } else {
       isValid = false;
     }
 
-    if (this._childUserSecurityDepositSection && this._childUserSecurityDepositSection.formGroup.valid) {
+    if (isValid && this._childUserSecurityDepositSection && this._childUserSecurityDepositSection.formGroup.valid) {
       this._childUserSecurityDepositSection.onFrmSubmit();
     } else {
       isValid = false;
     }
 
-    if (this._childUserNomineeDetailSection && this._childUserNomineeDetailSection.formGroup.valid) {
+    if (isValid && this._childUserNomineeDetailSection && this._childUserNomineeDetailSection.formGroup.valid) {
       this._childUserNomineeDetailSection.onFrmSubmit();
     } else {
       isValid = false;
@@ -194,7 +195,7 @@ export class DoorStepAgentRegistrationComponent implements OnInit {
       State: [undefined, Validators.required],
       PinCode: [undefined, Validators.compose([Validators.required, Validators.maxLength(6), Validators.minLength(6)])],
       DateOfBirth: [undefined, Validators.required],
-      ProfilePictureUrl: [undefined, Validators.required],
+      ProfilePictureUrl: [undefined, undefined],
       SelfFunded: [false, Validators.required],
       IsActive: [true, Validators.required],
       Mobile: [undefined, Validators.compose([Validators.required, Validators.maxLength(12), Validators.minLength(10)])],

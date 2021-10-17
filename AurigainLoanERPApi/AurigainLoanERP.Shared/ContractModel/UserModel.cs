@@ -377,7 +377,7 @@ namespace AurigainLoanERP.Shared.ContractModel
             UserNominee = new UserNomineePostModel();
          //   ReportingPerson = new UserReportingPersonPostModel();
             Documents = new List<UserDocumentPostModel>();
-         //   SecurityDeposit = new UserSecurityDepositPostModel();
+         SecurityDeposit = new UserSecurityDepositPostModel();
 
 
         }

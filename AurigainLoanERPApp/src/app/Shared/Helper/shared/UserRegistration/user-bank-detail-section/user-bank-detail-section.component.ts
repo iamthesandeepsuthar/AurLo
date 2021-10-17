@@ -14,7 +14,7 @@ export class UserBankDetailSectionComponent implements OnInit {
   formGroup = new FormGroup({});
 
   get f() { return this.formGroup.controls; }
-  constructor(private readonly fb: FormBuilder, private readonly _commonService: CommonService) { }
+  constructor(private readonly fb: FormBuilder,  readonly _commonService: CommonService) { }
 
   ngOnInit(): void {
     this.formInit();

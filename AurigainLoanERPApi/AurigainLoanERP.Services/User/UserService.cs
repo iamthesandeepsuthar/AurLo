@@ -1236,7 +1236,7 @@ namespace AurigainLoanERP.Services.User
                     objModel.CreatedOn = DateTime.Now;
                     objModel.UserId = userId;
                     objModel.PaymentModeId = model.PaymentModeId;
-                    objModel.TransactionStatus = model.TransactionStatus ?? null;
+                    objModel.TransactionStatus = (int)TransactionStatusEnum.None;
                     objModel.Amount = model.Amount;
                     objModel.CreditDate = model.CreditDate;
                     objModel.ReferanceNumber = !string.IsNullOrEmpty(model.ReferanceNumber) ? model.ReferanceNumber : null;
@@ -1244,9 +1244,15 @@ namespace AurigainLoanERP.Services.User
                     objModel.BankName = !string.IsNullOrEmpty(model.BankName) ? model.BankName : null;
                     objModel.IsActive = model.IsActive;
                     var result = await _db.UserSecurityDepositDetails.AddAsync(objModel);
-                    var user = await _db.UserDoorStepAgent.FirstOrDefaultAsync(x => x.Id == userId);
-                    user.SecurityDepositId = result.Entity.Id;
                     await _db.SaveChangesAsync();
+
+                    var user = await _db.UserDoorStepAgent.FirstOrDefaultAsync(x => x.UserId == userId);
+                    if (true)
+                    {
+                        user.SecurityDepositId = result.Entity.Id;
+                        await _db.SaveChangesAsync();
+                    }
+
 
                 }
                 else
@@ -1254,7 +1260,7 @@ namespace AurigainLoanERP.Services.User
                     var objModel = await _db.UserSecurityDepositDetails.FirstOrDefaultAsync(x => x.Id == model.Id);
                     objModel.ModifiedDate = DateTime.Now;
                     objModel.PaymentModeId = model.PaymentModeId;
-                    objModel.TransactionStatus = model.TransactionStatus;
+                    objModel.TransactionStatus = objModel.TransactionStatus.HasValue ? objModel.TransactionStatus : (int)TransactionStatusEnum.None;
                     objModel.Amount = model.Amount;
                     objModel.CreditDate = model.CreditDate.ToLocalTime();
                     objModel.ReferanceNumber = !string.IsNullOrEmpty(model.ReferanceNumber) ? model.ReferanceNumber : null;

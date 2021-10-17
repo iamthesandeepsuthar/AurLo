@@ -1,38 +1,42 @@
 <div class="widget-content widget-content p-3 form-grp-w-border">
-    <h2> <img src="assets/img/document_pictures_white.png"> Document Proof</h2>
+  <h2> <img src="assets/img/document_pictures_white.png"> Document Proof</h2>
+  <form [formGroup]="formGroup">
+
     <div class="row">
-        <!-- <div class="form-group col-md-12">
-            <label>Profile Picture</label>
-            <input type="file" class="form-control" id="file1" placeholder="Enter number">
-            <div class="file-upload-preview d-flex flex-wrap">
-                <div class="file-upload-preview-items d-flex align-items-center justify-content-center position-relative">
-                    <a href="#" class="file-upload-preview-items-delete"><i class="fas fa-times"></i></a>
-                    <img src="assets/img/default.jpg">
-                </div>
-            </div>
-        </div> -->
-        <div class="form-group col-md-4">
-            <label>Aadhaar Card Picture</label>
-            <app-file-selector (FilesChanged)="onDocumentAttach(docTypeEnum.AadhaarCard, $event,false)">
-            </app-file-selector>
-            <!-- <input type="file" class="form-control" id="file1" placeholder="Enter number">
-       -->
 
-        </div>
-        <div class="form-group col-md-4">
-            <label>PAN Card Picture</label>
-            <app-file-selector (FilesChanged)="onDocumentAttach(docTypeEnum.PANCard, $event,false)">
+      <div class="form-group col-md-4">
+        <label>Aadhaar Card Picture</label>
+        <input type="hidden" name="AadhaarCard" [(ngModel)]="TotalAdharDoc" formControlName="AadhaarCard">
+        <app-file-selector (FilesChanged)="onDocumentAttach(docTypeEnum.AadhaarCard, $event,false)">
+        </app-file-selector>
 
-            </app-file-selector>
-        </div>
-        <div class="form-group col-md-4">
-            <label>Cancelled Cheque Picture</label>
-            <app-file-selector (FilesChanged)="onDocumentAttach(docTypeEnum.CancelledCheque, $event,false)">
+        <div class="invalid-feedback"
+          *ngIf="(formGroup.get('AadhaarCard')?.hasError('required') && formGroup.get('AadhaarCard')?.touched)">
+          Please Add Aadhaar Card doc ...! </div>
+      </div>
+      <div class="form-group col-md-4">
+        <label>PAN Card Picture</label>
+        <input type="hidden" name="PANCard" [(ngModel)]="TotalPANDoc" formControlName="PANCard">
+        <app-file-selector (FilesChanged)="onDocumentAttach(docTypeEnum.PANCard, $event,false)">
+        </app-file-selector>
 
-            </app-file-selector>
-        </div>
+        <div class="invalid-feedback"
+        *ngIf="(formGroup.get('PANCard')?.hasError('required') && formGroup.get('PANCard')?.touched)">
+        Please Add PAN Card doc ...! </div>
+      </div>
+      <div class="form-group col-md-4">
+        <label>Cancelled Cheque Picture</label>
+        <input type="hidden" name="CancelledCheque" [(ngModel)]="TotalChequeDoc" formControlName="CancelledCheque">
+        <app-file-selector (FilesChanged)="onDocumentAttach(docTypeEnum.CancelledCheque, $event,false)">
+        </app-file-selector>
+
+        <div class="invalid-feedback"
+        *ngIf="(formGroup.get('CancelledCheque')?.hasError('required') && formGroup.get('CancelledCheque')?.touched)">
+        Please Add PAN Card doc ...! </div>
+      </div>
 
 
 
     </div>
+  </form>
 </div>

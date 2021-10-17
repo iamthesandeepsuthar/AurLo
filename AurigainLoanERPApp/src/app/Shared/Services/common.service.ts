@@ -12,7 +12,7 @@ export class CommonService extends AlertService {
 
   constructor(private readonly _baseService: BaseAPIService) {
     super();
-   }
+  }
 
   GetDropDown(key: string[]): Observable<ApiResponse<any>> {
 
@@ -29,7 +29,7 @@ export class CommonService extends AlertService {
     return this._baseService.post(this._baseService.API_Url.MultipleFilterDropDown_Api, model);
   }
 
-  NumberOnly(event:any, isCommaOrDash: boolean = false): boolean {
+  NumberOnly(event: any, isCommaOrDash: boolean = false): boolean {
 
     const charCode = event.which ? event.which : event.keyCode;
     if (isCommaOrDash) {
@@ -43,19 +43,19 @@ export class CommonService extends AlertService {
     return true;
   }
 
-  checkDecimalNumberOnly(event:any, txt :string): boolean {
-
+  checkDecimalNumberOnly(event: any): boolean {
+    debugger
     var charCode = (event.which) ? event.which : event.keyCode;
     if (charCode == 46) {
       //Check if the text already contains the . character
-      if (txt.indexOf('.') === -1) {
+      if (event.target.value.indexOf('.') === -1) {
         return true;
       } else {
         return false;
       }
     }
     else {
-      if (txt.split('.').length > 1 && txt.split('.')[1].length > 1) {
+      if (event.target.value.split('.').length > 1 && event.target.value.split('.')[1].length > 1) {
         return false;
       }
       else if (charCode > 31 && (charCode < 48 || charCode > 57))
@@ -64,7 +64,7 @@ export class CommonService extends AlertService {
     return true;
   }
 
-  AlphaNumericOnly(e:any) {
+  AlphaNumericOnly(e: any) {
     var keyCode = e.keyCode || e.which;
     var regex = /^[A-Za-z0-9]+$/;
     var isValid = regex.test(String.fromCharCode(keyCode));
@@ -74,7 +74,7 @@ export class CommonService extends AlertService {
     return isValid;
   }
 
-  AlphabetOnly(e:any) {
+  AlphabetOnly(e: any) {
     var keyCode = e.keyCode || e.which;
     var regex = /^[a-zA-Z& ]*$/;;
     var isValid = regex.test(String.fromCharCode(keyCode));

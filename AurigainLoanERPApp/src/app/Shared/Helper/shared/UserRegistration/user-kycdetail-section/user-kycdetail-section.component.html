@@ -12,7 +12,7 @@
     </div>
     <div class="form-group col-md-6">
       <label>Document number</label>
-      <input type="text" class="form-control" id="input1" [(ngModel)]="this.model.Kycnumber" placeholder="Enter number">
+      <input type="text" (keypress)="_commonService.AlphaNumericOnly($event)" class="form-control" id="input1" [(ngModel)]="this.model.Kycnumber" placeholder="Enter number">
     </div>
     <div class="form-group col-md-2" *ngIf="model.KycdocumentTypeId && this.model.Kycnumber">
       <label class="d-none d-md-block">&nbsp;</label>

@@ -19,7 +19,7 @@ export class UserSecurityDepositComponent implements OnInit {
   get ddlkeys() { return DropDown_key };
 
   get f() { return this.formGroup.controls; }
-  constructor(private readonly fb: FormBuilder, private readonly _commonService: CommonService) { }
+  constructor(private readonly fb: FormBuilder, readonly _commonService: CommonService) { }
 
   ngOnInit(): void {
     this.formInit();
@@ -31,7 +31,6 @@ export class UserSecurityDepositComponent implements OnInit {
     this.formGroup.markAllAsTouched();
     if (this.formGroup.valid) {
       this.onSubmit.emit(this.userSecurity);
-
     }
   }
 
@@ -40,9 +39,10 @@ export class UserSecurityDepositComponent implements OnInit {
 
     this._commonService.GetDropDown([DropDown_key.ddlPaymentMode]).subscribe(res => {
       if (res.IsSuccess) {
-
         let ddls = res.Data as DropDownModel;
         this.dropDown.ddlPaymentMode = ddls.ddlPaymentMode;
+      } else {
+        this.dropDown.ddlPaymentMode = [];
       }
     });
   }
@@ -51,10 +51,8 @@ export class UserSecurityDepositComponent implements OnInit {
   formInit() {
     this.formGroup = this.fb.group({
       AccountNumber: [undefined, Validators.required],
-      Ifsccode: [undefined, Validators.required],
       BankName: [undefined, Validators.required],
       PaymentMode: [undefined, Validators.required],
-      TransactionStatus: [undefined, Validators.required],
       Amount: [undefined, Validators.required],
       CreditDate: [undefined, Validators.required],
       ReferanceNumber: [undefined, Validators.required],

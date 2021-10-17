@@ -27,7 +27,7 @@ namespace AurigainLoanERP.Shared.ContractModel
     {
         public int Id { get; set; }
         public int PaymentModeId { get; set; }
-        public int? TransactionStatus { get; set; }
+        //public int? TransactionStatus { get; set; }
         public decimal Amount { get; set; }
         public DateTime CreditDate { get; set; }
         public string ReferanceNumber { get; set; }

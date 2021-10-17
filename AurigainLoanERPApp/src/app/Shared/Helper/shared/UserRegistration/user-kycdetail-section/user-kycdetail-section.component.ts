@@ -21,7 +21,7 @@ export class UserKYCDetailSectionComponent implements OnInit {
   formGroup = new FormGroup({});
 
   get f() { return this.formGroup.controls; }
-  constructor(private readonly fb: FormBuilder, private readonly _commonService: CommonService, private readonly _alertService: AlertService) { }
+  constructor(private readonly fb: FormBuilder,  readonly _commonService: CommonService, private readonly _alertService: AlertService) { }
 
   ngOnInit(): void {
     this.GetDropDown();

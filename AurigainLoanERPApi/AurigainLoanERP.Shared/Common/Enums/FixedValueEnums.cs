@@ -71,9 +71,23 @@ namespace AurigainLoanERP.Shared.Enums
             DoorStepAgent = 6,
         }
 
-        public enum RateOfInterestType { 
-         Flat =1,
-         Reducing =0
+        public enum RateOfInterestType
+        {
+            Flat = 1,
+            Reducing = 0
+        }
+
+        public enum TransactionStatusEnum
+        {
+            [StringValue("None")]
+            None = 0,
+            [StringValue("Success")]
+            Success = 1,
+            [StringValue("Fail")]
+            Fail = 2,
+            [StringValue("Pending")]
+            Pending = 3,
+            
         }
     }
 

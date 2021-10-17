@@ -32,15 +32,11 @@ export class DoorStepAgentPostModel {
 
 export class UserSecurityDepositPostModel {
   constructor() {
-    this.Id = 0;
-    this.PaymentModeId = 0;
-    this.TransactionStatus = 0;
-    this.Amount = 0;
+
   }
   Id!: number;
   PaymentModeId!: number;
-  TransactionStatus!: number;
-  Amount!: number;
+  Amount!: string;
   CreditDate!: Date;
   ReferanceNumber!: string;
   AccountNumber!: string;
