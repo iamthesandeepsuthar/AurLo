@@ -58,10 +58,11 @@ export class DoorStepAgentRegistrationComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.GetDropDown();
-    this.formInit();
 
+    this.formInit();
+    this.GetDropDown();
     if(this.Id>0){
+      alert
       this.onGetDetail();
     }
   }
@@ -82,7 +83,7 @@ export class DoorStepAgentRegistrationComponent implements OnInit {
   }
 
   GetFilterDropDown(key: string, FilterFrom: string, Values: any) {
-
+alert
     let model = {
       Key: key,
       FileterFromKey: FilterFrom,
@@ -202,6 +203,7 @@ export class DoorStepAgentRegistrationComponent implements OnInit {
     }
 
   }
+
   onGetDetail() {
     if (this.Id > 0) {
       this._userDoorStepService.GetDoorStepAgent(this.Id).subscribe(res => {

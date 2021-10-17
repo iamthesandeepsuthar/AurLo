@@ -22,7 +22,7 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
         }
 
         // GET: api/<AgentController>
-        [HttpGet]
+        [HttpPost]
         public async Task<ApiServiceResponseModel<List<AgentListViewModel>>> Get(IndexModel model)
         {
             return await _userSerivce.GetAgentAsync(model);

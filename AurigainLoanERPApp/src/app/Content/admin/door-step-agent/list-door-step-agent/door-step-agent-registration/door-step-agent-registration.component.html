@@ -35,13 +35,15 @@
   <form [formGroup]="formGroup" (ngSubmit)="onFrmSubmit()">
     <div class="form-row">
 
-      <div class="col-lg-3 col-xl-2 pr-4 mb-4 mb-lg-0 agent-door-profile-img-box upload-btn-wrapper">
+      <div *ngIf="Id>0" class="col-lg-3 col-xl-2 pr-4 mb-4 mb-lg-0 agent-door-profile-img-box upload-btn-wrapper">
         <div class="agent-door-profile-img d-flex align-items-center justify-content-center">
           <img src="assets/img/user-default.jpg">
-          <input *ngIf="Id>0" type="file" name="myfile" />
+          <input type="file" name="myfile" />
         </div>
-        <button *ngIf="Id>0" type="submit" data-toggle="tooltip" data-placement="bottom" title="Upload Profile"><i
-            class="fas fa-cloud-upload-alt"></i></button>
+        <button type="button" data-toggle="tooltip" data-placement="bottom" title="Upload Profile">
+          <i class="fas fa-cloud-upload-alt"></i>
+          <!-- <i class="fas fa-cloud-upload-alt"></i> -->
+        </button>
       </div>
 
       <!-- <div class="upload-btn-wrapper">
@@ -62,6 +64,7 @@
             Please Full Name...! </div>
 
         </div>
+
         <div class="form-group col-md-4 date-icon-with-label">
           <label>Date of birth</label>
           <input class="form-control" #datepickerYMD="bsDatepicker" formControlName="DateOfBirth"
@@ -96,10 +99,11 @@
             *ngIf="!formGroup.get('Mobile')?.hasError('required') && ((formGroup.get('Mobile')?.hasError('maxlength') || formGroup.get('Mobile')?.hasError('minlength')) && formGroup.get('Mobile')?.touched) || (formGroup.get('Mobile')?.hasError('maxlength') || formGroup.get('Mobile')?.hasError('minlength'))">
             Mobile lenght must be 10-12 digit...! </div>
         </div>
+
         <div class="form-group col-md-4">
           <label>Qualification</label>
 
-          <ng-select [items]="dropDown!.ddlQualification" formControlName="Qualification"
+          <ng-select  formControlName="Qualification" [items]="dropDown!.ddlQualification"
             [ngClass]="{ 'is-invalid': f.Qualification.errors && f.Qualification.touched}" bindLabel="Text"
             bindValue="Value" placeholder="Qualification" appendTo="body" [(ngModel)]="model.QualificationId">
           </ng-select>

@@ -19,7 +19,7 @@ const routes: Routes = [
     path: `${Routing_Url.DoorStepAgenDetailUrl}/:id`, component: DetailDoorStepAgentComponent, canActivate: [AuthenticationGuard]
   },
   {
-    path: `${Routing_Url.DoorStepAgenDetailUrl}/:id`, component: DoorStepAgentAvailabilityComponent, canActivate: [AuthenticationGuard]
+    path: `${Routing_Url.DoorStepAgentAvailibilityUrl}/:id`, component: DoorStepAgentAvailabilityComponent, canActivate: [AuthenticationGuard]
   },
 ];
 

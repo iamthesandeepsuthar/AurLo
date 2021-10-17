@@ -417,20 +417,20 @@ namespace AurigainLoanERP.Shared.ContractModel
 
     public class UserAvailibilityPostModel {
         public long UserId { get; set; }
-        public TimeSpan? MondaySt { get; set; }
-        public TimeSpan? MondayEt { get; set; }
-        public TimeSpan? TuesdaySt { get; set; }
-        public TimeSpan? TuesdayEt { get; set; }
-        public TimeSpan? WednesdaySt { get; set; }
-        public TimeSpan? WednesdayEt { get; set; }
-        public TimeSpan? ThursdaySt { get; set; }
-        public TimeSpan? ThursdayEt { get; set; }
-        public TimeSpan? FridaySt { get; set; }
-        public TimeSpan? FridayEt { get; set; }
-        public TimeSpan? SaturdaySt { get; set; }
-        public TimeSpan? SaturdayEt { get; set; }
-        public TimeSpan? SundaySt { get; set; }
-        public TimeSpan? SundayEt { get; set; }
+        public string MondayST { get; set; }
+        public string MondayET { get; set; }
+        public string TuesdayST { get; set; }
+        public string TuesdayET { get; set; }
+        public string WednesdayST { get; set; }
+        public string WednesdayET { get; set; }
+        public string ThursdayST { get; set; }
+        public string ThursdayET { get; set; }
+        public string FridayST { get; set; }
+        public string FridayET { get; set; }
+        public string SaturdayST { get; set; }
+        public string SaturdayET { get; set; }
+        public string SundayST { get; set; }
+        public string SundayET { get; set; }
         public int? Capacity { get; set; }
         public long? PinCode { get; set; }
         public int? DistrictId { get; set; }

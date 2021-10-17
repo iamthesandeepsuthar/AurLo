@@ -12,7 +12,7 @@ import { DoorStepAgentService } from "src/app/Shared/Services/door-step-agent-se
   selector: 'app-list-door-step-agent',
   templateUrl: './list-door-step-agent.component.html',
   styleUrls: ['./list-door-step-agent.component.scss'],
-  providers:[DoorStepAgentService]
+  providers: [DoorStepAgentService]
 })
 export class ListDoorStepAgentComponent implements OnInit {
 
@@ -26,7 +26,7 @@ export class ListDoorStepAgentComponent implements OnInit {
   @ViewChild(MatSort, { static: true }) sort!: MatSort;
   id!: number;
   displayedColumns: string[] = ['index', 'FullName', 'Gender', 'IsActive', 'Action'];
-  ViewdisplayedColumns = [{ Value: 'FullName', Text: 'Full Name' }, { Value: 'Gender', Text: 'Gender' },  { Value: 'Email', Text: 'Email' },  { Value: 'Mobile', Text: 'Mobile' }];
+  ViewdisplayedColumns = [{ Value: 'FullName', Text: 'Full Name' }, { Value: 'Gender', Text: 'Gender' }, { Value: 'Email', Text: 'Email' }, { Value: 'Mobile', Text: 'Mobile' }];
   indexModel = new IndexModel();
   totalRecords: number = 0;
   //#endregion
@@ -38,10 +38,10 @@ export class ListDoorStepAgentComponent implements OnInit {
 
   getList(): void {
 
-    this._service.GetDoorStepAgentList(this.indexModel).subscribe(response => {
-
+    let serve = this._service.GetDoorStepAgentList(this.indexModel).subscribe(response => {
+      serve.unsubscribe();
       if (response.IsSuccess) {
-        
+
         this.model = response.Data as DoorStepAgentListModel[];
         this.dataSource = new MatTableDataSource<DoorStepAgentListModel>(this.model);
         this.totalRecords = response.TotalRecord as number;
@@ -58,7 +58,7 @@ export class ListDoorStepAgentComponent implements OnInit {
   }
 
   sortData(event: any): void {
-    
+
     this.indexModel.OrderBy = event.active;
     this.indexModel.OrderByAsc = event.direction == "asc" ? true : false;
     this.indexModel.IsPostBack = true;
