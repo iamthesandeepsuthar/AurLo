@@ -20,12 +20,12 @@ namespace AurigainLoanERP.Services.StateAndDistrict
 
         #region Distict Method
         Task<ApiServiceResponseModel<List<DistrictModel>>> GetAllDistrictAsync(IndexModel model);
-        Task<ApiServiceResponseModel<DistrictModel>> GetDistrictById(int id);
+        Task<ApiServiceResponseModel<DistrictModel>> GetDistrictById(long id);
         Task<ApiServiceResponseModel<List<DDLDistrictModel>>> GetDistricts(int id);
         Task<ApiServiceResponseModel<string>> AddUpdateDistrictAsync(DistrictModel model);
         // Task<ApiServiceResponseModel<object>> CheckRoleExist(string name, int? id = null);      
-        Task<ApiServiceResponseModel<object>> UpateDistrictActiveStatus(int id);
-        Task<ApiServiceResponseModel<object>> UpdateDistrictDeleteStatus(int id);
+        Task<ApiServiceResponseModel<object>> UpateDistrictActiveStatus(long id);
+        Task<ApiServiceResponseModel<object>> UpdateDistrictDeleteStatus(long id);
         #endregion
     }
 }

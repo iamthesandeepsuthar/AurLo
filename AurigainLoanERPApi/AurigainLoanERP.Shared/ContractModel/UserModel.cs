@@ -14,7 +14,7 @@ namespace AurigainLoanERP.Shared.ContractModel
         public long Id { get; set; }
         public int UserRoleId { get; set; }
         public string UserRoleName { get; set; }
-
+        public string ProfilePath { get; set;}
         public string UserName { get; set; }
         public string MPin { get; set; }
         public string Email { get; set; }
