@@ -11,7 +11,7 @@ import { UserNomineeDetailSectionComponent } from "src/app/Shared/Helper/shared/
 import { AlertService } from "src/app/Shared/Services/alert.service";
 import { CommonService } from "src/app/Shared/Services/common.service";
 import { DoorStepAgentService } from "src/app/Shared/Services/door-step-agent-services/door-step-agent.service";
-import { DoorStepAgentPostModel, UserPostModel, UserKYCPostModel, UserNomineePostModel, UserBankDetailsPostModel, DocumentPostModel, UserSecurityDepositPostModel } from "../../../../../Shared/Model/doorstep-agent-model/door-step-agent.model";
+import { DoorStepAgentPostModel, UserPostModel, UserKYCPostModel, UserNomineePostModel, UserBankDetailsPostModel, DocumentPostModel, UserSecurityDepositPostModel, DoorStepAgentViewModel } from '../../../../../Shared/Model/doorstep-agent-model/door-step-agent.model';
 import { Message } from '../../../../../Shared/Helper/constants';
 import { UserSettingService } from "src/app/Shared/Services/user-setting-services/user-setting.service";
 import { UserSettingPostModel } from "src/app/Shared/Model/User-setting-model/user-setting.model";
@@ -219,7 +219,26 @@ export class DoorStepAgentRegistrationComponent implements OnInit {
   onGetDetail() {
     if (this.Id > 0) {
       this._userDoorStepService.GetDoorStepAgent(this.Id).subscribe(res => {
-        if (res.IsSuccess) { }
+        if (res.IsSuccess) {
+          let data = res.Data as DoorStepAgentViewModel;
+
+          this.model.Id = data.Id;
+          this.model.FullName = data.FullName;
+          this.model.FatherName = data.FatherName;
+          this.model.Gender = data.Gender;
+          this.model.QualificationId = data.QualificationId;
+          this.model.Address = data.Address;
+          this.model.DistrictId = data.DistrictId;
+          this.model.StateId = data.StateId;
+          this.model.PinCode = data.PinCode;
+          this.model.DateOfBirth = data.DateOfBirth;
+          this.model.ProfilePictureUrl = data.ProfilePictureUrl;
+          this.model.SelfFunded = data.SelfFunded;
+          this.model.User.Email = data.User.Email;
+          this.model.User.Mobile = data.User.Mobile;
+
+
+        }
       });
     }
 

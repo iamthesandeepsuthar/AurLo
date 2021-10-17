@@ -245,6 +245,8 @@ namespace AurigainLoanERP.Shared.ContractModel
         public int? DistrictId { get; set; }
         public string DistrictName { get; set; }
         public string StateName { get; set; }
+        public int? StateId { get; set; }
+
         public DateTime? DateOfBirth { get; set; }
         public string ProfilePictureUrl { get; set; }
         public bool? IsActive { get; set; }

@@ -128,14 +128,14 @@
           <div class="form-radio-check-grp">
             <div class="n-chk d-inline">
               <label class="new-control new-radio radio-classic-info">
-                <input type="radio" class="new-control-input" value="{{true}}" formControlName="SelfFunded"
+                <input type="radio" class="new-control-input" [value]="true" formControlName="SelfFunded"
                   [(ngModel)]="model.SelfFunded" name="SelfFunded">
                 <span class="new-control-indicator"></span>Yes
               </label>
             </div>
             <div class="n-chk d-inline">
               <label class="new-control new-radio radio-classic-info">
-                <input type="radio" class="new-control-input" value="{{false}}" formControlName="SelfFunded"
+                <input type="radio" class="new-control-input" [value]="false" formControlName="SelfFunded"
                   [(ngModel)]="model.SelfFunded" name="SelfFunded">
                 <span class="new-control-indicator"></span>No
               </label>

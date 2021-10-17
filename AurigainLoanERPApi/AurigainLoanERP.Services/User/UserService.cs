@@ -577,6 +577,7 @@ namespace AurigainLoanERP.Services.User
 
                         objDoorStepAgentModel.DistrictName = objDoorStepAgent.District.Name;
                         objDoorStepAgentModel.StateName = objDoorStepAgent.District.State.Name;
+                        objDoorStepAgentModel.StateId = objDoorStepAgent.District.StateId;
                         objDoorStepAgentModel.QualificationName = objDoorStepAgent.Qualification.Name;
                         objDoorStepAgentModel.User.UserRoleName = objDoorStepAgent.User.UserRole.Name;
                     }
