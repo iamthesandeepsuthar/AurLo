@@ -97,6 +97,7 @@ export class ListAgentComponent implements OnInit {
     });
 
   }
+  
   updateDeleteStatus(id: number) {
 
     this._commonService.Question(Message.ConfirmUpdate as string).then(result => {
