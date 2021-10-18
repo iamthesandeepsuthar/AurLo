@@ -67,5 +67,7 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
         {
             return await _userSerivce.UpdateDeleteStatus(id);
         }
+
+      
     }
 }

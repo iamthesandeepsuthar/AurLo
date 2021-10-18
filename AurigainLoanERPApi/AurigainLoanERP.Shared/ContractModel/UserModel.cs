@@ -178,6 +178,8 @@ namespace AurigainLoanERP.Shared.ContractModel
         public string PinCode { get; set; }
         public DateTime? DateOfBirth { get; set; }
         public string ProfilePictureUrl { get; set; }
+        public bool IsApproved { get; set; }
+
         public bool? IsActive { get; set; }
         public bool IsDelete { get; set; }
         public DateTime CreatedOn { get; set; }
@@ -208,6 +210,7 @@ namespace AurigainLoanERP.Shared.ContractModel
         public string PinCode { get; set; }
         public DateTime? DateOfBirth { get; set; }
         public string ProfilePictureUrl { get; set; }
+        public bool IsApproved { get; set; }
         public bool? IsActive { get; set; }
         public bool IsDelete { get; set; }
         public DateTime CreatedOn { get; set; }

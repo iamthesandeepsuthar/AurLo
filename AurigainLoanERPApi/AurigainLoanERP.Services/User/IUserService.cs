@@ -39,6 +39,8 @@ namespace AurigainLoanERP.Services.User
         /// <returns>true</returns>
         Task<ApiServiceResponseModel<object>> UpateActiveStatus(long id);
 
+        Task<ApiServiceResponseModel<object>> UpdateApproveStatus(long id);
+
         /// <summary>
         /// Record Mark as delete
         /// </summary>

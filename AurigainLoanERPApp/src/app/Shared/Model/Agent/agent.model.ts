@@ -19,6 +19,7 @@ export interface AgentListModel {
   DateOfBirth: string;
   ProfilePictureUrl: string;
   IsActive: boolean;
+  IsApproved: boolean;
   IsDelete: boolean;
   CreatedOn: string;
   ModifiedOn: string;

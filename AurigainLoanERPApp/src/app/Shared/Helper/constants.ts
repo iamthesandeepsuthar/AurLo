@@ -87,11 +87,11 @@ export class API_Url {
   public static AgentDeleteApi = `${environment.apiEndPoint}Agent/Delete/`;
   public static AgentActiveStatusApi = `${environment.apiEndPoint}Agent/ChangeActiveStatus/`;
   public static AgentDetailApi = `${environment.apiEndPoint}Agent/GetById/`;
-
   //#endregion
 
   //#region <<User Setting>>
   public static UserUpdateProfileApi = `${environment.apiEndPoint}UserSetting/UpdateProfile`;
+  public static UserApproveStatusApi = `${environment.apiEndPoint}UserSetting/UpdateApproveStatus/`;
 
   //#endregion
 
