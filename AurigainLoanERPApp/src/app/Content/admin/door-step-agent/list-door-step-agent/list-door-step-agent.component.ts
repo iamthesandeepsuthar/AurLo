@@ -1,20 +1,18 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
-import { IndexModel } from 'src/app/Shared/Helper/common-model';
-import { Message, Routing_Url } from 'src/app/Shared/Helper/constants';
-import { DoorStepAgentViewModel } from 'src/app/Shared/Model/doorstep-agent-model/door-step-agent.model';
-import { UserRoleModel } from 'src/app/Shared/Model/master-model/user-role.model';
-import { CommonService } from 'src/app/Shared/Services/common.service';
-import { DoorStepAgentService } from 'src/app/Shared/Services/door-step-agent-services/door-step-agent.service';
-import { UserRoleService } from 'src/app/Shared/Services/master-services/user-role.service';
+import { Component, OnInit, ViewChild } from "@angular/core";
+import { MatPaginator } from "@angular/material/paginator";
+import { MatSort } from "@angular/material/sort";
+import { MatTableDataSource } from "@angular/material/table";
+import { IndexModel } from "src/app/Shared/Helper/common-model";
+import { Routing_Url, Message } from "src/app/Shared/Helper/constants";
+import { DoorStepAgentListModel, DoorStepAgentViewModel } from "src/app/Shared/Model/doorstep-agent-model/door-step-agent.model";
+import { CommonService } from "src/app/Shared/Services/common.service";
+import { DoorStepAgentService } from "src/app/Shared/Services/door-step-agent-services/door-step-agent.service";
 
 @Component({
   selector: 'app-list-door-step-agent',
   templateUrl: './list-door-step-agent.component.html',
   styleUrls: ['./list-door-step-agent.component.scss'],
-  providers:[DoorStepAgentService]
+  providers: [DoorStepAgentService]
 })
 export class ListDoorStepAgentComponent implements OnInit {
 
@@ -22,13 +20,13 @@ export class ListDoorStepAgentComponent implements OnInit {
   //#region <<  Variable  >>
   get routing_Url() { return Routing_Url }
 
-  model!: DoorStepAgentViewModel[];
+  model!: DoorStepAgentListModel[];
   dataSource: any;
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort!: MatSort;
   id!: number;
   displayedColumns: string[] = ['index', 'FullName', 'Gender', 'IsActive', 'Action'];
-  ViewdisplayedColumns = [{ Value: 'FullName', Text: 'Full Name' }, { Value: 'Gender', Text: 'Gender' }];
+  ViewdisplayedColumns = [{ Value: 'FullName', Text: 'Full Name' }, { Value: 'Gender', Text: 'Gender' }, { Value: 'Email', Text: 'Email' }, { Value: 'Mobile', Text: 'Mobile' }];
   indexModel = new IndexModel();
   totalRecords: number = 0;
   //#endregion
@@ -40,12 +38,12 @@ export class ListDoorStepAgentComponent implements OnInit {
 
   getList(): void {
 
-    this._service.GetDoorStepAgentList(this.indexModel).subscribe(response => {
-
+    let serve = this._service.GetDoorStepAgentList(this.indexModel).subscribe(response => {
+      serve.unsubscribe();
       if (response.IsSuccess) {
-        
-        this.model = response.Data as DoorStepAgentViewModel[];
-        this.dataSource = new MatTableDataSource<DoorStepAgentViewModel>(this.model);
+
+        this.model = response.Data as DoorStepAgentListModel[];
+        this.dataSource = new MatTableDataSource<DoorStepAgentListModel>(this.model);
         this.totalRecords = response.TotalRecord as number;
         if (!this.indexModel.IsPostBack) {
           this.dataSource.paginator = this.paginator;
@@ -60,7 +58,7 @@ export class ListDoorStepAgentComponent implements OnInit {
   }
 
   sortData(event: any): void {
-    
+
     this.indexModel.OrderBy = event.active;
     this.indexModel.OrderByAsc = event.direction == "asc" ? true : false;
     this.indexModel.IsPostBack = true;

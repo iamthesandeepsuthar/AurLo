@@ -90,11 +90,14 @@
     <Build Include="BankBranchMaster.sql" />
     <Build Include="ProductCategory.sql" />
     <Build Include="Managers.sql" />
+    <Build Include="Product.sql" />
+    <Build Include="UserAvailability.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="AurigainLoanERP.Database.refactorlog" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment.sql" />
+    <None Include="PostScript\QualificationMaster.sql" />
   </ItemGroup>
 </Project>

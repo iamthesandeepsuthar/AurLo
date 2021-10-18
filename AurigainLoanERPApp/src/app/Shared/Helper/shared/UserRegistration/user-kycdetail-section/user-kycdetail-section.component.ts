@@ -3,7 +3,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { CommonService } from 'src/app/Shared/Services/common.service';
 import { UserKYCPostModel } from '../../../../Model/doorstep-agent-model/door-step-agent.model';
-import { DropDownModol } from '../../../common-model';
+import { DropDownModel } from '../../../common-model';
 import { DropDown_key } from '../../../constants';
 
 @Component({
@@ -16,24 +16,24 @@ export class UserKYCDetailSectionComponent implements OnInit {
   @Output() onSubmit = new EventEmitter<UserKYCPostModel[]>();
 
   model: UserKYCPostModel = {} as UserKYCPostModel;
-  dropDown = new DropDownModol();
+  dropDown = new DropDownModel();
   get ddlkeys() { return DropDown_key };
   formGroup = new FormGroup({});
 
   get f() { return this.formGroup.controls; }
-  constructor(private readonly fb: FormBuilder, private readonly _commonService: CommonService, private readonly _alertService: AlertService) { }
+  constructor(private readonly fb: FormBuilder,  readonly _commonService: CommonService, private readonly _alertService: AlertService) { }
 
   ngOnInit(): void {
     this.GetDropDown();
-   
+
   }
 
   GetDropDown() {
 
     this._commonService.GetDropDown([DropDown_key.ddlDocumentType]).subscribe(res => {
       if (res.IsSuccess) {
-        
-        let ddls = res.Data as DropDownModol;
+
+        let ddls = res.Data as DropDownModel;
         this.dropDown.ddlDocumentType = ddls.ddlDocumentType;
       }
     });
@@ -75,4 +75,5 @@ export class UserKYCDetailSectionComponent implements OnInit {
   onFrmSubmit(){
     this.onSubmit.emit(this.kycModel);
   }
+
 }

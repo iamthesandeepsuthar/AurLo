@@ -37,7 +37,7 @@ namespace AurigainLoanERP.Shared.ExtensionMethod
                 {
                     HttpRequest request = _httpContext.HttpContext.Request;
 
-                    return string.Concat(request.HttpContext.Request.Host.Value, filePath.Replace("~", "").Replace("\\", "//"));
+                    return string.Concat(request.IsHttps ? "https://" : "http://" , request.HttpContext.Request.Host.Value, filePath.Replace("~", "").Replace("\\", "//"));
 
                 }
                 return null;

@@ -211,7 +211,7 @@ namespace AurigainLoanERP.Services.StateAndDistrict
             }
 
         }
-        public async Task<ApiServiceResponseModel<DistrictModel>> GetDistrictById(int id)
+        public async Task<ApiServiceResponseModel<DistrictModel>> GetDistrictById(long id)
         {
 
             try
@@ -236,7 +236,7 @@ namespace AurigainLoanERP.Services.StateAndDistrict
             }
 
         }
-        public async Task<ApiServiceResponseModel<List<DDLDistrictModel>>> GetDistricts(int id)
+        public async Task<ApiServiceResponseModel<List<DDLDistrictModel>>> GetDistricts(int id) //stateId
         {
             try
             {
@@ -264,7 +264,7 @@ namespace AurigainLoanERP.Services.StateAndDistrict
 
             }
         }
-        public async Task<ApiServiceResponseModel<object>> UpdateDistrictDeleteStatus(int id)
+        public async Task<ApiServiceResponseModel<object>> UpdateDistrictDeleteStatus(long id)
         {
             try
             {
@@ -273,7 +273,6 @@ namespace AurigainLoanERP.Services.StateAndDistrict
                 objRole.ModifiedOn = DateTime.Now;
                 await _db.SaveChangesAsync();
                 return CreateResponse<object>(true, ResponseMessage.Update, true,((int)ApiStatusCode.Ok));
-
             }
             catch (Exception)
             {
@@ -312,7 +311,7 @@ namespace AurigainLoanERP.Services.StateAndDistrict
             }
 
         }
-        public async Task<ApiServiceResponseModel<object>> UpateDistrictActiveStatus(int id)
+        public async Task<ApiServiceResponseModel<object>> UpateDistrictActiveStatus(long id)
         {
             try
             {

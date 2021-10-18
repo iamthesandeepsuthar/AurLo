@@ -9,6 +9,11 @@ namespace AurigainLoanERP.Data.Database
 {
     public partial class ProductCategory
     {
+        public ProductCategory()
+        {
+            Product = new HashSet<Product>();
+        }
+
         public int Id { get; set; }
         public string Name { get; set; }
         public bool? IsActive { get; set; }
@@ -16,5 +21,7 @@ namespace AurigainLoanERP.Data.Database
         public DateTime CreatedDate { get; set; }
         public DateTime? ModifiedDate { get; set; }
         public string Note { get; set; }
+
+        public virtual ICollection<Product> Product { get; set; }
     }
 }

@@ -8,7 +8,7 @@ namespace AurigainLoanERP.Shared.ContractModel
 {
     public class DistrictModel
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
         public string Name { get; set; }
         public int StateId { get; set; }
         public string Pincode { get; set; }
@@ -23,7 +23,7 @@ namespace AurigainLoanERP.Shared.ContractModel
     /// </summary>
     public class DDLDistrictModel 
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
         public string Name { get; set; }
         public string Pincode { get; set;}
     }

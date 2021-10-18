@@ -14,7 +14,7 @@ namespace AurigainLoanERP.Shared.ContractModel
         public long Id { get; set; }
         public int UserRoleId { get; set; }
         public string UserRoleName { get; set; }
-
+        public string ProfilePath { get; set;}
         public string UserName { get; set; }
         public string MPin { get; set; }
         public string Email { get; set; }
@@ -92,6 +92,25 @@ namespace AurigainLoanERP.Shared.ContractModel
         public virtual UserViewModel ReportingUser { get; set; }
     }
 
+    public class UserDocumentViewModel
+    {
+
+        public long Id { get; set; }
+        public int DocumentTypeId { get; set; }
+        public string DocumentTypeName{ get; set; }
+
+        public long UserId { get; set; }
+        public bool? IsActive { get; set; }
+        public bool IsDelete { get; set; }
+        public DateTime CreatedOn { get; set; }
+        public DateTime? ModifiedOn { get; set; }
+        public long? CreatedBy { get; set; }
+        public long? ModifiedBy { get; set; }
+
+
+        public virtual List<UserDocumentFilesViewModel> UserDocumentFiles { get; set; }
+    }
+
     public class AgentViewModel
     {
         public AgentViewModel()
@@ -105,7 +124,6 @@ namespace AurigainLoanERP.Shared.ContractModel
         }
         public long Id { get; set; }
 
-        public UserViewModel User { get; set; }
         public string FullName { get; set; }
         public string FatherName { get; set; }
         public string UniqueId { get; set; }
@@ -127,6 +145,7 @@ namespace AurigainLoanERP.Shared.ContractModel
         public long? CreatedBy { get; set; }
         public long? ModifiedBy { get; set; }
         public List<UserDocumentViewModel>? Documents { get; set; }
+        public UserViewModel User { get; set; }
 
         public UserBankDetailViewModel? BankDetails { get; set; }
         public List<UserKycViewModel>? UserKYC { get; set; }
@@ -138,7 +157,66 @@ namespace AurigainLoanERP.Shared.ContractModel
         //public virtual Object Qualification { get; set; }
 
     }
+    public class AgentListViewModel
+    {
 
+        public long Id { get; set; }
+        public long UserId { get; set; }
+        public int RoleId { get; set; }
+        public string Role { get; set; }
+        public string Email { get; set; }
+        public string Mobile { get; set; }
+        public string FullName { get; set; }
+        public string FatherName { get; set; }
+        public string UniqueId { get; set; }
+        public string Gender { get; set; }
+        public string QualificationName { get; set; }
+
+        public string Address { get; set; }
+        public string DistrictName { get; set; }
+        public string StateName { get; set; }
+        public string PinCode { get; set; }
+        public DateTime? DateOfBirth { get; set; }
+        public string ProfilePictureUrl { get; set; }
+        public bool? IsActive { get; set; }
+        public bool IsDelete { get; set; }
+        public DateTime CreatedOn { get; set; }
+        public DateTime? ModifiedOn { get; set; }
+        public long? CreatedBy { get; set; }
+        public long? ModifiedBy { get; set; }
+
+    }
+
+    public class DoorStepAgentListModel
+    {
+    
+        public long Id { get; set; }
+        public long UserId { get; set; }
+        public int RoleId { get; set; }
+        public string Role { get; set; } 
+        public string Email { get; set; }
+        public string Mobile { get; set; }
+        public string FullName { get; set; }
+        public string FatherName { get; set; }
+        public string UniqueId { get; set; }
+        public string Gender { get; set; }
+        public string QualificationName { get; set; }
+
+        public string Address { get; set; }
+        public string DistrictName { get; set; }
+        public string StateName { get; set; }
+        public string PinCode { get; set; }
+        public DateTime? DateOfBirth { get; set; }
+        public string ProfilePictureUrl { get; set; }
+        public bool? IsActive { get; set; }
+        public bool IsDelete { get; set; }
+        public DateTime CreatedOn { get; set; }
+        public DateTime? ModifiedOn { get; set; }
+        public long? CreatedBy { get; set; }
+        public long? ModifiedBy { get; set; }
+      
+    }
+     
     public class DoorStepAgentViewModel
     {
         public DoorStepAgentViewModel()
@@ -167,6 +245,8 @@ namespace AurigainLoanERP.Shared.ContractModel
         public int? DistrictId { get; set; }
         public string DistrictName { get; set; }
         public string StateName { get; set; }
+        public int? StateId { get; set; }
+
         public DateTime? DateOfBirth { get; set; }
         public string ProfilePictureUrl { get; set; }
         public bool? IsActive { get; set; }
@@ -187,24 +267,6 @@ namespace AurigainLoanERP.Shared.ContractModel
         public UserSecurityDepositViewModel SecurityDeposit { get; set; }
     }
 
-    public class UserDocumentViewModel
-    {
-
-        public long Id { get; set; }
-        public int DocumentTypeId { get; set; }
-        public string DocumentTypeName{ get; set; }
-
-        public long UserId { get; set; }
-        public bool? IsActive { get; set; }
-        public bool IsDelete { get; set; }
-        public DateTime CreatedOn { get; set; }
-        public DateTime? ModifiedOn { get; set; }
-        public long? CreatedBy { get; set; }
-        public long? ModifiedBy { get; set; }
-
-
-        public virtual List<UserDocumentFilesViewModel> UserDocumentFiles { get; set; }
-    }
 
     #endregion
 
@@ -283,7 +345,7 @@ namespace AurigainLoanERP.Shared.ContractModel
             Documents = new List<UserDocumentPostModel>();
             UserKYC = new List<UserKycPostModel>();
             UserNominee = new UserNomineePostModel();
-            ReportingPerson = new UserReportingPersonPostModel();
+           // ReportingPerson = new UserReportingPersonPostModel();
         }
 
         public long Id { get; set; }
@@ -296,8 +358,7 @@ namespace AurigainLoanERP.Shared.ContractModel
         public int? DistrictId { get; set; }
         public string PinCode { get; set; }
         public DateTime? DateOfBirth { get; set; }
-        public string ProfilePictureUrl { get; set; }
-        public bool? IsActive { get; set; }
+          public bool? IsActive { get; set; }
 
         public UserPostModel User { get; set; }
 
@@ -318,7 +379,7 @@ namespace AurigainLoanERP.Shared.ContractModel
             UserNominee = new UserNomineePostModel();
          //   ReportingPerson = new UserReportingPersonPostModel();
             Documents = new List<UserDocumentPostModel>();
-         //   SecurityDeposit = new UserSecurityDepositPostModel();
+         SecurityDeposit = new UserSecurityDepositPostModel();
 
 
         }
@@ -333,8 +394,7 @@ namespace AurigainLoanERP.Shared.ContractModel
         public int? DistrictId { get; set; }
         public int? StateId { get; set; }
         public string PinCode { get; set; }
-        public DateTime? DateOfBirth { get; set; }
-        public string ProfilePictureUrl { get; set; }
+        public DateTime? DateOfBirth { get; set; } 
         public bool SelfFunded { get; set; }
 
         public UserPostModel User { get; set; }
@@ -347,6 +407,35 @@ namespace AurigainLoanERP.Shared.ContractModel
         public List<UserDocumentPostModel>? Documents { get; set; }
         public UserSecurityDepositPostModel? SecurityDeposit { get; set; }
 
+    }
+
+    public class UserSettingPostModel {
+        public long UserId { get; set; }
+        public string ProfileBase64 { get; set; }
+        public string FileName { get; set; }
+
+
+    }
+
+    public class UserAvailibilityPostModel {
+        public long UserId { get; set; }
+        public string MondayST { get; set; }
+        public string MondayET { get; set; }
+        public string TuesdayST { get; set; }
+        public string TuesdayET { get; set; }
+        public string WednesdayST { get; set; }
+        public string WednesdayET { get; set; }
+        public string ThursdayST { get; set; }
+        public string ThursdayET { get; set; }
+        public string FridayST { get; set; }
+        public string FridayET { get; set; }
+        public string SaturdayST { get; set; }
+        public string SaturdayET { get; set; }
+        public string SundayST { get; set; }
+        public string SundayET { get; set; }
+        public int? Capacity { get; set; }
+        public long? PinCode { get; set; }
+        public int? DistrictId { get; set; }
     }
     #endregion
 

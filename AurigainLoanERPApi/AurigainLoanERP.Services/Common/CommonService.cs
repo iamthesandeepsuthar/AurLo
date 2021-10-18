@@ -68,6 +68,11 @@ namespace AurigainLoanERP.Services.Common
                             objData.Add(item, GetEnumDropDown<GenderEnum>());
                             break;
 
+                        case DropDownKey.ddlPaymentMode:
+
+                            objData.Add(item, await GetPaymentMode());
+                            break;
+
                         default:
                             break;
                     }
@@ -111,12 +116,12 @@ namespace AurigainLoanERP.Services.Common
 
                 }
 
-                return CreateResponse(objData, ResponseMessage.Success, true , ((int)ApiStatusCode.Ok));
+                return CreateResponse(objData, ResponseMessage.Success, true, ((int)ApiStatusCode.Ok));
             }
             catch (Exception ex)
             {
 
-                return CreateResponse<Dictionary<string, object>>(null, ResponseMessage.Success, true,((int)ApiStatusCode.ServerException) ,ex.Message.ToString());
+                return CreateResponse<Dictionary<string, object>>(null, ResponseMessage.Success, true, ((int)ApiStatusCode.ServerException), ex.Message.ToString());
 
             }
 
@@ -164,8 +169,7 @@ namespace AurigainLoanERP.Services.Common
             try
             {
                 return await (from data in _db.State where data.IsActive == true && !data.IsDelete select data)
-                     .Select(item => new { Text = item.Name, Value = item.Id })
-                     .ToListAsync();
+                     .Select(item => new { Text = item.Name, Value = item.Id }).ToListAsync();
             }
             catch (Exception ex)
             {
@@ -212,6 +216,22 @@ namespace AurigainLoanERP.Services.Common
               .Select(v => new { Value = v.ToString(), Text = v.GetStringValue() })
               .ToList();
 
+            }
+            catch (Exception ex)
+            {
+
+                return null;
+            }
+        }
+
+
+        private async Task<object> GetPaymentMode()
+        {
+            try
+            {
+                return await (from data in _db.PaymentMode where data.IsActive == true && !data.IsDelete select data)
+                     .Select(item => new { Text = item.Mode, Value = item.Id })
+                     .ToListAsync();
             }
             catch (Exception ex)
             {

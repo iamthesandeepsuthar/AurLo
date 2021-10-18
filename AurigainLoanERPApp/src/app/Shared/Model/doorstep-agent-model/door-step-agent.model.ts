@@ -12,7 +12,6 @@ export class DoorStepAgentPostModel {
   Id!: number;
   FullName!: string;
   FatherName!: string;
-  UniqueId!: string;
   Gender!: string;
   QualificationId!: number;
   Address!: string;
@@ -33,15 +32,11 @@ export class DoorStepAgentPostModel {
 
 export class UserSecurityDepositPostModel {
   constructor() {
-    this.Id = 0;
-    this.PaymentModeId = 0;
-    this.TransactionStatus = 0;
-    this.Amount = 0;
+
   }
   Id!: number;
   PaymentModeId!: number;
-  TransactionStatus!: number;
-  Amount!: number;
+  Amount!: string;
   CreditDate!: Date;
   ReferanceNumber!: string;
   AccountNumber!: string;
@@ -142,6 +137,7 @@ export interface DoorStepAgentViewModel {
   PinCode: string;
   DistrictId: number;
   DistrictName: string;
+  StateId: number;
   StateName: string;
   DateOfBirth: string;
   ProfilePictureUrl: string;
@@ -275,6 +271,32 @@ export interface UserViewModel {
   IsApproved: boolean;
   DeviceToken: string;
   Token: string;
+  IsActive: boolean;
+  IsDelete: boolean;
+  CreatedOn: string;
+  ModifiedOn: string;
+  CreatedBy: number;
+  ModifiedBy: number;
+}
+
+export interface DoorStepAgentListModel {
+  Id: number;
+  UserId: number;
+  RoleId: number;
+  Role: string;
+  Email: string;
+  Mobile: string;
+  FullName: string;
+  FatherName: string;
+  UniqueId: string;
+  Gender: string;
+  QualificationName: string;
+  Address: string;
+  DistrictName: string;
+  StateName: string;
+  PinCode: string;
+  DateOfBirth: string;
+  ProfilePictureUrl: string;
   IsActive: boolean;
   IsDelete: boolean;
   CreatedOn: string;

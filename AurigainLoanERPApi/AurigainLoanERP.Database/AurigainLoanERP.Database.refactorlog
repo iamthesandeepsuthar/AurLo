@@ -28,4 +28,25 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="Website_Url" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="e41f58af-7aa9-43af-965b-9131881ae72e" ChangeDateTime="10/15/2021 17:44:42">
+    <Property Name="ElementName" Value="[dbo].[UserAvailability].[Userid]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[UserAvailability]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="UserId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="1e880d3a-b642-49ec-8b9a-51f977f2fd13" ChangeDateTime="10/15/2021 18:54:50">
+    <Property Name="ElementName" Value="[dbo].[Managers].[MobileNUmber]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Managers]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="MobileNumber" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="059b55c7-54ac-401a-a71d-4d6be2a0efc6" ChangeDateTime="10/15/2021 18:55:35">
+    <Property Name="ElementName" Value="[dbo].[Managers].[MobileNumber]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Managers]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Gender" />
+  </Operation>
 </Operations>

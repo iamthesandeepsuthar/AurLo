@@ -63,10 +63,31 @@ namespace AurigainLoanERP.Shared.Enums
             Admin = 2,
             [StringValue("Zonal Manager")]
             ZonalManager = 3,
+            [StringValue("Supervisor")]
+            Supervisor = 4,
             [StringValue("Agent")]
-            Agent = 4,
+            Agent = 5,
             [StringValue("Door Step Agent")]
-            DoorStepAgent = 5,
+            DoorStepAgent = 6,
+        }
+
+        public enum RateOfInterestType
+        {
+            Flat = 1,
+            Reducing = 0
+        }
+
+        public enum TransactionStatusEnum
+        {
+            [StringValue("None")]
+            None = 0,
+            [StringValue("Success")]
+            Success = 1,
+            [StringValue("Fail")]
+            Fail = 2,
+            [StringValue("Pending")]
+            Pending = 3,
+            
         }
     }
 

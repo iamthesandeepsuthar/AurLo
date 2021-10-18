@@ -1,8 +1,8 @@
 import { UserNomineePostModel } from './../../../../Model/doorstep-agent-model/door-step-agent.model';
 import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
-import { DropDownModol } from '../../../common-model';
+import { DropDownModel } from '../../../common-model';
 import { DropDown_key } from '../../../constants';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommonService } from 'src/app/Shared/Services/common.service';
 
 @Component({
@@ -11,9 +11,9 @@ import { CommonService } from 'src/app/Shared/Services/common.service';
   styleUrls: ['./user-nominee-detail-section.component.scss']
 })
 export class UserNomineeDetailSectionComponent implements OnInit {
-  @Input() nomineeModel= new UserNomineePostModel();
+  @Input() nomineeModel = new UserNomineePostModel();
   @Output() onSubmit = new EventEmitter<UserNomineePostModel>();
-  dropDown = new DropDownModol();
+  dropDown = new DropDownModel();
   get ddlkeys() { return DropDown_key };
   formGroup = new FormGroup({});
 
@@ -21,6 +21,7 @@ export class UserNomineeDetailSectionComponent implements OnInit {
   constructor(private readonly fb: FormBuilder, private readonly _commonService: CommonService) { }
 
   ngOnInit(): void {
+    this.formInit();
     this.GetDropDown();
   }
 
@@ -28,13 +29,27 @@ export class UserNomineeDetailSectionComponent implements OnInit {
 
     this._commonService.GetDropDown([DropDown_key.ddlRelationship]).subscribe(res => {
       if (res.IsSuccess) {
-        
-        let ddls = res.Data as DropDownModol;
+
+        let ddls = res.Data as DropDownModel;
         this.dropDown.ddlRelationship = ddls.ddlRelationship;
       }
     });
   }
   onFrmSubmit() {
-    this.onSubmit.emit(this.nomineeModel);
+    this.formGroup.markAllAsTouched();
+    if (this.formGroup.valid) {
+      this.onSubmit.emit(this.nomineeModel);
+
+    }
+  }
+
+
+  formInit() {
+    this.formGroup = this.fb.group({
+      Relationship: [undefined, Validators.required],
+      NamineeName: [undefined, Validators.required],
+      IsSelfDeclaration: [false, null]
+
+    });
   }
 }

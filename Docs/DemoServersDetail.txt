@@ -5,16 +5,16 @@ User:   allaboutitdemo
 Password:  hLxgGoeYCbtgLoLj5sDT
 
 
-Ftp Api Detail 
+Ftp Angular Detail 
 Server Name :  173.212.250.245
-UserName: allaboutitdemo
+UserName: allaboutitdemo.co.in|allaboutitdemo
 Password:  hLxgGoeYCbtgLoLj5sDT
 Url: http://allaboutitdemo.co.in
 Site Path:  allaboutitdemo.co.in
 
 
-SubDomain Detail
+SubDomain Api Detail
 Site path:  http://api.allaboutitdemo.co.in/
-UserName: allaboutitdemo
+UserName: api.allaboutitdemo.co.in|allaboutitdemo
 Password:  hLxgGoeYCbtgLoLj5sDT
 Server Name :  173.212.250.245

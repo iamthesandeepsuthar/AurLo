@@ -3042,7 +3042,7 @@ td.table-action-btn button {
 td.table-action-btn a,
 td.table-action-btn button {
     margin-right: 10px;
-    font-size: 18px;
+    font-size: 15px;
 }
 
 .table-action-btn .table-action-btn-edit {
@@ -3220,7 +3220,29 @@ tr.mat-header-row {
     overflow: hidden;
     box-shadow: 0 0 20px 0 #eaeaea;
     padding: 0;
-    border: solid 2px #5e9afd;
+    border: solid 2px #e5e5e5;
+    width: 100%;
+    position: relative;
+}
+
+.agent-door-profile-img-box button {
+    background: transparent;
+    border: none;
+    font-size: 30px;
+    color: #fd8300;
+    margin-top: 8px;
+}
+
+.agent-door-profile-img input[type=file] {
+    max-width: 100% !important;
+    height: 100%;
+    z-index: 999999 !important;
+    cursor: pointer;
+}
+
+.agent-door-profile-img .btn-upload {
+    position: absolute;
+    bottom: 5px;
 }
 
 .open-advance-filter {
@@ -3544,6 +3566,10 @@ table tbody tr:nth-of-type(odd) .table-data-name span {
     overflow: hidden;
 }
 
+.small-media-items-img img {
+    max-width: 70px;
+}
+
 .small-media-items i {
     position: absolute;
     right: -5px;
@@ -3602,13 +3628,21 @@ table tbody tr:nth-of-type(odd) .table-data-name span {
     vertical-align: top !important;
 }
 
-.upload-btn-wrapper {
+
+/* .upload-btn-wrapper {
     position: relative;
     overflow: hidden;
     display: inline-block;
     width: 100%;
     text-align: center;
     margin-top: 10px;
+} */
+
+.upload-btn-wrapper {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    text-align: center;
 }
 
 .btn-upload {
@@ -3619,7 +3653,8 @@ table tbody tr:nth-of-type(odd) .table-data-name span {
     cursor: pointer;
 }
 
-.upload-btn-wrapper input[type=file] {
+
+/* .upload-btn-wrapper input[type=file] {
     position: absolute;
     left: 0;
     top: 0;
@@ -3629,7 +3664,16 @@ table tbody tr:nth-of-type(odd) .table-data-name span {
     max-width: 50px;
     left: 50%;
     transform: translateX(-50%);
-    /* z-index: -1; */
+} */
+
+.upload-btn-wrapper input[type=file] {
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    width: 100%;
+    z-index: 999999999;
+    cursor: pointer;
 }
 
 .custom-card-1 {
@@ -3828,6 +3872,48 @@ table.table.table-striped.dataTable.table-header.table-blue tbody tr:nth-of-type
     height: 10px !important;
 }
 
+.btn-upload-border i {
+    margin-right: 12px;
+}
+
+.btn-upload-border {
+    background: transparent;
+    border: dotted 2px #dae0ff;
+    padding: 5px 20px;
+    font-size: 20px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #4361ee;
+}
+
+.file-upload-details {
+    background: #ffffff;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px #ededed;
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.file-upload-details .dz-details {
+    flex: 100%;
+}
+
+.file-upload-details .file-upload-details-remove {
+    font-size: 16px;
+    cursor: pointer;
+    flex: 0 0 20px;
+    text-align: center;
+}
+
+.file-upload-details .dz-details .dz-filename {
+    color: #000;
+    font-size: 15px;
+}
+
 
 /* Theme Dark Start */
 
@@ -3986,6 +4072,17 @@ table.table.table-striped.dataTable.table-header.table-blue tbody tr:nth-of-type
         padding: 5px 0px !important;
         font-size: 16px !important;
         width: 100% !important;
+    }
+    .form-grp-w-border {
+        margin: 40px 0px;
+        border-radius: 10px;
+        box-shadow: none;
+    }
+    .form-row>.col,
+    .form-row>[class*=col-] {
+        padding: 0px !important;
+        width: 100%;
+        flex: 100%;
     }
 }
 

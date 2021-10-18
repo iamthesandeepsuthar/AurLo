@@ -2,6 +2,7 @@
 using AurigainLoanERP.Shared.Common.Model;
 using AurigainLoanERP.Shared.ContractModel;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using static AurigainLoanERP.Shared.Enums.FixedValueEnums;
 
@@ -17,6 +18,11 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
             _userSerivce = userService;
         }
 
+        [HttpPost]
+        public async Task<ApiServiceResponseModel<List<DoorStepAgentListModel>>> Get(IndexModel model)
+        {
+            return await _userSerivce.GetDoorStepAgentAsync(model);
+        }
 
         [HttpPost]
         public async Task<ApiServiceResponseModel<string>> AddUpdate([FromBody] DoorStepAgentPostModel model)
@@ -57,5 +63,11 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
             return await _userSerivce.UpdateDeleteStatus(id);
         }
 
+        [HttpPost]
+
+        public async Task<ApiServiceResponseModel<string>> SetUserAvailibilty([FromBody]  UserAvailibilityPostModel model) {
+            return await _userSerivce.SetUserAvailibilty(model);
+
+        }
     }
 }

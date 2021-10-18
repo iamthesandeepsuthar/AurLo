@@ -77,7 +77,24 @@ export class API_Url {
   public static DoorstepAgentDeleteApi = `${environment.apiEndPoint}DoorStepAgent/Delete/`;
   public static DoorstepAgentActiveStatusApi = `${environment.apiEndPoint}DoorStepAgent/ChangeActiveStatus/`;
   public static DoorstepAgentDetailApi = `${environment.apiEndPoint}DoorStepAgent/GetById/`;
+  public static DoorstepAgentAvailibilityApi = `${environment.apiEndPoint}DoorStepAgent/SetUserAvailibilty`;
+
   //#endregion
+
+  //#region << Agent>>
+  public static AgentListApi = `${environment.apiEndPoint}Agent/Get`;
+  public static AgentAddUpdateApi = `${environment.apiEndPoint}Agent/AddUpdate`;
+  public static AgentDeleteApi = `${environment.apiEndPoint}Agent/Delete/`;
+  public static AgentActiveStatusApi = `${environment.apiEndPoint}Agent/ChangeActiveStatus/`;
+  public static AgentDetailApi = `${environment.apiEndPoint}Agent/GetById/`;
+
+  //#endregion
+
+  //#region <<User Setting>>
+  public static UserUpdateProfileApi = `${environment.apiEndPoint}UserSetting/UpdateProfile`;
+
+  //#endregion
+
 
 
 }
@@ -133,11 +150,18 @@ export class Routing_Url {
   //#region <DoorStepAgent>
   static DoorStepAgentRegistrationUrl = 'registration';
   static DoorStepAgenDetailUrl = 'detail';
-   
+  static DoorStepAgentAvailibilityUrl = 'user-availibility';
   static DoorStepAgentListUrl = 'door-step-agents-list';
   //#endregion
 
+  //#region  <<Agent >>
 
+  static AgentListUrl: 'agent-list';
+  static AgentRegistrationUrl: 'agent-AddUpdate';
+  static AgenDetailUrl: 'agent-detail';
+  static  AgentAvailibilityUrl = 'agent-availibility';
+
+  //#endregion
 }
 
 export class Message {
@@ -159,5 +183,6 @@ export class DropDown_key {
   static ddlQualification = "ddlQualification";
   static ddlDocumentType = "ddlDocumentType";
   static ddlRelationship = "ddlRelationship";
-  static ddlGender="ddlGender"
+  static ddlGender = "ddlGender";
+  static ddlPaymentMode ="ddlPaymentMode"
 }

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { DropDownModol } from 'src/app/Shared/Helper/common-model';
+import { DropDownModel } from 'src/app/Shared/Helper/common-model';
 import { DropDown_key, Message, Routing_Url } from 'src/app/Shared/Helper/constants';
 import { UserRolePostModel } from 'src/app/Shared/Model/master-model/user-role.model';
 
@@ -21,14 +21,14 @@ export class AddUpdateUserRoleComponent implements OnInit {
   model = new UserRolePostModel();
   showParent: boolean = true;
   userRoleForm!: FormGroup;
-  dropDown = new DropDownModol();
+  dropDown = new DropDownModel();
 
   get f() { return this.userRoleForm.controls; }
   get routing_Url() { return Routing_Url }
 
   constructor(private readonly fb: FormBuilder, private readonly _userRole: UserRoleService,
-              private _activatedRoute: ActivatedRoute, private _router: Router,
-              private readonly _commonService: CommonService, private readonly _toast : ToastrService) {
+    private _activatedRoute: ActivatedRoute, private _router: Router,
+    private readonly _commonService: CommonService, private readonly _toast: ToastrService) {
 
     if (this._activatedRoute.snapshot.params.id) {
       this.Id = this._activatedRoute.snapshot.params.id;
@@ -74,7 +74,7 @@ export class AddUpdateUserRoleComponent implements OnInit {
   onSubmit() {
     this.userRoleForm.markAllAsTouched();
     if (this.userRoleForm.valid) {
-        this._userRole.AddUpdateRole(this.model).subscribe(res => {
+      this._userRole.AddUpdateRole(this.model).subscribe(res => {
         if (res.IsSuccess) {
 
           this._commonService.Success(Message.SaveSuccess)
@@ -91,7 +91,7 @@ export class AddUpdateUserRoleComponent implements OnInit {
   onGetDetail() {
     this._userRole.GetRole(this.Id).subscribe(res => {
       if (res.IsSuccess) {
-        
+
         let roleDetail = res.Data;
         this.model.Name = roleDetail?.Name as string;
         this.model.Id = roleDetail!.Id
