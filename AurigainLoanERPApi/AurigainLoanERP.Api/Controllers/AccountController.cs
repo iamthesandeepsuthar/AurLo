@@ -52,5 +52,11 @@ namespace AurigainLoanERP.Api.Controllers
         {
             return await _accountService.VerifiedPin(model);
         }
+        [HttpGet]
+        //Get api/Account/ValidateUserWithMobileNUmber
+        public async Task<ApiServiceResponseModel<string>> ValidateUserWithMobileNUmber(string mobileNumber) 
+        {
+            return await _accountService.CheckUserExist(mobileNumber);
+        }
     }
 }

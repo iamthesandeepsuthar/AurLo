@@ -23,19 +23,19 @@ export class API_Url {
   //#endregion
 
   //#region <<State -District>>
-  public static State_List_Api = `${environment.apiEndPoint}UserRole/Get`;
-  public static State_Detail_Api = `${environment.apiEndPoint}UserRole/get/`;
-  public static State_Add_Update_Api = `${environment.apiEndPoint}UserRole/post`;
-  public static State_Active_Status_Api = `${environment.apiEndPoint}UserRole/ChangeActiveStatus/`;
-  public static State_Delete_Api = `${environment.apiEndPoint}UserRole/delete/`;
+  public static State_List_Api = `${environment.apiEndPoint}StateAndDistrict/Get`;
+  public static State_Detail_Api = `${environment.apiEndPoint}StateAndDistrict/GetStateById/`;
+  public static State_Add_Update_Api = `${environment.apiEndPoint}StateAndDistrict/SubmitState`;
+  public static State_Active_Status_Api = `${environment.apiEndPoint}StateAndDistrict/ChangeActiveStatus/`;
+  public static State_Delete_Api = `${environment.apiEndPoint}StateAndDistrict/DeleteState/`;
 
-  public static State_Dropdown_Api = `${environment.apiEndPoint}UserRole/Get`;
-  public static District_Dropdown_Api = `${environment.apiEndPoint}UserRole/Get`;
-  public static District_List_Api = `${environment.apiEndPoint}UserRole/Get`;
-  public static District_Detail_Api = `${environment.apiEndPoint}UserRole/get/`;
-  public static District_Add_Update_Api = `${environment.apiEndPoint}UserRole/post`;
-  public static District_Active_Status_Api = `${environment.apiEndPoint}UserRole/ChangeActiveStatus/`;
-  public static District_Delete_Api = `${environment.apiEndPoint}UserRole/delete/`;
+  public static State_Dropdown_Api = `${environment.apiEndPoint}StateAndDistrict/States`;
+  public static District_Dropdown_Api = `${environment.apiEndPoint}StateAndDistrict/Districts/`;
+  public static District_List_Api = `${environment.apiEndPoint}StateAndDistrict/Get`;
+  public static District_Detail_Api = `${environment.apiEndPoint}StateAndDistrict/GetDistrictById/`;
+  public static District_Add_Update_Api = `${environment.apiEndPoint}StateAndDistrict/SubmitDistrict`;
+  public static District_Active_Status_Api = `${environment.apiEndPoint}StateAndDistrict/ChangeActiveStatus/`;
+  public static District_Delete_Api = `${environment.apiEndPoint}StateAndDistrict/DeleteDistrict/`;
   //#endregion
 
   //#region <<Qualification>>
@@ -47,20 +47,20 @@ export class API_Url {
   //#endregion
 
   //#region <<Payment Mode>>
-  public static PaymentMode_List_Api = `${environment.apiEndPoint}UserRole/Get`;
-  public static PaymentMode_Detail_Api = `${environment.apiEndPoint}UserRole/get/`;
-  public static PaymentMode_Add_Update_Api = `${environment.apiEndPoint}UserRole/post`;
-  public static PaymentMode_Active_Status_Api = `${environment.apiEndPoint}UserRole/ChangeActiveStatus/`;
-  public static PaymentMode_Delete_Api = `${environment.apiEndPoint}UserRole/delete/`;
+  public static PaymentMode_List_Api = `${environment.apiEndPoint}PaymentMode/Get`;
+  public static PaymentMode_Detail_Api = `${environment.apiEndPoint}PaymentMode/GetPaymentModeById/`;
+  public static PaymentMode_Add_Update_Api = `${environment.apiEndPoint}PaymentMode/SubmitPaymentMode`;
+  public static PaymentMode_Active_Status_Api = `${environment.apiEndPoint}PaymentMode/ChangeActiveStatus/`;
+  public static PaymentMode_Delete_Api = `${environment.apiEndPoint}PaymentMode/DeletePaymentMode/`;
   //#endregion
 
   //#region <<Kyc Document Type>>
-  public static Kyc_Document_Type_Dropdown_Api = `${environment.apiEndPoint}UserRole/Get`;
-  public static Kyc_Document_Type_List_Api = `${environment.apiEndPoint}UserRole/Get`;
-  public static Kyc_Document_Type_Detail_Api = `${environment.apiEndPoint}UserRole/get/`;
-  public static Kyc_Document_Type_Add_Update_Api = `${environment.apiEndPoint}UserRole/post`;
-  public static Kyc_Document_Type_Active_Status_Api = `${environment.apiEndPoint}UserRole/ChangeActiveStatus/`;
-  public static Kyc_Document_Type_Delete_Api = `${environment.apiEndPoint}UserRole/delete/`;
+  public static Kyc_Document_Type_Dropdown_Api = `${environment.apiEndPoint}KycDocumentType/DocumentTypes`;
+  public static Kyc_Document_Type_List_Api = `${environment.apiEndPoint}KycDocumentType/Get`;
+  public static Kyc_Document_Type_Detail_Api = `${environment.apiEndPoint}KycDocumentType/GetDocumentTypeById/`;
+  public static Kyc_Document_Type_Add_Update_Api = `${environment.apiEndPoint}KycDocumentType/SubmitDocumentType`;
+  public static Kyc_Document_Type_Active_Status_Api = `${environment.apiEndPoint}KycDocumentType/ChangeActiveStatus/`;
+  public static Kyc_Document_Type_Delete_Api = `${environment.apiEndPoint}KycDocumentType/DeleteDocumentType/`;
   //#endregion
 
   //#region <<Banks>>
@@ -124,28 +124,28 @@ export class Routing_Url {
   static Qualification_Detail_Url = '/detail/';
   static Qualification_AddUpdate_Url = '/add-update/';
   //#endregion
-
+ //#region <KYC Document Type >
+ static Kyc_Document_Type_List_Url = '/kyc-document-type';
+ static Kyc_Document_Type_Detail_Url = '/detail/';
+ static Kyc_Document_Type_AddUpdate_Url = '/add-update/';
+ //#endregion
   //#region <PaymentMode>
-  static PaymentMode_List_Url = 'user-role';
+  static PaymentMode_List_Url = '/payment-modes';
   static PaymentMode_Detail_Url = '/detail/';
   static PaymentMode_AddUpdate_Url = '/add-update/';
   //#endregion
 
   //#region <State >
-  static State_List_Url = 'user-role';
+  static State_List_Url = '/states';
   static State_Detail_Url = '/detail/';
   static State_AddUpdate_Url = '/add-update/';
 
-  static District_List_Url = 'user-role';
+  static District_List_Url = '/district';
   static District_Detail_Url = '/detail/';
   static District_AddUpdate_Url = '/add-update/';
   //#endregion
 
-  //#region <KYC Document Type >
-  static Kyc_Document_Type_List_Url = 'user-role';
-  static Kyc_Document_Type_Detail_Url = '/detail/';
-  static Kyc_Document_Type_AddUpdate_Url = '/add-update/';
-  //#endregion
+
 
   //#region <DoorStepAgent>
   static DoorStepAgentRegistrationUrl = 'registration';

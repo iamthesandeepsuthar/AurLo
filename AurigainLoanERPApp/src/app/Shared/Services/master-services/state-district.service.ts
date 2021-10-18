@@ -18,7 +18,7 @@ export class StateDistrictService {
     return this._baseService.post(url, model);
   }
   GetState(id: number): Observable<ApiResponse<StateModel>> {
-    let url = `${this._baseService.API_Url.PaymentMode_Detail_Api}${id}`;
+    let url = `${this._baseService.API_Url.State_Detail_Api}${id}`;
     return this._baseService.get(url);
   }
   GetDDLState(): Observable<ApiResponse<DDLStateModel>> {

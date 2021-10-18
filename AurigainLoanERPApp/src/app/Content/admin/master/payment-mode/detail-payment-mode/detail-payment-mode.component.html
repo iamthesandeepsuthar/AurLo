@@ -1,1 +1,37 @@
-<p>detail-payment-mode works!</p>
+<!-- Page Header Title start -->
+<div class="widget-header">
+  <div class="row d-block d-sm-flex align-items-center justify-content-between text-center text-sm-left">
+      <div>
+          <h1>Payment Mode Detail </h1>
+          <!-- Breadcrumb Start -->
+          <nav class="custom-breadcrum">
+              <ol class="breadcrumb justify-content-center justify-content-sm-start">
+                  <li class="breadcrumb-item"><a href="#">Home</a></li>
+                  <li class="breadcrumb-item"><a href="javascript:void(0)">Master</a></li>
+                  <li class="breadcrumb-item"><a routerLink="{{ '../../../' + this.routing_Url.UserRoleListUrl}}">
+                        Payment Modes Master </a></li>
+                  <li class="breadcrumb-item active" aria-current="page">Payment Mode Detail
+                  </li>
+              </ol>
+          </nav>
+          <!-- Breadcrumb End -->
+      </div>
+  </div>
+</div>
+<!-- Page Header Title end -->
+
+<!-- HTML FORM DIV START -->
+<div class="widget-content widget-content p-3">
+  <div class="form-row">
+      <div class="form-group col-md-4">
+          <label>Name</label>
+          <label>{{model.Mode}}</label>
+      </div>
+      <div class="form-group col-md-4">
+          <label>Is Active (status)</label>
+          <label>{{model.IsActive ? 'Yes': 'No'}}</label>
+      </div>
+  </div>
+</div>
+<!-- HTML FORM DIV END -->
+

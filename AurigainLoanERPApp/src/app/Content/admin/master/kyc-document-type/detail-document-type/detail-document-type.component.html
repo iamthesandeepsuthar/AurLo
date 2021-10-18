@@ -1,1 +1,45 @@
-<p>detail-document-type works!</p>
+
+<!-- Page Header Title start -->
+<div class="widget-header">
+  <div class="row d-block d-sm-flex align-items-center justify-content-between text-center text-sm-left">
+      <div>
+          <h1>KYC Document Type Detail </h1>
+          <!-- Breadcrumb Start -->
+          <nav class="custom-breadcrum">
+              <ol class="breadcrumb justify-content-center justify-content-sm-start">
+                  <li class="breadcrumb-item"><a href="#">Home</a></li>
+                  <li class="breadcrumb-item"><a href="javascript:void(0)">Master</a></li>
+                  <li class="breadcrumb-item"><a routerLink="{{ '../../../' + this.routing_Url.Kyc_Document_Type_List_Url}}">
+                        KYC Document Type Master </a></li>
+                  <li class="breadcrumb-item active" aria-current="page">Document Type Detail
+                  </li>
+              </ol>
+          </nav>
+          <!-- Breadcrumb End -->
+      </div>
+  </div>
+</div>
+<!-- Page Header Title end -->
+
+<!-- HTML FORM DIV START -->
+<div class="widget-content widget-content p-3">
+  <div class="form-row">
+      <div class="form-group col-md-4">
+          <label>Document Type Name</label>
+          <label>{{model.DocumentName}}</label>
+      </div>
+      <div class="form-group col-md-4">
+        <label>Document Number Length</label>
+        <label>{{model.DocumentNumberLength}}</label>
+    </div>
+      <div class="form-group col-md-4">
+        <label>Is Numeric (Alpha Numeric Value)</label>
+        <label>{{model.IsNumeric ? 'Yes': 'No'}}</label>
+    </div>
+      <div class="form-group col-md-4">
+          <label>Is Active (status)</label>
+          <label>{{model.IsActive ? 'Yes': 'No'}}</label>
+      </div>
+  </div>
+</div>
+<!-- HTML FORM DIV END -->

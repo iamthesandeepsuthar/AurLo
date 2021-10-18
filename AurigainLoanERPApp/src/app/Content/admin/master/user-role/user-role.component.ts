@@ -69,14 +69,12 @@ export class UserRoleComponent implements OnInit {
     this.indexModel.Page = 1;
     this.getList();
   }
-
   onPaginateChange(event: any) {
     this.indexModel.Page = event.pageIndex + 1;
     this.indexModel.PageSize = event.pageSize;
     this.indexModel.IsPostBack = true;
     this.getList();
   }
-
   OnActiveStatus(Id: number) {
     this._commonService.Question(Message.ConfirmUpdate as string).then(isTrue => {
 

@@ -74,15 +74,13 @@ export class AddUpdateUserRoleComponent implements OnInit {
   onSubmit() {
     this.userRoleForm.markAllAsTouched();
     if (this.userRoleForm.valid) {
-      this._userRole.AddUpdateRole(this.model).subscribe(res => {
+    let subscribe =   this._userRole.AddUpdateRole(this.model).subscribe(res => {
+      subscribe.unsubscribe();
         if (res.IsSuccess) {
-
-          this._commonService.Success(Message.SaveSuccess)
           this._toast.success('Save successful record');
           this._router.navigate(['/' + this.routing_Url.MasterModule + this.routing_Url.UserRoleListUrl]);
-
         } else {
-
+        this._toast.error(res.Message?.toString(), 'Error');
         }
       });
     }
