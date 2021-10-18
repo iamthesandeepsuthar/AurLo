@@ -127,6 +127,8 @@ namespace AurigainLoanERP.Services.KycDocumentType
                     var type = await _db.DocumentType.FirstOrDefaultAsync(x => x.Id == model.Id);
                     type.DocumentName = model.DocumentName;
                     type.IsActive = model.IsActive;
+                    type.IsNumeric = model.IsNumeric;
+                    type.DocumentNumberLength = model.DocumentNumberLength;
                     type.ModifiedOn = DateTime.Now;
 
                 }

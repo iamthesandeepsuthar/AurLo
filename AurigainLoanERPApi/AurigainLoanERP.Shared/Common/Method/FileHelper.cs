@@ -101,12 +101,8 @@ namespace AurigainLoanERP.Shared.Common
             string base64 = string.Empty;
             try
             {
-
-
-
-                filePath = GetPhysicalPath(filePath);
+                 filePath = GetPhysicalPath(filePath);
                 _env = new HostingEnvironment();
-
                 if (File.Exists(filePath))
                 {
                     base64 = "Data:" + GetMimeType(filePath) + ";base64,";
@@ -125,7 +121,6 @@ namespace AurigainLoanERP.Shared.Common
 
         public bool Delete(string filePath)
         {
-
             try
             {
                 filePath = GetPhysicalPath(filePath);
@@ -138,7 +133,6 @@ namespace AurigainLoanERP.Shared.Common
             }
             catch
             {
-
             }
 
             return false;
@@ -166,19 +160,14 @@ namespace AurigainLoanERP.Shared.Common
 
         private string GetPhysicalPath(string path)
         {
-
             try
             {
                 return string.Concat(_env.ContentRootPath, path.Replace("~", "\\"));
-
             }
             catch (Exception)
             {
-
                 throw;
             }
-
-
         }
 
         public string GetMimeType(string filePath)

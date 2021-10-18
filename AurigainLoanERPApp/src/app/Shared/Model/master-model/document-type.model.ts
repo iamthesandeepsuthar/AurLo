@@ -4,6 +4,8 @@ export class DocumentTypeModel {
   IsActive!: boolean | null;
   IsDelete!: boolean;
   CreatedOn!: Date;
+  DocumentNumberLength!: number;
+  IsNumeric!:boolean;
   ModifiedOn!:Date | null;
 }
 

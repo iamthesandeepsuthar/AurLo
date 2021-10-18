@@ -10,5 +10,6 @@ namespace AurigainLoanERP.Services.Account
         Task<ApiServiceResponseModel<string>> ChangePassword(ChangePasswordModel model);
         Task<ApiServiceResponseModel<string>> Login(LoginModel model);
         Task<ApiServiceResponseModel<string>> VerifiedPin(OtpVerifiedModel model);
+        Task<ApiServiceResponseModel<string>> CheckUserExist(string mobileNumber);
     }
 }

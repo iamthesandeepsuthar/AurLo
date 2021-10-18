@@ -31,25 +31,25 @@ namespace AurigainLoanERP.Services.Account
             {
                 if (!model.IsResendOtp)
                 {
-                    var user = await _db.UserMaster.Where(x => x.Mobile == model.MobileNumber).FirstOrDefaultAsync();
-                    if (user != null)
-                    {
-                        Random random = new Random();
-                        var randowmNumber = random.Next(100000, 199999);
-                        UserOtp otp = new UserOtp();
-
-                        otp.IsVerify = false;
-                        otp.Otp = randowmNumber.ToString();
-                        otp.Mobile = model.MobileNumber;
-                        otp.UserId = user.Id;
-                        otp.SessionStartOn = DateTime.Now;
-                        otp.ExpireOn = DateTime.Now.AddSeconds(180);
-                        
-                        await _db.UserOtp.AddAsync(otp);
-                        await _db.SaveChangesAsync();
-                        var response = _mapper.Map<OtpModel>(otp);
-                        return CreateResponse<OtpModel>(response, ResponseMessage.Success, true ,((int)ApiStatusCode.Ok));
-                    }
+                
+                        var user = await _db.UserMaster.Where(x => x.Mobile == model.MobileNumber).FirstOrDefaultAsync();
+                        if (user != null)
+                        {
+                            Random random = new Random();
+                            var randowmNumber = random.Next(100000, 199999);
+                            UserOtp otp = new UserOtp();
+                            otp.IsVerify = false;
+                            otp.Otp = randowmNumber.ToString();
+                            otp.Mobile = model.MobileNumber;
+                            otp.UserId = user.Id;
+                            otp.SessionStartOn = DateTime.Now;
+                            otp.ExpireOn = DateTime.Now.AddSeconds(180);
+                            await _db.UserOtp.AddAsync(otp);
+                            await _db.SaveChangesAsync();
+                            var response = _mapper.Map<OtpModel>(otp);
+                            return CreateResponse<OtpModel>(response, ResponseMessage.Success, true, ((int)ApiStatusCode.Ok));
+                        }                  
+                    
                     return CreateResponse<OtpModel>(null, ResponseMessage.NotFound, true, ((int)ApiStatusCode.RecordNotFound));
                 }
                 else
@@ -62,12 +62,12 @@ namespace AurigainLoanERP.Services.Account
                         var randomNumber = random.Next(100000, 199999);
                         otp.Otp = randomNumber.ToString();
                         otp.SessionStartOn = DateTime.Now;
-                        otp.ExpireOn = DateTime.Now.AddSeconds(180);                       
+                        otp.ExpireOn = DateTime.Now.AddSeconds(180);
                         await _db.SaveChangesAsync();
                         var response = _mapper.Map<OtpModel>(otp);
                         return CreateResponse<OtpModel>(response, ResponseMessage.Success, true, ((int)ApiStatusCode.Ok));
                     }
-                    return CreateResponse<OtpModel>(null, ResponseMessage.NotFound, true , ((int)ApiStatusCode.RecordNotFound));
+                    return CreateResponse<OtpModel>(null, ResponseMessage.NotFound, true, ((int)ApiStatusCode.RecordNotFound));
                 }
             }
             catch (Exception ex)
@@ -87,7 +87,7 @@ namespace AurigainLoanERP.Services.Account
                 {
                     user.Mpin = model.Password;
                     await _db.SaveChangesAsync();
-                    return CreateResponse<string>(model.MobileNumber,"pin update successful", true , ((int)ApiStatusCode.Ok));
+                    return CreateResponse<string>(model.MobileNumber, "pin update successful", true, ((int)ApiStatusCode.Ok));
                 }
                 else
                 {
@@ -96,7 +96,7 @@ namespace AurigainLoanERP.Services.Account
             }
             catch (Exception ex)
             {
-                return CreateResponse<string>(null, ResponseMessage.NotFound, false, ((int)ApiStatusCode.ServerException),ex.Message ?? ex.InnerException.ToString());
+                return CreateResponse<string>(null, ResponseMessage.NotFound, false, ((int)ApiStatusCode.ServerException), ex.Message ?? ex.InnerException.ToString());
             }
         }
         public async Task<ApiServiceResponseModel<string>> Login(LoginModel model)
@@ -106,7 +106,7 @@ namespace AurigainLoanERP.Services.Account
             {
                 if (model.Plateform == "mobile") // For mobile Permission
                 {
-                    var user = await _db.UserMaster.Where(x => x.Mobile == model.MobileNumber && x.Mpin == model.Password).Include(x=>x.UserRole).FirstOrDefaultAsync();
+                    var user = await _db.UserMaster.Where(x => x.Mobile == model.MobileNumber && x.Mpin == model.Password).Include(x => x.UserRole).FirstOrDefaultAsync();
                     if (user != null)
                     {
                         UserLoginLog log = new UserLoginLog
@@ -115,19 +115,20 @@ namespace AurigainLoanERP.Services.Account
                             LoggedOutTime = DateTime.Now.AddDays(30),
                             UserId = user.Id
                         };
-                        await _db.UserLoginLog.AddAsync(log);                      
+                        await _db.UserLoginLog.AddAsync(log);
                         var fresh_token = _security.CreateToken(model.MobileNumber, user.UserRole.Name);
-                        if (!string.IsNullOrEmpty(fresh_token.Data)) {
-                            user.Token = fresh_token.Data;                           
+                        if (!string.IsNullOrEmpty(fresh_token.Data))
+                        {
+                            user.Token = fresh_token.Data;
                         }
-                        await _db.SaveChangesAsync();                        
-                        return CreateResponse<string>(fresh_token.Data, "Login Successful", true ,((int)ApiStatusCode.Ok));
+                        await _db.SaveChangesAsync();
+                        return CreateResponse<string>(fresh_token.Data, "Login Successful", true, ((int)ApiStatusCode.Ok));
                     }
-                    else 
+                    else
                     {
                         return CreateResponse<string>(null, "You have not register with us,Please Signup", false, ((int)ApiStatusCode.RecordNotFound));
                     }
-                    
+
                 }
                 else // For web permission 
                 {
@@ -139,44 +140,67 @@ namespace AurigainLoanERP.Services.Account
                             LoggedInTime = DateTime.Now,
                             UserId = user.Id
                         };
-                        await _db.UserLoginLog.AddAsync(log);                       
+                        await _db.UserLoginLog.AddAsync(log);
                         var fresh_token = _security.CreateToken(model.MobileNumber, user.UserRole.Name);
                         if (string.IsNullOrEmpty(fresh_token.Data))
                         {
                             user.Token = fresh_token.Data;
-                           // _db.SaveChanges();
+                            // _db.SaveChanges();
 
                         }
-                         await _db.SaveChangesAsync();
-                        return CreateResponse<string>(fresh_token.Data, "Login Successful", true , ((int)ApiStatusCode.Ok));
+                        await _db.SaveChangesAsync();
+                        return CreateResponse<string>(fresh_token.Data, "Login Successful", true, ((int)ApiStatusCode.Ok));
                     }
-                    else 
+                    else
                     {
-                        return CreateResponse<string>(null ,"You have no access to use web portal, Please contact with authority !", false , ((int)ApiStatusCode.RecordNotFound));
-                    }                   
-                }              
+                        return CreateResponse<string>(null, "You have no access to use web portal, Please contact with authority !", false, ((int)ApiStatusCode.RecordNotFound));
+                    }
+                }
             }
-            catch (Exception ex) {
-                return CreateResponse<string>(null, ResponseMessage.NotFound, false, ((int)ApiStatusCode.ServerException) ,ex.Message ?? ex.InnerException.ToString());
+            catch (Exception ex)
+            {
+                return CreateResponse<string>(null, ResponseMessage.NotFound, false, ((int)ApiStatusCode.ServerException), ex.Message ?? ex.InnerException.ToString());
             }
         }
-        public async Task<ApiServiceResponseModel<string>> VerifiedPin(OtpVerifiedModel model) 
+        public async Task<ApiServiceResponseModel<string>> VerifiedPin(OtpVerifiedModel model)
         {
             try
             {
-                var otp =await  _db.UserOtp.Where(x => x.Mobile == model.MobileNumber && x.Otp == model.Otp).FirstOrDefaultAsync();
-                if (otp == null) 
+                var otp = await _db.UserOtp.Where(x => x.Mobile == model.MobileNumber && x.Otp == model.Otp).FirstOrDefaultAsync();
+                if (otp == null)
                 {
                     return CreateResponse<string>(null, ResponseMessage.NotFound, true, ((int)ApiStatusCode.RecordNotFound));
                 }
                 _db.UserOtp.Remove(otp);
                 _db.SaveChanges();
-                return CreateResponse<string>(null, "Otp varified successful.", true,((int)ApiStatusCode.Ok));
+                return CreateResponse<string>(null, "Otp varified successful.", true, ((int)ApiStatusCode.Ok));
             }
             catch (Exception ex)
             {
-                return CreateResponse<string>(null, ResponseMessage.NotFound, false, ((int)ApiStatusCode.ServerException),ex.Message ?? ex.InnerException.ToString());
+                return CreateResponse<string>(null, ResponseMessage.NotFound, false, ((int)ApiStatusCode.ServerException), ex.Message ?? ex.InnerException.ToString());
             }
         }
+
+        public async Task<ApiServiceResponseModel<string>> CheckUserExist(string mobileNumber) 
+        {
+            try
+            {
+                if (!string.IsNullOrWhiteSpace(mobileNumber)) 
+                {
+                    var user =await  _db.UserMaster.Where(x => x.Mobile == mobileNumber).FirstOrDefaultAsync();
+                    if (user != null) 
+                    {
+                        return CreateResponse<string>(null, "User mobile number already exist", true, ((int)ApiStatusCode.AlreadyExist));
+                    }
+                    return CreateResponse<string>(null, "User mobile number not exist with system", true, ((int)ApiStatusCode.Ok));
+                }
+                return CreateResponse<string>(null, "User mobile number not exist with system", true, ((int)ApiStatusCode.BadRequest));
+            }
+            catch (Exception ex)
+            {
+                return CreateResponse<string>(null, ResponseMessage.NotFound, false, ((int)ApiStatusCode.ServerException), ex.Message ?? ex.InnerException.ToString());
+            }
+        }
+
     }
 }

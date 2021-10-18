@@ -13,8 +13,11 @@ namespace AurigainLoanERP.Shared.ContractModel
         public string DocumentName { get; set; }
         public bool? IsActive { get; set; }
         public bool IsDelete { get; set; }
+        public bool IsNumeric { get; set; }
         public DateTime CreatedOn { get; set; }
         public DateTime? ModifiedOn { get; set; }
+        public int? DocumentNumberLength { get; set;}
+
     }
     /// <summary>
     /// Document Type Dropdown Model

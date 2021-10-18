@@ -85,9 +85,7 @@ namespace AurigainLoanERP.Services.Qualification
 
             try
             {
-                var result = await (from c1 in _db.QualificationMaster
-                                    where !c1.IsDelete && c1.IsActive.Value && c1.Id == id
-                                    select c1).FirstOrDefaultAsync();
+                var result = await _db.QualificationMaster.Where(x=>x.IsDelete == false && x.Id == id).FirstOrDefaultAsync();
 
                 if (result != null)
                 {
