@@ -112,11 +112,15 @@ namespace AurigainLoanERP.Services.KycDocumentType
         public async Task<ApiServiceResponseModel<string>> AddUpdateAsync(DocumentTypeModel model)
         {
             try
-            {
-              //  model.DocumentName = null;
+            {              
                 await _db.Database.BeginTransactionAsync();
                 if (model.Id == 0)
                 {
+                    var isExist = await _db.DocumentType.Where(x => x.DocumentName == model.DocumentName).FirstOrDefaultAsync();
+                    if (isExist != null)
+                    {
+                        return CreateResponse<string>("", ResponseMessage.RecordAlreadyExist, false, ((int)ApiStatusCode.AlreadyExist));
+                    }
                     var type = _mapper.Map<DocumentType>(model);
                     type.CreatedOn = DateTime.Now;
                     var result = await _db.DocumentType.AddAsync(type);                   

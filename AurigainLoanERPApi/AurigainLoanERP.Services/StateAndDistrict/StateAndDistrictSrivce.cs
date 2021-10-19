@@ -87,7 +87,7 @@ namespace AurigainLoanERP.Services.StateAndDistrict
         {
             try
             {
-                var states = await _db.State.Select(x => new DDLStateModel
+                var states = await _db.State.Where(x=>x.IsDelete == false && x.IsActive == true).Select(x => new DDLStateModel
                 {
                     Id = x.Id,
                     Name = x.Name
@@ -130,11 +130,15 @@ namespace AurigainLoanERP.Services.StateAndDistrict
         }
         public async Task<ApiServiceResponseModel<string>> AddUpdateStateAsync(StateModel model)
         {
-
             try
             {
                 if (model.Id == 0)
                 {
+                    var isExist = await _db.State.Where(x => x.Name == model.Name).FirstOrDefaultAsync();
+                    if (isExist != null) 
+                    {
+                        return CreateResponse<string>("",ResponseMessage.RecordAlreadyExist, false, ((int)ApiStatusCode.AlreadyExist));
+                    }
                     var state = _mapper.Map<State>(model);
                     state.CreatedOn = DateTime.Now;
                     var result = await _db.State.AddAsync(state);
@@ -184,11 +188,17 @@ namespace AurigainLoanERP.Services.StateAndDistrict
             ApiServiceResponseModel<List<DistrictModel>> objResponse = new ApiServiceResponseModel<List<DistrictModel>>();
             try
             {
-                var result = (from district in _db.District
+                var result = (from district in _db.District join state in _db.State on  district.StateId equals state.Id
                               where !district.IsDelete && (string.IsNullOrEmpty(model.Search) || district.Name.Contains(model.Search))
                               orderby (model.OrderByAsc  && model.OrderBy == "Name" ? district.Name : "") ascending
                               orderby (!model.OrderByAsc && model.OrderBy == "Name" ? district.Name : "") descending
-                              select district);
+                              select  new DistrictModel { 
+                              Id = district.Id,
+                              Name = district.Name,
+                              StateName = state.Name,
+                              StateId = district.StateId,
+                              IsActive = district.IsActive
+                              });
                 var data = await result.Skip(((model.Page == 0 ? 1 : model.Page) - 1) * (model.PageSize != 0 ? model.PageSize : int.MaxValue)).Take(model.PageSize != 0 ? model.PageSize : int.MaxValue).ToListAsync();
                 objResponse.Data = _mapper.Map<List<DistrictModel>>(data);
 
@@ -242,7 +252,7 @@ namespace AurigainLoanERP.Services.StateAndDistrict
         {
             try
             {
-                var districts = await _db.District.Where(x => x.StateId == id).Select(x => new DDLDistrictModel
+                var districts = await _db.District.Where(x => x.StateId == id && x.IsDelete == false && x.IsActive == true).Select(x => new DDLDistrictModel
                 {
                     Id = x.Id,
                     Name = x.Name,
@@ -291,6 +301,11 @@ namespace AurigainLoanERP.Services.StateAndDistrict
                 
                 if (model.Id == 0)
                 {
+                    var isExist = await _db.District.Where(x => x.Name == model.Name && x.StateId == model.StateId).FirstOrDefaultAsync();
+                    if (isExist != null)
+                    {
+                        return CreateResponse<string>("", ResponseMessage.RecordAlreadyExist, false, ((int)ApiStatusCode.AlreadyExist));
+                    }
                     District d = new District 
                     {
                         Name = model.Name,

@@ -21,13 +21,23 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
         public async Task<ApiServiceResponseModel<List<DDLStateModel>>> States()
         {
             return await _serivce.GetStates();
-
         }
         // GET api/StateAndDistrict/Districts
         [HttpGet("[action]")]
         public async Task<ApiServiceResponseModel<List<DDLDistrictModel>>> Districts(int id)
         {
             return await _serivce.GetDistricts(id);
+        }
+
+        [HttpPost("[action]")]
+        public async Task<ApiServiceResponseModel<List<StateModel>>> GetStateList(IndexModel model)
+        {
+            return await _serivce.GetAllStateAsync(model);
+        }
+        [HttpPost("[action]")]
+        public async Task<ApiServiceResponseModel<List<DistrictModel>>> GetDistrictList(IndexModel model)
+        {
+            return await _serivce.GetAllDistrictAsync(model);
         }
         // POST api/StateAndDistrict/SubmitState
         [HttpPost("[action]")]
@@ -96,6 +106,16 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
         {
             return await _serivce.GetDistrictById(id);
 
+        }
+        [HttpGet("[action]/{id}")]
+        public async Task<ApiServiceResponseModel<object>> ChangeStateActiveStatus(int id)
+        {
+            return await _serivce.UpateStateActiveStatus(id);
+        }
+        [HttpGet("[action]/{id}")]
+        public async Task<ApiServiceResponseModel<object>> ChangeDistrictActiveStatus(int id)
+        {
+            return await _serivce.UpateDistrictActiveStatus(id);
         }
     }
 }

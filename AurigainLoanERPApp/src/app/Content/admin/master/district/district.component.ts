@@ -25,8 +25,9 @@ export class DistrictComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort!: MatSort;
   id!: number;
-  displayedColumns: string[] = ['index', 'Name', 'IsActive', 'Action'];
-  ViewdisplayedColumns = [{ Value: 'Name', Text: 'Name' }];
+  displayedColumns: string[] = ['index', 'Name', 'State'  , 'IsActive', 'Action'];
+  ViewdisplayedColumns = [{ Value: 'Name', Text: 'Name' },
+                          {Value:'StateName',Text: 'StateName'}];
   indexModel = new IndexModel();
   totalRecords: number = 0;
   constructor(private readonly _stateService: StateDistrictService,
@@ -76,21 +77,20 @@ export class DistrictComponent implements OnInit {
   }
 
   OnActiveStatus(Id: number) {
-
     this._commonService.Question(Message.ConfirmUpdate as string).then(isTrue => {
-
       if (isTrue) {
-       let subscription  =  this._stateService.ChangeActiveStatus(Id).subscribe(
+       let subscription  =  this._stateService.ChangeDistrictActiveStatus(Id).subscribe(
           data => {
             subscription.unsubscribe();
             if (data.IsSuccess) {
-              this._commonService.Success(data.Message as string)
+              this.toast.success(data.Message as string,'Remove');
               this.getList();
+            } else {
+              this.toast.warning(data.Message as string,'Server Error');
             }
           },
           error => {
-            this._commonService.Error(error.message as string)
-
+            this.toast.error(error.Message as string,'Error');
           }
         );
       }

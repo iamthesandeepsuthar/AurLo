@@ -1,3 +1,4 @@
+import { ToastrService } from 'ngx-toastr';
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
@@ -31,14 +32,16 @@ export class QualificationComponent implements OnInit {
   totalRecords: number = 0;
   //#endregion
 
-  constructor(private readonly _serviceQualification: QualificationService, private readonly _commonService: CommonService) { }
+  constructor(private readonly _serviceQualification: QualificationService,
+             private readonly _commonService: CommonService,
+             private readonly toast: ToastrService) { }
   ngOnInit(): void {
     this.getList();
   }
 
   getList(): void {
-    this._serviceQualification.GetQualificationList(this.indexModel).subscribe(response => {
-
+    let subscription = this._serviceQualification.GetQualificationList(this.indexModel).subscribe(response => {
+       subscription.unsubscribe();
       if (response.IsSuccess) {
         this.model = response.Data as QualificationModel[];
         this.dataSource = new MatTableDataSource<QualificationModel>(this.model);
@@ -49,6 +52,7 @@ export class QualificationComponent implements OnInit {
         }
       } else {
         // Toast message if  return false ;
+        this.toast.error(response.Message?.toString(), 'Record Not Found');
       }
     },
       error => {
@@ -82,8 +86,10 @@ export class QualificationComponent implements OnInit {
         this._serviceQualification.ChangeActiveStatus(Id).subscribe(
           data => {
             if (data.IsSuccess) {
-              this._commonService.Success(data.Message as string)
+              this.toast.success(data.Message as string, 'Status Change');
               this.getList();
+            } else {
+              this.toast.error(data. Message as string, 'Server Error');
             }
           },
           error => {
@@ -103,12 +109,14 @@ export class QualificationComponent implements OnInit {
         this._serviceQualification.DeleteQualification(id).subscribe(
           data => {
             if (data.IsSuccess) {
-              this._commonService.Success(data.Message as string)
+             this.toast.success(data.Message?.toString(), 'Remove');
               this.getList();
+            } else {
+              this.toast.error(data.Message as string, 'Server Error');
             }
           },
           error => {
-            this._commonService.Error(error.message as string)
+            this.toast.error(error.message as string, 'Error');
 
           }
         );

@@ -113,6 +113,11 @@ namespace AurigainLoanERP.Services.PaymentMode
             {
                 if (model.Id == 0)
                 {
+                    var isExist = await _db.PaymentMode.Where(x => x.Mode == model.Mode).FirstOrDefaultAsync();
+                    if (isExist != null)
+                    {
+                        return CreateResponse<string>("", ResponseMessage.RecordAlreadyExist, false, ((int)ApiStatusCode.AlreadyExist));
+                    }
                     var mode = _mapper.Map<AurigainLoanERP.Data.Database.PaymentMode>(model);
                     mode.CreatedOn = DateTime.Now;
                     var result = await _db.PaymentMode.AddAsync(mode);

@@ -1,3 +1,4 @@
+import { subscribeOn } from 'rxjs/operators';
 
 import { PaymentModeService } from './../../../../Shared/Services/master-services/payment-mode.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
@@ -24,8 +25,8 @@ export class PaymentModeComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort!: MatSort;
   id!: number;
-  displayedColumns: string[] = ['index', 'Name', 'IsActive', 'Action'];
-  ViewdisplayedColumns = [{ Value: 'Name', Text: 'Name' }];
+  displayedColumns: string[] = ['index', 'Payment Mode', 'IsActive', 'Action'];
+  ViewdisplayedColumns = [{ Value: 'Mode', Text: 'Payment Mode' }];
   indexModel = new IndexModel();
   totalRecords: number = 0;
   constructor(private readonly _paymentModeService: PaymentModeService,
@@ -47,11 +48,11 @@ if (!this.indexModel.IsPostBack) {
  this.dataSource.sort = this.sort;
 }
 } else {
-// Toast message if  return false ;
-this.toast.error(response.Message?.toString() , 'Error');
+this.toast.warning(response.Message?.toString() , 'Server Error');
 }
 },
 error => {
+  this.toast.error( error.Message as string , 'Error');
 });
 }
 
@@ -80,8 +81,10 @@ if (isTrue) {
 let subscription =  this._paymentModeService.ChangeActiveStatus(Id).subscribe( data => {
    subscription.unsubscribe();
    if (data.IsSuccess) {
-     this._commonService.Success(data.Message as string)
+     this.toast.success(data.Message as string, 'Status Change');
      this.getList();
+   } else {
+     this.toast.warning(data.Message as string , 'Server Error');
    }
  },
  error => {
@@ -95,11 +98,13 @@ let subscription =  this._paymentModeService.ChangeActiveStatus(Id).subscribe( d
 updateDeleteStatus(id: number) {
 this._commonService.Question(Message.ConfirmUpdate as string).then(result => {
 if (result) {
-this._paymentModeService.DeletePaymentMode(id).subscribe(
+let subscription = this._paymentModeService.DeletePaymentMode(id).subscribe(
  data => {
+   subscription.unsubscribe();
    if (data.IsSuccess) {
      this.getList();
-     this.toast.success(data.Message as string , 'Success');
+   } else {
+    this.toast.warning(data.Message as string , 'Server Error');
    }
  },
  error => {

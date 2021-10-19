@@ -27,7 +27,6 @@
 
 <div class="px-3">
     <div id="zero-config_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
-
         <div class="dt--top-section">
             <div class="row position-relative">
                 <div class="col-12 col-sm-6 d-flex justify-content-sm-start justify-content-center">
@@ -51,15 +50,15 @@
                         <input type="search" (blur)="onSearch()" class="form-control"
                             placeholder="Search..." aria-controls="zero-config"></label></div>
 
-                    <div class="ad-filter-btn-grp">
+                    <!-- <div class="ad-filter-btn-grp">
                         <button data-toggle="collapse" href="#advance-filter1" type="submit" class="ad-filter-btn"> <img
                             src="assets/img/filter.png" data-toggle="tooltip" data-placement="bottom"
                             title="Advance filter">
                     </button>
-                    </div>
+                    </div> -->
                 </div>
             </div>
-            <div class="collapse open-advance-filter" id="advance-filter1">
+            <!-- <div class="collapse open-advance-filter" id="advance-filter1">
                 <div class="open-advance-filter-header">Advance Search
                     <a data-toggle="collapse" href="#advance-filter1"> <i class="fas fa-times"></i></a>
                 </div>
@@ -125,7 +124,7 @@
                 </div>
 
 
-            </div>
+            </div> -->
         </div>
         <div class="table-responsive">
 
@@ -166,21 +165,14 @@
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
             </table>
-
-
-
         </div>
         <div class="dt--bottom-section d-sm-flex justify-content-sm-between text-center">
-
-
-
             <div class="dt--pagination">
                 <div class="dataTables_paginate paging_simple_numbers" id="zero-config_paginate">
                     <ul class="pagination">
 
-
-                        <!-- <mat-paginator #paginator [length]="totalRecords" [pageSize]="indexModel.PageSize" (page)="onPaginateChange($event)" showFirstLastButtons *ngIf="totalRecords!=0">
-                  </mat-paginator> -->
+                        <mat-paginator #paginator [length]="totalRecords" [pageSize]="indexModel.PageSize" (page)="onPaginateChange($event)" showFirstLastButtons *ngIf="totalRecords!=0">
+                  </mat-paginator>
                     </ul>
                 </div>
             </div>

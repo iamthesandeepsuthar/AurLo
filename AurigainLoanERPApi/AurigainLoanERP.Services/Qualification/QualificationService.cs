@@ -111,6 +111,11 @@ namespace AurigainLoanERP.Services.Qualification
             {
                 if (model.Id == 0)
                 {
+                    var isExist = await _db.QualificationMaster.Where(x => x.Name == model.Name).FirstOrDefaultAsync();
+                    if (isExist != null) 
+                    {
+                        return CreateResponse<string>("",ResponseMessage.RecordAlreadyExist, false,((int)ApiStatusCode.AlreadyExist),"",null);
+                    }
                     var qualification = _mapper.Map<QualificationMaster>(model);
                     qualification.CreatedOn = DateTime.Now;
                     var result = await _db.QualificationMaster.AddAsync(qualification);
@@ -154,7 +159,7 @@ namespace AurigainLoanERP.Services.Qualification
         public async Task<ApiServiceResponseModel<object>> UpateActiveStatus(int id)
         {
             try
-            {
+            {               
                 QualificationMaster qualification = await _db.QualificationMaster.FirstOrDefaultAsync(r => r.Id == id);
                 qualification.IsActive = !qualification.IsActive;
                 qualification.ModifiedOn = DateTime.Now;

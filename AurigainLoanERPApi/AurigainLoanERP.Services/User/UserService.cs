@@ -382,8 +382,6 @@ namespace AurigainLoanERP.Services.User
         {
             try
             {
-
-
                 if (model != null)
                 {
                     await _db.Database.BeginTransactionAsync();
@@ -702,7 +700,6 @@ namespace AurigainLoanERP.Services.User
                 else
                 {
                     return CreateResponse<string>(null, ResponseMessage.InvalidData, true, ((int)ApiStatusCode.InvaildModel));
-
                 }
             }
             catch (Exception ex)

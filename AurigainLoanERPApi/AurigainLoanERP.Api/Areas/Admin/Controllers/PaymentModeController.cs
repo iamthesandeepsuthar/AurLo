@@ -16,6 +16,14 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
         {
             _mode = mode;
         }
+
+        // GET: api/<UserRoleController>
+        [HttpPost("[action]")]
+        public async Task<ApiServiceResponseModel<List<PaymentModeModel>>> GetList(IndexModel model)
+        {
+            return await _mode.GetAllAsync(model);
+        }
+
         // GET api/PaymentMode/PaymentModes
         [HttpGet("[action]")]
         public async Task<ApiServiceResponseModel<List<DDLPaymentModeModel>>> PaymentModes()
@@ -54,6 +62,13 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
         public async Task<ApiServiceResponseModel<PaymentModeModel>> GetPaymentModeById(int id)
         {
             return await _mode.GetById(id);
+        }
+
+        // GET api/PaymentMode/ChangeActiveStatus/5
+        [HttpGet("[action]/{id}")]
+        public async Task<ApiServiceResponseModel<object>> ChangeActiveStatus(int id)
+        {
+            return await _mode.UpateActiveStatus(id);
         }
     }
 }

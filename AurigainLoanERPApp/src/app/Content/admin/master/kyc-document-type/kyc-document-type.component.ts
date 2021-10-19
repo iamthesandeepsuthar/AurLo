@@ -12,49 +12,60 @@ import { MatTableDataSource } from '@angular/material/table';
   selector: 'app-kyc-document-type',
   templateUrl: './kyc-document-type.component.html',
   styleUrls: ['./kyc-document-type.component.scss'],
-  providers: [KycDocumentTypeService]
+  providers: [KycDocumentTypeService],
 })
 export class KycDocumentTypeComponent implements OnInit {
-  get routing_Url() { return Routing_Url }
+  get routing_Url() {
+    return Routing_Url;
+  }
 
   model!: DocumentTypeModel[];
   dataSource: any;
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort!: MatSort;
   id!: number;
-  displayedColumns: string[] = ['index', 'Name', 'IsActive', 'Action'];
-  ViewdisplayedColumns = [{ Value: 'Name', Text: 'Name' }];
+  displayedColumns: string[] = ['index', 'Name','Length','Numeric' ,'IsActive', 'Action'];
+  ViewdisplayedColumns = [
+    { Value: 'DocumentName', Text: 'Name' },
+    { Value: 'DocumentNumberLength', Text: 'Length' },
+    { Value: 'IsNumeric', Text: 'Numeric' },
+  ];
   indexModel = new IndexModel();
   totalRecords: number = 0;
-  constructor(private readonly _documentTypeService: KycDocumentTypeService,
-             private readonly _commonService: CommonService,
-             private readonly toast: ToastrService) { }
+  constructor(
+    private readonly _documentTypeService: KycDocumentTypeService,
+    private readonly _commonService: CommonService,
+    private readonly toast: ToastrService
+  ) {}
   ngOnInit(): void {
     this.getList();
   }
   getList(): void {
-    let subscription =  this._documentTypeService.GetDocumentTypeList(this.indexModel).subscribe(response => {
-        subscription.unsubscribe();
-      if (response.IsSuccess) {
-        this.model = response.Data as DocumentTypeModel[];
-        this.dataSource = new MatTableDataSource<DocumentTypeModel>(this.model);
-        this.totalRecords = response.TotalRecord as number;
-        if (!this.indexModel.IsPostBack) {
-          this.dataSource.paginator = this.paginator;
-          this.dataSource.sort = this.sort;
-        }
-      } else {
-        // Toast message if  return false ;
-        this.toast.error(response.Message?.toString() , 'Error');
-      }
-    },
-      error => {
-      });
+    let subscription = this._documentTypeService
+      .GetDocumentTypeList(this.indexModel)
+      .subscribe(
+        (response) => {
+          subscription.unsubscribe();
+          if (response.IsSuccess) {
+            this.model = response.Data as DocumentTypeModel[];
+            this.dataSource = new MatTableDataSource<DocumentTypeModel>(
+              this.model
+            );
+            this.totalRecords = response.TotalRecord as number;
+            if (!this.indexModel.IsPostBack) {
+              this.dataSource.paginator = this.paginator;
+              this.dataSource.sort = this.sort;
+            }
+          } else {
+            this.toast.error(response.Message?.toString(), 'Server Error');
+          }
+        },
+        (error) => {}
+      );
   }
-
   sortData(event: any): void {
     this.indexModel.OrderBy = event.active;
-    this.indexModel.OrderByAsc = event.direction == "asc" ? true : false;
+    this.indexModel.OrderByAsc = event.direction == 'asc' ? true : false;
     this.indexModel.IsPostBack = true;
     this.getList();
   }
@@ -72,38 +83,49 @@ export class KycDocumentTypeComponent implements OnInit {
   }
 
   OnActiveStatus(Id: number) {
-    this._commonService.Question(Message.ConfirmUpdate as string).then(isTrue => {
-      if (isTrue) {
-        let subscription =  this._documentTypeService.ChangeActiveStatus(Id).subscribe( data => {
-            subscription.unsubscribe();
-            if (data.IsSuccess) {
-              this._commonService.Success(data.Message as string)
-              this.getList();
-            }
-          },
-          error => {
-            this._commonService.Error(error.message as string)
-          }
-        );
-      }
-    });
+    this._commonService
+      .Question(Message.ConfirmUpdate as string)
+      .then((isTrue) => {
+        if (isTrue) {
+          let subscription = this._documentTypeService
+            .ChangeActiveStatus(Id)
+            .subscribe(
+              (data) => {
+                subscription.unsubscribe();
+                if (data.IsSuccess) {
+                  this.toast.success(data.Message as string, 'Status Change');
+                  this.getList();
+                } else {
+                  this.toast.error(data.Message as string, 'Server Error');
+                }
+              },
+              (error) => {
+                this._commonService.Error(error.message as string);
+              }
+            );
+        }
+      });
   }
 
   updateDeleteStatus(id: number) {
-    this._commonService.Question(Message.ConfirmUpdate as string).then(result => {
-      if (result) {
-        this._documentTypeService.DeleteDocumentType(id).subscribe(
-          data => {
-            if (data.IsSuccess) {
-              this.getList();
-              this.toast.success(data.Message as string , 'Success');
+    this._commonService
+      .Question(Message.ConfirmUpdate as string)
+      .then((result) => {
+        if (result) {
+          this._documentTypeService.DeleteDocumentType(id).subscribe(
+            (data) => {
+              if (data.IsSuccess) {
+                this.getList();
+                this.toast.success(data.Message as string, 'Success');
+              } else {
+                this.toast.error(data.Message as string, 'Server Error');
+              }
+            },
+            (error) => {
+              this.toast.error(error.message as string, 'Error');
             }
-          },
-          error => {
-            this.toast.error(error.message as string, 'Error');
-          }
-        );
-      }
-    });
+          );
+        }
+      });
   }
 }

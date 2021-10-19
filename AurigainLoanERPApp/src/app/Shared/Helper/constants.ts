@@ -23,23 +23,23 @@ export class API_Url {
   //#endregion
 
   //#region <<State -District>>
-  public static State_List_Api = `${environment.apiEndPoint}StateAndDistrict/Get`;
+  public static State_List_Api = `${environment.apiEndPoint}StateAndDistrict/GetStateList`;
   public static State_Detail_Api = `${environment.apiEndPoint}StateAndDistrict/GetStateById/`;
   public static State_Add_Update_Api = `${environment.apiEndPoint}StateAndDistrict/SubmitState`;
-  public static State_Active_Status_Api = `${environment.apiEndPoint}StateAndDistrict/ChangeActiveStatus/`;
+  public static State_Active_Status_Api = `${environment.apiEndPoint}StateAndDistrict/ChangeStateActiveStatus/`;
   public static State_Delete_Api = `${environment.apiEndPoint}StateAndDistrict/DeleteState/`;
 
   public static State_Dropdown_Api = `${environment.apiEndPoint}StateAndDistrict/States`;
   public static District_Dropdown_Api = `${environment.apiEndPoint}StateAndDistrict/Districts/`;
-  public static District_List_Api = `${environment.apiEndPoint}StateAndDistrict/Get`;
+  public static District_List_Api = `${environment.apiEndPoint}StateAndDistrict/GetDistrictList`;
   public static District_Detail_Api = `${environment.apiEndPoint}StateAndDistrict/GetDistrictById/`;
   public static District_Add_Update_Api = `${environment.apiEndPoint}StateAndDistrict/SubmitDistrict`;
-  public static District_Active_Status_Api = `${environment.apiEndPoint}StateAndDistrict/ChangeActiveStatus/`;
+  public static District_Active_Status_Api = `${environment.apiEndPoint}StateAndDistrict/ChangeDistrictActiveStatus/`;
   public static District_Delete_Api = `${environment.apiEndPoint}StateAndDistrict/DeleteDistrict/`;
   //#endregion
 
   //#region <<Qualification>>
-  public static Qualification_List_Api = `${environment.apiEndPoint}Qualification/Get`;
+  public static Qualification_List_Api = `${environment.apiEndPoint}Qualification/GetList`;
   public static Qualification_Detail_Api = `${environment.apiEndPoint}Qualification/GetQualificationById/`;
   public static Qualification_Add_Update_Api = `${environment.apiEndPoint}Qualification/SubmitQualification`;
   public static Qualification_Active_Status_Api = `${environment.apiEndPoint}Qualification/ChangeActiveStatus/`;
@@ -47,7 +47,7 @@ export class API_Url {
   //#endregion
 
   //#region <<Payment Mode>>
-  public static PaymentMode_List_Api = `${environment.apiEndPoint}PaymentMode/Get`;
+  public static PaymentMode_List_Api = `${environment.apiEndPoint}PaymentMode/GetList`;
   public static PaymentMode_Detail_Api = `${environment.apiEndPoint}PaymentMode/GetPaymentModeById/`;
   public static PaymentMode_Add_Update_Api = `${environment.apiEndPoint}PaymentMode/SubmitPaymentMode`;
   public static PaymentMode_Active_Status_Api = `${environment.apiEndPoint}PaymentMode/ChangeActiveStatus/`;
@@ -56,7 +56,7 @@ export class API_Url {
 
   //#region <<Kyc Document Type>>
   public static Kyc_Document_Type_Dropdown_Api = `${environment.apiEndPoint}KycDocumentType/DocumentTypes`;
-  public static Kyc_Document_Type_List_Api = `${environment.apiEndPoint}KycDocumentType/Get`;
+  public static Kyc_Document_Type_List_Api = `${environment.apiEndPoint}KycDocumentType/GetList`;
   public static Kyc_Document_Type_Detail_Api = `${environment.apiEndPoint}KycDocumentType/GetDocumentTypeById/`;
   public static Kyc_Document_Type_Add_Update_Api = `${environment.apiEndPoint}KycDocumentType/SubmitDocumentType`;
   public static Kyc_Document_Type_Active_Status_Api = `${environment.apiEndPoint}KycDocumentType/ChangeActiveStatus/`;

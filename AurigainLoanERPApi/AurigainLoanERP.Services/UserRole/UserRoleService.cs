@@ -147,10 +147,14 @@ namespace AurigainLoanERP.Services.UserRoles
 
                 if (model.Id == 0)
                 {
+                    var isExist = await _db.UserRole.Where(x => x.Name == model.Name).FirstOrDefaultAsync();
+                    if (isExist != null)
+                    {
+                        return CreateResponse<string>("", ResponseMessage.RecordAlreadyExist, false, ((int)ApiStatusCode.AlreadyExist));
+                    }
                     var userRole = _mapper.Map<UserRole>(model);
                     userRole.CreatedOn = DateTime.Now;
                     userRole.ParentId = model.ParentId > 0 ? model.ParentId : null;
-
                     var result = await _db.UserRole.AddAsync(userRole);
 
                 }

@@ -35,8 +35,8 @@ export class StateComponent implements OnInit {
   }
 
   getList(): void {
-    this._stateService.GetStateList(this.indexModel).subscribe(response => {
-
+   let subscription =  this._stateService.GetStateList(this.indexModel).subscribe(response => {
+      subscription.unsubscribe();
       if (response.IsSuccess) {
         this.model = response.Data as StateModel[];
         this.dataSource = new MatTableDataSource<StateModel>(this.model);
@@ -46,11 +46,11 @@ export class StateComponent implements OnInit {
           this.dataSource.sort = this.sort;
         }
       } else {
-        // Toast message if  return false ;
-        this.toast.error(response.Message?.toString(), 'Error');
+        this.toast.warning(response.Message?.toString(), 'Server Error');
       }
     },
       error => {
+        this.toast.error(error.Message , 'Error');
       });
   }
 
@@ -74,21 +74,20 @@ export class StateComponent implements OnInit {
   }
 
   OnActiveStatus(Id: number) {
-
     this._commonService.Question(Message.ConfirmUpdate as string).then(isTrue => {
-
       if (isTrue) {
        let subscription  =  this._stateService.ChangeActiveStatus(Id).subscribe(
           data => {
             subscription.unsubscribe();
             if (data.IsSuccess) {
-              this._commonService.Success(data.Message as string)
+              this.toast.success(data.Message as string,'Status Change');
               this.getList();
+            } else {
+              this.toast.warning(data.Message as string, 'Server Error');
             }
           },
           error => {
-            this._commonService.Error(error.message as string)
-
+            this.toast.error(error.message as string, 'Error');
           }
         );
       }
@@ -97,15 +96,16 @@ export class StateComponent implements OnInit {
   }
 
   updateDeleteStatus(id: number) {
-
     this._commonService.Question(Message.ConfirmUpdate as string).then(result => {
       if (result) {
        let subscription =  this._stateService.DeleteState(id).subscribe(
           data => {
             subscription.unsubscribe();
             if (data.IsSuccess) {
-              this._commonService.Success(data.Message as string)
+             this.toast.success(data.Message as string, 'Remove');
               this.getList();
+            } else {
+              this.toast.warning(data.Message as string, 'Server Error');
             }
           },
           error => {

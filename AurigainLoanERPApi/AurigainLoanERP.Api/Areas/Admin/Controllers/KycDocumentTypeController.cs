@@ -16,6 +16,12 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
         {
             _documentService = documentService;
         }
+        //POST api/KycDocumentType/GetList
+        [HttpPost("[action]")]
+        public async Task<ApiServiceResponseModel<List<DocumentTypeModel>>> GetList(IndexModel model)
+        {
+            return await _documentService.GetAllAsync(model);
+        }
         // GET api/KycDocumentType/DocumentTypes
         [HttpGet("[action]")]
         public async Task<ApiServiceResponseModel<List<DDLDocumentTypeModel>>> DocumentTypes()
@@ -55,6 +61,12 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
         {
             return await _documentService.GetById(id);
 
+        }
+        // GET api/KycDocumentType/ChangeActiveStatus/5
+        [HttpGet("[action]/{id}")]
+        public async Task<ApiServiceResponseModel<object>> ChangeActiveStatus(int id)
+        {
+            return await _documentService.UpateActiveStatus(id);
         }
     }
 }

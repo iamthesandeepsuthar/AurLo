@@ -40,8 +40,8 @@ export class UserRoleComponent implements OnInit {
 
   getList(): void {
 
-    this._userRole.GetRoleList(this.indexModel).subscribe(response => {
-
+   let subscription =  this._userRole.GetRoleList(this.indexModel).subscribe(response => {
+      subscription.unsubscribe();
       if (response.IsSuccess) {
         this.model = response.Data as UserRoleModel[];
         this.dataSource = new MatTableDataSource<UserRoleModel>(this.model);
@@ -83,8 +83,9 @@ export class UserRoleComponent implements OnInit {
           data => {
             if (data.IsSuccess) {
               this._toast.success('Status update successful','Change Status');
-            //  this._commonService.Success(data.Message as string)
               this.getList();
+            } else {
+              this._toast.error(data. Message as string, 'Server Error');
             }
           },
           error => {
@@ -102,8 +103,10 @@ export class UserRoleComponent implements OnInit {
         this._userRole.DeleteRole(id).subscribe(
           data => {
             if (data.IsSuccess) {
-              this._toast.success('Record deleted successful','Delete');
+              this._toast.success('Role deleted successful','Delete');
               this.getList();
+            } else {
+              this._toast.error(data.Message as string, 'Server Error');
             }
           },
           error => {

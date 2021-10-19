@@ -24,8 +24,8 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
 
         }
 
-        [HttpPost]
-        public async Task<ApiServiceResponseModel<List<QualificationModel>>> Get(IndexModel model)
+        [HttpPost("[action]")]
+        public async Task<ApiServiceResponseModel<List<QualificationModel>>> GetList(IndexModel model)
         {
             return await _qualificationService.GetAllAsync(model);
         }
@@ -63,6 +63,12 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
         public async Task<ApiServiceResponseModel<object>> DeleteQualification(int id)
         {
             return await _qualificationService.UpdateDeleteStatus(id);
+        }
+        // GET api/Qualification/ChangeActiveStatus/5
+        [HttpGet("[action]/{id}")]
+        public async Task<ApiServiceResponseModel<object>> ChangeActiveStatus(int id)
+        {
+            return await _qualificationService.UpateActiveStatus(id);
         }
 
     }
