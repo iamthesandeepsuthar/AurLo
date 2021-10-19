@@ -24,4 +24,5 @@ export class AgentService {
     return this._baseService.Delete(url);
   }
 
+
 }

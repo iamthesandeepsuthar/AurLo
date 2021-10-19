@@ -13,4 +13,10 @@ export class UserSettingService {
     let url = `${this._baseService.API_Url.UserUpdateProfileApi}`;
     return this._baseService.post(url, model);
   }
+
+
+  UpdateApproveStatus(id: number, status?: string): Observable<ApiResponse<string>> {
+    let url = `${this._baseService.API_Url.UserApproveStatusApi}${id}`;
+    return this._baseService.get(url);
+  }
 }

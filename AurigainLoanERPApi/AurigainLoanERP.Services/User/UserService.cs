@@ -168,6 +168,7 @@ namespace AurigainLoanERP.Services.User
                                               PinCode = detail.PinCode ?? null,
                                               DateOfBirth = detail.DateOfBirth ?? null,
                                               ProfilePictureUrl = detail.User.ProfilePath.ToAbsolutePath() ?? null,
+                                              IsApproved = detail.User.IsApproved,
                                               IsActive = detail.IsActive,
                                               IsDelete = detail.IsDelete,
                                               CreatedOn = detail.CreatedOn,
@@ -348,6 +349,7 @@ namespace AurigainLoanERP.Services.User
                                               PinCode = detail.PinCode ?? null,
                                               DateOfBirth = detail.DateOfBirth ?? null,
                                               ProfilePictureUrl = detail.User.ProfilePath.ToAbsolutePath() ?? null,
+                                              IsApproved = detail.User.IsApproved,
                                               IsActive = detail.IsActive,
                                               IsDelete = detail.IsDelete,
                                               CreatedOn = detail.CreatedOn,
@@ -485,6 +487,8 @@ namespace AurigainLoanERP.Services.User
                         if (objDoorStepAgent.User != null)
                         {
                             objDoorStepAgentModel.User = _mapper.Map<UserViewModel>(objDoorStepAgent.User ?? null);
+                            objDoorStepAgentModel.User.UserRoleName = objDoorStepAgent.User.UserRole.Name;
+                            objDoorStepAgentModel.User.ProfilePath = objDoorStepAgent.User.ProfilePath.ToAbsolutePath();
 
                         }
 
@@ -579,7 +583,7 @@ namespace AurigainLoanERP.Services.User
                         objDoorStepAgentModel.StateName = objDoorStepAgent.District.State.Name;
                         objDoorStepAgentModel.StateId = objDoorStepAgent.District.StateId;
                         objDoorStepAgentModel.QualificationName = objDoorStepAgent.Qualification.Name;
-                        objDoorStepAgentModel.User.UserRoleName = objDoorStepAgent.User.UserRole.Name;
+                      
                     }
                     return CreateResponse(objDoorStepAgentModel, ResponseMessage.Success, true, ((int)ApiStatusCode.Ok));
                 }
@@ -778,6 +782,25 @@ namespace AurigainLoanERP.Services.User
             {
                 _db.Database.RollbackTransaction();
                 return CreateResponse<string>(null, ResponseMessage.Fail, true, ((int)ApiStatusCode.DataBaseTransactionFailed));
+
+            }
+        }
+
+        public async Task<ApiServiceResponseModel<object>> UpdateApproveStatus(long id)
+        {
+            try
+            {
+                await _db.Database.BeginTransactionAsync();
+                var user = await _db.UserMaster.FirstOrDefaultAsync(X => X.Id == id);
+                user.IsApproved = !user.IsApproved;
+                await _db.SaveChangesAsync();
+                _db.Database.CommitTransaction();
+                return CreateResponse(true as object, ResponseMessage.Update, true, ((int)ApiStatusCode.Ok));
+            }
+            catch (Exception ex)
+            {
+                _db.Database.RollbackTransaction();
+                return CreateResponse(true as object, ResponseMessage.Fail, true, ((int)ApiStatusCode.ServerException), ex.Message);
 
             }
         }

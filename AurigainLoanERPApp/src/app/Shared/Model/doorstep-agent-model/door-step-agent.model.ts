@@ -19,7 +19,6 @@ export class DoorStepAgentPostModel {
   StateId!: number;
   PinCode!: string;
   DateOfBirth!: string;
-  ProfilePictureUrl!: string;
   SelfFunded: boolean;
   User!: UserPostModel;
   BankDetails!: UserBankDetailsPostModel;
@@ -271,6 +270,7 @@ export interface UserViewModel {
   IsApproved: boolean;
   DeviceToken: string;
   Token: string;
+  ProfilePath: string;
   IsActive: boolean;
   IsDelete: boolean;
   CreatedOn: string;
@@ -297,6 +297,7 @@ export interface DoorStepAgentListModel {
   PinCode: string;
   DateOfBirth: string;
   ProfilePictureUrl: string;
+  IsApproved: boolean;
   IsActive: boolean;
   IsDelete: boolean;
   CreatedOn: string;

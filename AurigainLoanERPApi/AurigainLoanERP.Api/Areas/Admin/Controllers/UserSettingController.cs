@@ -24,11 +24,11 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<ApiServiceResponseModel<string>> UpdateProfile([FromBody] UserSettingPostModel Model)
+        public async Task<ApiServiceResponseModel<string>> UpdateProfile([FromBody] UserSettingPostModel model)
         {
             if (ModelState.IsValid)
             {
-                return await  _userSerivce.UpdateProfile(Model);
+                return await  _userSerivce.UpdateProfile(model);
                 
             }
             else
@@ -46,5 +46,10 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
 
         }
 
+        [HttpGet("{id}")]
+        public async Task<ApiServiceResponseModel<object>> UpdateApproveStatus(long id)
+        {
+            return await _userSerivce.UpdateApproveStatus(id);
+        }
     }
 }

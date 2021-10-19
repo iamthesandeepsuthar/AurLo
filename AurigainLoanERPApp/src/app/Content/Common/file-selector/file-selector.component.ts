@@ -61,6 +61,7 @@ export class FileSelectorComponent {
 
     @Output() readonly FileSelected: EventEmitter<FileInfo>;
     @Output() readonly FilesChanged: EventEmitter<FileInfo[]>;
+    @Input()  isShowFiles: boolean=true;
 
     constructor(readonly _alertService: AlertService) {
         this.FileSelected = new EventEmitter();
@@ -68,8 +69,7 @@ export class FileSelectorComponent {
         this._files = [];
         this.FileFilter = "image/*,.doc,.docx,.ppt,.pptx,.pdf,.xlx,.xlsx,.txt";
         this._allowFiles = ['.jpeg', '.gif', '.png', '.jpg', '.TIFF', '.PSD', '.EPS', '.RAW', '.INDD', '.AI', '.doc', '.docx', '.ppt', '.pptx', '.pdf', '.txt', '.xlx', '.xlsx', '.BMP', '.SVG'];
-
-    }
+  }
 
     @Input() FileFilter: string;
 
@@ -105,7 +105,7 @@ export class FileSelectorComponent {
             }
 
             let fileInfo = new FileInfo(file);
-           
+
             this._files.push(fileInfo);
 
             this.FileSelected.emit(fileInfo);

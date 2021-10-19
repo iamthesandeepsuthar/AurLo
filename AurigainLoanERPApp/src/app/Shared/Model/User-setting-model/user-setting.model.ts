@@ -1,6 +1,6 @@
 
-export interface UserSettingPostModel {
-    UserId: number;
-    ProfileBase64: string;
-    FileName: string;
+export class UserSettingPostModel {
+    UserId!: number;
+    ProfileBase64!: string;
+    FileName!: string;
 }

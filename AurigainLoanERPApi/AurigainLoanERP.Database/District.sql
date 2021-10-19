@@ -7,6 +7,6 @@
     [IsActive] BIT NOT NULL DEFAULT 1, 
     [IsDelete] BIT NOT NULL DEFAULT 0, 
     [CreatedOn] DATETIME NOT NULL DEFAULT GetDate(), 
-    [ModifiedOn] TIMESTAMP NULL, 
+    [ModifiedOn] DATETIME NULL, 
     CONSTRAINT [FK_District_State] FOREIGN KEY (State_Id) REFERENCES State(Id)
 )

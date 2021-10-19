@@ -54,7 +54,7 @@ export class DetailDoorStepAgentComponent implements OnInit {
   }
   safeURL(url: string) {
     console.log(url)
-    return this.domSanitizer.bypassSecurityTrustResourceUrl(url);
+    return this.domSanitizer.bypassSecurityTrustUrl(url);
   }
 
   //#endregion

@@ -45,6 +45,8 @@ namespace AurigainLoanERP.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddDirectoryBrowser();
+            
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Aurigain", Version = "v1" });
@@ -130,16 +132,28 @@ namespace AurigainLoanERP.Api
 
             app.UseRouting();
             app.UseStaticFiles();
-            app.UseStaticFiles(new StaticFileOptions
-            {
-                FileProvider = new PhysicalFileProvider( Path.Combine(Directory.GetCurrentDirectory(), "Content")), RequestPath = "/Content"
-            });
-            //Enable directory browsing
+            //app.UseStaticFiles(new StaticFileOptions
+            //{
+            //    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "Content")),
+            //    RequestPath = "/Content"
+            //});
+
+
+            // Enable directory browsing
             app.UseDirectoryBrowser(new DirectoryBrowserOptions
             {
-                FileProvider = new PhysicalFileProvider( Path.Combine(Directory.GetCurrentDirectory(), "Content")), RequestPath = "/Content"
+                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "Content")),
+                RequestPath = "/Content"
             });
 
+
+           // app.UseFileServer(new FileServerOptions
+           // {
+           //     FileProvider = new PhysicalFileProvider(
+           //Path.Combine(Directory.GetCurrentDirectory(), "Content")),
+           //     RequestPath = "/Content",
+           //     EnableDirectoryBrowsing = true
+           // });
 
 
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());

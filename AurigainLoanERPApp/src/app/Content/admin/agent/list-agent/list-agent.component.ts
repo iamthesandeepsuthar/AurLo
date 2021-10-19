@@ -7,12 +7,13 @@ import { Routing_Url, Message } from 'src/app/Shared/Helper/constants';
 import { AgentListModel } from 'src/app/Shared/Model/Agent/agent.model';
 import { AgentService } from 'src/app/Shared/Services/agent-services/agent.service';
 import { CommonService } from 'src/app/Shared/Services/common.service';
+import { UserSettingService } from '../../../../Shared/Services/user-setting-services/user-setting.service';
 
 @Component({
   selector: 'app-list-agent',
   templateUrl: './list-agent.component.html',
   styleUrls: ['./list-agent.component.scss'],
-  providers :[AgentService]
+  providers: [AgentService, UserSettingService]
 })
 export class ListAgentComponent implements OnInit {
 
@@ -25,13 +26,13 @@ export class ListAgentComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort!: MatSort;
   id!: number;
-  displayedColumns: string[] = ['index', 'FullName', 'Gender', 'IsActive', 'Action'];
+  displayedColumns: string[] = ['index', 'FullName', 'Gender', 'IsActive', 'IsApproved', 'Action'];
   ViewdisplayedColumns = [{ Value: 'FullName', Text: 'Full Name' }, { Value: 'Gender', Text: 'Gender' }, { Value: 'Email', Text: 'Email' }, { Value: 'Mobile', Text: 'Mobile' }];
   indexModel = new IndexModel();
   totalRecords: number = 0;
   //#endregion
 
-  constructor(private readonly _service: AgentService, private readonly _commonService: CommonService) { }
+  constructor(private readonly _service: AgentService, private readonly _commonService: CommonService, private readonly _userSettingService: UserSettingService) { }
   ngOnInit(): void {
     this.getList();
   }
@@ -81,8 +82,9 @@ export class ListAgentComponent implements OnInit {
     this._commonService.Question(Message.ConfirmUpdate as string).then(isTrue => {
 
       if (isTrue) {
-        this._service.ChangeActiveStatus(Id).subscribe(
+        let serv = this._service.ChangeActiveStatus(Id).subscribe(
           data => {
+            serv.unsubscribe();
             if (data.IsSuccess) {
               this._commonService.Success(data.Message as string)
               this.getList();
@@ -97,12 +99,14 @@ export class ListAgentComponent implements OnInit {
     });
 
   }
+
   updateDeleteStatus(id: number) {
 
     this._commonService.Question(Message.ConfirmUpdate as string).then(result => {
       if (result) {
-        this._service.DeleteAgent(id).subscribe(
+        let serv = this._service.DeleteAgent(id).subscribe(
           data => {
+            serv.unsubscribe();
             if (data.IsSuccess) {
               this._commonService.Success(data.Message as string)
               this.getList();
@@ -115,6 +119,29 @@ export class ListAgentComponent implements OnInit {
         );
       }
     });
+  }
+
+  OnApproveStatus(Id: number) {
+
+    this._commonService.Question(Message.ConfirmUpdate as string).then(isTrue => {
+
+      if (isTrue) {
+        let serv = this._userSettingService.UpdateApproveStatus(Id).subscribe(
+          data => {
+            serv.unsubscribe();
+            if (data.IsSuccess) {
+              this._commonService.Success(data.Message as string)
+              this.getList();
+            }
+          },
+          error => {
+            this._commonService.Error(error.message as string)
+
+          }
+        );
+      }
+    });
+
   }
 
 

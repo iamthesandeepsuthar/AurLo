@@ -37,6 +37,10 @@ export class DoorStepAgentRegistrationComponent implements OnInit {
   get minDate() { return new Date() };
   get maxDate() { return new Date() };
 
+
+  fileData!: File;
+  previewUrl: any = null;
+
   @ViewChild(UserBankDetailSectionComponent, { static: false }) _childUserBankDetailSection!: UserBankDetailSectionComponent;
   @ViewChild(UserDocumentDetailSectionComponent, { static: false }) _childUserDocumentDetailSection!: UserDocumentDetailSectionComponent;
   @ViewChild(UserKYCDetailSectionComponent, { static: false }) _childUserKYCDetailSection!: UserKYCDetailSectionComponent;
@@ -64,7 +68,6 @@ export class DoorStepAgentRegistrationComponent implements OnInit {
     this.formInit();
     this.GetDropDown();
     if (this.Id > 0) {
-
       this.onGetDetail();
     }
   }
@@ -221,7 +224,6 @@ export class DoorStepAgentRegistrationComponent implements OnInit {
       this._userDoorStepService.GetDoorStepAgent(this.Id).subscribe(res => {
         if (res.IsSuccess) {
           let data = res.Data as DoorStepAgentViewModel;
-
           this.model.Id = data.Id;
           this.model.FullName = data.FullName;
           this.model.FatherName = data.FatherName;
@@ -232,7 +234,8 @@ export class DoorStepAgentRegistrationComponent implements OnInit {
           this.model.StateId = data.StateId;
           this.model.PinCode = data.PinCode;
           this.model.DateOfBirth = data.DateOfBirth;
-          this.model.ProfilePictureUrl = data.ProfilePictureUrl;
+          debugger
+          this.previewUrl = data.User.ProfilePath;
           this.model.SelfFunded = data.SelfFunded;
           this.model.User.Email = data.User.Email;
           this.model.User.Mobile = data.User.Mobile;
@@ -243,4 +246,46 @@ export class DoorStepAgentRegistrationComponent implements OnInit {
     }
 
   }
+
+  fileProgress(fileInput: any) {
+    this.fileData = fileInput.target.files[0] as File;
+    this.preview();
+  }
+  preview() {
+    // Show preview
+    const mimeType = this.fileData.type;
+    if (mimeType.match(/image\/*/) == null) {
+      return;
+    }
+    const reader = new FileReader();
+    reader.readAsDataURL(this.fileData);
+    reader.onload = (event) => {
+      this.previewUrl = reader.result;
+    };
+  }
+
+  onUploadProfileImage() {
+    let profileModel = new UserSettingPostModel();
+    profileModel.FileName = this.fileData.name;
+    profileModel.UserId = Number(this.Id);
+    profileModel.ProfileBase64 = this.previewUrl;
+
+    // let reader = new FileReader();
+    // reader.onload = e => {
+    //   profileModel.ProfileBase64 = e.target!.result!.toString();
+    //   debugger
+
+    // };
+    // reader.readAsDataURL(this.fileData);
+    debugger
+    let serv = this._userSettingService.UpdateUserProfile(profileModel).subscribe(res => {
+
+      serv.unsubscribe();
+      debugger
+    });
+
+
+
+  }
+
 }

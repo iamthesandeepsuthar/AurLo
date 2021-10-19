@@ -3914,6 +3914,11 @@ table.table.table-striped.dataTable.table-header.table-blue tbody tr:nth-of-type
     font-size: 15px;
 }
 
+.is-invalid .btn-upload-border {
+    border-color: red;
+    color: red;
+}
+
 
 /* Theme Dark Start */
 
