@@ -10,5 +10,10 @@
     [ProcessingFee] FLOAT NULL, 
     [InterestRateApplied] BIT NULL, 
     [MinimumTenure] FLOAT NULL, 
-    [MaximumTenure] FLOAT NULL
+    [MaximumTenure] FLOAT NULL, 
+    [IsActive] BIT NOT NULL, 
+    [IsDelete] BIT NOT NULL, 
+    [CreatedDate] DATETIME NOT NULL, 
+    [ModifiedDate] DATETIME NULL, 
+    [CreatedBy] BIGINT NULL
 )

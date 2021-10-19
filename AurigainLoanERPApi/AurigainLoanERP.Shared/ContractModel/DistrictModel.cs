@@ -8,6 +8,11 @@ namespace AurigainLoanERP.Shared.ContractModel
 {
     public class DistrictModel
     {
+
+       public  DistrictModel() 
+        {
+            Areas = new List<PincodeAreaModel>();
+        }
         public long Id { get; set; }
         public string Name { get; set; }
         public int StateId { get; set; }
@@ -17,6 +22,7 @@ namespace AurigainLoanERP.Shared.ContractModel
         public bool IsDelete { get; set; }
         public DateTime CreatedOn { get; set; }
         public DateTime? ModifiedOn { get; set; }
+        public List<PincodeAreaModel> Areas { get; set;}
     }
     /// <summary>
     /// District Dropdown Model

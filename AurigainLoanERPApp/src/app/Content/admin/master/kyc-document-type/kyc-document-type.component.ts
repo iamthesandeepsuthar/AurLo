@@ -24,11 +24,10 @@ export class KycDocumentTypeComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort!: MatSort;
   id!: number;
-  displayedColumns: string[] = ['index', 'Name','Length','Numeric' ,'IsActive', 'Action'];
+  displayedColumns: string[] = ['index', 'DocumentName','DocumentNumberLength','IsNumeric' ,'IsActive', 'Action'];
   ViewdisplayedColumns = [
     { Value: 'DocumentName', Text: 'Name' },
     { Value: 'DocumentNumberLength', Text: 'Length' },
-    { Value: 'IsNumeric', Text: 'Numeric' },
   ];
   indexModel = new IndexModel();
   totalRecords: number = 0;

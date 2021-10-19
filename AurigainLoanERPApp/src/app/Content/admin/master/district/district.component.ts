@@ -25,9 +25,9 @@ export class DistrictComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort!: MatSort;
   id!: number;
-  displayedColumns: string[] = ['index', 'Name', 'State'  , 'IsActive', 'Action'];
+  displayedColumns: string[] = ['index', 'Name', 'StateName'  , 'IsActive', 'Action'];
   ViewdisplayedColumns = [{ Value: 'Name', Text: 'Name' },
-                          {Value:'StateName',Text: 'StateName'}];
+                          {Value:'StateName',Text: 'State'}];
   indexModel = new IndexModel();
   totalRecords: number = 0;
   constructor(private readonly _stateService: StateDistrictService,

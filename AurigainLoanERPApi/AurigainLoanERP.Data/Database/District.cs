@@ -11,6 +11,7 @@ namespace AurigainLoanERP.Data.Database
     {
         public District()
         {
+            PincodeArea = new HashSet<PincodeArea>();
             UserAgent = new HashSet<UserAgent>();
             UserDoorStepAgent = new HashSet<UserDoorStepAgent>();
         }
@@ -25,6 +26,7 @@ namespace AurigainLoanERP.Data.Database
         public DateTime? ModifiedOn { get; set; }
 
         public virtual State State { get; set; }
+        public virtual ICollection<PincodeArea> PincodeArea { get; set; }
         public virtual ICollection<UserAgent> UserAgent { get; set; }
         public virtual ICollection<UserDoorStepAgent> UserDoorStepAgent { get; set; }
     }

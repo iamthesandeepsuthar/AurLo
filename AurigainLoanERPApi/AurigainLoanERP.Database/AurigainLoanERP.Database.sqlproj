@@ -92,6 +92,7 @@
     <Build Include="Managers.sql" />
     <Build Include="Product.sql" />
     <Build Include="UserAvailability.sql" />
+    <Build Include="PincodeArea.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="AurigainLoanERP.Database.refactorlog" />

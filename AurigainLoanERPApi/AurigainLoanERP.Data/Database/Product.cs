@@ -20,6 +20,11 @@ namespace AurigainLoanERP.Data.Database
         public bool? InterestRateApplied { get; set; }
         public double? MinimumTenure { get; set; }
         public double? MaximumTenure { get; set; }
+        public bool IsActive { get; set; }
+        public bool IsDelete { get; set; }
+        public DateTime CreatedDate { get; set; }
+        public DateTime? ModifiedDate { get; set; }
+        public long? CreatedBy { get; set; }
 
         public virtual ProductCategory ProductCategory { get; set; }
     }

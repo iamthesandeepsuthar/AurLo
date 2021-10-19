@@ -25,7 +25,7 @@ export class PaymentModeComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort!: MatSort;
   id!: number;
-  displayedColumns: string[] = ['index', 'Payment Mode', 'IsActive', 'Action'];
+  displayedColumns: string[] = ['index', 'Mode', 'IsActive', 'Action'];
   ViewdisplayedColumns = [{ Value: 'Mode', Text: 'Payment Mode' }];
   indexModel = new IndexModel();
   totalRecords: number = 0;

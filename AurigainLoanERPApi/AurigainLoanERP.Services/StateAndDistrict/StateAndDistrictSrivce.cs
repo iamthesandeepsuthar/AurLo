@@ -192,16 +192,17 @@ namespace AurigainLoanERP.Services.StateAndDistrict
                               where !district.IsDelete && (string.IsNullOrEmpty(model.Search) || district.Name.Contains(model.Search))
                               orderby (model.OrderByAsc  && model.OrderBy == "Name" ? district.Name : "") ascending
                               orderby (!model.OrderByAsc && model.OrderBy == "Name" ? district.Name : "") descending
-                              select  new DistrictModel { 
-                              Id = district.Id,
-                              Name = district.Name,
-                              StateName = state.Name,
-                              StateId = district.StateId,
-                              IsActive = district.IsActive
-                              });
-                var data = await result.Skip(((model.Page == 0 ? 1 : model.Page) - 1) * (model.PageSize != 0 ? model.PageSize : int.MaxValue)).Take(model.PageSize != 0 ? model.PageSize : int.MaxValue).ToListAsync();
-                objResponse.Data = _mapper.Map<List<DistrictModel>>(data);
-
+                              select district);
+                var data = result.Skip(((model.Page == 0 ? 1 : model.Page) - 1) * (model.PageSize != 0 ? model.PageSize : int.MaxValue)).Take(model.PageSize != 0 ? model.PageSize : int.MaxValue);
+                objResponse.Data = await (from x in data select
+                      new DistrictModel()
+                      {
+                          Id = x.Id,
+                          StateId = x.StateId,
+                          StateName = x.State.Name,
+                          Name = x.Name,
+                          IsActive = x.IsActive
+                      }).ToListAsync();
 
                 if (result != null)
                 {
