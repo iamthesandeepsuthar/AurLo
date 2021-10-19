@@ -140,20 +140,20 @@ namespace AurigainLoanERP.Api
 
 
             // Enable directory browsing
-            app.UseDirectoryBrowser(new DirectoryBrowserOptions
+            //app.UseDirectoryBrowser(new DirectoryBrowserOptions
+            //{
+            //    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "Content")),
+            //    RequestPath = "/Content"
+            //});
+
+
+            app.UseFileServer(new FileServerOptions
             {
-                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "Content")),
-                RequestPath = "/Content"
+                FileProvider = new PhysicalFileProvider(
+           Path.Combine(Directory.GetCurrentDirectory(), "Content")),
+                RequestPath = "/Content",
+                EnableDirectoryBrowsing = true
             });
-
-
-           // app.UseFileServer(new FileServerOptions
-           // {
-           //     FileProvider = new PhysicalFileProvider(
-           //Path.Combine(Directory.GetCurrentDirectory(), "Content")),
-           //     RequestPath = "/Content",
-           //     EnableDirectoryBrowsing = true
-           // });
 
 
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
