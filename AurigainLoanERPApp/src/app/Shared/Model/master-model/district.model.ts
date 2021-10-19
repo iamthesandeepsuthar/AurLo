@@ -2,7 +2,7 @@ export class DistrictModel {
   Id!: number;
   Name!: string | null;
   StateId!: number;
-  Pincode!: string | null;
+  Pincode!: string;
   StateName!: string | null;
   IsActive!: boolean | null;
   IsDelete!: boolean;

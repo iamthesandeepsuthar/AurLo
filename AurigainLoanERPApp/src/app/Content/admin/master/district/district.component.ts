@@ -1,4 +1,4 @@
-import { DistrictModel } from './../../../../Shared/Model/master-model/district.modelel';
+import { DistrictModel } from '../../../../Shared/Model/master-model/district.model';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';

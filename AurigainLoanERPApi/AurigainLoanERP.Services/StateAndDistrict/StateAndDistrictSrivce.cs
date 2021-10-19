@@ -216,11 +216,13 @@ namespace AurigainLoanERP.Services.StateAndDistrict
 
             try
             {
-                var result = await _db.District.Where(x => x.Id == id).FirstOrDefaultAsync();
-
+                
+                var result = await _db.District.Where(x => x.Id == id).Include(x=>x.State).FirstOrDefaultAsync();
+                var response = _mapper.Map<DistrictModel>(result);
+                response.StateName = result.State.Name;
                 if (result != null)
                 {
-                    return CreateResponse<DistrictModel>(_mapper.Map<DistrictModel>(result), ResponseMessage.Success, true,((int)ApiStatusCode.Ok));
+                    return CreateResponse<DistrictModel>(response, ResponseMessage.Success, true,((int)ApiStatusCode.Ok));
                 }
                 else
                 {
@@ -289,14 +291,23 @@ namespace AurigainLoanERP.Services.StateAndDistrict
                 
                 if (model.Id == 0)
                 {
-                    var district = _mapper.Map<District>(model);
-                    district.CreatedOn = DateTime.Now;
-                    var result = await _db.District.AddAsync(district);
+                    District d = new District 
+                    {
+                        Name = model.Name,
+                        StateId = model.StateId,
+                        CreatedOn = DateTime.Now,
+                        IsActive = model.IsActive,
+                        IsDelete = model.IsDelete,
+                        Pincode = model.Pincode,
+                        ModifiedOn = model.ModifiedOn
+                    };                    
+                    var result = await _db.District.AddAsync(d);
                 }
                 else
                 {
                     var district = await _db.District.FirstOrDefaultAsync(x => x.Id == model.Id);
                     district.Name = model.Name;
+                    district.StateId = model.StateId;
                     district.IsActive = model.IsActive;
                     district.ModifiedOn = DateTime.Now;
                 }

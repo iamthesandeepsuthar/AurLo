@@ -23,7 +23,6 @@ export class DetailPaymentModeComponent implements OnInit {
               private readonly toast: ToastrService) {
     if (this._activatedRoute.snapshot.params.id) {
       this.Id = this._activatedRoute.snapshot.params.id;
-      this.onGetDetail();
     }
   }
   ngOnInit(): void {

@@ -1,4 +1,4 @@
-import { DDLDistrictModel, DistrictModel } from './../../Model/master-model/district.modelel';
+import { DDLDistrictModel, DistrictModel } from '../../Model/master-model/district.model';
 import { DDLStateModel } from './../../Model/master-model/state.model';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -21,7 +21,7 @@ export class StateDistrictService {
     let url = `${this._baseService.API_Url.State_Detail_Api}${id}`;
     return this._baseService.get(url);
   }
-  GetDDLState(): Observable<ApiResponse<DDLStateModel>> {
+  GetDDLState(): Observable<ApiResponse<DDLStateModel[]>> {
     let url = `${this._baseService.API_Url.State_Dropdown_Api}`;
     return this._baseService.get(url);
   }
