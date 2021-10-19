@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.IO;
+using System.Text.RegularExpressions;
 using static Microsoft.AspNetCore.Hosting.Internal.HostingApplication;
 
 namespace AurigainLoanERP.Shared.Common
@@ -29,10 +30,13 @@ namespace AurigainLoanERP.Shared.Common
         {
             try
             {
+
                 if (!string.IsNullOrEmpty(base64str) && !string.IsNullOrEmpty(filePath))
                 {
+                    base64str = Regex.Replace(base64str, @"^\s*$\n", string.Empty, RegexOptions.Multiline).TrimEnd();
+
                     byte[] byteArr;
-                    if (base64str.Split(';').Length>0)
+                    if (base64str.Split(';').Length > 0)
                     {
                         string[] Fileinfo = base64str.Split(';');
                         byteArr = Convert.FromBase64String(Fileinfo[1].Substring(Fileinfo[1].IndexOf(',') + 1));
@@ -42,7 +46,7 @@ namespace AurigainLoanERP.Shared.Common
                     {
                         byteArr = Convert.FromBase64String(base64str);
                     }
-                   
+
 
                     //  saveFile = filePath;
                     string path = GetPhysicalPath(filePath);
@@ -101,7 +105,7 @@ namespace AurigainLoanERP.Shared.Common
             string base64 = string.Empty;
             try
             {
-                 filePath = GetPhysicalPath(filePath);
+                filePath = GetPhysicalPath(filePath);
                 _env = new HostingEnvironment();
                 if (File.Exists(filePath))
                 {
