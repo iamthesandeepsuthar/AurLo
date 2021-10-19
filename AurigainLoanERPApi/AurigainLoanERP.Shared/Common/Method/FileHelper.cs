@@ -195,7 +195,5 @@ namespace AurigainLoanERP.Shared.Common
 
         //}
 
-
-
     }
 }

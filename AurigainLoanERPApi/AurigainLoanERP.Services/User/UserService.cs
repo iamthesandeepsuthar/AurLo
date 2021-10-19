@@ -705,7 +705,7 @@ namespace AurigainLoanERP.Services.User
 
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 _db.Database.RollbackTransaction();
                 return CreateResponse<string>(null, ResponseMessage.Fail, true, ((int)ApiStatusCode.DataBaseTransactionFailed));
