@@ -35,7 +35,7 @@ export class UserSecurityDepositPostModel {
   }
   Id!: number;
   PaymentModeId!: number;
-  Amount!: string;
+  Amount!: number;
   CreditDate!: Date;
   ReferanceNumber!: string;
   AccountNumber!: string;
@@ -162,7 +162,7 @@ export interface UserSecurityDepositViewModel {
   PaymentModeId: number;
   TransactionStatus: number;
   Amount: number;
-  CreditDate: string;
+  CreditDate: string | Date;
   ReferanceNumber: string;
   AccountNumber: string;
   BankName: string;

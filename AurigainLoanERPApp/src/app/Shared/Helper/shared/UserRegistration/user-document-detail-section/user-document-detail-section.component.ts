@@ -37,7 +37,7 @@ export class UserDocumentDetailSectionComponent implements OnInit {
   }
 
   onDocumentAttach(docuemtnTypeId: number, file: FileInfo[], isEdit: boolean) {
-    
+    debugger
     let docIndex = this.documentModel.findIndex(x => x.DocumentTypeId == docuemtnTypeId);
     switch (docuemtnTypeId) {
       case this.docTypeEnum.AadhaarCard:
@@ -52,7 +52,10 @@ export class UserDocumentDetailSectionComponent implements OnInit {
 
     }
     if (docIndex >= 0) {
-      this.documentModel[docIndex].Files = [] as FilePostModel[];
+
+
+    //  this.documentModel[docIndex].Files = [] as FilePostModel[];
+
       file.forEach(element => {
         let File = {} as FilePostModel;
         console.log(element.FileBase64);
@@ -62,13 +65,13 @@ export class UserDocumentDetailSectionComponent implements OnInit {
         this.documentModel[docIndex].Files.push(File);
         switch (docuemtnTypeId) {
           case this.docTypeEnum.AadhaarCard:
-            this.TotalAdharDoc = + 1;
+            this.TotalAdharDoc = this.documentModel[docIndex].Files.length;
             break;
           case this.docTypeEnum.PANCard:
-            this.TotalPANDoc = + 1;
+            this.TotalPANDoc = this.documentModel[docIndex].Files.length;
             break;
           case this.docTypeEnum.CancelledCheque:
-            this.TotalChequeDoc = + 1;
+            this.TotalChequeDoc = this.documentModel[docIndex].Files.length;
             break;
 
         }
@@ -88,13 +91,13 @@ export class UserDocumentDetailSectionComponent implements OnInit {
 
         switch (docuemtnTypeId) {
           case this.docTypeEnum.AadhaarCard:
-            this.TotalAdharDoc = + 1;
+            this.TotalAdharDoc = this.documentModel[docIndex].Files.length;
             break;
           case this.docTypeEnum.PANCard:
-            this.TotalPANDoc = + 1;
+            this.TotalPANDoc = this.documentModel[docIndex].Files.length;
             break;
           case this.docTypeEnum.CancelledCheque:
-            this.TotalChequeDoc = + 1;
+            this.TotalChequeDoc = this.documentModel[docIndex].Files.length;
             break;
         }
       });
@@ -108,5 +111,10 @@ export class UserDocumentDetailSectionComponent implements OnInit {
       PANCard: [undefined, Validators.required],
       CancelledCheque: [undefined, Validators.required],
     });
+  }
+
+  getDocsFile(docuemtnTypeId: number): DocumentPostModel {
+    let item = this.documentModel.find(x => x.DocumentTypeId == docuemtnTypeId) as DocumentPostModel;
+    return item
   }
 }

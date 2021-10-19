@@ -60,7 +60,7 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
         [HttpGet("{id}")]
         public async Task<ApiServiceResponseModel<object>> UpdatActiveStatus(long id)
         {
-            return await _userSerivce.UpdateDeleteStatus(id);
+            return await _userSerivce.UpateActiveStatus(id);
         }
 
         [HttpPost]

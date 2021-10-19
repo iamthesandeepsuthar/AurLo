@@ -11,12 +11,13 @@ import { UserNomineeDetailSectionComponent } from "src/app/Shared/Helper/shared/
 import { AlertService } from "src/app/Shared/Services/alert.service";
 import { CommonService } from "src/app/Shared/Services/common.service";
 import { DoorStepAgentService } from "src/app/Shared/Services/door-step-agent-services/door-step-agent.service";
-import { DoorStepAgentPostModel, UserPostModel, UserKYCPostModel, UserNomineePostModel, UserBankDetailsPostModel, DocumentPostModel, UserSecurityDepositPostModel, DoorStepAgentViewModel } from '../../../../../Shared/Model/doorstep-agent-model/door-step-agent.model';
+import { DoorStepAgentPostModel, UserPostModel, UserKYCPostModel, UserNomineePostModel, UserBankDetailsPostModel, DocumentPostModel, UserSecurityDepositPostModel, DoorStepAgentViewModel, FilePostModel } from '../../../../../Shared/Model/doorstep-agent-model/door-step-agent.model';
 import { Message } from '../../../../../Shared/Helper/constants';
 import { UserSettingService } from "src/app/Shared/Services/user-setting-services/user-setting.service";
 import { UserSettingPostModel } from "src/app/Shared/Model/User-setting-model/user-setting.model";
 import { FileInfo } from '../../../../Common/file-selector/file-selector.component';
 import { UserSecurityDepositComponent } from '../../../../../Shared/Helper/shared/UserRegistration/user-security-deposit/user-security-deposit.component';
+
 
 @Component({
   selector: 'app-door-step-agent-registration',
@@ -131,7 +132,9 @@ export class DoorStepAgentRegistrationComponent implements OnInit {
       });
     }
   }
-
+  onFrmReset(){
+    this.formGroup.reset();
+  }
   submitChildData(): boolean {
     let isValid = true;
     if (this._childUserBankDetailSection) {
@@ -224,27 +227,97 @@ export class DoorStepAgentRegistrationComponent implements OnInit {
       this._userDoorStepService.GetDoorStepAgent(this.Id).subscribe(res => {
         if (res.IsSuccess) {
           let data = res.Data as DoorStepAgentViewModel;
-          this.model.Id = data.Id;
-          this.model.FullName = data.FullName;
-          this.model.FatherName = data.FatherName;
-          this.model.Gender = data.Gender;
-          this.model.QualificationId = data.QualificationId;
-          this.model.Address = data.Address;
-          this.model.DistrictId = data.DistrictId;
-          this.model.StateId = data.StateId;
-          this.model.PinCode = data.PinCode;
-          this.model.DateOfBirth = data.DateOfBirth;
-          debugger
-          this.previewUrl = data.User.ProfilePath;
-          this.model.SelfFunded = data.SelfFunded;
-          this.model.User.Email = data.User.Email;
-          this.model.User.Mobile = data.User.Mobile;
+          if (data) {
+            this.model.Id = data?.Id;
+            this.model.FullName = data?.FullName;
+            this.model.FatherName = data?.FatherName;
+            this.model.Gender = data?.Gender;
+            this.model.QualificationId = data?.QualificationId;
+            this.model.Address = data?.Address;
+            this.model.DistrictId = data?.DistrictId;
+            this.model.StateId = data?.StateId;
+            this.model.PinCode = data?.PinCode;
+            this.model.DateOfBirth = data?.DateOfBirth;
+            this.previewUrl = data?.User.ProfilePath;
+            this.model.SelfFunded = data?.SelfFunded;
 
+            if (data?.User) {
+              this.model.User.Email = data?.User?.Email;
+              this.model.User.Mobile = data?.User?.Mobile;
+              this.model.User.Id = data?.User?.Id;
+              this.model.User.UserRoleId = data?.User?.UserRoleId;
+              this.model.User.UserName = data?.User?.UserName;
+              this.model.User.IsApproved = data?.User?.IsApproved;
+              this.model.User.DeviceToken = data?.User?.DeviceToken;
+            }
 
+            if (data?.BankDetails) {
+              this.model.BankDetails.Id = data?.BankDetails?.Id;
+              this.model.BankDetails.BankName = data?.BankDetails?.BankName;
+              this.model.BankDetails.AccountNumber = data?.BankDetails?.AccountNumber;
+              this.model.BankDetails.Ifsccode = data?.BankDetails?.Ifsccode;
+              this.model.BankDetails.Address = data?.BankDetails?.Address;
+
+            }
+
+            if (data?.UserKYC) {
+
+              this.model.UserKYC = data?.UserKYC?.map(user => {
+                return {
+                  Id: user.Id,
+                  Kycnumber: user.Kycnumber,
+                  KycdocumentTypeId: user.KycdocumentTypeId
+                } as UserKYCPostModel;
+
+              });
+            }
+
+            if (data?.UserNominee) {
+              this.model.UserNominee.Id = data?.UserNominee?.Id;
+              this.model.UserNominee.NamineeName = data?.UserNominee?.NamineeName;
+              this.model.UserNominee.RelationshipWithNominee = data?.UserNominee?.RelationshipWithNominee;
+            }
+
+            if (data?.ReportingPerson) {
+              this.model.ReportingPerson.Id = data?.ReportingPerson?.Id;
+              this.model.ReportingPerson.UserId = data?.ReportingPerson?.UserId;
+              this.model.ReportingPerson.ReportingUserId = data?.ReportingPerson?.ReportingUserId;
+            }
+
+            if (data?.SecurityDeposit) {
+              this.model.SecurityDeposit.Id = data?.SecurityDeposit?.Id;
+              this.model.SecurityDeposit.PaymentModeId = data?.SecurityDeposit?.PaymentModeId;
+              this.model.SecurityDeposit.Amount = data?.SecurityDeposit?.Amount;
+              this.model.SecurityDeposit.CreditDate = data?.SecurityDeposit?.CreditDate as Date;
+              this.model.SecurityDeposit.ReferanceNumber = data?.SecurityDeposit?.ReferanceNumber;
+              this.model.SecurityDeposit.AccountNumber = data?.SecurityDeposit?.AccountNumber;
+              this.model.SecurityDeposit.BankName = data?.SecurityDeposit?.BankName;
+
+            }
+            if (data?.Documents) {
+
+              this.model.Documents = data?.Documents?.map(doc => {
+                return {
+                  Id: doc?.Id,
+                  DocumentTypeId: doc?.DocumentTypeId,
+                  Files: doc?.UserDocumentFiles.map(file => {
+                    return {
+                      Id: file?.Id,
+                      FileName: file?.FileName,
+                      File: file?.Path,
+                      FileType: file?.FileType,
+                    } as FilePostModel;
+                  }),
+                } as DocumentPostModel;
+
+              });
+            }
+
+          }
         }
       });
-    }
 
+    }
   }
 
   fileProgress(fileInput: any) {
@@ -253,7 +326,7 @@ export class DoorStepAgentRegistrationComponent implements OnInit {
   }
   preview() {
     // Show preview
-    const mimeType = this.fileData.type;
+    const mimeType = this.fileData?.type;
     if (mimeType.match(/image\/*/) == null) {
       return;
     }
@@ -266,7 +339,7 @@ export class DoorStepAgentRegistrationComponent implements OnInit {
 
   onUploadProfileImage() {
     let profileModel = new UserSettingPostModel();
-    profileModel.FileName = this.fileData.name;
+    profileModel.FileName = this.fileData?.name;
     profileModel.UserId = Number(this.Id);
     profileModel.ProfileBase64 = this.previewUrl;
 

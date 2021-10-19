@@ -8,8 +8,10 @@
       <!-- Breadcrumb Start -->
       <nav class="custom-breadcrum">
         <ol class="breadcrumb justify-content-center justify-content-sm-start">
-          <li class="breadcrumb-item"><a href="#">Home</a></li>
-          <li class="breadcrumb-item"><a href="#">Door Step Agent </a></li>
+          <li class="breadcrumb-item"><a routerLink="/dashboard">Home</a></li>
+          <li class="breadcrumb-item"><a href="javascript:void(0)">Master</a></li>
+
+          <li class="breadcrumb-item"><a routerLink="/admin/door-step-agent/door-step-agents-list">Door Step Agent </a></li>
           <li class="breadcrumb-item active" aria-current="page">Detailt</li>
         </ol>
       </nav>
@@ -32,7 +34,7 @@
     <h2> <img src="assets/img/personal_detail.png"> Personal Details</h2>
 
     <div class="page-profile d-flex align-items-center justify-content-center mx-auto mb-3"><img
-        src="assets/img/user-default.jpg"></div>
+      src="{{model.User.ProfilePath}}"  onerror='this.src="assets/img/user-default.jpg"'></div>
     <table class="table  table-borderless table-data-info table-font-17 table-v-align-top m-0">
       <tbody>
         <tr>
