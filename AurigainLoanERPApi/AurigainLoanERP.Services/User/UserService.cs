@@ -581,7 +581,7 @@ namespace AurigainLoanERP.Services.User
                         objDoorStepAgentModel.StateName = objDoorStepAgent.District.State.Name;
                         objDoorStepAgentModel.StateId = objDoorStepAgent.District.StateId;
                         objDoorStepAgentModel.QualificationName = objDoorStepAgent.Qualification.Name;
-                      
+
                     }
                     return CreateResponse(objDoorStepAgentModel, ResponseMessage.Success, true, ((int)ApiStatusCode.Ok));
                 }
@@ -1030,13 +1030,17 @@ namespace AurigainLoanERP.Services.User
 
                         else
                         {
-                            var objFileModel = new UserDocumentFiles();
-                            objFileModel.DocumentId = documentId;
-                            objFileModel.FileName = _fileHelper.Save(fileitem.File, FilePathConstant.UserAgentFile, fileitem.FileName);
-                            objFileModel.Path = Path.Combine(FilePathConstant.UserAgentFile, objFileModel.FileName);
+                            if (fileitem.File.IsBase64())
+                            { 
 
-                            objFileModel.FileType = _fileHelper.GetFileExtension(fileitem.File); //fileitem.File.ContentType;
-                            await _db.UserDocumentFiles.AddAsync(objFileModel);
+                                var objFileModel = new UserDocumentFiles();
+                                objFileModel.DocumentId = documentId;
+                                objFileModel.FileName = _fileHelper.Save(fileitem.File, FilePathConstant.UserAgentFile, fileitem.FileName);
+                                objFileModel.Path = Path.Combine(FilePathConstant.UserAgentFile, objFileModel.FileName);
+
+                                objFileModel.FileType = _fileHelper.GetFileExtension(fileitem.File); //fileitem.File.ContentType;
+                                await _db.UserDocumentFiles.AddAsync(objFileModel);
+                            }
                         }
 
                     }

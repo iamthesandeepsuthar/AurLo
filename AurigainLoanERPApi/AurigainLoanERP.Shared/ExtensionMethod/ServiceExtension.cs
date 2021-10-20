@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Reflection;
+using System.Text.RegularExpressions;
 using System.Transactions;
 
 namespace AurigainLoanERP.Shared.ExtensionMethod
@@ -50,6 +51,33 @@ namespace AurigainLoanERP.Shared.ExtensionMethod
 
         }
 
+        public static bool IsBase64(this string base64String)
+        {
+             if (string.IsNullOrEmpty(base64String) || base64String.Length % 4 != 0
+               || base64String.Contains(" ") || base64String.Contains("\t") || base64String.Contains("\r") || base64String.Contains("\n"))
+                return false;
+
+            try
+            {
+                base64String = Regex.Replace(base64String, @"^\s*$\n", string.Empty, RegexOptions.Multiline).TrimEnd();
+
+                byte[] byteArr;
+                if (base64String.Split(';').Length > 0)
+                {
+                    string[] Fileinfo = base64String.Split(';');
+                    base64String = Fileinfo[1].Substring(Fileinfo[1].IndexOf(',') + 1);
+                }
+
+
+                Convert.FromBase64String(base64String);
+                return true;
+            }
+            catch (Exception exception)
+            {
+                // Handle the exception
+            }
+            return false;
+        }
 
 
 

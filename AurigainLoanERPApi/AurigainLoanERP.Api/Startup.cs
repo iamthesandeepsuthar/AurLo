@@ -46,15 +46,13 @@ namespace AurigainLoanERP.Api
         {
             services.AddControllers();
             services.AddDirectoryBrowser();
-            
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Aurigain", Version = "v1" });
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
-                    Description = @"JWT Authorization header using the Bearer scheme. \r\n\r\n 
-                      Enter 'Bearer' [space] and then your token in the text input below.
-                      \r\n\r\nExample: 'Bearer 12345abcdef'",
+                    Description = @"JWT Authorization header using the Bearer scheme. \r\n\r\n Enter 'Bearer' [space] and then your token in the text input below. \r\n\r\nExample: 'Bearer {Token}'",
                     Name = "Authorization",
                     In = ParameterLocation.Header,
                     Type = SecuritySchemeType.ApiKey,
@@ -64,18 +62,19 @@ namespace AurigainLoanERP.Api
                 {
                     {
                         new OpenApiSecurityScheme
-          {
-            Reference = new OpenApiReference
-              {
-                Type = ReferenceType.SecurityScheme,
-                Id = "Bearer"
-              },
-              Scheme = "oauth2",
-              Name = "Bearer",
-              In = ParameterLocation.Header, },
-            new List<string>()
-          }
-        });
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            },
+                            Scheme = "oauth2",
+                            Name = "Bearer",
+                            In = ParameterLocation.Header,
+                        },
+                        new List<string>()
+                    }
+                });
 
             });
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
@@ -112,7 +111,7 @@ namespace AurigainLoanERP.Api
                 app.UseSwaggerUI(c =>
                 {
                     c.SwaggerEndpoint("/swagger/v1/swagger.json", "Aurigain Loan ERP (v1)");
-                  c.RoutePrefix = "swagger";
+                    c.RoutePrefix = "swagger";
                 });
 
             }
@@ -123,7 +122,7 @@ namespace AurigainLoanERP.Api
                 app.UseSwaggerUI(c =>
                 {
                     c.SwaggerEndpoint("/swagger/v1/swagger.json", "Aurigain Loan ERP (v1)");
-                   c.RoutePrefix = "swagger";
+                    c.RoutePrefix = "swagger";
                 });
             }
             //var option = new RewriteOptions();
@@ -149,21 +148,16 @@ namespace AurigainLoanERP.Api
 
             app.UseFileServer(new FileServerOptions
             {
-                FileProvider = new PhysicalFileProvider(
-           Path.Combine(Directory.GetCurrentDirectory(), "Content")),
+                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "Content")),
                 RequestPath = "/Content",
                 EnableDirectoryBrowsing = true
             });
-
 
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             app.UseHttpsRedirection();
             app.UseAuthentication();
             app.UseAuthorization();
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
 
         }
         private void RegisterServices(IServiceCollection services)

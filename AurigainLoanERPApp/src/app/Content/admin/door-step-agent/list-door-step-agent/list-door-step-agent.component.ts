@@ -29,6 +29,7 @@ export class ListDoorStepAgentComponent implements OnInit {
   ViewdisplayedColumns = [{ Value: 'FullName', Text: 'Full Name' }, { Value: 'Gender', Text: 'Gender' }, { Value: 'Email', Text: 'Email' }, { Value: 'Mobile', Text: 'Mobile' }];
   indexModel = new IndexModel();
   totalRecords: number = 0;
+  isTableView: boolean = true;
   //#endregion
 
   constructor(private readonly _service: DoorStepAgentService, private readonly _commonService: CommonService) { }

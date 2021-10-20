@@ -30,6 +30,7 @@ export class UserSecurityDepositComponent implements OnInit {
   onFrmSubmit() {
     this.formGroup.markAllAsTouched();
     if (this.formGroup.valid) {
+    //  this.userSecurity.Amount= (this.userSecurity.Amount);
       this.onSubmit.emit(this.userSecurity);
     }
   }
