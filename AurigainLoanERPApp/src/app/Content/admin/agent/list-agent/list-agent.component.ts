@@ -1,3 +1,4 @@
+import { ToastrService } from 'ngx-toastr';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -32,17 +33,18 @@ export class ListAgentComponent implements OnInit {
   totalRecords: number = 0;
   //#endregion
 
-  constructor(private readonly _service: AgentService, private readonly _commonService: CommonService, private readonly _userSettingService: UserSettingService) { }
+  constructor(private readonly _service: AgentService,
+               private readonly _commonService: CommonService,
+               private readonly toast: ToastrService,
+               private readonly _userSettingService: UserSettingService) { }
   ngOnInit(): void {
     this.getList();
   }
 
   getList(): void {
-
     let serve = this._service.GetAgentList(this.indexModel).subscribe(response => {
       serve.unsubscribe();
       if (response.IsSuccess) {
-
         this.model = response.Data as AgentListModel[];
         this.dataSource = new MatTableDataSource<AgentListModel>(this.model);
         this.totalRecords = response.TotalRecord as number;
@@ -51,10 +53,12 @@ export class ListAgentComponent implements OnInit {
           this.dataSource.sort = this.sort;
         }
       } else {
-        // Toast message if  return false ;
+        this.toast.warning(response.Message as string, 'Server Error');
+
       }
     },
       error => {
+        this.toast.error(error.Message as string, 'Error');
       });
   }
 
@@ -108,13 +112,14 @@ export class ListAgentComponent implements OnInit {
           data => {
             serv.unsubscribe();
             if (data.IsSuccess) {
-              this._commonService.Success(data.Message as string)
+              this.toast.success(data.Message as string, 'Removed');
               this.getList();
+            } else {
+              this.toast.warning(data.Message as string, 'Server Error');
             }
           },
           error => {
-            this._commonService.Error(error.message as string)
-
+            this.toast.error(error.message as string , 'Error');
           }
         );
       }
@@ -122,7 +127,6 @@ export class ListAgentComponent implements OnInit {
   }
 
   OnApproveStatus(Id: number) {
-
     this._commonService.Question(Message.ConfirmUpdate as string).then(isTrue => {
 
       if (isTrue) {
@@ -130,13 +134,14 @@ export class ListAgentComponent implements OnInit {
           data => {
             serv.unsubscribe();
             if (data.IsSuccess) {
-              this._commonService.Success(data.Message as string)
+              this.toast.success(data.Message as string , 'Access Permission');
               this.getList();
+            } else {
+              this.toast.warning(data.Message as string , 'Server Error');
             }
           },
           error => {
-            this._commonService.Error(error.message as string)
-
+            this.toast.error(error.Message as string ,'Error');
           }
         );
       }

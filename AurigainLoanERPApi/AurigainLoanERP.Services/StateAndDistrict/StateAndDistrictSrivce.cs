@@ -189,9 +189,11 @@ namespace AurigainLoanERP.Services.StateAndDistrict
             try
             {
                 var result = (from district in _db.District join state in _db.State on  district.StateId equals state.Id
-                              where !district.IsDelete && (string.IsNullOrEmpty(model.Search) || district.Name.Contains(model.Search))
+                              where !district.IsDelete && (string.IsNullOrEmpty(model.Search) || district.Name.Contains(model.Search) || state.Name.Contains(model.Search))
                               orderby (model.OrderByAsc  && model.OrderBy == "Name" ? district.Name : "") ascending
                               orderby (!model.OrderByAsc && model.OrderBy == "Name" ? district.Name : "") descending
+                              orderby (model.OrderByAsc && model.OrderBy == "StateName" ? district.State.Name : "") ascending
+                              orderby (!model.OrderByAsc && model.OrderBy == "StateName" ? district.State.Name : "") descending
                               select district);
                 var data = result.Skip(((model.Page == 0 ? 1 : model.Page) - 1) * (model.PageSize != 0 ? model.PageSize : int.MaxValue)).Take(model.PageSize != 0 ? model.PageSize : int.MaxValue);
                 objResponse.Data = await (from x in data select

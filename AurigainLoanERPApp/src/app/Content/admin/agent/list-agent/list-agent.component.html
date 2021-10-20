@@ -90,11 +90,11 @@
         </ng-container>
 
         <ng-container matColumnDef="IsApproved">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Approval </th>
+          <th  mat-header-cell *matHeaderCellDef mat-sort-header>Approval </th>
           <td mat-cell *matCellDef="let element" class="table-action-btn">
             <a (click)="OnApproveStatus(element.UserId)" title="Update Approval Status">
-              <i *ngIf="element.IsApproved" class="fas fa-check-circle text-success"></i>
-              <i *ngIf="!element.IsApproved" class="fas fa-ban text-danger"></i>
+              <i *ngIf="element.IsApproved" class="fas fa-user-check text-success"></i>
+              <i *ngIf="!element.IsApproved" class="fas fa-user-times text-danger"></i>
             </a>
 
           </td>

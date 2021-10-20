@@ -5,7 +5,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Routing_Url } from 'src/app/Shared/Helper/constants';
 import { DistrictModel } from 'src/app/Shared/Model/master-model/district.model';
-
 import { DDLStateModel } from 'src/app/Shared/Model/master-model/state.model';
 import { StateDistrictService } from 'src/app/Shared/Services/master-services/state-district.service';
 
@@ -79,8 +78,8 @@ export class AddUpdateDistrictComponent implements OnInit {
     this.districtForm = this.fb.group({
       Name: [undefined, Validators.required],
       DllState: [undefined, null],
-      Pin: [undefined],
-      areaName: [undefined],
+      Pin: [undefined, Validators.required],
+      //areaName: [undefined],
     });
   }
   onSubmit() {
@@ -109,32 +108,32 @@ export class AddUpdateDistrictComponent implements OnInit {
         });
     }
   }
-  addArea() {
-    this.isArea = true;
-  }
-  addToList() {
-    if (
-      this.pincodeAreaModel.AreaName != undefined &&
-      this.pincodeAreaModel.Pincode != undefined
-    ) {
-      this.Areas.push(this.pincodeAreaModel);
-      this.clearPincodeArea();
-    } else {
-      this.toast.warning('Pincode and Area Name Cannot Be Blank', 'Warning');
-    }
-  }
-  alertMsg() {
-    alert('ad');
-  }
-  getPincode(index: number) {
-    this.pincodeAreaModel = this.Areas[index];
-    this.isUpdate = true;
-  }
-  updatePincode() {
-    this.isUpdate = false;
-    this.clearPincodeArea();
-  }
-  clearPincodeArea() {
-    this.pincodeAreaModel = new PincodeAreaModel();
-  }
+  // addArea() {
+  //   this.isArea = true;
+  // }
+  // addToList() {
+  //   if (
+  //     this.pincodeAreaModel.AreaName != undefined &&
+  //     this.pincodeAreaModel.Pincode != undefined
+  //   ) {
+  //     this.Areas.push(this.pincodeAreaModel);
+  //     this.clearPincodeArea();
+  //   } else {
+  //     this.toast.warning('Pincode and Area Name Cannot Be Blank', 'Warning');
+  //   }
+  // }
+  // alertMsg() {
+  //   alert('ad');
+  // }
+  // getPincode(index: number) {
+  //   this.pincodeAreaModel = this.Areas[index];
+  //   this.isUpdate = true;
+  // }
+  // updatePincode() {
+  //   this.isUpdate = false;
+  //   this.clearPincodeArea();
+  // }
+  // clearPincodeArea() {
+  //   this.pincodeAreaModel = new PincodeAreaModel();
+  // }
 }

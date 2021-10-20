@@ -142,9 +142,6 @@
                 </ng-container>
 
 
-                <!-- <td> <span> A </span> Airi Satou</td> -->
-
-
                 <ng-container [matColumnDef]="column.Value" *ngFor="let column of ViewdisplayedColumns, let in=index">
 
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> {{column.Text}} </th>
@@ -158,7 +155,6 @@
                             <i *ngIf="element.IsActive" class="fas fa-check-circle text-success"></i>
                             <i *ngIf="!element.IsActive" class="fas fa-ban text-danger"></i>
                         </a>
-
                     </td>
                 </ng-container>
 

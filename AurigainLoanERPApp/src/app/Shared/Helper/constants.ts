@@ -121,28 +121,28 @@ export class Routing_Url {
 
   //#region <Qualification>
   static Qualification_List_Url = '/qualifications';
-  static Qualification_Detail_Url = '/detail/';
-  static Qualification_AddUpdate_Url = '/add-update/';
+  static Qualification_Detail_Url = '/detail-qualification/';
+  static Qualification_AddUpdate_Url = '/add-qualification/';
   //#endregion
  //#region <KYC Document Type >
  static Kyc_Document_Type_List_Url = '/kyc-document-type';
- static Kyc_Document_Type_Detail_Url = '/detail/';
- static Kyc_Document_Type_AddUpdate_Url = '/add-update/';
+ static Kyc_Document_Type_Detail_Url = '/detail-document-type/';
+ static Kyc_Document_Type_AddUpdate_Url = '/add-document-type/';
  //#endregion
   //#region <PaymentMode>
   static PaymentMode_List_Url = '/payment-modes';
-  static PaymentMode_Detail_Url = '/detail/';
-  static PaymentMode_AddUpdate_Url = '/add-update/';
+  static PaymentMode_Detail_Url = '/detail-payment-mode/';
+  static PaymentMode_AddUpdate_Url = '/add-payment-mode/';
   //#endregion
 
   //#region <State >
   static State_List_Url = '/states';
-  static State_Detail_Url = '/detail/';
-  static State_AddUpdate_Url = '/add-update/';
+  static State_Detail_Url = '/detail-state/';
+  static State_AddUpdate_Url = '/add-state/';
 
   static District_List_Url = '/district';
-  static District_Detail_Url = '/detail/';
-  static District_AddUpdate_Url = '/add-update/';
+  static District_Detail_Url = '/detail-district/';
+  static District_AddUpdate_Url = '/add-district/';
   //#endregion
 
 
