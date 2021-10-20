@@ -2,29 +2,29 @@
 
 <!-- Page Header Title start -->
 <div class="widget-header">
-  <div class="row d-block d-sm-flex align-items-center justify-content-between text-center text-sm-left">
-    <div>
-      <h1>Add door step agent</h1>
-      <!-- Breadcrumb Start -->
-      <nav class="custom-breadcrum">
-        <ol class="breadcrumb justify-content-center justify-content-sm-start">
-          <li class="breadcrumb-item"><a routerLink="/dashboard">Home</a></li>
-          <li class="breadcrumb-item"><a href="javascript:void(0)">Master</a></li>
+    <div class="row d-block d-sm-flex align-items-center justify-content-between text-center text-sm-left">
+        <div>
+            <h1>Add door step agent</h1>
+            <!-- Breadcrumb Start -->
+            <nav class="custom-breadcrum">
+                <ol class="breadcrumb justify-content-center justify-content-sm-start">
+                    <li class="breadcrumb-item"><a routerLink="/dashboard">Home</a></li>
+                    <li class="breadcrumb-item"><a href="javascript:void(0)">Master</a></li>
 
-          <li class="breadcrumb-item"><a routerLink="/admin/door-step-agent/door-step-agents-list">Door Step Agent</a></li>
-          <li class="breadcrumb-item active" aria-current="page">Add door step agent</li>
-        </ol>
-      </nav>
-      <!-- Breadcrumb End -->
-    </div>
-    <label class="switch s-icons s-outline s-outline-success switch-active-not switch-custom-d">
+                    <li class="breadcrumb-item"><a routerLink="/admin/door-step-agent/door-step-agents-list">Door Step Agent</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Add door step agent</li>
+                </ol>
+            </nav>
+            <!-- Breadcrumb End -->
+        </div>
+        <label class="switch s-icons s-outline s-outline-success switch-active-not switch-custom-d">
       <div class="d-inline switch-t-dactive text-danger font-w-800">Deactive</div>
       <input type="checkbox" checked>
       <span class="slider round"></span>
       <div class="d-inline switch-t-active font-w-800">Active</div>
     </label>
 
-  </div>
+    </div>
 </div>
 <!-- Page Header Title end -->
 
@@ -33,134 +33,114 @@
 
 
 <div class="widget-content widget-content p-3 form-grp-w-border">
-  <h2> <img src="assets/img/personal_detail.png"> Personal Details</h2>
-  <form [formGroup]="formGroup" (ngSubmit)="onFrmSubmit()">
-    <div class="form-row">
+    <h2> <img src="assets/img/personal_detail.png"> Personal Details</h2>
+    <form [formGroup]="formGroup" (ngSubmit)="onFrmSubmit()">
+        <div class="form-row row-flex-width">
 
-      <div *ngIf="Id>0" class="col-lg-3 col-xl-2 pr-4 mb-4 mb-lg-0 agent-door-profile-img-box upload-btn-wrapper">
-        <div class="agent-door-profile-img d-flex align-items-center justify-content-center">
-          <img [src]="previewUrl" onerror="this.src='assets/img/user-default.jpg'">
-          <input type="file" name="myfile" (change)="fileProgress($event)" />
-        </div>
-        <button type="button" data-toggle="tooltip" (click)="onUploadProfileImage()" data-placement="bottom" title="Upload Profile">
+            <div *ngIf="Id>0" class="col-lg-3 col-xl-2 pr-4 mb-4 mb-lg-0 agent-door-profile-img-box upload-btn-wrapper">
+                <div class="agent-door-profile-img d-flex align-items-center justify-content-center">
+                    <img [src]="previewUrl" onerror="this.src='assets/img/user-default.jpg'">
+                    <input type="file" name="myfile" (change)="fileProgress($event)" />
+                </div>
+                <button type="button" data-toggle="tooltip" (click)="onUploadProfileImage()" data-placement="bottom" title="Upload Profile">
           <i class="fas fa-cloud-upload-alt"></i>
 
           <!-- <i class="fas fa-cloud-upload-alt"></i> -->
         </button>
-      </div>
+            </div>
 
-      <!-- <div class="upload-btn-wrapper">
+            <!-- <div class="upload-btn-wrapper">
                 <button class="btn-upload" data-toggle="tooltip" data-placement="bottom" title="Change Profile"><i
                         class="fas fa-edit"></i></button>
                 <input type="file" name="myfile" />
             </div> -->
 
 
-      <div class="col-lg-9 col-xl-10 row">
-        <div class="form-group col-md-4">
-          <label>Name</label>
-          <input type="text" formControlName="FullName" [(ngModel)]="model.FullName" formControlName="FullName"
-            [ngClass]="{ 'is-invalid': f.FullName.errors && f.FullName.touched}" class="form-control" id="input1"
-            placeholder="Enter name">
-          <div class="invalid-feedback"
-            *ngIf="(formGroup.get('FullName')?.hasError('required') && formGroup.get('FullName')?.touched)">
-            Please fill Name...! </div>
+            <div class="col-lg-9 col-xl-10 row">
+                <div class="form-group col-md-4">
+                    <label>Name</label>
+                    <input type="text" formControlName="FullName" [(ngModel)]="model.FullName" formControlName="FullName" [ngClass]="{ 'is-invalid': f.FullName.errors && f.FullName.touched}" class="form-control" id="input1" placeholder="Enter name">
+                    <div class="invalid-feedback" *ngIf="(formGroup.get('FullName')?.hasError('required') && formGroup.get('FullName')?.touched)">
+                        Please fill Name...! </div>
 
-        </div>
+                </div>
 
-        <div class="form-group col-md-4 date-icon-with-label">
-          <label>Date of birth</label>
-          <input class="form-control" #datepickerYMD="bsDatepicker" formControlName="DateOfBirth"
-            [ngClass]="{ 'is-invalid': f.DateOfBirth.errors && f.DateOfBirth.touched}" bsDatepicker
-            [(ngModel)]="model.DateOfBirth" [maxDate]="maxDate"
-            [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', adaptivePosition: true,isAnimated: true, showWeekNumbers: false }">
-          <i class="fas fa-calendar-alt"></i>
-          <div class="invalid-feedback"
-            *ngIf="(formGroup.get('DateOfBirth')?.hasError('required') && formGroup.get('DateOfBirth')?.touched)">
-            Please Select Date...! </div>
+                <div class="form-group col-md-4 date-icon-with-label">
+                    <label>Date of birth</label>
+                    <input class="form-control" #datepickerYMD="bsDatepicker" formControlName="DateOfBirth" [ngClass]="{ 'is-invalid': f.DateOfBirth.errors && f.DateOfBirth.touched}" bsDatepicker [(ngModel)]="model.DateOfBirth" [maxDate]="maxDate" [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', adaptivePosition: true,isAnimated: true, showWeekNumbers: false }">
+                    <i class="fas fa-calendar-alt"></i>
+                    <div class="invalid-feedback" *ngIf="(formGroup.get('DateOfBirth')?.hasError('required') && formGroup.get('DateOfBirth')?.touched)">
+                        Please Select Date...! </div>
 
-        </div>
-        <div class="form-group col-md-4">
-          <label>Father name</label>
-          <input type="text" [(ngModel)]="model.FatherName" formControlName="FatherName"
-            [ngClass]="{ 'is-invalid': f.FatherName.errors && f.FatherName.touched}" class="form-control" id="input3"
-            placeholder="Father name">
-          <div class="invalid-feedback"
-            *ngIf="(formGroup.get('FatherName')?.hasError('required') && formGroup.get('FatherName')?.touched)">
-            Please fill Father Name...! </div>
-        </div>
-        <div class="form-group col-md-4">
-          <label>Mobile number</label>
-          <input type="text" [(ngModel)]="model.User.Mobile" (keypress)="_commonService.NumberOnly($event)"
-            [minlength]="10" [maxLength]="12" formControlName="Mobile"
-            [ngClass]="{ 'is-invalid': f.Mobile.errors && f.Mobile.touched}" class="form-control" id="input4"
-            placeholder="962358654">
-          <div class="invalid-feedback"
-            *ngIf="(formGroup.get('Mobile')?.hasError('required') && formGroup.get('Mobile')?.touched)">
-            Please fill Mobile number...! </div>
-          <div class="invalid-feedback"
-            *ngIf="!formGroup.get('Mobile')?.hasError('required') && ((formGroup.get('Mobile')?.hasError('maxlength') || formGroup.get('Mobile')?.hasError('minlength')) && formGroup.get('Mobile')?.touched) || (formGroup.get('Mobile')?.hasError('maxlength') || formGroup.get('Mobile')?.hasError('minlength'))">
-            Mobile lenght must be 10-12 digit...! </div>
-        </div>
+                </div>
+                <div class="form-group col-md-4">
+                    <label>Father name</label>
+                    <input type="text" [(ngModel)]="model.FatherName" formControlName="FatherName" [ngClass]="{ 'is-invalid': f.FatherName.errors && f.FatherName.touched}" class="form-control" id="input3" placeholder="Father name">
+                    <div class="invalid-feedback" *ngIf="(formGroup.get('FatherName')?.hasError('required') && formGroup.get('FatherName')?.touched)">
+                        Please fill Father Name...! </div>
+                </div>
+                <div class="form-group col-md-4">
+                    <label>Mobile number</label>
+                    <input type="text" [(ngModel)]="model.User.Mobile" (keypress)="_commonService.NumberOnly($event)" [minlength]="10" [maxLength]="12" formControlName="Mobile" [ngClass]="{ 'is-invalid': f.Mobile.errors && f.Mobile.touched}" class="form-control" id="input4"
+                        placeholder="962358654">
+                    <div class="invalid-feedback" *ngIf="(formGroup.get('Mobile')?.hasError('required') && formGroup.get('Mobile')?.touched)">
+                        Please fill Mobile number...! </div>
+                    <div class="invalid-feedback" *ngIf="!formGroup.get('Mobile')?.hasError('required') && ((formGroup.get('Mobile')?.hasError('maxlength') || formGroup.get('Mobile')?.hasError('minlength')) && formGroup.get('Mobile')?.touched) || (formGroup.get('Mobile')?.hasError('maxlength') || formGroup.get('Mobile')?.hasError('minlength'))">
+                        Mobile lenght must be 10-12 digit...! </div>
+                </div>
 
-        <div class="form-group col-md-4">
-          <label>Qualification</label>
+                <div class="form-group col-md-4">
+                    <label>Qualification</label>
 
-          <ng-select formControlName="Qualification" [items]="dropDown!.ddlQualification"
-            [ngClass]="{ 'is-invalid': f.Qualification.errors && f.Qualification.touched}" bindLabel="Text"
-            bindValue="Value" placeholder="Qualification" appendTo="body" [(ngModel)]="model.QualificationId">
-          </ng-select>
-          <div class="invalid-feedback"
-            *ngIf="(formGroup.get('Qualification')?.hasError('required') && formGroup.get('Qualification')?.touched)">
-            Please Select Qualification...! </div>
-        </div>
+                    <ng-select formControlName="Qualification" [items]="dropDown!.ddlQualification" [ngClass]="{ 'is-invalid': f.Qualification.errors && f.Qualification.touched}" bindLabel="Text" bindValue="Value" placeholder="Qualification" appendTo="body" [(ngModel)]="model.QualificationId">
+                    </ng-select>
+                    <div class="invalid-feedback" *ngIf="(formGroup.get('Qualification')?.hasError('required') && formGroup.get('Qualification')?.touched)">
+                        Please Select Qualification...! </div>
+                </div>
 
-        <div class="form-group col-md-4">
-          <label>Personal Email ID</label>
-          <input type="email" formControlName="Email" [ngClass]="{ 'is-invalid': f.Email.errors && f.Email.touched}"
-            [(ngModel)]="model.User.Email" class="form-control" id="input3" placeholder="test@gmail.com">
-          <div class="invalid-feedback"
-            *ngIf="(formGroup.get('Email')?.hasError('required') && formGroup.get('Email')?.touched)">
-            Please fill Email...! </div>
-          <div class="invalid-feedback"
-            *ngIf="!formGroup.get('Email')?.hasError('required') && formGroup.get('Email')?.touched && formGroup.get('Email')?.invalid">
-            Please fill Correct Email...! </div>
-        </div>
-        <div class="form-group col-md-4">
-          <label>Ability to self fund</label>
-          <div class="form-radio-check-grp">
-            <div class="n-chk d-inline">
-              <label class="new-control new-radio radio-classic-info">
+                <div class="form-group col-md-4">
+                    <label>Personal Email ID</label>
+                    <input type="email" formControlName="Email" [ngClass]="{ 'is-invalid': f.Email.errors && f.Email.touched}" [(ngModel)]="model.User.Email" class="form-control" id="input3" placeholder="test@gmail.com">
+                    <div class="invalid-feedback" *ngIf="(formGroup.get('Email')?.hasError('required') && formGroup.get('Email')?.touched)">
+                        Please fill Email...! </div>
+                    <div class="invalid-feedback" *ngIf="!formGroup.get('Email')?.hasError('required') && formGroup.get('Email')?.touched && formGroup.get('Email')?.invalid">
+                        Please fill Correct Email...! </div>
+                </div>
+                <div class="form-group col-md-4">
+                    <label>Ability to self fund</label>
+                    <div class="form-radio-check-grp">
+                        <div class="n-chk d-inline">
+                            <label class="new-control new-radio radio-classic-info">
                 <input type="radio" class="new-control-input" [value]="true" formControlName="SelfFunded"
                   [(ngModel)]="model.SelfFunded" name="SelfFunded">
                 <span class="new-control-indicator"></span>Yes
               </label>
-            </div>
-            <div class="n-chk d-inline">
-              <label class="new-control new-radio radio-classic-info">
+                        </div>
+                        <div class="n-chk d-inline">
+                            <label class="new-control new-radio radio-classic-info">
                 <input type="radio" class="new-control-input" [value]="false" formControlName="SelfFunded"
                   [(ngModel)]="model.SelfFunded" name="SelfFunded">
                 <span class="new-control-indicator"></span>No
               </label>
-            </div>
-          </div>
-        </div>
+                        </div>
+                    </div>
+                </div>
 
-        <div class="form-group col-md-4">
-          <label>Gender</label>
-          <div class="form-radio-check-grp">
+                <div class="form-group col-md-8">
+                    <label>Gender</label>
+                    <div class="form-radio-check-grp">
 
-            <ng-container *ngFor="let item of dropDown!.ddlGender">
-              <div class="n-chk d-inline">
-                <label class="new-control new-radio radio-classic-info">
+                        <ng-container *ngFor="let item of dropDown!.ddlGender">
+                            <div class="n-chk d-inline">
+                                <label class="new-control new-radio radio-classic-info">
                   <input type="radio" formControlName="Gender" class="new-control-input" value="{{item.Value}}"
                     name="Gender" [(ngModel)]="model.Gender">
                   <span class="new-control-indicator"></span>{{item.Text}}
                 </label>
-              </div>
-            </ng-container>
+                            </div>
+                        </ng-container>
 
-            <!-- <div class="n-chk d-inline">
+                        <!-- <div class="n-chk d-inline">
                         <label class="new-control new-radio radio-classic-info">
                             <input type="radio" class="new-control-input" name="Gender" [(ngModel)]="model.Gender"
                                 checked>
@@ -179,55 +159,45 @@
                             <span class="new-control-indicator"></span>Other
                         </label>
                     </div> -->
-          </div>
-        </div>
-        <div class="form-group col-md-12">
-          <label>Address</label>
-          <textarea class="form-control" [ngClass]="{ 'is-invalid': f.Address.errors && f.Address.touched}"
-            [(ngModel)]="model.Address" id="exampleFormControlTextarea1" formControlName="Address" rows="3"></textarea>
-          <div class="invalid-feedback"
-            *ngIf="(formGroup.get('Address')?.hasError('required') && formGroup.get('Address')?.touched)">
-            Please fill Address...! </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-12">
+                    <label>Address</label>
+                    <textarea class="form-control" [ngClass]="{ 'is-invalid': f.Address.errors && f.Address.touched}" [(ngModel)]="model.Address" id="exampleFormControlTextarea1" formControlName="Address" rows="3"></textarea>
+                    <div class="invalid-feedback" *ngIf="(formGroup.get('Address')?.hasError('required') && formGroup.get('Address')?.touched)">
+                        Please fill Address...! </div>
+
+                </div>
+                <div class="form-group col-md-4">
+                    <label>State</label>
+
+                    <ng-select [items]="dropDown!.ddlState" bindLabel="Text" bindValue="Value" placeholder="State" appendTo="body" (ngModelChange)="GetFilterDropDown(ddlkeys.ddlDistrict,ddlkeys.ddlState,$event)" [(ngModel)]="model.StateId" formControlName="State">
+                    </ng-select>
+
+                </div>
+                <div class="form-group col-md-4">
+                    <label>District</label>
+                    <ng-select [ngClass]="{ 'is-invalid': f.District?.errors && f.District?.touched}" [items]="dropDown!.ddlDistrict" bindLabel="Text" bindValue="Value" placeholder="District" appendTo="body" [(ngModel)]="model.DistrictId" formControlName="District">
+                    </ng-select>
+                    <div class="invalid-feedback" *ngIf="(formGroup.get('District')?.hasError('required') && formGroup.get('District')?.touched)">
+                        Please select District...! </div>
+
+                </div>
+                <div class="form-group col-md-4">
+                    <label>Pin Code</label>
+                    <input type="text" [(ngModel)]="model.PinCode" (keypress)="_commonService.NumberOnly($event)" [minlength]="6" [maxLength]="6" formControlName="PinCode" [ngClass]="{ 'is-invalid': f.PinCode.errors && f.PinCode.touched}" class="form-control" id="input4"
+                        placeholder="962358654">
+                    <div class="invalid-feedback" *ngIf="(formGroup.get('PinCode')?.hasError('required') && formGroup.get('PinCode')?.touched)">
+                        Please fill Pin Code...! </div>
+                    <div class="invalid-feedback" *ngIf="!formGroup.get('PinCode')?.hasError('required') && ((formGroup.get('PinCode')?.hasError('maxlength') || formGroup.get('PinCode')?.hasError('minlength')) && formGroup.get('PinCode')?.touched) || (formGroup.get('PinCode')?.hasError('maxlength') || formGroup.get('PinCode')?.hasError('minlength'))">
+                        Pin Code lenght must be 6 digit...!
+                    </div>
+                </div>
+
+            </div>
 
         </div>
-        <div class="form-group col-md-4">
-          <label>State</label>
-
-          <ng-select [items]="dropDown!.ddlState" bindLabel="Text" bindValue="Value" placeholder="State" appendTo="body"
-            (ngModelChange)="GetFilterDropDown(ddlkeys.ddlDistrict,ddlkeys.ddlState,$event)" [(ngModel)]="model.StateId"
-            formControlName="State">
-          </ng-select>
-
-        </div>
-        <div class="form-group col-md-4">
-          <label>District</label>
-          <ng-select [ngClass]="{ 'is-invalid': f.District?.errors && f.District?.touched}"
-            [items]="dropDown!.ddlDistrict" bindLabel="Text" bindValue="Value" placeholder="District" appendTo="body"
-            [(ngModel)]="model.DistrictId" formControlName="District">
-          </ng-select>
-          <div class="invalid-feedback"
-            *ngIf="(formGroup.get('District')?.hasError('required') && formGroup.get('District')?.touched)">
-            Please select District...! </div>
-
-        </div>
-        <div class="form-group col-md-4">
-          <label>Pin Code</label>
-          <input type="text" [(ngModel)]="model.PinCode" (keypress)="_commonService.NumberOnly($event)" [minlength]="6"
-            [maxLength]="6" formControlName="PinCode" [ngClass]="{ 'is-invalid': f.PinCode.errors && f.PinCode.touched}"
-            class="form-control" id="input4" placeholder="962358654">
-          <div class="invalid-feedback"
-            *ngIf="(formGroup.get('PinCode')?.hasError('required') && formGroup.get('PinCode')?.touched)">
-            Please fill Pin Code...! </div>
-          <div class="invalid-feedback"
-            *ngIf="!formGroup.get('PinCode')?.hasError('required') && ((formGroup.get('PinCode')?.hasError('maxlength') || formGroup.get('PinCode')?.hasError('minlength')) && formGroup.get('PinCode')?.touched) || (formGroup.get('PinCode')?.hasError('maxlength') || formGroup.get('PinCode')?.hasError('minlength'))">
-            Pin Code lenght must be 6 digit...!
-          </div>
-        </div>
-
-      </div>
-
-    </div>
-  </form>
+    </form>
 </div>
 
 <app-user-nominee-detail-section [nomineeModel]="model.UserNominee" (onSubmit)="model.UserNominee=$event">
@@ -243,10 +213,10 @@
 </app-user-document-detail-section>
 
 <div class="form-footer-btn-grp mt-3 mb-3 widget-content widget-content p-3 text-center">
-  <button type="submit" class="btn btn-success mr-3" (click)="onFrmSubmit()"> <i class="fas fa-check mr-1"></i> Save
+    <button type="submit" class="btn btn-success mr-3" (click)="onFrmSubmit()"> <i class="fas fa-check mr-1"></i> Save
     application</button>
-  <!-- <button type="button" (click)="onFrmReset()" class="btn btn-primary mr-3"> <i class="fas fa-redo-alt mr-1"></i> Reset</button> -->
-  <button type="button" class="btn btn-outline-danger" routerLink="/admin/door-step-agent/door-step-agents-list"> <i class="fas fa-times mr-1"></i> Cancel</button>
+    <!-- <button type="button" (click)="onFrmReset()" class="btn btn-primary mr-3"> <i class="fas fa-redo-alt mr-1"></i> Reset</button> -->
+    <button type="button" class="btn btn-outline-danger" routerLink="/admin/door-step-agent/door-step-agents-list"> <i class="fas fa-times mr-1"></i> Cancel</button>
 </div>
 <!-- </form> -->
 <!-- DOOR STEP AGENT END -->
