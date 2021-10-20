@@ -1,3 +1,4 @@
+import { ToastrService } from 'ngx-toastr';
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
@@ -7,12 +8,13 @@ import { Routing_Url, Message } from "src/app/Shared/Helper/constants";
 import { DoorStepAgentListModel, DoorStepAgentViewModel } from "src/app/Shared/Model/doorstep-agent-model/door-step-agent.model";
 import { CommonService } from "src/app/Shared/Services/common.service";
 import { DoorStepAgentService } from "src/app/Shared/Services/door-step-agent-services/door-step-agent.service";
+import { UserSettingService } from 'src/app/Shared/Services/user-setting-services/user-setting.service';
 
 @Component({
   selector: 'app-list-door-step-agent',
   templateUrl: './list-door-step-agent.component.html',
   styleUrls: ['./list-door-step-agent.component.scss'],
-  providers: [DoorStepAgentService]
+  providers: [DoorStepAgentService, UserSettingService]
 })
 export class ListDoorStepAgentComponent implements OnInit {
 
@@ -25,25 +27,30 @@ export class ListDoorStepAgentComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort!: MatSort;
   id!: number;
-  displayedColumns: string[] = ['index', 'FullName', 'Gender', 'IsActive', 'Action'];
-  ViewdisplayedColumns = [{ Value: 'FullName', Text: 'Full Name' }, { Value: 'Gender', Text: 'Gender' }, { Value: 'Email', Text: 'Email' }, { Value: 'Mobile', Text: 'Mobile' }];
+  displayedColumns: string[] = ['index', 'FullName', 'Gender','IsApproved', 'IsActive', 'Action'];
+  ViewdisplayedColumns = [{ Value: 'FullName', Text: 'Full Name' },
+                          { Value: 'Gender', Text: 'Gender' },
+                          { Value: 'Email', Text: 'Email' },
+                          { Value: 'Mobile', Text: 'Mobile' }];
   indexModel = new IndexModel();
   totalRecords: number = 0;
   isTableView: boolean = true;
   //#endregion
 
-  constructor(private readonly _service: DoorStepAgentService, private readonly _commonService: CommonService) { }
+  constructor(private readonly _service: DoorStepAgentService,
+              private readonly _commonService: CommonService,
+              private readonly toast:ToastrService,
+              private readonly _userSettingService: UserSettingService) { }
   ngOnInit(): void {
     this.getList();
   }
-
   getList(): void {
 
     let serve = this._service.GetDoorStepAgentList(this.indexModel).subscribe(response => {
       serve.unsubscribe();
       if (response.IsSuccess) {
-
         this.model = response.Data as DoorStepAgentListModel[];
+        console.log(this.model);
         this.dataSource = new MatTableDataSource<DoorStepAgentListModel>(this.model);
         this.totalRecords = response.TotalRecord as number;
         if (!this.indexModel.IsPostBack) {
@@ -51,13 +58,13 @@ export class ListDoorStepAgentComponent implements OnInit {
           this.dataSource.sort = this.sort;
         }
       } else {
-        // Toast message if  return false ;
+        this.toast.warning(response.Message as string , 'Server Error');
       }
     },
       error => {
+        this.toast.error(error.Message as string , 'Error');
       });
   }
-
   sortData(event: any): void {
 
     this.indexModel.OrderBy = event.active;
@@ -69,29 +76,29 @@ export class ListDoorStepAgentComponent implements OnInit {
     this.indexModel.Page = 1;
     this.getList();
   }
-
   onPaginateChange(event: any) {
     this.indexModel.Page = event.pageIndex + 1;
     this.indexModel.PageSize = event.pageSize;
     this.indexModel.IsPostBack = true;
     this.getList();
   }
-
   OnActiveStatus(Id: number) {
 
     this._commonService.Question(Message.ConfirmUpdate as string).then(isTrue => {
 
       if (isTrue) {
-        this._service.ChangeActiveStatus(Id).subscribe(
+        let subscription = this._service.ChangeActiveStatus(Id).subscribe(
           data => {
+            subscription.unsubscribe();
             if (data.IsSuccess) {
-              this._commonService.Success(data.Message as string)
+              this.toast.success(data.Message as string , 'Status Change');
               this.getList();
+            } else {
+              this.toast.warning(data.Message as string , 'Server Error');
             }
           },
           error => {
-            this._commonService.Error(error.message as string)
-
+            this.toast.error(error.message as string , 'Error');
           }
         );
       }
@@ -102,22 +109,45 @@ export class ListDoorStepAgentComponent implements OnInit {
 
     this._commonService.Question(Message.ConfirmUpdate as string).then(result => {
       if (result) {
-        this._service.DeleteDoorStepAgent(id).subscribe(
+       let subscription =   this._service.DeleteDoorStepAgent(id).subscribe(
           data => {
+            subscription.unsubscribe();
             if (data.IsSuccess) {
-              this._commonService.Success(data.Message as string)
+              this.toast.success(data.Message as string , 'Remove');
               this.getList();
+            } else {
+              this.toast.warning(data.Message as string , 'Server Error');
             }
           },
           error => {
-            this._commonService.Error(error.message as string)
+            this.toast.error(error.message as string , 'Error');
 
           }
         );
       }
     });
   }
+  OnApproveStatus(Id: number) {
+    this._commonService.Question(Message.ConfirmUpdate as string).then(isTrue => {
+      if (isTrue) {
+        let subscription = this._userSettingService.UpdateApproveStatus(Id).subscribe(
+          data => {
+            subscription.unsubscribe();
+            if (data.IsSuccess) {
+              this.toast.success(data.Message as string , 'Access Permission');
+              this.getList();
+            } else {
+              this.toast.warning(data.Message as string , 'Server Error');
+            }
+          },
+          error => {
+            this.toast.error(error.Message as string ,'Error');
+          }
+        );
+      }
+    });
 
+  }
 
   //#endregion
 

@@ -157,18 +157,24 @@
                 {{element[column.Value].substring(0,1)}} </span> {{element[column.Value]}}
             </td>
           </ng-container>
+          <ng-container matColumnDef="IsApproved">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Approval </th>
+            <td mat-cell *matCellDef="let element" class="table-action-btn">
+              <a (click)="OnApproveStatus(element.UserId)" title="Update approval status">
+                <i *ngIf="element.IsApproved" class="fas fa-user-check text-success"></i>
+                <i *ngIf="!element.IsApproved" class="fas fa-user-times text-danger"></i>
+              </a>
+
+            </td>
+          </ng-container>
+
 
           <ng-container matColumnDef="IsActive">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>Status </th>
             <td mat-cell *matCellDef="let element" class="table-action-btn">
               <a (click)="OnActiveStatus(element.UserId)" title="Update Active Status">
-                <div *ngIf="element.IsActive"
-                  class="table-s-active table-data-status-round text-success d-flex align-items-center"> <span></span>
-                  Active </div>
-                <div *ngIf="!element.IsActive"
-                  class="table-s-dactive  table-data-status-round text-danger d-flex align-items-center"> <span></span>
-                  DeActive </div>
-
+                <i *ngIf="element.IsActive == true" class="fas fa-check-circle text-success"></i>
+                <i *ngIf="element.IsActive == false" class="fas fa-ban text-danger"></i>
               </a>
 
             </td>
