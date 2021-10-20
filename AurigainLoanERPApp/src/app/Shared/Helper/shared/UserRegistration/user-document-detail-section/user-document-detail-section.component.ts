@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 import { FileInfo } from 'src/app/Content/Common/file-selector/file-selector.component';
 import { DocumentTypeEnum } from 'src/app/Shared/Enum/fixed-value';
 import { DocumentPostModel } from 'src/app/Shared/Model/doorstep-agent-model/door-step-agent.model';
@@ -55,23 +56,23 @@ export class UserDocumentDetailSectionComponent implements OnInit {
     switch (docuemtnTypeId) {
       case this.docTypeEnum.AadhaarCard:
         //#addLogic 
-        if (this.TotalAdharDoc == 2) {
-          return;
-        }
+        // if (this.TotalAdharDoc == 2) {
+        //   return;
+        // }
         this.TotalAdharDoc = undefined;
         break;
       case this.docTypeEnum.PANCard:
         //#addLogic 
-        if (this.TotalPANDoc == 2) {
-          return;
-        }
+        // if (this.TotalPANDoc == 2) {
+        //   return;
+        // }
         this.TotalPANDoc = undefined;
         break;
       case this.docTypeEnum.CancelledCheque:
         //#addLogic 
-        if (this.TotalChequeDoc == 1) {
-          return;
-        }
+        // if (this.TotalChequeDoc == 1) {
+        //   return;
+        // }
         this.TotalChequeDoc = undefined;
         break;
 
