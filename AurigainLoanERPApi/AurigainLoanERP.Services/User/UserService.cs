@@ -150,6 +150,7 @@ namespace AurigainLoanERP.Services.User
                 }
 
                 var data = result.Skip(((model.Page == 0 ? 1 : model.Page) - 1) * (model.PageSize != 0 ? model.PageSize : int.MaxValue)).Take(model.PageSize != 0 ? model.PageSize : int.MaxValue);
+
                 objResponse.Data = await (from detail in data
                                           select new AgentListViewModel
                                           {
@@ -169,7 +170,7 @@ namespace AurigainLoanERP.Services.User
                                               DateOfBirth = detail.DateOfBirth ?? null,
                                               ProfilePictureUrl = detail.User.ProfilePath.ToAbsolutePath() ?? null,
                                               IsApproved = detail.User.IsApproved,
-                                              IsActive = detail.IsActive,
+                                              IsActive = detail.User.IsActive,
                                               IsDelete = detail.IsDelete,
                                               CreatedOn = detail.CreatedOn,
                                               CreatedBy = detail.CreatedBy
@@ -350,7 +351,7 @@ namespace AurigainLoanERP.Services.User
                                               DateOfBirth = detail.DateOfBirth ?? null,
                                               ProfilePictureUrl = detail.User.ProfilePath.ToAbsolutePath() ?? null,
                                               IsApproved = detail.User.IsApproved,
-                                              IsActive = detail.IsActive,
+                                              IsActive = detail.User.IsActive,
                                               IsDelete = detail.IsDelete,
                                               CreatedOn = detail.CreatedOn,
                                               CreatedBy = detail.CreatedBy
