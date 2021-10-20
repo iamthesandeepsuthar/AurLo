@@ -63,6 +63,7 @@ export class FileSelectorComponent {
   @Output() readonly FileSelected: EventEmitter<FileInfo>;
   @Output() readonly FilesChanged: EventEmitter<FileInfo[]>;
   @Input() isShowFiles: boolean = true;
+  @Input() maxFile: number = 0;//for all
 
   constructor(readonly _alertService: AlertService, private readonly toast: ToastrService) {
     this.FileSelected = new EventEmitter();
@@ -102,7 +103,6 @@ export class FileSelectorComponent {
       let isAllowed = this._allowFiles.some(x => x === ext);
       if (!isAllowed) {
         this.toast.warning('Selected  file  format not allowed to upload', 'File Upload');
-        //this._alertService.Error('Selected  file  format not allowed to upload', 'File Upload');
         return;
       }
       if (file == null || file.size == 0) {
@@ -110,8 +110,10 @@ export class FileSelectorComponent {
       }
 
       let fileInfo = new FileInfo(file);
+      if (this.maxFile == 0 ||    this.Files.length <= this.maxFile) {
+        this._files.push(fileInfo);
 
-      this._files.push(fileInfo);
+      }
 
       this.FileSelected.emit(fileInfo);
 
