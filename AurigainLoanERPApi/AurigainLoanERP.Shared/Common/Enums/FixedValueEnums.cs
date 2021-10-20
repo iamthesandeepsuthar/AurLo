@@ -53,7 +53,8 @@ namespace AurigainLoanERP.Shared.Enums
             ServerException = 405,
             DataBaseTransactionFailed = 406,
             InvaildModel = 407,
-            BadRequest=408
+            BadRequest=408,
+            UnApproved=409
         }
 
         public enum UserRoleEnum

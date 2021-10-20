@@ -1,3 +1,4 @@
+import { ToastrService } from 'ngx-toastr';
 import { Component, EventEmitter, Output, Input } from '@angular/core';
 import { AlertService } from 'src/app/Shared/Services/alert.service';
 
@@ -63,7 +64,7 @@ export class FileSelectorComponent {
     @Output() readonly FilesChanged: EventEmitter<FileInfo[]>;
     @Input()  isShowFiles: boolean=true;
 
-    constructor(readonly _alertService: AlertService) {
+    constructor(readonly _alertService: AlertService , private readonly toast: ToastrService) {
         this.FileSelected = new EventEmitter();
         this.FilesChanged = new EventEmitter();
         this._files = [];
@@ -97,7 +98,8 @@ export class FileSelectorComponent {
             let ext = file!.name.substring(extIndex);
             let isAllowed = this._allowFiles.some(x => x === ext);
             if (!isAllowed) {
-                this._alertService.Error('Selected  file  format not allowed to upload', 'File Upload');
+              this.toast.warning('Selected  file  format not allowed to upload','File Upload');
+              //this._alertService.Error('Selected  file  format not allowed to upload', 'File Upload');
                 return;
             }
             if (file == null || file.size == 0) {

@@ -109,6 +109,10 @@ namespace AurigainLoanERP.Services.Account
                     var user = await _db.UserMaster.Where(x => x.Mobile == model.MobileNumber && x.Mpin == model.Password).Include(x => x.UserRole).FirstOrDefaultAsync();
                     if (user != null)
                     {
+                        if (!user.IsApproved) 
+                        {
+                            return CreateResponse<string>(null,"Admin not approved your account, Please confirm with admin!", false, ((int)ApiStatusCode.UnApproved));
+                        }
                         UserLoginLog log = new UserLoginLog
                         {
                             LoggedInTime = DateTime.Now,
@@ -180,7 +184,6 @@ namespace AurigainLoanERP.Services.Account
                 return CreateResponse<string>(null, ResponseMessage.NotFound, false, ((int)ApiStatusCode.ServerException), ex.Message ?? ex.InnerException.ToString());
             }
         }
-
         public async Task<ApiServiceResponseModel<string>> CheckUserExist(string mobileNumber) 
         {
             try

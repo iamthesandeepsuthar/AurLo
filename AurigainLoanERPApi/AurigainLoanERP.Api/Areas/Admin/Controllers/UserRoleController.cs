@@ -10,7 +10,7 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class UserRoleController : ControllerBase
     {
         private readonly IUserRoleService _userRole;
