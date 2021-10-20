@@ -79,15 +79,14 @@ export class AddUpdateDistrictComponent implements OnInit {
       Name: [undefined, Validators.required],
       DllState: [undefined, null],
       Pin: [undefined, Validators.required],
+      IsActive: [undefined]
       //areaName: [undefined],
     });
   }
   onSubmit() {
     this.districtForm.markAllAsTouched();
-    if (this.districtForm.valid) {
-      let subscription = this._districtService
-        .AddUpdateDistrict(this.model)
-        .subscribe((response) => {
+    if (this.districtForm.valid) {      
+      let subscription = this._districtService.AddUpdateDistrict(this.model).subscribe((response) => {
           subscription.unsubscribe();
           if (response.IsSuccess) {
             this.toast.success(

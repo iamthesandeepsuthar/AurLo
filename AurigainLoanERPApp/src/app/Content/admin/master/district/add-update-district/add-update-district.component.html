@@ -65,7 +65,7 @@
       </div>
       <div class="form-group col-md-12">
             <label>Pincode</label>
-            <input type="text" formControlName="Pin" [(ngModel)]="model.Pincode" [ngClass]="{ 'is-invalid': f.Pin.errors && f.Pin.touched}" class="form-control" id="input2" placeholder=" Enter pincode">
+            <input type="text" formControlName="Pin" minlength="6" maxlength="6" [(ngModel)]="model.Pincode" [ngClass]="{ 'is-invalid': f.Pin.errors && f.Pin.touched}" class="form-control" id="input2" placeholder=" Enter pincode">
             <div class="invalid-feedback" *ngIf="(districtForm.get('Pin')?.hasError('required') && districtForm.get('Pin')?.touched)">Please enter district pincode. </div>
         </div>
 
