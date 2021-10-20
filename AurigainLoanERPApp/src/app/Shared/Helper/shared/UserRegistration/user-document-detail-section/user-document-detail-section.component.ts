@@ -50,7 +50,6 @@ export class UserDocumentDetailSectionComponent implements OnInit {
   }
 
   onDocumentAttach(docuemtnTypeId: number, file: FileInfo[], isEdit: boolean) {
-    debugger
     let docIndex = this.documentModel.findIndex(x => x.DocumentTypeId == docuemtnTypeId);
     switch (docuemtnTypeId) {
       case this.docTypeEnum.AadhaarCard:
@@ -77,10 +76,6 @@ export class UserDocumentDetailSectionComponent implements OnInit {
 
     }
     if (docIndex >= 0) {
-
-
-      //  this.documentModel[docIndex].Files = [] as FilePostModel[];
-
       file.forEach(element => {
         let File = {} as FilePostModel;
         console.log(element.FileBase64);
