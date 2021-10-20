@@ -63,6 +63,6 @@ namespace AurigainLoanERP.Services.User
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        Task<ApiServiceResponseModel<string>> AddUpdateManagerAsync(UserManagerPostModel model);
+        Task<ApiServiceResponseModel<string>> AddUpdateManagerAsync(UserManagerModel model);
     }
 }

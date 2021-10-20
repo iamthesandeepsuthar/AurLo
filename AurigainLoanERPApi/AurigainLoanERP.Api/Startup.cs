@@ -137,22 +137,18 @@ namespace AurigainLoanERP.Api
             //    RequestPath = "/Content"
             //});
 
-
             // Enable directory browsing
             //app.UseDirectoryBrowser(new DirectoryBrowserOptions
             //{
             //    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "Content")),
             //    RequestPath = "/Content"
             //});
-
-
             app.UseFileServer(new FileServerOptions
             {
                 FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "Content")),
                 RequestPath = "/Content",
                 EnableDirectoryBrowsing = true
             });
-
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             app.UseHttpsRedirection();
             app.UseAuthentication();
@@ -170,8 +166,7 @@ namespace AurigainLoanERP.Api
             services.AddTransient<IPaymentModeService, PaymentModeService>().Reverse();
             services.AddTransient<IAccountService, AccountService>().Reverse();
             services.AddTransient<IUserService, UserService>().Reverse();
-
-
+            services.AddTransient < AurigainLoanERP.Services.ProductCategory.IProductCategoriesService, AurigainLoanERP.Services.ProductCategory.ProductCategoriesService>().Reverse();
         }
     }
 }

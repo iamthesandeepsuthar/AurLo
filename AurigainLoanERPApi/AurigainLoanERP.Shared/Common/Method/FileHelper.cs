@@ -26,27 +26,22 @@ namespace AurigainLoanERP.Shared.Common
         /// <param name="fileName">file name if required custom name</param>
         /// <returns></returns>
         public string Save(string base64str, string filePath, string fileName = null)
-
         {
             try
             {
-
                 if (!string.IsNullOrEmpty(base64str) && !string.IsNullOrEmpty(filePath))
                 {
                     base64str = Regex.Replace(base64str, @"^\s*$\n", string.Empty, RegexOptions.Multiline).TrimEnd();
-
                     byte[] byteArr;
                     if (base64str.Split(';').Length > 0)
                     {
                         string[] Fileinfo = base64str.Split(';');
                         byteArr = Convert.FromBase64String(Fileinfo[1].Substring(Fileinfo[1].IndexOf(',') + 1));
-
                     }
                     else
                     {
                         byteArr = Convert.FromBase64String(base64str);
                     }
-
 
                     //  saveFile = filePath;
                     string path = GetPhysicalPath(filePath);
@@ -56,9 +51,7 @@ namespace AurigainLoanERP.Shared.Common
                     }
                     fileName = string.IsNullOrEmpty(fileName) ? Guid.NewGuid().ToString() + GetFileExtension(base64str) : fileName.Replace(" ", "_");
                     File.WriteAllBytes(Path.Combine(path, fileName), byteArr);
-
                     return fileName;
-
                 }
             }
             catch

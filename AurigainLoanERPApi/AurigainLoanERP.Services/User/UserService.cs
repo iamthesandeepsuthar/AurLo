@@ -601,7 +601,7 @@ namespace AurigainLoanERP.Services.User
         #endregion
 
         #region <<Manager User>>
-        public async Task<ApiServiceResponseModel<string>> AddUpdateManagerAsync(UserManagerPostModel model)
+        public async Task<ApiServiceResponseModel<string>> AddUpdateManagerAsync(UserManagerModel model)
         {
             try
             {
@@ -1030,9 +1030,8 @@ namespace AurigainLoanERP.Services.User
 
                         else
                         {
-                            if (fileitem.File.IsBase64())
-                            { 
-
+                            //if (fileitem.File.IsBase64())
+                            //{ 
                                 var objFileModel = new UserDocumentFiles();
                                 objFileModel.DocumentId = documentId;
                                 objFileModel.FileName = _fileHelper.Save(fileitem.File, FilePathConstant.UserAgentFile, fileitem.FileName);
@@ -1040,7 +1039,7 @@ namespace AurigainLoanERP.Services.User
 
                                 objFileModel.FileType = _fileHelper.GetFileExtension(fileitem.File); //fileitem.File.ContentType;
                                 await _db.UserDocumentFiles.AddAsync(objFileModel);
-                            }
+                            //}
                         }
 
                     }
@@ -1305,7 +1304,7 @@ namespace AurigainLoanERP.Services.User
 
         }
 
-        private async Task<bool> SaveUserManagerAsync(UserManagerPostModel model, long userId)
+        private async Task<bool> SaveUserManagerAsync(UserManagerModel model, long userId)
         {
             try
             {

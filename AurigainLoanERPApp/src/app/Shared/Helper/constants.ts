@@ -92,7 +92,14 @@ export class API_Url {
   //#region <<User Setting>>
   public static UserUpdateProfileApi = `${environment.apiEndPoint}UserSetting/UpdateProfile`;
   public static UserApproveStatusApi = `${environment.apiEndPoint}UserSetting/UpdateApproveStatus/`;
+  //#endregion
 
+  //#region  << Manager's  Above Agent >>
+  public static Manager_List_Api = `${environment.apiEndPoint}UserManager/GetList`;
+  public static Manager_AddUpdate_Api = `${environment.apiEndPoint}UserManager/AddUpdate`;
+  public static Manager_Delete_Api = `${environment.apiEndPoint}UserManager/DeleteManager/`;
+  public static Manager_ActiveStatus_Api = `${environment.apiEndPoint}UserManager/UpdateActiveStatus/`;
+  public static Manager_Detail_Api = `${environment.apiEndPoint}UserManager/GetById/`;
   //#endregion
 
 
@@ -162,13 +169,19 @@ export class Routing_Url {
   static  AgentAvailibilityUrl = 'agent-availibility';
 
   //#endregion
+
+  //#region  << User manager's URL >>
+  static Manager_List_Url = '/managers';
+  static Manager_Detail_Url = '/detail-manager/';
+  static Manager_AddUpdate_Url = '/add-manager/';
+  //#endregion
 }
 
 export class Message {
   //#region <<Alert Message >>
-  static SaveSuccess = 'Record Successfully saved...!';
+  static SaveSuccess = 'Record successfully saved...!';
   static SaveFail = 'Record failed to save...!';
-  static UpdateSuccess = 'Record Successfully updated...!';
+  static UpdateSuccess = 'Record successfully updated...!';
   static UpdateFail = 'Record failed to update...!';
   static ConfirmUpdate = 'Are you Sure update this record?';
   static DeleteConfirmation = 'Are you want to delete record ?';
