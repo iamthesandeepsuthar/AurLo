@@ -59,9 +59,9 @@ export class FilePostModel {
     this.IsEditMode = false;
   }
   Id!: number;
-  FileName!: string;
-  File!: string;
-  FileType!: string;
+  FileName?: string;
+  File?: string;
+  FileType?: string;
   IsEditMode: boolean;
 }
 

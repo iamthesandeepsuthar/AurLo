@@ -53,10 +53,7 @@ namespace AurigainLoanERP.Shared.ExtensionMethod
 
         public static bool IsBase64(this string base64String)
         {
-             if (string.IsNullOrEmpty(base64String) || base64String.Length % 4 != 0
-               || base64String.Contains(" ") || base64String.Contains("\t") || base64String.Contains("\r") || base64String.Contains("\n"))
-                return false;
-
+             
             try
             {
                 base64String = Regex.Replace(base64String, @"^\s*$\n", string.Empty, RegexOptions.Multiline).TrimEnd();
@@ -67,6 +64,10 @@ namespace AurigainLoanERP.Shared.ExtensionMethod
                     string[] Fileinfo = base64String.Split(';');
                     base64String = Fileinfo[1].Substring(Fileinfo[1].IndexOf(',') + 1);
                 }
+
+                if (string.IsNullOrEmpty(base64String) || base64String.Length % 4 != 0
+               || base64String.Contains(" ") || base64String.Contains("\t") || base64String.Contains("\r") || base64String.Contains("\n"))
+                { return false; }
 
 
                 Convert.FromBase64String(base64String);

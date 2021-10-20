@@ -14,13 +14,22 @@
         <div class="invalid-feedback"
           *ngIf="(formGroup.get('AadhaarCard')?.hasError('required') && formGroup.get('AadhaarCard')?.touched)">
           Please Add Aadhaar Card doc ...! </div>
-        <!-- <ul
-          *ngIf="documentModel!.length>0 && (getAdharDocsFile) &&  (getAdharDocsFile).DocumentTypeId > 0 && TotalAdharDoc! >0">
-          <li *ngFor="let item of (getAdharDocsFile)?.Files">
+        <ul *ngIf="documentModel!.length>0 && (getAdharDocsFile) &&  (getAdharDocsFile).DocumentTypeId > 0 ">
+          <ng-container *ngFor="let item of (getAdharDocsFile)?.Files">
 
-            <img src="{{item!.File}}" height="100px;" width="100px" alt="">
-          </li>
-        </ul> -->
+            <div *ngIf="item.Id>0" class="dropzone dropzone-light file-upload-details" (click)="removeDocFile(item,this.getAdharDocsFile!.Id, getAdharDocsFile!.DocumentTypeId)">
+              <div class="dz-details">
+                <div class="dz-filename"><span data-dz-name="">{{item?.FileName}}</span></div>
+              </div>
+              <i data-toggle="tooltip" data-placement="bottom" title="Remove"
+                class="fas fa-trash-alt text-danger file-upload-details-remove"></i>
+            </div>
+
+
+
+          </ng-container>
+
+        </ul>
 
       </div>
       <div class="form-group col-md-4">
@@ -34,13 +43,19 @@
           *ngIf="(formGroup.get('PANCard')?.hasError('required') && formGroup.get('PANCard')?.touched)">
           Please Add PAN Card doc ...! </div>
 
-        <!-- <ul
-          *ngIf="documentModel!.length>0 && getPANDocsFile &&  (getPANDocsFile).DocumentTypeId > 0 && TotalPANDoc! >0 ">
-          <li *ngFor="let item of (getPANDocsFile)?.Files">
+        <ul *ngIf="documentModel!.length>0 && getPANDocsFile &&  (getPANDocsFile).DocumentTypeId > 0 ">
+          <ng-container *ngFor="let item of (getPANDocsFile)?.Files">
+            <div *ngIf="item.Id>0" class="dropzone dropzone-light file-upload-details" (click)="removeDocFile(item,this.getPANDocsFile!.Id, getPANDocsFile!.DocumentTypeId)">
+              <div class="dz-details">
+                <div class="dz-filename"><span data-dz-name="">{{item?.FileName}}</span></div>
+              </div>
+              <i data-toggle="tooltip" data-placement="bottom" title="Remove"
+                class="fas fa-trash-alt text-danger file-upload-details-remove"></i>
+            </div>
+          </ng-container>
 
-            <img src="{{item?.File}}" height="100px;" width="100px" alt="">
-          </li>
-        </ul> -->
+
+        </ul>
       </div>
       <div class="form-group col-md-4">
         <label>Cancelled Cheque Picture</label>
@@ -53,13 +68,19 @@
           *ngIf="(formGroup.get('CancelledCheque')?.hasError('required') && formGroup.get('CancelledCheque')?.touched)">
           Please Add PAN Card doc ...! </div>
 
-        <!-- <ul
-          *ngIf="documentModel!.length>0 &&  getChequeDocsFile && (getChequeDocsFile)!.DocumentTypeId >0 && TotalChequeDoc! >0">
-          <li *ngFor="let item of (getChequeDocsFile)?.Files">
+        <ul *ngIf="documentModel!.length>0 &&  getChequeDocsFile && (getChequeDocsFile)!.DocumentTypeId >0">
+          <ng-container *ngFor="let item of (getChequeDocsFile)?.Files">
+            <div *ngIf="item.Id>0" class="dropzone dropzone-light file-upload-details" (click)="removeDocFile(item,this.getChequeDocsFile!.Id, getChequeDocsFile!.DocumentTypeId)">
+              <div class="dz-details">
+                <div class="dz-filename"><span data-dz-name="">{{item?.FileName}}</span></div>
+              </div>
+              <i data-toggle="tooltip" data-placement="bottom" title="Remove"
+                class="fas fa-trash-alt text-danger file-upload-details-remove"></i>
+            </div>
+          </ng-container>
 
-            <img src="{{item?.File}}" height="100px;" width="100px" alt="">
-          </li>
-        </ul> -->
+
+        </ul>
       </div>
 
 

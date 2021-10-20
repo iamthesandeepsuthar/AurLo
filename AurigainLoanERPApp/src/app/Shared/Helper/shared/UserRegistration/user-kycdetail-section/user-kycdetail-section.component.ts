@@ -40,7 +40,7 @@ export class UserKYCDetailSectionComponent implements OnInit {
   }
 
   getDocumentType(value: string | number) {
-    return this.dropDown.ddlDocumentType.find(x => x.Value == value)?.Text;
+    return this.dropDown?.ddlDocumentType?.find(x => x.Value == value)?.Text;
   }
   AddEditKycItem() {
 

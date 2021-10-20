@@ -36,6 +36,12 @@ export class DoorStepAgentService {
     let url = `${this._baseService.API_Url.DoorstepAgentDeleteApi}${id}`;
     return this._baseService.Delete(url);
   }
+
+  DeleteDocumentFile(id: number,documentId:number): Observable<ApiResponse<string>> {
+    let url = `${this._baseService.API_Url.DoorstepAgentDeleteDocumentFileApi}${id}/${documentId}`;
+    return this._baseService.Delete(url);
+  }
+
   SetUserAvailibility(model: UserAvailibilityPostModel): Observable<ApiResponse<string>> {
     let url = `${this._baseService.API_Url.DoorstepAgentAvailibilityApi}`;
     return this._baseService.post(url, model);

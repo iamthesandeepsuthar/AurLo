@@ -548,23 +548,6 @@ namespace AurigainLoanERP.Services.User
                                     }).ToList() ?? null
                                 });
 
-                                //if (item.value.UserDocumentFiles != null)
-                                //{
-                                //    foreach (var fileitem in item.value.UserDocumentFiles)
-                                //    {
-                                //        objDoorStepAgentModel.Documents[item.i].UserDocumentFiles.Add(
-                                //        new UserDocumentFilesViewModel
-                                //        {
-                                //            Id = fileitem.Id,
-                                //            DocumentId = fileitem.DocumentId,
-                                //            FileName = fileitem.FileName,
-                                //            FileType = fileitem.FileType,
-                                //            Path = fileitem.Path.ToAbsoluteUrl()
-                                //        });
-
-                                //    }
-
-                                //}
                             }
                         }
                         if (objDoorStepAgent.User.UserNominee != null)
@@ -803,6 +786,35 @@ namespace AurigainLoanERP.Services.User
             }
         }
 
+
+        public async Task<ApiServiceResponseModel<object>> DeleteDocumentFile(long id, long documentId)
+        {
+            try
+            {
+                await _db.Database.BeginTransactionAsync();
+
+                var objFileModel = await _db.UserDocumentFiles.FirstOrDefaultAsync(x => x.Id == id && x.DocumentId==documentId);
+
+                if (objFileModel != null)
+                {
+                    _fileHelper.Delete(Path.Combine(objFileModel.Path, objFileModel.FileName));
+                    _db.UserDocumentFiles.Remove(objFileModel);
+                    await _db.SaveChangesAsync();
+                }
+ 
+               
+                _db.Database.CommitTransaction();
+                return CreateResponse(true as object, ResponseMessage.Update, true, ((int)ApiStatusCode.Ok));
+            }
+            catch (Exception)
+            {
+                _db.Database.RollbackTransaction();
+                return CreateResponse(true as object, ResponseMessage.Fail, true, ((int)ApiStatusCode.DataBaseTransactionFailed));
+
+            }
+        }
+
+
         #endregion
 
         #region << Private Method >>
@@ -999,7 +1011,7 @@ namespace AurigainLoanERP.Services.User
                     foreach (var fileitem in item.Files)
                     {
                         ////If File is in Edit Mode
-                        if (fileitem.IsEditMode)
+                        if (fileitem.IsEditMode && fileitem.Id > 0)
                         {
                             var objFileModel = await _db.UserDocumentFiles.FirstOrDefaultAsync(x => x.Id == fileitem.Id);
 
@@ -1031,8 +1043,8 @@ namespace AurigainLoanERP.Services.User
 
                         else
                         {
-                            //if (fileitem.File.IsBase64())
-                            //{ 
+                            if (fileitem.File.IsBase64())
+                            {
                                 var objFileModel = new UserDocumentFiles();
                                 objFileModel.DocumentId = documentId;
                                 objFileModel.FileName = _fileHelper.Save(fileitem.File, FilePathConstant.UserAgentFile, fileitem.FileName);
@@ -1040,7 +1052,7 @@ namespace AurigainLoanERP.Services.User
 
                                 objFileModel.FileType = _fileHelper.GetFileExtension(fileitem.File); //fileitem.File.ContentType;
                                 await _db.UserDocumentFiles.AddAsync(objFileModel);
-                            //}
+                            }
                         }
 
                     }

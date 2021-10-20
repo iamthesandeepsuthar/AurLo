@@ -78,6 +78,7 @@ export class API_Url {
   public static DoorstepAgentActiveStatusApi = `${environment.apiEndPoint}DoorStepAgent/UpdatActiveStatus/`;
   public static DoorstepAgentDetailApi = `${environment.apiEndPoint}DoorStepAgent/GetById/`;
   public static DoorstepAgentAvailibilityApi = `${environment.apiEndPoint}DoorStepAgent/SetUserAvailibilty`;
+  public static DoorstepAgentDeleteDocumentFileApi = `${environment.apiEndPoint}DoorStepAgent/DeleteDocumentFile/`;
 
   //#endregion
 
@@ -87,6 +88,8 @@ export class API_Url {
   public static AgentDeleteApi = `${environment.apiEndPoint}Agent/Delete/`;
   public static AgentActiveStatusApi = `${environment.apiEndPoint}Agent/UpdatActiveStatus/`;
   public static AgentDetailApi = `${environment.apiEndPoint}Agent/GetById/`;
+  public static AgentDeleteDocumentFileApi = `${environment.apiEndPoint}DoorStepAgent/DeleteDocumentFile/`;
+
   //#endregion
 
   //#region <<User Setting>>

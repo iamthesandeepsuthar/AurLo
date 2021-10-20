@@ -38,8 +38,20 @@ namespace AurigainLoanERP.Services.User
         /// <param name="status">true,false</param>
         /// <returns>true</returns>
         Task<ApiServiceResponseModel<object>> UpateActiveStatus(long id);
-
+        /// <summary>
+        /// Update Approve Status
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         Task<ApiServiceResponseModel<object>> UpdateApproveStatus(long id);
+
+        /// <summary>
+        /// Delete Document File
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="documentId"></param>
+        /// <returns></returns>
+        Task<ApiServiceResponseModel<object>> DeleteDocumentFile(long id, long documentId);
 
         /// <summary>
         /// Record Mark as delete

@@ -173,8 +173,8 @@
             <th mat-header-cell *matHeaderCellDef mat-sort-header>Status </th>
             <td mat-cell *matCellDef="let element" class="table-action-btn">
               <a (click)="OnActiveStatus(element.UserId)" title="Update Active Status">
-                <i *ngIf="element.IsActive == true" class="fas fa-check-circle text-success"></i>
-                <i *ngIf="element.IsActive == false" class="fas fa-ban text-danger"></i>
+                <i *ngIf="element.IsActive" class="fas fa-check-circle text-success"></i>
+                <i *ngIf="!element.IsActive" class="fas fa-ban text-danger"></i>
               </a>
 
             </td>

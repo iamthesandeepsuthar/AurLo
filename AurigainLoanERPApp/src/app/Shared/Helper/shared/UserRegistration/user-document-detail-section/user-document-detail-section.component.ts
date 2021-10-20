@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { FileInfo } from 'src/app/Content/Common/file-selector/file-selector.component';
@@ -6,11 +6,13 @@ import { DocumentTypeEnum } from 'src/app/Shared/Enum/fixed-value';
 import { DocumentPostModel } from 'src/app/Shared/Model/doorstep-agent-model/door-step-agent.model';
 import { CommonService } from 'src/app/Shared/Services/common.service';
 import { FilePostModel } from '../../../../Model/doorstep-agent-model/door-step-agent.model';
+import { DoorStepAgentService } from '../../../../Services/door-step-agent-services/door-step-agent.service';
 
 @Component({
   selector: 'app-user-document-detail-section',
   templateUrl: './user-document-detail-section.component.html',
-  styleUrls: ['./user-document-detail-section.component.scss']
+  styleUrls: ['./user-document-detail-section.component.scss'],
+  providers: [DoorStepAgentService]
 })
 export class UserDocumentDetailSectionComponent implements OnInit {
   @Input() documentModel = [] as DocumentPostModel[];
@@ -22,6 +24,7 @@ export class UserDocumentDetailSectionComponent implements OnInit {
   TotalPANDoc!: number | undefined;
   TotalChequeDoc!: number | undefined;
   get f() { return this.formGroup.controls; };
+
   get getAdharDocsFile(): DocumentPostModel {
     let item = this.documentModel?.find(x => x.DocumentTypeId == this.docTypeEnum.AadhaarCard) as DocumentPostModel;
     return item ?? undefined;
@@ -35,11 +38,19 @@ export class UserDocumentDetailSectionComponent implements OnInit {
     return item ?? undefined;
   }
 
-  constructor(private readonly fb: FormBuilder, readonly _commonService: CommonService) { }
+  constructor(private readonly fb: FormBuilder, private readonly _toast: ToastrService, readonly _commonService: CommonService, readonly _doorStepAgent: DoorStepAgentService) { }
 
 
   ngOnInit(): void {
     this.formInit();
+
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.documentModel.previousValue != changes.documentModel.currentValue) {
+      this.checkExistingFilesCount();
+    }
+
   }
   onFrmSubmit() {
 
@@ -51,51 +62,70 @@ export class UserDocumentDetailSectionComponent implements OnInit {
   }
 
   onDocumentAttach(docuemtnTypeId: number, file: FileInfo[], isEdit: boolean) {
+    debugger
     let docIndex = this.documentModel.findIndex(x => x.DocumentTypeId == docuemtnTypeId);
     switch (docuemtnTypeId) {
       case this.docTypeEnum.AadhaarCard:
-        //#addLogic 
-        if (this.TotalAdharDoc! > 2) {
-          return false;
-        }
+        //#addLogic
+        // if (this.TotalAdharDoc! > 2) {
+        //   return false;
+        // }
         this.TotalAdharDoc = undefined;
         break;
       case this.docTypeEnum.PANCard:
-        //#addLogic 
-        if (this.TotalPANDoc! > 2) {
-          return false;
-        }
+        //#addLogic
+        // if (this.TotalPANDoc! > 2) {
+        //   return false;
+        // }
         this.TotalPANDoc = undefined;
         break;
       case this.docTypeEnum.CancelledCheque:
-        //#addLogic 
-        if (this.TotalChequeDoc! > 1) {
-          return false;
-        }
+        //#addLogic
+        // if (this.TotalChequeDoc! > 1) {
+        //   return false;
+        // }
         this.TotalChequeDoc = undefined;
         break;
 
     }
     if (docIndex >= 0) {
-      file.forEach(element => {
-        let File = {} as FilePostModel;
-        console.log(element.FileBase64);
-        File.File = element.FileBase64;
-        File.FileName = element.Name;
-        File.IsEditMode = false;
-        this.documentModel[docIndex].Files.push(File);
-        switch (docuemtnTypeId) {
-          case this.docTypeEnum.AadhaarCard:
-            this.TotalAdharDoc = + 1; // this.documentModel[docIndex].Files.length;
-            break;
-          case this.docTypeEnum.PANCard:
-            this.TotalPANDoc = + 1; // this.documentModel[docIndex].Files.length;
-            break;
-          case this.docTypeEnum.CancelledCheque:
-            this.TotalChequeDoc = + 1; // this.documentModel[docIndex].Files.length;
-            break;
+
+      this.documentModel[docIndex].Files.forEach((element) => {
+        if (element.Id > 0) {
+          element.IsEditMode = true;
+          element.File = undefined;
 
         }
+
+      });
+
+      file.forEach(element => {
+
+        let Indx = this.documentModel[docIndex].Files.findIndex(x => x.File == element.FileBase64);
+
+        if (Indx < 0) {
+          let File = {} as FilePostModel;
+          console.log(element.FileBase64);
+          File.File = element.FileBase64;
+          File.FileName = element.Name;
+          File.IsEditMode = false;
+          this.documentModel[docIndex].Files.push(File);
+
+          switch (docuemtnTypeId) {
+            case this.docTypeEnum.AadhaarCard:
+              this.TotalAdharDoc = + 1; // this.documentModel[docIndex].Files.length;
+              break;
+            case this.docTypeEnum.PANCard:
+              this.TotalPANDoc = + 1; // this.documentModel[docIndex].Files.length;
+              break;
+            case this.docTypeEnum.CancelledCheque:
+              this.TotalChequeDoc = + 1; // this.documentModel[docIndex].Files.length;
+              break;
+
+          }
+        }
+
+
 
       });
     } else {
@@ -136,5 +166,40 @@ export class UserDocumentDetailSectionComponent implements OnInit {
     });
   }
 
+  checkExistingFilesCount() {
+
+    if (this.documentModel.length > 0) {
+
+      this.documentModel.forEach(element => {
+
+        switch (element.DocumentTypeId) {
+          case this.docTypeEnum.AadhaarCard:
+            this.TotalAdharDoc = element!.Files!.length;
+            break;
+          case this.docTypeEnum.PANCard:
+            this.TotalPANDoc = element!.Files!.length;
+            break;
+          case this.docTypeEnum.CancelledCheque:
+            this.TotalChequeDoc = element!.Files!.length;
+            break;
+        }
+
+
+      });
+    }
+
+  }
+
+  removeDocFile(file: FilePostModel, docId: number, docTypeid: number) {
+    this._doorStepAgent.DeleteDocumentFile(file.Id, docId).subscribe(res => {
+      if (res.IsSuccess) {
+        this._toast.success('File Removed', 'Success');
+        let docIndex = this.documentModel!.findIndex(x => x.DocumentTypeId == docTypeid)
+        let fileIndex = this.documentModel![docIndex].Files!.findIndex(x => x.Id == file.Id);
+
+        this.documentModel![docIndex].Files.splice(fileIndex, 1);
+      }
+    });
+  }
 
 }

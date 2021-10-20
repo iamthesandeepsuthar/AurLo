@@ -19,7 +19,7 @@
   <ng-container *ngFor="let file of Files">
     <div class="dropzone dropzone-light file-upload-details" (click)="RemoveFile(file)">
       <div class="dz-details">
-        <div class="dz-size"><span data-dz-size=""><strong>{{file.Size}}</strong> {{file.SizeSuffix}}</span></div>
+        <!-- <div class="dz-size"><span data-dz-size=""><strong>{{file.Size}}</strong> {{file.SizeSuffix}}</span></div> -->
         <div class="dz-filename"><span data-dz-name="">{{file.Name}}</span></div>
       </div>
       <i data-toggle="tooltip" data-placement="bottom" title="Remove"
