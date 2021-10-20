@@ -14,10 +14,10 @@
         <div class="invalid-feedback"
           *ngIf="(formGroup.get('AadhaarCard')?.hasError('required') && formGroup.get('AadhaarCard')?.touched)">
           Please Add Aadhaar Card doc ...! </div>
-        <ul *ngIf="documentModel.length>0 &&  getDocsFile(docTypeEnum.AadhaarCard).DocumentTypeId > 0">
-          <li *ngFor="let item of getDocsFile(docTypeEnum.AadhaarCard)?.Files">
+        <ul *ngIf="documentModel!.length>0 &&  getAdharDocsFile.DocumentTypeId > 0">
+          <li *ngFor="let item of getAdharDocsFile?.Files">
 
-            <img src="{{item.File}}" height="100px;" width="100px" alt="">
+            <img src="{{item!.File}}" height="100px;" width="100px" alt="">
           </li>
         </ul>
 
@@ -33,10 +33,10 @@
           *ngIf="(formGroup.get('PANCard')?.hasError('required') && formGroup.get('PANCard')?.touched)">
           Please Add PAN Card doc ...! </div>
 
-        <ul *ngIf="documentModel.length>0 &&  getDocsFile(docTypeEnum.PANCard).DocumentTypeId > 0">
-          <li *ngFor="let item of getDocsFile(docTypeEnum.PANCard)?.Files">
+        <ul *ngIf="documentModel!.length>0 &&  getPANDocsFile.DocumentTypeId > 0">
+          <li *ngFor="let item of getPANDocsFile?.Files">
 
-            <img src="{{item.File}}" height="100px;" width="100px" alt="">
+            <img src="{{item?.File}}" height="100px;" width="100px" alt="">
           </li>
         </ul>
       </div>
@@ -51,10 +51,10 @@
           *ngIf="(formGroup.get('CancelledCheque')?.hasError('required') && formGroup.get('CancelledCheque')?.touched)">
           Please Add PAN Card doc ...! </div>
 
-        <ul *ngIf="documentModel.length>0 &&  getDocsFile(docTypeEnum.CancelledCheque)!.DocumentTypeId >0 ">
-          <li *ngFor="let item of getDocsFile(docTypeEnum.CancelledCheque)?.Files">
+        <ul *ngIf="documentModel!.length>0 &&  getChequeDocsFile!.DocumentTypeId >0 ">
+          <li *ngFor="let item of getChequeDocsFile?.Files">
 
-            <img src="{{item.File}}" height="100px;" width="100px" alt="">
+            <img src="{{item?.File}}" height="100px;" width="100px" alt="">
           </li>
         </ul>
       </div>

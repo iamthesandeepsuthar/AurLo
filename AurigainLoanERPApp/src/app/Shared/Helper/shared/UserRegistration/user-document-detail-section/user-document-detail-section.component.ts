@@ -17,10 +17,23 @@ export class UserDocumentDetailSectionComponent implements OnInit {
   DocumentFiles!: FileInfo[];
   formGroup = new FormGroup({});
   docTypeEnum = DocumentTypeEnum;
-  get f() { return this.formGroup.controls; };
   TotalAdharDoc!: number | undefined;
   TotalPANDoc!: number | undefined;
   TotalChequeDoc!: number | undefined;
+  get f() { return this.formGroup.controls; };
+  get getAdharDocsFile(): DocumentPostModel {
+    let item = this.documentModel?.find(x => x.DocumentTypeId == this.docTypeEnum.AadhaarCard) as DocumentPostModel;
+    return item ?? undefined;
+  }
+  get getPANDocsFile(): DocumentPostModel {
+    let item = this.documentModel?.find(x => x.DocumentTypeId == this.docTypeEnum.PANCard) as DocumentPostModel;
+    return item ?? undefined;
+  }
+  get getChequeDocsFile(): DocumentPostModel {
+    let item = this.documentModel?.find(x => x.DocumentTypeId == this.docTypeEnum.CancelledCheque) as DocumentPostModel;
+    return item ?? undefined;
+  }
+
   constructor(private readonly fb: FormBuilder, readonly _commonService: CommonService) { }
 
 
@@ -41,12 +54,24 @@ export class UserDocumentDetailSectionComponent implements OnInit {
     let docIndex = this.documentModel.findIndex(x => x.DocumentTypeId == docuemtnTypeId);
     switch (docuemtnTypeId) {
       case this.docTypeEnum.AadhaarCard:
+        //#addLogic 
+        if (this.TotalAdharDoc == 2) {
+          return;
+        }
         this.TotalAdharDoc = undefined;
         break;
       case this.docTypeEnum.PANCard:
+        //#addLogic 
+        if (this.TotalPANDoc == 2) {
+          return;
+        }
         this.TotalPANDoc = undefined;
         break;
       case this.docTypeEnum.CancelledCheque:
+        //#addLogic 
+        if (this.TotalChequeDoc == 1) {
+          return;
+        }
         this.TotalChequeDoc = undefined;
         break;
 
@@ -54,7 +79,7 @@ export class UserDocumentDetailSectionComponent implements OnInit {
     if (docIndex >= 0) {
 
 
-    //  this.documentModel[docIndex].Files = [] as FilePostModel[];
+      //  this.documentModel[docIndex].Files = [] as FilePostModel[];
 
       file.forEach(element => {
         let File = {} as FilePostModel;
@@ -65,13 +90,13 @@ export class UserDocumentDetailSectionComponent implements OnInit {
         this.documentModel[docIndex].Files.push(File);
         switch (docuemtnTypeId) {
           case this.docTypeEnum.AadhaarCard:
-            this.TotalAdharDoc = this.documentModel[docIndex].Files.length;
+            this.TotalAdharDoc = + 1; // this.documentModel[docIndex].Files.length;
             break;
           case this.docTypeEnum.PANCard:
-            this.TotalPANDoc = this.documentModel[docIndex].Files.length;
+            this.TotalPANDoc = + 1; // this.documentModel[docIndex].Files.length;
             break;
           case this.docTypeEnum.CancelledCheque:
-            this.TotalChequeDoc = this.documentModel[docIndex].Files.length;
+            this.TotalChequeDoc = + 1; // this.documentModel[docIndex].Files.length;
             break;
 
         }
@@ -91,13 +116,13 @@ export class UserDocumentDetailSectionComponent implements OnInit {
 
         switch (docuemtnTypeId) {
           case this.docTypeEnum.AadhaarCard:
-            this.TotalAdharDoc = this.documentModel[docIndex].Files.length;
+            this.TotalAdharDoc = + 1;//  this.documentModel[docIndex].Files.length;
             break;
           case this.docTypeEnum.PANCard:
-            this.TotalPANDoc = this.documentModel[docIndex].Files.length;
+            this.TotalPANDoc = +1;//  this.documentModel[docIndex].Files.length;
             break;
           case this.docTypeEnum.CancelledCheque:
-            this.TotalChequeDoc = this.documentModel[docIndex].Files.length;
+            this.TotalChequeDoc = + 1;//  this.documentModel[docIndex].Files.length;
             break;
         }
       });
@@ -113,8 +138,5 @@ export class UserDocumentDetailSectionComponent implements OnInit {
     });
   }
 
-  getDocsFile(docuemtnTypeId: number): DocumentPostModel {
-    let item = this.documentModel.find(x => x.DocumentTypeId == docuemtnTypeId) as DocumentPostModel;
-    return item
-  }
+
 }
