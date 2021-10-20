@@ -124,10 +124,11 @@ export class DoorStepAgentRegistrationComponent implements OnInit {
       let serv = this._userDoorStepService.AddUpdateDoorStepAgent(this.model).subscribe(res => {
         serv.unsubscribe();
         if (res.IsSuccess) {
-          this._alertService.Success(Message.SaveSuccess);
+          this._toast.success('Doorstep agent added successful', 'Success');
+          this._router.navigate([this.routing_Url.AdminModule+'/'+this.routing_Url.DoorStepModule +'/' + this.routing_Url.DoorStepAgentListUrl]);
         } else {
-          this._alertService.Error(Message.SaveFail);
-
+          this._toast.error(Message.SaveFail, 'Error');
+          return;
         }
       });
     }
@@ -215,13 +216,17 @@ export class DoorStepAgentRegistrationComponent implements OnInit {
       this.profileModel.ProfileBase64 = file.FileBase64;
       this.profileModel.FileName = file.Name;
       this.profileModel.UserId = this.Id;
-      this._userSettingService.UpdateUserProfile(this.profileModel).subscribe(res => {
-
+      let subscription = this._userSettingService.UpdateUserProfile(this.profileModel).subscribe(res => {
+      subscription.unsubscribe();
+      if(res.IsSuccess) {
+        this._toast.success('profile picture upload successful','Upload Status');
+      } else {
+        this._toast.error(res.Message as string ,'Upload Status');
+      }
       });
     }
 
   }
-
   onGetDetail() {
     if (this.Id > 0) {
       this._userDoorStepService.GetDoorStepAgent(this.Id).subscribe(res => {
@@ -319,7 +324,6 @@ export class DoorStepAgentRegistrationComponent implements OnInit {
 
     }
   }
-
   fileProgress(fileInput: any) {
     this.fileData = fileInput.target.files[0] as File;
     this.preview();
@@ -336,25 +340,18 @@ export class DoorStepAgentRegistrationComponent implements OnInit {
       this.previewUrl = reader.result;
     };
   }
-
   onUploadProfileImage() {
     let profileModel = new UserSettingPostModel();
     profileModel.FileName = this.fileData?.name;
     profileModel.UserId = Number(this.Id);
     profileModel.ProfileBase64 = this.previewUrl;
-
-    // let reader = new FileReader();
-    // reader.onload = e => {
-    //   profileModel.ProfileBase64 = e.target!.result!.toString();
-    //   debugger
-
-    // };
-    // reader.readAsDataURL(this.fileData);
-    debugger
-    let serv = this._userSettingService.UpdateUserProfile(profileModel).subscribe(res => {
-
-      serv.unsubscribe();
-      debugger
+    let subscription = this._userSettingService.UpdateUserProfile(profileModel).subscribe(res => {
+      subscription.unsubscribe();
+      if(res.IsSuccess) {
+        this._toast.success('profile picture upload successful','Upload Status');
+      } else {
+        this._toast.error(res.Message as string ,'Upload Status');
+      }
     });
 
 
