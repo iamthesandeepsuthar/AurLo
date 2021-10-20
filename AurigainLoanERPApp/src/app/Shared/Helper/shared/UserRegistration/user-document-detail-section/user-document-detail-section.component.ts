@@ -56,23 +56,23 @@ export class UserDocumentDetailSectionComponent implements OnInit {
     switch (docuemtnTypeId) {
       case this.docTypeEnum.AadhaarCard:
         //#addLogic 
-        // if (this.TotalAdharDoc == 2) {
-        //   return;
-        // }
+        if (this.TotalAdharDoc! > 2) {
+          return false;
+        }
         this.TotalAdharDoc = undefined;
         break;
       case this.docTypeEnum.PANCard:
         //#addLogic 
-        // if (this.TotalPANDoc == 2) {
-        //   return;
-        // }
+        if (this.TotalPANDoc! > 2) {
+          return false;
+        }
         this.TotalPANDoc = undefined;
         break;
       case this.docTypeEnum.CancelledCheque:
         //#addLogic 
-        // if (this.TotalChequeDoc == 1) {
-        //   return;
-        // }
+        if (this.TotalChequeDoc! > 1) {
+          return false;
+        }
         this.TotalChequeDoc = undefined;
         break;
 
@@ -129,9 +129,11 @@ export class UserDocumentDetailSectionComponent implements OnInit {
       });
       this.documentModel.push(doc);
     }
+    return true;
   }
 
   formInit() {
+
     this.formGroup = this.fb.group({
       AadhaarCard: [undefined, Validators.required],
       PANCard: [undefined, Validators.required],
