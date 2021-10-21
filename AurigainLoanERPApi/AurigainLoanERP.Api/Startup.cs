@@ -2,6 +2,7 @@ using AurigainLoanERP.Data.Database;
 using AurigainLoanERP.Services;
 using AurigainLoanERP.Services.Account;
 using AurigainLoanERP.Services.Common;
+using AurigainLoanERP.Services.JewellaryType;
 using AurigainLoanERP.Services.KycDocumentType;
 using AurigainLoanERP.Services.PaymentMode;
 using AurigainLoanERP.Services.Qualification;
@@ -166,6 +167,7 @@ namespace AurigainLoanERP.Api
             services.AddTransient<IPaymentModeService, PaymentModeService>().Reverse();
             services.AddTransient<IAccountService, AccountService>().Reverse();
             services.AddTransient<IUserService, UserService>().Reverse();
+            services.AddTransient<IJewellaryTypeService, JewellaryTypeService>().Reverse();
             services.AddTransient < AurigainLoanERP.Services.ProductCategory.IProductCategoriesService, AurigainLoanERP.Services.ProductCategory.ProductCategoriesService>().Reverse();
         }
     }

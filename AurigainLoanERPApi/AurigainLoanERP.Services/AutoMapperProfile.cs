@@ -35,7 +35,9 @@ namespace AurigainLoanERP.Services
             CreateMap<UserSecurityDepositViewModel, UserSecurityDepositDetails>().ReverseMap();
             CreateMap<UserRole, UserRoleViewModel>().ReverseMap();
             CreateMap<Managers, UserManagerModel>().ReverseMap();
-            CreateMap<AurigainLoanERP.Data.Database.ProductCategory, ProductCategoryModel>().ReverseMap(); 
+            CreateMap<AurigainLoanERP.Data.Database.ProductCategory, ProductCategoryModel>().ReverseMap();
+            CreateMap<AurigainLoanERP.Data.Database.JewellaryType, JewellaryTypeModel>().ReverseMap();
+            CreateMap<BankMaster, BankModel>().ReverseMap();
         }
     }
 }
