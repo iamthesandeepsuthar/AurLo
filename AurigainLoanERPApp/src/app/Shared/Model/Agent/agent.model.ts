@@ -20,6 +20,7 @@ export interface AgentListModel {
   ProfilePictureUrl: string;
   IsActive: boolean;
   IsApproved: boolean;
+  Mpin:string;
   IsDelete: boolean;
   CreatedOn: string;
   ModifiedOn: string;

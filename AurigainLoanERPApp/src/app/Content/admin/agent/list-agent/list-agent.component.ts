@@ -27,8 +27,12 @@ export class ListAgentComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort!: MatSort;
   id!: number;
-  displayedColumns: string[] = ['index', 'FullName', 'Gender', 'IsActive', 'IsApproved', 'Action'];
-  ViewdisplayedColumns = [{ Value: 'FullName', Text: 'Full Name' }, { Value: 'Gender', Text: 'Gender' }, { Value: 'Email', Text: 'Email' }, { Value: 'Mobile', Text: 'Mobile' }];
+  displayedColumns: string[] = ['index', 'FullName', 'Gender','Mpin', 'IsActive', 'IsApproved', 'Action'];
+  ViewdisplayedColumns = [{ Value: 'FullName', Text: 'Full Name' },
+   { Value: 'Gender', Text: 'Gender' },
+   {Value: 'Mpin', Text: 'MPIN'},
+   { Value: 'Email', Text: 'Email' },
+    { Value: 'Mobile', Text: 'Mobile' }];
   indexModel = new IndexModel();
   totalRecords: number = 0;
   //#endregion

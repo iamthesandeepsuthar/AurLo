@@ -51,19 +51,13 @@ namespace AurigainLoanERP.Services.User
                 {
                     model.User.UserRoleId = (int)UserRoleEnum.Agent;
                     userId = await SaveUserAsync(model.User);
-
                     if (userId > 0)
                     {
-
-
                         await SaveAgentAsync(model, userId);
-
                         if (model.BankDetails != null)
                         {
                             await SaveUserBankAsync(model.BankDetails, userId);
-
                         }
-
                         if (model.ReportingPerson != null)
                         {
                             await SaveUserReportingPersonAsync(model.ReportingPerson, userId);
@@ -71,23 +65,18 @@ namespace AurigainLoanERP.Services.User
                         if (model.Documents != null)
                         {
                             await SaveUserDocumentAsync(model.Documents, userId);
-
                         }
                         if (model.UserKYC != null)
                         {
                             await SaveUserKYCAsync(model.UserKYC, userId);
-
                         }
                         if (model.UserNominee != null)
                         {
                             await SaveUserNomineeAsync(model.UserNominee, userId);
-
                         }
-
                         _db.Database.CommitTransaction();
                         return CreateResponse<string>(userId.ToString(), ResponseMessage.Save, true, ((int)ApiStatusCode.Ok));
                     }
-
                     else
                     {
                         _db.Database.RollbackTransaction();
@@ -151,7 +140,7 @@ namespace AurigainLoanERP.Services.User
 
                 var data = result.Skip(((model.Page == 0 ? 1 : model.Page) - 1) * (model.PageSize != 0 ? model.PageSize : int.MaxValue)).Take(model.PageSize != 0 ? model.PageSize : int.MaxValue);
 
-                objResponse.Data = await (from detail in data
+                objResponse.Data = await (from detail in data where detail.IsDelete == false 
                                           select new AgentListViewModel
                                           {
                                               Id = detail.Id,
@@ -171,12 +160,11 @@ namespace AurigainLoanERP.Services.User
                                               ProfilePictureUrl = detail.User.ProfilePath.ToAbsolutePath() ?? null,
                                               IsApproved = detail.User.IsApproved,
                                               IsActive = detail.User.IsActive,
+                                              Mpin = detail.User.Mpin,
                                               IsDelete = detail.IsDelete,
                                               CreatedOn = detail.CreatedOn,
                                               CreatedBy = detail.CreatedBy
                                           }).ToListAsync();
-
-
                 if (result != null)
                 {
                     return CreateResponse(objResponse.Data, ResponseMessage.Success, true, ((int)ApiStatusCode.Ok), TotalRecord: result.Count());
@@ -663,7 +651,6 @@ namespace AurigainLoanERP.Services.User
 
             }
         }
-
         public async Task<ApiServiceResponseModel<string>> UpdateProfile(UserSettingPostModel model)
         {
             try
@@ -693,7 +680,6 @@ namespace AurigainLoanERP.Services.User
 
             }
         }
-
         public async Task<ApiServiceResponseModel<string>> SetUserAvailibilty(UserAvailibilityPostModel model)
         {
             try
@@ -766,7 +752,6 @@ namespace AurigainLoanERP.Services.User
 
             }
         }
-
         public async Task<ApiServiceResponseModel<object>> UpdateApproveStatus(long id)
         {
             try
@@ -774,6 +759,7 @@ namespace AurigainLoanERP.Services.User
                 await _db.Database.BeginTransactionAsync();
                 var user = await _db.UserMaster.FirstOrDefaultAsync(X => X.Id == id);
                 user.IsApproved = !user.IsApproved;
+                user.ModifiedOn = DateTime.Now;
                 await _db.SaveChangesAsync();
                 _db.Database.CommitTransaction();
                 return CreateResponse(true as object, ResponseMessage.Update, true, ((int)ApiStatusCode.Ok));
@@ -785,8 +771,6 @@ namespace AurigainLoanERP.Services.User
 
             }
         }
-
-
         public async Task<ApiServiceResponseModel<object>> DeleteDocumentFile(long id, long documentId)
         {
             try
@@ -817,8 +801,6 @@ namespace AurigainLoanERP.Services.User
 
         #endregion
 
-        #region << Private Method >>
-
         /// <summary>
         /// Save User
         /// </summary>
@@ -834,7 +816,6 @@ namespace AurigainLoanERP.Services.User
                 {
                     if (model.Id == null || model.Id < 1)
                     {
-
                         var objModel = _mapper.Map<UserMaster>(model);
                         objModel.UserName = model.UserName ?? model.Email;
                         objModel.CreatedOn = DateTime.Now;
@@ -889,7 +870,6 @@ namespace AurigainLoanERP.Services.User
                     objModel.DistrictId = model.DistrictId;
                     objModel.PinCode = model.PinCode;
                     objModel.IsActive = model.IsActive;
-
                     objModel.QualificationId = model.QualificationId;
                     var result = await _db.UserAgent.AddAsync(objModel);
                     await _db.SaveChangesAsync();
@@ -1316,13 +1296,16 @@ namespace AurigainLoanERP.Services.User
             }
 
         }
-
         private async Task<bool> SaveUserManagerAsync(UserManagerModel model, long userId)
         {
             try
             {
                 if (model.Id == default)
                 {
+                    var isExist =await  _db.UserMaster.Where(x => x.Mobile == model.Mobile && x.IsDelete == false).FirstOrDefaultAsync();
+                   
+
+                    model.RoleId = ((int)UserRoleEnum.Supervisor);
                     Managers manager = new Managers
                     {
                         FullName = model.FullName,
@@ -1364,7 +1347,7 @@ namespace AurigainLoanERP.Services.User
                 throw;
             }
 
-            #endregion
+            
         }
     }
 }
