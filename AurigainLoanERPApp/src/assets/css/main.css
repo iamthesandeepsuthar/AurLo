@@ -3919,6 +3919,13 @@ table.table.table-striped.dataTable.table-header.table-blue tbody tr:nth-of-type
     color: red;
 }
 
+.file-upload-details .dz-details .dz-filename {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 280px;
+}
+
 
 /* Theme Dark Start */
 

@@ -176,6 +176,7 @@ namespace AurigainLoanERP.Shared.ContractModel
         public string DistrictName { get; set; }
         public string StateName { get; set; }
         public string PinCode { get; set; }
+        public string Mpin { get; set; }
         public DateTime? DateOfBirth { get; set; }
         public string ProfilePictureUrl { get; set; }
         public bool IsApproved { get; set; }

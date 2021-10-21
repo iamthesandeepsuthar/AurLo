@@ -22,6 +22,15 @@ import { StateComponent } from "./state/state.component";
 import { AddUpdateUserRoleComponent } from "./user-role/add-update-user-role/add-update-user-role.component";
 import { DetailUserRoleComponent } from "./user-role/detail-user-role/detail-user-role.component";
 import { UserRoleComponent } from "./user-role/user-role.component";
+import { ProductCategoryComponent } from './product-category/product-category.component';
+import { AddUpdateProductCategoryComponent } from './product-category/add-update-product-category/add-update-product-category.component';
+import { DetailProductCategoryComponent } from './product-category/detail-product-category/detail-product-category.component';
+import { ProductsComponent } from './products/products.component';
+import { AddUpdateProductComponent } from './products/add-update-product/add-update-product.component';
+import { DetailProductComponent } from './products/detail-product/detail-product.component';
+import { JewellaryComponent } from './jewellary/jewellary.component';
+import { AddJewellaryComponent } from './jewellary/add-jewellary/add-jewellary.component';
+import { DetailJewellaryComponent } from './jewellary/detail-jewellary/detail-jewellary.component';
 
 
 @NgModule({
@@ -46,6 +55,15 @@ import { UserRoleComponent } from "./user-role/user-role.component";
     DetailDocumentTypeComponent,
     BanksComponent,
     DetailBankComponent,
+    ProductCategoryComponent,
+    AddUpdateProductCategoryComponent,
+    DetailProductCategoryComponent,
+    ProductsComponent,
+    AddUpdateProductComponent,
+    DetailProductComponent,
+    JewellaryComponent,
+    AddJewellaryComponent,
+    DetailJewellaryComponent,
 
   ],
   imports: [
