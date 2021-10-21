@@ -123,7 +123,7 @@ namespace AurigainLoanERP.Services.User
                 var result = (from agent in _db.UserAgent
                                   //join user in _db.UserMaster on agent.UserId equals user.Id
                                   //join role in _db.UserRole on user.UserRoleId equals role.Id
-                              where !agent.IsDelete && (string.IsNullOrEmpty(model.Search) || agent.FullName.Contains(model.Search) || agent.User.Email.Contains(model.Search) || agent.User.UserName.Contains(model.Search))
+                              where !agent.User.IsDelete && (string.IsNullOrEmpty(model.Search) || agent.FullName.Contains(model.Search) || agent.User.Email.Contains(model.Search) || agent.User.UserName.Contains(model.Search))
                               select agent);
                 switch (model.OrderBy)
                 {
