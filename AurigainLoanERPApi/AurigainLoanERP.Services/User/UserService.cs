@@ -46,11 +46,16 @@ namespace AurigainLoanERP.Services.User
             {
 
                 await _db.Database.BeginTransactionAsync();
-                long userId = 0;
-                if (model.User != null)
+                if (model != null)
                 {
-                    model.User.UserRoleId = (int)UserRoleEnum.Agent;
-                    userId = await SaveUserAsync(model.User);
+
+                    long userId = 0;
+                    if (model.User != null)
+                    {
+                        model.User.UserRoleId = (int)UserRoleEnum.Agent;
+                        userId = await SaveUserAsync(model.User);
+                    }
+
                     if (userId > 0)
                     {
                         await SaveAgentAsync(model, userId);
@@ -58,7 +63,7 @@ namespace AurigainLoanERP.Services.User
                         {
                             await SaveUserBankAsync(model.BankDetails, userId);
                         }
-                        if (model.ReportingPerson != null)
+                        if (model.ReportingPerson != null && model.ReportingPerson.ReportingUserId > 0)
                         {
                             await SaveUserReportingPersonAsync(model.ReportingPerson, userId);
                         }
@@ -140,7 +145,8 @@ namespace AurigainLoanERP.Services.User
 
                 var data = result.Skip(((model.Page == 0 ? 1 : model.Page) - 1) * (model.PageSize != 0 ? model.PageSize : int.MaxValue)).Take(model.PageSize != 0 ? model.PageSize : int.MaxValue);
 
-                objResponse.Data = await (from detail in data where detail.IsDelete == false 
+                objResponse.Data = await (from detail in data
+                                          where detail.IsDelete == false
                                           select new AgentListViewModel
                                           {
                                               Id = detail.Id,
@@ -621,8 +627,32 @@ namespace AurigainLoanERP.Services.User
             {
                 await _db.Database.BeginTransactionAsync();
                 var user = await _db.UserMaster.FirstOrDefaultAsync(X => X.Id == id);
-                user.IsActive = !user.IsActive;
-                await _db.SaveChangesAsync();
+                if (user != null)
+                {
+                    user.IsActive = !user.IsActive;
+
+                    switch (user.UserRoleId)
+                    {
+                        case (int)UserRoleEnum.DoorStepAgent:
+                            var doorStepUser = user.UserDoorStepAgent.Where(x => x.UserId == id).FirstOrDefault();
+
+                            doorStepUser.IsActive = !doorStepUser.IsActive;
+                            break;
+
+                        case (int)UserRoleEnum.Agent:
+                            var agentUser = user.UserAgent.Where(x => x.UserId == id).FirstOrDefault();
+
+                            agentUser.IsActive = !agentUser.IsActive;
+                            break;
+
+
+
+                    }
+
+                    await _db.SaveChangesAsync();
+
+                }
+
                 _db.Database.CommitTransaction();
                 return CreateResponse(true as object, ResponseMessage.Update, true, ((int)ApiStatusCode.Ok));
             }
@@ -639,8 +669,35 @@ namespace AurigainLoanERP.Services.User
             {
                 await _db.Database.BeginTransactionAsync();
                 var user = await _db.UserMaster.FirstOrDefaultAsync(X => X.Id == id);
-                user.IsDelete = !user.IsDelete;
-                await _db.SaveChangesAsync();
+
+                if (user != null)
+                {
+                    user.IsDelete = !user.IsDelete;
+
+                    switch (user.UserRoleId)
+                    {
+                        case (int)UserRoleEnum.DoorStepAgent:
+                            var doorStepUser = user.UserDoorStepAgent.Where(x => x.UserId == id).FirstOrDefault();
+
+                            doorStepUser.IsDelete = !doorStepUser.IsDelete;
+                            break;
+
+                        case (int)UserRoleEnum.Agent:
+                            var agentUser = user.UserAgent.Where(x => x.UserId == id).FirstOrDefault();
+
+                            agentUser.IsDelete = !agentUser.IsDelete;
+                            break;
+
+
+
+                    }
+
+
+
+                    await _db.SaveChangesAsync();
+
+                }
+
                 _db.Database.CommitTransaction();
                 return CreateResponse(true as object, ResponseMessage.Update, true, ((int)ApiStatusCode.Ok));
             }
@@ -777,7 +834,7 @@ namespace AurigainLoanERP.Services.User
             {
                 await _db.Database.BeginTransactionAsync();
 
-                var objFileModel = await _db.UserDocumentFiles.FirstOrDefaultAsync(x => x.Id == id && x.DocumentId==documentId);
+                var objFileModel = await _db.UserDocumentFiles.FirstOrDefaultAsync(x => x.Id == id && x.DocumentId == documentId);
 
                 if (objFileModel != null)
                 {
@@ -785,8 +842,8 @@ namespace AurigainLoanERP.Services.User
                     _db.UserDocumentFiles.Remove(objFileModel);
                     await _db.SaveChangesAsync();
                 }
- 
-               
+
+
                 _db.Database.CommitTransaction();
                 return CreateResponse(true as object, ResponseMessage.Update, true, ((int)ApiStatusCode.Ok));
             }
@@ -1302,8 +1359,8 @@ namespace AurigainLoanERP.Services.User
             {
                 if (model.Id == default)
                 {
-                    var isExist =await  _db.UserMaster.Where(x => x.Mobile == model.Mobile && x.IsDelete == false).FirstOrDefaultAsync();
-                   
+                    var isExist = await _db.UserMaster.Where(x => x.Mobile == model.Mobile && x.IsDelete == false).FirstOrDefaultAsync();
+
 
                     model.RoleId = ((int)UserRoleEnum.Supervisor);
                     Managers manager = new Managers
@@ -1347,7 +1404,7 @@ namespace AurigainLoanERP.Services.User
                 throw;
             }
 
-            
+
         }
     }
 }
