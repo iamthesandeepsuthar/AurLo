@@ -5,13 +5,15 @@
   <div class="form-row">
     <div class="form-group col-md-4">
       <label>Document Type</label>
-      <ng-select [items]="dropDown!.ddlDocumentType" [searchable]="true" bindLabel="Text" bindValue="Value" placeholder="document type"
-        appendTo="body" [(ngModel)]="model.KycdocumentTypeId">
+      <!-- <ng-select [items]="dropDown!.ddlDocumentType" [searchable]="true" bindLabel="Text" bindValue="Value" placeholder="document type"
+        appendTo="body" [(ngModel)]="model.KycdocumentTypeId"> -->
+        <ng-select [items]="docTypeModel" [searchable]="true" bindLabel="Name" bindValue="Id" placeholder="document type"
+        appendTo="body" (change)="onChangeDocType()" [(ngModel)]="model.KycdocumentTypeId">
       </ng-select>
     </div>
     <div class="form-group col-md-6">
       <label>Document Number</label>
-      <input type="text" (keypress)="_commonService.AlphaNumericOnly($event)" class="form-control" id="input1" [(ngModel)]="this.model.Kycnumber" placeholder="document number">
+      <input type="text" [maxlength]="DocCharLenght" [minLength]="DocCharLenght" (keypress)="onCheckValidInput($event)" class="form-control" id="input1" [(ngModel)]="this.model.Kycnumber" placeholder="document number">
     </div>
     <div class="form-group col-md-2" *ngIf="model.KycdocumentTypeId && this.model.Kycnumber">
       <label class="d-none d-md-block">&nbsp;</label>
@@ -31,7 +33,7 @@
           </thead>
           <tbody>
             <tr *ngFor="let item of kycModel; let i=index">
-              <td>{{getDocumentType(item.KycdocumentTypeId)}}</td>
+              <td>{{getDocumentTypeText(item.KycdocumentTypeId)}}</td>
               <td>{{item.Kycnumber}}</td>
               <td class="table-action-btn">
                 <button (click)="fillKycItem(i)" class="table-action-btn-edit" data-toggle="tooltip"

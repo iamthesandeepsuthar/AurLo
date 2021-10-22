@@ -88,7 +88,7 @@ export class UserKYCPostModel {
     // this.Id = 0;
   }
   Id!: number;
-  Kycnumber!: string;
+  Kycnumber!: string | undefined;
   KycdocumentTypeId!: number;
 }
 
