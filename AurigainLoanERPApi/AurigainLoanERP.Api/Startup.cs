@@ -7,6 +7,7 @@ using AurigainLoanERP.Services.JewellaryType;
 using AurigainLoanERP.Services.KycDocumentType;
 using AurigainLoanERP.Services.PaymentMode;
 using AurigainLoanERP.Services.Product;
+using AurigainLoanERP.Services.ProductCategory;
 using AurigainLoanERP.Services.Qualification;
 using AurigainLoanERP.Services.StateAndDistrict;
 using AurigainLoanERP.Services.User;
@@ -174,7 +175,7 @@ namespace AurigainLoanERP.Api
             services.AddTransient<IBankService, BankService>().Reverse();
             services.AddTransient<IBranchService, BranchService>().Reverse();
             services.AddTransient<IProductService, ProductService>().Reverse();
-            services.AddTransient<IBranchService, BranchService>().Reverse();
+            services.AddTransient<IProductCategoriesService, ProductCategoriesService>().Reverse();            
         }
     }
 }

@@ -63,14 +63,6 @@ export class API_Url {
   public static Kyc_Document_Type_Delete_Api = `${environment.apiEndPoint}KycDocumentType/DeleteDocumentType/`;
   //#endregion
 
-  //#region <<Banks>>
-  public static Banks_List_Api = `${environment.apiEndPoint}UserRole/Get`;
-  public static Bank_Detail_Api = `${environment.apiEndPoint}UserRole/get/`;
-  public static Bank_Add_Update_Api = `${environment.apiEndPoint}UserRole/post`;
-  public static Bank_Active_Status_Api = `${environment.apiEndPoint}UserRole/ChangeActiveStatus/`;
-  public static Bank_Delete_Api = `${environment.apiEndPoint}UserRole/delete/`;
-  //#endregion
-
   //#region <<Doorstep Agent>>
   public static DoorstepAgentListApi = `${environment.apiEndPoint}DoorStepAgent/Get`;
   public static DoorstepAgentAddUpdateApi = `${environment.apiEndPoint}DoorStepAgent/AddUpdate`;
@@ -104,9 +96,45 @@ export class API_Url {
   public static Manager_ActiveStatus_Api = `${environment.apiEndPoint}UserManager/UpdateActiveStatus/`;
   public static Manager_Detail_Api = `${environment.apiEndPoint}UserManager/GetById/`;
   //#endregion
+ //#region  << Jewellery >>
+ public static Jewellery_List_Api = `${environment.apiEndPoint}JewellaryType/GetList`;
+ public static Jewellery_Dropdown_List_Api =`${environment.apiEndPoint}JewellaryType/JewellaryTypes`;
+ public static Jewellery_AddUpdate_Api = `${environment.apiEndPoint}JewellaryType/AddUpdate`;
+ public static Jewellery_Delete_Api = `${environment.apiEndPoint}JewellaryType/DeleteJewellaryType/`;
+ public static Jewellery_ActiveStatus_Api = `${environment.apiEndPoint}JewellaryType/UpdateActiveStatus/`;
+ public static Jewellery_Detail_Api = `${environment.apiEndPoint}JewellaryType/GetById/`;
+ //#endregion
+//#region  << Product Category >>
+public static Product_Category_List_Api = `${environment.apiEndPoint}ProductCategory/GetList`;
+public static Product_Category_Dropdown_List_Api =`${environment.apiEndPoint}ProductCategory/ProductCategories`;
+public static Product_Category_AddUpdate_Api = `${environment.apiEndPoint}ProductCategory/AddUpdate`;
+public static Product_Category_Delete_Api = `${environment.apiEndPoint}ProductCategory/DeleteProductCategory/`;
+public static Product_Category_ActiveStatus_Api = `${environment.apiEndPoint}ProductCategory/UpdateActiveStatus/`;
+public static JProduct_Category_Detail_Api = `${environment.apiEndPoint}ProductCategory/GetById/`;
+//#endregion
+//#region  << Product  >>
+public static Product_List_Api = `${environment.apiEndPoint}Product/GetList`;
+public static Product_Dropdown_List_Api =`${environment.apiEndPoint}Product/Products`;
+public static Product_AddUpdate_Api = `${environment.apiEndPoint}Product/AddUpdate`;
+public static Product_Delete_Api = `${environment.apiEndPoint}Product/DeleteProduct/`;
+public static Product_ActiveStatus_Api = `${environment.apiEndPoint}Product/UpdateActiveStatus/`;
+public static Product_Detail_Api = `${environment.apiEndPoint}Product/GetById/`;
+//#endregion
+//#region  << Bank & Branch  >>
+public static Bank_List_Api = `${environment.apiEndPoint}Bank/GetList`;
+public static Bank_Dropdown_List_Api =`${environment.apiEndPoint}Bank/Products`;
+public static Bank_AddUpdate_Api = `${environment.apiEndPoint}Bank/AddUpdate`;
+public static Bank_Delete_Api = `${environment.apiEndPoint}Bank/DeleteProduct/`;
+public static Bank_ActiveStatus_Api = `${environment.apiEndPoint}Bank/UpdateActiveStatus/`;
+public static Bank_Detail_Api = `${environment.apiEndPoint}Bank/GetById/`;
 
-
-
+public static Branch_List_Api = `${environment.apiEndPoint}BankBranch/GetList`;
+public static Branch_Dropdown_List_Api =`${environment.apiEndPoint}BankBranch/Branches`;
+public static Branch_AddUpdate_Api = `${environment.apiEndPoint}BankBranch/AddUpdate`;
+public static Branch_Delete_Api = `${environment.apiEndPoint}BankBranch/DeleteBranch/`;
+public static Branch_ActiveStatus_Api = `${environment.apiEndPoint}BankBranch/UpdateActiveStatus/`;
+public static Branch_Detail_Api = `${environment.apiEndPoint}BankBranch/GetById/`;
+//#endregion
 }
 
 export class Routing_Url {
@@ -177,6 +205,28 @@ export class Routing_Url {
   static Manager_List_Url = '/managers';
   static Manager_Detail_Url = '/detail-manager/';
   static Manager_AddUpdate_Url = '/add-manager/';
+  //#endregion
+
+  //#region  << Product Category URL >>
+  static Product_Category_List_Url = '/product-categories';
+  static Product_Category_Detail_Url = '/detail-product-category/';
+  static Product_Category_AddUpdate_Url = '/add-product-category/';
+  //#endregion
+  //#region  << Product URL >>
+  static Product_List_Url = '/products';
+  static Product_Detail_Url = '/detail-product/';
+  static Product_AddUpdate_Url = '/add-product/';
+  //#endregion
+
+  //#region  << bank URL >>
+  static Bank_List_Url = '/banks';
+  static Bank_Detail_Url = '/detail-bank/';
+  static Bank_AddUpdate_Url = '/add-bank/';
+  //#endregion
+
+  //#region  << Bank Branch URL >>
+  static Bank_Branch_Detail_Url = '/detail-branch/';
+  static Bank_Branch_AddUpdate_Url = '/add-branch/';
   //#endregion
 }
 
