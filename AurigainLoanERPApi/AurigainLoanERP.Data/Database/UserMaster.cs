@@ -42,6 +42,8 @@ namespace AurigainLoanERP.Data.Database
         public DateTime? ModifiedOn { get; set; }
         public long? CreatedBy { get; set; }
         public long? ModifiedBy { get; set; }
+        public bool? IsWhatsApp { get; set; }
+        public string Password { get; set; }
 
         public virtual UserRole UserRole { get; set; }
         public virtual ICollection<Managers> Managers { get; set; }

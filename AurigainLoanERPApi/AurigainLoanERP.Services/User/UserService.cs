@@ -583,27 +583,17 @@ namespace AurigainLoanERP.Services.User
         {
             try
             {
-                await _db.Database.BeginTransactionAsync();
-                long userId = 0;
-                if (model.User != null)
-                {
-                    userId = await SaveUserAsync(model.User);
-
-                    if (userId > 0)
+                await _db.Database.BeginTransactionAsync();               
+                if (model!= null)
+                {               
+                    var response =   await SaveUserManagerAsync(model);
+                    if (response)
                     {
-
-
-                        await SaveUserManagerAsync(model, userId);
-
                         _db.Database.CommitTransaction();
-                        return CreateResponse<string>(userId.ToString(), ResponseMessage.Save, true, ((int)ApiStatusCode.Ok));
-                    }
-
-                    else
-                    {
+                        return CreateResponse<string>("", ResponseMessage.Save, true, ((int)ApiStatusCode.Ok));
+                    }                               
                         _db.Database.RollbackTransaction();
-                        return CreateResponse<string>(null, ResponseMessage.UserExist, false, ((int)ApiStatusCode.DataBaseTransactionFailed));
-                    }
+                        return CreateResponse<string>(null, ResponseMessage.UserExist, false, ((int)ApiStatusCode.DataBaseTransactionFailed));      
                 }
                 else
                 {
@@ -1353,22 +1343,39 @@ namespace AurigainLoanERP.Services.User
             }
 
         }
-        private async Task<bool> SaveUserManagerAsync(UserManagerModel model, long userId)
+        private async Task<bool> SaveUserManagerAsync(UserManagerModel model)
         {
             try
             {
                 if (model.Id == default)
                 {
                     var isExist = await _db.UserMaster.Where(x => x.Mobile == model.Mobile && x.IsDelete == false).FirstOrDefaultAsync();
-
+                    if (isExist != null ) 
+                    {
+                        
+                    }
 
                     model.RoleId = ((int)UserRoleEnum.Supervisor);
+                    Random random = new Random();
+                    UserMaster user = new UserMaster
+                    {
+                        Mpin = random.Next(100000, 199999).ToString(),
+                        Email = model.EmailId,
+                        UserName = model.FullName,
+                        Mobile = model.Mobile,
+                        CreatedOn = DateTime.Now,
+                        IsActive = model.IsActive,
+                        IsApproved = true,
+                        IsDelete = false,
+                        ProfilePath = null                       
+                    };
+                     var result = await _db.UserMaster.AddAsync(user);
                     Managers manager = new Managers
                     {
                         FullName = model.FullName,
                         FatherName = model.FatherName,
                         DateOfBirth = model.DateOfBirth,
-                        UserId = userId,
+                        UserId = result.Entity.Id,
                         Gender = model.Gender,
                         DistrictId = model.DistrictId,
                         IsActive = model.IsActive,
@@ -1379,7 +1386,7 @@ namespace AurigainLoanERP.Services.User
                         CreatedBy = (int)UserRoleEnum.Admin,
                         ModifiedDate = DateTime.Now
                     };
-                    var result = await _db.Managers.AddAsync(manager);
+                    var res = await _db.Managers.AddAsync(manager);
                     await _db.SaveChangesAsync();
                 }
                 else

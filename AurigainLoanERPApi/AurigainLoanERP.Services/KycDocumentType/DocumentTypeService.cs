@@ -43,13 +43,10 @@ namespace AurigainLoanERP.Services.KycDocumentType
                 {
                     return CreateResponse<List<DocumentTypeModel>>(null, ResponseMessage.NotFound, true,((int)ApiStatusCode.RecordNotFound), TotalRecord: 0);
                 }
-
             }
             catch (Exception ex)
             {
-
                 return CreateResponse<List<DocumentTypeModel>>(null, ResponseMessage.Fail, false, ((int)ApiStatusCode.ServerException), ex.Message ?? ex.InnerException.ToString());
-
             }
 
         }

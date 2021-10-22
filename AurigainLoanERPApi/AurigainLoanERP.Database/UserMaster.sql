@@ -16,6 +16,8 @@
     [ModifiedOn] DATETIME NULL, 
     [CreatedBy] BIGINT NULL, 
     [ModifiedBy] BIGINT NULL, 
+    [IsWhatsApp] BIT NULL, 
+    [Password] NVARCHAR(MAX) NULL, 
  
 
 )

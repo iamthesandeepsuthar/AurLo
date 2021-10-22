@@ -12,6 +12,8 @@ namespace AurigainLoanERP.Shared.ContractModel
         public string Gender { get; set; }
         public string Mobile { get; set;}
         public int RoleId { get; set;}
+        public string EmailId { get; set;}
+        public bool IsWhatsApp { get; set;}             
         public string FatherName { get; set; }
         public string Address { get; set; }
         public long UserId { get; set; }
