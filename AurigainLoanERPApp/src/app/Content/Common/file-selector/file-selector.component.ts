@@ -62,8 +62,9 @@ export class FileSelectorComponent {
 
   @Output() readonly FileSelected: EventEmitter<FileInfo>;
   @Output() readonly FilesChanged: EventEmitter<FileInfo[]>;
-  @Input() isShowFiles: boolean = true;
-  @Input() maxFile: number = 1;//for all
+  @Input() IsShowFiles: boolean = true;
+  @Input() MaxFileLength: number = 1;//for all
+  @Input() CurrentFileLength: number = 0;//for all
 
   constructor(readonly _alertService: AlertService, private readonly toast: ToastrService) {
     this.FileSelected = new EventEmitter();
@@ -90,7 +91,8 @@ export class FileSelectorComponent {
 
   HandleFileInput(event: any) {
     debugger
-    if ((this.Files.length + 1) <= this.maxFile) {
+    let TotalFilesCount = ((this.CurrentFileLength > 0 && this.Files?.length > 0 ? this.Files?.length : this.CurrentFileLength) + 1)
+    if (TotalFilesCount <= this.MaxFileLength) {
       let files = event.target.files;
       if (files.length == 0) {
         this.FileSelected.emit(undefined);
@@ -117,6 +119,7 @@ export class FileSelectorComponent {
 
       }
       setTimeout(() => {
+        let f = this.Files;
         this._files = this.Files.filter(function (elem, index, self) {
           return index == self.findIndex(x => x.FileBase64 == elem.FileBase64);
         })
@@ -126,7 +129,6 @@ export class FileSelectorComponent {
     }
     else {
       this.toast.warning('Maximum File upload limit exceed', 'File Upload');
-
       return;
     }
   }
