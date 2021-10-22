@@ -8,7 +8,7 @@
         <label>Aadhaar Card Picture</label>
         <input type="hidden" name="AadhaarCard" [(ngModel)]="TotalAdharDoc" formControlName="AadhaarCard">
         <app-file-selector (FilesChanged)="onDocumentAttach(docTypeEnum.AadhaarCard, $event,false)"
-           [ngClass]="{ 'is-invalid': f.AadhaarCard?.errors && f.AadhaarCard?.touched}">
+           [ngClass]="{ 'is-invalid': f.AadhaarCard?.errors && f.AadhaarCard?.touched}" [maxFile]="2">
         </app-file-selector>
 
         <div class="invalid-feedback"
@@ -36,7 +36,7 @@
         <label>PAN Card Picture</label>
         <input type="hidden" name="PANCard" [(ngModel)]="TotalPANDoc" formControlName="PANCard">
         <app-file-selector (FilesChanged)="onDocumentAttach(docTypeEnum.PANCard, $event,false)"
-          [ngClass]="{ 'is-invalid': f.PANCard?.errors && f.PANCard?.touched}">
+          [ngClass]="{ 'is-invalid': f.PANCard?.errors && f.PANCard?.touched}"  [maxFile]="1">
         </app-file-selector>
 
         <div class="invalid-feedback"
@@ -60,7 +60,7 @@
       <div class="form-group col-md-4">
         <label>Cancelled Cheque Picture</label>
         <input type="hidden" name="CancelledCheque" [(ngModel)]="TotalChequeDoc" formControlName="CancelledCheque">
-        <app-file-selector (FilesChanged)="onDocumentAttach(docTypeEnum.CancelledCheque, $event,false)"
+        <app-file-selector  [maxFile]="1" (FilesChanged)="onDocumentAttach(docTypeEnum.CancelledCheque, $event,false)"
           [ngClass]="{ 'is-invalid': f.CancelledCheque?.errors && f.CancelledCheque?.touched}">
         </app-file-selector>
 

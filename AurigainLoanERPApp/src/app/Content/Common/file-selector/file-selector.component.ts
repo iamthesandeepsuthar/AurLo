@@ -63,7 +63,7 @@ export class FileSelectorComponent {
   @Output() readonly FileSelected: EventEmitter<FileInfo>;
   @Output() readonly FilesChanged: EventEmitter<FileInfo[]>;
   @Input() isShowFiles: boolean = true;
-  @Input() maxFile: number = 0;//for all
+  @Input() maxFile: number = 1;//for all
 
   constructor(readonly _alertService: AlertService, private readonly toast: ToastrService) {
     this.FileSelected = new EventEmitter();
@@ -89,41 +89,45 @@ export class FileSelectorComponent {
   }
 
   HandleFileInput(event: any) {
-
-    let files = event.target.files;
-    if (files.length == 0) {
-      this.FileSelected.emit(undefined);
-      return;
-    }
-
-    for (let index = 0; index < files.length; index++) {
-      let file = files.item(index);
-      let extIndex = file!.name.lastIndexOf('.');
-      let ext = file!.name.substring(extIndex);
-      let isAllowed = this._allowFiles.some(x => x === ext);
-      if (!isAllowed) {
-        this.toast.warning('Selected  file  format not allowed to upload', 'File Upload');
+    debugger
+    if ((this.Files.length + 1) <= this.maxFile) {
+      let files = event.target.files;
+      if (files.length == 0) {
+        this.FileSelected.emit(undefined);
         return;
       }
-      if (file == null || file.size == 0) {
-        continue;
-      }
+      for (let index = 0; index < files.length; index++) {
+        let file = files.item(index);
+        let extIndex = file!.name.lastIndexOf('.');
+        let ext = file!.name.substring(extIndex);
+        let isAllowed = this._allowFiles.some(x => x === ext);
+        if (!isAllowed) {
+          this.toast.warning('Selected  file  format not allowed to upload', 'File Upload');
+          return;
+        }
+        if (file == null || file.size == 0) {
+          continue;
+        }
 
-      let fileInfo = new FileInfo(file);
-      if (this.maxFile == 0 ||    this.Files.length <= this.maxFile) {
+        let fileInfo = new FileInfo(file);
+        // if (this.maxFile == 0 || this.Files.length <= this.maxFile) {
         this._files.push(fileInfo);
+        // }
+        this.FileSelected.emit(fileInfo);
 
       }
+      setTimeout(() => {
+        this._files = this.Files.filter(function (elem, index, self) {
+          return index == self.findIndex(x => x.FileBase64 == elem.FileBase64);
+        })
 
-      this.FileSelected.emit(fileInfo);
-
+        this.FilesChanged.emit(this.Files);
+      }, 150);
     }
-    setTimeout(() => {
-      this._files = this.Files.filter(function (elem, index, self) {
-        return index == self.findIndex(x => x.FileBase64 == elem.FileBase64);
-      })
+    else {
+      this.toast.warning('Maximum File upload limit exceed', 'File Upload');
 
-      this.FilesChanged.emit(this.Files);
-    }, 150);
+      return;
+    }
   }
 }

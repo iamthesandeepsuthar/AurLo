@@ -47,9 +47,10 @@ export class UserDocumentDetailSectionComponent implements OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.documentModel.previousValue != changes.documentModel.currentValue) {
-      this.checkExistingFilesCount();
-    }
+    debugger
+       if (changes.documentModel.previousValue != changes.documentModel.currentValue) {
+    this.checkExistingFilesCount();
+       }
 
   }
   onFrmSubmit() {
@@ -171,16 +172,16 @@ export class UserDocumentDetailSectionComponent implements OnInit {
     if (this.documentModel.length > 0) {
 
       this.documentModel.forEach(element => {
-
+        debugger
         switch (element.DocumentTypeId) {
           case this.docTypeEnum.AadhaarCard:
-            this.TotalAdharDoc = element!.Files!.length;
+            this.TotalAdharDoc = element?.Files?.length > 0 ? element?.Files?.length : undefined;
             break;
           case this.docTypeEnum.PANCard:
-            this.TotalPANDoc = element!.Files!.length;
+            this.TotalPANDoc = element?.Files?.length > 0 ? element?.Files?.length : undefined;
             break;
           case this.docTypeEnum.CancelledCheque:
-            this.TotalChequeDoc = element!.Files!.length;
+            this.TotalChequeDoc = element?.Files?.length > 0 ? element?.Files?.length : undefined;
             break;
         }
 

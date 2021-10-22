@@ -9,9 +9,9 @@ export class UserSettingService {
 
   constructor(private readonly _baseService: BaseAPIService) { }
 
-  UpdateUserProfile(model: UserSettingPostModel): Observable<ApiResponse<string>> {
+  UpdateUserProfile(model: UserSettingPostModel): Promise<ApiResponse<string>> {
     let url = `${this._baseService.API_Url.UserUpdateProfileApi}`;
-    return this._baseService.post(url, model);
+    return this._baseService.post(url, model).toPromise();
   }
 
 
