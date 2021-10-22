@@ -4,9 +4,9 @@ using System.Text;
 
 namespace AurigainLoanERP.Shared.ContractModel
 {
-   public class BankModel
+    public class BankModel
     {
-        public BankModel() 
+        public BankModel()
         {
             Branches = new List<BranchModel>();
         }
@@ -20,9 +20,9 @@ namespace AurigainLoanERP.Shared.ContractModel
         public bool IsDelete { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime? ModifiedDate { get; set; }
-        public List<BranchModel> Branches { get; set;}
+        public List<BranchModel> Branches { get; set; }
     }
-    public class BranchModel 
+    public class BranchModel
     {
         public int Id { get; set; }
         public string BranchName { get; set; }
@@ -37,5 +37,18 @@ namespace AurigainLoanERP.Shared.ContractModel
         public bool IsDelete { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime? ModifiedDate { get; set; }
+    }
+
+    public class DDLBankModel
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+    }
+    public class DDLBrnachModel
+    {
+        public int Id { get; set; }
+        public string BrnachName { get; set; }
+        public string Ifsc { get; set; }
+
     }
 }

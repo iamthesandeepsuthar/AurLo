@@ -3,8 +3,8 @@
   <form [formGroup]="formGroup">
     <div class="form-row">
       <div class="form-group col-md-4">
-        <label>Relationship</label>
-        <ng-select [items]="dropDown!.ddlRelationship" bindLabel="Text" bindValue="Value" placeholder="Relationship"
+        <label>Relationship With</label>
+        <ng-select [items]="dropDown!.ddlRelationship" bindLabel="Text" bindValue="Value" placeholder="relationship"
           appendTo="body" [(ngModel)]="nomineeModel.RelationshipWithNominee" formControlName="Relationship"
           [ngClass]="{ 'is-invalid': f.Relationship?.errors && f.Relationship?.touched}">
         </ng-select>
@@ -14,9 +14,9 @@
       </div>
 
       <div class="form-group col-md-4">
-        <label>Name</label>
+        <label>Nominee Name</label>
         <input type="email" class="form-control" id="input1" [(ngModel)]="nomineeModel.NamineeName"
-          formControlName="NamineeName" placeholder="Enter name"
+          formControlName="NamineeName" placeholder="nominee name"
           [ngClass]="{ 'is-invalid': f.NamineeName?.errors && f.NamineeName?.touched}">
         <div class="invalid-feedback"
           *ngIf="(formGroup.get('NamineeName')?.hasError('required') && formGroup.get('NamineeName')?.touched)">

@@ -5,14 +5,13 @@
   <div class="form-row">
     <div class="form-group col-md-4">
       <label>Document Type</label>
-
-      <ng-select [items]="dropDown!.ddlDocumentType" bindLabel="Text" bindValue="Value" placeholder="Document Type"
+      <ng-select [items]="dropDown!.ddlDocumentType" [searchable]="true" bindLabel="Text" bindValue="Value" placeholder="document type"
         appendTo="body" [(ngModel)]="model.KycdocumentTypeId">
       </ng-select>
     </div>
     <div class="form-group col-md-6">
-      <label>Document number</label>
-      <input type="text" (keypress)="_commonService.AlphaNumericOnly($event)" class="form-control" id="input1" [(ngModel)]="this.model.Kycnumber" placeholder="Enter number">
+      <label>Document Number</label>
+      <input type="text" (keypress)="_commonService.AlphaNumericOnly($event)" class="form-control" id="input1" [(ngModel)]="this.model.Kycnumber" placeholder="document number">
     </div>
     <div class="form-group col-md-2" *ngIf="model.KycdocumentTypeId && this.model.Kycnumber">
       <label class="d-none d-md-block">&nbsp;</label>
