@@ -3822,6 +3822,7 @@ table tbody tr:nth-of-type(odd) .table-data-name span {
     margin: auto;
     position: relative;
     overflow: hidden;
+    text-align: center;
 }
 
 .text-black {
