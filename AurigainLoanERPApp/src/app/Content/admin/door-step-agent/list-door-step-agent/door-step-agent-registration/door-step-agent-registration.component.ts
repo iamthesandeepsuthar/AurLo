@@ -241,6 +241,7 @@ export class DoorStepAgentRegistrationComponent implements OnInit {
         if (res.IsSuccess) {
           let data = res.Data as DoorStepAgentViewModel;
           if (data) {
+            debugger
             this.model.Id = data?.Id;
             this.model.FullName = data?.FullName;
             this.model.FatherName = data?.FatherName;

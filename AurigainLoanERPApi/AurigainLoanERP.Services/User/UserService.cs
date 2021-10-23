@@ -288,6 +288,11 @@ namespace AurigainLoanERP.Services.User
 
         #region << Door-step Agent >>
 
+        /// <summary>
+        /// Get Door Step Agent Async
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public async Task<ApiServiceResponseModel<List<DoorStepAgentListModel>>> GetDoorStepAgentAsync(IndexModel model)
         {
 
@@ -795,7 +800,7 @@ namespace AurigainLoanERP.Services.User
             catch (Exception ex)
             {
                 _db.Database.RollbackTransaction();
-                return CreateResponse<string>(null, ResponseMessage.Fail, true, ((int)ApiStatusCode.DataBaseTransactionFailed),ex.Message ?? ex.InnerException.ToString());
+                return CreateResponse<string>(null, ResponseMessage.Fail, true, ((int)ApiStatusCode.DataBaseTransactionFailed), ex.Message ?? ex.InnerException.ToString());
 
             }
         }
@@ -860,7 +865,7 @@ namespace AurigainLoanERP.Services.User
             try
             {
                 // check new user detail match with existing users
-                var existingUser = await _db.UserMaster.FirstOrDefaultAsync(x => (model.Id == null || model.Id == 0 || x.Id != model.Id) && ((!string.IsNullOrEmpty(model.Mobile) && x.Mobile == model.Mobile) || (!string.IsNullOrEmpty(model.Email) && x.Email == model.Email) || (string.IsNullOrEmpty(model.UserName) ||(!string.IsNullOrEmpty(model.UserName) && x.UserName == model.UserName))));
+                var existingUser = await _db.UserMaster.FirstOrDefaultAsync(x => (model.Id == null || model.Id == 0 || x.Id != model.Id) && ((!string.IsNullOrEmpty(model.Mobile) && x.Mobile == model.Mobile) || (!string.IsNullOrEmpty(model.Email) && x.Email == model.Email) || (string.IsNullOrEmpty(model.UserName) || (!string.IsNullOrEmpty(model.UserName) && x.UserName == model.UserName))));
 
                 if (existingUser == null)
                 {
@@ -870,6 +875,7 @@ namespace AurigainLoanERP.Services.User
                         objModel.UserName = model.UserName ?? model.Email;
                         objModel.CreatedOn = DateTime.Now;
                         objModel.Mpin = GenerateUniqueId();//_security.EncryptData(GenerateUniqueId());
+                        objModel.IsWhatsApp = model.IsWhatsApp;
                         var result = await _db.UserMaster.AddAsync(objModel);
                         await _db.SaveChangesAsync();
                         model.Id = result.Entity.Id;
@@ -877,8 +883,13 @@ namespace AurigainLoanERP.Services.User
                     else
                     {
                         var objModel = await _db.UserMaster.FirstOrDefaultAsync(x => x.Id == model.Id);
-                        objModel = _mapper.Map<UserMaster>(model);
+                        objModel.UserName = model.UserName;
+                        objModel.Email = model.Email;
+                        objModel.Mobile = model.Mobile;
+                        objModel.IsApproved = model.IsApproved ?? objModel.IsApproved;
+                        objModel.IsWhatsApp = model.IsWhatsApp;
                         objModel.ModifiedOn = DateTime.Now;
+                        _db.Entry(objModel).State = EntityState.Modified;
                         await _db.SaveChangesAsync();
 
                     }
@@ -1399,9 +1410,10 @@ namespace AurigainLoanERP.Services.User
                             ModifiedDate = DateTime.Now
                         };
                         var res = await _db.Managers.AddAsync(manager);
-                        await _db.SaveChangesAsync();                      
+                        await _db.SaveChangesAsync();
                     }
-                    else {
+                    else
+                    {
                         return false;
                     }
                 }

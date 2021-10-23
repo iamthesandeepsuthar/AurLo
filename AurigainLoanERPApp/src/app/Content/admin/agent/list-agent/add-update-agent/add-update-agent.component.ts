@@ -10,7 +10,7 @@ import { UserDocumentDetailSectionComponent } from "src/app/Shared/Helper/shared
 import { UserKYCDetailSectionComponent } from "src/app/Shared/Helper/shared/UserRegistration/user-kycdetail-section/user-kycdetail-section.component";
 import { UserNomineeDetailSectionComponent } from "src/app/Shared/Helper/shared/UserRegistration/user-nominee-detail-section/user-nominee-detail-section.component";
 import { UserSecurityDepositComponent } from "src/app/Shared/Helper/shared/UserRegistration/user-security-deposit/user-security-deposit.component";
-import { AgentPostModel } from "src/app/Shared/Model/Agent/agent.model";
+import { AgentPostModel, AgentViewModel } from "src/app/Shared/Model/Agent/agent.model";
 import { UserPostModel, UserKYCPostModel, UserNomineePostModel, UserBankDetailsPostModel, DocumentPostModel, FilePostModel } from "src/app/Shared/Model/doorstep-agent-model/door-step-agent.model";
 import { UserSettingPostModel } from "src/app/Shared/Model/User-setting-model/user-setting.model";
 import { AgentService } from "src/app/Shared/Services/agent-services/agent.service";
@@ -70,7 +70,7 @@ export class AddUpdateAgentComponent implements OnInit {
     this.formInit();
     this.GetDropDown();
     if (this.Id > 0) {
-      // this.onGetDetail();
+       this.onGetDetail();
     }
   }
 
@@ -213,93 +213,93 @@ export class AddUpdateAgentComponent implements OnInit {
   }
 
 
-  // onGetDetail() {
-  //   if (this.Id > 0) {
-  //     this._userAgentService.GetAgent(this.Id).subscribe(res => {
-  //       if (res.IsSuccess) {
-  //         let data = res.Data as AgentViewModel;
-  //         if (data) {
-  //           this.model.Id = data?.Id;
-  //           this.model.FullName = data?.FullName;
-  //           this.model.FatherName = data?.FatherName;
-  //           this.model.Gender = data?.Gender;
-  //           this.model.QualificationId = data?.QualificationId;
-  //           this.model.Address = data?.Address;
-  //           this.model.DistrictId = data?.DistrictId;
-  //           this.model.PinCode = data?.PinCode;
-  //           this.model.DateOfBirth = data?.DateOfBirth;
-  //           this.previewUrl = data?.User.ProfilePath;
+  onGetDetail() {
+    if (this.Id > 0) {
+      this._userAgentService.GetAgent(this.Id).subscribe(res => {
+        if (res.IsSuccess) {
+          let data = res.Data as AgentViewModel;
+          if (data) {
+            this.model.Id = data?.Id;
+            this.model.FullName = data?.FullName;
+            this.model.FatherName = data?.FatherName;
+            this.model.Gender = data?.Gender;
+            this.model.QualificationId = data?.QualificationId;
+            this.model.Address = data?.Address;
+            this.model.DistrictId = data?.DistrictId;
+            this.model.PinCode = data?.PinCode;
+            this.model.DateOfBirth = data?.DateOfBirth;
+            this.previewUrl = data?.User.ProfilePath;
 
-  //           if (data?.User) {
-  //             this.model.User.Email = data?.User?.Email;
-  //             this.model.User.Mobile = data?.User?.Mobile;
-  //             this.model.User.Id = data?.User?.Id;
-  //             this.model.User.UserRoleId = data?.User?.UserRoleId;
-  //             this.model.User.UserName = data?.User?.UserName;
-  //             this.model.User.IsApproved = data?.User?.IsApproved;
-  //             this.model.User.DeviceToken = data?.User?.DeviceToken;
-  //this.model.User.IsWhatsApp= data?.User?.IsWhatsApp;
-  //
-  //           }
+            if (data?.User) {
+              this.model.User.Email = data?.User?.Email;
+              this.model.User.Mobile = data?.User?.Mobile;
+              this.model.User.Id = data?.User?.Id;
+              this.model.User.UserRoleId = data?.User?.UserRoleId;
+              this.model.User.UserName = data?.User?.UserName;
+              this.model.User.IsApproved = data?.User?.IsApproved;
+              this.model.User.DeviceToken = data?.User?.DeviceToken;
+              this.model.User.IsWhatsApp = data?.User?.IsWhatsApp;
 
-  //           if (data?.BankDetails) {
-  //             this.model.BankDetails.Id = data?.BankDetails?.Id;
-  //             this.model.BankDetails.BankName = data?.BankDetails?.BankName;
-  //             this.model.BankDetails.AccountNumber = data?.BankDetails?.AccountNumber;
-  //             this.model.BankDetails.Ifsccode = data?.BankDetails?.Ifsccode;
-  //             this.model.BankDetails.Address = data?.BankDetails?.Address;
+            }
 
-  //           }
+            if (data?.BankDetails) {
+              this.model.BankDetails.Id = data?.BankDetails?.Id;
+              this.model.BankDetails.BankName = data?.BankDetails?.BankName;
+              this.model.BankDetails.AccountNumber = data?.BankDetails?.AccountNumber;
+              this.model.BankDetails.Ifsccode = data?.BankDetails?.Ifsccode;
+              this.model.BankDetails.Address = data?.BankDetails?.Address;
 
-  //           if (data?.UserKYC) {
+            }
 
-  //             this.model.UserKYC = data?.UserKYC?.map(user => {
-  //               return {
-  //                 Id: user.Id,
-  //                 Kycnumber: user.Kycnumber,
-  //                 KycdocumentTypeId: user.KycdocumentTypeId
-  //               } as UserKYCPostModel;
+            if (data?.UserKYC) {
 
-  //             });
-  //           }
+              this.model.UserKYC = data?.UserKYC?.map(user => {
+                return {
+                  Id: user.Id,
+                  Kycnumber: user.Kycnumber,
+                  KycdocumentTypeId: user.KycdocumentTypeId
+                } as UserKYCPostModel;
 
-  //           if (data?.UserNominee) {
-  //             this.model.UserNominee.Id = data?.UserNominee?.Id;
-  //             this.model.UserNominee.NamineeName = data?.UserNominee?.NamineeName;
-  //             this.model.UserNominee.RelationshipWithNominee = data?.UserNominee?.RelationshipWithNominee;
-  //           }
+              });
+            }
 
-  //           if (data?.ReportingPerson) {
-  //             this.model.ReportingPerson.Id = data?.ReportingPerson?.Id;
-  //             this.model.ReportingPerson.UserId = data?.ReportingPerson?.UserId;
-  //             this.model.ReportingPerson.ReportingUserId = data?.ReportingPerson?.ReportingUserId;
-  //           }
+            if (data?.UserNominee) {
+              this.model.UserNominee.Id = data?.UserNominee?.Id;
+              this.model.UserNominee.NamineeName = data?.UserNominee?.NamineeName;
+              this.model.UserNominee.RelationshipWithNominee = data?.UserNominee?.RelationshipWithNominee;
+            }
 
-  //           if (data?.Documents) {
+            if (data?.ReportingPerson) {
+              this.model.ReportingPerson.Id = data?.ReportingPerson?.Id;
+              this.model.ReportingPerson.UserId = data?.ReportingPerson?.UserId;
+              this.model.ReportingPerson.ReportingUserId = data?.ReportingPerson?.ReportingUserId;
+            }
 
-  //             this.model.Documents = data?.Documents?.map(doc => {
-  //               return {
-  //                 Id: doc?.Id,
-  //                 DocumentTypeId: doc?.DocumentTypeId,
-  //                 Files: doc?.UserDocumentFiles.map(file => {
-  //                   return {
-  //                     Id: file?.Id,
-  //                     FileName: file?.FileName,
-  //                     File: file?.Path,
-  //                     FileType: file?.FileType,
-  //                   } as FilePostModel;
-  //                 }),
-  //               } as DocumentPostModel;
+            if (data?.Documents) {
 
-  //             });
-  //           }
+              this.model.Documents = data?.Documents?.map(doc => {
+                return {
+                  Id: doc?.Id,
+                  DocumentTypeId: doc?.DocumentTypeId,
+                  Files: doc?.UserDocumentFiles.map(file => {
+                    return {
+                      Id: file?.Id,
+                      FileName: file?.FileName,
+                      File: file?.Path,
+                      FileType: file?.FileType,
+                    } as FilePostModel;
+                  }),
+                } as DocumentPostModel;
 
-  //         }
-  //       }
-  //     });
+              });
+            }
 
-  //   }
-  // }
+          }
+        }
+      });
+
+    }
+  }
   fileProgress(fileInput: any) {
     this.fileData = fileInput.target.files[0] as File;
     this.preview();

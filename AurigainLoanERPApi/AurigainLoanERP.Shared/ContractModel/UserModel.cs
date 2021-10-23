@@ -152,9 +152,7 @@ namespace AurigainLoanERP.Shared.ContractModel
         public UserNomineeViewModel? UserNominee { get; set; }
         public UserReportingPersonViewModel? ReportingPerson { get; set; }
 
-
-        //public virtual Object District { get; set; }
-        //public virtual Object Qualification { get; set; }
+         
 
     }
     public class AgentListViewModel
@@ -282,8 +280,7 @@ namespace AurigainLoanERP.Shared.ContractModel
         public string UserName { get; set; }
         public string Email { get; set; }
         public string Mobile { get; set; }
-        public bool? IsWhatsApp { get; set; }
-
+        public bool IsWhatsApp { get; set; }
         public bool? IsApproved { get; set; }
         public string DeviceToken { get; set; }
 

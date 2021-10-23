@@ -100,7 +100,7 @@ export class UserKYCDetailSectionComponent implements OnInit {
   }
 
   onChangeDocType(value: number) {
-    debugger
+
     //this.model.Kycnumber = undefined;
     if (this.model?.KycdocumentTypeId) {
 
