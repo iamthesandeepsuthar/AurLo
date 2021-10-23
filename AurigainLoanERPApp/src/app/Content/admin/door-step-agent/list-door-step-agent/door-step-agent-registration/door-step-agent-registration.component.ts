@@ -125,8 +125,11 @@ export class DoorStepAgentRegistrationComponent implements OnInit {
       let serv = this._userDoorStepService.AddUpdateDoorStepAgent(this.model).subscribe(res => {
         serv.unsubscribe();
         if (res.IsSuccess) {
-          this.Id = Number(res.Data);
-          this.onUploadProfileImage();
+          if (this.Id == 0) {
+            this.Id = Number(res.Data);
+            this.onUploadProfileImage();
+          }
+
           this._toast.success('Doorstep agent added successful', 'Success');
           this._router.navigate([this.routing_Url.AdminModule + '/' + this.routing_Url.DoorStepModule + '/' + this.routing_Url.DoorStepAgentListUrl]);
         } else {
@@ -153,9 +156,9 @@ export class DoorStepAgentRegistrationComponent implements OnInit {
     if (this._childUserNomineeDetailSection) {
       this._childUserNomineeDetailSection.formGroup.markAllAsTouched();
     }
-    // if (this._childUserSecurityDepositSection) {
-    //   this._childUserSecurityDepositSection.formGroup.markAllAsTouched();
-    // }
+    if (this._childUserSecurityDepositSection) {
+      this._childUserSecurityDepositSection.formGroup.markAllAsTouched();
+    }
 
 
     if (this._childUserBankDetailSection && this._childUserBankDetailSection.formGroup.valid) {
@@ -231,6 +234,7 @@ export class DoorStepAgentRegistrationComponent implements OnInit {
   //   }
 
   // }
+
   onGetDetail() {
     if (this.Id > 0) {
       this._userDoorStepService.GetDoorStepAgent(this.Id).subscribe(res => {
