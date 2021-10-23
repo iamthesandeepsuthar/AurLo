@@ -723,7 +723,7 @@ namespace AurigainLoanERP.Services.User
             catch (Exception ex)
             {
                 _db.Database.RollbackTransaction();
-                return CreateResponse<string>(null, ResponseMessage.Fail, true, ((int)ApiStatusCode.DataBaseTransactionFailed));
+                return CreateResponse<string>(null, ResponseMessage.Fail, true, ((int)ApiStatusCode.DataBaseTransactionFailed), ex.Message ?? ex.InnerException.ToString());
 
             }
         }
@@ -792,10 +792,10 @@ namespace AurigainLoanERP.Services.User
 
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 _db.Database.RollbackTransaction();
-                return CreateResponse<string>(null, ResponseMessage.Fail, true, ((int)ApiStatusCode.DataBaseTransactionFailed));
+                return CreateResponse<string>(null, ResponseMessage.Fail, true, ((int)ApiStatusCode.DataBaseTransactionFailed),ex.Message ?? ex.InnerException.ToString());
 
             }
         }
@@ -837,10 +837,10 @@ namespace AurigainLoanERP.Services.User
                 _db.Database.CommitTransaction();
                 return CreateResponse(true as object, ResponseMessage.Update, true, ((int)ApiStatusCode.Ok));
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 _db.Database.RollbackTransaction();
-                return CreateResponse(true as object, ResponseMessage.Fail, true, ((int)ApiStatusCode.DataBaseTransactionFailed));
+                return CreateResponse(true as object, ResponseMessage.Fail, true, ((int)ApiStatusCode.DataBaseTransactionFailed), ex.Message ?? ex.InnerException.ToString());
 
             }
         }

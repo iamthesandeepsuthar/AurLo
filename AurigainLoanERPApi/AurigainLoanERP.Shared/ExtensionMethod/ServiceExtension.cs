@@ -58,7 +58,7 @@ namespace AurigainLoanERP.Shared.ExtensionMethod
             {
                 base64String = Regex.Replace(base64String, @"^\s*$\n", string.Empty, RegexOptions.Multiline).TrimEnd();
 
-                byte[] byteArr;
+              
                 if (base64String.Split(';').Length > 0)
                 {
                     string[] Fileinfo = base64String.Split(';');
@@ -73,9 +73,9 @@ namespace AurigainLoanERP.Shared.ExtensionMethod
                 Convert.FromBase64String(base64String);
                 return true;
             }
-            catch (Exception exception)
+            catch 
             {
-                // Handle the exception
+                
             }
             return false;
         }

@@ -32,4 +32,7 @@ namespace AurigainLoanERP.Shared.ContractModel
         public string Name { get; set; }
         public string Pincode { get; set;}
     }
+
+
+ 
 }
