@@ -156,9 +156,9 @@ export class DoorStepAgentRegistrationComponent implements OnInit {
     if (this._childUserNomineeDetailSection) {
       this._childUserNomineeDetailSection.formGroup.markAllAsTouched();
     }
-    if (this._childUserSecurityDepositSection) {
-      this._childUserSecurityDepositSection.formGroup.markAllAsTouched();
-    }
+    // if (this._childUserSecurityDepositSection) {
+    //   this._childUserSecurityDepositSection.formGroup.markAllAsTouched();
+    // }
 
 
     if (this._childUserBankDetailSection && this._childUserBankDetailSection.formGroup.valid) {

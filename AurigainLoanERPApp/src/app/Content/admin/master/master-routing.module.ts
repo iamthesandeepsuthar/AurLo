@@ -1,3 +1,10 @@
+import { DetailBankComponent } from './banks/detail-bank/detail-bank.component';
+import { AddUpdateBankComponent } from './banks/add-update-bank/add-update-bank.component';
+import { BanksComponent } from './banks/banks.component';
+import { AddJewellaryComponent } from './jewellary/add-jewellary/add-jewellary.component';
+import { DetailJewellaryComponent } from './jewellary/detail-jewellary/detail-jewellary.component';
+import { JewellaryComponent } from './jewellary/jewellary.component';
+import { DetailProductCategoryComponent } from './product-category/detail-product-category/detail-product-category.component';
 import { StateComponent } from './state/state.component';
 import { DetailPaymentModeComponent } from './payment-mode/detail-payment-mode/detail-payment-mode.component';
 import { PaymentModeComponent } from './payment-mode/payment-mode.component';
@@ -20,8 +27,11 @@ import { DetailStateComponent } from './state/detail-state/detail-state.componen
 import { DistrictComponent } from './district/district.component';
 import { AddUpdateDistrictComponent } from './district/add-update-district/add-update-district.component';
 import { DetailDistrictComponent } from './district/detail-district/detail-district.component';
+import { AddUpdateProductCategoryComponent } from './product-category/add-update-product-category/add-update-product-category.component';
+import { ProductCategoryComponent } from './product-category/product-category.component';
 
 const routes: Routes = [
+
   {
     path: `${Routing_Url.UserRoleListUrl}`, component: UserRoleComponent, canActivate: [AuthenticationGuard]
   },
@@ -75,6 +85,33 @@ const routes: Routes = [
   },
   {
     path: "district/detail-district/:id", component: DetailDistrictComponent, canActivate: [AuthenticationGuard]
+  },
+  {
+    path: "product-categories/add-category/:id", component: AddUpdateProductCategoryComponent, canActivate: [AuthenticationGuard]
+  },
+  {
+    path: "product-categories", component: ProductCategoryComponent, canActivate: [AuthenticationGuard]
+  },
+  {
+    path: "product-categories/detail-category/:id", component: DetailProductCategoryComponent, canActivate: [AuthenticationGuard]
+  },
+  {
+    path: "jewellery-type/add-jewellery-type/:id", component: AddJewellaryComponent, canActivate: [AuthenticationGuard]
+  },
+  {
+    path: "jewellery-type", component: JewellaryComponent, canActivate: [AuthenticationGuard]
+  },
+  {
+    path: "jewellery-type/detail-jewellery-type/:id", component: DetailJewellaryComponent, canActivate: [AuthenticationGuard]
+  },
+  {
+    path: "banks/add-bank/:id", component: AddUpdateBankComponent, canActivate: [AuthenticationGuard]
+  },
+  {
+    path: "banks", component: BanksComponent, canActivate: [AuthenticationGuard]
+  },
+  {
+    path: "banks/detail-bank/:id", component: DetailBankComponent, canActivate: [AuthenticationGuard]
   }
 
 ];
