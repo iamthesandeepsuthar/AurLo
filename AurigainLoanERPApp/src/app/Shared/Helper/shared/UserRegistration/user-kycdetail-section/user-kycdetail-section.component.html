@@ -13,7 +13,7 @@
     </div>
     <div class="form-group col-md-6">
       <label>Document Number</label>
-      <input type="text" [maxlength]="DocCharLenght" [minLength]="DocCharLenght" (keypress)="onCheckValidInput($event)" class="form-control" id="input1" [(ngModel)]="this.model.Kycnumber" placeholder="document number">
+      <input type="text" [maxlength]="DocCharLenght"  (keypress)="onCheckValidInput($event)" class="form-control" id="input1" [(ngModel)]="this.model.Kycnumber" placeholder="document number">
     </div>
     <div class="form-group col-md-2" *ngIf="model.KycdocumentTypeId && this.model.Kycnumber">
       <label class="d-none d-md-block">&nbsp;</label>

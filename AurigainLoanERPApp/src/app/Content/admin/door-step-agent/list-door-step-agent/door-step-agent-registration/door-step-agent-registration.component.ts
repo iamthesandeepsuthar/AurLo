@@ -153,9 +153,9 @@ export class DoorStepAgentRegistrationComponent implements OnInit {
     if (this._childUserNomineeDetailSection) {
       this._childUserNomineeDetailSection.formGroup.markAllAsTouched();
     }
-    if (this._childUserSecurityDepositSection) {
-      this._childUserSecurityDepositSection.formGroup.markAllAsTouched();
-    }
+    // if (this._childUserSecurityDepositSection) {
+    //   this._childUserSecurityDepositSection.formGroup.markAllAsTouched();
+    // }
 
 
     if (this._childUserBankDetailSection && this._childUserBankDetailSection.formGroup.valid) {
@@ -174,11 +174,11 @@ export class DoorStepAgentRegistrationComponent implements OnInit {
       isValid = false;
     }
 
-    if (isValid && this._childUserSecurityDepositSection && this._childUserSecurityDepositSection.formGroup.valid) {
-      this._childUserSecurityDepositSection.onFrmSubmit();
-    } else {
-      isValid = false;
-    }
+    // if (isValid && this._childUserSecurityDepositSection && this._childUserSecurityDepositSection.formGroup.valid) {
+    //   this._childUserSecurityDepositSection.onFrmSubmit();
+    // } else {
+    //   isValid = false;
+    // }
 
     if (isValid && this._childUserNomineeDetailSection && this._childUserNomineeDetailSection.formGroup.valid) {
       this._childUserNomineeDetailSection.onFrmSubmit();

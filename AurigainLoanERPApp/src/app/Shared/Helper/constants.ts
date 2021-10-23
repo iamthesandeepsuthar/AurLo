@@ -209,8 +209,8 @@ export class Routing_Url {
 
   //#region  << Product Category URL >>
   static Product_Category_List_Url = '/product-categories';
-  static Product_Category_Detail_Url = '/detail-product-category/';
-  static Product_Category_AddUpdate_Url = '/add-product-category/';
+  static Product_Category_Detail_Url = '/detail-category/';
+  static Product_Category_AddUpdate_Url = '/add-category/';
   //#endregion
   //#region  << Product URL >>
   static Product_List_Url = '/products';
@@ -227,6 +227,12 @@ export class Routing_Url {
   //#region  << Bank Branch URL >>
   static Bank_Branch_Detail_Url = '/detail-branch/';
   static Bank_Branch_AddUpdate_Url = '/add-branch/';
+  //#endregion
+
+  //#region  << Jewellery  URL >>
+  static Jewellery_Type_Detail_Url = '/detail-jewellery-type/';
+  static Jewellery_Type_AddUpdate_Url = '/add-jewellery-type/';
+  static Jewellery_Type_List_Url = '/jewellery-type';
   //#endregion
 }
 
