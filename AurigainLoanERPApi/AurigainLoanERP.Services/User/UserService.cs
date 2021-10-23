@@ -1350,44 +1350,46 @@ namespace AurigainLoanERP.Services.User
                 if (model.Id == default)
                 {
                     var isExist = await _db.UserMaster.Where(x => x.Mobile == model.Mobile && x.IsDelete == false).FirstOrDefaultAsync();
-                    if (isExist != null ) 
+                    if (isExist == null)
                     {
-                        
-                    }
 
-                    model.RoleId = ((int)UserRoleEnum.Supervisor);
-                    Random random = new Random();
-                    UserMaster user = new UserMaster
-                    {
-                        Mpin = random.Next(100000, 199999).ToString(),
-                        Email = model.EmailId,
-                        UserName = model.FullName,
-                        Mobile = model.Mobile,
-                        CreatedOn = DateTime.Now,
-                        IsActive = model.IsActive,
-                        IsApproved = true,
-                        IsDelete = false,
-                        ProfilePath = null                       
-                    };
-                     var result = await _db.UserMaster.AddAsync(user);
-                    Managers manager = new Managers
-                    {
-                        FullName = model.FullName,
-                        FatherName = model.FatherName,
-                        DateOfBirth = model.DateOfBirth,
-                        UserId = result.Entity.Id,
-                        Gender = model.Gender,
-                        DistrictId = model.DistrictId,
-                        IsActive = model.IsActive,
-                        IsDelete = model.IsDelete,
-                        Pincode = model.Pincode,
-                        Address = model.Address,
-                        Setting = model.Setting,
-                        CreatedBy = (int)UserRoleEnum.Admin,
-                        ModifiedDate = DateTime.Now
-                    };
-                    var res = await _db.Managers.AddAsync(manager);
-                    await _db.SaveChangesAsync();
+                        model.RoleId = ((int)UserRoleEnum.Supervisor);
+                        Random random = new Random();
+                        UserMaster user = new UserMaster
+                        {
+                            Mpin = random.Next(100000, 199999).ToString(),
+                            Email = model.EmailId,
+                            UserName = model.FullName,
+                            Mobile = model.Mobile,
+                            CreatedOn = DateTime.Now,
+                            IsActive = model.IsActive,
+                            IsApproved = true,
+                            IsDelete = false,
+                            ProfilePath = null
+                        };
+                        var result = await _db.UserMaster.AddAsync(user);
+                        Managers manager = new Managers
+                        {
+                            FullName = model.FullName,
+                            FatherName = model.FatherName,
+                            DateOfBirth = model.DateOfBirth,
+                            UserId = result.Entity.Id,
+                            Gender = model.Gender,
+                            DistrictId = model.DistrictId,
+                            IsActive = model.IsActive,
+                            IsDelete = model.IsDelete,
+                            Pincode = model.Pincode,
+                            Address = model.Address,
+                            Setting = model.Setting,
+                            CreatedBy = (int)UserRoleEnum.Admin,
+                            ModifiedDate = DateTime.Now
+                        };
+                        var res = await _db.Managers.AddAsync(manager);
+                        await _db.SaveChangesAsync();                      
+                    }
+                    else {
+                        return false;
+                    }
                 }
                 else
                 {
@@ -1398,10 +1400,10 @@ namespace AurigainLoanERP.Services.User
                         manager.FatherName = model.FatherName;
                         manager.Gender = model.Gender;
                         manager.ModifiedOn = DateTime.Now;
-                        // manager.DistrictId.Value =(long)model.DistrictId;
-
-
-
+                        manager.DateOfBirth = model.DateOfBirth;
+                        manager.Address = model.Address;
+                        manager.PinCode = model.Pincode;
+                        await _db.SaveChangesAsync();
                     }
                 }
                 return true;
