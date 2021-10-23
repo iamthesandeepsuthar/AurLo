@@ -332,15 +332,15 @@ namespace AurigainLoanERP.Services.StateAndDistrict
                     district.StateId = model.StateId;
                     district.IsActive = model.IsActive;
                     district.ModifiedOn = DateTime.Now;
-
+                    await _db.SaveChangesAsync();
                     districtId = model.Id;
                 }
-                await _db.SaveChangesAsync();
+
                 if (model.Areas.Count > 0 && districtId > 0)
                 {
                     await AddUpdateAreas(model.Areas, districtId);
                 }
-                _db.Database.CommitTransaction(); 
+                _db.Database.CommitTransaction();
 
                 return CreateResponse<string>(model.Name, model.Id > 0 ? ResponseMessage.Update : ResponseMessage.Save, true, ((int)ApiStatusCode.Ok));
             }
