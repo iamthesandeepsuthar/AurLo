@@ -23,10 +23,10 @@ import { UserSettingService } from "src/app/Shared/Services/user-setting-service
   selector: 'app-add-update-agent',
   templateUrl: './add-update-agent.component.html',
   styleUrls: ['./add-update-agent.component.scss'],
-  providers : [AgentService]
+  providers: [AgentService]
 })
 export class AddUpdateAgentComponent implements OnInit {
-
+  //#region << Variable >>
   Id: number = 0;
   model = new AgentPostModel();
   profileModel = {} as UserSettingPostModel;
@@ -48,6 +48,7 @@ export class AddUpdateAgentComponent implements OnInit {
   @ViewChild(UserKYCDetailSectionComponent, { static: false }) _childUserKYCDetailSection!: UserKYCDetailSectionComponent;
   @ViewChild(UserNomineeDetailSectionComponent, { static: false }) _childUserNomineeDetailSection!: UserNomineeDetailSectionComponent;
   @ViewChild(UserSecurityDepositComponent, { static: false }) _childUserSecurityDepositSection!: UserSecurityDepositComponent;
+  //#endregion
 
   constructor(private readonly _alertService: AlertService, private readonly fb: FormBuilder,
     private readonly _userAgentService: AgentService, private _activatedRoute: ActivatedRoute, private _router: Router,
@@ -125,7 +126,7 @@ export class AddUpdateAgentComponent implements OnInit {
         serv.unsubscribe();
         if (res.IsSuccess) {
           this._toast.success('Doorstep agent added successful', 'Success');
-          this._router.navigate([this.routing_Url.AdminModule+'/'+this.routing_Url.DoorStepModule +'/' + this.routing_Url.DoorStepAgentListUrl]);
+          this._router.navigate([this.routing_Url.AdminModule + '/' + this.routing_Url.DoorStepModule + '/' + this.routing_Url.DoorStepAgentListUrl]);
         } else {
           this._toast.error(Message.SaveFail, 'Error');
           return;
@@ -133,7 +134,7 @@ export class AddUpdateAgentComponent implements OnInit {
       });
     }
   }
-  onFrmReset(){
+  onFrmReset() {
     this.formGroup.reset();
   }
   submitChildData(): boolean {
@@ -316,17 +317,17 @@ export class AddUpdateAgentComponent implements OnInit {
     };
   }
   onUploadProfileImage() {
-    if(this.Id){
+    if (this.Id) {
       let profileModel = new UserSettingPostModel();
       profileModel.FileName = this.fileData?.name;
       profileModel.UserId = Number(this.Id);
       profileModel.ProfileBase64 = this.previewUrl;
       this._userSettingService.UpdateUserProfile(profileModel).then(res => {
 
-        if(res.IsSuccess) {
-          this._toast.success('profile picture upload successful','Upload Status');
+        if (res.IsSuccess) {
+          this._toast.success('profile picture upload successful', 'Upload Status');
         } else {
-          this._toast.error(res.Message as string ,'Upload Status');
+          this._toast.error(res.Message as string, 'Upload Status');
         }
       });
     }

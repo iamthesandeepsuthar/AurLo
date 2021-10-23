@@ -859,7 +859,8 @@ namespace AurigainLoanERP.Services.User
         {
             try
             {
-                var existingUser = await _db.UserMaster.FirstOrDefaultAsync(x => (model.Id == null || model.Id == 0 || x.Id != model.Id) && ((!string.IsNullOrEmpty(model.Mobile) && x.Mobile == model.Mobile) || (!string.IsNullOrEmpty(model.Email) && x.Email == model.Email) || (!string.IsNullOrEmpty(model.UserName) && x.UserName == model.UserName)));
+                // check new user detail match with existing users
+                var existingUser = await _db.UserMaster.FirstOrDefaultAsync(x => (model.Id == null || model.Id == 0 || x.Id != model.Id) && ((!string.IsNullOrEmpty(model.Mobile) && x.Mobile == model.Mobile) || (!string.IsNullOrEmpty(model.Email) && x.Email == model.Email) || (string.IsNullOrEmpty(model.UserName) ||(!string.IsNullOrEmpty(model.UserName) && x.UserName == model.UserName))));
 
                 if (existingUser == null)
                 {

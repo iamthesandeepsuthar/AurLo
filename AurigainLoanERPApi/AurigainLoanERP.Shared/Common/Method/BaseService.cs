@@ -17,7 +17,7 @@ namespace AurigainLoanERP.Shared.Common.Method
             //  _configuration = configuration;
         }
 
-        public virtual ApiServiceResponseModel<T> CreateResponse<T>(T objData, string Message, bool IsSuccess,int statusCode ,string exception = "", string validationMessage = "", int? TotalRecord = null) where T : class
+        public virtual ApiServiceResponseModel<T> CreateResponse<T>(T objData, string Message, bool IsSuccess,int statusCode ,string exception = null, string validationMessage = null, int? TotalRecord = null) where T : class
         {
             ApiServiceResponseModel<T> objReturn = new ApiServiceResponseModel<T>();
 

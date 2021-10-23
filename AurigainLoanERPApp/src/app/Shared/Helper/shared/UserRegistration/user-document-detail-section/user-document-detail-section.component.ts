@@ -63,7 +63,7 @@ export class UserDocumentDetailSectionComponent implements OnInit {
   }
 
   onDocumentAttach(docuemtnTypeId: number, file: FileInfo[], isEdit: boolean) {
-    
+
     let docIndex = this.documentModel.findIndex(x => x.DocumentTypeId == docuemtnTypeId);
     switch (docuemtnTypeId) {
       case this.docTypeEnum.AadhaarCard:
@@ -182,14 +182,26 @@ export class UserDocumentDetailSectionComponent implements OnInit {
 
   }
 
-  removeDocFile(file: FilePostModel, docId: number, docTypeid: number) {
+  removeDocFile(file: FilePostModel, docId: number, docTypeId: number) {
     this._doorStepAgent.DeleteDocumentFile(file.Id, docId).subscribe(res => {
       if (res.IsSuccess) {
         this._toast.success('File Removed', 'Success');
-        let docIndex = this.documentModel!.findIndex(x => x.DocumentTypeId == docTypeid)
+        let docIndex = this.documentModel!.findIndex(x => x.DocumentTypeId == docTypeId)
         let fileIndex = this.documentModel![docIndex].Files!.findIndex(x => x.Id == file.Id);
-
         this.documentModel![docIndex].Files.splice(fileIndex, 1);
+
+        switch (docTypeId) {
+          case this.docTypeEnum.AadhaarCard:
+            this.TotalAdharDoc = - 1;
+            break;
+          case this.docTypeEnum.PANCard:
+            this.TotalPANDoc = -1;
+            break;
+          case this.docTypeEnum.CancelledCheque:
+            this.TotalChequeDoc = - 1;
+            break;
+        }
+
       }
     });
   }

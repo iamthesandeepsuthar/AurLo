@@ -14,7 +14,7 @@
       <!-- Breadcrumb End -->
     </div>
     <a class="btn btn-dark btn-sm mt-2 mt-sm-0" routerLink="../{{routing_Url.DoorStepAgentRegistrationUrl+'/0'}}">
-      <i class="fas fa-plus"></i> Add  agent</a>
+      <i class="fas fa-plus"></i> Add agent</a>
   </div>
 </div>
 <!-- Page Header Title end -->
@@ -90,7 +90,7 @@
         </ng-container>
 
         <ng-container matColumnDef="IsApproved">
-          <th  mat-header-cell *matHeaderCellDef mat-sort-header>Approval </th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Approval </th>
           <td mat-cell *matCellDef="let element" class="table-action-btn">
             <a (click)="OnApproveStatus(element.UserId)" title="Update Approval Status">
               <i *ngIf="element.IsApproved" class="fas fa-user-check text-success"></i>
@@ -114,18 +114,13 @@
         <ng-container matColumnDef="Action">
           <th width="150" mat-header-cell *matHeaderCellDef> Action </th>
           <td mat-cell *matCellDef="let row" class="table-action-btn">
-            <a class="table-action-btn-edit" routerLink="..{{routing_Url.UserRoleAddUpdateUrl+row.Userid}}"
+            <a class="table-action-btn-edit" routerLink="..{{routing_Url.AgentRegistrationUrl+'/'+row.Userid}}"
               title="Edit">
               <i class="fas fa-edit"></i>
             </a>
-            <a class="table-action-btn-view" routerLink="..{{routing_Url.UserRoleDetailUrl+row.UserId}}" title="Detail">
+            <a class="table-action-btn-view" routerLink="..{{routing_Url.AgenDetailUrl+'/'+row.UserId}}" title="Detail">
               <i class="fas fa-eye"></i>
-            </a>
-
-            <!-- <a class="table-action-btn-view" routerLink="..{{routing_Url.AgentAvailibilityUrl+row.UserId}}"
-              title=" Agent availibity">
-              <i class="fas fa-business-time"></i>
-            </a> -->
+            </a> 
 
             <a class="table-action-btn-delete" (click)="updateDeleteStatus(row.Id)" title="Delete">
               <i class="fas fa-trash-alt"></i>
