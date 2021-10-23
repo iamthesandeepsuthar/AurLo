@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
+import { AfterContentChecked, ChangeDetectorRef, Component, OnInit, ViewChild } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { ToastrService } from "ngx-toastr";
@@ -23,9 +23,9 @@ import { UserSettingService } from "src/app/Shared/Services/user-setting-service
   selector: 'app-add-update-agent',
   templateUrl: './add-update-agent.component.html',
   styleUrls: ['./add-update-agent.component.scss'],
-  providers: [AgentService]
+  providers: [AgentService,UserSettingService]
 })
-export class AddUpdateAgentComponent implements OnInit {
+export class AddUpdateAgentComponent implements OnInit,AfterContentChecked {
   //#region << Variable >>
   Id: number = 0;
   model = new AgentPostModel();
@@ -50,7 +50,7 @@ export class AddUpdateAgentComponent implements OnInit {
   @ViewChild(UserSecurityDepositComponent, { static: false }) _childUserSecurityDepositSection!: UserSecurityDepositComponent;
   //#endregion
 
-  constructor(private readonly _alertService: AlertService, private readonly fb: FormBuilder,
+  constructor(private cdr: ChangeDetectorRef,private readonly _alertService: AlertService, private readonly fb: FormBuilder,
     private readonly _userAgentService: AgentService, private _activatedRoute: ActivatedRoute, private _router: Router,
     readonly _commonService: CommonService, private readonly _toast: ToastrService, private readonly _userSettingService: UserSettingService) {
     if (this._activatedRoute.snapshot.params.id) {
@@ -73,7 +73,10 @@ export class AddUpdateAgentComponent implements OnInit {
        this.onGetDetail();
     }
   }
+  ngAfterContentChecked() {
 
+    this.cdr.detectChanges();
+  }
 
   GetDropDown() {
     this._commonService.GetDropDown([DropDown_key.ddlQualification, DropDown_key.ddlState, DropDown_key.ddlGender]).subscribe(res => {
@@ -206,6 +209,7 @@ export class AddUpdateAgentComponent implements OnInit {
       ProfilePictureUrl: [undefined, undefined],
       SelfFunded: [false, Validators.required],
       IsActive: [true, Validators.required],
+      IsWhatsApp: [false, Validators.required],
       Mobile: [undefined, Validators.compose([Validators.required, Validators.maxLength(12), Validators.minLength(10)])],
       Email: [false, Validators.compose([Validators.required, Validators.email])],
 

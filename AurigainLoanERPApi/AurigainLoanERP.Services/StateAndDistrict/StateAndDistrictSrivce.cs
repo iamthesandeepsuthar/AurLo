@@ -232,9 +232,26 @@ namespace AurigainLoanERP.Services.StateAndDistrict
             try
             {
 
-                var result = await _db.District.Where(x => x.Id == id).Include(x => x.State).FirstOrDefaultAsync();
+                var result = await _db.District.Where(x => x.Id == id).Include(x => x.State).Include(x => x.PincodeArea).FirstOrDefaultAsync();
                 var response = _mapper.Map<DistrictModel>(result);
                 response.StateName = result.State.Name;
+                if (result.PincodeArea.Count > 0)
+                {
+                    response.Areas = result.PincodeArea.Select(x => new PincodeAreaModel
+                    {
+                        Id = x.Id,
+                        Pincode = x.Pincode,
+                        AreaName = x.AreaName,
+                        IsActive = x.IsActive,
+                        IsDelete = x.IsDelete,
+                        DistrictId = x.DistrictId,
+                        CreatedDate = x.CreatedDate,
+                        Modifieddate = x.Modifieddate
+
+                    }).ToList();
+
+                }
+
                 if (result != null)
                 {
                     return CreateResponse<DistrictModel>(response, ResponseMessage.Success, true, ((int)ApiStatusCode.Ok));

@@ -7,6 +7,7 @@ import { Routing_Url } from 'src/app/Shared/Helper/constants';
 import { DistrictModel } from 'src/app/Shared/Model/master-model/district.model';
 import { DDLStateModel } from 'src/app/Shared/Model/master-model/state.model';
 import { StateDistrictService } from 'src/app/Shared/Services/master-services/state-district.service';
+import { CommonService } from 'src/app/Shared/Services/common.service';
 
 @Component({
   selector: 'app-add-update-district',
@@ -39,7 +40,8 @@ export class AddUpdateDistrictComponent implements OnInit {
     private readonly _districtService: StateDistrictService,
     private _activatedRoute: ActivatedRoute,
     private _router: Router,
-    private readonly toast: ToastrService
+    private readonly toast: ToastrService,
+     readonly _commonService: CommonService
   ) {
     this.Areas = [];
     if (this._activatedRoute.snapshot.params.id) {
@@ -78,49 +80,53 @@ export class AddUpdateDistrictComponent implements OnInit {
     this.districtForm = this.fb.group({
       Name: [undefined, Validators.required],
       DllState: [undefined, null],
-      Pin: [undefined, Validators.required],
-      IsActive: [undefined],
-      areaName: [undefined],
+      Pin: [undefined, undefined],
+      IsActive: [undefined, undefined],
+      areaName: [undefined, undefined],
     });
   }
   onSubmit() {
+    console.log(JSON.stringify(this.model));
     this.districtForm.markAllAsTouched();
     if (this.districtForm.valid) {
+
       let subscription = this._districtService.AddUpdateDistrict(this.model).subscribe((response) => {
-          subscription.unsubscribe();
-          if (response.IsSuccess) {
-            this.toast.success(
-              this.Id == 0
-                ? 'Record save successful'
-                : 'Record update successful',
-              'Success'
-            );
-            this._router.navigate([
-              this.routing_Url.AdminModule +
-                '/' +
-                this.routing_Url.MasterModule +
-                this.routing_Url.District_List_Url,
-            ]);
-          } else {
-            this.toast.error(response.Message?.toString(), 'Error');
-          }
-        });
+        subscription.unsubscribe();
+        if (response.IsSuccess) {
+          this.toast.success(
+            this.Id == 0
+              ? 'Record save successful'
+              : 'Record update successful',
+            'Success'
+          );
+          this._router.navigate([
+            this.routing_Url.AdminModule +
+            '/' +
+            this.routing_Url.MasterModule +
+            this.routing_Url.District_List_Url,
+          ]);
+        } else {
+          this.toast.error(response.Message?.toString(), 'Error');
+        }
+      });
     }
   }
-  addArea() {
-    this.isArea = true;
-  }
+
   addToList() {
-    if ( this.pincodeAreaModel.AreaName != undefined && this.pincodeAreaModel.Pincode != undefined ) {
-      this.Areas.push(this.pincodeAreaModel);
+    this.districtForm.get("Pin")?.setValidators(Validators.required);
+    this.districtForm.get("areaName")?.setValidators(Validators.required);
+    this.districtForm.get("Pin")?.updateValueAndValidity();
+    this.districtForm.get("areaName")?.updateValueAndValidity();
+    this.districtForm.markAllAsTouched();
+    if (this.pincodeAreaModel.AreaName != undefined && this.pincodeAreaModel.Pincode != undefined) {
+      this.model.Areas.push(this.pincodeAreaModel);
       this.clearPincodeArea();
     } else {
       this.toast.warning('Pincode and Area Name Cannot Be Blank', 'Warning');
     }
+
   }
-  alertMsg() {
-    alert('ad');
-  }
+
   getPincode(index: number) {
     this.pincodeAreaModel = this.Areas[index];
     this.isUpdate = true;
@@ -131,5 +137,9 @@ export class AddUpdateDistrictComponent implements OnInit {
   }
   clearPincodeArea() {
     this.pincodeAreaModel = new PincodeAreaModel();
+    this.districtForm.get("Pin")?.setValidators(null);
+    this.districtForm.get("areaName")?.setValidators(null);
+    this.districtForm.get("Pin")?.updateValueAndValidity();
+    this.districtForm.get("areaName")?.updateValueAndValidity();
   }
 }

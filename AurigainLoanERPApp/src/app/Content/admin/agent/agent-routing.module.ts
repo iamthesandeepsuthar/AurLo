@@ -7,10 +7,21 @@ import { ListAgentComponent } from './list-agent/list-agent.component';
 import { AddUpdateAgentComponent } from './list-agent/add-update-agent/add-update-agent.component';
 
 const routes: Routes = [
-  { path: '', component: ListAgentComponent, canActivate: [AuthenticationGuard] },
-  { path: `${Routing_Url.AgentListUrl}`, component: ListAgentComponent, canActivate: [AuthenticationGuard] },
-  { path: `${Routing_Url.AgenDetailUrl}/:id`, component: DetailAgentComponent, canActivate: [AuthenticationGuard] },
-  { path: `${Routing_Url.AgentRegistrationUrl}/:id`, component: AddUpdateAgentComponent, canActivate: [AuthenticationGuard] },
+  // { path: '', component: ListAgentComponent, canActivate: [AuthenticationGuard] },
+  // { path: `${Routing_Url.AgentListUrl}`, component: ListAgentComponent, canActivate: [AuthenticationGuard] },
+  // { path: `${Routing_Url.AgenDetailUrl}/:id`, component: DetailAgentComponent, canActivate: [AuthenticationGuard] },
+  // { path: `${Routing_Url.AgentRegistrationUrl}/:id`, component: AddUpdateAgentComponent, canActivate: [AuthenticationGuard] },
+
+
+  {
+    path: `${Routing_Url.AgentListUrl}`, component: ListAgentComponent, canActivate: [AuthenticationGuard]
+  },
+  {
+    path: `${Routing_Url.AgentRegistrationUrl}/:id`, component: AddUpdateAgentComponent, canActivate: [AuthenticationGuard]
+  },
+  {
+    path: `${Routing_Url.AgenDetailUrl}/:id`, component: DetailAgentComponent, canActivate: [AuthenticationGuard]
+  },
 
 ];
 

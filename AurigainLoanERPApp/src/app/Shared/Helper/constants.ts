@@ -140,99 +140,98 @@ public static Branch_Detail_Api = `${environment.apiEndPoint}BankBranch/GetById/
 export class Routing_Url {
 
   //#region <<Module URL>>
-  static AdminModule = 'admin';
-  static MasterModule = 'master';
-  static DoorStepModule = 'door-step-agent';
-  static AgentModule = 'agent';
+  public static AdminModule = 'admin';
+  public static MasterModule = 'master';
+  public static DoorStepModule = 'door-step-agent';
+  public static AgentModule = 'agent';
 
   //#endregion
 
   //#region <<Login URL>>
-  static LoginUrl = 'login';
+  public static LoginUrl = 'login';
   //#endregion
 
   //#region <User Role >
-  static UserRoleListUrl = 'user-role';
-  static UserRoleDetailUrl = '/detail/';
-  static UserRoleAddUpdateUrl = '/add-update/';
+  public static UserRoleListUrl = 'user-role';
+  public static UserRoleDetailUrl = '/detail/';
+  public static UserRoleAddUpdateUrl = '/add-update/';
   //#endregion
 
   //#region <Qualification>
-  static Qualification_List_Url = '/qualifications';
-  static Qualification_Detail_Url = '/detail-qualification/';
-  static Qualification_AddUpdate_Url = '/add-qualification/';
+  public static Qualification_List_Url = '/qualifications';
+  public static Qualification_Detail_Url = '/detail-qualification/';
+  public static Qualification_AddUpdate_Url = '/add-qualification/';
   //#endregion
  //#region <KYC Document Type >
- static Kyc_Document_Type_List_Url = '/kyc-document-type';
- static Kyc_Document_Type_Detail_Url = '/detail-document-type/';
- static Kyc_Document_Type_AddUpdate_Url = '/add-document-type/';
+ public static Kyc_Document_Type_List_Url = '/kyc-document-type';
+ public static Kyc_Document_Type_Detail_Url = '/detail-document-type/';
+ public static Kyc_Document_Type_AddUpdate_Url = '/add-document-type/';
  //#endregion
   //#region <PaymentMode>
-  static PaymentMode_List_Url = '/payment-modes';
-  static PaymentMode_Detail_Url = '/detail-payment-mode/';
-  static PaymentMode_AddUpdate_Url = '/add-payment-mode/';
+  public static PaymentMode_List_Url = '/payment-modes';
+  public static PaymentMode_Detail_Url = '/detail-payment-mode/';
+  public static PaymentMode_AddUpdate_Url = '/add-payment-mode/';
   //#endregion
 
   //#region <State >
-  static State_List_Url = '/states';
-  static State_Detail_Url = '/detail-state/';
-  static State_AddUpdate_Url = '/add-state/';
+  public static State_List_Url = '/states';
+  public static State_Detail_Url = '/detail-state/';
+  public static State_AddUpdate_Url = '/add-state/';
 
-  static District_List_Url = '/district';
-  static District_Detail_Url = '/detail-district/';
-  static District_AddUpdate_Url = '/add-district/';
+  public static District_List_Url = '/district';
+  public static District_Detail_Url = '/detail-district/';
+  public static District_AddUpdate_Url = '/add-district/';
   //#endregion
 
 
 
   //#region <DoorStepAgent>
-  static DoorStepAgentRegistrationUrl = 'registration';
-  static DoorStepAgenDetailUrl = 'detail';
-  static DoorStepAgentAvailibilityUrl = 'user-availibility';
-  static DoorStepAgentListUrl = 'door-step-agents-list';
+  public static DoorStepAgentRegistrationUrl = 'registration';
+  public static DoorStepAgenDetailUrl = 'detail';
+  public static DoorStepAgentAvailibilityUrl = 'user-availibility';
+  public static DoorStepAgentListUrl = 'door-step-agents-list';
   //#endregion
 
   //#region  <<Agent >>
 
-  static AgentListUrl: 'agent-list';
-  static AgentRegistrationUrl: 'agent-AddUpdate';
-  static AgenDetailUrl: 'agent-detail';
-  static  AgentAvailibilityUrl = 'agent-availibility';
-
+  public static AgentRegistrationUrl = 'agent-addupdate';
+  public static AgenDetailUrl = 'agent-detail';
+  public static AgentAvailibilityUrl = 'agent-availibility';
+  public static AgentListUrl = 'agent-list';
   //#endregion
 
   //#region  << User manager's URL >>
-  static Manager_List_Url = '/managers';
-  static Manager_Detail_Url = '/detail-manager/';
-  static Manager_AddUpdate_Url = '/add-manager/';
+  public static Manager_List_Url = '/managers';
+  public static Manager_Detail_Url = '/detail-manager/';
+  public static Manager_AddUpdate_Url = '/add-manager/';
   //#endregion
 
   //#region  << Product Category URL >>
-  static Product_Category_List_Url = '/product-categories';
-  static Product_Category_Detail_Url = '/detail-category/';
-  static Product_Category_AddUpdate_Url = '/add-category/';
+  public static Product_Category_List_Url = '/product-categories';
+  public static Product_Category_Detail_Url = '/detail-category/';
+  public static Product_Category_AddUpdate_Url = '/add-category/';
   //#endregion
   //#region  << Product URL >>
-  static Product_List_Url = '/products';
-  static Product_Detail_Url = '/detail-product/';
-  static Product_AddUpdate_Url = '/add-product/';
+  public static Product_List_Url = '/products';
+  public static Product_Detail_Url = '/detail-product/';
+  public static Product_AddUpdate_Url = '/add-product/';
   //#endregion
 
   //#region  << bank URL >>
-  static Bank_List_Url = '/banks';
-  static Bank_Detail_Url = '/detail-bank/';
-  static Bank_AddUpdate_Url = '/add-bank/';
+  public static Bank_List_Url = '/banks';
+  public static Bank_Detail_Url = '/detail-bank/';
+  public static Bank_AddUpdate_Url = '/add-bank/';
   //#endregion
 
   //#region  << Bank Branch URL >>
-  static Bank_Branch_Detail_Url = '/detail-branch/';
-  static Bank_Branch_AddUpdate_Url = '/add-branch/';
+  public static Bank_Branch_Detail_Url = '/detail-branch/';
+  public static Bank_Branch_AddUpdate_Url = '/add-branch/';
   //#endregion
 
   //#region  << Jewellery  URL >>
-  static Jewellery_Type_Detail_Url = '/detail-jewellery-type/';
-  static Jewellery_Type_AddUpdate_Url = '/add-jewellery-type/';
-  static Jewellery_Type_List_Url = '/jewellery-type';
+  public static Jewellery_Type_Detail_Url = '/detail-jewellery-type/';
+  public static Jewellery_Type_AddUpdate_Url = '/add-jewellery-type/';
+  public static Jewellery_Type_List_Url = '/jewellery-type';
   //#endregion
 }
 

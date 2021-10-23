@@ -17,11 +17,8 @@
             <a href="javascript:void(0)">Master</a>
           </li>
           <li class="breadcrumb-item">
-            <a routerLink="{{
-                '/' +
-                  this.routing_Url.MasterModule +
-                  this.routing_Url.UserRoleListUrl
-              }}">
+            <a
+              routerLink="/{{this.routing_Url.AdminModule +'/'+ this.routing_Url.MasterModule + this.routing_Url.District_List_Url }}">
               District Master
             </a>
           </li>
@@ -55,7 +52,7 @@
       </div>
       <div class="form-group col-md-5">
         <label>District Name</label>
-        <input type="text" formControlName="Name"  [(ngModel)]="model.Name"
+        <input type="text" formControlName="Name" [(ngModel)]="model.Name"
           [ngClass]="{ 'is-invalid': f.Name.errors && f.Name.touched }" class="form-control" id="input1"
           placeholder="Name" />
         <div class="invalid-feedback" *ngIf="
@@ -70,37 +67,38 @@
         </div> -->
 
       <div class="form-group col-md-5">
-              <label>Active</label>
-              <div class="form-radio-check-grp">
-                  <div class="n-chk d-inline">
-                      <label class="new-control new-checkbox checkbox-info">
-                          <input type="checkbox" formControlName="IsActive" class="new-control-input"
-                              [(ngModel)]="model.IsActive">
-                          <span class="new-control-indicator"></span>Active Status
-                      </label>
-                  </div>
-              </div>
-       </div>
+        <label>Active</label>
+        <div class="form-radio-check-grp">
+          <div class="n-chk d-inline">
+            <label class="new-control new-checkbox checkbox-info">
+              <input type="checkbox" formControlName="IsActive" class="new-control-input" [(ngModel)]="model.IsActive">
+              <span class="new-control-indicator"></span>Active Status
+            </label>
+          </div>
+        </div>
+      </div>
       <div class="col-md-2">
         <label>&nbsp;</label>
-        <button type="button" (click)="addArea()" class="btn btn-primary w-100">
+        <button type="button" (click)="this.isArea = true" class="btn btn-primary w-100">
           <i class="fas fa-plus"> </i> Add Area
         </button>
       </div>
     </div>
 
     <!-- Area add section  -->
-    <div class="form-row" *ngIf="isArea">
+    <div class="form-row" *ngIf="isArea|| this.model.Areas.length>0">
       <div class="form-group col-md-5">
         <label>Area Name</label>
         <input type="text" formControlName="areaName" [(ngModel)]="pincodeAreaModel.AreaName" class="form-control"
           placeholder="area name" />
       </div>
+
       <div class="form-group col-md-5">
         <label>Pincode</label>
-        <input type="number" formControlName="Pin"  minLength="5" maxLength="7" [(ngModel)]="pincodeAreaModel.Pincode" class="form-control"
-          placeholder="pincode" />
+        <input type="text" (keypress)="_commonService.NumberOnly($event)" formControlName="Pin" minLength="5"
+          maxLength="7" [(ngModel)]="pincodeAreaModel.Pincode" class="form-control" placeholder="pincode" />
       </div>
+
       <div class="col-md-2">
         <label>&nbsp;</label>
         <button type="button" (click)="addToList()" class="btn btn-primary w-100">
@@ -118,7 +116,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let a of Areas;let ndx = index">
+            <tr *ngFor="let a of this.model.Areas;let ndx = index">
               <td>{{ndx + 1}}</td>
               <td>{{ a.AreaName }}</td>
               <td>{{ a.Pincode }}</td>

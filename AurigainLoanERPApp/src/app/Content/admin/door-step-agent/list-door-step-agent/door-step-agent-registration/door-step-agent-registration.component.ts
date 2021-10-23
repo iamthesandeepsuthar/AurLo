@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
+import { AfterContentChecked, ChangeDetectorRef, Component, OnInit, ViewChild } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { ToastrService } from "ngx-toastr";
@@ -25,7 +25,7 @@ import { UserSecurityDepositComponent } from '../../../../../Shared/Helper/share
   styleUrls: ['./door-step-agent-registration.component.scss'],
   providers: [DoorStepAgentService, UserSettingService]
 })
-export class DoorStepAgentRegistrationComponent implements OnInit {
+export class DoorStepAgentRegistrationComponent implements OnInit,AfterContentChecked {
   Id: number = 0;
   model = new DoorStepAgentPostModel();
   profileModel = {} as UserSettingPostModel;
@@ -48,7 +48,7 @@ export class DoorStepAgentRegistrationComponent implements OnInit {
   @ViewChild(UserNomineeDetailSectionComponent, { static: false }) _childUserNomineeDetailSection!: UserNomineeDetailSectionComponent;
   @ViewChild(UserSecurityDepositComponent, { static: false }) _childUserSecurityDepositSection!: UserSecurityDepositComponent;
 
-  constructor(private readonly _alertService: AlertService, private readonly fb: FormBuilder,
+  constructor(private cdr: ChangeDetectorRef,private readonly _alertService: AlertService, private readonly fb: FormBuilder,
     private readonly _userDoorStepService: DoorStepAgentService, private _activatedRoute: ActivatedRoute, private _router: Router,
     readonly _commonService: CommonService, private readonly _toast: ToastrService, private readonly _userSettingService: UserSettingService) {
     if (this._activatedRoute.snapshot.params.id) {
@@ -72,7 +72,10 @@ export class DoorStepAgentRegistrationComponent implements OnInit {
       this.onGetDetail();
     }
   }
+  ngAfterContentChecked() {
 
+    this.cdr.detectChanges();
+  }
 
   GetDropDown() {
     this._commonService.GetDropDown([DropDown_key.ddlQualification, DropDown_key.ddlState, DropDown_key.ddlGender]).subscribe(res => {
@@ -112,7 +115,7 @@ export class DoorStepAgentRegistrationComponent implements OnInit {
   }
 
   onFrmSubmit() {
-    debugger
+
     this.formGroup.markAllAsTouched();
     let ChildValid: boolean = this.submitChildData();
     if (this.formGroup.valid && ChildValid) {

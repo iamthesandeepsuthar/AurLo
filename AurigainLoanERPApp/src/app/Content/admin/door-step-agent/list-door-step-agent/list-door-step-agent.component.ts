@@ -20,7 +20,7 @@ export class ListDoorStepAgentComponent implements OnInit {
 
 
   //#region <<  Variable  >>
-  get routing_Url() { return Routing_Url }
+  get routing_Url() { return Routing_Url };
 
   model!: DoorStepAgentListModel[];
   dataSource: any;
