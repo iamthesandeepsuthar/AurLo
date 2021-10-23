@@ -18,7 +18,6 @@ namespace AurigainLoanERP.Data.Database
 
         public long Id { get; set; }
         public string Name { get; set; }
-        public string Pincode { get; set; }
         public int StateId { get; set; }
         public bool? IsActive { get; set; }
         public bool IsDelete { get; set; }

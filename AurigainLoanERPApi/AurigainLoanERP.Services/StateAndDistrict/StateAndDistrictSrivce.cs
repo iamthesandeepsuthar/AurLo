@@ -258,8 +258,7 @@ namespace AurigainLoanERP.Services.StateAndDistrict
                 var districts = await _db.District.Where(x => x.StateId == id && x.IsDelete == false && x.IsActive == true).Select(x => new DDLDistrictModel
                 {
                     Id = x.Id,
-                    Name = x.Name,
-                    Pincode = x.Pincode
+                    Name = x.Name                 
                 }).ToListAsync();
 
                 if (districts.Count() > 0)
@@ -315,8 +314,7 @@ namespace AurigainLoanERP.Services.StateAndDistrict
                         StateId = model.StateId,
                         CreatedOn = DateTime.Now,
                         IsActive = model.IsActive,
-                        IsDelete = model.IsDelete,
-                        Pincode = model.Pincode,
+                        IsDelete = model.IsDelete,                       
                         ModifiedOn = model.ModifiedOn
                     };                    
                     var result = await _db.District.AddAsync(d);

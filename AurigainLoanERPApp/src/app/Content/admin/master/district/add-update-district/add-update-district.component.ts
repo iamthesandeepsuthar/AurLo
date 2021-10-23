@@ -79,13 +79,13 @@ export class AddUpdateDistrictComponent implements OnInit {
       Name: [undefined, Validators.required],
       DllState: [undefined, null],
       Pin: [undefined, Validators.required],
-      IsActive: [undefined]
-      //areaName: [undefined],
+      IsActive: [undefined],
+      areaName: [undefined],
     });
   }
   onSubmit() {
     this.districtForm.markAllAsTouched();
-    if (this.districtForm.valid) {      
+    if (this.districtForm.valid) {
       let subscription = this._districtService.AddUpdateDistrict(this.model).subscribe((response) => {
           subscription.unsubscribe();
           if (response.IsSuccess) {
@@ -107,32 +107,29 @@ export class AddUpdateDistrictComponent implements OnInit {
         });
     }
   }
-  // addArea() {
-  //   this.isArea = true;
-  // }
-  // addToList() {
-  //   if (
-  //     this.pincodeAreaModel.AreaName != undefined &&
-  //     this.pincodeAreaModel.Pincode != undefined
-  //   ) {
-  //     this.Areas.push(this.pincodeAreaModel);
-  //     this.clearPincodeArea();
-  //   } else {
-  //     this.toast.warning('Pincode and Area Name Cannot Be Blank', 'Warning');
-  //   }
-  // }
-  // alertMsg() {
-  //   alert('ad');
-  // }
-  // getPincode(index: number) {
-  //   this.pincodeAreaModel = this.Areas[index];
-  //   this.isUpdate = true;
-  // }
-  // updatePincode() {
-  //   this.isUpdate = false;
-  //   this.clearPincodeArea();
-  // }
-  // clearPincodeArea() {
-  //   this.pincodeAreaModel = new PincodeAreaModel();
-  // }
+  addArea() {
+    this.isArea = true;
+  }
+  addToList() {
+    if ( this.pincodeAreaModel.AreaName != undefined && this.pincodeAreaModel.Pincode != undefined ) {
+      this.Areas.push(this.pincodeAreaModel);
+      this.clearPincodeArea();
+    } else {
+      this.toast.warning('Pincode and Area Name Cannot Be Blank', 'Warning');
+    }
+  }
+  alertMsg() {
+    alert('ad');
+  }
+  getPincode(index: number) {
+    this.pincodeAreaModel = this.Areas[index];
+    this.isUpdate = true;
+  }
+  updatePincode() {
+    this.isUpdate = false;
+    this.clearPincodeArea();
+  }
+  clearPincodeArea() {
+    this.pincodeAreaModel = new PincodeAreaModel();
+  }
 }
