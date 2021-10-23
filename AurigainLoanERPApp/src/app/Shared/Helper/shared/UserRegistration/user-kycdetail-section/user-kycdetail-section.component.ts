@@ -5,46 +5,49 @@ import { CommonService } from 'src/app/Shared/Services/common.service';
 import { UserKYCPostModel } from '../../../../Model/doorstep-agent-model/door-step-agent.model';
 import { DropDownModel } from '../../../common-model';
 import { DropDown_key } from '../../../constants';
+import { KycDocumentTypeService } from '../../../../Services/master-services/kyc-document-type.service';
+import { DDLDocumentTypeModel, DocumentTypeModel } from 'src/app/Shared/Model/master-model/document-type.model';
 
 @Component({
   selector: 'app-user-kycdetail-section',
   templateUrl: './user-kycdetail-section.component.html',
-  styleUrls: ['./user-kycdetail-section.component.scss']
+  styleUrls: ['./user-kycdetail-section.component.scss'],
+  providers: [KycDocumentTypeService]
 })
 export class UserKYCDetailSectionComponent implements OnInit {
   @Input() kycModel = [] as UserKYCPostModel[];
   @Output() onSubmit = new EventEmitter<UserKYCPostModel[]>();
 
   model: UserKYCPostModel = {} as UserKYCPostModel;
-  dropDown = new DropDownModel();
-  get ddlkeys() { return DropDown_key };
-  formGroup = new FormGroup({});
 
+  formGroup = new FormGroup({});
+  docTypeModel!: DDLDocumentTypeModel[];
   get f() { return this.formGroup.controls; }
-  constructor(private readonly fb: FormBuilder,  readonly _commonService: CommonService, private readonly _alertService: AlertService) { }
+  DocCharLenght=0;
+  constructor(private readonly fb: FormBuilder, private readonly _kycDocumentTypeService: KycDocumentTypeService,
+    readonly _commonService: CommonService, private readonly _alertService: AlertService) { }
 
   ngOnInit(): void {
-    this.GetDropDown();
-
+    this.getDocumentType()
   }
 
-  GetDropDown() {
 
-    this._commonService.GetDropDown([DropDown_key.ddlDocumentType]).subscribe(res => {
+  getDocumentType() {
+    this._kycDocumentTypeService.GetDDLDocumentType().subscribe(res => {
       if (res.IsSuccess) {
 
-        let ddls = res.Data as DropDownModel;
-        this.dropDown.ddlDocumentType = ddls.ddlDocumentType;
+        this.docTypeModel = res.Data as DDLDocumentTypeModel[];
+
       }
     });
   }
 
-  getDocumentType(value: string | number) {
-    return this.dropDown?.ddlDocumentType?.find(x => x.Value == value)?.Text;
+  getDocumentTypeText(value: string | number) {
+    return this.docTypeModel?.find(x => x.Id == value)?.Name;
   }
   AddEditKycItem() {
 
-    if (this.model.Kycnumber.length > 0 && this.model.KycdocumentTypeId > 0) {
+    if (this.model.Kycnumber!.length > 0 && this.model.KycdocumentTypeId > 0) {
       let itm = this.kycModel.findIndex(x => x.KycdocumentTypeId == this.model.KycdocumentTypeId);
       if (itm < 0) {
         this.kycModel.push(this.model);
@@ -72,8 +75,27 @@ export class UserKYCDetailSectionComponent implements OnInit {
     }
   }
 
-  onFrmSubmit(){
+  onFrmSubmit() {
     this.onSubmit.emit(this.kycModel);
   }
+  onChangeDocType() {
+    this.model.Kycnumber = undefined;
+    let dataItem = this.docTypeModel.find(x => x.Id == this.model?.KycdocumentTypeId) as DDLDocumentTypeModel;
+
+    this.DocCharLenght =dataItem.DocumentNumberLength;
+  }
+  onCheckValidInput(val: any) {
+    debugger
+    let dataItem = this.docTypeModel.find(x => x.Id == this.model?.KycdocumentTypeId) as DDLDocumentTypeModel;
+
+    if (dataItem.IsNumeric) {
+      return this._commonService.NumberOnly(val);
+
+    } else {
+      return this._commonService.AlphaNumericOnly(val);
+
+    }
+  }
+
 
 }

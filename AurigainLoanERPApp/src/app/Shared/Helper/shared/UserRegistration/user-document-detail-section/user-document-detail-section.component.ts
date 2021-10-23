@@ -47,6 +47,7 @@ export class UserDocumentDetailSectionComponent implements OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+
     if (changes.documentModel.previousValue != changes.documentModel.currentValue) {
       this.checkExistingFilesCount();
     }
@@ -62,28 +63,19 @@ export class UserDocumentDetailSectionComponent implements OnInit {
   }
 
   onDocumentAttach(docuemtnTypeId: number, file: FileInfo[], isEdit: boolean) {
-    debugger
+    
     let docIndex = this.documentModel.findIndex(x => x.DocumentTypeId == docuemtnTypeId);
     switch (docuemtnTypeId) {
       case this.docTypeEnum.AadhaarCard:
-        //#addLogic
-        // if (this.TotalAdharDoc! > 2) {
-        //   return false;
-        // }
+
         this.TotalAdharDoc = undefined;
         break;
       case this.docTypeEnum.PANCard:
-        //#addLogic
-        // if (this.TotalPANDoc! > 2) {
-        //   return false;
-        // }
+
         this.TotalPANDoc = undefined;
         break;
       case this.docTypeEnum.CancelledCheque:
-        //#addLogic
-        // if (this.TotalChequeDoc! > 1) {
-        //   return false;
-        // }
+
         this.TotalChequeDoc = undefined;
         break;
 
@@ -174,13 +166,13 @@ export class UserDocumentDetailSectionComponent implements OnInit {
 
         switch (element.DocumentTypeId) {
           case this.docTypeEnum.AadhaarCard:
-            this.TotalAdharDoc = element!.Files!.length;
+            this.TotalAdharDoc = element?.Files?.length > 0 ? element?.Files?.length : undefined;
             break;
           case this.docTypeEnum.PANCard:
-            this.TotalPANDoc = element!.Files!.length;
+            this.TotalPANDoc = element?.Files?.length > 0 ? element?.Files?.length : undefined;
             break;
           case this.docTypeEnum.CancelledCheque:
-            this.TotalChequeDoc = element!.Files!.length;
+            this.TotalChequeDoc = element?.Files?.length > 0 ? element?.Files?.length : undefined;
             break;
         }
 

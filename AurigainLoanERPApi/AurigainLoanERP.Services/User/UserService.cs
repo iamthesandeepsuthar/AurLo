@@ -578,22 +578,22 @@ namespace AurigainLoanERP.Services.User
         }
         #endregion
 
-        #region <<Manager User>>
+        #region << Manager User >>
         public async Task<ApiServiceResponseModel<string>> AddUpdateManagerAsync(UserManagerModel model)
         {
             try
             {
-                await _db.Database.BeginTransactionAsync();               
-                if (model!= null)
-                {               
-                    var response =   await SaveUserManagerAsync(model);
+                await _db.Database.BeginTransactionAsync();
+                if (model != null)
+                {
+                    var response = await SaveUserManagerAsync(model);
                     if (response)
                     {
                         _db.Database.CommitTransaction();
                         return CreateResponse<string>("", ResponseMessage.Save, true, ((int)ApiStatusCode.Ok));
-                    }                               
-                        _db.Database.RollbackTransaction();
-                        return CreateResponse<string>(null, ResponseMessage.UserExist, false, ((int)ApiStatusCode.DataBaseTransactionFailed));      
+                    }
+                    _db.Database.RollbackTransaction();
+                    return CreateResponse<string>(null, ResponseMessage.UserExist, false, ((int)ApiStatusCode.DataBaseTransactionFailed));
                 }
                 else
                 {
@@ -848,6 +848,8 @@ namespace AurigainLoanERP.Services.User
 
         #endregion
 
+        #region << Private Method>>
+
         /// <summary>
         /// Save User
         /// </summary>
@@ -949,6 +951,12 @@ namespace AurigainLoanERP.Services.User
 
 
         }
+        /// <summary>
+        /// Save Door Step Agent
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="userId"></param>
+        /// <returns></returns>
         private async Task<bool> SaveDoorStepAgentAsync(DoorStepAgentPostModel model, long userId)
         {
             try
@@ -1343,6 +1351,11 @@ namespace AurigainLoanERP.Services.User
             }
 
         }
+        /// <summary>
+        /// Save user manager
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         private async Task<bool> SaveUserManagerAsync(UserManagerModel model)
         {
             try
@@ -1415,5 +1428,8 @@ namespace AurigainLoanERP.Services.User
 
 
         }
+
+        #endregion
+
     }
 }

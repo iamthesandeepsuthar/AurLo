@@ -211,22 +211,7 @@ export class AddUpdateAgentComponent implements OnInit {
     });
   }
 
-  onUpdateProfileImage(file: FileInfo) {
-    if (this.Id > 0) {
-      this.profileModel.ProfileBase64 = file.FileBase64;
-      this.profileModel.FileName = file.Name;
-      this.profileModel.UserId = this.Id;
-      let subscription = this._userSettingService.UpdateUserProfile(this.profileModel).subscribe(res => {
-      subscription.unsubscribe();
-      if(res.IsSuccess) {
-        this._toast.success('profile picture upload successful','Upload Status');
-      } else {
-        this._toast.error(res.Message as string ,'Upload Status');
-      }
-      });
-    }
 
-  }
   // onGetDetail() {
   //   if (this.Id > 0) {
   //     this._userAgentService.GetAgent(this.Id).subscribe(res => {
@@ -252,6 +237,8 @@ export class AddUpdateAgentComponent implements OnInit {
   //             this.model.User.UserName = data?.User?.UserName;
   //             this.model.User.IsApproved = data?.User?.IsApproved;
   //             this.model.User.DeviceToken = data?.User?.DeviceToken;
+  //this.model.User.IsWhatsApp= data?.User?.IsWhatsApp;
+  //
   //           }
 
   //           if (data?.BankDetails) {
@@ -329,18 +316,21 @@ export class AddUpdateAgentComponent implements OnInit {
     };
   }
   onUploadProfileImage() {
-    let profileModel = new UserSettingPostModel();
-    profileModel.FileName = this.fileData?.name;
-    profileModel.UserId = Number(this.Id);
-    profileModel.ProfileBase64 = this.previewUrl;
-    let subscription = this._userSettingService.UpdateUserProfile(profileModel).subscribe(res => {
-      subscription.unsubscribe();
-      if(res.IsSuccess) {
-        this._toast.success('profile picture upload successful','Upload Status');
-      } else {
-        this._toast.error(res.Message as string ,'Upload Status');
-      }
-    });
+    if(this.Id){
+      let profileModel = new UserSettingPostModel();
+      profileModel.FileName = this.fileData?.name;
+      profileModel.UserId = Number(this.Id);
+      profileModel.ProfileBase64 = this.previewUrl;
+      this._userSettingService.UpdateUserProfile(profileModel).then(res => {
+
+        if(res.IsSuccess) {
+          this._toast.success('profile picture upload successful','Upload Status');
+        } else {
+          this._toast.error(res.Message as string ,'Upload Status');
+        }
+      });
+    }
+
 
 
 

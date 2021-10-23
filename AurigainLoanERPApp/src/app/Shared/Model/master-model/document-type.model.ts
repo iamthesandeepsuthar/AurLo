@@ -12,4 +12,6 @@ export class DocumentTypeModel {
 export class DDLDocumentTypeModel {
   Id!: number;
   Name!: string | null;
+  DocumentNumberLength!: number;
+  IsNumeric!:boolean;
 }

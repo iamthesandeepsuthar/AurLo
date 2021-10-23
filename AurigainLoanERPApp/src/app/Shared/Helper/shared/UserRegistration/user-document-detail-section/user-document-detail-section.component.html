@@ -8,7 +8,8 @@
         <label>Aadhaar Card Picture</label>
         <input type="hidden" name="AadhaarCard" [(ngModel)]="TotalAdharDoc" formControlName="AadhaarCard">
         <app-file-selector (FilesChanged)="onDocumentAttach(docTypeEnum.AadhaarCard, $event,false)"
-           [ngClass]="{ 'is-invalid': f.AadhaarCard?.errors && f.AadhaarCard?.touched}">
+          [ngClass]="{ 'is-invalid': f.AadhaarCard?.errors && f.AadhaarCard?.touched}"
+          [CurrentFileLength]="TotalAdharDoc??0" [MaxFileLength]="2">
         </app-file-selector>
 
         <div class="invalid-feedback"
@@ -17,7 +18,8 @@
         <ul *ngIf="documentModel!.length>0 && (getAdharDocsFile) &&  (getAdharDocsFile).DocumentTypeId > 0 ">
           <ng-container *ngFor="let item of (getAdharDocsFile)?.Files">
 
-            <div *ngIf="item.Id>0" class="dropzone dropzone-light file-upload-details" (click)="removeDocFile(item,this.getAdharDocsFile!.Id, getAdharDocsFile!.DocumentTypeId)">
+            <div *ngIf="item.Id>0" class="dropzone dropzone-light file-upload-details"
+              (click)="removeDocFile(item,this.getAdharDocsFile!.Id, getAdharDocsFile!.DocumentTypeId)">
               <div class="dz-details">
                 <div class="dz-filename"><span data-dz-name="">{{item?.FileName}}</span></div>
               </div>
@@ -36,7 +38,8 @@
         <label>PAN Card Picture</label>
         <input type="hidden" name="PANCard" [(ngModel)]="TotalPANDoc" formControlName="PANCard">
         <app-file-selector (FilesChanged)="onDocumentAttach(docTypeEnum.PANCard, $event,false)"
-          [ngClass]="{ 'is-invalid': f.PANCard?.errors && f.PANCard?.touched}">
+          [ngClass]="{ 'is-invalid': f.PANCard?.errors && f.PANCard?.touched}" [CurrentFileLength]="TotalPANDoc??0"
+          [MaxFileLength]="1">
         </app-file-selector>
 
         <div class="invalid-feedback"
@@ -45,7 +48,8 @@
 
         <ul *ngIf="documentModel!.length>0 && getPANDocsFile &&  (getPANDocsFile).DocumentTypeId > 0 ">
           <ng-container *ngFor="let item of (getPANDocsFile)?.Files">
-            <div *ngIf="item.Id>0" class="dropzone dropzone-light file-upload-details" (click)="removeDocFile(item,this.getPANDocsFile!.Id, getPANDocsFile!.DocumentTypeId)">
+            <div *ngIf="item.Id>0" class="dropzone dropzone-light file-upload-details"
+              (click)="removeDocFile(item,this.getPANDocsFile!.Id, getPANDocsFile!.DocumentTypeId)">
               <div class="dz-details">
                 <div class="dz-filename"><span data-dz-name="">{{item?.FileName}}</span></div>
               </div>
@@ -60,7 +64,8 @@
       <div class="form-group col-md-4">
         <label>Cancelled Cheque Picture</label>
         <input type="hidden" name="CancelledCheque" [(ngModel)]="TotalChequeDoc" formControlName="CancelledCheque">
-        <app-file-selector (FilesChanged)="onDocumentAttach(docTypeEnum.CancelledCheque, $event,false)"
+        <app-file-selector [CurrentFileLength]="TotalChequeDoc??0" [MaxFileLength]="1"
+          (FilesChanged)="onDocumentAttach(docTypeEnum.CancelledCheque, $event,false)"
           [ngClass]="{ 'is-invalid': f.CancelledCheque?.errors && f.CancelledCheque?.touched}">
         </app-file-selector>
 
@@ -70,7 +75,8 @@
 
         <ul *ngIf="documentModel!.length>0 &&  getChequeDocsFile && (getChequeDocsFile)!.DocumentTypeId >0">
           <ng-container *ngFor="let item of (getChequeDocsFile)?.Files">
-            <div *ngIf="item.Id>0" class="dropzone dropzone-light file-upload-details" (click)="removeDocFile(item,this.getChequeDocsFile!.Id, getChequeDocsFile!.DocumentTypeId)">
+            <div *ngIf="item.Id>0" class="dropzone dropzone-light file-upload-details"
+              (click)="removeDocFile(item,this.getChequeDocsFile!.Id, getChequeDocsFile!.DocumentTypeId)">
               <div class="dz-details">
                 <div class="dz-filename"><span data-dz-name="">{{item?.FileName}}</span></div>
               </div>

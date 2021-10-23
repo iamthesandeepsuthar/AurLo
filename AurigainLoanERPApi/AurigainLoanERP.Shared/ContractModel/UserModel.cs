@@ -14,11 +14,12 @@ namespace AurigainLoanERP.Shared.ContractModel
         public long Id { get; set; }
         public int UserRoleId { get; set; }
         public string UserRoleName { get; set; }
-        public string ProfilePath { get; set;}
+        public string ProfilePath { get; set; }
         public string UserName { get; set; }
         public string MPin { get; set; }
         public string Email { get; set; }
         public string Mobile { get; set; }
+        public bool? IsWhatsApp { get; set; }
         public bool IsApproved { get; set; }
         public string DeviceToken { get; set; }
         public string Token { get; set; }
@@ -51,7 +52,7 @@ namespace AurigainLoanERP.Shared.ContractModel
         public long Id { get; set; }
         public string Kycnumber { get; set; }
         public int KycdocumentTypeId { get; set; }
-        public string KycdocumentTypeName{ get; set; }
+        public string KycdocumentTypeName { get; set; }
 
         public long UserId { get; set; }
         public bool? IsActive { get; set; }
@@ -77,7 +78,6 @@ namespace AurigainLoanERP.Shared.ContractModel
 
     }
 
-
     public class UserReportingPersonViewModel
     {
         public long Id { get; set; }
@@ -97,7 +97,7 @@ namespace AurigainLoanERP.Shared.ContractModel
 
         public long Id { get; set; }
         public int DocumentTypeId { get; set; }
-        public string DocumentTypeName{ get; set; }
+        public string DocumentTypeName { get; set; }
 
         public long UserId { get; set; }
         public bool? IsActive { get; set; }
@@ -192,11 +192,11 @@ namespace AurigainLoanERP.Shared.ContractModel
 
     public class DoorStepAgentListModel
     {
-    
+
         public long Id { get; set; }
         public long UserId { get; set; }
         public int RoleId { get; set; }
-        public string Role { get; set; } 
+        public string Role { get; set; }
         public string Email { get; set; }
         public string Mobile { get; set; }
         public string FullName { get; set; }
@@ -218,9 +218,9 @@ namespace AurigainLoanERP.Shared.ContractModel
         public DateTime? ModifiedOn { get; set; }
         public long? CreatedBy { get; set; }
         public long? ModifiedBy { get; set; }
-      
+
     }
-     
+
     public class DoorStepAgentViewModel
     {
         public DoorStepAgentViewModel()
@@ -282,6 +282,8 @@ namespace AurigainLoanERP.Shared.ContractModel
         public string UserName { get; set; }
         public string Email { get; set; }
         public string Mobile { get; set; }
+        public bool? IsWhatsApp { get; set; }
+
         public bool? IsApproved { get; set; }
         public string DeviceToken { get; set; }
 
@@ -349,7 +351,7 @@ namespace AurigainLoanERP.Shared.ContractModel
             Documents = new List<UserDocumentPostModel>();
             UserKYC = new List<UserKycPostModel>();
             UserNominee = new UserNomineePostModel();
-           // ReportingPerson = new UserReportingPersonPostModel();
+            // ReportingPerson = new UserReportingPersonPostModel();
         }
 
         public long Id { get; set; }
@@ -362,7 +364,7 @@ namespace AurigainLoanERP.Shared.ContractModel
         public int? DistrictId { get; set; }
         public string PinCode { get; set; }
         public DateTime? DateOfBirth { get; set; }
-          public bool? IsActive { get; set; }
+        public bool? IsActive { get; set; }
 
         public UserPostModel User { get; set; }
 
@@ -381,9 +383,9 @@ namespace AurigainLoanERP.Shared.ContractModel
             BankDetails = new UserBankDetailPostModel();
             UserKYC = new List<UserKycPostModel>();
             UserNominee = new UserNomineePostModel();
-         //   ReportingPerson = new UserReportingPersonPostModel();
+            //   ReportingPerson = new UserReportingPersonPostModel();
             Documents = new List<UserDocumentPostModel>();
-         SecurityDeposit = new UserSecurityDepositPostModel();
+            SecurityDeposit = new UserSecurityDepositPostModel();
 
 
         }
@@ -398,14 +400,14 @@ namespace AurigainLoanERP.Shared.ContractModel
         public int? DistrictId { get; set; }
         public int? StateId { get; set; }
         public string PinCode { get; set; }
-        public DateTime? DateOfBirth { get; set; } 
+        public DateTime? DateOfBirth { get; set; }
         public bool SelfFunded { get; set; }
 
         public UserPostModel User { get; set; }
         public UserBankDetailPostModel? BankDetails { get; set; }
         public List<UserKycPostModel>? UserKYC { get; set; }
         public UserNomineePostModel? UserNominee { get; set; }
-    
+
 
         public UserReportingPersonPostModel? ReportingPerson { get; set; }
         public List<UserDocumentPostModel>? Documents { get; set; }
@@ -413,7 +415,8 @@ namespace AurigainLoanERP.Shared.ContractModel
 
     }
 
-    public class UserSettingPostModel {
+    public class UserSettingPostModel
+    {
         public long UserId { get; set; }
         public string ProfileBase64 { get; set; }
         public string FileName { get; set; }
@@ -421,7 +424,8 @@ namespace AurigainLoanERP.Shared.ContractModel
 
     }
 
-    public class UserAvailibilityPostModel {
+    public class UserAvailibilityPostModel
+    {
         public long UserId { get; set; }
         public string MondayST { get; set; }
         public string MondayET { get; set; }

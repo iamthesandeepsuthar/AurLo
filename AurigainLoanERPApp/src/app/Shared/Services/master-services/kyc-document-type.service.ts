@@ -15,7 +15,7 @@ export class KycDocumentTypeService {
     let url = `${this._baseService.API_Url.Kyc_Document_Type_Detail_Api}${id}`;
     return this._baseService.get(url);
   }
-  GetDDLDocumentType(): Observable<ApiResponse<DDLDocumentTypeModel>> {
+  GetDDLDocumentType(): Observable<ApiResponse<DDLDocumentTypeModel[]>> {
     let url = `${this._baseService.API_Url.Kyc_Document_Type_Dropdown_Api}`;
     return this._baseService.get(url);
   }

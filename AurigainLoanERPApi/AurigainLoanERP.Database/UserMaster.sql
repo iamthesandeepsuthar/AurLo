@@ -3,7 +3,9 @@
 	[Id] BIGINT NOT NULL PRIMARY KEY IDENTITY, 
     [UserRoleId] INT NOT NULL references UserRole(Id),
     [UserName] NVARCHAR(500) NOT NULL, 
-    [MPin] NVARCHAR(500) NOT NULL, 
+    [MPin] NVARCHAR(500) NOT NULL,
+    [IsWhatsApp] BIT NULL, 
+    [Password] NVARCHAR(MAX) NULL, 
     [Email] NVARCHAR(300) NULL, 
     [Mobile] NVARCHAR(20) NULL ,
     [ProfilePath] NVARCHAR(MAX),
@@ -16,8 +18,7 @@
     [ModifiedOn] DATETIME NULL, 
     [CreatedBy] BIGINT NULL, 
     [ModifiedBy] BIGINT NULL, 
-    [IsWhatsApp] BIT NULL, 
-    [Password] NVARCHAR(MAX) NULL, 
+    
  
 
 )

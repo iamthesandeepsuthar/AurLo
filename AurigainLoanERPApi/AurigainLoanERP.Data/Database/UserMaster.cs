@@ -30,6 +30,8 @@ namespace AurigainLoanERP.Data.Database
         public int UserRoleId { get; set; }
         public string UserName { get; set; }
         public string Mpin { get; set; }
+        public bool? IsWhatsApp { get; set; }
+        public string Password { get; set; }
         public string Email { get; set; }
         public string Mobile { get; set; }
         public string ProfilePath { get; set; }
@@ -42,8 +44,6 @@ namespace AurigainLoanERP.Data.Database
         public DateTime? ModifiedOn { get; set; }
         public long? CreatedBy { get; set; }
         public long? ModifiedBy { get; set; }
-        public bool? IsWhatsApp { get; set; }
-        public string Password { get; set; }
 
         public virtual UserRole UserRole { get; set; }
         public virtual ICollection<Managers> Managers { get; set; }

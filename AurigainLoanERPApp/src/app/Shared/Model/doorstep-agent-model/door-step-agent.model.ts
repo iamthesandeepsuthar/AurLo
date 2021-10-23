@@ -88,7 +88,7 @@ export class UserKYCPostModel {
     // this.Id = 0;
   }
   Id!: number;
-  Kycnumber!: string;
+  Kycnumber!: string | undefined;
   KycdocumentTypeId!: number;
 }
 
@@ -108,6 +108,7 @@ export class UserPostModel {
     // this.Id = 0;
     this.UserRoleId = 0;
     this.IsApproved = false;
+    this.IsWhatsApp = false;
 
   }
   Id!: number;
@@ -115,6 +116,7 @@ export class UserPostModel {
   UserName!: string;
   Email!: string;
   Mobile!: string;
+  IsWhatsApp!: boolean;
   IsApproved!: boolean;
   DeviceToken!: string;
 }
@@ -267,6 +269,8 @@ export interface UserViewModel {
   MPin: string;
   Email: string;
   Mobile: string;
+  IsWhatsApp: boolean;
+
   IsApproved: boolean;
   DeviceToken: string;
   Token: string;
