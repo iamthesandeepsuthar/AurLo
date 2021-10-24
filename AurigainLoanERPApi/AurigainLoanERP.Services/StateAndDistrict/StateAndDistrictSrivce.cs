@@ -416,11 +416,15 @@ namespace AurigainLoanERP.Services.StateAndDistrict
                     else
                     {
                         var areaDetail = await _db.PincodeArea.FirstOrDefaultAsync(x => x.Id == item.Id);
-                        areaDetail.Pincode = item.Pincode;
-                        areaDetail.AreaName = item.AreaName;
-                        areaDetail.DistrictId = DistrictId;
-                        areaDetail.Modifieddate = DateTime.Now;
-                        await _db.SaveChangesAsync();
+                        if (areaDetail != null)
+                        {
+                            areaDetail.Pincode = item.Pincode;
+                            areaDetail.AreaName = item.AreaName;
+                         //   areaDetail.DistrictId = DistrictId;
+                            areaDetail.Modifieddate = DateTime.Now;
+                            await _db.SaveChangesAsync();
+                        }
+
 
                     }
 
