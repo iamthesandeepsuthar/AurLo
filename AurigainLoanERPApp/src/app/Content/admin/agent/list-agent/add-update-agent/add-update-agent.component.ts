@@ -230,6 +230,8 @@ export class AddUpdateAgentComponent implements OnInit,AfterContentChecked {
             this.model.QualificationId = data?.QualificationId;
             this.model.Address = data?.Address;
             this.model.DistrictId = data?.DistrictId;
+            this.model.StateId = data?.StateId;
+
             this.model.PinCode = data?.PinCode;
             this.model.DateOfBirth = data?.DateOfBirth;
             this.previewUrl = data?.User.ProfilePath;
@@ -278,7 +280,7 @@ export class AddUpdateAgentComponent implements OnInit,AfterContentChecked {
               this.model.ReportingPerson.UserId = data?.ReportingPerson?.UserId;
               this.model.ReportingPerson.ReportingUserId = data?.ReportingPerson?.ReportingUserId;
             }
-
+debugger
             if (data?.Documents) {
 
               this.model.Documents = data?.Documents?.map(doc => {
@@ -308,6 +310,7 @@ export class AddUpdateAgentComponent implements OnInit,AfterContentChecked {
     this.fileData = fileInput.target.files[0] as File;
     this.preview();
   }
+
   preview() {
     // Show preview
     const mimeType = this.fileData?.type;
