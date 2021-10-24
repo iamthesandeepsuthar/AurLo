@@ -1,6 +1,7 @@
 import { ToastrService } from 'ngx-toastr';
-import { Component, EventEmitter, Output, Input } from '@angular/core';
+import { Component, EventEmitter, Output, Input, Sanitizer } from '@angular/core';
 import { AlertService } from 'src/app/Shared/Services/alert.service';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 
 export class FileInfo {
@@ -66,7 +67,7 @@ export class FileSelectorComponent {
   @Input() MaxFileLength: number = 1;//for all
   @Input() CurrentFileLength: number = 0;//for all
 
-  constructor(readonly _alertService: AlertService, private readonly toast: ToastrService) {
+  constructor(readonly _alertService: AlertService, private readonly toast: ToastrService, public domSanitizer: DomSanitizer) {
     this.FileSelected = new EventEmitter();
     this.FilesChanged = new EventEmitter();
     this._files = [];
@@ -80,7 +81,10 @@ export class FileSelectorComponent {
     return this._files;
   }
 
+
   RemoveFile(file: FileInfo) {
+
+
     let index = this._files.indexOf(file);
     if (index > -1) {
       this._files.splice(index, 1);
@@ -89,8 +93,18 @@ export class FileSelectorComponent {
 
   }
 
+  openFile(file: FileInfo) {
+
+    let fileUrl = (file.FileBase64);
+
+    var newWin = open("'url'", "_blank");
+    newWin!.document.write('<img  src="' + fileUrl + '"  height="100%" width="100%" />');
+
+
+  }
+
   HandleFileInput(event: any) {
-    debugger
+
     let TotalFilesCount = ((this.CurrentFileLength > 0 && this.Files?.length > 0 ? this.Files?.length : this.CurrentFileLength) + 1)
     if (TotalFilesCount <= this.MaxFileLength) {
       let files = event.target.files;
