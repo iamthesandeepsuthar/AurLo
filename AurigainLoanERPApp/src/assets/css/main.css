@@ -3927,6 +3927,25 @@ table.table.table-striped.dataTable.table-header.table-blue tbody tr:nth-of-type
     max-width: 280px;
 }
 
+.bank-master-add-branch-btn {
+    font-size: 20px;
+}
+
+.bank-master-add-branch-btn::before {
+    content: "-";
+    font-size: 29px;
+    font-weight: 900;
+}
+
+.bank-master-add-branch-btn.collapsed:before {
+    content: "+";
+}
+
+
+/* .bank-master-add-branch-btn.collapsed {
+    font-size: 20px;
+} */
+
 
 /* Theme Dark Start */
 
