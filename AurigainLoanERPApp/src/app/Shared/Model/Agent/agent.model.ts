@@ -65,6 +65,7 @@ export interface AgentViewModel {
   Address: string;
   DistrictId: number | null;
   DistrictName: string;
+  StateId : number ;
   StateName: string;
   PinCode: string;
   DateOfBirth: string | null;

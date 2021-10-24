@@ -133,6 +133,7 @@ namespace AurigainLoanERP.Shared.ContractModel
 
         public string Address { get; set; }
         public int? DistrictId { get; set; }
+        public int? StateId { get; set; }
         public string DistrictName { get; set; }
         public string StateName { get; set; }
         public string PinCode { get; set; }

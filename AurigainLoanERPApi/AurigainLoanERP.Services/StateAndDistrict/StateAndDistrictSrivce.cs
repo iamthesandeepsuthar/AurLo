@@ -21,6 +21,7 @@ namespace AurigainLoanERP.Services.StateAndDistrict
             this._mapper = mapper;
             _db = db;
         }
+
         #region State Method
         public async Task<ApiServiceResponseModel<List<StateModel>>> GetAllStateAsync(IndexModel model)
         {
@@ -388,6 +389,8 @@ namespace AurigainLoanERP.Services.StateAndDistrict
 
         #endregion
 
+        #region << Private Method>>
+
         private async Task<bool> AddUpdateAreas(List<PincodeAreaModel> model, long DistrictId)
         {
             try
@@ -432,6 +435,6 @@ namespace AurigainLoanERP.Services.StateAndDistrict
 
             }
         }
-
+        #endregion
     }
 }
