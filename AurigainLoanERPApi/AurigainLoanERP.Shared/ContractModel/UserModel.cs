@@ -440,7 +440,7 @@ namespace AurigainLoanERP.Shared.ContractModel
         public string SundayST { get; set; }
         public string SundayET { get; set; }
         public int? Capacity { get; set; }
-        public long? PinCode { get; set; }
+        public long? PincodeAreaId { get; set; }
         public int? DistrictId { get; set; }
     }
     #endregion
