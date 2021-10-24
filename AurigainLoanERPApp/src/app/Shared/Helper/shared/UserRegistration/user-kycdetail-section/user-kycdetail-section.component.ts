@@ -1,6 +1,6 @@
 import { AlertService } from './../../../../Services/alert.service';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommonService } from 'src/app/Shared/Services/common.service';
 import { UserKYCPostModel } from '../../../../Model/doorstep-agent-model/door-step-agent.model';
 import { DropDownModel } from '../../../common-model';
@@ -23,12 +23,14 @@ export class UserKYCDetailSectionComponent implements OnInit {
   formGroup = new FormGroup({});
   docTypeModel!: DDLDocumentTypeModel[];
   get f() { return this.formGroup.controls; }
-  DocCharLenght=0;
+  DocCharLenght = 0;
+
   constructor(private readonly fb: FormBuilder, private readonly _kycDocumentTypeService: KycDocumentTypeService,
     readonly _commonService: CommonService, private readonly _alertService: AlertService) { }
 
   ngOnInit(): void {
-    this.getDocumentType()
+    this.formInit();
+    this.getDocumentType();
   }
 
 
@@ -45,16 +47,21 @@ export class UserKYCDetailSectionComponent implements OnInit {
   getDocumentTypeText(value: string | number) {
     return this.docTypeModel?.find(x => x.Id == value)?.Name;
   }
+
   AddEditKycItem() {
 
-    if (this.model.Kycnumber!.length > 0 && this.model.KycdocumentTypeId > 0) {
-      let itm = this.kycModel.findIndex(x => x.KycdocumentTypeId == this.model.KycdocumentTypeId);
-      if (itm < 0) {
-        this.kycModel.push(this.model);
-      } else {
-        this._alertService.Warning("Kyc Document Detail Already exist!");
+    this.formGroup.markAllAsTouched();
+    if (this.formGroup.valid) {
+
+      if (this.model.Kycnumber!.length > 0 && this.model.KycdocumentTypeId > 0) {
+        let itm = this.kycModel.findIndex(x => x.KycdocumentTypeId == this.model.KycdocumentTypeId);
+        if (itm < 0) {
+          this.kycModel.push(this.model);
+        } else {
+          this._alertService.Warning("Kyc Document Detail Already exist!");
+        }
+        this.model = {} as UserKYCPostModel;
       }
-      this.model = {} as UserKYCPostModel;
     }
   }
 
@@ -75,17 +82,55 @@ export class UserKYCDetailSectionComponent implements OnInit {
     }
   }
 
-  onFrmSubmit() {
-    this.onSubmit.emit(this.kycModel);
-  }
-  onChangeDocType() {
-    this.model.Kycnumber = undefined;
-    let dataItem = this.docTypeModel.find(x => x.Id == this.model?.KycdocumentTypeId) as DDLDocumentTypeModel;
 
-    this.DocCharLenght =dataItem.DocumentNumberLength;
+  formInit() {
+    this.formGroup = this.fb.group({
+      KycdocumentType: [undefined, null],
+      KycNumber: [undefined, null],
+    });
   }
+
+
+  onFrmSubmit() {
+    this.formGroup.markAllAsTouched();
+    if (this.formGroup.valid) {
+      this.onSubmit.emit(this.kycModel);
+    }
+
+  }
+
+  onChangeDocType(value: number) {
+
+    //this.model.Kycnumber = undefined;
+    if (this.model?.KycdocumentTypeId) {
+
+
+      let dataItem = this.docTypeModel?.find(x => x.Id == (this.model?.KycdocumentTypeId ?? value)) as DDLDocumentTypeModel;
+      this.DocCharLenght = dataItem.DocumentNumberLength;
+
+      if (this.model?.KycdocumentTypeId > 0) {
+        this.formGroup.get("KycdocumentType")?.setValidators(Validators.required);
+        this.formGroup.get("KycNumber")?.setValidators(Validators.compose([Validators.required, Validators.maxLength(this.DocCharLenght), Validators.minLength(this.DocCharLenght)]));
+      }
+      else {
+        this.formGroup.get("KycdocumentType")?.setValidators(null);
+        this.formGroup.get("KycNumber")?.setValidators(null);
+      }
+
+    }
+    else {
+      this.formGroup.get("KycdocumentType")?.setValidators(null);
+      this.formGroup.get("KycNumber")?.setValidators(null);
+    }
+
+    this.formGroup.get("KycdocumentType")?.updateValueAndValidity();
+    this.formGroup.get("KycNumber")?.updateValueAndValidity();
+
+
+  }
+
   onCheckValidInput(val: any) {
-    debugger
+
     let dataItem = this.docTypeModel.find(x => x.Id == this.model?.KycdocumentTypeId) as DDLDocumentTypeModel;
 
     if (dataItem.IsNumeric) {
@@ -96,6 +141,8 @@ export class UserKYCDetailSectionComponent implements OnInit {
 
     }
   }
+
+
 
 
 }

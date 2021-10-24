@@ -1,4 +1,7 @@
 export class DistrictModel {
+  constructor() {
+    this.Areas = [] as PincodeAreaModel[];
+  }
   Id!: number;
   Name!: string | null;
   StateId!: number;
@@ -8,7 +11,7 @@ export class DistrictModel {
   IsDelete!: boolean;
   CreatedOn!: Date;
   ModifiedOn!: Date | null;
-  Areas! : PincodeAreaModel[];
+  Areas!: PincodeAreaModel[];
 }
 export class DDLDistrictModel {
   Id!: number;
@@ -17,7 +20,7 @@ export class DDLDistrictModel {
 }
 export class PincodeAreaModel {
   Id!: number;
-  Pincode!: string ;
+  Pincode!: string;
   AreaName!: string;
   IsActive!: boolean | null;
   IsDelete!: boolean;

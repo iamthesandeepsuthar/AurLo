@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
+import { AfterContentChecked, ChangeDetectorRef, Component, OnInit, ViewChild } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { ToastrService } from "ngx-toastr";
@@ -10,7 +10,7 @@ import { UserDocumentDetailSectionComponent } from "src/app/Shared/Helper/shared
 import { UserKYCDetailSectionComponent } from "src/app/Shared/Helper/shared/UserRegistration/user-kycdetail-section/user-kycdetail-section.component";
 import { UserNomineeDetailSectionComponent } from "src/app/Shared/Helper/shared/UserRegistration/user-nominee-detail-section/user-nominee-detail-section.component";
 import { UserSecurityDepositComponent } from "src/app/Shared/Helper/shared/UserRegistration/user-security-deposit/user-security-deposit.component";
-import { AgentPostModel } from "src/app/Shared/Model/Agent/agent.model";
+import { AgentPostModel, AgentViewModel } from "src/app/Shared/Model/Agent/agent.model";
 import { UserPostModel, UserKYCPostModel, UserNomineePostModel, UserBankDetailsPostModel, DocumentPostModel, FilePostModel } from "src/app/Shared/Model/doorstep-agent-model/door-step-agent.model";
 import { UserSettingPostModel } from "src/app/Shared/Model/User-setting-model/user-setting.model";
 import { AgentService } from "src/app/Shared/Services/agent-services/agent.service";
@@ -23,10 +23,10 @@ import { UserSettingService } from "src/app/Shared/Services/user-setting-service
   selector: 'app-add-update-agent',
   templateUrl: './add-update-agent.component.html',
   styleUrls: ['./add-update-agent.component.scss'],
-  providers : [AgentService]
+  providers: [AgentService,UserSettingService]
 })
-export class AddUpdateAgentComponent implements OnInit {
-
+export class AddUpdateAgentComponent implements OnInit,AfterContentChecked {
+  //#region << Variable >>
   Id: number = 0;
   model = new AgentPostModel();
   profileModel = {} as UserSettingPostModel;
@@ -48,8 +48,9 @@ export class AddUpdateAgentComponent implements OnInit {
   @ViewChild(UserKYCDetailSectionComponent, { static: false }) _childUserKYCDetailSection!: UserKYCDetailSectionComponent;
   @ViewChild(UserNomineeDetailSectionComponent, { static: false }) _childUserNomineeDetailSection!: UserNomineeDetailSectionComponent;
   @ViewChild(UserSecurityDepositComponent, { static: false }) _childUserSecurityDepositSection!: UserSecurityDepositComponent;
+  //#endregion
 
-  constructor(private readonly _alertService: AlertService, private readonly fb: FormBuilder,
+  constructor(private cdr: ChangeDetectorRef,private readonly _alertService: AlertService, private readonly fb: FormBuilder,
     private readonly _userAgentService: AgentService, private _activatedRoute: ActivatedRoute, private _router: Router,
     readonly _commonService: CommonService, private readonly _toast: ToastrService, private readonly _userSettingService: UserSettingService) {
     if (this._activatedRoute.snapshot.params.id) {
@@ -69,10 +70,13 @@ export class AddUpdateAgentComponent implements OnInit {
     this.formInit();
     this.GetDropDown();
     if (this.Id > 0) {
-      // this.onGetDetail();
+       this.onGetDetail();
     }
   }
+  ngAfterContentChecked() {
 
+    this.cdr.detectChanges();
+  }
 
   GetDropDown() {
     this._commonService.GetDropDown([DropDown_key.ddlQualification, DropDown_key.ddlState, DropDown_key.ddlGender]).subscribe(res => {
@@ -125,7 +129,7 @@ export class AddUpdateAgentComponent implements OnInit {
         serv.unsubscribe();
         if (res.IsSuccess) {
           this._toast.success('Doorstep agent added successful', 'Success');
-          this._router.navigate([this.routing_Url.AdminModule+'/'+this.routing_Url.DoorStepModule +'/' + this.routing_Url.DoorStepAgentListUrl]);
+          this._router.navigate([this.routing_Url.AdminModule + '/' + this.routing_Url.DoorStepModule + '/' + this.routing_Url.DoorStepAgentListUrl]);
         } else {
           this._toast.error(Message.SaveFail, 'Error');
           return;
@@ -133,7 +137,7 @@ export class AddUpdateAgentComponent implements OnInit {
       });
     }
   }
-  onFrmReset(){
+  onFrmReset() {
     this.formGroup.reset();
   }
   submitChildData(): boolean {
@@ -205,6 +209,7 @@ export class AddUpdateAgentComponent implements OnInit {
       ProfilePictureUrl: [undefined, undefined],
       SelfFunded: [false, Validators.required],
       IsActive: [true, Validators.required],
+      IsWhatsApp: [false, Validators.required],
       Mobile: [undefined, Validators.compose([Validators.required, Validators.maxLength(12), Validators.minLength(10)])],
       Email: [false, Validators.compose([Validators.required, Validators.email])],
 
@@ -212,93 +217,93 @@ export class AddUpdateAgentComponent implements OnInit {
   }
 
 
-  // onGetDetail() {
-  //   if (this.Id > 0) {
-  //     this._userAgentService.GetAgent(this.Id).subscribe(res => {
-  //       if (res.IsSuccess) {
-  //         let data = res.Data as AgentViewModel;
-  //         if (data) {
-  //           this.model.Id = data?.Id;
-  //           this.model.FullName = data?.FullName;
-  //           this.model.FatherName = data?.FatherName;
-  //           this.model.Gender = data?.Gender;
-  //           this.model.QualificationId = data?.QualificationId;
-  //           this.model.Address = data?.Address;
-  //           this.model.DistrictId = data?.DistrictId;
-  //           this.model.PinCode = data?.PinCode;
-  //           this.model.DateOfBirth = data?.DateOfBirth;
-  //           this.previewUrl = data?.User.ProfilePath;
+  onGetDetail() {
+    if (this.Id > 0) {
+      this._userAgentService.GetAgent(this.Id).subscribe(res => {
+        if (res.IsSuccess) {
+          let data = res.Data as AgentViewModel;
+          if (data) {
+            this.model.Id = data?.Id;
+            this.model.FullName = data?.FullName;
+            this.model.FatherName = data?.FatherName;
+            this.model.Gender = data?.Gender;
+            this.model.QualificationId = data?.QualificationId;
+            this.model.Address = data?.Address;
+            this.model.DistrictId = data?.DistrictId;
+            this.model.PinCode = data?.PinCode;
+            this.model.DateOfBirth = data?.DateOfBirth;
+            this.previewUrl = data?.User.ProfilePath;
 
-  //           if (data?.User) {
-  //             this.model.User.Email = data?.User?.Email;
-  //             this.model.User.Mobile = data?.User?.Mobile;
-  //             this.model.User.Id = data?.User?.Id;
-  //             this.model.User.UserRoleId = data?.User?.UserRoleId;
-  //             this.model.User.UserName = data?.User?.UserName;
-  //             this.model.User.IsApproved = data?.User?.IsApproved;
-  //             this.model.User.DeviceToken = data?.User?.DeviceToken;
-  //this.model.User.IsWhatsApp= data?.User?.IsWhatsApp;
-  //
-  //           }
+            if (data?.User) {
+              this.model.User.Email = data?.User?.Email;
+              this.model.User.Mobile = data?.User?.Mobile;
+              this.model.User.Id = data?.User?.Id;
+              this.model.User.UserRoleId = data?.User?.UserRoleId;
+              this.model.User.UserName = data?.User?.UserName;
+              this.model.User.IsApproved = data?.User?.IsApproved;
+              this.model.User.DeviceToken = data?.User?.DeviceToken;
+              this.model.User.IsWhatsApp = data?.User?.IsWhatsApp;
 
-  //           if (data?.BankDetails) {
-  //             this.model.BankDetails.Id = data?.BankDetails?.Id;
-  //             this.model.BankDetails.BankName = data?.BankDetails?.BankName;
-  //             this.model.BankDetails.AccountNumber = data?.BankDetails?.AccountNumber;
-  //             this.model.BankDetails.Ifsccode = data?.BankDetails?.Ifsccode;
-  //             this.model.BankDetails.Address = data?.BankDetails?.Address;
+            }
 
-  //           }
+            if (data?.BankDetails) {
+              this.model.BankDetails.Id = data?.BankDetails?.Id;
+              this.model.BankDetails.BankName = data?.BankDetails?.BankName;
+              this.model.BankDetails.AccountNumber = data?.BankDetails?.AccountNumber;
+              this.model.BankDetails.Ifsccode = data?.BankDetails?.Ifsccode;
+              this.model.BankDetails.Address = data?.BankDetails?.Address;
 
-  //           if (data?.UserKYC) {
+            }
 
-  //             this.model.UserKYC = data?.UserKYC?.map(user => {
-  //               return {
-  //                 Id: user.Id,
-  //                 Kycnumber: user.Kycnumber,
-  //                 KycdocumentTypeId: user.KycdocumentTypeId
-  //               } as UserKYCPostModel;
+            if (data?.UserKYC) {
 
-  //             });
-  //           }
+              this.model.UserKYC = data?.UserKYC?.map(user => {
+                return {
+                  Id: user.Id,
+                  Kycnumber: user.Kycnumber,
+                  KycdocumentTypeId: user.KycdocumentTypeId
+                } as UserKYCPostModel;
 
-  //           if (data?.UserNominee) {
-  //             this.model.UserNominee.Id = data?.UserNominee?.Id;
-  //             this.model.UserNominee.NamineeName = data?.UserNominee?.NamineeName;
-  //             this.model.UserNominee.RelationshipWithNominee = data?.UserNominee?.RelationshipWithNominee;
-  //           }
+              });
+            }
 
-  //           if (data?.ReportingPerson) {
-  //             this.model.ReportingPerson.Id = data?.ReportingPerson?.Id;
-  //             this.model.ReportingPerson.UserId = data?.ReportingPerson?.UserId;
-  //             this.model.ReportingPerson.ReportingUserId = data?.ReportingPerson?.ReportingUserId;
-  //           }
+            if (data?.UserNominee) {
+              this.model.UserNominee.Id = data?.UserNominee?.Id;
+              this.model.UserNominee.NamineeName = data?.UserNominee?.NamineeName;
+              this.model.UserNominee.RelationshipWithNominee = data?.UserNominee?.RelationshipWithNominee;
+            }
 
-  //           if (data?.Documents) {
+            if (data?.ReportingPerson) {
+              this.model.ReportingPerson.Id = data?.ReportingPerson?.Id;
+              this.model.ReportingPerson.UserId = data?.ReportingPerson?.UserId;
+              this.model.ReportingPerson.ReportingUserId = data?.ReportingPerson?.ReportingUserId;
+            }
 
-  //             this.model.Documents = data?.Documents?.map(doc => {
-  //               return {
-  //                 Id: doc?.Id,
-  //                 DocumentTypeId: doc?.DocumentTypeId,
-  //                 Files: doc?.UserDocumentFiles.map(file => {
-  //                   return {
-  //                     Id: file?.Id,
-  //                     FileName: file?.FileName,
-  //                     File: file?.Path,
-  //                     FileType: file?.FileType,
-  //                   } as FilePostModel;
-  //                 }),
-  //               } as DocumentPostModel;
+            if (data?.Documents) {
 
-  //             });
-  //           }
+              this.model.Documents = data?.Documents?.map(doc => {
+                return {
+                  Id: doc?.Id,
+                  DocumentTypeId: doc?.DocumentTypeId,
+                  Files: doc?.UserDocumentFiles.map(file => {
+                    return {
+                      Id: file?.Id,
+                      FileName: file?.FileName,
+                      File: file?.Path,
+                      FileType: file?.FileType,
+                    } as FilePostModel;
+                  }),
+                } as DocumentPostModel;
 
-  //         }
-  //       }
-  //     });
+              });
+            }
 
-  //   }
-  // }
+          }
+        }
+      });
+
+    }
+  }
   fileProgress(fileInput: any) {
     this.fileData = fileInput.target.files[0] as File;
     this.preview();
@@ -316,17 +321,17 @@ export class AddUpdateAgentComponent implements OnInit {
     };
   }
   onUploadProfileImage() {
-    if(this.Id){
+    if (this.Id) {
       let profileModel = new UserSettingPostModel();
       profileModel.FileName = this.fileData?.name;
       profileModel.UserId = Number(this.Id);
       profileModel.ProfileBase64 = this.previewUrl;
       this._userSettingService.UpdateUserProfile(profileModel).then(res => {
 
-        if(res.IsSuccess) {
-          this._toast.success('profile picture upload successful','Upload Status');
+        if (res.IsSuccess) {
+          this._toast.success('profile picture upload successful', 'Upload Status');
         } else {
-          this._toast.error(res.Message as string ,'Upload Status');
+          this._toast.error(res.Message as string, 'Upload Status');
         }
       });
     }

@@ -1,4 +1,4 @@
-import { UserPostModel, UserNomineePostModel, UserReportingPersonPostModel, DocumentPostModel, UserBankDetailsPostModel, UserKYCPostModel } from "../doorstep-agent-model/door-step-agent.model";
+import { UserPostModel, UserNomineePostModel, UserReportingPersonPostModel, DocumentPostModel, UserBankDetailsPostModel, UserKYCPostModel, DocumentViewModel, ReportingPersonViewModel, UserBankDetailViewModel, UserKYCViewModel, UserNomineeViewModel, UserSecurityDepositViewModel, UserViewModel } from "../doorstep-agent-model/door-step-agent.model";
 
 export class Agent {
 }
@@ -51,4 +51,34 @@ export class AgentPostModel {
   ReportingPerson!: UserReportingPersonPostModel;
 
 
+}
+
+
+export interface AgentViewModel {
+  Id: number;
+  FullName: string;
+  FatherName: string;
+  UniqueId: string;
+  Gender: string;
+  QualificationId: number;
+  QualificationName: string;
+  Address: string;
+  DistrictId: number | null;
+  DistrictName: string;
+  StateName: string;
+  PinCode: string;
+  DateOfBirth: string | null;
+  ProfilePictureUrl: string;
+  IsActive: boolean | null;
+  IsDelete: boolean;
+  CreatedOn: string;
+  ModifiedOn: string | null;
+  CreatedBy: number | null;
+  ModifiedBy: number | null;
+  Documents: DocumentViewModel[] | null;
+  User: UserViewModel;
+  BankDetails: UserBankDetailViewModel | null;
+  UserKYC: UserKYCViewModel[] | null;
+  UserNominee: UserNomineeViewModel | null;
+  ReportingPerson: ReportingPersonViewModel | null;
 }

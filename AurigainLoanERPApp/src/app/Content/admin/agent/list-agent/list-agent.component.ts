@@ -20,29 +20,32 @@ export class ListAgentComponent implements OnInit {
 
 
   //#region <<  Variable  >>
-  get routing_Url() { return Routing_Url }
 
   model!: AgentListModel[];
   dataSource: any;
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort!: MatSort;
-  id!: number;
-  displayedColumns: string[] = ['index', 'FullName', 'Gender','Mpin', 'IsActive', 'IsApproved', 'Action'];
+  
+  displayedColumns: string[] = ['index', 'FullName', 'Gender', 'Mpin', 'IsActive', 'IsApproved', 'Action'];
   ViewdisplayedColumns = [{ Value: 'FullName', Text: 'Full Name' },
-   { Value: 'Gender', Text: 'Gender' },
-   {Value: 'Mpin', Text: 'MPIN'},
-   { Value: 'Email', Text: 'Email' },
-    { Value: 'Mobile', Text: 'Mobile' }];
+  { Value: 'Gender', Text: 'Gender' },
+  { Value: 'Mpin', Text: 'MPIN' },
+  { Value: 'Email', Text: 'Email' },
+  { Value: 'Mobile', Text: 'Mobile' }];
   indexModel = new IndexModel();
   totalRecords: number = 0;
+  get routing_Url() { return Routing_Url };
+
+
   //#endregion
 
   constructor(private readonly _service: AgentService,
-               private readonly _commonService: CommonService,
-               private readonly toast: ToastrService,
-               private readonly _userSettingService: UserSettingService) { }
+    private readonly _commonService: CommonService,
+    private readonly toast: ToastrService,
+    private readonly _userSettingService: UserSettingService) { }
   ngOnInit(): void {
     this.getList();
+
   }
 
   getList(): void {
@@ -123,7 +126,7 @@ export class ListAgentComponent implements OnInit {
             }
           },
           error => {
-            this.toast.error(error.message as string , 'Error');
+            this.toast.error(error.message as string, 'Error');
           }
         );
       }
@@ -138,14 +141,14 @@ export class ListAgentComponent implements OnInit {
           data => {
             serv.unsubscribe();
             if (data.IsSuccess) {
-              this.toast.success(data.Message as string , 'Access Permission');
+              this.toast.success(data.Message as string, 'Access Permission');
               this.getList();
             } else {
-              this.toast.warning(data.Message as string , 'Server Error');
+              this.toast.warning(data.Message as string, 'Server Error');
             }
           },
           error => {
-            this.toast.error(error.Message as string ,'Error');
+            this.toast.error(error.Message as string, 'Error');
           }
         );
       }

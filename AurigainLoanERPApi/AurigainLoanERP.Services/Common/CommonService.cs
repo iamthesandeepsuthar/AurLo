@@ -142,7 +142,7 @@ namespace AurigainLoanERP.Services.Common
                      .Select(r => new { Text = r.Name, Value = r.Id })
                      .ToListAsync();
             }
-            catch (Exception)
+            catch 
             {
 
                 return null;
@@ -157,7 +157,7 @@ namespace AurigainLoanERP.Services.Common
                      .Select(item => new { Text = item.Name, Value = item.Id })
                      .ToListAsync();
             }
-            catch (Exception ex)
+            catch 
             {
 
                 return null;
@@ -171,7 +171,7 @@ namespace AurigainLoanERP.Services.Common
                 return await (from data in _db.State where data.IsActive == true && !data.IsDelete select data)
                      .Select(item => new { Text = item.Name, Value = item.Id }).ToListAsync();
             }
-            catch (Exception ex)
+            catch 
             {
 
                 return null;
@@ -186,7 +186,7 @@ namespace AurigainLoanERP.Services.Common
                      .Select(r => new { Text = r.Name, Value = r.Id })
                      .ToListAsync();
             }
-            catch (Exception)
+            catch 
             {
 
                 return null;
@@ -201,7 +201,7 @@ namespace AurigainLoanERP.Services.Common
                      .Select(item => new { Text = item.DocumentName, Value = item.Id })
                      .ToListAsync();
             }
-            catch (Exception ex)
+            catch 
             {
 
                 return null;
@@ -217,7 +217,7 @@ namespace AurigainLoanERP.Services.Common
               .ToList();
 
             }
-            catch (Exception ex)
+            catch
             {
 
                 return null;
@@ -233,7 +233,7 @@ namespace AurigainLoanERP.Services.Common
                      .Select(item => new { Text = item.Mode, Value = item.Id })
                      .ToListAsync();
             }
-            catch (Exception ex)
+            catch 
             {
 
                 return null;

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { BaseAPIService } from '../../Helper/base-api.service';
 import { ApiResponse, IndexModel } from '../../Helper/common-model';
-import { AgentListModel, AgentPostModel } from '../../Model/Agent/agent.model';
+import { AgentListModel, AgentPostModel, AgentViewModel } from '../../Model/Agent/agent.model';
 import { UserAvailibilityPostModel } from '../../Model/User-setting-model/user-availibility.model';
 
 @Injectable( )
@@ -25,6 +25,10 @@ export class AgentService {
     return this._baseService.Delete(url);
   }
 
+  GetAgent(id: number): Observable<ApiResponse<AgentViewModel>> {
+    let url = `${this._baseService.API_Url.AgentDetailApi}${id}`;
+    return this._baseService.get(url);
+  }
 
   AddUpdateDoorStepAgent(model: AgentPostModel): Observable<ApiResponse<string>> {
     let url = `${this._baseService.API_Url.AgentAddUpdateApi}`;

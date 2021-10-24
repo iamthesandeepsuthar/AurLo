@@ -1,50 +1,64 @@
-
-
 <div class="widget-content widget-content p-3 form-grp-w-border">
   <h2> <img src="assets/img/kyc_details_white.png"> KYC Details</h2>
-  <div class="form-row">
-    <div class="form-group col-md-4">
-      <label>Document Type</label>
-      <!-- <ng-select [items]="dropDown!.ddlDocumentType" [searchable]="true" bindLabel="Text" bindValue="Value" placeholder="document type"
+  <form [formGroup]="formGroup">
+    <div class="form-row">
+      <div class="form-group col-md-4">
+        <label>Document Type</label>
+        <!-- <ng-select [items]="dropDown!.ddlDocumentType" [searchable]="true" bindLabel="Text" bindValue="Value" placeholder="document type"
         appendTo="body" [(ngModel)]="model.KycdocumentTypeId"> -->
-        <ng-select [items]="docTypeModel" [searchable]="true" bindLabel="Name" bindValue="Id" placeholder="document type"
-        appendTo="body" (change)="onChangeDocType()" [(ngModel)]="model.KycdocumentTypeId">
-      </ng-select>
-    </div>
-    <div class="form-group col-md-6">
-      <label>Document Number</label>
-      <input type="text" [maxlength]="DocCharLenght"  (keypress)="onCheckValidInput($event)" class="form-control" id="input1" [(ngModel)]="this.model.Kycnumber" placeholder="document number">
-    </div>
-    <div class="form-group col-md-2" *ngIf="model.KycdocumentTypeId && this.model.Kycnumber">
-      <label class="d-none d-md-block">&nbsp;</label>
-      <button (click)="AddEditKycItem()" class="btn btn-primary w-100 p-10"> <i class="fas fa-plus mr-1"></i>
-        Add</button>
-    </div>
-
-    <div class="col-sm-12 col-md-12">
-      <div class="table-responsive">
-        <table class="table table-striped table-bordered">
-          <thead>
-            <tr>
-              <th>Document Type</th>
-              <th>Document Number</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let item of kycModel; let i=index">
-              <td>{{getDocumentTypeText(item.KycdocumentTypeId)}}</td>
-              <td>{{item.Kycnumber}}</td>
-              <td class="table-action-btn">
-                <button (click)="fillKycItem(i)" class="table-action-btn-edit" data-toggle="tooltip"
-                  data-placement="bottom" title="Edit"><i class="fas fa-edit"></i></button>
-                <button (click)="removeKycItem(i)" class="table-action-btn-delete" data-toggle="tooltip"
-                  data-placement="bottom" title="Remove"><i class="fas fa-trash-alt"></i></button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <ng-select [items]="docTypeModel" [searchable]="true" bindLabel="Name" bindValue="Id"
+          placeholder="document type" appendTo="body" (ngModelChange)="onChangeDocType($event)"
+          formControlName="KycdocumentType" [(ngModel)]="model.KycdocumentTypeId"
+          [ngClass]="{ 'is-invalid': f.KycdocumentType?.errors && f.KycdocumentType?.touched}">
+        </ng-select>
+        <div class="invalid-feedback"
+          *ngIf="(formGroup.get('KycdocumentType')?.hasError('required') && formGroup.get('KycdocumentType')?.touched)">
+          Please fill document type...! </div>
       </div>
-    </div>
+      <div class="form-group col-md-6">
+        <label>Document Number</label>
+        <input type="text" [maxlength]="DocCharLenght" [minlength]="DocCharLenght"
+          (keypress)="onCheckValidInput($event)" class="form-control" formControlName="KycNumber" id="KycNumber"
+          [(ngModel)]="this.model.Kycnumber" placeholder="document number"
+          [ngClass]="{ 'is-invalid': f.KycNumber?.errors && f.KycNumber?.touched}">
 
-  </div>
+        <div class="invalid-feedback"
+          *ngIf="!formGroup.get('KycNumber')?.hasError('required') && ((formGroup.get('KycNumber')?.hasError('maxlength') || formGroup.get('KycNumber')?.hasError('minlength')) && formGroup.get('KycNumber')?.touched) || (formGroup.get('KycNumber')?.hasError('maxlength') || formGroup.get('KycNumber')?.hasError('minlength'))">
+          Document number length must be {{DocCharLenght}} char or digit...! </div>
+      </div>
+
+      <div class="form-group col-md-2" *ngIf="model.KycdocumentTypeId && this.model.Kycnumber">
+        <label class="d-none d-md-block">&nbsp;</label>
+        <button (click)="AddEditKycItem()" class="btn btn-primary w-100 p-10"> <i class="fas fa-plus mr-1"></i>
+          Add</button>
+      </div>
+
+      <div class="col-sm-12 col-md-12">
+        <div class="table-responsive">
+          <table class="table table-striped table-bordered">
+            <thead>
+              <tr>
+                <th>Document Type</th>
+                <th>Document Number</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of kycModel; let i=index">
+                <td>{{getDocumentTypeText(item.KycdocumentTypeId)}}</td>
+                <td>{{item.Kycnumber}}</td>
+                <td class="table-action-btn">
+                  <button (click)="fillKycItem(i)" class="table-action-btn-edit" data-toggle="tooltip"
+                    data-placement="bottom" title="Edit"><i class="fas fa-edit"></i></button>
+                  <button (click)="removeKycItem(i)" class="table-action-btn-delete" data-toggle="tooltip"
+                    data-placement="bottom" title="Remove"><i class="fas fa-trash-alt"></i></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </form>
+</div>
