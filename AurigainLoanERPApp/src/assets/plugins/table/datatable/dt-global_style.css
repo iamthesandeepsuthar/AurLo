@@ -126,7 +126,7 @@ table.dataTable thead .sorting_desc:after {
     padding-left: 0;
     -webkit-transition: all 0.1s ease;
     transition: all 0.1s ease;
-    padding: 10px 21px 10px 21px;
+    padding: 0.75rem;
     color: #515365;
     font-weight: 600;
     font-size: 14px;

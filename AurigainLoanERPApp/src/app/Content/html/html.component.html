@@ -1319,6 +1319,173 @@
     </div>
 
 
+    <div class="bank-master-form p-4">
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label>Name</label>
+                <input type="text" class="form-control" id="input1" placeholder="Name">
+            </div>
+            <div class="form-group col-md-6">
+                <label>Website</label>
+                <input type="text" class="form-control" id="input1" placeholder="Enter Website">
+            </div>
+            <div class="form-group col-md-6">
+                <label>Contact</label>
+                <input type="text" class="form-control" id="input1" placeholder="Contact">
+            </div>
+            <div class="form-group col-md-6">
+                <label>Fax Number</label>
+                <input type="text" class="form-control" id="input1" placeholder="Enter number">
+            </div>
+
+            <div class="form-group col-md-6">
+                <label>Add Bank logo</label>
+                <div class="dropzone dropzone-light upload-btn-wrapper w-100">
+                    <button type="button" class="btn-upload-border d-block w-100 text-left"><i class="fas fa-plus"></i> Upload</button>
+                    <input type="file" multiple="true" style="display: block;" />
+                    <div class="dz-default dz-message m-1">
+                        <span><i class="ti-cloud-up"></i></span>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="form-group col-md-6">
+                <label>Is active</label>
+                <div class="form-radio-check-grp">
+                    <div class="n-chk d-inline">
+                        <label class="new-control new-radio radio-classic-info">
+                            <input type="radio" class="new-control-input" name="custom-radio-2" checked>
+                            <span class="new-control-indicator"></span>Yes
+                        </label>
+                    </div>
+                    <div class="n-chk d-inline">
+                        <label class="new-control new-radio radio-classic-info">
+                            <input type="radio" class="new-control-input" name="custom-radio-2">
+                            <span class="new-control-indicator"></span>No
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="bank-master-add-branch">
+            <div class="text-right">
+                <a href="#" class="bank-master-add-branch-btn collapsed" data-toggle="collapse" href="#bank-master-add-branch-form"> Add Branch</a>
+            </div>
+        </div>
+        <div class="form-row bg-light p-4 collapse mt-3" id="bank-master-add-branch-form">
+            <div class="form-group col-md-6">
+                <label>Branch name</label>
+                <input type="text" class="form-control" id="input1" placeholder="Enter Branch name">
+            </div>
+            <div class="form-group col-md-6">
+                <label>Branch Code</label>
+                <input type="text" class="form-control" id="input1" placeholder="Enter Branch Code">
+            </div>
+            <div class="form-group col-md-6">
+                <label>IFSC Code</label>
+                <input type="text" class="form-control" id="input1" placeholder="Enter Code">
+            </div>
+            <div class="form-group col-md-6">
+                <label>Contact number</label>
+                <input type="text" class="form-control" id="input1" placeholder="Enter number">
+            </div>
+
+            <div class="form-group col-md-6">
+                <label>Emial ID</label>
+                <input type="email" class="form-control" id="input1" placeholder="Enter ID">
+            </div>
+
+
+            <div class="form-group col-md-6">
+                <label>Is active</label>
+                <div class="form-radio-check-grp">
+                    <div class="n-chk d-inline">
+                        <label class="new-control new-radio radio-classic-info">
+                            <input type="radio" class="new-control-input" name="custom-radio-2" checked>
+                            <span class="new-control-indicator"></span>Yes
+                        </label>
+                    </div>
+                    <div class="n-chk d-inline">
+                        <label class="new-control new-radio radio-classic-info">
+                            <input type="radio" class="new-control-input" name="custom-radio-2">
+                            <span class="new-control-indicator"></span>No
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12 text-center mt-3">
+                <button type="submit" class="btn btn-info"> <i class="fas fa-plus mr-1"></i> Add to list</button>
+            </div>
+
+            <div class="col-md-12 mt-3">
+                <div class="table-responsive">
+                    <table class="table table-striped bg-white">
+                        <thead>
+                            <tr>
+                                <th>Branch name</th>
+                                <th>Branch Code</th>
+                                <th>IFSC Code</th>
+                                <th>Contact number</th>
+                                <th>Emial ID</th>
+                                <th>Active</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>HDFC bank</td>
+                                <td>#269782</td>
+                                <td>HDFCman8952</td>
+                                <td>9928569878</td>
+                                <td>test@gmail.com</td>
+                                <td>
+                                    <div class="table-s-active table-data-status-round text-success d-flex align-items-center"> <span></span> Active </div>
+                                </td>
+                                <td class="table-action-btn">
+                                    <a href="#" class="table-action-btn-view" data-toggle="tooltip" data-placement="bottom" title="View"><i class="fas fa-eye"></i></a>
+                                    <a href="#" class="table-action-btn-add" data-toggle="tooltip" data-placement="bottom" title="Add"><i class="fas fa-plus"></i></a>
+                                    <a href="#" class="table-action-btn-edit" data-toggle="tooltip" data-placement="bottom" title="Edit"><i class="fas fa-edit"></i></a>
+                                    <a href="#" class="table-action-btn-delete" data-toggle="tooltip" data-placement="bottom" title="Remove"><i class="fas fa-trash-alt"></i></a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>HDFC bank</td>
+                                <td>#269782</td>
+                                <td>HDFCman8952</td>
+                                <td>9928569878</td>
+                                <td>test@gmail.com</td>
+                                <td>
+                                    <div class="table-s-dactive  table-data-status-round text-danger d-flex align-items-center"> <span></span> DeActive </div>
+                                </td>
+                                <td class="table-action-btn">
+                                    <a href="#" class="table-action-btn-view" data-toggle="tooltip" data-placement="bottom" title="View"><i class="fas fa-eye"></i></a>
+                                    <a href="#" class="table-action-btn-add" data-toggle="tooltip" data-placement="bottom" title="Add"><i class="fas fa-plus"></i></a>
+                                    <a href="#" class="table-action-btn-edit" data-toggle="tooltip" data-placement="bottom" title="Edit"><i class="fas fa-edit"></i></a>
+                                    <a href="#" class="table-action-btn-delete" data-toggle="tooltip" data-placement="bottom" title="Remove"><i class="fas fa-trash-alt"></i></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+
+
+        </div>
+
+
+        <div class="form-footer-btn-grp widget-content widget-content p-3 text-center">
+            <button type="submit" class="btn btn-success mr-3"> <i class="fas fa-check mr-1"></i> Submit</button>
+            <button type="button" class="btn btn-outline-danger"> <i class="fas fa-times mr-1"></i> Cancel</button>
+        </div>
+    </div>
+
+
 </div>
 
 <!-- Gallery popup start -->
