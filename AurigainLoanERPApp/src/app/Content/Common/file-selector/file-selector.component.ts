@@ -95,10 +95,22 @@ export class FileSelectorComponent {
 
   openFile(file: FileInfo) {
 
-    let fileUrl = (file.FileBase64);
+    if (file) {
 
-    var newWin = open("'url'", "_blank");
-    newWin!.document.write('<img  src="' + fileUrl + '"  height="100%" width="100%" />');
+      let fileUrl = file.FileBase64;
+debugger
+      let isDoc= ['doc', 'docx', 'ppt', 'pptx', 'pdf', 'txt', 'xlx', 'xlsx'].some(x => x.toLowerCase() === file.Name.split('.')[1].toLowerCase())
+
+      var newWin = open("'url'", "_blank");
+      if (isDoc) {
+
+        newWin!.document.write(`<iframe title="PDF" src="${fileUrl}"  height="99%" width="100%"></iframe>`);
+      }
+      else {
+        newWin!.document.write(`<img  src="${fileUrl}"  height="100%" width="100%" />`);
+      }
+
+    }
 
 
   }
@@ -116,7 +128,7 @@ export class FileSelectorComponent {
         let file = files.item(index);
         let extIndex = file!.name.lastIndexOf('.');
         let ext = file!.name.substring(extIndex);
-        let isAllowed = this._allowFiles.some(x => x === ext);
+        let isAllowed = this._allowFiles.some(x => x.toLowerCase() === ext.toLowerCase());
         if (!isAllowed) {
           this.toast.warning('Selected  file  format not allowed to upload', 'File Upload');
           return;
