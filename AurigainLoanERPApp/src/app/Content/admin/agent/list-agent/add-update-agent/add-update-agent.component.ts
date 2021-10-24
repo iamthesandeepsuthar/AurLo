@@ -129,7 +129,7 @@ export class AddUpdateAgentComponent implements OnInit,AfterContentChecked {
         serv.unsubscribe();
         if (res.IsSuccess) {
           this._toast.success('Doorstep agent added successful', 'Success');
-          this._router.navigate([this.routing_Url.AdminModule + '/' + this.routing_Url.DoorStepModule + '/' + this.routing_Url.DoorStepAgentListUrl]);
+          this._router.navigate([this.routing_Url.AdminModule + '/' + this.routing_Url.AgentModule + '/' + this.routing_Url.AgentListUrl]);
         } else {
           this._toast.error(Message.SaveFail, 'Error');
           return;
@@ -280,7 +280,7 @@ export class AddUpdateAgentComponent implements OnInit,AfterContentChecked {
               this.model.ReportingPerson.UserId = data?.ReportingPerson?.UserId;
               this.model.ReportingPerson.ReportingUserId = data?.ReportingPerson?.ReportingUserId;
             }
-debugger
+
             if (data?.Documents) {
 
               this.model.Documents = data?.Documents?.map(doc => {

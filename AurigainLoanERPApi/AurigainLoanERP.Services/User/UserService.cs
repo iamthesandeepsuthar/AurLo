@@ -231,7 +231,22 @@ namespace AurigainLoanERP.Services.User
                         }
                         if (objAgent.User.UserKyc != null)
                         {
-                            objAgentModel.UserKYC = _mapper.Map<List<UserKycViewModel>>(objAgent.User.UserKyc.ToList() ?? null);
+
+                            objAgentModel.UserKYC = objAgent.User.UserKyc.Select(x => new UserKycViewModel
+                            {
+
+                                Id = x.Id,
+                                Kycnumber = x.Kycnumber ?? null,
+                                KycdocumentTypeId = x.KycdocumentTypeId,
+                                KycdocumentTypeName = _db.DocumentType.FirstOrDefault(z => z.Id == x.KycdocumentTypeId).DocumentName ?? null,
+                                IsActive = x.IsActive ?? null,
+                                IsDelete = x.IsDelete,
+                                CreatedOn = x.CreatedOn,
+                                ModifiedOn = x.ModifiedOn ?? null,
+                                CreatedBy = x.CreatedBy ?? null,
+                                ModifiedBy = x.ModifiedBy ?? null,
+
+                            }).ToList();
 
                         }
                         if (objAgent.User.UserDocument != null)
