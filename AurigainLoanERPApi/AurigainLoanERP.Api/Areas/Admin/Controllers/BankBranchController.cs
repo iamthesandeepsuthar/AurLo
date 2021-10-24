@@ -21,7 +21,7 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
         }
         // GET api/BankBranch/Branches
         [HttpGet("[action]")]
-        public async Task<ApiServiceResponseModel<List<DDLBrnachModel>>> Branches(int id) // Bank Id
+        public async Task<ApiServiceResponseModel<List<DDLBranchModel>>> Branches(int id) // Bank Id
         {
             return await _branch.Branches(id);
         }

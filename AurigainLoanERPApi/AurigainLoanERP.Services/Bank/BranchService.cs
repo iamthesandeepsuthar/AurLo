@@ -22,29 +22,29 @@ namespace AurigainLoanERP.Services.Bank
             this._mapper = mapper;
             _db = db;
         }
-        public async Task<ApiServiceResponseModel<List<DDLBrnachModel>>> Branches(int bankId)
+        public async Task<ApiServiceResponseModel<List<DDLBranchModel>>> Branches(int bankId)
         {
             try
             {
-                var branches = await _db.BankBranchMaster.Where(x=>x.BankId == bankId).Select(x => new DDLBrnachModel
+                var branches = await _db.BankBranchMaster.Where(x=>x.BankId == bankId).Select(x => new DDLBranchModel
                 {
                     Id = x.Id,
-                    BrnachName = x.BranchName,
+                    BranchName = x.BranchName,
                     Ifsc = x.Ifsc
                 }).ToListAsync();
 
                 if (branches.Count() > 0)
                 {
-                    return CreateResponse<List<DDLBrnachModel>>(branches, ResponseMessage.Success, true, ((int)ApiStatusCode.Ok));
+                    return CreateResponse<List<DDLBranchModel>>(branches, ResponseMessage.Success, true, ((int)ApiStatusCode.Ok));
                 }
                 else
                 {
-                    return CreateResponse<List<DDLBrnachModel>>(null, ResponseMessage.NotFound, true, ((int)ApiStatusCode.RecordNotFound));
+                    return CreateResponse<List<DDLBranchModel>>(null, ResponseMessage.NotFound, true, ((int)ApiStatusCode.RecordNotFound));
                 }
             }
             catch (Exception ex)
             {
-                return CreateResponse<List<DDLBrnachModel>>(null, ResponseMessage.NotFound, false, ((int)ApiStatusCode.ServerException), ex.Message ?? ex.InnerException.ToString());
+                return CreateResponse<List<DDLBranchModel>>(null, ResponseMessage.NotFound, false, ((int)ApiStatusCode.ServerException), ex.Message ?? ex.InnerException.ToString());
             }
         }
         public async Task<ApiServiceResponseModel<BranchModel>> GetById(int id)
