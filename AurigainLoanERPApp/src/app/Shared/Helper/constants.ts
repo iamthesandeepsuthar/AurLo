@@ -101,7 +101,7 @@ export class API_Url {
  public static Jewellery_Dropdown_List_Api =`${environment.apiEndPoint}JewellaryType/JewellaryTypes`;
  public static Jewellery_AddUpdate_Api = `${environment.apiEndPoint}JewellaryType/AddUpdate`;
  public static Jewellery_Delete_Api = `${environment.apiEndPoint}JewellaryType/DeleteJewellaryType/`;
- public static Jewellery_ActiveStatus_Api = `${environment.apiEndPoint}JewellaryType/UpdateActiveStatus/`;
+ public static Jewellery_ActiveStatus_Api = `${environment.apiEndPoint}JewellaryType/ChangeActiveStatus/`;
  public static Jewellery_Detail_Api = `${environment.apiEndPoint}JewellaryType/GetById/`;
  //#endregion
 //#region  << Product Category >>
@@ -109,15 +109,15 @@ public static Product_Category_List_Api = `${environment.apiEndPoint}ProductCate
 public static Product_Category_Dropdown_List_Api =`${environment.apiEndPoint}ProductCategory/ProductCategories`;
 public static Product_Category_AddUpdate_Api = `${environment.apiEndPoint}ProductCategory/AddUpdate`;
 public static Product_Category_Delete_Api = `${environment.apiEndPoint}ProductCategory/DeleteProductCategory/`;
-public static Product_Category_ActiveStatus_Api = `${environment.apiEndPoint}ProductCategory/UpdateActiveStatus/`;
-public static JProduct_Category_Detail_Api = `${environment.apiEndPoint}ProductCategory/GetById/`;
+public static Product_Category_ActiveStatus_Api = `${environment.apiEndPoint}ProductCategory/ChangeActiveStatus/`;
+public static Product_Category_Detail_Api = `${environment.apiEndPoint}ProductCategory/GetById/`;
 //#endregion
 //#region  << Product  >>
 public static Product_List_Api = `${environment.apiEndPoint}Product/GetList`;
 public static Product_Dropdown_List_Api =`${environment.apiEndPoint}Product/Products`;
 public static Product_AddUpdate_Api = `${environment.apiEndPoint}Product/AddUpdate`;
 public static Product_Delete_Api = `${environment.apiEndPoint}Product/DeleteProduct/`;
-public static Product_ActiveStatus_Api = `${environment.apiEndPoint}Product/UpdateActiveStatus/`;
+public static Product_ActiveStatus_Api = `${environment.apiEndPoint}Product/ChangeActiveStatus/`;
 public static Product_Detail_Api = `${environment.apiEndPoint}Product/GetById/`;
 //#endregion
 //#region  << Bank & Branch  >>

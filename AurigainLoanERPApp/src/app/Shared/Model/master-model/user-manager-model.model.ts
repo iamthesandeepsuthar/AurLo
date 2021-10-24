@@ -11,6 +11,9 @@ export class UserManagerModel {
         Address!: string ;
         UserId!:number;
         DistrictId!: number;
+        DistrictName!: string;
+        StateName!: string;
+        AreaName!: string;
         Pincode!: string ;
         IsActive!: boolean ;
         IsDelete!: boolean;

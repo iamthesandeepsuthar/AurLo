@@ -10,7 +10,7 @@ export class ManagerService {
   constructor(private readonly _baseService: BaseAPIService) { }
 
   GetUserManagerList(model: IndexModel): Observable<ApiResponse<UserManagerModel[]>> {
-    let url = `${this._baseService.API_Url.Qualification_List_Api}`;
+    let url = `${this._baseService.API_Url.Manager_List_Api}`;
     return this._baseService.post(url, model);
   }
   GetUserManagerById(id: number): Observable<ApiResponse<UserManagerModel>> {

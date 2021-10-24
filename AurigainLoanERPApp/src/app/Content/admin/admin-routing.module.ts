@@ -12,8 +12,8 @@ const routes: Routes = [
   {path: 'door-step-agent',loadChildren: () => import('./door-step-agent/door-step-agent.module').then(m=>m.DoorStepAgentModule)},
   {path: 'agent',loadChildren: () => import('./agent/agent.module').then(m=>m.AgentModule)},
   {path: 'managers', component:ListManagersComponent , canActivate: [AuthenticationGuard]},
-  {path:'add-manager/:id', component:AddUpdateManagersComponent, canActivate:[AuthenticationGuard]},
-  {path:'detail-manager/:id', component:DetailManagersComponent,canActivate:[AuthenticationGuard]}
+  {path:'managers/add-manager/:id', component:AddUpdateManagersComponent, canActivate:[AuthenticationGuard]},
+  {path:'managers/detail-manager/:id', component:DetailManagersComponent,canActivate:[AuthenticationGuard]}
 
 ];
 
