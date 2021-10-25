@@ -389,7 +389,37 @@ namespace AurigainLoanERP.Services.StateAndDistrict
 
         #endregion
 
-        #region << Private Method>>
+        #region << Area Method>>
+
+        public async Task<ApiServiceResponseModel<List<AvailableAreaModel>>> GetUserAvailableAreaAsync(string pinCode, int roleId)
+        {
+            try
+            {
+                var area = await (from record in _db.PincodeArea
+                                  where record.Pincode.Contains(pinCode) && !record.UserAvailability.Any(x => x.User.UserRoleId == roleId)
+                                  select new AvailableAreaModel
+                                  {
+                                      Id = record.Id,
+                                      PinCode = record.Pincode,
+                                      AreaName = string.Concat(record.AreaName, ", ", record.District.Name, " (", record.District.State.Name, ")")
+                                  }).ToListAsync();
+
+                if (area != null)
+                {
+                    return CreateResponse(area, ResponseMessage.Success, true, ((int)ApiStatusCode.Ok));
+                }
+                else
+                {
+                    return CreateResponse<List<AvailableAreaModel>>(null, ResponseMessage.NotFound, true, ((int)ApiStatusCode.RecordNotFound));
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return CreateResponse<List<AvailableAreaModel>>(null, ResponseMessage.Fail, false, ((int)ApiStatusCode.ServerException), ex.Message ?? ex.InnerException.ToString());
+            }
+        }
+
 
         private async Task<bool> AddUpdateAreas(List<PincodeAreaModel> model, long DistrictId)
         {
@@ -420,7 +450,7 @@ namespace AurigainLoanERP.Services.StateAndDistrict
                         {
                             areaDetail.Pincode = item.Pincode;
                             areaDetail.AreaName = item.AreaName;
-                         //   areaDetail.DistrictId = DistrictId;
+                            //   areaDetail.DistrictId = DistrictId;
                             areaDetail.Modifieddate = DateTime.Now;
                             await _db.SaveChangesAsync();
                         }

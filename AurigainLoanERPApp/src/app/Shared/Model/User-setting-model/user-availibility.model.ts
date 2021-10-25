@@ -20,3 +20,10 @@ export class UserAvailibilityPostModel {
   PincodeAreaId!: number | null;
 
 }
+
+export interface AvailableAreaModel {
+  Id: number;
+  AreaName: string;
+  PinCode: string;
+}
+

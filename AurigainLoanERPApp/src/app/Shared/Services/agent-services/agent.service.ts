@@ -42,10 +42,6 @@ export class AgentService {
     return this._baseService.Delete(url);
   }
 
-  SetUserAvailibility(model: UserAvailibilityPostModel): Observable<ApiResponse<string>> {
-    let url = `${this._baseService.API_Url.DoorstepAgentAvailibilityApi}`;
-    return this._baseService.post(url, model);
-  }
 
 
 }

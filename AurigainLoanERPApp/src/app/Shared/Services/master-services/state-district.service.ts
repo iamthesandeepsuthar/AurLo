@@ -29,7 +29,7 @@ export class StateDistrictService {
     let url = `${this._baseService.API_Url.State_Add_Update_Api}`;
     return this._baseService.post(url, model);
   }
-  ChangeActiveStatus(id:number, status? :string): Observable<ApiResponse<StateModel[]>> {
+  ChangeActiveStatus(id: number, status?: string): Observable<ApiResponse<StateModel[]>> {
     let url = `${this._baseService.API_Url.State_Active_Status_Api}${id}`;
     return this._baseService.get(url);
   }
@@ -37,11 +37,13 @@ export class StateDistrictService {
     let url = `${this._baseService.API_Url.State_Delete_Api}${id}/${status}`;
     return this._baseService.Delete(url);
   }
+
+
   //#endregion
 
 
   //#region  <<District>>
-   GetDistrictList(model: IndexModel): Observable<ApiResponse<DistrictModel[]>> {
+  GetDistrictList(model: IndexModel): Observable<ApiResponse<DistrictModel[]>> {
     let url = `${this._baseService.API_Url.District_List_Api}`;
     return this._baseService.post(url, model);
   }
@@ -57,7 +59,7 @@ export class StateDistrictService {
     let url = `${this._baseService.API_Url.District_Add_Update_Api}`;
     return this._baseService.post(url, model);
   }
-  ChangeDistrictActiveStatus(id:number, status? :string): Observable<ApiResponse<DistrictModel[]>> {
+  ChangeDistrictActiveStatus(id: number, status?: string): Observable<ApiResponse<DistrictModel[]>> {
     let url = `${this._baseService.API_Url.District_Active_Status_Api}${id}`;
     return this._baseService.get(url);
   }

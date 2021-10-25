@@ -26,6 +26,8 @@ namespace AurigainLoanERP.Services.StateAndDistrict
         // Task<ApiServiceResponseModel<object>> CheckRoleExist(string name, int? id = null);      
         Task<ApiServiceResponseModel<object>> UpateDistrictActiveStatus(long id);
         Task<ApiServiceResponseModel<object>> UpdateDistrictDeleteStatus(long id);
+
+        Task<ApiServiceResponseModel<List<AvailableAreaModel>>> GetUserAvailableAreaAsync(string pinCode, int roleId);
         #endregion
     }
 }
