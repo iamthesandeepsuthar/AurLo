@@ -32,7 +32,7 @@
       <div class="row position-relative">
         <div class="col-12 col-md-4 d-flex justify-content-sm-start justify-content-center">
           <div class="dataTables_length" id="zero-config_length"><label>Results :
-              <select name="zero-config_length" [(ngModel)]="indexModel.PageSize" (change)="getList()"
+              <select name="zero-config_length" [(ngModel)]="indexModel.PageSize" (change)="onPageSizeChange()"
                 aria-controls="zero-config" class="form-control">
                 <option value="101">All</option>
                 <option value="10">10</option>
@@ -192,7 +192,7 @@
                 <i class="fas fa-eye"></i>
               </a>
 
-              <a class="table-action-btn-view" routerLink="..{{routing_Url.DoorStepAgentAvailibilityUrl+row.UserId}}"
+              <a class="table-action-btn-view" routerLink="../{{routing_Url.DoorStepAgentAvailibilityUrl+'/'+row.UserId}}"
                 title="Door Step Agent availibility">
                 <i class="fas fa-business-time"></i>
               </a>

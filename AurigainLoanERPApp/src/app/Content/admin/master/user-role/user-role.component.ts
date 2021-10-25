@@ -67,6 +67,15 @@ export class UserRoleComponent implements OnInit {
   }
   onSearch() {
     this.indexModel.Page = 1;
+    this.indexModel.IsPostBack = false;
+
+    this.getList();
+  }
+
+  onPageSizeChange() {
+
+    this.indexModel.IsPostBack = true;
+    this.indexModel.PageSize = Number(this.indexModel.PageSize);
     this.getList();
   }
   onPaginateChange(event: any) {

@@ -25,7 +25,7 @@ export class ListAgentComponent implements OnInit {
   dataSource: any;
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort!: MatSort;
-  
+
   displayedColumns: string[] = ['index', 'FullName', 'Gender', 'Mpin', 'IsActive', 'IsApproved', 'Action'];
   ViewdisplayedColumns = [{ Value: 'FullName', Text: 'Full Name' },
   { Value: 'Gender', Text: 'Gender' },
@@ -78,6 +78,8 @@ export class ListAgentComponent implements OnInit {
   }
   onSearch() {
     this.indexModel.Page = 1;
+    this.indexModel.IsPostBack = false;
+
     this.getList();
   }
 
@@ -88,6 +90,12 @@ export class ListAgentComponent implements OnInit {
     this.getList();
   }
 
+  onPageSizeChange() {
+
+    this.indexModel.IsPostBack = true;
+    this.indexModel.PageSize = Number(this.indexModel.PageSize);
+    this.getList();
+  }
   OnActiveStatus(Id: number) {
 
     this._commonService.Question(Message.ConfirmUpdate as string).then(isTrue => {
