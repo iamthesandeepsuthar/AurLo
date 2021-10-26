@@ -311,7 +311,7 @@ namespace AurigainLoanERP.Shared.ContractModel
     public class UserReportingPersonPostModel
     {
         public long Id { get; set; }
-        public long UserId { get; set; }
+        public long? UserId { get; set; }
         public long ReportingUserId { get; set; }
 
     }

@@ -102,7 +102,7 @@ namespace AurigainLoanERP.Services.Product
             {
                 if (model.Id == 0)
                 {
-                    var isExist = await _db.Product.Where(x => x.Name == model.Name && x.ProductCategoryId ==model.ProductCategoryId).FirstOrDefaultAsync();
+                    var isExist = await _db.Product.Where(x => x.Name == model.Name && x.BankId ==model.BankId && x.ProductCategoryId == model.ProductCategoryId).FirstOrDefaultAsync();
                     if (isExist != null)
                     {
                         return CreateResponse<string>("", ResponseMessage.RecordAlreadyExist, false, ((int)ApiStatusCode.AlreadyExist), "", null);
@@ -121,6 +121,7 @@ namespace AurigainLoanERP.Services.Product
                     product.MaximumTenure = model.MaximumTenure;
                     product.MinimumAmount = model.MinimumAmount;
                     product.MinimumTenure = model.MinimumTenure;
+                    product.BankId = model.BankId;
                     product.Notes = model.Notes;
                     product.ProcessingFee = model.ProcessingFee;
                     product.ProductCategoryId = model.ProductCategoryId;

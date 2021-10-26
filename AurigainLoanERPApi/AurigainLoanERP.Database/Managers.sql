@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[Managers]
 (
-	[Id] Bigint NOT NULL PRIMARY KEY Identity(0,1), 
+	[Id] Bigint NOT NULL PRIMARY KEY Identity, 
     [FullName] NVARCHAR(1000) NOT NULL, 
     [DateOfBirth] datetime Null,
     [Gender] NVARCHAR(50) NOT NULL, 

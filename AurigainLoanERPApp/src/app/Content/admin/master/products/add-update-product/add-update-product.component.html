@@ -1,1 +1,115 @@
-<p>add-update-product works!</p>
+<!-- Page Header Title start -->
+<div class="widget-header">
+  <div class="row d-block d-sm-flex align-items-center justify-content-between text-center text-sm-left">
+      <div>
+          <h1>{{Id==0 ?'Add Product':'Update Product'}}</h1>
+          <!-- Breadcrumb Start -->
+          <nav class="custom-breadcrum">
+              <ol class="breadcrumb justify-content-center justify-content-sm-start">
+                  <li class="breadcrumb-item"><a href="#">Home</a></li>
+                  <li class="breadcrumb-item"><a href="javascript:void(0)">Master</a></li>
+                  <li class="breadcrumb-item"><a
+                          routerLink="{{'/' + this.routing_Url.MasterModule + this.routing_Url.Product_List_Url}}">
+                          Product</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">{{Id==0 ?'Add Product':'Update Product'}}
+                  </li>
+
+              </ol>
+          </nav>
+          <!-- Breadcrumb End -->
+      </div>
+  </div>
+</div>
+<div class="product-form p-4 row">
+  <form [formGroup]="productFrom" (ngSubmit)="onSubmit()">
+      <div class="col-lg-12 m-auto">
+      <div class="form-row">
+          <div class="form-group col-md-4">
+              <label>Product Name</label>
+              <input type="text" class="form-control" [(ngModel)]="Model.Name" formControlName="productName" id="productName" placeholder="product name">
+          </div>
+          <div class="form-group col-md-4">
+              <label>Product category</label>
+              <ng-select [items]="DDLProductCategory" [searchable]="true" bindLabel="Name" bindValue="Id"
+            placeholder="select product category" formControlName="productCategory" [(ngModel)]="model.ProductCategoryId">
+          </ng-select>
+          </div>
+          <div class="form-group col-md-4">
+            <label>Bank</label>
+            <ng-select [items]="DDLBankModel" [searchable]="true" bindLabel="Name" bindValue="Id"
+            placeholder="select bank" formControlName="bank" [(ngModel)]="model.BankId">
+          </ng-select>
+        </div>
+          <div class="form-group col-md-4">
+              <label>Minimum amount</label>
+              <input type="number" class="form-control" formControlName="minAmount" [(ngModel)]="Model.MinimumAmount" id="minAmount" placeholder="₹ min amount">
+          </div>
+          <div class="form-group col-md-4">
+              <label>Maximum amount</label>
+              <input type="number" class="form-control"  formControlName="maxAmount" [(ngModel)]="Model.MaximumAmount"id="maxAmount" placeholder="₹ max amount">
+          </div>
+          <div class="form-group col-md-4">
+              <label>Interest rate</label>
+              <input type="number" class="form-control" id="input1" formControlName="interestRate" [(ngModel)]="Model.InterestRate" placeholder="rate of interest">
+          </div>
+          <div class="form-group col-md-4">
+            <label>Min Tenure</label>
+            <input type="number" class="form-control" formControlName="minTenure"  [(ngModel)]="Model.MinimumTenure" id="minTenure" placeholder="min tenure">
+        </div>
+        <div class="form-group col-md-4">
+            <label>Max Tenure</label>
+            <input type="number" class="form-control" formControlName="maxTenure" [(ngModel)]="Model.MaximumTenure" id="maxTenure" placeholder="max tenure">
+        </div>
+          <div class="form-group col-md-4">
+              <label>Processing Fee</label>
+              <input type="number" class="form-control" [(ngModel)]="Model.ProcessingFee" formControlName="processingFee" id="input1" placeholder="processing fee">
+          </div>
+
+          <div class="form-group col-md-6">
+              <label>Interest Rate Applied</label>
+              <div class="form-radio-check-grp">
+                  <div class="n-chk d-inline">
+                      <label class="new-control new-radio radio-classic-info">
+                      <input type="radio"  class="new-control-input" value="true" [(ngModel)]="Model.InterestRateApplied" formControlName="isInterest" name="isInterest">
+                      <span class="new-control-indicator"></span>Flat
+                  </label>
+                  </div>
+                  <div class="n-chk d-inline">
+                      <label class="new-control new-radio radio-classic-info">
+                      <input type="radio" class="new-control-input" [(ngModel)]="Model.InterestRateApplied" value="false"  formControlName="isInterest" name="isInterest">
+                      <span class="new-control-indicator"></span>Reducing
+                  </label>
+                  </div>
+              </div>
+          </div>
+          <div class="form-group col-md-6">
+              <label>Is Active</label>
+              <div class="form-radio-check-grp">
+                  <div class="n-chk d-inline">
+                      <label class="new-control new-radio radio-classic-info">
+                      <input type="radio" class="new-control-input" formControlName="IsActive" value="true" [(ngModel)]="Model.IsActive" name="IsActive">
+                      <span class="new-control-indicator"></span>Yes
+                  </label>
+                  </div>
+                  <div class="n-chk d-inline">
+                      <label class="new-control new-radio radio-classic-info">
+                      <input type="radio" class="new-control-input" formControlName="IsActive" value="false" [(ngModel)]="Model.IsActive" name="IsActive">
+                      <span class="new-control-indicator"></span>No
+                  </label>
+                  </div>
+              </div>
+          </div>
+          <div  class="form-group col-md-12">
+            <textarea class="form-control" formControlName="note" [(ngModel)]="Model.Notes" rows="2" placeholder="enter product description"> </textarea>
+          </div>
+
+      </div>
+      <div class="form-footer-btn-grp widget-content widget-content p-3 text-center">
+          <button type="submit" class="btn btn-success mr-3"> <i class="fas fa-check mr-1"></i> Save
+      application</button>
+          <button type="button" routerLink="{{'../../../'  + this.routing_Url.Product_List_Url}}" class="btn btn-outline-danger"> <i class="fas fa-times mr-1"></i> Cancel</button>
+      </div>
+  </div>
+  </form>
+
+</div>

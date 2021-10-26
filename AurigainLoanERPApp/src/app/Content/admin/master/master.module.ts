@@ -1,3 +1,4 @@
+import { AddUpdateBankComponent } from './banks/add-update-bank/add-update-bank.component';
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { SharedModule } from "src/app/Shared/Helper/shared/shared.module";
@@ -64,6 +65,8 @@ import { DetailJewellaryComponent } from './jewellary/detail-jewellary/detail-je
     JewellaryComponent,
     AddJewellaryComponent,
     DetailJewellaryComponent,
+    AddUpdateBankComponent,
+    DetailBankComponent
 
   ],
   imports: [

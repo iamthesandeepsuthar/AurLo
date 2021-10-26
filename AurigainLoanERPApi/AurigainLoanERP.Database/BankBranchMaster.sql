@@ -1,10 +1,11 @@
 ﻿CREATE TABLE [dbo].[BankBranchMaster]
 (
-	[Id] INT NOT NULL PRIMARY KEY Identity(0,1), 
+	[Id] INT NOT NULL PRIMARY KEY Identity(1,1), 
     [BranchName] NCHAR(10) NOT NULL, 
     [BranchCode] NVARCHAR(100) NOT NULL, 
     [IFSC] nvarchar(50)NOT NULL,
-    [Address] NVARCHAR(2000) NOT NULL, 
+    [Pincode] nvarchar(20) NOT NULL,
+    [Address] NVARCHAR(2000) NULL, 
     [ContactNumber] nvarchar(50),
     [BranchEmailId] nvarchar(200),
     [BankId] INT  references BankMaster(Id) NOT NULL, 

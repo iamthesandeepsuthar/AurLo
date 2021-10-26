@@ -19,6 +19,7 @@ export class ProductService {
   }
   AddUpdateProduct(model: ProductModel): Observable<ApiResponse<string>> {
     let url = `${this._baseService.API_Url.Product_AddUpdate_Api}`;
+    debugger;
     return this._baseService.post(url, model);
   }
   ChangeActiveStatus(id:number, status? :string): Observable<ApiResponse<ProductModel[]>> {

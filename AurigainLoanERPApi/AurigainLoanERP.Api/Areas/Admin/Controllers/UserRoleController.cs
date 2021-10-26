@@ -19,6 +19,12 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
             _userRole = userRole;
         }
 
+        [HttpGet]
+        public async Task<ApiServiceResponseModel<List<DDLUserRole>>> Roles() 
+        {
+            return await _userRole.Roles();
+        }
+
         // GET: api/<UserRoleController>
         [HttpPost]
         public async Task<ApiServiceResponseModel<List<UserRoleViewModel>>> Get(IndexModel model)

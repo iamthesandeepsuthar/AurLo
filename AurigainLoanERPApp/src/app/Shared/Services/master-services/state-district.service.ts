@@ -51,7 +51,7 @@ export class StateDistrictService {
     let url = `${this._baseService.API_Url.District_Detail_Api}${id}`;
     return this._baseService.get(url);
   }
-  GetDDLDistrict(id: number): Observable<ApiResponse<DDLDistrictModel>> {
+  GetDDLDistrict(id: number): Observable<ApiResponse<DDLDistrictModel[]>> {
     let url = `${this._baseService.API_Url.District_Dropdown_Api}${id}`;
     return this._baseService.get(url);
   }

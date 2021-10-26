@@ -3129,6 +3129,7 @@ td.table-action-btn button {
     border: 1px solid #e2e2e2;
     border-radius: 6px;
     height: calc(1.4em + 1.4rem + 2px);
+    background: #fff;
 }
 
 input[type="file"] {
@@ -3928,10 +3929,53 @@ table.table.table-striped.dataTable.table-header.table-blue tbody tr:nth-of-type
 }
 
 .bank-master-add-branch-btn {
-    font-size: 20px;
+    font-size: 16px;
 }
 
-.bank-master-add-branch-btn::before {
+.custom-modal .modal-header h5 {
+    color: #fff;
+    font-size: 21px;
+}
+
+.custom-modal .modal-header .close {
+    color: #fff;
+    text-shadow: none;
+    opacity: 9;
+    font-size: 35px;
+    line-height: 24px;
+}
+
+.custom-modal .modal-header {
+    background: #3f51b5;
+    padding: 10px 15px;
+}
+
+.modal-content {
+    border-radius: 25px;
+    overflow: hidden;
+    border: none;
+}
+
+
+/* .custom-modal .modal-content .modal-body {
+    background: url(https://blog.2checkout.com/wp-content/uploads/2018/11/how-does-the-payment-processing-industry-work-1.png);
+    background-repeat: no-repeat;
+    background-position: bottom center;
+    position: relative;
+}
+
+.custom-modal .modal-content .modal-body:before {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.9);
+    height: 100%;
+    width: 100%;
+    content: "";
+    top: 0;
+    left: 0;
+} */
+
+
+/* .bank-master-add-branch-btn::before {
     content: "-";
     font-size: 29px;
     font-weight: 900;
@@ -3939,7 +3983,7 @@ table.table.table-striped.dataTable.table-header.table-blue tbody tr:nth-of-type
 
 .bank-master-add-branch-btn.collapsed:before {
     content: "+";
-}
+} */
 
 
 /* .bank-master-add-branch-btn.collapsed {

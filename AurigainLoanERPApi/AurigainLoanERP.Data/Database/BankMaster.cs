@@ -12,6 +12,7 @@ namespace AurigainLoanERP.Data.Database
         public BankMaster()
         {
             BankBranchMaster = new HashSet<BankBranchMaster>();
+            Product = new HashSet<Product>();
         }
 
         public int Id { get; set; }
@@ -26,5 +27,6 @@ namespace AurigainLoanERP.Data.Database
         public DateTime? ModifiedDate { get; set; }
 
         public virtual ICollection<BankBranchMaster> BankBranchMaster { get; set; }
+        public virtual ICollection<Product> Product { get; set; }
     }
 }
