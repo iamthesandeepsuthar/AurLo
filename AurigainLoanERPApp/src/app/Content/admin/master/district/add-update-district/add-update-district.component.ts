@@ -138,6 +138,13 @@ export class AddUpdateDistrictComponent implements OnInit {
     this.isArea = true;
     this.isUpdate = true;
   }
+  removeArea(index: number) {
+    this.pincodeAreaModel = Object.assign(this.model.Areas[index]);
+    if (this.model.Areas[index].Id == 0 || !this.model.Areas[index].Id) {
+      this.model.Areas.splice(index, 1);
+
+    }
+  }
   updatePincode() {
     this.isUpdate = false;
     this.clearPincodeArea();

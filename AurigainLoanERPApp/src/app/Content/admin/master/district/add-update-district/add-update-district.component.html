@@ -116,13 +116,14 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let a of this.model.Areas;let ndx = index">
+            <tr *ngFor="let area of this.model.Areas;let ndx = index">
               <td>{{ndx + 1}}</td>
-              <td>{{ a.AreaName }}</td>
-              <td>{{ a.Pincode }}</td>
+              <td>{{ area.AreaName }}</td>
+              <td>{{ area.Pincode }}</td>
               <td>
                 <a type="button" class="mr-3" (click)="getPincode(ndx)"><i class="fas fa-edit"></i></a>
-                <a type="button"><i class="fas fa-trash"></i></a>
+                <a type="button" *ngIf="area.Id==0 || !area.Id" (click)="removeArea(ndx)"><i
+                    class="fas fa-trash"></i></a>
               </td>
             </tr>
           </tbody>

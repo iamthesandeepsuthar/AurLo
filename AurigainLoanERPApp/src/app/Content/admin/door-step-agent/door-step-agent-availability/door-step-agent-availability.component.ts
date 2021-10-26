@@ -55,13 +55,35 @@ export class DoorStepAgentAvailabilityComponent implements OnInit {
     });
   }
 
+  setFieldValidation(startTimeFC: string, endTimeFC: string, setRequired: any) {
+    debugger
+    let startTimeField = this.formGroup.get(startTimeFC);
+    let endTimeField = this.formGroup.get(endTimeFC);
+
+    if (setRequired.target.checked) {
+      startTimeField?.setValidators(Validators.required);
+      endTimeField?.setValidators(Validators.required);
+    } else {
+      startTimeField?.setValidators(null);
+      endTimeField?.setValidators(null);
+    }
+
+
+    startTimeField?.updateValueAndValidity();
+    endTimeField?.updateValueAndValidity();
+  }
+
   onFrmSubmit() {
+    debugger
+    this.formGroup.markAllAsTouched();
+    if (this.formGroup.valid) {
+      
+      this._userSettingService.SetUserAvailibility(this.model).subscribe(res => {
+        if (res.IsSuccess) {
 
-    this._userSettingService.SetUserAvailibility(this.model).subscribe(res => {
-      if (res.IsSuccess) {
-
-      }
-    });
+        }
+      });
+    }
   }
 
   GetAvailableArea() {
