@@ -14,6 +14,14 @@ namespace AurigainLoanERP.Shared.ContractModel
         public long DistrictId { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime? Modifieddate { get; set; }
-        public  DistrictModel District { get; set; }
+        public DistrictModel District { get; set; }
     }
+
+    public class AvailableAreaModel
+    {
+        public long Id { get; set; }
+        public string AreaName { get; set; }
+        public string PinCode { get; set; }
+    }
+
 }

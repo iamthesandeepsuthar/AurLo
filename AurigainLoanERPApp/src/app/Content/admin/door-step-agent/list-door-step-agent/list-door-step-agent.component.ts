@@ -27,20 +27,20 @@ export class ListDoorStepAgentComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort!: MatSort;
   id!: number;
-  displayedColumns: string[] = ['index', 'FullName', 'Gender','IsApproved', 'IsActive', 'Action'];
+  displayedColumns: string[] = ['index', 'FullName', 'Gender', 'IsApproved', 'IsActive', 'Action'];
   ViewdisplayedColumns = [{ Value: 'FullName', Text: 'Full Name' },
-                          { Value: 'Gender', Text: 'Gender' },
-                          { Value: 'Email', Text: 'Email' },
-                          { Value: 'Mobile', Text: 'Mobile' }];
+  { Value: 'Gender', Text: 'Gender' },
+  { Value: 'Email', Text: 'Email' },
+  { Value: 'Mobile', Text: 'Mobile' }];
   indexModel = new IndexModel();
   totalRecords: number = 0;
   isTableView: boolean = true;
   //#endregion
 
   constructor(private readonly _service: DoorStepAgentService,
-              private readonly _commonService: CommonService,
-              private readonly toast:ToastrService,
-              private readonly _userSettingService: UserSettingService) { }
+    private readonly _commonService: CommonService,
+    private readonly toast: ToastrService,
+    private readonly _userSettingService: UserSettingService) { }
   ngOnInit(): void {
     this.getList();
   }
@@ -58,11 +58,11 @@ export class ListDoorStepAgentComponent implements OnInit {
           this.dataSource.sort = this.sort;
         }
       } else {
-        this.toast.warning(response.Message as string , 'Server Error');
+        this.toast.warning(response.Message as string, 'Server Error');
       }
     },
       error => {
-        this.toast.error(error.Message as string , 'Error');
+        this.toast.error(error.Message as string, 'Error');
       });
   }
   sortData(event: any): void {
@@ -74,6 +74,13 @@ export class ListDoorStepAgentComponent implements OnInit {
   }
   onSearch() {
     this.indexModel.Page = 1;
+    this.indexModel.IsPostBack = true;
+    this.getList();
+  }
+  onPageSizeChange() {
+
+    this.indexModel.IsPostBack = true;
+    this.indexModel.PageSize = Number(this.indexModel.PageSize);
     this.getList();
   }
   onPaginateChange(event: any) {
@@ -91,14 +98,14 @@ export class ListDoorStepAgentComponent implements OnInit {
           data => {
             subscription.unsubscribe();
             if (data.IsSuccess) {
-              this.toast.success(data.Message as string , 'Status Change');
+              this.toast.success(data.Message as string, 'Status Change');
               this.getList();
             } else {
-              this.toast.warning(data.Message as string , 'Server Error');
+              this.toast.warning(data.Message as string, 'Server Error');
             }
           },
           error => {
-            this.toast.error(error.message as string , 'Error');
+            this.toast.error(error.message as string, 'Error');
           }
         );
       }
@@ -109,18 +116,18 @@ export class ListDoorStepAgentComponent implements OnInit {
 
     this._commonService.Question(Message.ConfirmUpdate as string).then(result => {
       if (result) {
-       let subscription =   this._service.DeleteDoorStepAgent(id).subscribe(
+        let subscription = this._service.DeleteDoorStepAgent(id).subscribe(
           data => {
             subscription.unsubscribe();
             if (data.IsSuccess) {
-              this.toast.success(data.Message as string , 'Remove');
+              this.toast.success(data.Message as string, 'Remove');
               this.getList();
             } else {
-              this.toast.warning(data.Message as string , 'Server Error');
+              this.toast.warning(data.Message as string, 'Server Error');
             }
           },
           error => {
-            this.toast.error(error.message as string , 'Error');
+            this.toast.error(error.message as string, 'Error');
 
           }
         );
@@ -134,14 +141,14 @@ export class ListDoorStepAgentComponent implements OnInit {
           data => {
             subscription.unsubscribe();
             if (data.IsSuccess) {
-              this.toast.success(data.Message as string , 'Access Permission');
+              this.toast.success(data.Message as string, 'Access Permission');
               this.getList();
             } else {
-              this.toast.warning(data.Message as string , 'Server Error');
+              this.toast.warning(data.Message as string, 'Server Error');
             }
           },
           error => {
-            this.toast.error(error.Message as string ,'Error');
+            this.toast.error(error.Message as string, 'Error');
           }
         );
       }

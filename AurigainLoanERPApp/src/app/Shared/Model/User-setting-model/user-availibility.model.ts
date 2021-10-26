@@ -17,6 +17,13 @@ export class UserAvailibilityPostModel {
   SundayST!: string | null;
   SundayET!: string | null;
   Capacity!: number | null;
-  PinCode!: number | null;
-  DistrictId!: number | null;
+  PincodeAreaId!: number | null;
+
 }
+
+export interface AvailableAreaModel {
+  Id: number;
+  AreaName: string;
+  PinCode: string;
+}
+

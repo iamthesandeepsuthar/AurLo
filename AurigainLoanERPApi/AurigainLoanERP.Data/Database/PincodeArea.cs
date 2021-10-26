@@ -9,6 +9,11 @@ namespace AurigainLoanERP.Data.Database
 {
     public partial class PincodeArea
     {
+        public PincodeArea()
+        {
+            UserAvailability = new HashSet<UserAvailability>();
+        }
+
         public long Id { get; set; }
         public string Pincode { get; set; }
         public string AreaName { get; set; }
@@ -19,5 +24,6 @@ namespace AurigainLoanERP.Data.Database
         public DateTime? Modifieddate { get; set; }
 
         public virtual District District { get; set; }
+        public virtual ICollection<UserAvailability> UserAvailability { get; set; }
     }
 }

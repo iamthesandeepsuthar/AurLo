@@ -41,7 +41,7 @@ namespace AurigainLoanERP.Shared.Enums
             Other = 3,
 
         }
-
+            
         public enum ApiStatusCode
         {
             Ok = 200,

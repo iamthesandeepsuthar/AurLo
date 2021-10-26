@@ -17,11 +17,12 @@
     [SundayST] TIME NULL, 
     [SundayET] TIME NULL, 
     [Capacity ] INT NULL, 
-    [PinCode] BIGINT NULL, 
-    [DistrictId] INT NULL,
+    [PincodeAreaId] BIGINT,
     [IsActive] BIT NOT NULL DEFAULT 1, 
     [IsDelete] BIT NOT NULL DEFAULT 0, 
     [CreatedOn] DATETIME NOT NULL DEFAULT GetDate(), 
     [ModifiedOn] DATETIME NULL, 
-    CONSTRAINT [FK_UserAvailability_ToTable] FOREIGN KEY ([UserId]) REFERENCES [UserMaster](Id),
+    CONSTRAINT [FK_UserAvailability_UserMaster] FOREIGN KEY ([UserId]) REFERENCES [UserMaster](Id),
+    CONSTRAINT [FK_UserAvailability_PincodeArea] FOREIGN KEY ([PincodeAreaId]) REFERENCES PincodeArea(Id),
+
 )

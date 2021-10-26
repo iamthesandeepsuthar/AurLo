@@ -41,7 +41,7 @@ export class AddUpdateDistrictComponent implements OnInit {
     private _activatedRoute: ActivatedRoute,
     private _router: Router,
     private readonly toast: ToastrService,
-     readonly _commonService: CommonService
+    readonly _commonService: CommonService
   ) {
     this.Areas = [];
     if (this._activatedRoute.snapshot.params.id) {
@@ -56,16 +56,15 @@ export class AddUpdateDistrictComponent implements OnInit {
     }
   }
   onGetDetail() {
-    let subscription = this._districtService
-      .GetDistrict(this.Id)
-      .subscribe((res) => {
-        subscription.unsubscribe();
-        if (res.IsSuccess) {
-          this.model = res.Data as DistrictModel;
-        } else {
-          this.toast.warning('Record not found', 'No Record');
-        }
-      });
+    let subscription = this._districtService.GetDistrict(this.Id).subscribe((res) => {
+      subscription.unsubscribe();
+      if (res.IsSuccess) {
+        debugger
+        this.model = res.Data as DistrictModel;
+      } else {
+        this.toast.warning('Record not found', 'No Record');
+      }
+    });
   }
   getStates() {
     let subscription = this._districtService.GetDDLState().subscribe((res) => {
@@ -86,8 +85,14 @@ export class AddUpdateDistrictComponent implements OnInit {
     });
   }
   onSubmit() {
-    console.log(JSON.stringify(this.model));
+
+    if (this.pincodeAreaModel.AreaName != undefined && this.pincodeAreaModel.Pincode != undefined) {
+      this.toast.warning('Please submit Pincode and Area first...!', 'Warning');
+      return;
+    }
+
     this.districtForm.markAllAsTouched();
+
     if (this.districtForm.valid) {
 
       let subscription = this._districtService.AddUpdateDistrict(this.model).subscribe((response) => {
@@ -128,7 +133,9 @@ export class AddUpdateDistrictComponent implements OnInit {
   }
 
   getPincode(index: number) {
-    this.pincodeAreaModel = this.Areas[index];
+    this.pincodeAreaModel = Object.assign(this.model.Areas[index]);
+    this.model.Areas.splice(index, 1);
+    this.isArea = true;
     this.isUpdate = true;
   }
   updatePincode() {

@@ -6,3 +6,12 @@ export enum DocumentTypeEnum {
     PANCard = 2,
     CancelledCheque = 3,
 }
+
+export enum UserRoleEnum {
+  SuperAdmin = 1,
+  Admin = 2,
+  ZonalManager = 3,
+  Supervisor = 4,
+  Agent = 5,
+  DoorStepAgent = 6
+}

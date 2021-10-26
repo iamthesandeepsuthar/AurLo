@@ -789,9 +789,8 @@ namespace AurigainLoanERP.Services.User
                         userAvailability.SundaySt = TimeSpan.Parse(model.SundayST ?? null);
                         userAvailability.SundayEt = TimeSpan.Parse(model.SundayET ?? null);
                         userAvailability.Capacity = model.Capacity ?? null;
-                        userAvailability.PinCode = model.PinCode ?? null;
-                        userAvailability.DistrictId = model.DistrictId ?? null;
-
+                        userAvailability.PincodeAreaId = model.PincodeAreaId ?? null;
+                         
                     }
                     else
                     {
@@ -812,8 +811,8 @@ namespace AurigainLoanERP.Services.User
                         userAvail.SundaySt = TimeSpan.Parse(model.SundayST ?? null);
                         userAvail.SundayEt = TimeSpan.Parse(model.SundayET ?? null);
                         userAvail.Capacity = model.Capacity ?? null;
-                        userAvail.PinCode = model.PinCode ?? null;
-                        userAvail.DistrictId = model.DistrictId ?? null;
+                        userAvail.PincodeAreaId = model.PincodeAreaId ?? null;
+                       
                         _db.UserAvailability.Add(userAvail);
                     }
 

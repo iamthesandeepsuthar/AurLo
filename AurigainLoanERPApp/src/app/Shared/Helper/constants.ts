@@ -37,6 +37,8 @@ export class API_Url {
   public static District_Add_Update_Api = `${environment.apiEndPoint}StateAndDistrict/SubmitDistrict`;
   public static District_Active_Status_Api = `${environment.apiEndPoint}StateAndDistrict/ChangeDistrictActiveStatus/`;
   public static District_Delete_Api = `${environment.apiEndPoint}StateAndDistrict/DeleteDistrict/`;
+
+
   //#endregion
 
   //#region <<Qualification>>
@@ -70,7 +72,7 @@ export class API_Url {
   public static DoorstepAgentDeleteApi = `${environment.apiEndPoint}DoorStepAgent/Delete/`;
   public static DoorstepAgentActiveStatusApi = `${environment.apiEndPoint}DoorStepAgent/UpdatActiveStatus/`;
   public static DoorstepAgentDetailApi = `${environment.apiEndPoint}DoorStepAgent/GetById/`;
-  public static DoorstepAgentAvailibilityApi = `${environment.apiEndPoint}DoorStepAgent/SetUserAvailibilty`;
+
   public static DoorstepAgentDeleteDocumentFileApi = `${environment.apiEndPoint}DoorStepAgent/DeleteDocumentFile/`;
 
   //#endregion
@@ -88,6 +90,8 @@ export class API_Url {
   //#region <<User Setting>>
   public static UserUpdateProfileApi = `${environment.apiEndPoint}UserSetting/UpdateProfile`;
   public static UserApproveStatusApi = `${environment.apiEndPoint}UserSetting/UpdateApproveStatus/`;
+  public static UserAvailableAreaApi = `${environment.apiEndPoint}UserSetting/GetUserAvailableAreaForRolebyPinCode/`;
+  public static UserAvailabilityApi = `${environment.apiEndPoint}UserSetting/SetUserAvailibilty`;
   //#endregion
 
   //#region  << Manager's  Above Agent >>

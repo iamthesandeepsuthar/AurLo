@@ -1,4 +1,5 @@
-﻿using AurigainLoanERP.Services.User;
+﻿using AurigainLoanERP.Services.StateAndDistrict;
+using AurigainLoanERP.Services.User;
 using AurigainLoanERP.Shared.Common.Model;
 using AurigainLoanERP.Shared.ContractModel;
 using Microsoft.AspNetCore.Http;
@@ -18,9 +19,12 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
     public class UserSettingController : ControllerBase
     {
         private readonly IUserService _userSerivce;
-        public UserSettingController(IUserService userService)
+        private readonly IStateAndDistrictService _areaSerivce;
+
+        public UserSettingController(IUserService userService, IStateAndDistrictService areaSerivce)
         {
             _userSerivce = userService;
+            _areaSerivce = areaSerivce;
         }
 
         [HttpPost]
@@ -28,8 +32,8 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                return await  _userSerivce.UpdateProfile(model);
-                
+                return await _userSerivce.UpdateProfile(model);
+
             }
             else
             {
@@ -50,6 +54,20 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
         public async Task<ApiServiceResponseModel<object>> UpdateApproveStatus(long id)
         {
             return await _userSerivce.UpdateApproveStatus(id);
+        }
+
+
+        [HttpPost] 
+        public async Task<ApiServiceResponseModel<string>> SetUserAvailibilty([FromBody] UserAvailibilityPostModel model)
+        {
+            return await _userSerivce.SetUserAvailibilty(model);
+
+        }
+
+        [HttpGet("{pinCode}/{roleId}")]
+        public async Task<ApiServiceResponseModel<List<AvailableAreaModel>>> GetUserAvailableAreaForRolebyPinCode(string pinCode, int roleId)
+        {
+            return await _areaSerivce.GetUserAvailableAreaAsync(pinCode, roleId);
         }
     }
 }

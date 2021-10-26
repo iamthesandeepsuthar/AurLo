@@ -26,13 +26,13 @@ namespace AurigainLoanERP.Data.Database
         public TimeSpan? SundaySt { get; set; }
         public TimeSpan? SundayEt { get; set; }
         public int? Capacity { get; set; }
-        public long? PinCode { get; set; }
-        public int? DistrictId { get; set; }
+        public long? PincodeAreaId { get; set; }
         public bool? IsActive { get; set; }
         public bool IsDelete { get; set; }
         public DateTime CreatedOn { get; set; }
         public DateTime? ModifiedOn { get; set; }
 
+        public virtual PincodeArea PincodeArea { get; set; }
         public virtual UserMaster User { get; set; }
     }
 }
