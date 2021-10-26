@@ -14,6 +14,7 @@ export class API_Url {
   //#endregion
 
   //#region <<User Role>>
+  public static UserRole_Dropdown_Api = `${environment.apiEndPoint}UserRole/Roles`;
   public static UserRoleList_Api = `${environment.apiEndPoint}UserRole/Get`;
   public static UserRoleDetail_Api = `${environment.apiEndPoint}UserRole/get/`;
   public static UserRoleAddUpdate_Api = `${environment.apiEndPoint}UserRole/post`;
@@ -122,7 +123,7 @@ public static Product_Detail_Api = `${environment.apiEndPoint}Product/GetById/`;
 //#endregion
 //#region  << Bank & Branch  >>
 public static Bank_List_Api = `${environment.apiEndPoint}Bank/GetList`;
-public static Bank_Dropdown_List_Api =`${environment.apiEndPoint}Bank/Products`;
+public static Bank_Dropdown_List_Api =`${environment.apiEndPoint}Bank/Banks`;
 public static Bank_AddUpdate_Api = `${environment.apiEndPoint}Bank/AddUpdate`;
 public static Bank_Delete_Api = `${environment.apiEndPoint}Bank/DeleteProduct/`;
 public static Bank_ActiveStatus_Api = `${environment.apiEndPoint}Bank/UpdateActiveStatus/`;

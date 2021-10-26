@@ -7,6 +7,7 @@ namespace AurigainLoanERP.Services.UserRoles
 {
     public interface IUserRoleService
     {
+        Task<ApiServiceResponseModel<List<DDLUserRole>>> Roles();
         /// <summary>
         /// Get List of User Role
         /// </summary>

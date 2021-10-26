@@ -23,7 +23,7 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
             return await _serivce.GetStates();
         }
         // GET api/StateAndDistrict/Districts
-        [HttpGet("[action]")]
+        [HttpGet("[action]/{id}")]
         public async Task<ApiServiceResponseModel<List<DDLDistrictModel>>> Districts(int id)
         {
             return await _serivce.GetDistricts(id);

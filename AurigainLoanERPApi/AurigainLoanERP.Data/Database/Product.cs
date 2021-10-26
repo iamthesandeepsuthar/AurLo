@@ -13,6 +13,7 @@ namespace AurigainLoanERP.Data.Database
         public string Name { get; set; }
         public string Notes { get; set; }
         public int ProductCategoryId { get; set; }
+        public int BankId { get; set; }
         public double? MinimumAmount { get; set; }
         public double? MaximumAmount { get; set; }
         public double? InterestRate { get; set; }
@@ -26,6 +27,7 @@ namespace AurigainLoanERP.Data.Database
         public DateTime? ModifiedDate { get; set; }
         public long? CreatedBy { get; set; }
 
+        public virtual BankMaster Bank { get; set; }
         public virtual ProductCategory ProductCategory { get; set; }
     }
 }

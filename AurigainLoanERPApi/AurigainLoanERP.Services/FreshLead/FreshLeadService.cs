@@ -4,7 +4,7 @@ using System.Text;
 
 namespace AurigainLoanERP.Services.FreshLead
 {
-    public interface IFreshLeadService
+    public class FreshLeadService
     {
         #region  <<Gold Loan>>
 

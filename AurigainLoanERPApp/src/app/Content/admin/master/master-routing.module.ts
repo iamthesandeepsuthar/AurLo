@@ -1,3 +1,4 @@
+import { AddUpdateProductComponent } from './products/add-update-product/add-update-product.component';
 import { DetailBankComponent } from './banks/detail-bank/detail-bank.component';
 import { AddUpdateBankComponent } from './banks/add-update-bank/add-update-bank.component';
 import { BanksComponent } from './banks/banks.component';
@@ -29,6 +30,8 @@ import { AddUpdateDistrictComponent } from './district/add-update-district/add-u
 import { DetailDistrictComponent } from './district/detail-district/detail-district.component';
 import { AddUpdateProductCategoryComponent } from './product-category/add-update-product-category/add-update-product-category.component';
 import { ProductCategoryComponent } from './product-category/product-category.component';
+import { ProductsComponent } from './products/products.component';
+import { DetailProductComponent } from './products/detail-product/detail-product.component';
 
 const routes: Routes = [
 
@@ -112,8 +115,16 @@ const routes: Routes = [
   },
   {
     path: "banks/detail-bank/:id", component: DetailBankComponent, canActivate: [AuthenticationGuard]
-  }
-
+  },
+  {
+    path: "products",component: ProductsComponent, canActivate:[AuthenticationGuard]
+  },
+  {
+    path: "products/add-product/:id",component: AddUpdateProductComponent, canActivate:[AuthenticationGuard]
+  },
+  {
+    path: "products/detail-product/:id",component: DetailProductComponent, canActivate:[AuthenticationGuard]
+  },
 ];
 
 @NgModule({

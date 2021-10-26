@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[BankMaster]
 (
-	[Id] INT NOT NULL PRIMARY KEY Identity(0,1), 
+	[Id] INT NOT NULL PRIMARY KEY Identity(1,1), 
     [Name] NVARCHAR(1000) NOT NULL, 
     [BankLogoUrl] NVARCHAR(1000) NULL, 
     [ContactNumber] NVARCHAR(20) NULL, 

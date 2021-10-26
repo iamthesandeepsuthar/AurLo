@@ -4,8 +4,10 @@ export class UserManagerModel {
         DateOfBirth!: Date;
         Gender!: string ;
         FatherName!: string ;
+        RoleId!: number;
         EmailId!: string ;
-        MobileNumber!: string;
+        Mobile!: string;
+        IsWhatsApp!: boolean;
         Password!: string;
         IsApproved!: boolean;
         Address!: string ;

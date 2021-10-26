@@ -4,6 +4,7 @@
     [Name] NVARCHAR(1000) NOT NULL, 
     [Notes] NVARCHAR(MAX) NULL, 
     [ProductCategoryId] INT NOT NULL references ProductCategory(Id), 
+    [BankId] int not null references BankMaster(Id),
     [MinimumAmount] FLOAT NULL, 
     [MaximumAmount] FLOAT NULL, 
     [InterestRate] FLOAT NULL, 

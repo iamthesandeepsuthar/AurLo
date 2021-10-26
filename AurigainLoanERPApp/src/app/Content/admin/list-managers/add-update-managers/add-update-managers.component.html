@@ -27,55 +27,98 @@
                 <input type="file" name="myfile" />
             </div>
         </div>
-
-        <div class="form-row">
+        <form [formGroup]="managerFrom" (ngSubmit)="onSubmit()">
+  <div class="form-row">
             <div class="form-group col-md-4">
-                <label>Full name</label>
-                <input type="text" class="form-control" id="input1" placeholder="Enter Full name">
+                <label>Full Name</label>
+                <input type="text" class="form-control" id="fullName" [(ngModel)]="Model.FullName" formControlName="FullName" placeholder="full name">
             </div>
             <div class="form-group col-md-4">
-                <label>Father name</label>
-                <input type="text" class="form-control" id="input2" placeholder="Enter Father name">
+                <label>Father's Name</label>
+                <input type="text" class="form-control" [(ngModel)]="Model.FatherName" formControlName="FatherName" id="fatherName" placeholder="father name">
             </div>
             <div class="form-group col-md-4">
                 <label>Date of birth</label>
-                <input type="text" class="form-control" id="input3" placeholder="20-02-1998">
+                <input class="form-control" #datepickerYMD="bsDatepicker" placeholder="dd/mm/yyyy"
+                formControlName="DateOfBirth" bsDatepicker [(ngModel)]="model.DateOfBirth"
+                [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', adaptivePosition: true,isAnimated: true, showWeekNumbers: false }">
             </div>
             <div class="form-group col-md-4">
                 <label>Mobile number</label>
-                <input type="text" class="form-control" id="input3" placeholder="962358654">
+                <input type="text" class="form-control" [(ngModel)]="Model.Mobile" id="mobileNumber" formControlName="MobileNumber" placeholder="mobile number">
             </div>
             <div class="form-group col-md-4">
                 <label>Email ID</label>
-                <input type="email" class="form-control" id="input3" placeholder="test@gmail.com">
+                <input type="text" class="form-control" [(ngModel)]="Model.EmailId" formControlName="EmailId" id="emailId" placeholder="email id">
             </div>
             <div class="form-group col-md-4">
                 <label>User Role</label>
-                <select class="form-control">
-            <option>--Select--</option>
-            <option>--Select--</option>
-            <option>--Select--</option>
-        </select>
+                <ng-select [items]="roleModel" [searchable]="true" bindLabel="Name" bindValue="Id"
+            placeholder="select role" formControlName="UserRole" [(ngModel)]="Model.RoleId">
+          </ng-select>
             </div>
             <div class="form-group col-md-4">
                 <label>State</label>
-                <select class="form-control">
-            <option>--Select State--</option>
-            <option>--Select State--</option>
-            <option>--Select State--</option>
-        </select>
+               <ng-select (ngModelChange)="getDistrict($event)"  [items]="stateModel" [searchable]="true" bindLabel="Name" bindValue="Id"
+            placeholder="Select State" formControlName="DllState">
+          </ng-select>
             </div>
             <div class="form-group col-md-4">
                 <label>District</label>
-                <select class="form-control">
-            <option>--Select District--</option>
-            <option>--Select District--</option>
-            <option>--Select District--</option>
-        </select>
+                <ng-select [items]="districtModel" [(ngModel)]="Model.DistrictId" [searchable]="true" bindLabel="Name" bindValue="Id"
+                placeholder="select district" formControlName="DllDistrict">
+              </ng-select>
             </div>
             <div class="form-group col-md-4">
                 <label>Pincode</label>
-                <input type="email" class="form-control" placeholder="235698" disabled>
+                <input type="text" class="form-control" [(ngModel)]="Model.Pincode" formControlName="Pincode" placeholder="pincode">
+            </div>
+            <div class="form-group col-md-4">
+              <label>WhatsApp</label>
+              <div class="form-radio-check-grp">
+                <div class="n-chk d-inline">
+                  <label class="new-control new-radio radio-classic-info">
+                    <input type="radio" class="new-control-input" [value]="true" formControlName="IsWhatsApp"
+                      [(ngModel)]="Model.IsWhatsApp" name="IsWhatsApp">
+                    <span class="new-control-indicator"></span>Yes
+                  </label>
+                </div>
+                <div class="n-chk d-inline">
+                  <label class="new-control new-radio radio-classic-info">
+                    <input type="radio" class="new-control-input" [value]="false" formControlName="IsWhatsApp"
+                      [(ngModel)]="Model.IsWhatsApp" name="IsWhatsApp">
+                    <span class="new-control-indicator"></span>No
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="form-group col-md-8">
+              <label>Gender</label>
+              <div class="form-radio-check-grp">
+                <div class="n-chk d-inline">
+                            <label class="new-control new-radio radio-classic-info">
+                                <input type="radio" formControlName="Gender" class="new-control-input"  value="Male" name="Gender" [(ngModel)]="model.Gender"
+                                    checked>
+                                <span class="new-control-indicator"></span>Male
+                            </label>
+                        </div>
+                        <div class="n-chk d-inline">
+                            <label class="new-control new-radio radio-classic-info">
+                                <input type="radio" formControlName="Gender" class="new-control-input"  value="Female" name="Gender" [(ngModel)]="model.Gender">
+                                <span class="new-control-indicator"></span>Female
+                            </label>
+                        </div>
+                        <div class="n-chk d-inline">
+                            <label class="new-control new-radio radio-classic-info">
+                                <input type="radio"formControlName="Gender" class="new-control-input" value="Other" name="Gender" [(ngModel)]="model.Gender">
+                                <span class="new-control-indicator"></span>Other
+                            </label>
+                        </div>
+              </div>
+            </div>
+            <div class="form-group col-md-12">
+              <label>Address</label>
+              <textarea rows="2" class="form-control" id="32" formControlName="Address" [(ngModel)]="Model.Address" placeholder="enter address "> </textarea>
             </div>
         </div>
         <div class="form-footer-btn-grp widget-content widget-content p-3 text-center">
@@ -83,5 +126,8 @@
         application</button>
             <button type="button" class="btn btn-outline-danger"> <i class="fas fa-times mr-1"></i> Cancel</button>
         </div>
+
+        </form>
+
     </div>
 </div>

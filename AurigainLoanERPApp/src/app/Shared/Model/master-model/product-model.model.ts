@@ -5,21 +5,22 @@ export class ProductModel {
   Name!: string;
   Notes!: string;
   ProductCategoryId!: number;
-  MinimumAmount!: number | null;
-  MaximumAmount!: number | null;
-  InterestRate!: number | null;
-  ProcessingFee!: number | null;
-  InterestRateApplied!: boolean | null;
-  MinimumTenure!: number | null;
-  MaximumTenure!: number | null;
+  BankId!: number;
+  MinimumAmount!: number;
+  MaximumAmount!: number;
+  InterestRate!: number;
+  ProcessingFee!: number;
+  InterestRateApplied!: boolean;
+  MinimumTenure!: number ;
+  MaximumTenure!: number;
   IsActive!: boolean;
   IsDelete!: boolean;
   CreatedDate!: string;
-  CreatedBy!: number | null;
-  Category!: ProductCategoryModel;
+  CreatedBy!: number;
 }
 
 export class DDLProductModel {
   Id!: number;
   Name!: string;
 }
+

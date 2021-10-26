@@ -36,8 +36,8 @@ namespace AurigainLoanERP.Data.Database
         public string ProfilePath { get; set; }
         public string DeviceToken { get; set; }
         public string Token { get; set; }
-        public bool IsWhatsApp { get; set; }
         public bool IsApproved { get; set; }
+        public bool IsWhatsApp { get; set; }
         public bool? IsActive { get; set; }
         public bool IsDelete { get; set; }
         public DateTime CreatedOn { get; set; }

@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[JewellaryType]
 (
-	[Id] INT NOT NULL PRIMARY KEY identity(0,1), 
+	[Id] INT NOT NULL PRIMARY KEY identity(1,1), 
     [Name] NVARCHAR(500) NOT NULL, 
     [Description] NVARCHAR(1000) NULL, 
     [IsActive] BIT NOT NULL DEFAULT 1, 

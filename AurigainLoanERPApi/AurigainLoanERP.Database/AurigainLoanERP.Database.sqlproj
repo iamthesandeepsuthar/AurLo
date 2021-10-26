@@ -94,6 +94,10 @@
     <Build Include="UserAvailability.sql" />
     <Build Include="PincodeArea.sql" />
     <Build Include="JewellaryType.sql" />
+    <Build Include="GoldLoanFreshLead.sql" />
+    <Build Include="GoldLoanFreshLeadJewelleryDetail.sql" />
+    <Build Include="GoldLoanFreshLeadAppointmentDetail.sql" />
+    <Build Include="GoldLoanFreshLeadKycDocument.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="AurigainLoanERP.Database.refactorlog" />

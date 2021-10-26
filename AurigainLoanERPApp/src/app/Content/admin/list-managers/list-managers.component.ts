@@ -23,8 +23,8 @@ export class ListManagersComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort!: MatSort;
   id!: number;
-  displayedColumns: string[] = ['index', 'Name', 'IsActive', 'Action'];
-  ViewdisplayedColumns = [{ Value: 'Name', Text: 'Name' }];
+  displayedColumns: string[] = ['index', 'FullName', 'IsActive', 'Action'];
+  ViewdisplayedColumns = [{ Value: 'FullName', Text: 'Name' }];
   indexModel = new IndexModel();
   totalRecords: number = 0;
   constructor(private readonly _managerService: ManagerService,

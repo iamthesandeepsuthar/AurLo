@@ -24,6 +24,30 @@ namespace AurigainLoanERP.Services.UserRoles
             _db = db;
         }
 
+        public async Task<ApiServiceResponseModel<List<DDLUserRole>>> Roles() 
+        {
+            try
+            {
+                var roles = await _db.UserRole.Select(x => new DDLUserRole
+                {
+                    Id = x.Id,
+                    Name = x.Name
+                }).ToListAsync();
+
+                if (roles.Count() > 0)
+                {
+                    return CreateResponse<List<DDLUserRole>>(roles, ResponseMessage.Success, true, ((int)ApiStatusCode.Ok));
+                }
+                else
+                {
+                    return CreateResponse<List<DDLUserRole>>(null, ResponseMessage.NotFound, true, ((int)ApiStatusCode.RecordNotFound));
+                }
+            }
+            catch (Exception ex)
+            {
+                return CreateResponse<List<DDLUserRole>>(null, ResponseMessage.NotFound, false, ((int)ApiStatusCode.ServerException), ex.Message ?? ex.InnerException.ToString());
+            }
+        }
         /// <summary>
         /// Get List Data
         /// </summary>

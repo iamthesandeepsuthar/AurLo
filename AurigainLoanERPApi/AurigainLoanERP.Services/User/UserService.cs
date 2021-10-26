@@ -204,7 +204,7 @@ namespace AurigainLoanERP.Services.User
                     .Include(x => x.User.UserNominee)
                     .Include(x => x.User.UserKyc)
                     .Include(x => x.User.UserBank)
-                    .Include(x => x.User.UserDocument) 
+                    .Include(x => x.User.UserDocument)
                     .Include(x => x.User.UserRole).Include(x => x.User.UserReportingPersonUser).FirstOrDefaultAsync();
                 if (objAgent != null)
                 {
@@ -277,14 +277,14 @@ namespace AurigainLoanERP.Services.User
                                 });
 
                             }
-                             
+
                         }
                         if (objAgent.User.UserNominee != null)
                         {
                             objAgentModel.UserNominee = _mapper.Map<UserNomineeViewModel>(objAgent.User.UserNominee.FirstOrDefault() ?? null);
 
                         }
-         
+
                         objAgentModel.User.UserRoleName = objAgent.User.UserRole.Name;
                         objAgentModel.DistrictName = objAgent.District.Name;
                         objAgentModel.StateName = objAgent.District.State.Name;
@@ -588,7 +588,7 @@ namespace AurigainLoanERP.Services.User
                         objDoorStepAgentModel.StateId = objDoorStepAgent.District.StateId;
                         objDoorStepAgentModel.QualificationName = objDoorStepAgent.Qualification.Name;
                         objDoorStepAgentModel.User.UserRoleName = objDoorStepAgent.User.UserRole.Name;
-                 
+
 
                     }
                     return CreateResponse(objDoorStepAgentModel, ResponseMessage.Success, true, ((int)ApiStatusCode.Ok));
@@ -637,6 +637,12 @@ namespace AurigainLoanERP.Services.User
                 return CreateResponse<string>(null, ResponseMessage.Fail, false, ((int)ApiStatusCode.ServerException), ex.InnerException == null ? ex.Message : ex.InnerException.Message);
 
             }
+        }
+
+        public async Task<ApiServiceResponseModel<List<UserManagerModel>>> ManagersList(IndexModel model) {
+            ApiServiceResponseModel<List<UserManagerModel>> objResponse = new ApiServiceResponseModel<List<UserManagerModel>>();
+
+            return objResponse;
         }
         #endregion
 
@@ -874,8 +880,6 @@ namespace AurigainLoanERP.Services.User
 
             }
         }
-
-
         #endregion
 
         #region << Private Method>>
@@ -1152,14 +1156,12 @@ namespace AurigainLoanERP.Services.User
         {
             try
             {
-
-                if (model.Id == default)
+                if (model.Id == default || model.Id == 0)
                 {
                     var objModel = _mapper.Map<UserReportingPerson>(model);
                     objModel.CreatedOn = DateTime.Now;
                     objModel.UserId = userId;
                     objModel.ReportingUserId = model.ReportingUserId;
-
                     var result = await _db.UserReportingPerson.AddAsync(objModel);
                     await _db.SaveChangesAsync();
 
@@ -1413,17 +1415,22 @@ namespace AurigainLoanERP.Services.User
                             Mobile = model.Mobile,
                             CreatedOn = DateTime.Now,
                             IsActive = model.IsActive,
+                            UserRoleId = model.RoleId,
+                            IsWhatsApp = model.IsWhatsApp,
+                            Password= "12345",
                             IsApproved = true,
                             IsDelete = false,
                             ProfilePath = null
                         };
                         var result = await _db.UserMaster.AddAsync(user);
+                        await _db.SaveChangesAsync();
+                        model.UserId = result.Entity.Id;
                         Managers manager = new Managers
                         {
                             FullName = model.FullName,
                             FatherName = model.FatherName,
                             DateOfBirth = model.DateOfBirth,
-                            UserId = result.Entity.Id,
+                            UserId = model.UserId,
                             Gender = model.Gender,
                             DistrictId = model.DistrictId,
                             IsActive = model.IsActive,
@@ -1450,12 +1457,13 @@ namespace AurigainLoanERP.Services.User
                         manager.FullName = model.FullName;
                         manager.FatherName = model.FatherName;
                         manager.Gender = model.Gender;
+                        manager.User.Email = model.EmailId;
                         manager.ModifiedOn = DateTime.Now;
                         manager.DateOfBirth = model.DateOfBirth;
                         manager.Address = model.Address;
                         manager.PinCode = model.Pincode;
-                        await _db.SaveChangesAsync();
                     }
+                    await _db.SaveChangesAsync();
                 }
                 return true;
             }
@@ -1463,11 +1471,7 @@ namespace AurigainLoanERP.Services.User
             {
                 throw;
             }
-
-
         }
-
         #endregion
-
     }
 }

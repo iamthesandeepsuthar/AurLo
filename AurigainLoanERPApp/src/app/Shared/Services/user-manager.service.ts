@@ -17,6 +17,7 @@ export class UserManagerService {
   }
 
   AddUpdateManager(model: UserManagerModel): Observable<ApiResponse<string>> {
+    debugger;
     let url = `${this._baseService.API_Url.Manager_AddUpdate_Api}`;
     return this._baseService.post(url, model);
   }

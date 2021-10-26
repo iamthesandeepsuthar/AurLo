@@ -16,3 +16,8 @@ export class UserRolePostModel {
     ParentId!: number | string|null;
     IsActive!: boolean;
 }
+
+export class DDLUserRole {
+  Id!:number;
+  Name!:string;
+}

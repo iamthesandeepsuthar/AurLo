@@ -1,5 +1,9 @@
 
+
 export class BankModel {
+  constructor() {
+  this.Branches = [];
+  }
   Id!: number;
   Name!: string;
   BankLogoUrl!: string;

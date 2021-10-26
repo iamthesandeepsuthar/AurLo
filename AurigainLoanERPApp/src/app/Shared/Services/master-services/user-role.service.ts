@@ -1,11 +1,8 @@
-
 import { ApiResponse, IndexModel } from 'src/app/Shared/Helper/common-model';
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { BaseAPIService } from '../../Helper/base-api.service';
-import { UserRoleModel, UserRolePostModel } from '../../Model/master-model/user-role.model';
-
-
+import { DDLUserRole, UserRoleModel, UserRolePostModel } from '../../Model/master-model/user-role.model';
 
 @Injectable()
 export class UserRoleService {
@@ -18,6 +15,10 @@ export class UserRoleService {
     return this._baseService.post(url, model);
   }
 
+  GetUserRoleDDL():Observable<ApiResponse<DDLUserRole[]>> {
+    let url = `${this._baseService.API_Url.UserRole_Dropdown_Api}`;
+    return this._baseService.get(url);
+  }
   GetRole(id: number): Observable<ApiResponse<UserRoleModel>> {
     let url = `${this._baseService.API_Url.UserRoleDetail_Api}${id}`;
     return this._baseService.get(url);
