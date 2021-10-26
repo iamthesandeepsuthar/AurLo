@@ -3129,6 +3129,7 @@ td.table-action-btn button {
     border: 1px solid #e2e2e2;
     border-radius: 6px;
     height: calc(1.4em + 1.4rem + 2px);
+    background: #fff;
 }
 
 input[type="file"] {
@@ -3954,6 +3955,24 @@ table.table.table-striped.dataTable.table-header.table-blue tbody tr:nth-of-type
     overflow: hidden;
     border: none;
 }
+
+
+/* .custom-modal .modal-content .modal-body {
+    background: url(https://blog.2checkout.com/wp-content/uploads/2018/11/how-does-the-payment-processing-industry-work-1.png);
+    background-repeat: no-repeat;
+    background-position: bottom center;
+    position: relative;
+}
+
+.custom-modal .modal-content .modal-body:before {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.9);
+    height: 100%;
+    width: 100%;
+    content: "";
+    top: 0;
+    left: 0;
+} */
 
 
 /* .bank-master-add-branch-btn::before {
