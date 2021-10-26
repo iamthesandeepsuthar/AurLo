@@ -1,157 +1,179 @@
 <!-- Page Header Title start -->
 <div class="widget-header">
-  <div class="row d-block d-sm-flex align-items-center justify-content-between text-center text-sm-left">
-      <div>
-          <h1>{{Id==0 ?'Add Bank':'Update Bank'}}</h1>
-          <!-- Breadcrumb Start -->
-          <nav class="custom-breadcrum">
-              <ol class="breadcrumb justify-content-center justify-content-sm-start">
-                  <li class="breadcrumb-item"><a href="#">Home</a></li>
-                  <li class="breadcrumb-item"><a href="javascript:void(0)">Master</a></li>
-                  <li class="breadcrumb-item"><a href="javascript:void(0)" routerLink="{{'../../../'  + this.routing_Url.Bank_List_Url}}"> Banks</a></li>
-                  <li class="breadcrumb-item active" aria-current="page">{{Id==0 ?'Add Bank':'Update Bank'}}
-                  </li>
+    <div class="row d-block d-sm-flex align-items-center justify-content-between text-center text-sm-left">
+        <div>
+            <h1>{{Id==0 ?'Add Bank':'Update Bank'}}</h1>
+            <!-- Breadcrumb Start -->
+            <nav class="custom-breadcrum">
+                <ol class="breadcrumb justify-content-center justify-content-sm-start">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item"><a href="javascript:void(0)">Master</a></li>
+                    <li class="breadcrumb-item"><a href="javascript:void(0)" routerLink="{{'../../../'  + this.routing_Url.Bank_List_Url}}"> Banks</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{Id==0 ?'Add Bank':'Update Bank'}}
+                    </li>
 
-              </ol>
-          </nav>
-          <!-- Breadcrumb End -->
-      </div>
-  </div>
+                </ol>
+            </nav>
+            <!-- Breadcrumb End -->
+        </div>
+    </div>
 </div>
 
 <div class="bank-master-form p-4">
-  <form [formGroup]="bankForm" (ngSubmit)="onSubmit()">
-    <div class="form-row">
-      <div class="form-group col-md-6">
-          <label>Name</label>
-          <input type="text" formControlName="Name" [(ngModel)]="Model.Name"  class="form-control" id="input1" placeholder="Name">
-      </div>
-      <div class="form-group col-md-6">
-          <label>Website</label>
-          <input type="text" formControlName="Website" [(ngModel)]="Model.WebsiteUrl" class="form-control" id="website" placeholder="Enter Website">
-      </div>
-      <div class="form-group col-md-6">
-          <label>Contact</label>
-          <input type="text" formControlName="Contact" [(ngModel)]="Model.ContactNumber" class="form-control" id="contactNumber" placeholder="Contact">
-      </div>
-      <div class="form-group col-md-6">
-          <label>Fax Number</label>
-          <input type="text" formControlName="FaxNumber"  [(ngModel)]="Model.FaxNumber" class="form-control" id="faxNumber" placeholder="Enter number">
-      </div>
+    <form [formGroup]="bankForm" (ngSubmit)="onSubmit()">
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label>Name</label>
+                <input type="text" formControlName="Name" [(ngModel)]="Model.Name" class="form-control" id="input1" placeholder="Name">
+            </div>
+            <div class="form-group col-md-6">
+                <label>Website</label>
+                <input type="text" formControlName="Website" [(ngModel)]="Model.WebsiteUrl" class="form-control" id="website" placeholder="Enter Website">
+            </div>
+            <div class="form-group col-md-6">
+                <label>Contact</label>
+                <input type="text" formControlName="Contact" [(ngModel)]="Model.ContactNumber" class="form-control" id="contactNumber" placeholder="Contact">
+            </div>
+            <div class="form-group col-md-6">
+                <label>Fax Number</label>
+                <input type="text" formControlName="FaxNumber" [(ngModel)]="Model.FaxNumber" class="form-control" id="faxNumber" placeholder="Enter number">
+            </div>
 
-      <div class="form-group col-md-6">
-          <label>Bank logo</label>
-          <div class="dropzone dropzone-light upload-btn-wrapper w-100">
-              <button type="button" class="btn-upload-border d-block w-100 text-left"><i class="fas fa-plus"></i> Upload</button>
-              <input type="file" multiple="true" style="display: block;" />
-              <div class="dz-default dz-message m-1">
-                  <span><i class="ti-cloud-up"></i></span>
-              </div>
-          </div>
-      </div>
+            <div class="form-group col-md-6 mb-2">
+                <label>Bank logo</label>
+                <div class="dropzone dropzone-light upload-btn-wrapper w-100">
+                    <button type="button" class="btn-upload-border d-block w-100 text-left"><i class="fas fa-plus"></i> Upload</button>
+                    <input type="file" multiple="true" style="display: block;" />
+                    <div class="dz-default dz-message m-1">
+                        <span><i class="ti-cloud-up"></i></span>
+                    </div>
+                </div>
+            </div>
 
-      <div class="form-group col-md-6">
-        <label>Status</label>
-        <div class="form-radio-check-grp">
-            <div class="n-chk d-inline">
-                <label class="new-control new-checkbox checkbox-info">
+            <div class="form-group col-md-6 mb-2">
+                <label>Status</label>
+                <div class="form-radio-check-grp">
+                    <div class="n-chk d-inline">
+                        <label class="new-control new-checkbox checkbox-info">
                     <input type="checkbox" formControlName="IsActive" class="new-control-input"
                         [(ngModel)]="Model.IsActive">
                     <span class="new-control-indicator"></span>Active
                 </label>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="bank-master-add-branch">
+            <div class="text-right">
+                <a href="#" class="bank-master-add-branch-btn text-dark" (click)="addBranch();" data-toggle="modal" href="#bank-master-add-branch-form"> <i class="fas fa-plus mr-1"></i> Add Branch</a>
             </div>
         </div>
-      </div>
-
-  </div>
-  <div class="bank-master-add-branch">
-      <div class="text-right">
-          <a href="#" class="bank-master-add-branch-btn collapsed text-info" (click)="addBranch();" data-toggle="collapse" href="#bank-master-add-branch-form"> Add Branch</a>
-      </div>
-  </div>
 
 
-  <div class="form-row bg-light p-4 collapse mt-3" id="bank-master-add-branch-form">
-      <div class="form-group col-md-6">
-          <label>Name <strong class="text-danger ml-1">*</strong></label>
-          <input type="text" class="form-control" formControlName="BranchName"  [(ngModel)]="BranchModel.BranchName" id="BranchName" placeholder="branch name">
-      </div>
-      <div class="form-group col-md-6">
-          <label>Branch Code  <strong class="text-danger ml-1">*</strong></label>
-          <input type="text" class="form-control" formControlName="BranchCode"  [(ngModel)]="BranchModel.BranchCode" id="BranchCode" placeholder="branch code">
-      </div>
-      <div class="form-group col-md-6">
-          <label>Ifsc  <strong class="text-danger ml-1">*</strong></label>
-          <input type="text" class="form-control" formControlName="BranchIfsc"   [(ngModel)]="BranchModel.Ifsc" id="Ifsc" placeholder="ifsc">
-      </div>
-      <div class="form-group col-md-6">
-          <label>Contact Number</label>
-          <input type="text" class="form-control" formControlName="BranchContact"   [(ngModel)]="BranchModel.ContactNumber" id="input1" placeholder="contact number">
-      </div>
-      <div class="form-group col-md-6">
-          <label>Email-Id</label>
-          <input type="email" class="form-control" formControlName="BranchEmail"   [(ngModel)]="BranchModel.BranchEmailId" id="input1" placeholder="email Id">
-      </div>
-      <div class="form-group col-md-6">
-        <label>Status</label>
-        <div class="form-radio-check-grp">
-            <div class="n-chk d-inline">
-                <label class="new-control new-checkbox checkbox-info">
-                    <input type="checkbox" formControlName="BranchIsActive" class="new-control-input"
-                        [(ngModel)]="BranchModel.IsActive">
-                    <span class="new-control-indicator"></span>Active
-                </label>
+
+
+        <div class="mt-3">
+            <div class="table-responsive">
+                <table class="table table-striped bg-white">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Branch Code</th>
+                            <th>Ifsc
+                                <th>
+                                    <th>Contact Number</th>
+                                    <th>Email-Id</th>
+                                    <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let branch of  this.model.Branches;let ndx = index">
+                            <td>{{ndx +1}}</td>
+                            <td>{{branch.BranchName}}</td>
+                            <td>{{branch.BranchCode}}</td>
+                            <td>{{branch.Ifsc}}</td>
+                            <td>{{branch.ContactNumber}}</td>
+                            <td>{{branch.BranchEmailId}}</td>
+                            <td>
+                                <div class="table-s-active table-data-status-round text-success d-flex align-items-center"> <span></span> Active </div>
+                            </td>
+                            <td class="table-action-btn">
+                                <a href="javascript:void(0)" class="table-action-btn-edit" (click)="getFromBranchList(ndx)" data-toggle="tooltip" data-placement="bottom" title="Edit"><i class="fas fa-edit"></i></a>
+                                <a href="javascript:void(0)" *ngIf="Model.Id<=0" class="table-action-btn-delete" (click)="removeToBranchList(ndx)" data-toggle="tooltip" data-placement="bottom" title="Remove"><i class="fas fa-trash-alt"></i></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
-      </div>
-      <div class="form-group col-md-12">
-        <label>Address</label>
-        <textarea rows="2" class="form-control" formControlName="BranchAddress"  [(ngModel)]="BranchModel.Address" placeholder="enter branch address." ></textarea>
-      </div>
-      <div class="col-md-12 text-center mt-3">
-          <button type="button" (click)="addToBranchList()" class="btn btn-info"> <i class="fas fa-plus mr-1"></i> {{ IsBranchUpdate ? 'Update & Add to list' : 'Add to list'}}</button>
-      </div>
-      <div class="col-md-12 mt-3">
-          <div class="table-responsive">
-              <table class="table table-striped bg-white">
-                  <thead>
-                      <tr>
-                         <td>#</td>
-                          <th>Name</th>
-                          <th>Branch Code</th>
-                          <th>Ifsc <th>
-                          <th>Contact Number</th>
-                          <th>Email-Id</th>
-                          <th>Action</th>
-                      </tr>
-                  </thead>
-                  <tbody>
-                      <tr *ngFor="let branch of  this.model.Branches;let ndx = index">
-                          <td>{{ndx +1}}</td>
-                          <td>{{branch.BranchName}}</td>
-                          <td>{{branch.BranchCode}}</td>
-                          <td>{{branch.Ifsc}}</td>
-                          <td>{{branch.ContactNumber}}</td>
-                          <td>{{branch.BranchEmailId}}</td>
-                          <td>
-                              <div class="table-s-active table-data-status-round text-success d-flex align-items-center"> <span></span> Active </div>
-                          </td>
-                          <td class="table-action-btn">
-                              <a href="javascript:void(0)"  class="table-action-btn-edit" (click)="getFromBranchList(ndx)"data-toggle="tooltip" data-placement="bottom" title="Edit"><i class="fas fa-edit"></i></a>
-                              <a href="javascript:void(0)" *ngIf="Model.Id<=0" class="table-action-btn-delete" (click)="removeToBranchList(ndx)" data-toggle="tooltip" data-placement="bottom" title="Remove"><i class="fas fa-trash-alt"></i></a>
-                          </td>
-                      </tr>
-                  </tbody>
-              </table>
-          </div>
-      </div>
 
 
-
-  </div>
-  <div class="form-footer-btn-grp widget-content widget-content p-3 text-center">
-      <button type="submit" class="btn btn-success mr-3"> <i class="fas fa-check mr-1"></i> Submit</button>
-      <button type="button" class="btn btn-outline-danger" routerLink="{{'../../../'  + this.routing_Url.Bank_List_Url}}"> <i class="fas fa-times mr-1"></i> Cancel</button>
-  </div>
-</form>
+        <div class="form-footer-btn-grp widget-content widget-content p-3 text-center">
+            <button type="submit" class="btn btn-success mr-3"> <i class="fas fa-check mr-1"></i> Submit</button>
+            <button type="button" class="btn btn-outline-danger" routerLink="{{'../../../'  + this.routing_Url.Bank_List_Url}}"> <i class="fas fa-times mr-1"></i> Cancel</button>
+        </div>
+    </form>
 </div>
+
+
+<!-- Modal  Start -->
+<div class="modal fade custom-modal" id="bank-master-add-branch-form">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add Branch</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+            </div>
+            <div class="modal-body px-4 pt-4 pb-0">
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label>Name <strong class="text-danger ml-1">*</strong></label>
+                        <input type="text" class="form-control" formControlName="BranchName" [(ngModel)]="BranchModel.BranchName" id="BranchName" placeholder="branch name">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Branch Code  <strong class="text-danger ml-1">*</strong></label>
+                        <input type="text" class="form-control" formControlName="BranchCode" [(ngModel)]="BranchModel.BranchCode" id="BranchCode" placeholder="branch code">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Ifsc  <strong class="text-danger ml-1">*</strong></label>
+                        <input type="text" class="form-control" formControlName="BranchIfsc" [(ngModel)]="BranchModel.Ifsc" id="Ifsc" placeholder="ifsc">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Contact Number</label>
+                        <input type="text" class="form-control" formControlName="BranchContact" [(ngModel)]="BranchModel.ContactNumber" id="input1" placeholder="contact number">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Email-Id</label>
+                        <input type="email" class="form-control" formControlName="BranchEmail" [(ngModel)]="BranchModel.BranchEmailId" id="input1" placeholder="email Id">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Status</label>
+                        <div class="form-radio-check-grp">
+                            <div class="n-chk d-inline">
+                                <label class="new-control new-checkbox checkbox-info">
+                            <input type="checkbox" formControlName="BranchIsActive" class="new-control-input"
+                                [(ngModel)]="BranchModel.IsActive">
+                            <span class="new-control-indicator"></span>Active
+                        </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label>Address</label>
+                        <textarea rows="2" class="form-control" formControlName="BranchAddress" [(ngModel)]="BranchModel.Address" placeholder="enter branch address."></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer border-0">
+                <button type="button" (click)="addToBranchList()" class="btn btn-success"> <i class="fas fa-plus mr-1"></i> {{ IsBranchUpdate ? 'Update & Add to list' : 'Add to list'}}</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close"><i class="fas fa-times mr-1"></i> Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal  End -->
