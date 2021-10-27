@@ -1,150 +1,154 @@
 <!-- Page Header Title start -->
 <div class="widget-header">
-  <div class="
+    <div class="
       row
       d-block d-sm-flex
       align-items-center
       justify-content-between
       text-center text-sm-left
     ">
-    <div>
-      <h1>{{ Id == 0 ? "Add District" : "Update District" }}</h1>
-      <!-- Breadcrumb Start -->
-      <nav class="custom-breadcrum">
-        <ol class="breadcrumb justify-content-center justify-content-sm-start">
-          <li class="breadcrumb-item"><a href="#">Home</a></li>
-          <li class="breadcrumb-item">
-            <a href="javascript:void(0)">Master</a>
-          </li>
-          <li class="breadcrumb-item">
-            <a
-              routerLink="/{{this.routing_Url.AdminModule +'/'+ this.routing_Url.MasterModule + this.routing_Url.District_List_Url }}">
+        <div>
+            <h1>{{ Id == 0 ? "Add District" : "Update District" }}</h1>
+            <!-- Breadcrumb Start -->
+            <nav class="custom-breadcrum">
+                <ol class="breadcrumb justify-content-center justify-content-sm-start">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item">
+                        <a href="javascript:void(0)">Master</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a routerLink="/{{this.routing_Url.AdminModule +'/'+ this.routing_Url.MasterModule + this.routing_Url.District_List_Url }}">
               District Master
             </a>
-          </li>
-          <li class="breadcrumb-item active" aria-current="page">
-            {{ Id == 0 ? "Add District" : "Update District" }}
-          </li>
-        </ol>
-      </nav>
-      <!-- Breadcrumb End -->
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">
+                        {{ Id == 0 ? "Add District" : "Update District" }}
+                    </li>
+                </ol>
+            </nav>
+            <!-- Breadcrumb End -->
+        </div>
     </div>
-  </div>
 </div>
 <!-- Page Header Title end -->
 
 <!-- HTML FORM DIV START -->
-<div class="widget-content widget-content py-5 px-3">
-  <form [formGroup]="districtForm" (ngSubmit)="onSubmit()">
-    <div class="form-row">
-      <div class="form-group col-md-5">
-        <label>State</label>
-        <div>
-          <ng-select [items]="State_DropDown" [searchable]="true" bindLabel="Name" bindValue="Id"
-            placeholder="Select State" formControlName="DllState" [(ngModel)]="model.StateId">
-          </ng-select>
-        </div>
+<div class="widget-content widget-content p-4">
+    <form [formGroup]="districtForm" (ngSubmit)="onSubmit()">
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label>State</label>
+                <div>
+                    <ng-select [items]="State_DropDown" [searchable]="true" bindLabel="Name" bindValue="Id" placeholder="Select State" formControlName="DllState" [(ngModel)]="model.StateId">
+                    </ng-select>
+                </div>
 
-        <div class="invalid-feedback" *ngIf="
+                <div class="invalid-feedback" *ngIf="
         districtForm.get('DllState')?.hasError('required') && districtForm.get('DllState')?.touched">
-          Please select state
-        </div>
-      </div>
-      <div class="form-group col-md-5">
-        <label>District Name</label>
-        <input type="text" formControlName="Name" [(ngModel)]="model.Name"
-          [ngClass]="{ 'is-invalid': f.Name.errors && f.Name.touched }" class="form-control" id="input1"
-          placeholder="Name" />
-        <div class="invalid-feedback" *ngIf="
+                    Please select state
+                </div>
+            </div>
+            <div class="form-group col-md-3">
+                <label>District Name</label>
+                <input type="text" formControlName="Name" [(ngModel)]="model.Name" [ngClass]="{ 'is-invalid': f.Name.errors && f.Name.touched }" class="form-control" id="input1" placeholder="Name" />
+                <div class="invalid-feedback" *ngIf="
             districtForm.get('Name')?.hasError('required') && districtForm.get('Name')?.touched ">
-          Please enter district name.
-        </div>
-      </div>
-      <!-- <div class="form-group col-md-12">
+                    Please enter district name.
+                </div>
+            </div>
+            <!-- <div class="form-group col-md-12">
             <label>Pincode</label>
             <input type="text" formControlName="Pin" minlength="6" maxlength="6" [(ngModel)]="model.Pincode" [ngClass]="{ 'is-invalid': f.Pin.errors && f.Pin.touched}" class="form-control" id="input2" placeholder=" Enter pincode">
             <div class="invalid-feedback" *ngIf="(districtForm.get('Pin')?.hasError('required') && districtForm.get('Pin')?.touched)">Please enter district pincode. </div>
         </div> -->
 
-      <div class="form-group col-md-5">
-        <label>Active</label>
-        <div class="form-radio-check-grp">
-          <div class="n-chk d-inline">
-            <label class="new-control new-checkbox checkbox-info">
+            <div class="form-group col-md-3">
+                <label>Active</label>
+                <div class="form-radio-check-grp">
+                    <div class="n-chk d-inline">
+                        <label class="new-control new-checkbox checkbox-info">
               <input type="checkbox" formControlName="IsActive" class="new-control-input" [(ngModel)]="model.IsActive">
               <span class="new-control-indicator"></span>Active Status
             </label>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-2">
-        <label>&nbsp;</label>
-        <button type="button" (click)="this.isArea = true" class="btn btn-primary w-100">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <label>&nbsp;</label>
+                <button type="button" data-toggle="modal" href="#add-dis-area" (click)="this.isArea = true" class="btn btn-primary w-100 b-h-form ">
           <i class="fas fa-plus"> </i> Add Area
         </button>
-      </div>
-    </div>
+            </div>
+        </div>
 
-    <!-- Area add section  -->
-    <div class="form-row" *ngIf="isArea|| this.model.Areas.length>0">
-      <div class="form-group col-md-5">
-        <label>Area Name</label>
-        <input type="text" formControlName="areaName" [(ngModel)]="pincodeAreaModel.AreaName" class="form-control"
-          placeholder="area name" />
-      </div>
+        <div class="modal fade custom-modal" id="add-dis-area">
+            <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Add Branch</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+                    </div>
+                    <div class="modal-body px-4 pt-4 pb-0">
+                        <div class="form-row" *ngIf="isArea|| this.model.Areas.length>0">
+                            <div class="form-group col-md-12">
+                                <label>Area Name</label>
+                                <input type="text" formControlName="areaName" [(ngModel)]="pincodeAreaModel.AreaName" class="form-control" placeholder="area name" />
+                            </div>
 
-      <div class="form-group col-md-5">
-        <label>Pincode</label>
-        <input type="text" (keypress)="_commonService.NumberOnly($event)" formControlName="Pin" minLength="5"
-          maxLength="7" [(ngModel)]="pincodeAreaModel.Pincode" class="form-control" placeholder="pincode" />
-      </div>
+                            <div class="form-group col-md-12">
+                                <label>Pincode</label>
+                                <input type="text" (keypress)="_commonService.NumberOnly($event)" formControlName="Pin" minLength="5" maxLength="7" [(ngModel)]="pincodeAreaModel.Pincode" class="form-control" placeholder="pincode" />
+                            </div>
 
-      <div class="col-md-2">
-        <label>&nbsp;</label>
-        <button type="button" (click)="addToList()" class="btn btn-primary w-100">
-          <i class="fas fa-plus"> </i> {{pincodeAreaModel.Id >0 ? 'Update' : 'Add To List'}}
-        </button>
-      </div>
-      <div class="col-md-12 table-responsive">
-        <table class="table table-bordered no-wrap">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Area</th>
-              <th>Pincode</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let area of this.model.Areas;let ndx = index">
-              <td>{{ndx + 1}}</td>
-              <td>{{ area.AreaName }}</td>
-              <td>{{ area.Pincode }}</td>
-              <td>
-                <a type="button" class="mr-3" (click)="getPincode(ndx)"><i class="fas fa-edit"></i></a>
-                <a type="button" *ngIf="area.Id==0 || !area.Id" (click)="removeArea(ndx)"><i
+
+                        </div>
+                    </div>
+                    <div class="modal-footer border-0">
+                        <button type="button" (click)="addToList()" class="btn btn-success">
+                        <i class="fas fa-plus"> </i> {{pincodeAreaModel.Id >0 ? 'Update' : 'Add To List'}}
+                      </button>
+                        <button type="button" class="btn btn-outline-danger" data-dismiss="modal" aria-label="Close"><i class="fas fa-times mr-1"></i> Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Area add section  -->
+
+
+        <div class="table-responsive mt-2">
+            <table class="table table-bordered no-wrap">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Area</th>
+                        <th>Pincode</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let area of this.model.Areas;let ndx = index">
+                        <td>{{ndx + 1}}</td>
+                        <td>{{ area.AreaName }}</td>
+                        <td>{{ area.Pincode }}</td>
+                        <td>
+                            <a type="button" class="mr-3" (click)="getPincode(ndx)" data-toggle="modal" href="#add-dis-area"><i class="fas fa-edit"></i></a>
+                            <a type="button" *ngIf="area.Id==0 || !area.Id" (click)="removeArea(ndx)"><i
                     class="fas fa-trash"></i></a>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-    <div class="row"></div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
-    <div class="sm-form-footer-btn-grp mt-2 row">
-      <div class="col-6">
-        <button type="submit" class="btn btn-primary w-100">
-          <i class="fas fa-check mr-1"></i> Submit
-        </button>
-      </div>
-      <div class="col-6">
-        <button type="button" routerLink="{{ '../../../' + this.routing_Url.District_List_Url }}"
-          class="btn btn-outline-danger w-100">
-          <i class="fas fa-times mr-1"></i> Cancel
-        </button>
-      </div>
-    </div>
-  </form>
+
+        <div class="form-footer-btn-grp widget-content widget-content p-3 text-center">
+            <button type="submit" class="btn btn-success mr-3"> <i class="fas fa-check mr-1"></i> Submit</button>
+            <button type="button" routerLink="{{ '../../../' + this.routing_Url.District_List_Url }}" class="btn btn-outline-danger"> <i class="fas fa-times mr-1"></i> Cancel</button>
+        </div>
+
+    </form>
 </div>
 <!-- HTML FORM DIV END -->

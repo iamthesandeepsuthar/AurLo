@@ -3956,6 +3956,10 @@ table.table.table-striped.dataTable.table-header.table-blue tbody tr:nth-of-type
     border: none;
 }
 
+.b-h-form {
+    min-height: 44px;
+}
+
 
 /* .custom-modal .modal-content .modal-body {
     background: url(https://blog.2checkout.com/wp-content/uploads/2018/11/how-does-the-payment-processing-industry-work-1.png);
