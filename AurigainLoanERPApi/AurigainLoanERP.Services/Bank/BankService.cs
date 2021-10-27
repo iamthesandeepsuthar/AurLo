@@ -244,5 +244,33 @@ namespace AurigainLoanERP.Services.Bank
 
 
         }
+        public async Task<ApiServiceResponseModel<List<AvailableBranchModel>>> BranchByPincode(string pincode)
+        {
+            try
+            {
+                var branches = await  (from  branch in _db.BankBranchMaster
+                                   where pincode.Contains(pincode) 
+                                   select new AvailableBranchModel                            
+                                   {
+                                      Id = branch.Id,
+                                      Name = branch.BranchName,
+                                      BankId  = branch.BankId 
+                                   }).ToListAsync();
+
+                if (branches.Count >0)
+                {
+                    return CreateResponse(branches, ResponseMessage.Success, true, ((int)ApiStatusCode.Ok));
+                }
+                else
+                {
+                    return CreateResponse<List<AvailableBranchModel>>(null, ResponseMessage.NotFound, true, ((int)ApiStatusCode.RecordNotFound));
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return CreateResponse<List<AvailableBranchModel>>(null, ResponseMessage.Fail, false, ((int)ApiStatusCode.ServerException), ex.Message ?? ex.InnerException.ToString());
+            }
+        }
     }
 }

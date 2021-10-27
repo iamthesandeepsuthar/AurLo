@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AurigainLoanERP.Api.Areas.Admin.Controllers
 {
-    [Route("api/[controller]/[action]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class StateAndDistrictController : ControllerBase
     {
@@ -17,7 +17,7 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
             _serivce =service;
         }
         // GET api/StateAndDistrict/States
-        [HttpGet]
+        [HttpGet("[action]")]
         public async Task<ApiServiceResponseModel<List<DDLStateModel>>> States()
         {
             return await _serivce.GetStates();
@@ -29,18 +29,18 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
             return await _serivce.GetDistricts(id);
         }
 
-        [HttpPost]
+        [HttpPost("[action]")]
         public async Task<ApiServiceResponseModel<List<StateModel>>> GetStateList(IndexModel model)
         {
             return await _serivce.GetAllStateAsync(model);
         }
-        [HttpPost]
+        [HttpPost("[action]")]
         public async Task<ApiServiceResponseModel<List<DistrictModel>>> GetDistrictList(IndexModel model)
         {
             return await _serivce.GetAllDistrictAsync(model);
         }
         // POST api/StateAndDistrict/SubmitState
-        [HttpPost]
+        [HttpPost("[action]")]
         public async Task<ApiServiceResponseModel<string>> SubmitState(StateModel model)
         {
             if (ModelState.IsValid)
@@ -61,7 +61,7 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
         }
 
         // POST api/StateAndDistrict/SubmitDistrict
-        [HttpPost]
+        [HttpPost("[action]")]
         public async Task<ApiServiceResponseModel<string>> SubmitDistrict(DistrictModel model)
         {
             if (ModelState.IsValid)
@@ -82,42 +82,46 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
         }
 
         // DELETE api/StateAndDistrict/DeleteState/5
-        [HttpDelete("{id}")]
+        [HttpDelete("[action]/{id}")]
         public async Task<ApiServiceResponseModel<object>> DeleteState(int id)
         {
             return await _serivce.UpdateStateDeleteStatus(id);
         }
         // DELETE api/StateAndDistrict/DeleteDistrict/5
-        [HttpDelete("{id}")]
+        [HttpDelete("[action]/{id}")]
         public async Task<ApiServiceResponseModel<object>> DeleteDistrict(long id)
         {
             return await _serivce.UpdateDistrictDeleteStatus(id);
         }
         // GET api/StateAndDistrict/GetStateById/5
-        [HttpGet("{id}")]
+        [HttpGet("[action]/{id}")]
         public async Task<ApiServiceResponseModel<StateModel>> GetStateById(int id)
         {
             return await _serivce.GetStateById(id);
 
         }
         // GET api/StateAndDistrict/GetDistrictById/5
-        [HttpGet("{id}")]
+        [HttpGet("[action]/{id}")]
         public async Task<ApiServiceResponseModel<DistrictModel>> GetDistrictById(long id)
         {
             return await _serivce.GetDistrictById(id);
 
         }
-        [HttpGet("{id}")]
+        [HttpGet("[action]/{id}")]
         public async Task<ApiServiceResponseModel<object>> ChangeStateActiveStatus(int id)
         {
             return await _serivce.UpateStateActiveStatus(id);
         }
-        [HttpGet("{id}")]
+        [HttpGet("[action]/{id}")]
         public async Task<ApiServiceResponseModel<object>> ChangeDistrictActiveStatus(int id)
         {
             return await _serivce.UpateDistrictActiveStatus(id);
         }
-      
+        [HttpGet("[action]/{pincode}")]
+        public async Task<ApiServiceResponseModel<List<AvailableAreaModel>>> AreaByPincode(string pincode)
+        {
+            return await _serivce.GetAreaByPincode(pincode);
+        }     
 
     }
 }

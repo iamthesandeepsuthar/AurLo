@@ -9,10 +9,16 @@ namespace AurigainLoanERP.Data.Database
 {
     public partial class BankBranchMaster
     {
+        public BankBranchMaster()
+        {
+            GoldLoanFreshLeadAppointmentDetail = new HashSet<GoldLoanFreshLeadAppointmentDetail>();
+        }
+
         public int Id { get; set; }
         public string BranchName { get; set; }
         public string BranchCode { get; set; }
         public string Ifsc { get; set; }
+        public string Pincode { get; set; }
         public string Address { get; set; }
         public string ContactNumber { get; set; }
         public string BranchEmailId { get; set; }
@@ -24,5 +30,6 @@ namespace AurigainLoanERP.Data.Database
         public DateTime? ModifiedDate { get; set; }
 
         public virtual BankMaster Bank { get; set; }
+        public virtual ICollection<GoldLoanFreshLeadAppointmentDetail> GoldLoanFreshLeadAppointmentDetail { get; set; }
     }
 }

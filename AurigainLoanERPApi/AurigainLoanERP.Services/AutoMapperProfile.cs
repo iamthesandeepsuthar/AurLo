@@ -39,6 +39,7 @@ namespace AurigainLoanERP.Services
             CreateMap<AurigainLoanERP.Data.Database.JewellaryType, JewellaryTypeModel>().ReverseMap();
             CreateMap<BankMaster, BankModel>().ReverseMap();
             CreateMap<BankBranchMaster, BranchModel>().ReverseMap();
+            CreateMap<GoldLoanFreshLead, GoldLoanFreshLeadModel>().ReverseMap();
         }
     }
 }

@@ -42,7 +42,7 @@ namespace AurigainLoanERP.Api.Controllers
         }
         //Post api/Account/Login
         [HttpPost("[action]")]
-        public async Task<ApiServiceResponseModel<string>> Login(LoginModel model)
+        public async Task<ApiServiceResponseModel<LoginResponseModel>> Login(LoginModel model)
         {
             return await _accountService.Login(model);
         }

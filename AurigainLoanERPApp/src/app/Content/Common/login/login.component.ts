@@ -27,7 +27,6 @@ export class LoginComponent implements OnInit {
     if(this.userId == this.Password) {
       if (!environment.IsAutoLogin) {
         this._authService.Login(this.userId).subscribe((res) => {
-          debugger;
           if (res.IsSuccess) {
             this._authService.SaveUserToken(res.Data);
             this._route.navigate(['']);

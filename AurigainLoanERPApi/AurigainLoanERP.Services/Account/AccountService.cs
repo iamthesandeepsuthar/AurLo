@@ -99,9 +99,10 @@ namespace AurigainLoanERP.Services.Account
                 return CreateResponse<string>(null, ResponseMessage.NotFound, false, ((int)ApiStatusCode.ServerException), ex.Message ?? ex.InnerException.ToString());
             }
         }
-        public async Task<ApiServiceResponseModel<string>> Login(LoginModel model)
+        public async Task<ApiServiceResponseModel<LoginResponseModel>> Login(LoginModel model)
         {
-            ApiServiceResponseModel<string> ResponseObject = new Shared.Common.Model.ApiServiceResponseModel<string>();
+            ApiServiceResponseModel<LoginResponseModel> ResponseObject = new Shared.Common.Model.ApiServiceResponseModel<LoginResponseModel>();
+            LoginResponseModel response = new LoginResponseModel();
             try
             {
                 if (model.Plateform == "mobile") // For mobile Permission
@@ -111,7 +112,7 @@ namespace AurigainLoanERP.Services.Account
                     {
                         if (!user.IsApproved) 
                         {
-                            return CreateResponse<string>(null,"Admin not approved your account, Please confirm with admin!", false, ((int)ApiStatusCode.UnApproved));
+                            return CreateResponse<LoginResponseModel>(null,"Admin not approved your account, Please confirm with admin!", false, ((int)ApiStatusCode.UnApproved));
                         }
                         UserLoginLog log = new UserLoginLog
                         {
@@ -126,44 +127,20 @@ namespace AurigainLoanERP.Services.Account
                             user.Token = fresh_token.Data;
                         }
                         await _db.SaveChangesAsync();
-                        return CreateResponse<string>(fresh_token.Data, "Login Successful", true, ((int)ApiStatusCode.Ok));
+                        response.UserId = user.Id;
+                        response.Token = fresh_token.Data;
+                        response.RoleId = user.UserRoleId;                                               
                     }
                     else
                     {
-                        return CreateResponse<string>(null, "You have not register with us,Please Signup", false, ((int)ApiStatusCode.RecordNotFound));
-                    }
-
-                }
-                else // For web permission 
-                {
-                    var user = await _db.UserMaster.Where(x => x.Mobile == model.MobileNumber && x.Mpin == model.Password).FirstOrDefaultAsync();
-                    if (user != null)
-                    {
-                        UserLoginLog log = new UserLoginLog
-                        {
-                            LoggedInTime = DateTime.Now,
-                            UserId = user.Id
-                        };
-                        await _db.UserLoginLog.AddAsync(log);
-                        var fresh_token = _security.CreateToken(model.MobileNumber, user.UserRole.Name);
-                        if (string.IsNullOrEmpty(fresh_token.Data))
-                        {
-                            user.Token = fresh_token.Data;
-                            // _db.SaveChanges();
-
-                        }
-                        await _db.SaveChangesAsync();
-                        return CreateResponse<string>(fresh_token.Data, "Login Successful", true, ((int)ApiStatusCode.Ok));
-                    }
-                    else
-                    {
-                        return CreateResponse<string>(null, "You have no access to use web portal, Please contact with authority !", false, ((int)ApiStatusCode.RecordNotFound));
-                    }
-                }
+                        return CreateResponse<LoginResponseModel>(null, "You have not register with us,Please Signup", false, ((int)ApiStatusCode.RecordNotFound));
+                    }                   
+                }            
+                return CreateResponse<LoginResponseModel>(response, "Login Successful", true, ((int)ApiStatusCode.Ok));
             }
             catch (Exception ex)
             {
-                return CreateResponse<string>(null, ResponseMessage.NotFound, false, ((int)ApiStatusCode.ServerException), ex.Message ?? ex.InnerException.ToString());
+                return CreateResponse<LoginResponseModel>(null, ResponseMessage.NotFound, false, ((int)ApiStatusCode.ServerException), ex.Message ?? ex.InnerException.ToString());
             }
         }
         public async Task<ApiServiceResponseModel<string>> VerifiedPin(OtpVerifiedModel model)

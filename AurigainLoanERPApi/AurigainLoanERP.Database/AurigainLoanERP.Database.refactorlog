@@ -49,4 +49,25 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="Gender" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="a4f1be5f-0436-4f51-a357-966f8636d243" ChangeDateTime="10/27/2021 05:12:24">
+    <Property Name="ElementName" Value="[dbo].[BankBranchMaster].[Pincode]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[BankBranchMaster]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="PincodeAreaId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="9c6e57e9-97b5-4271-b415-e151b810477d" ChangeDateTime="10/27/2021 05:13:29">
+    <Property Name="ElementName" Value="[dbo].[GoldLoanFreshLeadKycDocument].[AreaId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[GoldLoanFreshLeadKycDocument]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="PincodeAreaId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="0ce105a2-f775-4fee-b710-af742caaa941" ChangeDateTime="10/27/2021 16:39:29">
+    <Property Name="ElementName" Value="[dbo].[BankBranchMaster].[PincodeAreaId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[BankBranchMaster]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Pincode" />
+  </Operation>
 </Operations>

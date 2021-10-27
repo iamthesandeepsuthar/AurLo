@@ -34,11 +34,11 @@ namespace AurigainLoanERP.Shared.ContractModel
         public int BankId { get; set; }
         public string ConfigurationSettingJson { get; set; }
         public bool? IsActive { get; set; }
+        public string Pincode { get; set;}
         public bool IsDelete { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime? ModifiedDate { get; set; }
     }
-
     public class DDLBankModel
     {
         public int Id { get; set; }
@@ -50,5 +50,12 @@ namespace AurigainLoanERP.Shared.ContractModel
         public string BranchName { get; set; }
         public string Ifsc { get; set; }
 
+    }
+    public class AvailableBranchModel 
+    {
+        public int Id { get; set;}
+        public string Name { get; set;}
+        public string Ifsc { get; set;}
+        public int BankId { get; set;}
     }
 }

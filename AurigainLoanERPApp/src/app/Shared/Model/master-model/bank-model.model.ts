@@ -22,6 +22,7 @@ export class BranchModel {
   BranchName!: string;
   BranchCode!: string;
   Ifsc!: string;
+  Pincode!: string;
   Address!: string;
   ContactNumber!: string;
   BranchEmailId!: string;

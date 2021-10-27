@@ -11,6 +11,7 @@ namespace AurigainLoanERP.Data.Database
     {
         public UserMaster()
         {
+            GoldLoanFreshLead = new HashSet<GoldLoanFreshLead>();
             Managers = new HashSet<Managers>();
             UserAgent = new HashSet<UserAgent>();
             UserAvailability = new HashSet<UserAvailability>();
@@ -46,6 +47,7 @@ namespace AurigainLoanERP.Data.Database
         public long? ModifiedBy { get; set; }
 
         public virtual UserRole UserRole { get; set; }
+        public virtual ICollection<GoldLoanFreshLead> GoldLoanFreshLead { get; set; }
         public virtual ICollection<Managers> Managers { get; set; }
         public virtual ICollection<UserAgent> UserAgent { get; set; }
         public virtual ICollection<UserAvailability> UserAvailability { get; set; }

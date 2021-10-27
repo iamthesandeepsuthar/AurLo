@@ -98,9 +98,11 @@ this.Id = this._activatedRoute.snapshot.params.id;
   onSubmit() {
  // this.productFrom.markAllAsTouched();
 // if (this.productFrom.valid) {
+  this.model.IsActive = Boolean (this.model.IsActive );
+  this.model.InterestRateApplied = Boolean(this.model.InterestRateApplied);
   let jsonData = JSON.stringify(this.model);
   console.log(jsonData);
-  
+  debugger;
   let subscription = this._productService.AddUpdateProduct(this.Model).subscribe(response => {
   subscription.unsubscribe();
   if(response.IsSuccess) {

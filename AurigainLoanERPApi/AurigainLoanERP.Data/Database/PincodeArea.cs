@@ -11,6 +11,7 @@ namespace AurigainLoanERP.Data.Database
     {
         public PincodeArea()
         {
+            GoldLoanFreshLeadKycDocument = new HashSet<GoldLoanFreshLeadKycDocument>();
             UserAvailability = new HashSet<UserAvailability>();
         }
 
@@ -24,6 +25,7 @@ namespace AurigainLoanERP.Data.Database
         public DateTime? Modifieddate { get; set; }
 
         public virtual District District { get; set; }
+        public virtual ICollection<GoldLoanFreshLeadKycDocument> GoldLoanFreshLeadKycDocument { get; set; }
         public virtual ICollection<UserAvailability> UserAvailability { get; set; }
     }
 }
