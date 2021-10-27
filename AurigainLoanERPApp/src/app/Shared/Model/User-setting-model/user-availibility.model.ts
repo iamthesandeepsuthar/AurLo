@@ -16,8 +16,8 @@ export class UserAvailibilityPostModel {
   SaturdayET!: string | null;
   SundayST!: string | null;
   SundayET!: string | null;
-  Capacity!: number | null;
-  PincodeAreaId!: number | null;
+  Capacity!: number ;
+  PincodeAreaId!: number ;
 
 }
 
