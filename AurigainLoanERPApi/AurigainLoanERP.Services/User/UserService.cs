@@ -749,7 +749,7 @@ namespace AurigainLoanERP.Services.User
                     await _db.SaveChangesAsync();
 
                     _db.Database.CommitTransaction();
-                    return CreateResponse<string>(savedFilePath, ResponseMessage.Update, true, ((int)ApiStatusCode.Ok));
+                    return CreateResponse<string>(savedFilePath, ResponseMessage.FileUpdated, true, ((int)ApiStatusCode.Ok));
                 }
                 else
                 {

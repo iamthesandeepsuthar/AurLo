@@ -17,5 +17,7 @@ namespace AurigainLoanERP.Shared.Common.Model
         public const string UserExist = "User already mapped with mobile or email...!";      
         public const string Fail = "Faild";
         public const string RecordAlreadyExist = "Record already exist, Please try with other !";
+        public const string FileUpdated = "File sucessfully updated...!";
+
     }
 }
