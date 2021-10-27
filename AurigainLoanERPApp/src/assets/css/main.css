@@ -3705,7 +3705,7 @@ table tbody tr:nth-of-type(odd) .table-data-name span {
 }
 
 .door-kyc-details [class*="col"]:nth-child(3) .custom-card-1-header {
-    background: #f3f5ff;
+    background: #fff0f5;
 }
 
 .door-kyc-details [class*="col"]:nth-child(4) .custom-card-1-header {
