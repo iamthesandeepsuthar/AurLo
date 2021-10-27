@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AurigainLoanERP.Services.Bank
 {
-       public interface IBankService
+    public interface IBankService
     {
         Task<ApiServiceResponseModel<List<BankModel>>> GetAllAsync(IndexModel model);
         Task<ApiServiceResponseModel<BankModel>> GetById(int id);
@@ -16,5 +16,6 @@ namespace AurigainLoanERP.Services.Bank
         Task<ApiServiceResponseModel<object>> UpateActiveStatus(int id);
         Task<ApiServiceResponseModel<object>> UpdateDeleteStatus(int id);
         Task<ApiServiceResponseModel<List<AvailableBranchModel>>> BranchByPincode(string pincode);
+        Task<ApiServiceResponseModel<string>> UpdateLogo(BankLogoPostModel model);
     }
 }

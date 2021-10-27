@@ -1,11 +1,14 @@
 ﻿using AurigainLoanERP.Data.Database;
+using AurigainLoanERP.Shared.Common;
 using AurigainLoanERP.Shared.Common.Method;
 using AurigainLoanERP.Shared.Common.Model;
 using AurigainLoanERP.Shared.ContractModel;
 using AutoMapper;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,11 +19,15 @@ namespace AurigainLoanERP.Services.Bank
     public class BankService : BaseService, IBankService
     {
         public readonly IMapper _mapper;
+        private readonly FileHelper _fileHelper;
+
         private AurigainContext _db;
-        public BankService(IMapper mapper, AurigainContext db)
+        public BankService(IMapper mapper, AurigainContext db, IHostingEnvironment environment)
         {
             this._mapper = mapper;
             _db = db;
+            _fileHelper = new FileHelper(environment);
+
         }
         public async Task<ApiServiceResponseModel<List<BankModel>>> GetAllAsync(IndexModel model)
         {
@@ -270,6 +277,40 @@ namespace AurigainLoanERP.Services.Bank
             catch (Exception ex)
             {
                 return CreateResponse<List<AvailableBranchModel>>(null, ResponseMessage.Fail, false, ((int)ApiStatusCode.ServerException), ex.Message ?? ex.InnerException.ToString());
+            }
+        }
+        /// <summary>
+        /// Update bank Logo
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public async Task<ApiServiceResponseModel<string>> UpdateLogo(BankLogoPostModel model)
+        {
+            try
+            {
+                if (model != null && !string.IsNullOrEmpty(model.Base64) && model.Id > 0)
+                {
+
+
+                    await _db.Database.BeginTransactionAsync();
+                    var user = await _db.BankMaster.FirstOrDefaultAsync(X => X.Id == model.Id);
+                    string savedFilePath = !string.IsNullOrEmpty(model.Base64) ? Path.Combine(FilePathConstant.BankLogoFile, _fileHelper.Save(model.Base64, FilePathConstant.BankLogoFile, model.FileName)) : null;
+                    user.BankLogoUrl = savedFilePath;
+                    await _db.SaveChangesAsync();
+
+                    _db.Database.CommitTransaction();
+                    return CreateResponse<string>(savedFilePath, ResponseMessage.FileUpdated, true, ((int)ApiStatusCode.Ok));
+                }
+                else
+                {
+                    return CreateResponse<string>(null, ResponseMessage.InvalidData, true, ((int)ApiStatusCode.InvaildModel));
+                }
+            }
+            catch (Exception ex)
+            {
+                _db.Database.RollbackTransaction();
+                return CreateResponse<string>(null, ResponseMessage.Fail, true, ((int)ApiStatusCode.DataBaseTransactionFailed), ex.Message ?? ex.InnerException.ToString());
+
             }
         }
     }
