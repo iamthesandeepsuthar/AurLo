@@ -30,6 +30,12 @@ namespace AurigainLoanERP.Services.User
         /// <returns></returns>
 
         Task<ApiServiceResponseModel<string>> AddUpdateDoorStepAgentAsync(DoorStepAgentPostModel model);
+        /// <summary>
+        /// Get User Profile
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Task<ApiServiceResponseModel<UserViewModel>> GetUserProfile(long id);
 
         /// <summary>
         /// Record Mark as Active or deactive

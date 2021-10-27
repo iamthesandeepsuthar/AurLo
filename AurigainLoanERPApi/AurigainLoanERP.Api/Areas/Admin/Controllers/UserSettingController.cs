@@ -27,6 +27,13 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
             _areaSerivce = areaSerivce;
         }
 
+        [HttpGet("{id}")]
+        public async Task<ApiServiceResponseModel<UserViewModel>> GetUserProfile(long id)
+        {
+            return await _userSerivce.GetUserProfile(id);
+        }
+
+
         [HttpPost]
         public async Task<ApiServiceResponseModel<string>> UpdateProfile([FromBody] UserSettingPostModel model)
         {

@@ -270,7 +270,7 @@ export interface UserViewModel {
   Email: string;
   Mobile: string;
   IsWhatsApp: boolean;
-
+  FullName :string;
   IsApproved: boolean;
   DeviceToken: string;
   Token: string;

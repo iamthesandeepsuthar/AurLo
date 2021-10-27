@@ -216,6 +216,8 @@ namespace AurigainLoanERP.Services.User
                         {
                             objAgentModel.User = _mapper.Map<UserViewModel>(objAgent.User ?? null);
                             objAgentModel.User.MPin = null;
+                            objAgentModel.User.ProfilePath = !string.IsNullOrEmpty(objAgent.User.ProfilePath) ? objAgent.User.ProfilePath.ToAbsolutePath() : null;
+
 
                         }
 
@@ -509,7 +511,7 @@ namespace AurigainLoanERP.Services.User
                         {
                             objDoorStepAgentModel.User = _mapper.Map<UserViewModel>(objDoorStepAgent.User ?? null);
                             objDoorStepAgentModel.User.UserRoleName = objDoorStepAgent.User.UserRole.Name;
-                            objDoorStepAgentModel.User.ProfilePath = objDoorStepAgent.User.ProfilePath.ToAbsolutePath();
+                            objDoorStepAgentModel.User.ProfilePath = !string.IsNullOrEmpty(objDoorStepAgent.User.ProfilePath) ? objDoorStepAgent.User.ProfilePath.ToAbsolutePath() : null;
 
                         }
 
@@ -639,7 +641,8 @@ namespace AurigainLoanERP.Services.User
             }
         }
 
-        public async Task<ApiServiceResponseModel<List<UserManagerModel>>> ManagersList(IndexModel model) {
+        public async Task<ApiServiceResponseModel<List<UserManagerModel>>> ManagersList(IndexModel model)
+        {
             ApiServiceResponseModel<List<UserManagerModel>> objResponse = new ApiServiceResponseModel<List<UserManagerModel>>();
 
             return objResponse;
@@ -647,6 +650,57 @@ namespace AurigainLoanERP.Services.User
         #endregion
 
         #region << Common Method >>
+
+        public async Task<ApiServiceResponseModel<UserViewModel>> GetUserProfile(long id)
+        {
+            try
+            {
+                var user = await _db.UserMaster.Where(x => x.Id == id && !x.IsDelete)
+                   .Include(x => x.UserAgent).Include(x => x.UserDoorStepAgent).Include(x => x.Managers)
+                    .Include(x=> x.UserRole).FirstOrDefaultAsync();
+                if (user != null)
+                {
+                    UserViewModel objUser = _mapper.Map<UserViewModel>(user ?? null);
+                    objUser.UserRoleName = user.UserRole.Name;
+                    switch (user.UserRoleId)
+                    {
+                        case (int)UserRoleEnum.Agent:
+                            objUser.FullName = user.UserAgent.FirstOrDefault().FullName;
+                            break;
+                        case (int)UserRoleEnum.DoorStepAgent:
+                            objUser.FullName = user.UserDoorStepAgent.FirstOrDefault().FullName;
+                            break;
+                        case (int)UserRoleEnum.ZonalManager:
+                            objUser.FullName = user.Managers.FirstOrDefault().FullName;
+                            break;
+                        case (int)UserRoleEnum.Supervisor:
+                            objUser.FullName = user.UserName;
+                            break;
+                        default:
+                            objUser.FullName = null;
+                            break;
+                    }
+                    objUser.UserRoleName = user.UserRole.Name;
+
+                    objUser.ProfilePath = !string.IsNullOrEmpty(user.ProfilePath) ? objUser.ProfilePath.ToAbsolutePath() : null;
+                    return CreateResponse(objUser, ResponseMessage.Success, true, ((int)ApiStatusCode.Ok));
+
+                }
+                else
+                {
+                    return CreateResponse<UserViewModel>(null, ResponseMessage.Update, true, ((int)ApiStatusCode.RecordNotFound));
+
+                }
+
+            }
+            catch (Exception)
+            {
+
+                return CreateResponse<UserViewModel>(null, ResponseMessage.Fail, true, ((int)ApiStatusCode.InternalServerError));
+
+            }
+        }
+
         public async Task<ApiServiceResponseModel<object>> UpateActiveStatus(long id)
         {
             try
@@ -689,6 +743,8 @@ namespace AurigainLoanERP.Services.User
 
             }
         }
+
+
         public async Task<ApiServiceResponseModel<object>> UpdateDeleteStatus(long id)
         {
             try
@@ -790,7 +846,7 @@ namespace AurigainLoanERP.Services.User
                         userAvailability.SundayEt = TimeSpan.Parse(model.SundayET ?? null);
                         userAvailability.Capacity = model.Capacity ?? null;
                         userAvailability.PincodeAreaId = model.PincodeAreaId ?? null;
-                         
+
                     }
                     else
                     {
@@ -812,7 +868,7 @@ namespace AurigainLoanERP.Services.User
                         userAvail.SundayEt = TimeSpan.Parse(model.SundayET ?? null);
                         userAvail.Capacity = model.Capacity ?? null;
                         userAvail.PincodeAreaId = model.PincodeAreaId ?? null;
-                       
+
                         _db.UserAvailability.Add(userAvail);
                     }
 
@@ -1416,7 +1472,7 @@ namespace AurigainLoanERP.Services.User
                             IsActive = model.IsActive,
                             UserRoleId = model.RoleId,
                             IsWhatsApp = model.IsWhatsApp,
-                            Password= "12345",
+                            Password = "12345",
                             IsApproved = true,
                             IsDelete = false,
                             ProfilePath = null

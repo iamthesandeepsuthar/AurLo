@@ -8,6 +8,7 @@ import { AlertService } from "src/app/Shared/Services/alert.service";
 import { CommonService } from "src/app/Shared/Services/common.service";
 import { DoorStepAgentService } from "src/app/Shared/Services/door-step-agent-services/door-step-agent.service";
 import { UserSettingService } from '../../../../Shared/Services/user-setting-services/user-setting.service';
+import { UserViewModel } from '../../../../Shared/Model/doorstep-agent-model/door-step-agent.model';
 
 @Component({
   selector: 'app-door-step-agent-availability',
@@ -16,6 +17,8 @@ import { UserSettingService } from '../../../../Shared/Services/user-setting-ser
   providers: [UserSettingService]
 })
 export class DoorStepAgentAvailabilityComponent implements OnInit {
+  userId: number = 0;
+  userModel = {} as UserViewModel;
   model = {} as UserAvailibilityPostModel;
   availibleAreaModel = [] as AvailableAreaModel[];
   userRoleEnum = UserRoleEnum;
@@ -25,10 +28,16 @@ export class DoorStepAgentAvailabilityComponent implements OnInit {
   PinCode!: string;
   constructor(private readonly _alertService: AlertService, private readonly fb: FormBuilder,
     private readonly _userSettingService: UserSettingService, private _activatedRoute: ActivatedRoute, private _router: Router,
-    readonly _commonService: CommonService, private readonly _toast: ToastrService,) { }
+    readonly _commonService: CommonService, private readonly _toast: ToastrService,) {
+      debugger
+    this.userId = this._activatedRoute.snapshot.params.userId;
+  }
 
   ngOnInit(): void {
     this.formInit();
+    if (this.userId) {
+      this.getUserDetail();
+    }
 
   }
 
@@ -55,6 +64,18 @@ export class DoorStepAgentAvailabilityComponent implements OnInit {
     });
   }
 
+  getUserDetail() {
+    debugger
+    var ser = this._userSettingService.GetUserProfile(this.userId).subscribe(res => {
+      ser.unsubscribe();
+      debugger
+      if (res.IsSuccess) {
+        this.userModel = res.Data as UserViewModel;
+
+      }
+    })
+  }
+
   setFieldValidation(startTimeFC: string, endTimeFC: string, setRequired: any) {
     debugger
     let startTimeField = this.formGroup.get(startTimeFC);
@@ -77,7 +98,7 @@ export class DoorStepAgentAvailabilityComponent implements OnInit {
     debugger
     this.formGroup.markAllAsTouched();
     if (this.formGroup.valid) {
-      
+
       this._userSettingService.SetUserAvailibility(this.model).subscribe(res => {
         if (res.IsSuccess) {
 

@@ -1,15 +1,23 @@
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { BaseAPIService } from "../../Helper/base-api.service";
-import { ApiResponse } from "../../Helper/common-model";
+import { ApiResponse, Dictionary } from '../../Helper/common-model';
+import { UserViewModel } from "../../Model/doorstep-agent-model/door-step-agent.model";
 import { AvailableAreaModel, UserAvailibilityPostModel } from "../../Model/User-setting-model/user-availibility.model";
 import { UserSettingPostModel } from "../../Model/User-setting-model/user-setting.model";
 
 
-@Injectable( )
+@Injectable()
 export class UserSettingService {
 
   constructor(private readonly _baseService: BaseAPIService) { }
+
+  GetUserProfile(id: number): Observable<ApiResponse<UserViewModel>> {
+    var parmas = new Dictionary<any>();
+    parmas.Add("id", Number(id));
+    let url = `${this._baseService.API_Url.GetUserProfileApi}${id}`;
+    return this._baseService.get(url, parmas);
+  }
 
   UpdateUserProfile(model: UserSettingPostModel): Promise<ApiResponse<string>> {
     let url = `${this._baseService.API_Url.UserUpdateProfileApi}`;
