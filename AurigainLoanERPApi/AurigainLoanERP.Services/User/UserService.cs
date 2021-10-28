@@ -657,7 +657,7 @@ namespace AurigainLoanERP.Services.User
             {
                 var user = await _db.UserMaster.Where(x => x.Id == id && !x.IsDelete)
                    .Include(x => x.UserAgent).Include(x => x.UserDoorStepAgent).Include(x => x.Managers)
-                    .Include(x=> x.UserRole).FirstOrDefaultAsync();
+                   .Include(x => x.UserRole).FirstOrDefaultAsync();
                 if (user != null)
                 {
                     UserViewModel objUser = _mapper.Map<UserViewModel>(user ?? null);
@@ -680,7 +680,6 @@ namespace AurigainLoanERP.Services.User
                             objUser.FullName = null;
                             break;
                     }
-                    objUser.UserRoleName = user.UserRole.Name;
 
                     objUser.ProfilePath = !string.IsNullOrEmpty(user.ProfilePath) ? objUser.ProfilePath.ToAbsolutePath() : null;
                     return CreateResponse(objUser, ResponseMessage.Success, true, ((int)ApiStatusCode.Ok));
@@ -935,6 +934,38 @@ namespace AurigainLoanERP.Services.User
 
             }
         }
+
+        /// <summary>
+        /// Get User Availibilty by User Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<ApiServiceResponseModel<List<UserAvailabilityViewModel>>> GetUserAvailibilty(long id)
+        {
+            try
+            {
+                var areas = await _db.UserAvailability.Where(x => x.UserId == id && !x.IsDelete).ToListAsync();
+
+                if (areas != null)
+                {
+                    List<UserAvailabilityViewModel> objArea = _mapper.Map<List<UserAvailabilityViewModel>>(areas ?? null);
+                    return CreateResponse(objArea, ResponseMessage.Success, true, ((int)ApiStatusCode.Ok));
+                }
+                else
+                {
+                    return CreateResponse<List<UserAvailabilityViewModel>>(null, ResponseMessage.Update, true, ((int)ApiStatusCode.RecordNotFound));
+                }
+
+            }
+            catch (Exception)
+            {
+
+                return CreateResponse<List<UserAvailabilityViewModel>>(null, ResponseMessage.Fail, true, ((int)ApiStatusCode.InternalServerError));
+
+            }
+        }
+
+
         #endregion
 
         #region << Private Method>>

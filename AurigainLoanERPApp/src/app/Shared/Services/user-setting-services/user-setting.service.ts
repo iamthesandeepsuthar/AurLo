@@ -40,4 +40,10 @@ export class UserSettingService {
     let url = `${this._baseService.API_Url.UserAvailableAreaApi}${pinCode}/${roleId}`;
     return this._baseService.get(url);
   }
+
+
+  GetUserAvailibilityList(id: number): Observable<ApiResponse<AvailableAreaModel[]>> {
+    let url = `${this._baseService.API_Url.UserAvailableAreaApi}${id}`;
+    return this._baseService.get(url);
+  }
 }

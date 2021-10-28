@@ -64,7 +64,7 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
         }
 
 
-        [HttpPost] 
+        [HttpPost]
         public async Task<ApiServiceResponseModel<string>> SetUserAvailibilty([FromBody] UserAvailibilityPostModel model)
         {
             return await _userSerivce.SetUserAvailibilty(model);
@@ -75,6 +75,12 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
         public async Task<ApiServiceResponseModel<List<AvailableAreaModel>>> GetUserAvailableAreaForRolebyPinCode(string pinCode, int roleId)
         {
             return await _areaSerivce.GetUserAvailableAreaAsync(pinCode, roleId);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ApiServiceResponseModel<List<UserAvailabilityViewModel>>> GetUserAvailibilty(long id)
+        {
+            return await _userSerivce.GetUserAvailibilty(id);
         }
     }
 }

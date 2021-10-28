@@ -29,7 +29,7 @@ export class DoorStepAgentAvailabilityComponent implements OnInit {
   constructor(private readonly _alertService: AlertService, private readonly fb: FormBuilder,
     private readonly _userSettingService: UserSettingService, private _activatedRoute: ActivatedRoute, private _router: Router,
     readonly _commonService: CommonService, private readonly _toast: ToastrService,) {
-      debugger
+    debugger
     this.userId = this._activatedRoute.snapshot.params.userId;
   }
 
@@ -65,10 +65,8 @@ export class DoorStepAgentAvailabilityComponent implements OnInit {
   }
 
   getUserDetail() {
-    debugger
     var ser = this._userSettingService.GetUserProfile(this.userId).subscribe(res => {
       ser.unsubscribe();
-      debugger
       if (res.IsSuccess) {
         this.userModel = res.Data as UserViewModel;
 
@@ -76,6 +74,9 @@ export class DoorStepAgentAvailabilityComponent implements OnInit {
     })
   }
 
+  getUserAvailibiltyList() {
+this._userSettingService.GetAvailableAreaForRolebyPinCode
+  }
   setFieldValidation(startTimeFC: string, endTimeFC: string, setRequired: any) {
     debugger
     let startTimeField = this.formGroup.get(startTimeFC);
