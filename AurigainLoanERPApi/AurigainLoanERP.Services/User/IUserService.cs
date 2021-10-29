@@ -30,6 +30,12 @@ namespace AurigainLoanERP.Services.User
         /// <returns></returns>
 
         Task<ApiServiceResponseModel<string>> AddUpdateDoorStepAgentAsync(DoorStepAgentPostModel model);
+        /// <summary>
+        /// Get User Profile
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Task<ApiServiceResponseModel<UserViewModel>> GetUserProfile(long id);
 
         /// <summary>
         /// Record Mark as Active or deactive
@@ -52,6 +58,12 @@ namespace AurigainLoanERP.Services.User
         /// <param name="documentId"></param>
         /// <returns></returns>
         Task<ApiServiceResponseModel<object>> DeleteDocumentFile(long id, long documentId);
+        /// <summary>
+        /// Get User Availibilty
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Task<ApiServiceResponseModel<List<UserAvailabilityViewModel>>> GetUserAvailibilty(long id);
 
         /// <summary>
         /// Record Mark as delete
