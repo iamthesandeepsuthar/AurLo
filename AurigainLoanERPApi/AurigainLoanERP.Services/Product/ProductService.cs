@@ -27,21 +27,39 @@ namespace AurigainLoanERP.Services.Product
             ApiServiceResponseModel<List<ProductModel>> objResponse = new ApiServiceResponseModel<List<ProductModel>>();
             try
             {
-                var result = (from role in _db.Product 
+                var result = (from product in _db.Product 
                               join category in _db.ProductCategory 
-                              on role.ProductCategoryId equals category.Id
-                              where !role.IsDelete && (string.IsNullOrEmpty(model.Search) || role.Name.Contains(model.Search) || category.Name.Contains(model.Search))
-                              orderby (model.OrderByAsc && model.OrderBy == "Name" ? role.Name : "") ascending
-                              orderby (!model.OrderByAsc && model.OrderBy == "Name" ? role.Name : "") descending
+                              on product.ProductCategoryId equals category.Id
+                              join bank in _db.BankMaster on product.BankId equals bank.Id
+                              where !product.IsDelete && (string.IsNullOrEmpty(model.Search) || product.Name.Contains(model.Search) || category.Name.Contains(model.Search) || bank.Name.Contains(model.Search))
+                              orderby (model.OrderByAsc && model.OrderBy == "Name" ? product.Name : "") ascending
+                              orderby (!model.OrderByAsc && model.OrderBy == "Name" ? product.Name : "") descending
                               orderby (model.OrderByAsc && model.OrderBy == "Name" ? category.Name : "") ascending
                               orderby (!model.OrderByAsc && model.OrderBy == "Name" ? category.Name : "") descending
-                              select role);
-                var data = await result.Skip(((model.Page == 0 ? 1 : model.Page) - 1) * (model.PageSize != 0 ? model.PageSize : int.MaxValue)).Take(model.PageSize != 0 ? model.PageSize : int.MaxValue).ToListAsync();
-                objResponse.Data = _mapper.Map<List<ProductModel>>(data);
+                              orderby (model.OrderByAsc && model.OrderBy == "Name" ? bank.Name : "") ascending
+                              orderby (!model.OrderByAsc && model.OrderBy == "Name" ? bank.Name : "") descending
+                              select new ProductModel { 
+                              Id = product.Id,
+                              Name = product.Name,
+                              ProductCategoryName = category.Name,
+                              ProductCategoryId = product.ProductCategoryId,
+                              ProcessingFee = product.ProcessingFee,
+                              MinimumAmount = product.MinimumAmount,
+                              MaximumAmount = product.MaximumAmount,
+                              IsActive = product.IsActive,
+                              InterestRate = product.InterestRate,
+                              InterestRateApplied = product.InterestRateApplied,
+                              MaximumTenure = product.MaximumTenure,
+                              MinimumTenure = product.MinimumTenure,
+                              BankId = product.BankId,
+                              BankName = bank.Name
+                              });
+
+                var data = await result.Skip(((model.Page == 0 ? 1 : model.Page) - 1) * (model.PageSize != 0 ? model.PageSize : int.MaxValue)).Take(model.PageSize != 0 ? model.PageSize : int.MaxValue).ToListAsync(); ;
 
                 if (result != null)
                 {
-                    return CreateResponse<List<ProductModel>>(objResponse.Data, ResponseMessage.Success, true, ((int)ApiStatusCode.Ok), TotalRecord: result.Count());
+                    return CreateResponse<List<ProductModel>>(data, ResponseMessage.Success, true, ((int)ApiStatusCode.Ok), TotalRecord: result.Count());
                 }
                 else
                 {
@@ -81,10 +99,13 @@ namespace AurigainLoanERP.Services.Product
         {
             try
             {
-                var result = await _db.Product.Where(x => x.IsDelete == false && x.Id == id).Include(x=>x.ProductCategory).FirstOrDefaultAsync();
+                var result = await _db.Product.Where(x => x.IsDelete == false && x.Id == id).Include(x=>x.ProductCategory).Include(x=>x.Bank).FirstOrDefaultAsync();
+                var finalResponse = _mapper.Map<ProductModel>(result);
+                finalResponse.BankName = result.Bank.Name;
+                finalResponse.ProductCategoryName = result.ProductCategory.Name;
                 if (result != null)
                 {
-                    return CreateResponse<ProductModel>(_mapper.Map<ProductModel>(result), ResponseMessage.Success, true, ((int)ApiStatusCode.Ok));
+                    return CreateResponse<ProductModel>(finalResponse, ResponseMessage.Success, true, ((int)ApiStatusCode.Ok));
                 }
                 else
                 {

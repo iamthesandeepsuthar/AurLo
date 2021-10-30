@@ -1,1 +1,84 @@
-<p>detail-managers works!</p>
+
+<!-- Page Header Title start -->
+<div class="widget-header">
+  <div class="row d-block d-sm-flex align-items-center justify-content-between text-center text-sm-left">
+      <div>
+          <h1>Manager's User Detail </h1>
+          <!-- Breadcrumb Start -->
+          <nav class="custom-breadcrum">
+              <ol class="breadcrumb justify-content-center justify-content-sm-start">
+                  <li class="breadcrumb-item"><a href="#">Home</a></li>
+                  <li class="breadcrumb-item"><a href="javascript:void(0)">Master</a></li>
+                  <li class="breadcrumb-item"><a routerLink="{{ '../../../' + this.routing_Url.Manager_List_Url}}">
+                        Manager's User </a></li>
+                  <li class="breadcrumb-item active" aria-current="page">Manager User Detail
+                  </li>
+              </ol>
+          </nav>
+          <!-- Breadcrumb End -->
+      </div>
+  </div>
+</div>
+<!-- Page Header Title end -->
+<!-- HTML FORM DIV START -->
+<div class="widget-content widget-content p-3">
+  <div class="form-row">
+      <div class="form-group col-md-4">
+          <label class="text-info">Full Name</label>
+          <label>{{model.FullName}}</label>
+      </div>
+      <div class="form-group col-md-4">
+        <label class="text-info">Father's Name</label>
+        <label>{{model.FatherName}}</label>
+    </div>
+      <div class="form-group col-md-4">
+        <label class="text-info">Mobile Number</label>
+        <label>{{model.Mobile}}</label>
+    </div>
+    <div class="form-group col-md-4">
+      <label class="text-info">Role</label>
+      <label>{{model.RoleName}}</label>
+     </div>
+     <div class="form-group col-md-4">
+      <label class="text-info">Approval Status</label>
+      <label>{{model.IsApproved ? 'Yes' : 'No'}}</label>
+     </div>
+    <div class="form-group col-md-4">
+      <label class="text-info">Gender</label>
+      <label>{{model.Gender}}</label>
+  </div>
+  <div class="form-group col-md-4">
+    <label class="text-info">Email Id</label>
+    <label>{{model.EmailId}}</label>
+</div>
+<div class="form-group col-md-4">
+  <label class="text-info">WhatsApp Enable </label>
+  <label>{{model.IsWhatsApp ? 'Yes': 'No'}}</label>
+</div>
+  <div class="form-group col-md-4">
+    <label class="text-info">Is Active(Status)</label>
+    <label>{{model.IsActive ? 'Yes': 'No'}}</label>
+</div>
+<div class="form-group col-md-4">
+  <label class="text-info">Date Of Brith</label>
+  <label>{{model.DateOfBirth}}</label>
+</div>
+  <div class="form-group col-md-4">
+    <label class="text-info">State</label>
+    <label>{{model.StateName}}</label>
+</div>
+<div class="form-group col-md-4">
+  <label class="text-info">District</label>
+  <label>{{model.DistrictName}}</label>
+</div>
+<div class="form-group col-md-4">
+  <label class="text-info">Pincode</label>
+  <label>{{model.Pincode}}</label>
+</div>
+<div class="form-group col-md-8">
+  <label class="text-info">Address</label>
+  <label>{{model.Address}}</label>
+</div>
+  </div>
+</div>
+<!-- HTML FORM DIV END -->

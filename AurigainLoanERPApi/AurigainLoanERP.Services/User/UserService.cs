@@ -644,8 +644,108 @@ namespace AurigainLoanERP.Services.User
         public async Task<ApiServiceResponseModel<List<UserManagerModel>>> ManagersList(IndexModel model)
         {
             ApiServiceResponseModel<List<UserManagerModel>> objResponse = new ApiServiceResponseModel<List<UserManagerModel>>();
+            try
+            {
+                var result = (from manager in _db.Managers                            
+                              where !manager.User.IsDelete && (string.IsNullOrEmpty(model.Search) || manager.FullName.Contains(model.Search) || manager.User.Email.Contains(model.Search) || manager.User.UserName.Contains(model.Search))
+                              select manager);
+                switch (model.OrderBy)
+                {
+                    case "FullName":
+                        result = model.OrderByAsc ? (from orderData in result orderby orderData.FullName ascending select orderData) : (from orderData in result orderby orderData.FullName descending select orderData);
+                        break;
+                    case "Mobile":
+                        result = model.OrderByAsc ? (from orderData in result orderby orderData.User.Mobile ascending select orderData) : (from orderData in result orderby orderData.User.Mobile descending select orderData);
+                        break;
+                    case "Email":
+                        result = model.OrderByAsc ? (from orderData in result orderby orderData.User.Email ascending select orderData) : (from orderData in result orderby orderData.User.Email descending select orderData);
+                        break;                   
+                    default:
+                        result = model.OrderByAsc ? (from orderData in result orderby orderData.User.UserRole.Name ascending select orderData) : (from orderData in result orderby orderData.User.UserRole.Name descending select orderData);
+                        break;
+                }
 
-            return objResponse;
+                var data = result.Skip(((model.Page == 0 ? 1 : model.Page) - 1) * (model.PageSize != 0 ? model.PageSize : int.MaxValue)).Take(model.PageSize != 0 ? model.PageSize : int.MaxValue);
+
+                objResponse.Data = await (from detail in data
+                                          where detail.IsDelete == false
+                                          select new UserManagerModel
+                                          {
+                                              Id = detail.Id,
+                                              UserId = detail.User != null ? detail.User.Id : default,
+                                              FullName = detail.FullName ?? null,
+                                              EmailId = detail.User != null ? detail.User.Email : null,
+                                              Mobile = detail.User != null ? detail.User.Mobile : null,
+                                              RoleName = detail.User != null && detail.User.UserRole != null ? detail.User.UserRole.Name : null,                                            
+                                              Gender = detail.Gender ?? null,                                            
+                                              Address = detail.Address ?? null,
+                                              Pincode = detail.Pincode ?? null,
+                                              DateOfBirth = detail.DateOfBirth ?? null,
+                                              ProfileImageUrl = detail.User.ProfilePath.ToAbsolutePath() ?? null,
+                                              IsApproved = detail.User.IsApproved,
+                                              IsActive = detail.User.IsActive,
+                                              Mpin = detail.User.Mpin,
+                                              IsDelete = detail.IsDelete,                                              
+                                              CreatedBy = detail.CreatedBy
+                                          }).ToListAsync();
+                if (result != null)
+                {
+                    return CreateResponse(objResponse.Data, ResponseMessage.Success, true, ((int)ApiStatusCode.Ok), TotalRecord: result.Count());
+                }
+                else
+                {
+                    return CreateResponse<List<UserManagerModel>>(null, ResponseMessage.NotFound, true, ((int)ApiStatusCode.RecordNotFound), TotalRecord: 0);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return CreateResponse<List<UserManagerModel>>(null, ResponseMessage.Fail, false, ((int)ApiStatusCode.ServerException), ex.Message ?? ex.InnerException.ToString());
+            }          
+        }
+
+        public async Task<ApiServiceResponseModel<UserManagerModel>> UserManagerDetailAsync(long Id) 
+        {
+            try
+            {
+                var detail = await _db.Managers.Where(x => x.Id == Id).Include(x=>x.District).Include(x=>x.State).Include(x => x.User).Include(x=>x.User.UserRole).FirstOrDefaultAsync();
+                if (detail != null)
+                {
+                    UserManagerModel manager = new UserManagerModel
+                    {
+                        FullName = detail.FullName,
+                        FatherName = detail.FatherName,
+                        Gender = detail.Gender,
+                        Pincode = detail.Pincode,
+                        DistrictId = detail.DistrictId,
+                        DateOfBirth = detail.DateOfBirth,
+                        Address = detail.Address,
+                        EmailId = detail.User.Email,
+                        StateId = detail.StateId,
+                        RoleId = detail.User.UserRoleId,
+                        Mobile = detail.User.Mobile,
+                        IsWhatsApp = detail.User.IsWhatsApp,
+                        RoleName = detail.User.UserRole.Name,
+                        Id = detail.Id,
+                        UserId = detail.UserId,
+                        IsApproved = detail.User.IsApproved,
+                        IsActive = detail.IsActive,
+                        ProfileImageUrl = "",
+                        DistrictName = detail.District.Name,
+                        StateName = detail.State.Name
+                    };
+                    return CreateResponse(manager, ResponseMessage.Success, true, ((int)ApiStatusCode.Ok));
+                }
+                else 
+                {
+                    return CreateResponse<UserManagerModel>(null, ResponseMessage.NotFound, true, ((int)ApiStatusCode.RecordNotFound));
+                }
+               
+            }
+            catch (Exception ex) 
+            {
+                return CreateResponse<UserManagerModel>(null, ResponseMessage.Fail, false, ((int)ApiStatusCode.ServerException), ex.InnerException != null ? ex.InnerException.Message : ex.Message);
+            }
         }
         #endregion
 
@@ -830,6 +930,14 @@ namespace AurigainLoanERP.Services.User
                     if (dataUserAvailability != null)
                     {
 
+                        //if (!string.IsNullOrEmpty(model.MondayST))
+                        //{
+                        //    dataUserAvailability.MondaySt = TimeSpan.Parse(model.MondayST);
+                        //}
+                        //else
+                        //{
+                        //    dataUserAvailability.MondaySt = null;
+                        //}
 
                         dataUserAvailability.MondaySt = !string.IsNullOrEmpty(model.MondayST) ? TimeSpan.Parse(model.MondayST) : TimeSpan.MinValue;
                         dataUserAvailability.MondayEt = !string.IsNullOrEmpty(model.MondayET) ? TimeSpan.Parse(model.MondayET) : TimeSpan.MinValue;
@@ -1486,6 +1594,7 @@ namespace AurigainLoanERP.Services.User
         private async Task<bool> SaveUserManagerAsync(UserManagerModel model)
         {
             try
+            
             {
                 if (model.Id == default)
                 {
@@ -1493,7 +1602,7 @@ namespace AurigainLoanERP.Services.User
                     if (isExist == null)
                     {
 
-                        model.RoleId = ((int)UserRoleEnum.Supervisor);
+                        //model.RoleId = ((int)UserRoleEnum.Supervisor);
                         Random random = new Random();
                         UserMaster user = new UserMaster
                         {
@@ -1521,6 +1630,7 @@ namespace AurigainLoanERP.Services.User
                             UserId = model.UserId,
                             Gender = model.Gender,
                             DistrictId = model.DistrictId,
+                            StateId = model.StateId,
                             IsActive = model.IsActive,
                             IsDelete = model.IsDelete,
                             Pincode = model.Pincode,
@@ -1539,17 +1649,20 @@ namespace AurigainLoanERP.Services.User
                 }
                 else
                 {
-                    var manager = await _db.UserAgent.FirstOrDefaultAsync(x => x.Id == model.Id);
+                    var manager = await _db.Managers.Where(x => x.Id == model.Id).Include(x=>x.User).FirstOrDefaultAsync();
                     if (manager != null)
                     {
                         manager.FullName = model.FullName;
                         manager.FatherName = model.FatherName;
                         manager.Gender = model.Gender;
                         manager.User.Email = model.EmailId;
-                        manager.ModifiedOn = DateTime.Now;
+                        manager.DistrictId = model.DistrictId;
+                        manager.StateId = model.StateId;
+                        manager.ModifiedDate= DateTime.Now;
                         manager.DateOfBirth = model.DateOfBirth;
                         manager.Address = model.Address;
-                        manager.PinCode = model.Pincode;
+                        manager.Pincode = model.Pincode;
+                        manager.User.UserRoleId = model.RoleId;
                     }
                     await _db.SaveChangesAsync();
                 }

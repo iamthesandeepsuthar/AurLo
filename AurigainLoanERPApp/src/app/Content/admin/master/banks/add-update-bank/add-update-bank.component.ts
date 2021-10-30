@@ -8,8 +8,6 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Routing_Url } from 'src/app/Shared/Helper/constants';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { retryWhen } from 'rxjs/operators';
-
 @Component({
   selector: 'app-add-update-bank',
   templateUrl: './add-update-bank.component.html',
@@ -22,6 +20,7 @@ export class AddUpdateBankComponent implements OnInit {
   model = new BankModel();
   branchModel = new BranchModel();
   bankForm!: FormGroup;
+  branchForm!: FormGroup;
   get routing_Url() {
     return Routing_Url;
   }
@@ -43,6 +42,7 @@ export class AddUpdateBankComponent implements OnInit {
   set BranchModel(value: BranchModel) {
     this.branchModel = value;
   }
+  display:string = 'none';
 
   constructor(
     private readonly fb: FormBuilder,
@@ -58,25 +58,31 @@ export class AddUpdateBankComponent implements OnInit {
   }
   ngOnInit(): void {
     this.formInit();
+    this.formInitBranch();
     if (this.Id > 0) {
       this.onGetDetail();
     }
   }
+  formInitBranch() {
+    this.branchForm = this.fb.group({
+      branchName:[undefined],
+      branchCode:[undefined],
+      branchEmail: [undefined],
+      branchIfsc: [undefined],
+      branchAddress: [undefined],
+      branchPincode: [undefined],
+      branchContact: [undefined],
+      branchIsActive: [undefined],
+    })
+  }
   formInit() {
     this.bankForm = this.fb.group({
       Name: [undefined, Validators.required],
-      IsActive: [true, Validators.required],
-      Website: [undefined],
+      IsActive: [undefined],
+      Website: [undefined, Validators.required],
       Contact: [undefined, Validators.required],
       FaxNumber: [undefined],
-      BranchName: [undefined ],
-      BranchCode: [undefined],
-      BranchEmail: [undefined],
-      BranchIfsc: [undefined],
-      BranchAddress: [undefined],
-      Pincode: [undefined],
-      BranchContact: [undefined],
-      BranchIsActive: [undefined],
+      BankLogoUrl:[undefined],
     });
   }
 
@@ -92,15 +98,17 @@ export class AddUpdateBankComponent implements OnInit {
   }
 
   addBranch() {
+    this.display = 'block';
     this.branchModel = new BranchModel();
     this.branchModel.IsActive = true;
   }
 
   addToBranchList() {
+   // this.branchModel.BranchName == undefined ?  this.toast.info('Please enter required * field of branch', 'Required') : null ;
     if (
       this.branchModel.BranchName == undefined &&
       this.BranchModel.Ifsc == undefined &&
-      this.branchModel.BranchCode == undefined
+      this.branchModel.BranchCode == undefined && this.branchModel.Pincode == undefined
     ) {
       this.toast.info('Please enter required * field of branch', 'Required');
       return;
@@ -119,6 +127,7 @@ export class AddUpdateBankComponent implements OnInit {
         this.branchModel = new BranchModel();
         this.BranchModel.IsActive = true;
         this.IsBranchUpdate = false;
+        this.display ='none';
       }
     }
   }
@@ -131,7 +140,6 @@ export class AddUpdateBankComponent implements OnInit {
     this.model.Branches.splice(index, 1);
     this.IsBranchUpdate = true;
   }
-
   onSubmit() {
     if (this.model.Branches.length < 1) {
       this.toast.warning(
