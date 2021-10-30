@@ -3960,6 +3960,91 @@ table.table.table-striped.dataTable.table-header.table-blue tbody tr:nth-of-type
     min-height: 44px;
 }
 
+.custom_stepers-header {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.custom_stepers-header-items {
+    flex: 1;
+    text-align: center;
+    position: relative;
+}
+
+.custom_stepers-header-items label {
+    height: 50px;
+    width: 50px;
+    background: #ffffff;
+    text-align: center;
+    border-radius: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    margin-bottom: 5px;
+    border: solid 2px #efefef;
+    font-size: 25px;
+}
+
+.custom_stepers-header-items a span {
+    display: block;
+    font-size: 17px;
+    color: #000;
+    font-weight: 500;
+}
+
+.custom_stepers-header-items a {
+    display: inline-block;
+    z-index: 99999999;
+    position: relative;
+}
+
+.custom_stepers-header-items:after {
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 100%;
+    left: 0;
+    border-top: solid 2px #efefef;
+    top: 33%;
+    z-index: 1;
+}
+
+.custom_stepers-header-items.active:after,
+.custom_stepers-header-items.active label {
+    border-color: #002767;
+}
+
+.step-grp-content {
+    margin-top: 20px;
+}
+
+.reg-steper .mat-step-text-label {
+    font-size: 22px;
+}
+
+.reg-steper .mat-step-icon {
+    height: 45px !important;
+    width: 45px !important;
+    margin-left: -11px;
+}
+
+.reg-steper {
+    box-shadow: 0 0 50px #f1f1f1;
+    border-radius: 20px;
+}
+
+.reg-steper .mat-step-header {
+    margin-bottom: 20px;
+}
+
+.login-page-reg-btn a {
+    font-size: 16px;
+    font-weight: 600;
+    color: #000;
+    text-decoration: underline;
+}
+
 
 /* .custom-modal .modal-content .modal-body {
     background: url(https://blog.2checkout.com/wp-content/uploads/2018/11/how-does-the-payment-processing-industry-work-1.png);
