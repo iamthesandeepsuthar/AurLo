@@ -925,50 +925,52 @@ namespace AurigainLoanERP.Services.User
                 if (model != null && model.UserId > 0)
                 {
                     await _db.Database.BeginTransactionAsync();
-                    var userAvailability = await _db.UserAvailability.FirstOrDefaultAsync(X => X.UserId == model.UserId && X.IsActive == true);
+                    var dataUserAvailability = await _db.UserAvailability.FirstOrDefaultAsync(X => X.Id == model.Id && X.UserId == model.UserId && X.IsActive == true);
 
-                    if (userAvailability != null)
+                    if (dataUserAvailability != null)
                     {
-                        userAvailability.MondaySt = TimeSpan.Parse(model.MondayST ?? null);
-                        userAvailability.MondayEt = TimeSpan.Parse(model.MondayET ?? null);
-                        userAvailability.TuesdaySt = TimeSpan.Parse(model.TuesdayST ?? null);
-                        userAvailability.TuesdayEt = TimeSpan.Parse(model.TuesdayET ?? null);
-                        userAvailability.WednesdaySt = TimeSpan.Parse(model.WednesdayST ?? null);
-                        userAvailability.WednesdayEt = TimeSpan.Parse(model.WednesdayET ?? null);
-                        userAvailability.ThursdaySt = TimeSpan.Parse(model.ThursdayST ?? null);
-                        userAvailability.ThursdayEt = TimeSpan.Parse(model.ThursdayET ?? null);
-                        userAvailability.FridaySt = TimeSpan.Parse(model.FridayST ?? null);
-                        userAvailability.FridayEt = TimeSpan.Parse(model.FridayET ?? null);
-                        userAvailability.SaturdaySt = TimeSpan.Parse(model.SaturdayST ?? null);
-                        userAvailability.SaturdayEt = TimeSpan.Parse(model.SaturdayET ?? null);
-                        userAvailability.SundaySt = TimeSpan.Parse(model.SundayST ?? null);
-                        userAvailability.SundayEt = TimeSpan.Parse(model.SundayET ?? null);
-                        userAvailability.Capacity = model.Capacity ?? null;
-                        userAvailability.PincodeAreaId = model.PincodeAreaId ?? null;
+
+
+                        dataUserAvailability.MondaySt = !string.IsNullOrEmpty(model.MondayST) ? TimeSpan.Parse(model.MondayST) : TimeSpan.MinValue;
+                        dataUserAvailability.MondayEt = !string.IsNullOrEmpty(model.MondayET) ? TimeSpan.Parse(model.MondayET) : TimeSpan.MinValue;
+                        dataUserAvailability.TuesdaySt = !string.IsNullOrEmpty(model.TuesdayST) ? TimeSpan.Parse(model.TuesdayST) : TimeSpan.MinValue;
+                        dataUserAvailability.TuesdayEt = !string.IsNullOrEmpty(model.TuesdayET) ? TimeSpan.Parse(model.TuesdayET) : TimeSpan.MinValue;
+                        dataUserAvailability.WednesdaySt = !string.IsNullOrEmpty(model.WednesdayST) ? TimeSpan.Parse(model.WednesdayST) : TimeSpan.MinValue;
+                        dataUserAvailability.WednesdayEt = !string.IsNullOrEmpty(model.WednesdayET) ? TimeSpan.Parse(model.WednesdayET) : TimeSpan.MinValue;
+                        dataUserAvailability.ThursdaySt = !string.IsNullOrEmpty(model.ThursdayST) ? TimeSpan.Parse(model.ThursdayST) : TimeSpan.MinValue;
+                        dataUserAvailability.ThursdayEt = !string.IsNullOrEmpty(model.ThursdayET) ? TimeSpan.Parse(model.ThursdayET) : TimeSpan.MinValue;
+                        dataUserAvailability.FridaySt = !string.IsNullOrEmpty(model.FridayST) ? TimeSpan.Parse(model.FridayST) : TimeSpan.MinValue;
+                        dataUserAvailability.FridayEt = !string.IsNullOrEmpty(model.FridayET) ? TimeSpan.Parse(model.FridayET) : TimeSpan.MinValue;
+                        dataUserAvailability.SaturdaySt = !string.IsNullOrEmpty(model.SaturdayST) ? TimeSpan.Parse(model.SaturdayST) : TimeSpan.MinValue;
+                        dataUserAvailability.SaturdayEt = !string.IsNullOrEmpty(model.SaturdayET) ? TimeSpan.Parse(model.SaturdayET) : TimeSpan.MinValue;
+                        dataUserAvailability.SundaySt = !string.IsNullOrEmpty(model.SundayST) ? TimeSpan.Parse(model.SundayST) : TimeSpan.MinValue;
+                        dataUserAvailability.SundayEt = !string.IsNullOrEmpty(model.SundayET) ? TimeSpan.Parse(model.SundayET) : TimeSpan.MinValue;
+                        dataUserAvailability.Capacity = model.Capacity ?? null;
+                        dataUserAvailability.PincodeAreaId = model.PincodeAreaId ?? null;
 
                     }
                     else
                     {
-                        UserAvailability userAvail = new UserAvailability();
-                        userAvail.UserId = model.UserId;
-                        userAvail.MondaySt = TimeSpan.Parse(model.MondayST ?? null);
-                        userAvail.MondayEt = TimeSpan.Parse(model.MondayET ?? null);
-                        userAvail.TuesdaySt = TimeSpan.Parse(model.TuesdayST ?? null);
-                        userAvail.TuesdayEt = TimeSpan.Parse(model.TuesdayET ?? null);
-                        userAvail.WednesdaySt = TimeSpan.Parse(model.WednesdayST ?? null);
-                        userAvail.WednesdayEt = TimeSpan.Parse(model.WednesdayET ?? null);
-                        userAvail.ThursdaySt = TimeSpan.Parse(model.ThursdayST ?? null);
-                        userAvail.ThursdayEt = TimeSpan.Parse(model.ThursdayET ?? null);
-                        userAvail.FridaySt = TimeSpan.Parse(model.FridayST ?? null);
-                        userAvail.FridayEt = TimeSpan.Parse(model.FridayET ?? null);
-                        userAvail.SaturdaySt = TimeSpan.Parse(model.SaturdayST ?? null);
-                        userAvail.SaturdayEt = TimeSpan.Parse(model.SaturdayET ?? null);
-                        userAvail.SundaySt = TimeSpan.Parse(model.SundayST ?? null);
-                        userAvail.SundayEt = TimeSpan.Parse(model.SundayET ?? null);
-                        userAvail.Capacity = model.Capacity ?? null;
-                        userAvail.PincodeAreaId = model.PincodeAreaId ?? null;
+                        UserAvailability objUserAvailability = new UserAvailability();
+                        objUserAvailability.UserId = model.UserId;
+                        objUserAvailability.MondaySt = !string.IsNullOrEmpty(model.MondayST) ? TimeSpan.Parse(model.MondayST) : TimeSpan.MinValue;
+                        objUserAvailability.MondayEt = !string.IsNullOrEmpty(model.MondayET) ? TimeSpan.Parse(model.MondayET) : TimeSpan.MinValue;
+                        objUserAvailability.TuesdaySt = !string.IsNullOrEmpty(model.TuesdayST) ? TimeSpan.Parse(model.TuesdayST) : TimeSpan.MinValue;
+                        objUserAvailability.TuesdayEt = !string.IsNullOrEmpty(model.TuesdayET) ? TimeSpan.Parse(model.TuesdayET) : TimeSpan.MinValue;
+                        objUserAvailability.WednesdaySt = !string.IsNullOrEmpty(model.WednesdayST) ? TimeSpan.Parse(model.WednesdayST) : TimeSpan.MinValue;
+                        objUserAvailability.WednesdayEt = !string.IsNullOrEmpty(model.WednesdayET) ? TimeSpan.Parse(model.WednesdayET) : TimeSpan.MinValue;
+                        objUserAvailability.ThursdaySt = !string.IsNullOrEmpty(model.ThursdayST) ? TimeSpan.Parse(model.ThursdayST) : TimeSpan.MinValue;
+                        objUserAvailability.ThursdayEt = !string.IsNullOrEmpty(model.ThursdayET) ? TimeSpan.Parse(model.ThursdayET) : TimeSpan.MinValue;
+                        objUserAvailability.FridaySt = !string.IsNullOrEmpty(model.FridayST) ? TimeSpan.Parse(model.FridayST) : TimeSpan.MinValue;
+                        objUserAvailability.FridayEt = !string.IsNullOrEmpty(model.FridayET) ? TimeSpan.Parse(model.FridayET) : TimeSpan.MinValue;
+                        objUserAvailability.SaturdaySt = !string.IsNullOrEmpty(model.SaturdayST) ? TimeSpan.Parse(model.SaturdayST) : TimeSpan.MinValue;
+                        objUserAvailability.SaturdayEt = !string.IsNullOrEmpty(model.SaturdayET) ? TimeSpan.Parse(model.SaturdayET) : TimeSpan.MinValue;
+                        objUserAvailability.SundaySt = !string.IsNullOrEmpty(model.SundayST) ? TimeSpan.Parse(model.SundayST) : TimeSpan.MinValue;
+                        objUserAvailability.SundayEt = !string.IsNullOrEmpty(model.SundayET) ? TimeSpan.Parse(model.SundayET) : TimeSpan.MinValue;
+                        objUserAvailability.Capacity = model.Capacity ?? null;
+                        objUserAvailability.PincodeAreaId = model.PincodeAreaId ?? null;
 
-                        _db.UserAvailability.Add(userAvail);
+                        _db.UserAvailability.Add(objUserAvailability);
                     }
 
                     await _db.SaveChangesAsync();
@@ -1044,11 +1046,11 @@ namespace AurigainLoanERP.Services.User
         {
             try
             {
-                var areas = await _db.UserAvailability.Where(x => x.UserId == id && !x.IsDelete).ToListAsync();
+                var records = await _db.UserAvailability.Where(x => x.UserId == id && !x.IsDelete).ToListAsync();
 
-                if (areas != null)
+                if (records != null)
                 {
-                    List<UserAvailabilityViewModel> objArea = _mapper.Map<List<UserAvailabilityViewModel>>(areas ?? null);
+                    List<UserAvailabilityViewModel> objArea = _mapper.Map<List<UserAvailabilityViewModel>>(records ?? null);
                     return CreateResponse(objArea, ResponseMessage.Success, true, ((int)ApiStatusCode.Ok));
                 }
                 else

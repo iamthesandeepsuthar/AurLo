@@ -6,15 +6,18 @@ import { PageNotFoundComponent } from './Content/Common/page-not-found/page-not-
 import { AuthenticationGuard } from './Shared/Helper/authentication.guard';
 import { HtmlComponent } from './Content/html/html.component';
 import { LoginComponent } from './Content/Common/login/login.component';
+import { CustomerSignUpComponent } from './Content/Common/customer-sign-up/customer-sign-up.component';
 
 
 const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full'},
   { path: "dashboard", loadChildren: () => import('./Content/dashboard/dashboard.module').then(m => m.DashboardModule) },
   { path: "admin", loadChildren: () => import('./Content/admin/admin.module').then(m => m.AdminModule) },
-  { path: "customer", loadChildren: () => import('./Content/customer/customer.module').then(m => m.CustomerModule) }, 
+  { path: "customer", loadChildren: () => import('./Content/customer/customer.module').then(m => m.CustomerModule) },
   { path: 'manish', component: HtmlComponent },
   { path: Routing_Url.LoginUrl , component: LoginComponent },
+  { path: Routing_Url.CustomerSignUpUrl , component: CustomerSignUpComponent },
+
   { path: '**', component: PageNotFoundComponent, canActivate: [AuthenticationGuard]},
 
 ];

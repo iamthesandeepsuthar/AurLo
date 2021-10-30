@@ -451,6 +451,8 @@ namespace AurigainLoanERP.Shared.ContractModel
 
     public class UserAvailibilityPostModel
     {
+        public long Id { get; set; }
+
         public long UserId { get; set; }
         public string MondayST { get; set; }
         public string MondayET { get; set; }
@@ -468,7 +470,7 @@ namespace AurigainLoanERP.Shared.ContractModel
         public string SundayET { get; set; }
         public int? Capacity { get; set; }
         public long? PincodeAreaId { get; set; }
-        public int? DistrictId { get; set; }
+       
     }
     #endregion
 

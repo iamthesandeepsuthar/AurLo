@@ -78,7 +78,7 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ApiServiceResponseModel<List<UserAvailabilityViewModel>>> GetUserAvailibilty(long id)
+        public async Task<ApiServiceResponseModel<List<UserAvailabilityViewModel>>> GetUserAvailibiltyList(long id)
         {
             return await _userSerivce.GetUserAvailibilty(id);
         }
