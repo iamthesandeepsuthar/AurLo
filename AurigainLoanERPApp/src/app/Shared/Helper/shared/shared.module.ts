@@ -31,6 +31,7 @@ const InstalledModule = [
   MatSnackBarModule,
   MatTableModule,
   MatSortModule,
+  
   MatPaginatorModule,
   MatSortModule,
   NgSelectModule,

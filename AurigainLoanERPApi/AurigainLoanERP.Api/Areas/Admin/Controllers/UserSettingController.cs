@@ -71,10 +71,10 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
 
         }
 
-        [HttpGet("{pinCode}/{roleId}")]
-        public async Task<ApiServiceResponseModel<List<AvailableAreaModel>>> GetUserAvailableAreaForRolebyPinCode(string pinCode, int roleId)
+        [HttpGet("{pinCode}/{roleId}/{id}")]
+        public async Task<ApiServiceResponseModel<List<AvailableAreaModel>>> GetUserAvailableAreaForRolebyPinCode(string pinCode, int roleId,long id=0)
         {
-            return await _areaSerivce.GetUserAvailableAreaAsync(pinCode, roleId);
+            return await _areaSerivce.GetUserAvailableAreaAsync(pinCode, roleId,id);
         }
 
         [HttpGet("{id}")]

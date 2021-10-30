@@ -36,8 +36,8 @@ export class UserSettingService {
   }
 
 
-  GetAvailableAreaForRolebyPinCode(pinCode: string, roleId: number): Observable<ApiResponse<AvailableAreaModel[]>> {
-    let url = `${this._baseService.API_Url.GetUserAvailableAreaApi}${pinCode}/${roleId}`;
+  GetAvailableAreaForRolebyPinCode(pinCode: string, roleId: number,id:number=0): Observable<ApiResponse<AvailableAreaModel[]>> {
+    let url = `${this._baseService.API_Url.GetUserAvailableAreaApi}${pinCode}/${roleId}/${id}`;
     return this._baseService.get(url);
   }
 

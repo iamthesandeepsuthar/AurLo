@@ -390,12 +390,12 @@ namespace AurigainLoanERP.Services.StateAndDistrict
         #endregion
 
         #region << Area Method>>
-        public async Task<ApiServiceResponseModel<List<AvailableAreaModel>>> GetUserAvailableAreaAsync(string pinCode, int roleId)
+        public async Task<ApiServiceResponseModel<List<AvailableAreaModel>>> GetUserAvailableAreaAsync(string pinCode, int roleId, long id = 0)
         {
             try
             {
                 var area = await (from record in _db.PincodeArea
-                                  where record.Pincode.Contains(pinCode) && !record.UserAvailability.Any(x => x.User.UserRoleId == roleId)
+                                  where record.Pincode.Contains(pinCode) && !record.UserAvailability.Any(x => (id==0 || x.Id!=id )&& x.User.UserRoleId == roleId && x.IsActive == true && !x.IsDelete)
                                   select new AvailableAreaModel
                                   {
                                       Id = record.Id,

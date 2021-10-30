@@ -275,23 +275,23 @@ namespace AurigainLoanERP.Shared.ContractModel
     {
         public long Id { get; set; }
         public long UserId { get; set; }
-        public TimeSpan? MondaySt { get; set; }
-        public TimeSpan? MondayEt { get; set; }
-        public TimeSpan? TuesdaySt { get; set; }
-        public TimeSpan? TuesdayEt { get; set; }
-        public TimeSpan? WednesdaySt { get; set; }
-        public TimeSpan? WednesdayEt { get; set; }
-        public TimeSpan? ThursdaySt { get; set; }
-        public TimeSpan? ThursdayEt { get; set; }
-        public TimeSpan? FridaySt { get; set; }
-        public TimeSpan? FridayEt { get; set; }
-        public TimeSpan? SaturdaySt { get; set; }
-        public TimeSpan? SaturdayEt { get; set; }
-        public TimeSpan? SundaySt { get; set; }
-        public TimeSpan? SundayEt { get; set; }
+        public string MondaySt { get; set; }
+        public string MondayEt { get; set; }
+        public string TuesdaySt { get; set; }
+        public string TuesdayEt { get; set; }
+        public string WednesdaySt { get; set; }
+        public string WednesdayEt { get; set; }
+        public string ThursdaySt { get; set; }
+        public string ThursdayEt { get; set; }
+        public string FridaySt { get; set; }
+        public string FridayEt { get; set; }
+        public string SaturdaySt { get; set; }
+        public string SaturdayEt { get; set; }
+        public string SundaySt { get; set; }
+        public string SundayEt { get; set; }
         public int? Capacity { get; set; }
         public long? PincodeAreaId { get; set; }
-
+        public string PinCode {get; set;}
         public string Area { get; set; }
         public bool? IsActive { get; set; }
         public bool IsDelete { get; set; }
