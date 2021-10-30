@@ -1,3 +1,4 @@
+
 import { DDLDistrictModel } from './../../../../Shared/Model/master-model/district.model';
 import { DDLStateModel } from 'src/app/Shared/Model/master-model/state.model';
 import { StateDistrictService } from 'src/app/Shared/Services/master-services/state-district.service';
@@ -49,17 +50,17 @@ ngOnInit(): void {
   }
   formInit() {
   this.managerFrom = this.fb.group({
-  FullName: [undefined],
+  FullName: [undefined, Validators.required],
   FatherName:[undefined, Validators.required],
-  EmailId:[undefined],
-  MobileNumber: [undefined ],
-  IsActive: [true, Validators.required],
+  EmailId:[undefined , Validators.required],
+  MobileNumber: [undefined , Validators.required ],
+  IsActive: [true],
   Description: [undefined],
-  DllState:[undefined],
-  DllDistrict: [undefined],
-  UserRole: [undefined],
-  Pincode: [undefined],
-  DateOfBirth:[undefined],
+  DllState:[undefined , Validators.required],
+  DllDistrict: [undefined, Validators.required],
+  UserRole: [undefined, Validators.required],
+  Pincode: [undefined , Validators.required],
+  DateOfBirth:[undefined , Validators.required],
   Address: [undefined],
   IsWhatsApp: [undefined],
   Gender:[undefined]
@@ -88,7 +89,7 @@ ngOnInit(): void {
   });
   }
   getDistrict(id: number) {
-
+   this.districtModel = [];
     let subscription = this._stateService.GetDDLDistrict(id).subscribe(response => {
       subscription.unsubscribe();
       if(response.IsSuccess){
@@ -104,25 +105,25 @@ ngOnInit(): void {
   subscription.unsubscribe();
   if (res.IsSuccess) {
   this.model = res.Data as UserManagerModel;
+  this.getDistrict(this.model.StateId);
   } else {
   this.toast.warning('Record not found', 'No Record');
   }
   });
   }
   onSubmit() {
-    debugger;
-  //this.managerFrom.markAllAsTouched();
-  // if (this.managerFrom.valid) {
+  this.managerFrom.markAllAsTouched();
+  if (this.managerFrom.valid) {
   let subscription = this._managerService.AddUpdateManager(this.Model).subscribe(response => {
   subscription.unsubscribe();
   if(response.IsSuccess) {
    this.toast.success( this.Id ==0 ?'Record save successful' : 'Record update successful' , 'Success');
-   this._router.navigate([this.routing_Url.AdminModule+'/'+this.routing_Url.MasterModule + this.routing_Url.Manager_List_Url]);
+   this._router.navigate([this.routing_Url.AdminModule+'/' + this.routing_Url.Manager_List_Url]);
   } else {
     this.toast.error(response.Message?.toString(), 'Error');
   }
   })
- // }
+ }
   }
 
 }

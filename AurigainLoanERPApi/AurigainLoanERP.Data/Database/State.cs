@@ -12,6 +12,7 @@ namespace AurigainLoanERP.Data.Database
         public State()
         {
             District = new HashSet<District>();
+            Managers = new HashSet<Managers>();
         }
 
         public int Id { get; set; }
@@ -22,5 +23,6 @@ namespace AurigainLoanERP.Data.Database
         public DateTime? ModifiedOn { get; set; }
 
         public virtual ICollection<District> District { get; set; }
+        public virtual ICollection<Managers> Managers { get; set; }
     }
 }

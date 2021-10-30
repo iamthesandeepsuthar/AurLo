@@ -28,7 +28,7 @@ namespace AurigainLoanERP.Services.UserRoles
         {
             try
             {
-                var roles = await _db.UserRole.Select(x => new DDLUserRole
+                var roles = await _db.UserRole.Where(x=>x.Id>2 && x.Id<5).Select(x => new DDLUserRole
                 {
                     Id = x.Id,
                     Name = x.Name

@@ -11,7 +11,7 @@ using static AurigainLoanERP.Shared.Enums.FixedValueEnums;
 
 namespace AurigainLoanERP.Api.Areas.Admin.Controllers
 {
-    [Route("api/[controller]/[action]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class UserManagerController : ControllerBase
     {
@@ -20,7 +20,12 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
         {
             _userSerivce = userService;
         }
-        [HttpPost]
+        [HttpPost("[action]")]
+        public async Task<ApiServiceResponseModel<List<UserManagerModel>>> ManagerList(IndexModel model) 
+        {
+            return await _userSerivce.ManagersList(model);
+        }
+        [HttpPost("[action]")]
         public async Task<ApiServiceResponseModel<string>> AddUpdate([FromBody] UserManagerModel model)
         {
             if (ModelState.IsValid)
@@ -38,6 +43,12 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
                 obj.StatusCode = (int)ApiStatusCode.InvaildModel;
                 return obj;
             }
+        }
+
+        [HttpGet("[action]/{Id}")]
+        public async Task<ApiServiceResponseModel<UserManagerModel>> GetById(long Id) 
+        {
+            return await _userSerivce.UserManagerDetailAsync(Id);
         }
     }
 }

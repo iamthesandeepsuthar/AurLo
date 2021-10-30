@@ -99,7 +99,7 @@ export class API_Url {
   //#endregion
 
   //#region  << Manager's  Above Agent >>
-  public static Manager_List_Api = `${environment.apiEndPoint}UserManager/GetList`;
+  public static Manager_List_Api = `${environment.apiEndPoint}UserManager/ManagerList`;
   public static Manager_AddUpdate_Api = `${environment.apiEndPoint}UserManager/AddUpdate`;
   public static Manager_Delete_Api = `${environment.apiEndPoint}UserManager/DeleteManager/`;
   public static Manager_ActiveStatus_Api = `${environment.apiEndPoint}UserManager/UpdateActiveStatus/`;

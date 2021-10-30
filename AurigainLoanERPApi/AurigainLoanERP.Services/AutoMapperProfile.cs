@@ -37,12 +37,11 @@ namespace AurigainLoanERP.Services
             CreateMap<Managers, UserManagerModel>().ReverseMap();
             CreateMap<AurigainLoanERP.Data.Database.ProductCategory, ProductCategoryModel>().ReverseMap();
             CreateMap<AurigainLoanERP.Data.Database.JewellaryType, JewellaryTypeModel>().ReverseMap();
+            CreateMap<AurigainLoanERP.Data.Database.Product, ProductModel>().ReverseMap();
             CreateMap<BankMaster, BankModel>().ReverseMap();
             CreateMap<BankBranchMaster, BranchModel>().ReverseMap();
             CreateMap<GoldLoanFreshLead, GoldLoanFreshLeadModel>().ReverseMap();
-            CreateMap<UserAvailability, UserAvailabilityViewModel>().ForMember(d => d.Area, opt => opt.MapFrom(src => src.PincodeArea.AreaName)).ReverseMap() ;
-
-            
+            CreateMap<UserAvailability, UserAvailabilityViewModel>().ForMember(d => d.Area, opt => opt.MapFrom(src => src.PincodeArea.AreaName)).ReverseMap() ;   
         }
     }
 }

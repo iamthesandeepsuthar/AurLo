@@ -23,55 +23,76 @@
         <div class="page-profile-w-edit">
             <div class="page-profile d-flex align-items-center justify-content-center mx-auto mb-3"><img src="assets/img/user-default.jpg"></div>
             <div class="upload-btn-wrapper mt-0">
-                <button class="btn-upload" data-toggle="tooltip" data-placement="bottom" title="Change Profile"><i class="fas fa-edit"></i></button>
+              <img [src]="">
                 <input type="file" name="myfile" />
             </div>
+            <button *ngIf="Id>0" class="btn-upload" data-toggle="tooltip" data-placement="bottom" title="Change Profile"><i class="fas fa-edit"></i></button>
         </div>
         <form [formGroup]="managerFrom" (ngSubmit)="onSubmit()">
   <div class="form-row">
             <div class="form-group col-md-4">
                 <label>Full Name</label>
-                <input type="text" class="form-control" id="fullName" [(ngModel)]="Model.FullName" formControlName="FullName" placeholder="full name">
+                <input type="text" class="form-control" id="fullName"
+                [ngClass]="{ 'is-invalid': f.FullName.errors && f.FullName.touched}"
+                 [(ngModel)]="Model.FullName" formControlName="FullName" placeholder="full name">
+                 <div class="invalid-feedback" *ngIf="(managerFrom.get('FullName')?.hasError('required') && managerFrom.get('FullName')?.touched)">enter full name </div>
             </div>
             <div class="form-group col-md-4">
                 <label>Father's Name</label>
-                <input type="text" class="form-control" [(ngModel)]="Model.FatherName" formControlName="FatherName" id="fatherName" placeholder="father name">
+                <input type="text" class="form-control" [(ngModel)]="Model.FatherName"
+                [ngClass]="{ 'is-invalid': f.FatherName.errors && f.FatherName.touched}" formControlName="FatherName" id="fatherName" placeholder="father name">
+                <div class="invalid-feedback" *ngIf="(managerFrom.get('FatherName')?.hasError('required') && managerFrom.get('FatherName')?.touched)">enter father name</div>
             </div>
             <div class="form-group col-md-4">
                 <label>Date of birth</label>
                 <input class="form-control" #datepickerYMD="bsDatepicker" placeholder="dd/mm/yyyy"
                 formControlName="DateOfBirth" bsDatepicker [(ngModel)]="model.DateOfBirth"
+                [ngClass]="{ 'is-invalid': f.DateOfBirth.errors && f.DateOfBirth.touched}"
                 [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', adaptivePosition: true,isAnimated: true, showWeekNumbers: false }">
+                <div class="invalid-feedback" *ngIf="(managerFrom.get('DateOfBirth')?.hasError('required') && managerFrom.get('DateOfBirth')?.touched)">select date of birth</div>
             </div>
             <div class="form-group col-md-4">
-                <label>Mobile number</label>
-                <input type="text" class="form-control" [(ngModel)]="Model.Mobile" id="mobileNumber" formControlName="MobileNumber" placeholder="mobile number">
+                <label>Mobile Number</label>
+                <input type="text" class="form-control" [(ngModel)]="Model.Mobile" id="mobileNumber"
+                [ngClass]="{ 'is-invalid': f.MobileNumber.errors && f.MobileNumber.touched}"
+                 formControlName="MobileNumber" placeholder="mobile number">
+                 <div class="invalid-feedback" *ngIf="(managerFrom.get('MobileNumber')?.hasError('required') && managerFrom.get('MobileNumber')?.touched)">enter mobile number</div>
             </div>
             <div class="form-group col-md-4">
                 <label>Email ID</label>
-                <input type="text" class="form-control" [(ngModel)]="Model.EmailId" formControlName="EmailId" id="emailId" placeholder="email id">
+                <input type="text" class="form-control"
+                [ngClass]="{ 'is-invalid': f.EmailId.errors && f.EmailId.touched}"
+                [(ngModel)]="Model.EmailId" formControlName="EmailId" id="emailId" placeholder="email id">
+                <div class="invalid-feedback" *ngIf="(managerFrom.get('EmailId')?.hasError('required') && managerFrom.get('EmailId')?.touched)">enter email id </div>
             </div>
             <div class="form-group col-md-4">
                 <label>User Role</label>
                 <ng-select [items]="roleModel" [searchable]="true" bindLabel="Name" bindValue="Id"
+                [ngClass]="{ 'is-invalid': f.UserRole.errors && f.UserRole.touched}"
             placeholder="select role" formControlName="UserRole" [(ngModel)]="Model.RoleId">
           </ng-select>
+          <div class="invalid-feedback" *ngIf="(managerFrom.get('UserRole')?.hasError('required') && managerFrom.get('UserRole')?.touched)">select user role </div>
             </div>
             <div class="form-group col-md-4">
                 <label>State</label>
-               <ng-select (ngModelChange)="getDistrict($event)"  [items]="stateModel" [searchable]="true" bindLabel="Name" bindValue="Id"
+               <ng-select (ngModelChange)="getDistrict($event)" [(ngModel)]="Model.StateId"  [items]="stateModel" [searchable]="true" bindLabel="Name" bindValue="Id"
             placeholder="Select State" formControlName="DllState">
           </ng-select>
             </div>
             <div class="form-group col-md-4">
                 <label>District</label>
                 <ng-select [items]="districtModel" [(ngModel)]="Model.DistrictId" [searchable]="true" bindLabel="Name" bindValue="Id"
-                placeholder="select district" formControlName="DllDistrict">
+                placeholder="select district" formControlName="DllDistrict"
+                [ngClass]="{ 'is-invalid': f.DllDistrict.errors && f.DllDistrict.touched}" >
               </ng-select>
+              <div class="invalid-feedback" *ngIf="(managerFrom.get('DllDistrict')?.hasError('required') && managerFrom.get('DllDistrict')?.touched)">select district</div>
             </div>
             <div class="form-group col-md-4">
                 <label>Pincode</label>
-                <input type="text" class="form-control" [(ngModel)]="Model.Pincode" formControlName="Pincode" placeholder="pincode">
+                <input type="text" class="form-control" minlength="6" [(ngModel)]="Model.Pincode"
+                [ngClass]="{ 'is-invalid': f.Pincode.errors && f.Pincode.touched}"
+                formControlName="Pincode" placeholder="pincode">
+                <div class="invalid-feedback" *ngIf="(managerFrom.get('Pincode')?.hasError('required') && managerFrom.get('Pincode')?.touched)">enter pincode</div>
             </div>
             <div class="form-group col-md-4">
               <label>WhatsApp</label>
@@ -118,12 +139,11 @@
             </div>
             <div class="form-group col-md-12">
               <label>Address</label>
-              <textarea rows="2" class="form-control" id="32" formControlName="Address" [(ngModel)]="Model.Address" placeholder="enter address "> </textarea>
+              <textarea rows="1" class="form-control" id="32" formControlName="Address" [(ngModel)]="Model.Address" placeholder="enter address "> </textarea>
             </div>
         </div>
         <div class="form-footer-btn-grp widget-content widget-content p-3 text-center">
-            <button type="submit" class="btn btn-success mr-3"> <i class="fas fa-check mr-1"></i> Save
-        application</button>
+            <button type="submit" class="btn btn-success mr-3"> <i class="fas fa-check mr-1"></i> Save User</button>
             <button type="button" class="btn btn-outline-danger"> <i class="fas fa-times mr-1"></i> Cancel</button>
         </div>
 

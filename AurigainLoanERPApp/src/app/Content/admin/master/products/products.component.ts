@@ -24,8 +24,10 @@ export class ProductsComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort!: MatSort;
   id!: number;
-  displayedColumns: string[] = ['index', 'Name', 'IsActive', 'Action'];
-  ViewdisplayedColumns = [{ Value: 'Name', Text: 'Name' }];
+  displayedColumns: string[] = ['index', 'Name', 'ProductCategoryName', 'BankName', 'IsActive', 'Action'];
+  ViewdisplayedColumns = [{ Value: 'Name', Text: 'Product Name' },
+                          {Value: 'ProductCategoryName', Text:'Product Category'},
+                          {Value:'BankName',Text:'Bank Name'}];
   indexModel = new IndexModel();
   totalRecords: number = 0;
   constructor(private readonly _productService: ProductService,
@@ -46,8 +48,7 @@ export class ProductsComponent implements OnInit {
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
         }
-      } else {
-        // Toast message if  return false ;
+      } else {        // Toast message if  return false ;
         this.toast.error(response.Message?.toString(), 'Record Not Found');
       }
     },

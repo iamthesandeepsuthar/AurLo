@@ -15,6 +15,7 @@ export class ManagerService {
   }
   GetUserManagerById(id: number): Observable<ApiResponse<UserManagerModel>> {
     let url = `${this._baseService.API_Url.Manager_Detail_Api}${id}`;
+     alert(url);
     return this._baseService.get(url);
   }
   AddUpdateUserManager(model: UserManagerModel): Observable<ApiResponse<string>> {
