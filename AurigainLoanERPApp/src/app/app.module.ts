@@ -19,7 +19,7 @@ import { DashboardModule } from "./Content/dashboard/dashboard.module";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HtmlComponent } from './Content/html/html.component';
 import { LoginComponent } from './Content/Common/login/login.component';
-import { BsDatepickerModule } from 'ngx-bootstrap/datepicker'; 
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 @NgModule({
   declarations: [
@@ -41,8 +41,7 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
     CommonModule,
     DashboardModule,
     BrowserAnimationsModule,
-    BsDatepickerModule.forRoot(),
-  
+
   ],
   providers: [ BaseAPIService,
 
