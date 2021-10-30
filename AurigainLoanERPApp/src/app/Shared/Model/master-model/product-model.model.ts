@@ -17,6 +17,8 @@ export class ProductModel {
   IsDelete!: boolean;
   CreatedDate!: string;
   CreatedBy!: number;
+  ProductCategoryName!:string;
+  BankName!: string;
 }
 
 export class DDLProductModel {

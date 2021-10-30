@@ -7,7 +7,8 @@ namespace AurigainLoanERP.Shared.ContractModel
     public class ProductModel
     {
         public ProductModel() 
-        {        
+        {
+            
         }
         public int Id { get; set; }
         public string Name { get; set; }
@@ -25,6 +26,9 @@ namespace AurigainLoanERP.Shared.ContractModel
         public bool IsDelete { get; set; }
         public DateTime CreatedDate { get; set; }       
         public long? CreatedBy { get; set; } 
+        public string ProductCategoryName { get; set;}
+        public string BankName { get; set;}
+        
     }
     public class DDLProductModel 
     {

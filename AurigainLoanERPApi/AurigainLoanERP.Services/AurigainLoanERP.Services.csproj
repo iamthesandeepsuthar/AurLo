@@ -14,8 +14,4 @@
     <ProjectReference Include="..\AurigainLoanERP.Shared\AurigainLoanERP.Shared.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Customer\" />
-  </ItemGroup>
-
 </Project>

@@ -1,1 +1,79 @@
-<p>detail-product works!</p>
+<!-- Page Header Title start -->
+<div class="widget-header">
+  <div class="row d-block d-sm-flex align-items-center justify-content-between text-center text-sm-left">
+      <div>
+          <h1>Product Detail </h1>
+          <!-- Breadcrumb Start -->
+          <nav class="custom-breadcrum">
+              <ol class="breadcrumb justify-content-center justify-content-sm-start">
+                  <li class="breadcrumb-item"><a href="#">Home</a></li>
+                  <li class="breadcrumb-item"><a href="javascript:void(0)">Master</a></li>
+                  <li class="breadcrumb-item"><a routerLink="{{ '../../../' + this.routing_Url.Product_List_Url}}">
+                        Products </a></li>
+                  <li class="breadcrumb-item active" aria-current="page">Product Detail
+                  </li>
+              </ol>
+          </nav>
+          <!-- Breadcrumb End -->
+      </div>
+  </div>
+</div>
+<!-- Page Header Title end -->
+<!-- HTML FORM DIV START -->
+<div class="widget-content widget-content p-3">
+  <div class="form-row">
+      <div class="form-group col-md-4">
+          <label class="text-info">Product Name</label>
+          <label>{{model.Name}}</label>
+      </div>
+      <div class="form-group col-md-4">
+        <label class="text-info">Product Category</label>
+        <label>{{model.ProductCategoryName}}</label>
+    </div>
+      <div class="form-group col-md-4">
+        <label class="text-info">Bank</label>
+        <label>{{model.BankName}}</label>
+    </div>
+    <div class="form-group col-md-4">
+      <label class="text-info">Processing Fee</label>
+      <label>{{model.ProcessingFee}}</label>
+     </div>
+     <div class="form-group col-md-4">
+      <label class="text-info">Status</label>
+      <label>{{model.IsActive ? 'Active' : 'De-Active'}}</label>
+     </div>
+    <div class="form-group col-md-4">
+      <label class="text-info">Interest Rate Applied</label>
+      <label>{{model.InterestRateApplied ? 'Flat': 'Reducing '}}</label>
+  </div>
+  <div class="form-group col-md-4">
+    <label class="text-info">Minimum Tenure</label>
+    <label>{{model.MinimumTenure}}</label>
+</div>
+<div class="form-group col-md-4">
+  <label class="text-info">Maximum Tenure </label>
+  <label>{{model.MaximumTenure}}</label>
+</div>
+  <div class="form-group col-md-4">
+    <label class="text-info">Minimum Amount</label>
+    <label>{{model.MinimumAmount}}</label>
+</div>
+<div class="form-group col-md-4">
+  <label class="text-info">Maximum Amount</label>
+  <label>{{model.MaximumAmount}}</label>
+</div>
+  <div class="form-group col-md-4">
+    <label class="text-info">Interest Rate %</label>
+    <label>{{model.InterestRate}}</label>
+</div>
+<div class="form-group col-md-4">
+  <label class="text-info">Created Date</label>
+  <label>{{model.CreatedDate | date}}</label>
+</div>
+<div class="form-group col-md-12">
+  <label class="text-info">Description</label>
+  <label>{{model.Notes}}</label>
+</div>
+  </div>
+</div>
+<!-- HTML FORM DIV END -->

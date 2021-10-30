@@ -9,6 +9,7 @@ import { ProductModel } from 'src/app/Shared/Model/master-model/product-model.mo
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { DllProductCategoryModel } from 'src/app/Shared/Model/master-model/product-category-model.model';
+import { validateHorizontalPosition } from '@angular/cdk/overlay';
 
 @Component({
   selector: 'app-add-update-product',
@@ -33,8 +34,6 @@ export class AddUpdateProductComponent implements OnInit {
               private _activatedRoute: ActivatedRoute,
               private _router: Router,
               private readonly toast: ToastrService) {
-                debugger;
-                console.log('product model ------------->', this.model);
 if (this._activatedRoute.snapshot.params.id) {
 this.Id = this._activatedRoute.snapshot.params.id;
 }
@@ -48,20 +47,19 @@ this.Id = this._activatedRoute.snapshot.params.id;
   this.onGetDetail();
   }
   }
-
   formInit() {
   this.productFrom = this.fb.group({
-  productName: [undefined],
+  productName: [undefined,Validators.required],
   IsActive: [undefined],
-  productCategory: [undefined],
-  bank:[undefined],
+  productCategory: [undefined ,Validators.required],
+  bank:[undefined, Validators.required],
   note: [undefined],
-  minAmount: [undefined],
-  maxAmount:[undefined],
-  interestRate:[undefined],
-  processingFee:[undefined],
-  minTenure:[undefined],
-  maxTenure:[undefined],
+  minAmount: [undefined,Validators.required],
+  maxAmount:[undefined ,Validators.required],
+  interestRate:[undefined ,Validators.required],
+  processingFee:[undefined, Validators.required],
+  minTenure:[undefined ,Validators.required],
+  maxTenure:[undefined,Validators.required],
   isInterest:[undefined]
   });
   }
@@ -86,23 +84,22 @@ this.Id = this._activatedRoute.snapshot.params.id;
     });
    }
   onGetDetail() {
-  let subscription = this._productService.GetProductById(this.Id).subscribe(res => {
+  let subscription = this._productService.GetProductById(0).subscribe(res => {
   subscription.unsubscribe();
   if (res.IsSuccess) {
   this.model = res.Data as ProductModel;
+ // this.model.IsActive = Boolean (this.model.IsActive );
+ // this.model.InterestRateApplied = Boolean(this.model.InterestRateApplied);
   } else {
   this.toast.warning('Record not found', 'No Record');
   }
   });
   }
   onSubmit() {
- // this.productFrom.markAllAsTouched();
-// if (this.productFrom.valid) {
+ this.productFrom.markAllAsTouched();
+ if (this.productFrom.valid) {
   this.model.IsActive = Boolean (this.model.IsActive );
   this.model.InterestRateApplied = Boolean(this.model.InterestRateApplied);
-  let jsonData = JSON.stringify(this.model);
-  console.log(jsonData);
-  debugger;
   let subscription = this._productService.AddUpdateProduct(this.Model).subscribe(response => {
   subscription.unsubscribe();
   if(response.IsSuccess) {
@@ -113,6 +110,6 @@ this.Id = this._activatedRoute.snapshot.params.id;
   }
   })
   }
-  //}
+  }
 
 }

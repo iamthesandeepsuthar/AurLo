@@ -14,6 +14,7 @@ export class UserManagerModel {
         UserId!:number;
         DistrictId!: number;
         DistrictName!: string;
+        StateId!: number;
         StateName!: string;
         AreaName!: string;
         Pincode!: string ;
@@ -22,4 +23,6 @@ export class UserManagerModel {
         ModifiedDate!: Date;
         CreatedBy!: number | null;
         Setting!: string;
+        Mpin!:string;
+        RoleName!: string;
 }

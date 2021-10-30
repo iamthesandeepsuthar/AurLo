@@ -17,6 +17,7 @@ namespace AurigainLoanERP.Data.Database
         public string Address { get; set; }
         public long UserId { get; set; }
         public long DistrictId { get; set; }
+        public int StateId { get; set; }
         public string Pincode { get; set; }
         public bool? IsActive { get; set; }
         public bool IsDelete { get; set; }
@@ -24,6 +25,8 @@ namespace AurigainLoanERP.Data.Database
         public long? CreatedBy { get; set; }
         public string Setting { get; set; }
 
+        public virtual District District { get; set; }
+        public virtual State State { get; set; }
         public virtual UserMaster User { get; set; }
     }
 }
