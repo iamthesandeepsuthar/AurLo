@@ -71,8 +71,8 @@ export class DoorStepAgentAvailabilityComponent implements OnInit {
     var ser = this._userSettingService.GetUserProfile(this.userId).subscribe(res => {
       ser.unsubscribe();
       if (res.IsSuccess) {
-        
-        this.userModel = res.Data as UserViewModel;
+
+        this.userModel = res?.Data as UserViewModel;
         this.getUserAvailibiltyList();
       }
     })
