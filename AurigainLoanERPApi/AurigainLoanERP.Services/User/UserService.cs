@@ -830,6 +830,14 @@ namespace AurigainLoanERP.Services.User
                     if (dataUserAvailability != null)
                     {
 
+                        //if (!string.IsNullOrEmpty(model.MondayST))
+                        //{
+                        //    dataUserAvailability.MondaySt = TimeSpan.Parse(model.MondayST);
+                        //}
+                        //else
+                        //{
+                        //    dataUserAvailability.MondaySt = null;
+                        //}
 
                         dataUserAvailability.MondaySt = !string.IsNullOrEmpty(model.MondayST) ? TimeSpan.Parse(model.MondayST) : TimeSpan.MinValue;
                         dataUserAvailability.MondayEt = !string.IsNullOrEmpty(model.MondayET) ? TimeSpan.Parse(model.MondayET) : TimeSpan.MinValue;
