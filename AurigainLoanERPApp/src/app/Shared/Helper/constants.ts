@@ -92,8 +92,10 @@ export class API_Url {
   public static GetUserProfileApi = `${environment.apiEndPoint}UserSetting/GetUserProfile/`;
   public static UserUpdateProfileApi = `${environment.apiEndPoint}UserSetting/UpdateProfile`;
   public static UserApproveStatusApi = `${environment.apiEndPoint}UserSetting/UpdateApproveStatus/`;
-  public static UserAvailableAreaApi = `${environment.apiEndPoint}UserSetting/GetUserAvailableAreaForRolebyPinCode/`;
-  public static UserAvailabilityApi = `${environment.apiEndPoint}UserSetting/SetUserAvailibilty`;
+  public static GetUserAvailableAreaApi = `${environment.apiEndPoint}UserSetting/GetUserAvailableAreaForRolebyPinCode/`;
+  public static SetUserAvailabilityApi = `${environment.apiEndPoint}UserSetting/SetUserAvailibilty`;
+  public static GetUserAvailibiltyListApi = `${environment.apiEndPoint}UserSetting/GetUserAvailibiltyList/`;
+
   //#endregion
 
   //#region  << Manager's  Above Agent >>
@@ -156,6 +158,8 @@ export class Routing_Url {
 
   //#region <<Login URL>>
   public static LoginUrl = 'login';
+  public static CustomerSignUpUrl = 'customer-registration';
+
   //#endregion
 
   //#region <User Role >

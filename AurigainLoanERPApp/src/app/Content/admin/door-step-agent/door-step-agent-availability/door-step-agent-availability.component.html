@@ -30,7 +30,8 @@
         [src]="userModel!.ProfilePath" onerror="this.src='assets/img/user-default.jpg'"></div>
     <div class="text-center">
       <h4 class="text-black">{{userModel!.FullName}}</h4>
-      <p class="font-w-600"><i class="fas fa-mobile-alt"></i><a href="tel:{{userModel!.Mobile}}">{{userModel!.Mobile}}</a> </p>
+      <p class="font-w-600"><i class="fas fa-mobile-alt"></i><a
+          href="tel:{{userModel!.Mobile}}">{{userModel!.Mobile}}</a> </p>
     </div>
     <form [formGroup]="formGroup" (ngSubmit)="onFrmSubmit()">
 
@@ -188,47 +189,125 @@
 
           <div class="form-group col-md-4">
             <label>Area</label>
-            <ng-select formControlName="PincodeAreaId" [items]="availibleAreaModel"
+            <ng-select formControlName="PincodeAreaId" [items]="ddlavailibleAreaModel"
               [ngClass]="{ 'is-invalid': f.PincodeAreaId.errors && f.PincodeAreaId.touched}" bindLabel="AreaName"
               bindValue="Id" placeholder="Pin code" appendTo="body" [(ngModel)]="model.PincodeAreaId">
             </ng-select>
 
           </div>
         </div>
-        <div class="col-md-12 table-responsive">
-         <table class="table">
-           <thead>
-             <tr>
-               <th>Monday</th>
-               <th>Tuesday</th>
-               <th>Wednesday</th>
-               <th>Thursday/th>
-               <th>Friday</th>
-               <th>Saturday</th>
-               <th>Sunday</th>
-               <th>Capacity</th>
-               <th>Area</th>
-               <th> Action</th>
+        <div class="col-md-12 table-responsive" *ngIf="dataModel!.length>0">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Monday</th>
+                <th>Tuesday</th>
+                <th>Wednesday</th>
+                <th>Thursday/th>
+                <th>Friday</th>
+                <th>Saturday</th>
+                <th>Sunday</th>
+                <th>Capacity</th>
+                <th>Area</th>
+                <th> Action</th>
               </tr>
-           </thead>
-           <tbody>
-             <tr>
-              <td>1</td>
-              <td>2</td>
-              <td>3</td>
-              <td>4/th>
-              <td>5</td>
-              <td>6</td>
-              <td>7</td>
-              <td>Capacity</td>
-              <td>Area</td>
-              <td>
-                 <a type="button" title="edit"><i class="fas fa-edit"></i></a>
-                 <a type="button" title="remove"><i class="fas fa-trash-alt"></i></a>
-              </td>
-             </tr>
-           </tbody>
-         </table>
+            </thead>
+            <tbody>
+              <tr *ngFor="let record of dataModel">
+                <td>
+                  <ng-container *ngIf="record?.MondaySt && record?.MondayEt  ; else mondayDayOff">
+                    {{record?.MondaySt+'-'+ record?.MondayEt}}
+                  </ng-container>
+                  <ng-template #mondayDayOff>
+                    <span class="user-day-off">
+                      Day Off
+                    </span>
+                  </ng-template>
+
+
+
+                </td>
+                <td>
+                  <ng-container *ngIf="record?.TuesdaySt && record?.TuesdayEt  ; else TuesdayDayOff">
+                    {{record?.TuesdaySt+'-'+ record?.TuesdayEt}}
+                  </ng-container>
+                  <ng-template #TuesdayDayOff>
+                    <span class="user-day-off">
+                      Day Off
+                    </span>
+                  </ng-template>
+
+
+                </td>
+                <td>
+                  <ng-container *ngIf="record?.WednesdaySt && record?.WednesdayEt  ; else WednesdayDayOff">
+                    {{record?.WednesdaySt+'-'+ record?.WednesdayEt}}
+                  </ng-container>
+                  <ng-template #WednesdayDayOff>
+                    <span class="user-day-off">
+                      Day Off
+                    </span>
+                  </ng-template>
+
+
+                </td>
+                <td>
+                  <ng-container *ngIf="record?.ThursdaySt && record?.ThursdayEt  ; else ThursdayDayOff">
+                    {{record?.ThursdaySt+'-'+ record?.ThursdayEt}}
+                  </ng-container>
+                  <ng-template #ThursdayDayOff>
+                    <span class="user-day-off">
+                      Day Off
+                    </span>
+                  </ng-template>
+
+
+                </td>
+                <td>
+                  <ng-container *ngIf="record?.FridaySt && record?.FridayEt  ; else FridayDayOff">
+                    {{record?.FridaySt+'-'+ record?.FridayEt}}
+                  </ng-container>
+                  <ng-template #FridayDayOff>
+                    <span class="user-day-off">
+                      Day Off
+                    </span>
+                  </ng-template>
+
+
+                </td>
+                <td>
+                  <ng-container *ngIf="record?.SaturdaySt && record?.SaturdayEt  ; else SaturdayDayOff">
+                    {{record?.SaturdaySt+'-'+ record?.SaturdayEt}}
+                  </ng-container>
+                  <ng-template #SaturdayDayOff>
+                    <span class="user-day-off">
+                      Day Off
+                    </span>
+                  </ng-template>
+
+
+                </td>
+                <td>
+                  <ng-container *ngIf="record?.SundaySt && record?.SundayEt  ; else SundayDayOff">
+                    {{record?.SundaySt+'-'+ record?.SundayEt}}
+                  </ng-container>
+                  <ng-template #SundayDayOff>
+                    <span class="user-day-off">
+                      Day Off
+                    </span>
+                  </ng-template>
+
+
+                </td>
+                <td>{{record?.Capacity}}</td>
+                <td>{{record?.Area}}</td>
+                <td>
+                  <a type="button" title="edit"><i class="fas fa-edit"></i></a>
+                  <a type="button" title="remove"><i class="fas fa-trash-alt"></i></a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
 
         <div class="form-footer-btn-grp widget-content widget-content p-3 text-center">
