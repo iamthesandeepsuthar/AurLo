@@ -9,9 +9,8 @@
               <ol class="breadcrumb justify-content-center justify-content-sm-start">
                   <li class="breadcrumb-item"><a href="#">Home</a></li>
                   <li class="breadcrumb-item"><a href="javascript:void(0)">Master</a></li>
-                  <li class="breadcrumb-item"><a
-                          routerLink="{{'/' + this.routing_Url.MasterModule + this.routing_Url.Product_Category_List_Url}}">
-                          Product Category </a></li>
+                  <li class="breadcrumb-item"><a routerLink="{{ '../../../' + this.routing_Url.Product_Category_List_Url}}">
+                          Product Categories </a></li>
                   <li class="breadcrumb-item active" aria-current="page">{{Id==0 ?'Add Product Category':'Update Product Category'}}
                   </li>
 

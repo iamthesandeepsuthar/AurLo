@@ -8,7 +8,7 @@
                 <ol class="breadcrumb justify-content-center justify-content-sm-start">
                     <li class="breadcrumb-item"><a href="#">Home</a></li>
                     <li class="breadcrumb-item"><a href="javascript:void(0)">Master</a></li>
-                    <li class="breadcrumb-item"><a routerLink="{{ '../../../' + this.routing_Url.Kyc_Document_Type_List_Url}}">
+                    <li class="breadcrumb-item"><a routerLink="{{ '../../../' + this.routing_Url.District_List_Url }}">
                         Districts Master </a></li>
                     <li class="breadcrumb-item active" aria-current="page">District Detail
                     </li>
@@ -26,21 +26,21 @@
     <div class="row door-kyc-details">
         <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 mt-3 mt-xl-0">
             <div class="custom-card-1">
-                <div class="custom-card-1-header"> State</div>
-                <div class="custom-card-1-body">{{model.StateName}}</div>
+                <div class="custom-card-1-header text-center"> State</div>
+                <div class="custom-card-1-body text-center">{{model.StateName}}</div>
             </div>
         </div>
         <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 mt-3 mt-xl-0">
             <div class="custom-card-1">
-                <div class="custom-card-1-header">District</div>
-                <div class="custom-card-1-body">{{Model.Name}}</div>
+                <div class="custom-card-1-header text-center">District</div>
+                <div class="custom-card-1-body text-center">{{Model.Name}}</div>
             </div>
         </div>
 
         <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 mt-3 mt-xl-0">
             <div class="custom-card-1">
-                <div class="custom-card-1-header"> Is Active (status)</div>
-                <div class="custom-card-1-body">{{model.IsActive ? 'Yes': 'No'}}</div>
+                <div class="custom-card-1-header text-center"> Is Active (status)</div>
+                <div class="custom-card-1-body text-center">{{model.IsActive ? 'Yes': 'No'}}</div>
             </div>
         </div>
     </div>
@@ -50,53 +50,18 @@
         <table class="table table-bordered no-wrap">
             <thead>
                 <tr>
-                    <th>Area</th>
-                    <th>Pincode</th>
-                    <th>Status</th>
+                    <th class="text-center">#</th>
+                    <th class="text-center">Area</th>
+                    <th class="text-center">Pincode</th>
+                    <th class="text-center">Status</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>Mansarover</td>
-                    <td>302008</td>
-                    <td>
-                        <div class="table-s-active table-data-status-round text-success d-flex align-items-center"> <span></span> Active </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Mansarover</td>
-                    <td>302008</td>
-                    <td>
-                        <div class="table-s-dactive  table-data-status-round text-danger d-flex align-items-center"> <span></span> DeActive </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Mansarover</td>
-                    <td>302008</td>
-                    <td>
-                        <div class="table-s-active table-data-status-round text-success d-flex align-items-center"> <span></span> Active </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Mansarover</td>
-                    <td>302008</td>
-                    <td>
-                        <div class="table-s-dactive  table-data-status-round text-danger d-flex align-items-center"> <span></span> DeActive </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Mansarover</td>
-                    <td>302008</td>
-                    <td>
-                        <div class="table-s-active table-data-status-round text-success d-flex align-items-center"> <span></span> Active </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Mansarover</td>
-                    <td>302008</td>
-                    <td>
-                        <div class="table-s-dactive  table-data-status-round text-danger d-flex align-items-center"> <span></span> DeActive </div>
-                    </td>
+                <tr *ngFor="let area of Model.Areas;let ndx = index">
+                    <td class="text-center"> {{ndx + 1}}</td>
+                    <td class="text-center">{{area.AreaName}}</td>
+                    <td class="text-center">{{area.Pincode}}</td>
+                    <td class="text-center"> {{area.IsActive ? 'Yes':'No'}}</td>
                 </tr>
             </tbody>
         </table>

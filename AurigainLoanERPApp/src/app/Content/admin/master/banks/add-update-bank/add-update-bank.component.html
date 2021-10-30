@@ -71,18 +71,17 @@
         </div>
 
 
-        <div class="table-responsive">
+        <div class="table-responsive" *ngIf="this.model.Branches.length >0">
             <table class="table table-striped bg-white mt-3">
                 <thead>
                     <tr>
                         <th>#</th>
                         <th>Name</th>
                         <th>Branch Code</th>
-                        <th>Ifsc
-                            <th>
-                                <th>Contact Number</th>
-                                <th>Email-Id</th>
-                                <th>Action</th>
+                        <th>Ifsc</th>
+                        <th>Contact Number</th>
+                        <th>Email-Id</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>

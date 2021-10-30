@@ -40,7 +40,7 @@ this.onGetDetail();
 formInit() {
 this.typeFrom = this.fb.group({
 Name: [undefined, Validators.required],
-IsActive: [true, Validators.required],
+IsActive: [true],
 Description: [undefined]
 });
 }

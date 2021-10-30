@@ -390,7 +390,6 @@ namespace AurigainLoanERP.Services.StateAndDistrict
         #endregion
 
         #region << Area Method>>
-
         public async Task<ApiServiceResponseModel<List<AvailableAreaModel>>> GetUserAvailableAreaAsync(string pinCode, int roleId)
         {
             try
@@ -419,8 +418,6 @@ namespace AurigainLoanERP.Services.StateAndDistrict
                 return CreateResponse<List<AvailableAreaModel>>(null, ResponseMessage.Fail, false, ((int)ApiStatusCode.ServerException), ex.Message ?? ex.InnerException.ToString());
             }
         }
-
-
         public async Task<ApiServiceResponseModel<List<AvailableAreaModel>>> GetAreaByPincode(string pinCode)
         {
             try
@@ -449,7 +446,6 @@ namespace AurigainLoanERP.Services.StateAndDistrict
                 return CreateResponse<List<AvailableAreaModel>>(null, ResponseMessage.Fail, false, ((int)ApiStatusCode.ServerException), ex.Message ?? ex.InnerException.ToString());
             }
         }
-
         private async Task<bool> AddUpdateAreas(List<PincodeAreaModel> model, long DistrictId)
         {
             try
@@ -498,6 +494,7 @@ namespace AurigainLoanERP.Services.StateAndDistrict
 
             }
         }
+
         #endregion
     }
 }
