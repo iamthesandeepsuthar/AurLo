@@ -37,6 +37,7 @@ export class API_Url {
   public static District_Add_Update_Api = `${environment.apiEndPoint}StateAndDistrict/SubmitDistrict`;
   public static District_Active_Status_Api = `${environment.apiEndPoint}StateAndDistrict/ChangeDistrictActiveStatus/`;
   public static District_Delete_Api = `${environment.apiEndPoint}StateAndDistrict/DeleteDistrict/`;
+  public static AreaByPincode_Api = `${environment.apiEndPoint}StateAndDistrict/AreaByPincode/`;
 
 
   //#endregion

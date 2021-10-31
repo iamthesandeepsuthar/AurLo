@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { BaseAPIService } from '../../Helper/base-api.service';
 import { ApiResponse, IndexModel } from '../../Helper/common-model';
 import { StateModel } from '../../Model/master-model/state.model';
+import { AvailableAreaModel } from '../../Model/User-setting-model/user-availibility.model';
 
 
 @Injectable()
@@ -68,4 +69,11 @@ export class StateDistrictService {
     return this._baseService.Delete(url);
   }
   //#endregion
+
+ //#region <<Area>>
+ GetAreaByPincode(pincode: string): Observable<ApiResponse<AvailableAreaModel[]>> {
+  let url = `${this._baseService.API_Url.AreaByPincode_Api}${pincode}`;
+  return this._baseService.get(url);
+}
+ //#endregion
 }

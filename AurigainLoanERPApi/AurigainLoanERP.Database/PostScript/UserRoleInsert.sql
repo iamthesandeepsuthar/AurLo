@@ -13,5 +13,7 @@ INSERT [dbo].[UserRole] ( [Name], [ParentId], [IsActive], [IsDelete], [CreatedOn
  
 INSERT [dbo].[UserRole] ( [Name], [ParentId], [IsActive], [IsDelete], [CreatedOn], [ModifiedOn], [CreatedBy], [ModifiedBy]) VALUES ( N'Door Step Agent', 4, 1, 0, CAST(N'2021-10-13T02:43:28.403' AS DateTime), NULL, 0, NULL)
 
+INSERT [dbo].[UserRole] ( [Name], [ParentId], [IsActive], [IsDelete], [CreatedOn], [ModifiedOn], [CreatedBy], [ModifiedBy]) VALUES ( N'Customer', NULL , 1, 0, CAST(N'2021-10-13T02:43:28.403' AS DateTime), NULL, 0, NULL)
+
  
 END  

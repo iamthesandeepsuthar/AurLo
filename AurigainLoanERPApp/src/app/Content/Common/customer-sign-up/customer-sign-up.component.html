@@ -11,20 +11,20 @@
                         <div class="step-grp-content">
                             <div class="custom_stepers-body-items-form row">
                                 <div class="form-group col-md-6">
-                                    <label>Full name <em class="text-danger">*</em> </label>
-                                    <input type="text" class="form-control" id="input1" placeholder="Enter Full name"> </div>
+                                    <label>Full Name <em class="text-danger">*</em> </label>
+                                    <input type="text" class="form-control" id="input1" placeholder="full name"> </div>
                                 <div class="form-group col-md-6">
-                                    <label>Father name <em class="text-danger">*</em> </label>
-                                    <input type="text" class="form-control" id="input1" placeholder="Enter Father name"> </div>
+                                    <label>Father's Name <em class="text-danger">*</em> </label>
+                                    <input type="text" class="form-control" id="input1" placeholder="father name"> </div>
                                 <div class="form-group col-md-6">
                                     <label>Email<em class="text-danger">*</em> </label>
-                                    <input type="text" class="form-control" id="input1" placeholder="Enter Email id"> </div>
+                                    <input type="text" class="form-control" id="input1" placeholder="email id"> </div>
                                 <div class="form-group col-md-6">
-                                    <label>Mobile number <em class="text-danger">*</em> </label>
-                                    <input type="text" class="form-control" id="input1" placeholder="91 00000-00000"> </div>
+                                    <label>Mobile Number <em class="text-danger">*</em> </label>
+                                    <input type="text" class="form-control" id="input1" placeholder="mobile number"> </div>
                                 <div class="form-group col-md-6">
                                     <label>Date of birth </label>
-                                    <input type="text" class="form-control" id="input1" placeholder="19-02-1994"> </div>
+                                    <input type="text" class="form-control" id="input1" placeholder="dd/mm/yyyy"> </div>
                                 <div class="form-group col-md-6">
                                     <label>Gender</label>
                                     <div class="form-radio-check-grp border-0 pl-0">
@@ -50,21 +50,21 @@
                     </ng-template>
                 </mat-step>
                 <mat-step>
-                    <ng-template matStepLabel>Document Details</ng-template>
+                    <ng-template matStepLabel>Document's Detail</ng-template>
                     <ng-template matStepContent>
                         <div class="step-grp-content">
                             <div class="row">
                                 <div class="form-group col-md-5 pr-2">
                                     <label>Document Type</label>
-                                    <select class="form-control">
+                                    <select class="form-control" placeholder="select document type">
 										<option>--Pan Card--</option>
 										<option>--Aadhaar Card--</option>
 										<option>--Driving Licence--</option>
 									</select>
                                 </div>
                                 <div class="form-group col-md-5 pl-2 pr-2">
-                                    <label>Enter Doc number</label>
-                                    <input type="email" class="form-control" placeholder="#5895588">
+                                    <label>Document Number</label>
+                                    <input type="email" class="form-control" placeholder="document number">
                                 </div>
 
                                 <div class="col-md-2 pl-1 mb-2 mb-md-0">
@@ -96,22 +96,22 @@
 
                             </div>
                             <div class="step-form-btn-grp mt-3">
-                                <button mat-button matStepperPrevious class="btn btn-outline-danger mr-2">Back</button>
+                                <button mat-button matStepperPrevious class="btn btn-outline-danger mr-2"><i class="fas fa-angle-left mr-1"></i>Back</button>
                                 <button mat-button matStepperNext type="submit" class="btn btn-primary"> <i class="fas fa-check mr-1"></i> Save & Next</button>
                             </div>
                         </div>
                     </ng-template>
                 </mat-step>
                 <mat-step>
-                    <ng-template matStepLabel>Address Details </ng-template>
+                    <ng-template matStepLabel>Address Detail </ng-template>
                     <div class="step-grp-content">
                         <div class="row">
                             <div class="form-group col-md-6">
                                 <label>Pincode</label>
-                                <input type="email" class="form-control" placeholder="235698" disabled> </div>
+                                <input type="email" class="form-control" placeholder="pincode"> </div>
                             <div class="form-group col-md-6">
                                 <label>Select Area</label>
-                                <select class="form-control">
+                                <select class="form-control" aria-placeholder="select area">
 									<option>--Select Area--</option>
 									<option>--Select Area--</option>
 									<option>--Select Area--</option>
@@ -119,13 +119,14 @@
                             </div>
                             <div class="form-group col-md-12">
                                 <label>Address</label>
-                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="2" placeholder="enter address here"></textarea>
                             </div>
                         </div>
-                        <div class="step-form-btn-grp mt-3">
-                            <button mat-button matStepperPrevious class="btn btn-outline-danger mr-2">Back</button>
-                            <button mat-button matStepperNext type="submit" class="btn btn-primary"> <i class="fas fa-check mr-1"></i> Submit</button>
-                        </div>
+                        <div class="step-form-btn-grp mt-3 text-center">
+                           
+                            <button mat-button matStepperNext type="submit" class="btn btn-primary mr-2"> <i class="fas fa-check mr-1"></i> Register</button>
+                            <button mat-button matStepperPrevious class="btn btn-outline-danger"><i class="fas fa-angle-left mr-1"></i>Back</button>
+                          </div>
                     </div>
                 </mat-step>
             </mat-stepper>
