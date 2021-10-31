@@ -98,6 +98,7 @@
     <Build Include="GoldLoanFreshLeadJewelleryDetail.sql" />
     <Build Include="GoldLoanFreshLeadAppointmentDetail.sql" />
     <Build Include="GoldLoanFreshLeadKycDocument.sql" />
+    <Build Include="UserCustomer.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="AurigainLoanERP.Database.refactorlog" />
