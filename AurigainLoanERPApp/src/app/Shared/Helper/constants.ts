@@ -75,6 +75,8 @@ export class API_Url {
 
   public static DoorstepAgentDeleteDocumentFileApi = `${environment.apiEndPoint}DoorStepAgent/DeleteDocumentFile/`;
 
+
+
   //#endregion
 
   //#region << Agent>>
@@ -144,6 +146,10 @@ export class API_Url {
   public static Branch_ActiveStatus_Api = `${environment.apiEndPoint}BankBranch/UpdateActiveStatus/`;
   public static Branch_Detail_Api = `${environment.apiEndPoint}BankBranch/GetById/`;
   //#endregion
+
+ //#region <<Customer Registration>>
+  public static Customer_Registration_Api = `${environment.apiEndPoint}Customer/AddUpdateAsync/`;
+ // #endregion
 }
 
 export class Routing_Url {
@@ -244,6 +250,7 @@ export class Routing_Url {
   public static Jewellery_Type_AddUpdate_Url = '/add-jewellery-type/';
   public static Jewellery_Type_List_Url = '/jewellery-type';
   //#endregion
+ 
 }
 
 export class Message {

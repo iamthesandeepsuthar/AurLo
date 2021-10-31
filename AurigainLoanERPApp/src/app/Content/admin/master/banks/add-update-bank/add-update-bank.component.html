@@ -95,6 +95,7 @@
                         <th>Ifsc</th>
                         <th>Contact Number</th>
                         <th>Email-Id</th>
+                        <th>Status</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -106,9 +107,7 @@
                         <td>{{branch.Ifsc}}</td>
                         <td>{{branch.ContactNumber}}</td>
                         <td>{{branch.BranchEmailId}}</td>
-                        <td>
-                            <div class="table-s-active table-data-status-round text-success d-flex align-items-center"> <span></span> Active </div>
-                        </td>
+                        <td> {{branch.IsActive ? 'Active':'De-Active'}} </td>
                         <td class="table-action-btn">
                             <a class="table-action-btn-edit" (click)="getFromBranchList(ndx)" data-toggle="tooltip" data-placement="bottom" title="Edit"><i class="fas fa-edit"></i></a>
                             <a href="javascript:void(0)" *ngIf="Model.Id<=0" class="table-action-btn-delete" (click)="removeToBranchList(ndx)" data-toggle="tooltip" data-placement="bottom" title="Remove"><i class="fas fa-trash-alt"></i></a>

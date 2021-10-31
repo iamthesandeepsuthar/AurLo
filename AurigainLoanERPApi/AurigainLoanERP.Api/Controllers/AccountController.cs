@@ -21,10 +21,10 @@ namespace AurigainLoanERP.Api.Controllers
 
         }
 
-        [HttpGet]
-        public ApiServiceResponseModel<string> Login()
+        [HttpPost("[action]")]
+        public async Task<ApiServiceResponseModel<LoginResponseModel>> WebLogin(LoginModel model)
         {
-            return  _security.CreateToken("abc", "admin");
+            return await _accountService.WebLogin(model);           
         }
         
         //Post api/Account/GetOTP

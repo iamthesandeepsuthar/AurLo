@@ -16,6 +16,7 @@ namespace AurigainLoanERP.Data.Database
             UserAgent = new HashSet<UserAgent>();
             UserAvailability = new HashSet<UserAvailability>();
             UserBank = new HashSet<UserBank>();
+            UserCustomer = new HashSet<UserCustomer>();
             UserDocument = new HashSet<UserDocument>();
             UserDoorStepAgent = new HashSet<UserDoorStepAgent>();
             UserKyc = new HashSet<UserKyc>();
@@ -52,6 +53,7 @@ namespace AurigainLoanERP.Data.Database
         public virtual ICollection<UserAgent> UserAgent { get; set; }
         public virtual ICollection<UserAvailability> UserAvailability { get; set; }
         public virtual ICollection<UserBank> UserBank { get; set; }
+        public virtual ICollection<UserCustomer> UserCustomer { get; set; }
         public virtual ICollection<UserDocument> UserDocument { get; set; }
         public virtual ICollection<UserDoorStepAgent> UserDoorStepAgent { get; set; }
         public virtual ICollection<UserKyc> UserKyc { get; set; }

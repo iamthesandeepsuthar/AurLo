@@ -139,6 +139,6 @@ namespace AurigainLoanERP.Services.Bank
             }
 
 
-        }
+        }        
     }
 }

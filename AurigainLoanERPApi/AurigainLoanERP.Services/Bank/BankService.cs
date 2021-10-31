@@ -97,6 +97,7 @@ namespace AurigainLoanERP.Services.Bank
                             BranchCode = branch.BranchCode,
                             Ifsc = branch.Ifsc,
                             BankId = branch.BankId,
+                            Pincode = branch.Pincode,
                             BranchEmailId = branch.BranchEmailId,
                             ContactNumber = branch.ContactNumber,
                             IsActive = branch.IsActive,
@@ -179,6 +180,7 @@ namespace AurigainLoanERP.Services.Bank
                                 IsActive= branch.IsActive,
                                 BankId= model.Id,
                                 BranchCode = branch.BranchCode,
+                                Pincode = branch.Pincode,
                                 BranchEmailId= branch.BranchEmailId,
                                 BranchName= branch.BranchName,
                                 CreatedDate = DateTime.Now,
@@ -198,6 +200,7 @@ namespace AurigainLoanERP.Services.Bank
                                 existBranch.IsActive = branch.IsActive;
                                 existBranch.ModifiedDate = DateTime.Now;
                                 existBranch.Ifsc = branch.Ifsc;
+                                existBranch.Pincode = branch.Pincode;
                                 existBranch.Address = branch.Address;
                                 existBranch.ContactNumber = branch.ContactNumber;
                             }
@@ -255,12 +258,14 @@ namespace AurigainLoanERP.Services.Bank
         {
             try
             {
-                var branches = await  (from  branch in _db.BankBranchMaster
+                var branches = await  (from  branch in _db.BankBranchMaster join bank in _db.BankMaster on  branch.BankId equals bank.Id
                                    where pincode.Contains(pincode) 
                                    select new AvailableBranchModel                            
                                    {
                                       Id = branch.Id,
-                                      Name = branch.BranchName,
+                                      BranchName = branch.BranchName,
+                                      BankName = bank.Name,
+                                      Ifsc = branch.Ifsc,
                                       BankId  = branch.BankId 
                                    }).ToListAsync();
 

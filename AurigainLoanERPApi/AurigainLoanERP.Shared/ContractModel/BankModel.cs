@@ -54,7 +54,8 @@ namespace AurigainLoanERP.Shared.ContractModel
     public class AvailableBranchModel
     {
         public int Id { get; set; }
-        public string Name { get; set; }
+        public string BranchName { get; set; }
+        public string BankName { get; set;}
         public string Ifsc { get; set; }
         public int BankId { get; set; }
     }

@@ -181,6 +181,48 @@ namespace AurigainLoanERP.Services.Account
                 return CreateResponse<string>(null, ResponseMessage.NotFound, false, ((int)ApiStatusCode.ServerException), ex.Message ?? ex.InnerException.ToString());
             }
         }
+        public async Task<ApiServiceResponseModel<LoginResponseModel>> WebLogin(LoginModel model)
+        {
+            ApiServiceResponseModel<LoginResponseModel> ResponseObject = new Shared.Common.Model.ApiServiceResponseModel<LoginResponseModel>();
+            LoginResponseModel response = new LoginResponseModel();
+            try
+            {                
+                    var user = await _db.UserMaster.Where(x => x.Mobile == model.MobileNumber || x.Email == model.MobileNumber && x.Password == model.Password).Include(x => x.UserRole).FirstOrDefaultAsync();
+                    if (user != null)
+                    {
+                        if (!user.IsApproved && !user.IsActive.Value)
+                        {
+                            return CreateResponse<LoginResponseModel>(null, "yourt account not activated, Please confirm with admin!", false, ((int)ApiStatusCode.UnApproved));
+                        }
+                        UserLoginLog log = new UserLoginLog
+                        {
+                            LoggedInTime = DateTime.Now,
+                            LoggedOutTime = DateTime.Now.AddDays(30),
+                            UserId = user.Id
+                        };
+                        await _db.UserLoginLog.AddAsync(log);
+                        var fresh_token = _security.CreateToken(model.MobileNumber, user.UserRole.Name);
+                        if (!string.IsNullOrEmpty(fresh_token.Data))
+                        {
+                            user.Token = fresh_token.Data;
+                        }
+                        await _db.SaveChangesAsync();
+                        response.UserId = user.Id;
+                        response.Token = fresh_token.Data;
+                        response.RoleId = user.UserRoleId;
+                    }
+                    else
+                    {
+                        return CreateResponse<LoginResponseModel>(null, "You have not register with us,Please Signup", false, ((int)ApiStatusCode.RecordNotFound));
+                    }
+               
+                return CreateResponse<LoginResponseModel>(response, "Login Successful", true, ((int)ApiStatusCode.Ok));
+            }
+            catch (Exception ex)
+            {
+                return CreateResponse<LoginResponseModel>(null, ResponseMessage.NotFound, false, ((int)ApiStatusCode.ServerException), ex.Message ?? ex.InnerException.ToString());
+            }
+        }
 
     }
 }

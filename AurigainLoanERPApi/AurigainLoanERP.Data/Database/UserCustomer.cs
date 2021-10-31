@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
-namespace AurigainLoanERP.Shared.ContractModel
+// Code scaffolded by EF Core assumes nullable reference types (NRTs) are not used or disabled.
+// If you have enabled NRTs for your project, then un-comment the following line:
+// #nullable disable
+
+namespace AurigainLoanERP.Data.Database
 {
-    public class CustomerRegistrationModel
+    public partial class UserCustomer
     {
-        public CustomerRegistrationModel() 
-        {
-            User = new UserPostModel();
-        }
         public long Id { get; set; }
         public string FullName { get; set; }
         public string FatherName { get; set; }
@@ -24,6 +23,8 @@ namespace AurigainLoanERP.Shared.ContractModel
         public DateTime? ModifiedOn { get; set; }
         public long? CreatedBy { get; set; }
         public long? ModifiedBy { get; set; }
-        public UserPostModel User { get; set;}
+
+        public virtual PincodeArea PincodeArea { get; set; }
+        public virtual UserMaster User { get; set; }
     }
 }

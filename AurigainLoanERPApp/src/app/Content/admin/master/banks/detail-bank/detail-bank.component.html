@@ -1,1 +1,79 @@
 
+<!-- Page Header Title start -->
+<div class="widget-header">
+  <div class="row d-block d-sm-flex align-items-center justify-content-between text-center text-sm-left">
+      <div>
+          <h1>Bank & Branch Detail </h1>
+          <!-- Breadcrumb Start -->
+          <nav class="custom-breadcrum">
+              <ol class="breadcrumb justify-content-center justify-content-sm-start">
+                  <li class="breadcrumb-item"><a href="#">Home</a></li>
+                  <li class="breadcrumb-item"><a href="javascript:void(0)">Master</a></li>
+                  <li class="breadcrumb-item"><a routerLink="{{ '../../../' + this.routing_Url.Bank_List_Url}}">
+                        Banks</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">Bank Detail
+                  </li>
+              </ol>
+          </nav>
+          <!-- Breadcrumb End -->
+      </div>
+  </div>
+</div>
+<!-- Page Header Title end -->
+<!-- HTML FORM DIV START -->
+<div class="widget-content widget-content p-3">
+  <div class="form-row">
+      <div class="form-group col-md-4">
+          <label class="text-info">Bank Name</label>
+          <label>{{model.Name}}</label>
+      </div>
+      <div class="form-group col-md-4">
+        <label class="text-info">Website</label>
+        <label>{{model.WebsiteUrl}}</label>
+    </div>
+      <div class="form-group col-md-4">
+        <label class="text-info">Contact Number</label>
+        <label>{{model.ContactNumber}}</label>
+    </div>
+    <div class="form-group col-md-4">
+      <label class="text-info">Active Status</label>
+      <label>{{model.IsActive ?'Yes' :'No'}}</label>
+     </div>
+     <div class="form-group col-md-4">
+      <label class="text-info">Status</label>
+      <label>{{model.IsActive ? 'Active' : 'De-Active'}}</label>
+     </div>
+    <div class="form-group col-md-4">
+      <label class="text-info">Fax Number</label>
+      <label>{{model.FaxNumber}}</label>
+  </div>
+  <div class="form-group col-md-4">
+    <label class="text-info">Logo Url</label>
+    <label>{{model.BankLogoUrl}}</label>
+  </div>  
+  <div class="table-responsive mt-4">
+    <table class="table table-bordered no-wrap">
+        <thead>
+            <tr>
+                <th class="text-center">#</th>
+                <th class="text-center">Branch Name</th>
+                <th class="text-center">Ifsc Code</th>
+                <th class="text-center">Email Id</th>
+                <th class="text-center">Pincode</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let area of Model.Branches;let ndx = index">
+                <td class="text-center"> {{ndx + 1}}</td>
+                <td class="text-center">{{area.BranchName}}</td>
+                <td class="text-center">{{area.Ifsc}}</td>
+                <td class="text-center"> {{area.BranchEmailId}}</td>
+                <td class="text-center">{{area.Pincode}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+  </div>
+</div>
+<!-- HTML FORM DIV END -->
