@@ -17,5 +17,25 @@ namespace AurigainLoanERP.Shared.ExtensionMethod
             return attribs.Length > 0 ? attribs[0].StringValue : null;
         }
 
+        public static dynamic ToTimeSpanValue(this string value)
+        {
+            try
+            {
+                if (!string.IsNullOrEmpty(value))
+                {
+                    return TimeSpan.Parse(value);
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception)
+            {
+
+                return null;
+            }
+
+        }
     }
 }

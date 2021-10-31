@@ -219,7 +219,7 @@ body {
     margin: 0 auto;
     color: #afaeae;
     font-weight: 600;
-    margin-top: 70px;
+    margin-top: 60px;
 }
 
 .form-form .terms-conditions a {
@@ -255,6 +255,11 @@ body {
     background-size: 75%;
     background-position-x: center;
     background-position-y: center;
+}
+
+.page-customer-register .form-image .l-image {
+    background-image: url(../../img/register.png);
+    background-color: #607d8b;
 }
 
 @media (max-width: 991px) {

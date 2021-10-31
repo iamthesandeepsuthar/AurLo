@@ -17,6 +17,7 @@ import { UserNomineeDetailSectionComponent } from './UserRegistration/user-nomin
 import { FileSelectorComponent } from 'src/app/Content/Common/file-selector/file-selector.component';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { UserSecurityDepositComponent } from './UserRegistration/user-security-deposit/user-security-deposit.component';
+import {MatStepperModule} from '@angular/material/stepper';
 const CommonModules = [
   HttpClientModule,
   ReactiveFormsModule,
@@ -31,6 +32,7 @@ const InstalledModule = [
   MatSnackBarModule,
   MatTableModule,
   MatSortModule,
+  
   MatPaginatorModule,
   MatSortModule,
   NgSelectModule,
@@ -40,6 +42,7 @@ const InstalledModule = [
     autoDismiss: true,
     maxOpened: 5
   }),
+  MatStepperModule
 ]
 
 const SharedComponent = [

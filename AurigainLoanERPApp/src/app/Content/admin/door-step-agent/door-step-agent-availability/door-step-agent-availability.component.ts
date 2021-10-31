@@ -9,6 +9,7 @@ import { CommonService } from "src/app/Shared/Services/common.service";
 import { DoorStepAgentService } from "src/app/Shared/Services/door-step-agent-services/door-step-agent.service";
 import { UserSettingService } from '../../../../Shared/Services/user-setting-services/user-setting.service';
 import { UserViewModel } from '../../../../Shared/Model/doorstep-agent-model/door-step-agent.model';
+import { Message } from "src/app/Shared/Helper/constants";
 
 @Component({
   selector: 'app-door-step-agent-availability',
@@ -31,7 +32,7 @@ export class DoorStepAgentAvailabilityComponent implements OnInit {
   constructor(private readonly _alertService: AlertService, private readonly fb: FormBuilder,
     private readonly _userSettingService: UserSettingService, private _activatedRoute: ActivatedRoute, private _router: Router,
     readonly _commonService: CommonService, private readonly _toast: ToastrService,) {
-    debugger
+
     this.userId = this._activatedRoute.snapshot.params.userId;
   }
 
@@ -70,7 +71,8 @@ export class DoorStepAgentAvailabilityComponent implements OnInit {
     var ser = this._userSettingService.GetUserProfile(this.userId).subscribe(res => {
       ser.unsubscribe();
       if (res.IsSuccess) {
-        this.userModel = res.Data as UserViewModel;
+
+        this.userModel = res?.Data as UserViewModel;
         this.getUserAvailibiltyList();
       }
     })
@@ -80,7 +82,8 @@ export class DoorStepAgentAvailabilityComponent implements OnInit {
     let serv = this._userSettingService.GetUserAvailibilityList(this.userId).subscribe(res => {
       serv.unsubscribe();
       if (res.IsSuccess) {
-        this.dataModel = res.Data as UserAvailabilityViewModel[];
+        debugger
+        this.dataModel = res?.Data as UserAvailabilityViewModel[];
 
       }
     });
@@ -113,14 +116,42 @@ export class DoorStepAgentAvailabilityComponent implements OnInit {
 
       this._userSettingService.SetUserAvailibility(this.model).subscribe(res => {
         if (res.IsSuccess) {
+          this._toast.success(Message.SaveSuccess, 'Success');
           this.getUserAvailibiltyList();
+          this.model = {} as UserAvailibilityPostModel;
+          this.formGroup.reset();
         }
       });
     }
   }
+  onBindDetail(idx: number) {
+    let data = this.dataModel[idx]
 
-  GetAvailableArea() {
-    let serve = this._userSettingService.GetAvailableAreaForRolebyPinCode(this.PinCode, UserRoleEnum.DoorStepAgent).subscribe(res => {
+
+    this.model.Id = data.Id
+    this.model.UserId = data.UserId
+    this.model.MondayST = data.MondaySt;
+    this.model.MondayET = data.MondayEt;
+    this.model.TuesdayST = data.TuesdaySt;
+    this.model.TuesdayET = data.TuesdayEt;
+    this.model.WednesdayST = data.WednesdaySt;
+    this.model.WednesdayET = data.WednesdayEt;
+    this.model.ThursdayST = data.ThursdaySt;
+    this.model.ThursdayET = data.ThursdayEt;
+    this.model.FridayST = data.FridaySt;
+    this.model.FridayET = data.FridayEt;
+    this.model.SaturdayST = data.SaturdaySt;
+    this.model.SaturdayET = data.SaturdayEt;
+    this.model.SundayST = data.SundaySt;
+    this.model.SundayET = data.SundayEt;
+    this.model.Capacity = data.Capacity as number;
+    this.model.PincodeAreaId = data.PincodeAreaId as number;
+    this.PinCode = data.PinCode as string;
+    this.GetAvailableArea(this.model.Id);
+
+  }
+  GetAvailableArea(id = 0) {
+    let serve = this._userSettingService.GetAvailableAreaForRolebyPinCode(this.PinCode, UserRoleEnum.DoorStepAgent, id).subscribe(res => {
       serve.unsubscribe();
       if (res.IsSuccess) {
         this.ddlavailibleAreaModel = res.Data as AvailableAreaModel[];
@@ -139,3 +170,4 @@ export class DoorStepAgentAvailabilityComponent implements OnInit {
 
   }
 }
+

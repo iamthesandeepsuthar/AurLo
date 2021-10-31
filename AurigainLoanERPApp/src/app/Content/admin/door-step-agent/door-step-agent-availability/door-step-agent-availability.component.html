@@ -27,11 +27,11 @@
     <h2> <img src="assets/img/personal_detail.png"> Agent Availability Detail</h2>
 
     <div class="page-profile d-flex align-items-center justify-content-center mx-auto mb-3"><img
-        [src]="userModel!.ProfilePath" onerror="this.src='assets/img/user-default.jpg'"></div>
+        [src]="userModel?.ProfilePath" onerror="this.src='assets/img/user-default.jpg'"></div>
     <div class="text-center">
-      <h4 class="text-black">{{userModel!.FullName}}</h4>
+      <h4 class="text-black">{{userModel?.FullName}}</h4>
       <p class="font-w-600"><i class="fas fa-mobile-alt"></i><a
-          href="tel:{{userModel!.Mobile}}">{{userModel!.Mobile}}</a> </p>
+          href="tel:{{userModel?.Mobile}}">{{userModel?.Mobile}}</a> </p>
     </div>
     <form [formGroup]="formGroup" (ngSubmit)="onFrmSubmit()">
 
@@ -203,7 +203,7 @@
                 <th>Monday</th>
                 <th>Tuesday</th>
                 <th>Wednesday</th>
-                <th>Thursday/th>
+                <th>Thursday</th>
                 <th>Friday</th>
                 <th>Saturday</th>
                 <th>Sunday</th>
@@ -213,10 +213,10 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let record of dataModel">
+              <tr *ngFor="let record of dataModel; let index=index">
                 <td>
                   <ng-container *ngIf="record?.MondaySt && record?.MondayEt  ; else mondayDayOff">
-                    {{record?.MondaySt+'-'+ record?.MondayEt}}
+                    {{record?.MondaySt }}-{{record?.MondayEt}}
                   </ng-container>
                   <ng-template #mondayDayOff>
                     <span class="user-day-off">
@@ -302,8 +302,8 @@
                 <td>{{record?.Capacity}}</td>
                 <td>{{record?.Area}}</td>
                 <td>
-                  <a type="button" title="edit"><i class="fas fa-edit"></i></a>
-                  <a type="button" title="remove"><i class="fas fa-trash-alt"></i></a>
+                  <a (click)="onBindDetail(index)" type="button" title="edit"><i class="fas fa-edit"></i></a>
+                  <!-- <a  type="button" title="remove"><i class="fas fa-trash-alt"></i></a> -->
                 </td>
               </tr>
             </tbody>

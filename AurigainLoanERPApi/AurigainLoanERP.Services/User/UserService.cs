@@ -646,7 +646,7 @@ namespace AurigainLoanERP.Services.User
             ApiServiceResponseModel<List<UserManagerModel>> objResponse = new ApiServiceResponseModel<List<UserManagerModel>>();
             try
             {
-                var result = (from manager in _db.Managers                            
+                var result = (from manager in _db.Managers
                               where !manager.User.IsDelete && (string.IsNullOrEmpty(model.Search) || manager.FullName.Contains(model.Search) || manager.User.Email.Contains(model.Search) || manager.User.UserName.Contains(model.Search))
                               select manager);
                 switch (model.OrderBy)
@@ -659,7 +659,7 @@ namespace AurigainLoanERP.Services.User
                         break;
                     case "Email":
                         result = model.OrderByAsc ? (from orderData in result orderby orderData.User.Email ascending select orderData) : (from orderData in result orderby orderData.User.Email descending select orderData);
-                        break;                   
+                        break;
                     default:
                         result = model.OrderByAsc ? (from orderData in result orderby orderData.User.UserRole.Name ascending select orderData) : (from orderData in result orderby orderData.User.UserRole.Name descending select orderData);
                         break;
@@ -676,8 +676,8 @@ namespace AurigainLoanERP.Services.User
                                               FullName = detail.FullName ?? null,
                                               EmailId = detail.User != null ? detail.User.Email : null,
                                               Mobile = detail.User != null ? detail.User.Mobile : null,
-                                              RoleName = detail.User != null && detail.User.UserRole != null ? detail.User.UserRole.Name : null,                                            
-                                              Gender = detail.Gender ?? null,                                            
+                                              RoleName = detail.User != null && detail.User.UserRole != null ? detail.User.UserRole.Name : null,
+                                              Gender = detail.Gender ?? null,
                                               Address = detail.Address ?? null,
                                               Pincode = detail.Pincode ?? null,
                                               DateOfBirth = detail.DateOfBirth ?? null,
@@ -685,7 +685,7 @@ namespace AurigainLoanERP.Services.User
                                               IsApproved = detail.User.IsApproved,
                                               IsActive = detail.User.IsActive,
                                               Mpin = detail.User.Mpin,
-                                              IsDelete = detail.IsDelete,                                              
+                                              IsDelete = detail.IsDelete,
                                               CreatedBy = detail.CreatedBy
                                           }).ToListAsync();
                 if (result != null)
@@ -701,14 +701,14 @@ namespace AurigainLoanERP.Services.User
             catch (Exception ex)
             {
                 return CreateResponse<List<UserManagerModel>>(null, ResponseMessage.Fail, false, ((int)ApiStatusCode.ServerException), ex.Message ?? ex.InnerException.ToString());
-            }          
+            }
         }
 
-        public async Task<ApiServiceResponseModel<UserManagerModel>> UserManagerDetailAsync(long Id) 
+        public async Task<ApiServiceResponseModel<UserManagerModel>> UserManagerDetailAsync(long Id)
         {
             try
             {
-                var detail = await _db.Managers.Where(x => x.Id == Id).Include(x=>x.District).Include(x=>x.State).Include(x => x.User).Include(x=>x.User.UserRole).FirstOrDefaultAsync();
+                var detail = await _db.Managers.Where(x => x.Id == Id).Include(x => x.District).Include(x => x.State).Include(x => x.User).Include(x => x.User.UserRole).FirstOrDefaultAsync();
                 if (detail != null)
                 {
                     UserManagerModel manager = new UserManagerModel
@@ -736,13 +736,13 @@ namespace AurigainLoanERP.Services.User
                     };
                     return CreateResponse(manager, ResponseMessage.Success, true, ((int)ApiStatusCode.Ok));
                 }
-                else 
+                else
                 {
                     return CreateResponse<UserManagerModel>(null, ResponseMessage.NotFound, true, ((int)ApiStatusCode.RecordNotFound));
                 }
-               
+
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 return CreateResponse<UserManagerModel>(null, ResponseMessage.Fail, false, ((int)ApiStatusCode.ServerException), ex.InnerException != null ? ex.InnerException.Message : ex.Message);
             }
@@ -776,6 +776,9 @@ namespace AurigainLoanERP.Services.User
                         case (int)UserRoleEnum.Supervisor:
                             objUser.FullName = user.UserName;
                             break;
+                        //case (int)UserRoleEnum.customer:
+                        //    objUser.FullName = user.UserName;
+                        //    break;
                         default:
                             objUser.FullName = null;
                             break;
@@ -792,7 +795,7 @@ namespace AurigainLoanERP.Services.User
                 }
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
                 return CreateResponse<UserViewModel>(null, ResponseMessage.Fail, true, ((int)ApiStatusCode.InternalServerError));
@@ -931,20 +934,20 @@ namespace AurigainLoanERP.Services.User
                     {
 
 
-                        dataUserAvailability.MondaySt = !string.IsNullOrEmpty(model.MondayST) ? TimeSpan.Parse(model.MondayST) : TimeSpan.MinValue;
-                        dataUserAvailability.MondayEt = !string.IsNullOrEmpty(model.MondayET) ? TimeSpan.Parse(model.MondayET) : TimeSpan.MinValue;
-                        dataUserAvailability.TuesdaySt = !string.IsNullOrEmpty(model.TuesdayST) ? TimeSpan.Parse(model.TuesdayST) : TimeSpan.MinValue;
-                        dataUserAvailability.TuesdayEt = !string.IsNullOrEmpty(model.TuesdayET) ? TimeSpan.Parse(model.TuesdayET) : TimeSpan.MinValue;
-                        dataUserAvailability.WednesdaySt = !string.IsNullOrEmpty(model.WednesdayST) ? TimeSpan.Parse(model.WednesdayST) : TimeSpan.MinValue;
-                        dataUserAvailability.WednesdayEt = !string.IsNullOrEmpty(model.WednesdayET) ? TimeSpan.Parse(model.WednesdayET) : TimeSpan.MinValue;
-                        dataUserAvailability.ThursdaySt = !string.IsNullOrEmpty(model.ThursdayST) ? TimeSpan.Parse(model.ThursdayST) : TimeSpan.MinValue;
-                        dataUserAvailability.ThursdayEt = !string.IsNullOrEmpty(model.ThursdayET) ? TimeSpan.Parse(model.ThursdayET) : TimeSpan.MinValue;
-                        dataUserAvailability.FridaySt = !string.IsNullOrEmpty(model.FridayST) ? TimeSpan.Parse(model.FridayST) : TimeSpan.MinValue;
-                        dataUserAvailability.FridayEt = !string.IsNullOrEmpty(model.FridayET) ? TimeSpan.Parse(model.FridayET) : TimeSpan.MinValue;
-                        dataUserAvailability.SaturdaySt = !string.IsNullOrEmpty(model.SaturdayST) ? TimeSpan.Parse(model.SaturdayST) : TimeSpan.MinValue;
-                        dataUserAvailability.SaturdayEt = !string.IsNullOrEmpty(model.SaturdayET) ? TimeSpan.Parse(model.SaturdayET) : TimeSpan.MinValue;
-                        dataUserAvailability.SundaySt = !string.IsNullOrEmpty(model.SundayST) ? TimeSpan.Parse(model.SundayST) : TimeSpan.MinValue;
-                        dataUserAvailability.SundayEt = !string.IsNullOrEmpty(model.SundayET) ? TimeSpan.Parse(model.SundayET) : TimeSpan.MinValue;
+                        dataUserAvailability.MondaySt = model.MondayST.ToTimeSpanValue();
+                        dataUserAvailability.MondayEt = model.MondayET.ToTimeSpanValue();
+                        dataUserAvailability.TuesdaySt = model.TuesdayST.ToTimeSpanValue();
+                        dataUserAvailability.TuesdayEt = model.TuesdayET.ToTimeSpanValue();
+                        dataUserAvailability.WednesdaySt = model.WednesdayST.ToTimeSpanValue();
+                        dataUserAvailability.WednesdayEt = model.WednesdayET.ToTimeSpanValue();
+                        dataUserAvailability.ThursdaySt = model.ThursdayST.ToTimeSpanValue();
+                        dataUserAvailability.ThursdayEt = model.ThursdayET.ToTimeSpanValue();
+                        dataUserAvailability.FridaySt = model.FridayST.ToTimeSpanValue();
+                        dataUserAvailability.FridayEt = model.FridayET.ToTimeSpanValue();
+                        dataUserAvailability.SaturdaySt = model.SaturdayST.ToTimeSpanValue();
+                        dataUserAvailability.SaturdayEt = model.SaturdayET.ToTimeSpanValue();
+                        dataUserAvailability.SundaySt = model.SundayST.ToTimeSpanValue();
+                        dataUserAvailability.SundayEt = model.SundayET.ToTimeSpanValue();
                         dataUserAvailability.Capacity = model.Capacity ?? null;
                         dataUserAvailability.PincodeAreaId = model.PincodeAreaId ?? null;
 
@@ -953,20 +956,20 @@ namespace AurigainLoanERP.Services.User
                     {
                         UserAvailability objUserAvailability = new UserAvailability();
                         objUserAvailability.UserId = model.UserId;
-                        objUserAvailability.MondaySt = !string.IsNullOrEmpty(model.MondayST) ? TimeSpan.Parse(model.MondayST) : TimeSpan.MinValue;
-                        objUserAvailability.MondayEt = !string.IsNullOrEmpty(model.MondayET) ? TimeSpan.Parse(model.MondayET) : TimeSpan.MinValue;
-                        objUserAvailability.TuesdaySt = !string.IsNullOrEmpty(model.TuesdayST) ? TimeSpan.Parse(model.TuesdayST) : TimeSpan.MinValue;
-                        objUserAvailability.TuesdayEt = !string.IsNullOrEmpty(model.TuesdayET) ? TimeSpan.Parse(model.TuesdayET) : TimeSpan.MinValue;
-                        objUserAvailability.WednesdaySt = !string.IsNullOrEmpty(model.WednesdayST) ? TimeSpan.Parse(model.WednesdayST) : TimeSpan.MinValue;
-                        objUserAvailability.WednesdayEt = !string.IsNullOrEmpty(model.WednesdayET) ? TimeSpan.Parse(model.WednesdayET) : TimeSpan.MinValue;
-                        objUserAvailability.ThursdaySt = !string.IsNullOrEmpty(model.ThursdayST) ? TimeSpan.Parse(model.ThursdayST) : TimeSpan.MinValue;
-                        objUserAvailability.ThursdayEt = !string.IsNullOrEmpty(model.ThursdayET) ? TimeSpan.Parse(model.ThursdayET) : TimeSpan.MinValue;
-                        objUserAvailability.FridaySt = !string.IsNullOrEmpty(model.FridayST) ? TimeSpan.Parse(model.FridayST) : TimeSpan.MinValue;
-                        objUserAvailability.FridayEt = !string.IsNullOrEmpty(model.FridayET) ? TimeSpan.Parse(model.FridayET) : TimeSpan.MinValue;
-                        objUserAvailability.SaturdaySt = !string.IsNullOrEmpty(model.SaturdayST) ? TimeSpan.Parse(model.SaturdayST) : TimeSpan.MinValue;
-                        objUserAvailability.SaturdayEt = !string.IsNullOrEmpty(model.SaturdayET) ? TimeSpan.Parse(model.SaturdayET) : TimeSpan.MinValue;
-                        objUserAvailability.SundaySt = !string.IsNullOrEmpty(model.SundayST) ? TimeSpan.Parse(model.SundayST) : TimeSpan.MinValue;
-                        objUserAvailability.SundayEt = !string.IsNullOrEmpty(model.SundayET) ? TimeSpan.Parse(model.SundayET) : TimeSpan.MinValue;
+                        objUserAvailability.MondaySt = model.MondayST.ToTimeSpanValue();
+                        objUserAvailability.MondayEt = model.MondayET.ToTimeSpanValue();
+                        objUserAvailability.TuesdaySt = model.TuesdayST.ToTimeSpanValue();
+                        objUserAvailability.TuesdayEt = model.TuesdayET.ToTimeSpanValue();
+                        objUserAvailability.WednesdaySt = model.WednesdayST.ToTimeSpanValue();
+                        objUserAvailability.WednesdayEt = model.WednesdayET.ToTimeSpanValue();
+                        objUserAvailability.ThursdaySt = model.ThursdayST.ToTimeSpanValue();
+                        objUserAvailability.ThursdayEt = model.ThursdayET.ToTimeSpanValue();
+                        objUserAvailability.FridaySt = model.FridayST.ToTimeSpanValue();
+                        objUserAvailability.FridayEt = model.FridayET.ToTimeSpanValue();
+                        objUserAvailability.SaturdaySt = model.SaturdayST.ToTimeSpanValue();
+                        objUserAvailability.SaturdayEt = model.SaturdayET.ToTimeSpanValue();
+                        objUserAvailability.SundaySt = model.SundayST.ToTimeSpanValue();
+                        objUserAvailability.SundayEt = model.SundayET.ToTimeSpanValue();
                         objUserAvailability.Capacity = model.Capacity ?? null;
                         objUserAvailability.PincodeAreaId = model.PincodeAreaId ?? null;
 
@@ -1046,11 +1049,36 @@ namespace AurigainLoanERP.Services.User
         {
             try
             {
-                var records = await _db.UserAvailability.Where(x => x.UserId == id && !x.IsDelete).ToListAsync();
-
-                if (records != null)
+                var objArea = await _db.UserAvailability.Where(x => x.UserId == id && x.IsActive.Value && !x.IsDelete).Select(item => new UserAvailabilityViewModel
                 {
-                    List<UserAvailabilityViewModel> objArea = _mapper.Map<List<UserAvailabilityViewModel>>(records ?? null);
+                    Id = item.Id,
+                    UserId = item.UserId,
+                    MondaySt = item.MondaySt.HasValue ? new DateTime(item.MondaySt.Value.Ticks).ToString("HH:mm:ss") : null, //.ToString("hh:mm tt")
+                    MondayEt = item.MondayEt.HasValue ? new DateTime(item.MondayEt.Value.Ticks).ToString("HH:mm:ss") : null, //.ToString("hh:mm tt")
+                    TuesdaySt = item.TuesdaySt.HasValue ? new DateTime(item.TuesdaySt.Value.Ticks).ToString("HH:mm:ss") : null, //.ToString("hh:mm tt")
+                    TuesdayEt = item.TuesdayEt.HasValue ? new DateTime(item.TuesdayEt.Value.Ticks).ToString("HH:mm:ss") : null, //.ToString("hh:mm tt")
+                    WednesdaySt = item.WednesdaySt.HasValue ? new DateTime(item.WednesdaySt.Value.Ticks).ToString("HH:mm:ss") : null, //.ToString("hh:mm tt")
+                    WednesdayEt = item.WednesdayEt.HasValue ? new DateTime(item.WednesdayEt.Value.Ticks).ToString("HH:mm:ss") : null, //.ToString("hh:mm tt")
+                    ThursdaySt = item.ThursdaySt.HasValue ? new DateTime(item.ThursdaySt.Value.Ticks).ToString("HH:mm:ss") : null, //.ToString("hh:mm tt")
+                    ThursdayEt = item.ThursdayEt.HasValue ? new DateTime(item.ThursdayEt.Value.Ticks).ToString("HH:mm:ss") : null, //.ToString("hh:mm tt")
+                    FridaySt = item.FridaySt.HasValue ? new DateTime(item.FridaySt.Value.Ticks).ToString("HH:mm:ss") : null, //.ToString("hh:mm tt")
+                    FridayEt = item.FridayEt.HasValue ? new DateTime(item.FridayEt.Value.Ticks).ToString("HH:mm:ss") : null, //.ToString("hh:mm tt")
+                    SaturdaySt = item.SaturdaySt.HasValue ? new DateTime(item.SaturdaySt.Value.Ticks).ToString("HH:mm:ss") : null, //.ToString("hh:mm tt")
+                    SaturdayEt = item.SaturdayEt.HasValue ? new DateTime(item.SaturdayEt.Value.Ticks).ToString("HH:mm:ss") : null, //.ToString("hh:mm tt")
+                    SundaySt = item.SundaySt.HasValue ? new DateTime(item.SundaySt.Value.Ticks).ToString("HH:mm:ss") : null, //.ToString("hh:mm tt")
+                    SundayEt = item.SundayEt.HasValue ? new DateTime(item.SundayEt.Value.Ticks).ToString("HH:mm:ss") : null, //.ToString("hh:mm tt")
+
+                    Capacity = item.Capacity ?? null,
+                    PincodeAreaId = item.PincodeAreaId ?? null,
+                    PinCode = item.PincodeAreaId.HasValue && item.PincodeAreaId > 0 ? item.PincodeArea.Pincode : null,
+
+                    Area = item.PincodeAreaId.HasValue && item.PincodeAreaId > 0 ? item.PincodeArea.AreaName : null,
+                    IsActive = item.IsActive,
+                    IsDelete = item.IsDelete
+                }).ToListAsync();
+
+                if (objArea.Count > 0)
+                {
                     return CreateResponse(objArea, ResponseMessage.Success, true, ((int)ApiStatusCode.Ok));
                 }
                 else
@@ -1586,7 +1614,7 @@ namespace AurigainLoanERP.Services.User
         private async Task<bool> SaveUserManagerAsync(UserManagerModel model)
         {
             try
-            
+
             {
                 if (model.Id == default)
                 {
@@ -1641,7 +1669,7 @@ namespace AurigainLoanERP.Services.User
                 }
                 else
                 {
-                    var manager = await _db.Managers.Where(x => x.Id == model.Id).Include(x=>x.User).FirstOrDefaultAsync();
+                    var manager = await _db.Managers.Where(x => x.Id == model.Id).Include(x => x.User).FirstOrDefaultAsync();
                     if (manager != null)
                     {
                         manager.FullName = model.FullName;
@@ -1650,7 +1678,7 @@ namespace AurigainLoanERP.Services.User
                         manager.User.Email = model.EmailId;
                         manager.DistrictId = model.DistrictId;
                         manager.StateId = model.StateId;
-                        manager.ModifiedDate= DateTime.Now;
+                        manager.ModifiedDate = DateTime.Now;
                         manager.DateOfBirth = model.DateOfBirth;
                         manager.Address = model.Address;
                         manager.Pincode = model.Pincode;
@@ -1665,6 +1693,8 @@ namespace AurigainLoanERP.Services.User
                 throw;
             }
         }
+
+
         #endregion
     }
 }

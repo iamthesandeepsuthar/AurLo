@@ -22,8 +22,8 @@ body {
     background: #fff;
     overflow-x: hidden;
     overflow-y: auto;
-    letter-spacing: 0.0312rem;
-    font-family: 'Nunito', sans-serif;
+    letter-spacing: 0.0312rem !important;
+    font-family: 'Nunito', sans-serif !important;
 }
 
 h1,
@@ -31,8 +31,10 @@ h2,
 h3,
 h4,
 h5,
-h6 {
+h6,
+label {
     color: #3b3f5c;
+    font-family: 'Nunito', sans-serif !important;
 }
 
 :focus {

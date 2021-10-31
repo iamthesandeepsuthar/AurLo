@@ -48,6 +48,7 @@ export interface UserAvailabilityViewModel {
   SundayEt: string | null;
   Capacity: number | null;
   PincodeAreaId: number | null;
+  PinCode: string;
   Area: string;
   IsActive: boolean | null;
   IsDelete: boolean;
