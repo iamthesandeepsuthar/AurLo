@@ -3773,7 +3773,7 @@ table tbody tr:nth-of-type(odd) .table-data-name span {
 .btn-change-view {
     background: #e7e7e7;
     border: none;
-    padding: 5px 11px;
+    padding: 9px 11px;
     border-radius: 8px;
     font-size: 18px;
 }
@@ -3881,7 +3881,7 @@ table.table.table-striped.dataTable.table-header.table-blue tbody tr:nth-of-type
 .btn-upload-border {
     background: transparent;
     border: dotted 2px #dae0ff;
-    padding: 5px 20px;
+    padding: 10px 20px;
     font-size: 20px;
     border-radius: 10px;
     display: flex;
@@ -4016,7 +4016,11 @@ table.table.table-striped.dataTable.table-header.table-blue tbody tr:nth-of-type
 }
 
 .step-grp-content {
-    margin-top: 20px;
+    margin-top: 10px;
+    background: #fffdfd;
+    padding: 15px;
+    border-radius: 15px;
+    box-shadow: 0 0 20px #ededed;
 }
 
 .reg-steper .mat-step-text-label {
@@ -4024,8 +4028,8 @@ table.table.table-striped.dataTable.table-header.table-blue tbody tr:nth-of-type
 }
 
 .reg-steper .mat-step-icon {
-    height: 45px !important;
-    width: 45px !important;
+    height: 60px !important;
+    width: 60px !important;
     margin-left: -11px;
 }
 
@@ -4043,6 +4047,33 @@ table.table.table-striped.dataTable.table-header.table-blue tbody tr:nth-of-type
     font-weight: 600;
     color: #000;
     text-decoration: underline;
+}
+
+.reg-steper .mat-step:nth-child(1) mat-step-header .mat-step-icon {
+    background: #f3f3f3 url(../img/personal_detail.png) no-repeat center center;
+    background-size: 48px;
+}
+
+.reg-steper .mat-step:nth-child(2) mat-step-header .mat-step-icon {
+    background: #f3f3f3 url(../img/document_details.png) no-repeat center center;
+    background-size: 48px;
+}
+
+.reg-steper .mat-step:nth-child(3) mat-step-header .mat-step-icon {
+    background: #f3f3f3 url(../img/address.png) no-repeat center center;
+    background-size: 48px;
+}
+
+.reg-steper .mat-step-icon.mat-step-icon-state-edit {
+    background: #6b9f6d !important;
+}
+
+.reg-steper .mat-step-icon-content span {
+    display: none;
+}
+
+table {
+    font-family: 'Nunito', sans-serif !important;
 }
 
 
