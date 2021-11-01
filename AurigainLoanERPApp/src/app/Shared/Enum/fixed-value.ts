@@ -2,9 +2,9 @@ export enum FixedValueEnum {
 }
 
 export enum DocumentTypeEnum {
-    AadhaarCard = 1,
-    PANCard = 2,
-    CancelledCheque = 3,
+  AadhaarCard = 1,
+  PANCard = 2,
+  CancelledCheque = 3,
 }
 
 export enum UserRoleEnum {
@@ -13,5 +13,6 @@ export enum UserRoleEnum {
   ZonalManager = 3,
   Supervisor = 4,
   Agent = 5,
-  DoorStepAgent = 6
+  DoorStepAgent = 6,
+  Customer = 7
 }
