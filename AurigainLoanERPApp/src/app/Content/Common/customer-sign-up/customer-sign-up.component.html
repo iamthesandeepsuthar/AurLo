@@ -1,156 +1,210 @@
 <div class="form-container page-customer-register">
-    <div class="form-form">
-        <div class="login-logo">
-            <a href="#"> <img src="assets/img/logo.png" alt="AurLo"> </a>
-        </div>
-        <div class="form-form-wrap mt-5">
-            <form [formGroup]="registrationFrom" (ngSubmit)="onSubmit()">
-                <mat-stepper orientation="vertical" class="mat-custom-steper reg-steper">
-                    <mat-step>
-                        <ng-template matStepLabel>Personal Details</ng-template>
-                        <ng-template matStepContent>
-                            <div class="step-grp-content">
-                                <div class="custom_stepers-body-items-form row">
-                                    <div class="form-group col-md-6">
-                                        <label>Full Name <em class="text-danger">*</em> </label>
-                                        <input type="text" class="form-control" id="fullName" [(ngModel)]="Model.FullName" formControlName="fullName" placeholder="full name">
-                                        <div class="invalid-feedback" *ngIf="(registrationFrom.get('FullName')?.hasError('required') && registrationFrom.get('FullName')?.touched)">full name required</div>
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <label>Father's Name <em class="text-danger">*</em> </label>
-                                        <input type="text" class="form-control" id="fatherName" [(ngModel)]="Model.FatherName" formControlName="fatherName" placeholder="father name">
-                                        <div class="invalid-feedback" *ngIf="(registrationFrom.get('fatherName')?.hasError('required') && registrationFrom.get('fatherName')?.touched)">father name required</div>
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <label>Email<em class="text-danger">*</em> </label>
-                                        <input type="email" class="form-control" id="email" [(ngModel)]="Model.User.Email" formControlName="email" placeholder="email id">
-                                        <div class="invalid-feedback" *ngIf="(registrationFrom.get('email')?.hasError('required') && registrationFrom.get('email')?.touched)">email id required</div>
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <label>Mobile Number <em class="text-danger">*</em> </label>
-                                        <input type="text" class="form-control" [(ngModel)]="Model.User.Mobile" formControlName="mobile" id="mobileNumber" placeholder="mobile number">
-                                        <div class="invalid-feedback" *ngIf="(registrationFrom.get('mobile')?.hasError('required') && registrationFrom.get('mobile')?.touched)">mobile number required</div>
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <label>Date of birth </label>
-                                        <input class="form-control" type="date" placeholder="DD-MM-YYYY" [(ngModel)]="Model.DateOfBirth" formControlName="dob">
-                                        <div class="invalid-feedback" *ngIf="(registrationFrom.get('dob')?.hasError('required') && registrationFrom.get('dob')?.touched)">select date of birth</div>
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <label>Gender</label>
-                                        <div class="form-radio-check-grp border-0 pl-0">
-                                            <div class="n-chk d-inline">
-                                                <label class="new-control new-radio radio-classic-info">
-                      <input type="radio" class="new-control-input" value="Male" name="gender" id="maale" formControlName="gender" [(ngModel)]="Model.Gender"> <span class="new-control-indicator"></span>Male </label>
-                                            </div>
-                                            <div class="n-chk d-inline">
-                                                <label class="new-control new-radio radio-classic-info">
-                      <input type="radio" class="new-control-input" value="Female" name="gender" id="female" formControlName="gender" [(ngModel)]="Model.Gender" > <span class="new-control-indicator"></span>Female </label>
-                                            </div>
-                                            <div class="n-chk d-inline">
-                                                <label class="new-control new-radio radio-classic-info">
-                      <input type="radio" class="new-control-input" value="Other" name="gender" id="other" formControlName="gender" [(ngModel)]="Model.Gender"> <span class="new-control-indicator"></span>Other </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="step-form-btn-grp mt-3">
-                                    <button mat-button matStepperNext type="button" class="btn btn-primary"> <i class="fas fa-check mr-1"></i> Save & Next</button>
-                                </div>
-                            </div>
-                        </ng-template>
-                    </mat-step>
-                    <mat-step>
-                        <ng-template matStepLabel>Document's Detail</ng-template>
-                        <ng-template matStepContent>
-                            <div class="step-grp-content">
-                                <div class="row">
-                                    <div class="form-group col-md-5 pr-2">
-                                        <label>Document Type</label>
-                                        <ng-select [items]="documentTypeModel" (ngModelChange)="onChangeDocType($event)" [searchable]="true" bindLabel="Name" bindValue="Id" placeholder="select document type" formControlName="documentType" [(ngModel)]="KycDocumentModel.KycdocumentTypeId">
-                                        </ng-select>
-                                    </div>
-                                    <div class="form-group col-md-5 pl-2 pr-2">
-                                        <label>Document Number</label>
-                                        <input type="text" class="form-control" placeholder="document number" formControlName="documentNumber" [(ngModel)]="KycDocumentModel.Kycnumber">
-                                        <!-- <div class="invalid-feedback"
-                                  *ngIf="!registrationFrom.get('documentNumber')?.hasError('required') && ((registrationFrom.get('documentNumber')?.hasError('maxlength') 
-                                  || registrationFrom.get('documentNumber')?.hasError('minlength')) && registrationFrom.get('documentNumber')?.touched) 
+  <div class="form-form">
+    <div class="login-logo">
+      <a href="#"> <img src="assets/img/logo.png" alt="AurLo"> </a>
+    </div>
+    <div class="form-form-wrap mt-5">
+
+      <mat-stepper orientation="vertical" [linear]="true" class="mat-custom-steper reg-steper">
+        <mat-step [stepControl]="registrationFromStepOne">
+          <form [formGroup]="registrationFromStepOne" (ngSubmit)="onSubmit()">
+            <ng-template matStepLabel>Personal Details</ng-template>
+            <ng-template matStepContent>
+              <div class="step-grp-content">
+                <div class="custom_stepers-body-items-form row">
+                  <div class="form-group col-md-6">
+                    <label>Full Name <em class="text-danger">*</em> </label>
+                    <input type="text" class="form-control" id="fullName" [(ngModel)]="Model.FullName"
+                      formControlName="fullName" [ngClass]="{ 'is-invalid': f1.fullName.errors && f1.fullName.touched}"
+                      placeholder="full name">
+                    <div class="invalid-feedback"
+                      *ngIf="(registrationFromStepOne.get('fullName')?.hasError('required') && registrationFromStepOne.get('fullName')?.touched)">
+                      full name required</div>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label>Father's Name <em class="text-danger">*</em> </label>
+                    <input type="text" class="form-control" id="fatherName" [(ngModel)]="Model.FatherName"
+                      formControlName="fatherName"
+                      [ngClass]="{ 'is-invalid': f1.fatherName.errors && f1.fatherName.touched}"
+                      placeholder="father name">
+                    <div class="invalid-feedback"
+                      *ngIf="(registrationFromStepOne.get('fatherName')?.hasError('required') && registrationFromStepOne.get('fatherName')?.touched)">
+                      father name required</div>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label>Email<em class="text-danger">*</em> </label>
+                    <input type="email" class="form-control" id="email" [(ngModel)]="Model.User.Email"
+                      formControlName="email" [ngClass]="{ 'is-invalid': f1.email.errors && f1.email.touched}"
+                      placeholder="email id">
+                    <div class="invalid-feedback"
+                      *ngIf="(registrationFromStepOne.get('email')?.hasError('required') && registrationFromStepOne.get('email')?.touched)">
+                      email id required</div>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label>Mobile Number <em class="text-danger">*</em> </label>
+                    <input type="text" class="form-control" [(ngModel)]="Model.User.Mobile" formControlName="mobile"
+                      [ngClass]="{ 'is-invalid': f1.mobile.errors && f1.mobile.touched}" id="mobileNumber"
+                      placeholder="mobile number">
+                    <div class="invalid-feedback"
+                      *ngIf="(registrationFromStepOne.get('mobile')?.hasError('required') && registrationFromStepOne.get('mobile')?.touched)">
+                      mobile number required</div>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label>Date of birth </label>
+                    <input class="form-control" type="date" placeholder="DD-MM-YYYY" [(ngModel)]="Model.DateOfBirth"
+                      formControlName="dob" [ngClass]="{ 'is-invalid': f1.dob.errors && f1.dob.touched}">
+                    <div class="invalid-feedback"
+                      *ngIf="(registrationFromStepOne.get('dob')?.hasError('required') && registrationFromStepOne.get('dob')?.touched)">
+                      select date of birth</div>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label>Gender</label>
+                    <div class="form-radio-check-grp border-0 pl-0">
+                      <div class="n-chk d-inline">
+                        <label class="new-control new-radio radio-classic-info">
+                          <input type="radio" class="new-control-input" value="Male" name="gender" id="maale"
+                            formControlName="gender" [ngClass]="{ 'is-invalid': f1.gender.errors && f1.gender.touched}"
+                            [(ngModel)]="Model.Gender"> <span class="new-control-indicator"></span>Male </label>
+                      </div>
+                      <div class="n-chk d-inline">
+                        <label class="new-control new-radio radio-classic-info">
+                          <input type="radio" class="new-control-input" value="Female" name="gender" id="female"
+                            formControlName="gender" [ngClass]="{ 'is-invalid': f1.gender.errors && f1.gender.touched}"
+                            [(ngModel)]="Model.Gender"> <span class="new-control-indicator"></span>Female </label>
+                      </div>
+                      <div class="n-chk d-inline">
+                        <label class="new-control new-radio radio-classic-info">
+                          <input type="radio" class="new-control-input" value="Other" name="gender" id="other"
+                            formControlName="gender" [ngClass]="{ 'is-invalid': f1.gender.errors && f1.gender.touched}"
+                            [(ngModel)]="Model.Gender"> <span class="new-control-indicator"></span>Other </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="step-form-btn-grp mt-3">
+                  <button mat-button matStepperNext type="button" class="btn btn-primary" (click)="registrationFromStepOne.markAllAsTouched()"> <i
+                      class="fas fa-check mr-1"></i> Save & Next</button>
+                </div>
+              </div>
+            </ng-template>
+          </form>
+        </mat-step>
+        <mat-step [stepControl]="registrationFromStepTwo">
+          <form [formGroup]="registrationFromStepTwo" (ngSubmit)="onSubmit()">
+
+            <ng-template matStepLabel>Document's Detail</ng-template>
+            <ng-template matStepContent>
+              <div class="step-grp-content">
+                <div class="row">
+                  <div class="form-group col-md-5 pr-2">
+                    <label>Document Type</label>
+                    <ng-select [items]="documentTypeModel" (ngModelChange)="onChangeDocType($event)" [searchable]="true"
+                      bindLabel="Name" bindValue="Id" placeholder="select document type" formControlName="documentType"
+                      [ngClass]="{ 'is-invalid': f2.documentType.errors && f2.documentType.touched}"
+                      [(ngModel)]="KycDocumentModel.KycdocumentTypeId">
+                    </ng-select>
+                  </div>
+                  <div class="form-group col-md-5 pl-2 pr-2">
+                    <label>Document Number</label>
+                    <input type="text" class="form-control" placeholder="document number"
+                      formControlName="documentNumber"
+                      [ngClass]="{ 'is-invalid': f2.documentNumber.errors && f2.documentNumber.touched}"
+                      [(ngModel)]="KycDocumentModel.Kycnumber">
+                    <!-- <div class="invalid-feedback"
+                                  *ngIf="!registrationFrom.get('documentNumber')?.hasError('required') && ((registrationFrom.get('documentNumber')?.hasError('maxlength')
+                                  || registrationFrom.get('documentNumber')?.hasError('minlength')) && registrationFrom.get('documentNumber')?.touched)
                                   || (registrationFrom.get('documentNumber')?.hasError('maxlength') || registrationFrom.get('documentNumber')?.hasError('minlength'))">
-                                  Document number length must be {{DocumentCharLength}} char or digit...! 
+                                  Document number length must be {{DocumentCharLength}} char or digit...!
                                 </div> -->
-                                    </div>
+                  </div>
 
-                                    <div class="col-md-2 pl-1 mb-2 mb-md-0">
-                                        <label class="d-none d-md-block"> &nbsp; </label>
-                                        <button type="button" (click)="AddKycDocument()" class="btn btn-warning b-h-form d-block w-100"> <i class="fas fa-plus"></i></button>
-                                    </div>
-                                    <div class="form-group col-md-12">
-                                        <div class="table-responsive mt-2">
-                                            <table class="table table-striped table-bordered mb-0">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Document Type</th>
-                                                        <th>Document number</th>
-                                                        <th></th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr *ngFor="let doc of Model.KycDocuments; let i=index">
-                                                        <td>{{getDocumentTypeText(doc.KycdocumentTypeId)}}</td>
-                                                        <td>{{doc.Kycnumber}}</td>
-                                                        <td class="text-denger">
-                                                            <a title="Remove" style="cursor:pointer" (click)="RemoveDocument(i)"> <i class="fas fa-trash"></i></a>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
+                  <div class="col-md-2 pl-1 mb-2 mb-md-0">
+                    <label class="d-none d-md-block"> &nbsp; </label>
+                    <button type="button" (click)="AddKycDocument()" class="btn btn-warning b-h-form d-block w-100"> <i
+                        class="fas fa-plus"></i></button>
+                  </div>
+                  <div class="form-group col-md-12">
+                    <div class="table-responsive mt-2">
+                      <table class="table table-striped table-bordered mb-0">
+                        <thead>
+                          <tr>
+                            <th>Document Type</th>
+                            <th>Document number</th>
+                            <th></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let doc of Model.KycDocuments; let i=index">
+                            <td>{{getDocumentTypeText(doc.KycdocumentTypeId)}}</td>
+                            <td>{{doc.Kycnumber}}</td>
+                            <td class="text-denger">
+                              <a title="Remove" style="cursor:pointer" (click)="RemoveDocument(i)"> <i
+                                  class="fas fa-trash"></i></a>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
 
-                                </div>
-                                <div class="step-form-btn-grp mt-3">
-                                    <button mat-button matStepperPrevious class="btn btn-outline-danger mr-2"><i class="fas fa-angle-left mr-1"></i>Back</button>
-                                    <button mat-button matStepperNext type="button" class="btn btn-primary"> <i class="fas fa-check mr-1"></i> Save & Next</button>
-                                </div>
-                            </div>
-                        </ng-template>
-                    </mat-step>
-                    <mat-step>
-                        <ng-template matStepLabel>Address Detail </ng-template>
-                        <div class="step-grp-content">
-                            <div class="row">
-                                <div class="form-group col-md-6">
-                                    <label>Pincode</label>
-                                    <input type="text" class="form-control" (blur)="getAreaByPincode($event)" placeholder="pincode"> </div>
-                                <div class="form-group col-md-6">
-                                    <label>Area (Location)</label>
-                                    <ng-select [items]="areaModel" [searchable]="true" bindLabel="AreaName" bindValue="Id" placeholder="select area" formControlName="area" [(ngModel)]="model.PincodeAreaId">
-                                    </ng-select>
-                                    <div class="invalid-feedback" *ngIf="(registrationFrom.get('area')?.hasError('required') && registrationFrom.get('area')?.touched)">
-                                        select area location</div>
-                                </div>
-                                <div class="form-group col-md-12">
-                                    <label>Address</label>
-                                    <textarea class="form-control" [(ngModel)]="Model.Address" formControlName="address" id="exampleFormControlTextarea1" rows="2" placeholder="enter address here"></textarea>
-                                </div>
-                            </div>
-                            <div class="step-form-btn-grp mt-3 text-center">
-                                <button mat-button matStepperPrevious class="btn btn-outline-danger mr-2"><i class="fas fa-angle-left mr-1"></i>Back</button>
-                                <button mat-button matStepperNext type="submit" class="btn btn-primary"> <i class="fas fa-check mr-1"></i> Register</button>
-                            </div>
-                        </div>
-                    </mat-step>
-                </mat-stepper>
-            </form>
+                </div>
+                <div class="step-form-btn-grp mt-3">
+                  <button mat-button matStepperPrevious class="btn btn-outline-danger mr-2"><i
+                      class="fas fa-angle-left mr-1"></i>Back</button>
+                  <button mat-button matStepperNext type="button" (click)="registrationFromStepTwo.markAllAsTouched()" class="btn btn-primary"> <i
+                      class="fas fa-check mr-1"></i> Save & Next</button>
+                </div>
+              </div>
+            </ng-template>
+          </form>
+        </mat-step>
+        <mat-step [stepControl]="registrationFromStepThird">
+          <form [formGroup]="registrationFromStepThird" (ngSubmit)="onSubmit()">
 
-
-            <div class="login-page-reg-btn mt-4 text-center">
-                Have an account? <a routerLink="/{{routing_Url.LoginUrl}}"> Login </a>
+            <ng-template matStepLabel>Address Detail </ng-template>
+            <div class="step-grp-content">
+              <div class="row">
+                <div class="form-group col-md-6">
+                  <label>Pincode</label>
+                  <input type="text" class="form-control" (blur)="getAreaByPincode($event)" placeholder="pincode">
+                </div>
+                <div class="form-group col-md-6">
+                  <label>Area (Location)</label>
+                  <ng-select [items]="areaModel" [searchable]="true" bindLabel="AreaName" bindValue="Id"
+                    placeholder="select area" formControlName="area"
+                    [ngClass]="{ 'is-invalid': f3.area.errors && f3.area.touched}" [(ngModel)]="model.PincodeAreaId">
+                  </ng-select>
+                  <div class="invalid-feedback"
+                    *ngIf="(registrationFromStepThird.get('area')?.hasError('required') && registrationFromStepThird.get('area')?.touched)">
+                    select area location</div>
+                </div>
+                <div class="form-group col-md-12">
+                  <label>Address</label>
+                  <textarea class="form-control" [(ngModel)]="Model.Address" formControlName="address"
+                    [ngClass]="{ 'is-invalid': f3.address.errors && f3.address.touched}"
+                    id="exampleFormControlTextarea1" rows="2" placeholder="enter address here"></textarea>
+                    <div class="invalid-feedback"
+                    *ngIf="(registrationFromStepThird.get('address')?.hasError('required') && registrationFromStepThird.get('address')?.touched)">
+                    fill address</div>
+                </div>
+              </div>
+              <div class="step-form-btn-grp mt-3 text-center">
+                <button mat-button matStepperPrevious class="btn btn-outline-danger mr-2"><i
+                    class="fas fa-angle-left mr-1"></i>Back</button>
+                <button mat-button matStepperNext type="submit" class="btn btn-primary"> <i
+                    class="fas fa-check mr-1" (click)="registrationFromStepThird.markAllAsTouched()"></i> Register</button>
+              </div>
             </div>
-        </div>
+          </form>
+        </mat-step>
+      </mat-stepper>
+
+      <div class="login-page-reg-btn mt-4 text-center">
+        Have an account? <a routerLink="/{{routing_Url.LoginUrl}}"> Login </a>
+      </div>
     </div>
-    <div class="form-image">
-        <div class="l-image"> </div>
-    </div>
+  </div>
+  <div class="form-image">
+    <div class="l-image"> </div>
+  </div>
 </div>
