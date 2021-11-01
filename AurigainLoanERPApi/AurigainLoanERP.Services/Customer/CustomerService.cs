@@ -41,20 +41,17 @@ namespace AurigainLoanERP.Services.Customer
                 else
                 {
                     return CreateResponse<string>(null, ResponseMessage.InvalidData, false, ((int)ApiStatusCode.InvaildModel));
-
                 }
             }
             catch (Exception ex)
             {
                 _db.Database.RollbackTransaction();
                 return CreateResponse<string>(null, ResponseMessage.Fail, false, ((int)ApiStatusCode.ServerException), ex.InnerException == null ? ex.Message : ex.InnerException.Message);
-
             }
         }
         private async Task<bool> SaveCustomerAsync(CustomerRegistrationModel model)
         {
             try
-
             {
                 if (model.Id == default)
                 {
@@ -121,9 +118,7 @@ namespace AurigainLoanERP.Services.Customer
                 return true;
             }
             catch (Exception)
-            {
-                throw;
-            }
+            {  throw;  }
         }
     }
 }
