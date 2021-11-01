@@ -1,9 +1,10 @@
-import { UserPostModel } from "../doorstep-agent-model/door-step-agent.model";
+import { UserKYCPostModel, UserPostModel } from "../doorstep-agent-model/door-step-agent.model";
 
 
 export class CustomerRegistrationModel {
   constructor() {
     this.User = new UserPostModel();
+    this.KycDocuments = [];
   }
   Id!: number;
   FullName!: string;
@@ -20,4 +21,5 @@ export class CustomerRegistrationModel {
   CreatedBy!: number | null;
   ModifiedBy!: number | null;
   User!: UserPostModel;
+  KycDocuments!:UserKYCPostModel[];
 }

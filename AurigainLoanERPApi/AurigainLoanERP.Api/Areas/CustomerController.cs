@@ -20,8 +20,8 @@ namespace AurigainLoanERP.Api.Areas
             _customer = customer;
         }
         // GET api/Customer/AddUpdateAsync
-        [HttpGet("[action]")]
-        public async Task<ApiServiceResponseModel<string>> AddUpdateAsync(CustomerRegistrationModel model)
+        [HttpPost("[action]")]
+        public async Task<ApiServiceResponseModel<string>> RegisterCustomer(CustomerRegistrationModel model)
         {
             return await _customer.AddUpdateAsync(model);
         }

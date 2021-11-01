@@ -9,6 +9,7 @@ namespace AurigainLoanERP.Shared.ContractModel
         public CustomerRegistrationModel() 
         {
             User = new UserPostModel();
+            this.KycDocuments = new List<UserKycPostModel>();
         }
         public long Id { get; set; }
         public string FullName { get; set; }
@@ -25,5 +26,6 @@ namespace AurigainLoanERP.Shared.ContractModel
         public long? CreatedBy { get; set; }
         public long? ModifiedBy { get; set; }
         public UserPostModel User { get; set;}
+        public List<UserKycPostModel> KycDocuments { get; set;}
     }
 }

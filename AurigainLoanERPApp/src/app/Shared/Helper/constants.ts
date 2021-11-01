@@ -132,6 +132,7 @@ export class API_Url {
   public static Product_ActiveStatus_Api = `${environment.apiEndPoint}Product/ChangeActiveStatus/`;
   public static Product_Detail_Api = `${environment.apiEndPoint}Product/GetById/`;
   //#endregion
+
   //#region  << Bank & Branch  >>
   public static Bank_List_Api = `${environment.apiEndPoint}Bank/GetList`;
   public static Bank_Dropdown_List_Api = `${environment.apiEndPoint}Bank/Banks`;
@@ -149,7 +150,7 @@ export class API_Url {
   //#endregion
 
  //#region <<Customer Registration>>
-  public static Customer_Registration_Api = `${environment.apiEndPoint}Customer/AddUpdateAsync/`;
+  public static Customer_Registration_Api = `${environment.apiEndPoint}Customer/RegisterCustomer/`;
  // #endregion
 }
 
@@ -180,11 +181,13 @@ export class Routing_Url {
   public static Qualification_Detail_Url = '/detail-qualification/';
   public static Qualification_AddUpdate_Url = '/add-qualification/';
   //#endregion
+  
   //#region <KYC Document Type >
   public static Kyc_Document_Type_List_Url = '/kyc-document-type';
   public static Kyc_Document_Type_Detail_Url = '/detail-document-type/';
   public static Kyc_Document_Type_AddUpdate_Url = '/add-document-type/';
   //#endregion
+ 
   //#region <PaymentMode>
   public static PaymentMode_List_Url = '/payment-modes';
   public static PaymentMode_Detail_Url = '/detail-payment-mode/';
@@ -201,8 +204,6 @@ export class Routing_Url {
   public static District_AddUpdate_Url = '/add-district/';
   //#endregion
 
-
-
   //#region <DoorStepAgent>
   public static DoorStepAgentRegistrationUrl = 'registration';
   public static DoorStepAgenDetailUrl = 'detail';
@@ -211,7 +212,6 @@ export class Routing_Url {
   //#endregion
 
   //#region  <<Agent >>
-
   public static AgentRegistrationUrl = 'agent-addupdate';
   public static AgenDetailUrl = 'agent-detail';
   public static AgentAvailibilityUrl = 'agent-availibility';
@@ -229,6 +229,7 @@ export class Routing_Url {
   public static Product_Category_Detail_Url = '/detail-category/';
   public static Product_Category_AddUpdate_Url = '/add-category/';
   //#endregion
+ 
   //#region  << Product URL >>
   public static Product_List_Url = '/products';
   public static Product_Detail_Url = '/detail-product/';
@@ -251,7 +252,6 @@ export class Routing_Url {
   public static Jewellery_Type_AddUpdate_Url = '/add-jewellery-type/';
   public static Jewellery_Type_List_Url = '/jewellery-type';
   //#endregion
- 
 }
 
 export class Message {
