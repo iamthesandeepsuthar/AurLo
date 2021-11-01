@@ -195,6 +195,7 @@ namespace AurigainLoanERP.Services.Account
                 Dictionary<string, string> replaceValues = new Dictionary<string, string>();
                 replaceValues.Add("{{UserName}}", "Akash");
                await _emailHelper.SendHTMLBodyMail("akash14singhal@gmail.com","test mail html", EmailPathConstant.RegisterTemplate, replaceValues);
+
                     var user = await _db.UserMaster.Where(x => (x.Mobile == model.MobileNumber.Trim() || x.Email == model.MobileNumber.Trim()) && x.Password == model.Password.Trim()  && !x.IsDelete ).Include(x => x.UserRole).FirstOrDefaultAsync();
                     if (user != null)
                     {
