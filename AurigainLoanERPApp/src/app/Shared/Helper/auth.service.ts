@@ -34,6 +34,21 @@ export class AuthService {
 
   }
 
+  SaveUserDetail(model: LoginResponseModel) {
+    this._securityService.setStorage('userDetail', JSON.stringify(model));
+
+  }
+
+  GetUserDetail() : LoginResponseModel|null {
+    let data = this._securityService.getStorage('userDetail');
+    if (data) {
+      return JSON.parse(data!) as LoginResponseModel;
+    }
+    else {
+      return null;
+    }
+  }
+
 
   IsAuthenticate() {
     setTimeout(() => {

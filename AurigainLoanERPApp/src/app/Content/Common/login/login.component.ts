@@ -38,6 +38,7 @@ export class LoginComponent implements OnInit {
         if (res.IsSuccess) {
           let data = res.Data as LoginResponseModel;
           this._authService.SaveUserToken(data.Token);
+          this._authService.SaveUserDetail(data);
           switch (data.RoleId) {
             case UserRoleEnum.Customer:
               this._route.navigate([Routing_Url.CustomerModule]);
