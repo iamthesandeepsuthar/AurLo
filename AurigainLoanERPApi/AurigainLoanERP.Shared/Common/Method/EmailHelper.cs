@@ -38,7 +38,6 @@ namespace AurigainLoanERP.Shared.Common.Method
             {
                 var message = new MailMessage(_fromEmail, toEmail, subject, body);
                 message.IsBodyHtml = isBodyHtml;
-                
                 await _client.SendMailAsync(message);
             }
             catch
@@ -60,6 +59,7 @@ namespace AurigainLoanERP.Shared.Common.Method
                     builder.HtmlBody = SourceReader.ReadToEnd();
 
                 }
+              
                 if (replaceValues != null)
                 {
                     foreach (var item in replaceValues)

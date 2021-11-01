@@ -68,6 +68,8 @@ export class AuthService {
     this.IsAuthentication.next(false);
     this._securityService.removeStorage('authToken');
     this._securityService.removeStorage('sessionTime');
+    this._securityService.removeStorage('userDetail');
+
     setTimeout(() => {
       if (this._router.url !== this._baseService.Routing_Url.LoginUrl) {
         this._router.navigate([this._baseService.Routing_Url.LoginUrl]);

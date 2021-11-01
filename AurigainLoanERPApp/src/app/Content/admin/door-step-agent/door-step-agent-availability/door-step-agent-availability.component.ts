@@ -47,21 +47,21 @@ export class DoorStepAgentAvailabilityComponent implements OnInit {
   formInit() {
     this.formGroup = this.fb.group({
 
-      MondayST: [undefined, Validators.required],
-      MondayET: [undefined, Validators.required],
-      TuesdayST: [undefined, Validators.required],
-      TuesdayET: [undefined, Validators.required],
-      WednesdayST: [undefined, Validators.required],
-      WednesdayET: [undefined, Validators.required],
-      ThursdayST: [undefined, Validators.required],
-      ThursdayET: [undefined, Validators.required],
-      FridayST: [undefined, Validators.required],
-      FridayET: [undefined, Validators.required],
-      SaturdayST: [undefined, Validators.required],
-      SaturdayET: [undefined, Validators.required],
-      SundayST: [undefined, Validators.required],
-      SundayET: [undefined, Validators.required],
-      Capacity: [undefined, Validators.required],
+      MondayST: [undefined, undefined],
+      MondayET: [undefined, undefined],
+      TuesdayST: [undefined, undefined],
+      TuesdayET: [undefined, undefined],
+      WednesdayST: [undefined, undefined],
+      WednesdayET: [undefined, undefined],
+      ThursdayST: [undefined, undefined],
+      ThursdayET: [undefined, undefined],
+      FridayST: [undefined, undefined],
+      FridayET: [undefined, undefined],
+      SaturdayST: [undefined, undefined],
+      SaturdayET: [undefined, undefined],
+      SundayST: [undefined, undefined],
+      SundayET: [undefined, undefined],
+      Capacity: [undefined, undefined],
       PinCode: [undefined, undefined],
       PincodeAreaId: [undefined, Validators.required]
     });
@@ -148,6 +148,7 @@ export class DoorStepAgentAvailabilityComponent implements OnInit {
     this.model.PincodeAreaId = data.PincodeAreaId as number;
     this.PinCode = data.PinCode as string;
     this.GetAvailableArea(this.model.Id);
+
 
   }
   GetAvailableArea(id = 0) {
