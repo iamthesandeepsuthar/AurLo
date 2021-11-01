@@ -17,6 +17,7 @@ namespace AurigainLoanERP.Shared.Common.Method
         readonly IConfiguration _configuration;
         readonly string _fromEmail;
         private IHostingEnvironment _env;
+        private IHostingEnvironment environment;
 
         public EmailHelper(IConfiguration configuration, IHostingEnvironment env)
         {
@@ -31,6 +32,11 @@ namespace AurigainLoanERP.Shared.Common.Method
                 EnableSsl = true
             };
         }
+
+        //public EmailHelper(IHostingEnvironment environment)
+        //{
+        //    this.environment = environment;
+        //}
 
         public async Task SendMail(string toEmail, string subject, string body, bool isBodyHtml = false)
         {
@@ -47,11 +53,27 @@ namespace AurigainLoanERP.Shared.Common.Method
 
         }
 
-        public string GetHtmlString(string templatePath, Dictionary<string, string> replaceValues)
+        public async Task SendHTMLBodyMail(string toEmail, string subject, string templatePath, Dictionary<string, string> replaceValues = null)
         {
             try
             {
-                var pathToFile = _env.WebRootPath + templatePath;
+                string body = GetHtmlString(templatePath, replaceValues);
+                var message = new MailMessage(_fromEmail, toEmail, subject, body);
+                message.IsBodyHtml = true;
+                await _client.SendMailAsync(message);
+            }
+            catch
+            {
+
+            }
+
+        }
+
+        public string GetHtmlString(string templatePath, Dictionary<string, string> replaceValues=null)
+        {
+            try
+            {
+                var pathToFile = _env.ContentRootPath + templatePath;
                 var builder = new BodyBuilder();
                 using (StreamReader SourceReader = System.IO.File.OpenText(pathToFile))
                 {
@@ -64,7 +86,7 @@ namespace AurigainLoanERP.Shared.Common.Method
                 {
                     foreach (var item in replaceValues)
                     {
-                        builder.HtmlBody.Replace(item.Key, item.Value);
+                        builder.HtmlBody= builder.HtmlBody.Replace(item.Key, item.Value);
                     }
                 }
 
