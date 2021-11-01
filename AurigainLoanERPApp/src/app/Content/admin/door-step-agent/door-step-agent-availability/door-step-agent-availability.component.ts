@@ -149,8 +149,18 @@ export class DoorStepAgentAvailabilityComponent implements OnInit {
     this.PinCode = data.PinCode as string;
     this.GetAvailableArea(this.model.Id);
 
+    this.setFieldValidation('MondayST', 'MondayET', this.model.MondayST && this.model.MondayET);
+    this.setFieldValidation('TuesdayST', 'TuesdayET', this.model.TuesdayST && this.model.TuesdayET);
+    this.setFieldValidation('WednesdayST', 'WednesdayET', this.model.WednesdayST && this.model.WednesdayET);
+    this.setFieldValidation('ThursdayST', 'ThursdayET', this.model.ThursdayST && this.model.ThursdayET);
+    this.setFieldValidation('FridayST', 'FridayET', this.model.FridayST && this.model.FridayET);
+    this.setFieldValidation('SaturdayST', 'SaturdayET', this.model.SaturdayST && this.model.SaturdayET);
+    this.setFieldValidation('SundayST', 'SundayET', this.model.SundayST && this.model.SundayET);
+
+
 
   }
+
   GetAvailableArea(id = 0) {
     let serve = this._userSettingService.GetAvailableAreaForRolebyPinCode(this.PinCode, UserRoleEnum.DoorStepAgent, id).subscribe(res => {
       serve.unsubscribe();
