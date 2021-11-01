@@ -187,12 +187,12 @@ namespace AurigainLoanERP.Services.Account
             LoginResponseModel response = new LoginResponseModel();
             try
             {                
-                    var user = await _db.UserMaster.Where(x => x.Mobile == model.MobileNumber || x.Email == model.MobileNumber && x.Password == model.Password).Include(x => x.UserRole).FirstOrDefaultAsync();
+                    var user = await _db.UserMaster.Where(x => (x.Mobile == model.MobileNumber.Trim() || x.Email == model.MobileNumber.Trim()) && x.Password == model.Password.Trim()  && !x.IsDelete ).Include(x => x.UserRole).FirstOrDefaultAsync();
                     if (user != null)
                     {
                         if (!user.IsApproved && !user.IsActive.Value)
                         {
-                            return CreateResponse<LoginResponseModel>(null, "yourt account not activated, Please confirm with admin!", false, ((int)ApiStatusCode.UnApproved));
+                            return CreateResponse<LoginResponseModel>(null, "your account not activated, Please confirm with admin!", false, ((int)ApiStatusCode.UnApproved));
                         }
                         UserLoginLog log = new UserLoginLog
                         {
