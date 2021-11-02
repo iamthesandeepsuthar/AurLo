@@ -18,6 +18,7 @@ export class DetailAgentComponent implements OnInit {
  //#region <<Variable>>
  Id: number = 0;
  model = {} as AgentViewModel;
+ get routing_Url() { return Routing_Url }
 
  //#endregion
 

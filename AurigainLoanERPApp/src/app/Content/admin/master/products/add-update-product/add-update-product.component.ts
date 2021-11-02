@@ -84,7 +84,7 @@ this.Id = this._activatedRoute.snapshot.params.id;
     });
    }
   onGetDetail() {
-  let subscription = this._productService.GetProductById(0).subscribe(res => {
+  let subscription = this._productService.GetProductById(this.Id).subscribe(res => {
   subscription.unsubscribe();
   if (res.IsSuccess) {
   this.model = res.Data as ProductModel;

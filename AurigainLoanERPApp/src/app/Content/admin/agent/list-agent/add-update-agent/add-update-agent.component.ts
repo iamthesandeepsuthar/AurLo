@@ -119,7 +119,7 @@ export class AddUpdateAgentComponent implements OnInit,AfterContentChecked {
       this.model.User.UserRoleId = this.model.User.UserRoleId ? this.model.User.UserRoleId : 1;
       this.model.User.IsApproved = false;
       // this.model.SelfFunded = Boolean(this.model.SelfFunded);
-
+      debugger;
       let serv = this._userAgentService.AddUpdateDoorStepAgent(this.model).subscribe(res => {
         serv.unsubscribe();
         if (res.IsSuccess) {
@@ -191,7 +191,7 @@ export class AddUpdateAgentComponent implements OnInit,AfterContentChecked {
   formInit() {
     this.formGroup = this.fb.group({
       FullName: [undefined, Validators.required],
-      FatherName: [undefined, Validators.required],
+      FatherName: [undefined,Validators.required],
       Gender: [undefined, Validators.required],
       Qualification: [undefined, Validators.required],
       Address: [undefined, undefined],
