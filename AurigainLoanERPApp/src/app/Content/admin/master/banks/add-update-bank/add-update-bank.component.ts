@@ -3,7 +3,7 @@ import {
   BankModel,
   BranchModel,
 } from './../../../../../Shared/Model/master-model/bank-model.model';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Routing_Url } from 'src/app/Shared/Helper/constants';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -42,8 +42,7 @@ export class AddUpdateBankComponent implements OnInit {
   set BranchModel(value: BranchModel) {
     this.branchModel = value;
   }
-  display:string = 'none';
-
+  @ViewChild('HideAddUpdateModel') HideAddUpdateModel!: ElementRef;
   constructor(
     private readonly fb: FormBuilder,
     private readonly _bankService: BankBranchService,
@@ -65,8 +64,8 @@ export class AddUpdateBankComponent implements OnInit {
   }
   formInitBranch() {
     this.branchForm = this.fb.group({
-      branchName:[undefined],
-      branchCode:[undefined],
+      branchName: [undefined],
+      branchCode: [undefined],
       branchEmail: [undefined],
       branchIfsc: [undefined],
       branchAddress: [undefined],
@@ -82,7 +81,7 @@ export class AddUpdateBankComponent implements OnInit {
       Website: [undefined, Validators.required],
       Contact: [undefined, Validators.required],
       FaxNumber: [undefined],
-      BankLogoUrl:[undefined],
+      BankLogoUrl: [undefined],
     });
   }
 
@@ -98,13 +97,13 @@ export class AddUpdateBankComponent implements OnInit {
   }
 
   addBranch() {
-    this.display = 'block';
+
     this.branchModel = new BranchModel();
     this.branchModel.IsActive = true;
   }
 
   addToBranchList() {
-   // this.branchModel.BranchName == undefined ?  this.toast.info('Please enter required * field of branch', 'Required') : null ;
+    // this.branchModel.BranchName == undefined ?  this.toast.info('Please enter required * field of branch', 'Required') : null ;
     if (
       this.branchModel.BranchName == undefined &&
       this.BranchModel.Ifsc == undefined &&
@@ -127,7 +126,9 @@ export class AddUpdateBankComponent implements OnInit {
         this.branchModel = new BranchModel();
         this.BranchModel.IsActive = true;
         this.IsBranchUpdate = false;
-        this.display ='none';
+
+        this.HideAddUpdateModel.nativeElement.click();
+
       }
     }
   }
@@ -163,9 +164,9 @@ export class AddUpdateBankComponent implements OnInit {
             );
             this._router.navigate([
               this.routing_Url.AdminModule +
-                '/' +
-                this.routing_Url.MasterModule +
-                this.routing_Url.Bank_List_Url,
+              '/' +
+              this.routing_Url.MasterModule +
+              this.routing_Url.Bank_List_Url,
             ]);
           } else {
             this.toast.error(response.Message?.toString(), 'Error');

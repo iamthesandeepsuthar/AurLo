@@ -24,7 +24,7 @@
 
 <div class="page-mid-data-table">
   <div class="widget-content widget-content p-3 form-grp-w-border">
-    <h2> <img src="assets/img/personal_detail.png"> Agent Availability Detail</h2>
+    <h2> <img src="assets/img/personal_detail.png">Door Agent Availability Detail</h2>
 
     <div class="page-profile d-flex align-items-center justify-content-center mx-auto mb-3"><img
         [src]="userModel?.ProfilePath" onerror="this.src='assets/img/user-default.jpg'"></div>
@@ -58,11 +58,10 @@
                     placeholder="Time picker"> </td>
                 <td>
                   <label class="new-control new-checkbox big-checkbox checkbox-info">
-                    <input type="checkbox" (change)="setFieldValidation('MondayST','MondayET',$event)"
-                      class="new-control-input"> <span class="new-control-indicator"></span>&nbsp;
+                    <input type="checkbox"   [checked]="!model.MondayST && !model.MondayET"
+                      (change)="setFieldValidation('MondayST','MondayET',$event)" class="new-control-input">
+                    <span class="new-control-indicator"></span>&nbsp;
                   </label>
-
-
                 </td>
               </tr>
               <tr>
@@ -77,8 +76,9 @@
                 </td>
                 <td>
                   <label class="new-control new-checkbox big-checkbox checkbox-info">
-                    <input type="checkbox" (change)="setFieldValidation('TuesdayST','TuesdayET',$event)"
-                      class="new-control-input"> <span class="new-control-indicator"></span>&nbsp;
+                    <input type="checkbox" [checked]="!model.TuesdayST && !model.TuesdayET"
+                      (change)="setFieldValidation('TuesdayST','TuesdayET',$event)" class="new-control-input">
+                    <span class="new-control-indicator"></span>&nbsp;
                   </label>
                 </td>
               </tr>
@@ -94,7 +94,8 @@
                 </td>
                 <td>
                   <label class="new-control new-checkbox big-checkbox checkbox-info">
-                    <input type="checkbox" (change)="setFieldValidation('WednesdayST','WednesdayET',$event)"
+                    <input type="checkbox" [checked]="!model.WednesdayST && !model.WednesdayET"
+                      (change)="setFieldValidation('WednesdayST','WednesdayET',$event)"
                       class="new-control-input"> <span class="new-control-indicator"></span>&nbsp;
                   </label>
                 </td>
@@ -111,8 +112,9 @@
                 </td>
                 <td>
                   <label class="new-control new-checkbox big-checkbox checkbox-info">
-                    <input type="checkbox" (change)="setFieldValidation('ThursdayST','ThursdayET',$event)"
-                      class="new-control-input"> <span class="new-control-indicator"></span>&nbsp;
+                    <input type="checkbox" [checked]="!model.ThursdayST && !model.ThursdayET"
+                      (change)="setFieldValidation('ThursdayST','ThursdayET',$event)" class="new-control-input">
+                    <span class="new-control-indicator"></span>&nbsp;
                   </label>
                 </td>
               </tr>
@@ -126,8 +128,9 @@
                     placeholder="Time picker"> </td>
                 <td>
                   <label class="new-control new-checkbox big-checkbox checkbox-info">
-                    <input type="checkbox" (change)="setFieldValidation('FridayST','FridayET',$event)"
-                      class="new-control-input"> <span class="new-control-indicator"></span>&nbsp;
+                    <input type="checkbox" [checked]="!model.FridayST && !model.FridayET"
+                      (change)="setFieldValidation('FridayST','FridayET',$event)" class="new-control-input">
+                    <span class="new-control-indicator"></span>&nbsp;
                   </label>
                 </td>
               </tr>
@@ -143,8 +146,9 @@
                 </td>
                 <td>
                   <label class="new-control new-checkbox big-checkbox checkbox-info">
-                    <input type="checkbox" (change)="setFieldValidation('SaturdayST','SaturdayET',$event)"
-                      class="new-control-input"> <span class="new-control-indicator"></span>&nbsp;
+                    <input type="checkbox" [checked]="!model.SaturdayST && !model.SaturdayET"
+                      (change)="setFieldValidation('SaturdayST','SaturdayET',$event)" class="new-control-input">
+                    <span class="new-control-indicator"></span>&nbsp;
                   </label>
                 </td>
               </tr>
@@ -158,8 +162,9 @@
                     class="form-control" placeholder="Time picker"> </td>
                 <td>
                   <label class="new-control new-checkbox big-checkbox checkbox-info">
-                    <input type="checkbox" (change)="setFieldValidation('SundayST','SundayET',$event)"
-                      class="new-control-input"> <span class="new-control-indicator"></span>&nbsp;
+                    <input type="checkbox" [checked]="!model.SundayST && !model.SundayET"
+                      (change)="setFieldValidation('SundayST','SundayET',$event)" class="new-control-input">
+                    <span class="new-control-indicator"></span>&nbsp;
                   </label>
                 </td>
               </tr>
@@ -196,6 +201,16 @@
 
           </div>
         </div>
+
+
+        <div class="form-footer-btn-grp widget-content widget-content p-3 text-center">
+          <!-- <button type="button" class="btn btn-primary mr-3"><i class="fas fa-chevron-left mr-1"></i> Back</button> -->
+          <button type="submit" class="btn btn-success mr-3"><i class="fas fa-check mr-1"></i>Submit</button>
+          <button routerLink="/admin/door-step-agent/door-step-agents-list" type="button"
+            class="btn btn-outline-danger"><i class="fas fa-times mr-1"></i> Cancel</button>
+        </div>
+
+
         <div class="col-md-12 table-responsive" *ngIf="dataModel!.length>0">
           <table class="table">
             <thead>
@@ -310,12 +325,6 @@
           </table>
         </div>
 
-        <div class="form-footer-btn-grp widget-content widget-content p-3 text-center">
-          <!-- <button type="button" class="btn btn-primary mr-3"><i class="fas fa-chevron-left mr-1"></i> Back</button> -->
-          <button type="submit" class="btn btn-success mr-3"><i class="fas fa-check mr-1"></i>Submit</button>
-          <button routerLink="/admin/door-step-agent/door-step-agents-list" type="button"
-            class="btn btn-outline-danger"><i class="fas fa-times mr-1"></i> Cancel</button>
-        </div>
       </div>
     </form>
   </div>

@@ -12,8 +12,8 @@ import { CustomerSignUpComponent } from './Content/Common/customer-sign-up/custo
 const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full'},
   { path: "dashboard", loadChildren: () => import('./Content/dashboard/dashboard.module').then(m => m.DashboardModule) },
-  { path: "admin", loadChildren: () => import('./Content/admin/admin.module').then(m => m.AdminModule) },
-  { path: "customer", loadChildren: () => import('./Content/customer/customer.module').then(m => m.CustomerModule) },
+  { path: Routing_Url.AdminModule, loadChildren: () => import('./Content/admin/admin.module').then(m => m.AdminModule) },
+  { path: Routing_Url.CustomerModule, loadChildren: () => import('./Content/customer/customer.module').then(m => m.CustomerModule) },
   { path: 'manish', component: HtmlComponent },
   { path: Routing_Url.LoginUrl , component: LoginComponent },
   { path: Routing_Url.CustomerSignUpUrl , component: CustomerSignUpComponent },

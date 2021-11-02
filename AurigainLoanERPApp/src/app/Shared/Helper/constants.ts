@@ -3,7 +3,7 @@ import { environment } from 'src/environments/environment';
 export class API_Url {
 
   //#region <<Login>>
-  public static Login_Api = `${environment.apiEndPoint}account/login`;
+  public static Login_Api = `${environment.apiEndPoint}account/WebLogin`;
   //#endregion
 
   //#region <<Common >>
@@ -161,6 +161,7 @@ export class Routing_Url {
   public static MasterModule = 'master';
   public static DoorStepModule = 'door-step-agent';
   public static AgentModule = 'agent';
+  public static CustomerModule = 'customer';
 
   //#endregion
 
@@ -181,13 +182,13 @@ export class Routing_Url {
   public static Qualification_Detail_Url = '/detail-qualification/';
   public static Qualification_AddUpdate_Url = '/add-qualification/';
   //#endregion
-  
+
   //#region <KYC Document Type >
   public static Kyc_Document_Type_List_Url = '/kyc-document-type';
   public static Kyc_Document_Type_Detail_Url = '/detail-document-type/';
   public static Kyc_Document_Type_AddUpdate_Url = '/add-document-type/';
   //#endregion
- 
+
   //#region <PaymentMode>
   public static PaymentMode_List_Url = '/payment-modes';
   public static PaymentMode_Detail_Url = '/detail-payment-mode/';
@@ -229,7 +230,7 @@ export class Routing_Url {
   public static Product_Category_Detail_Url = '/detail-category/';
   public static Product_Category_AddUpdate_Url = '/add-category/';
   //#endregion
- 
+
   //#region  << Product URL >>
   public static Product_List_Url = '/products';
   public static Product_Detail_Url = '/detail-product/';

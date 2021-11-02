@@ -21,33 +21,33 @@ namespace AurigainLoanERP.Api.Controllers
 
         }
 
-        [HttpPost("[action]")]
+        [HttpPost]
         public async Task<ApiServiceResponseModel<LoginResponseModel>> WebLogin(LoginModel model)
         {
             return await _accountService.WebLogin(model);           
         }
         
         //Post api/Account/GetOTP
-        [HttpPost("[action]")]
+        [HttpPost]
         public async Task<ApiServiceResponseModel<OtpModel>> GetOTP(OtpRequestModel model)
         {
             return await _accountService.GetOtp(model);
         }
 
         //Post api/Account/ChangeMPIN
-        [HttpPost("[action]")]
+        [HttpPost]
         public async Task<ApiServiceResponseModel<string>> ChangeMPIN(ChangePasswordModel model)
         {
             return await _accountService.ChangePassword(model);
         }
         //Post api/Account/Login
-        [HttpPost("[action]")]
+        [HttpPost]
         public async Task<ApiServiceResponseModel<LoginResponseModel>> Login(LoginModel model)
         {
             return await _accountService.Login(model);
         }
         //Post api/Account/VarifiedMPIN
-        [HttpPost("[action]")]
+        [HttpPost]
         public async Task<ApiServiceResponseModel<string>> VarifiedMPIN(OtpVerifiedModel model)
         {
             return await _accountService.VerifiedPin(model);

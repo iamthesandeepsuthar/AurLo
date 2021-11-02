@@ -11,4 +11,11 @@ namespace AurigainLoanERP.Shared.Common.Model
         public const string BankLogoFile = "\\Content\\BankFiles\\Logo\\";
 
     }
+
+    public static class EmailPathConstant
+    {
+        public const string RegisterTemplate = "\\StaticFiles\\EmailTemplate\\register.html";
+     
+
+    }
 }

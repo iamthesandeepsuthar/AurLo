@@ -16,10 +16,13 @@ import { UserKYCPostModel } from 'src/app/Shared/Model/doorstep-agent-model/door
   selector: 'app-customer-sign-up',
   templateUrl: './customer-sign-up.component.html',
   styleUrls: ['./customer-sign-up.component.scss'],
-  providers: [CustomerService,KycDocumentTypeService,StateDistrictService]
+  providers: [CustomerService, KycDocumentTypeService, StateDistrictService]
 })
 export class CustomerSignUpComponent implements OnInit {
-  registrationFrom!: FormGroup;
+
+  registrationFromStepOne!: FormGroup;
+  registrationFromStepTwo!: FormGroup;
+  registrationFromStepThird!: FormGroup;
   documentTypeModel!: DDLDocumentTypeModel[];
   areaModel!: AvailableAreaModel[];
   model!: CustomerRegistrationModel;
@@ -28,22 +31,26 @@ export class CustomerSignUpComponent implements OnInit {
   get KycDocumentModel(): UserKYCPostModel {
     return this.kycDocumentModel;
   }
-  get Model(): CustomerRegistrationModel{
+  get Model(): CustomerRegistrationModel {
     return this.model;
   }
-  get f() { return this.registrationFrom.controls; }
+  get f1() { return this.registrationFromStepOne.controls; }
+  get f2() { return this.registrationFromStepTwo.controls; }
+
+  get f3() { return this.registrationFromStepThird.controls; }
+
   get routing_Url() { return Routing_Url }
 
-  constructor(private readonly fb: FormBuilder,private readonly _customerService: CustomerService,
-              private readonly _documentType: KycDocumentTypeService,
-              private readonly _stateService:StateDistrictService,
-              private readonly toast : ToastrService, 
-              private _activatedRoute: ActivatedRoute,
-              private _router: Router) {  
-                this.model = new CustomerRegistrationModel();
-                this.model.IsActive = true;
-                this.kycDocumentModel = new UserKYCPostModel();
-              }
+  constructor(private readonly fb: FormBuilder, private readonly _customerService: CustomerService,
+    private readonly _documentType: KycDocumentTypeService,
+    private readonly _stateService: StateDistrictService,
+    private readonly toast: ToastrService,
+    private _activatedRoute: ActivatedRoute,
+    private _router: Router) {
+    this.model = new CustomerRegistrationModel();
+    this.model.IsActive = true;
+    this.kycDocumentModel = new UserKYCPostModel();
+  }
 
   ngOnInit(): void {
     this.getDocumentType();
@@ -51,107 +58,118 @@ export class CustomerSignUpComponent implements OnInit {
   }
   getDocumentType() {
     let subscription = this._documentType.GetDDLDocumentType().subscribe(response => {
-     subscription.unsubscribe();
-     if(response.IsSuccess) {
-     this.documentTypeModel = response.Data as DDLDocumentTypeModel[];
-     } else {
-      this.toast.warning(response.Message as string , 'Server Error');
-     }
+      subscription.unsubscribe();
+      if (response.IsSuccess) {
+        this.documentTypeModel = response.Data as DDLDocumentTypeModel[];
+      } else {
+        this.toast.warning(response.Message as string, 'Server Error');
+      }
     });
   }
   getAreaByPincode(value: any) {
-    let pincode  = value.currentTarget.value;   
+    let pincode = value.currentTarget.value;
     let subscription = this._stateService.GetAreaByPincode(pincode).subscribe(response => {
-    subscription.unsubscribe();
-    if(response.IsSuccess) {
-     this.areaModel = response.Data as AvailableAreaModel[];
-    } else {
-      this.toast.warning(response.Message as string , 'Server Error');
+      subscription.unsubscribe();
+      if (response.IsSuccess) {
+        this.areaModel = response.Data as AvailableAreaModel[];
+      } else {
+        this.toast.warning(response.Message as string, 'Server Error');
 
-    }
-  });
+      }
+    });
   }
   formInit() {
-    this.registrationFrom = this.fb.group({
-    fullName:[undefined],
-    fatherName:[undefined],
-    email:[undefined],
-    mobile:[undefined],
-    gender:[undefined],
-    dob:[undefined],
-    documentType: [undefined],
-    documentNumber: [undefined],
-    pincode:[undefined],
-    address:[undefined],
-    area: [undefined],    
+    this.registrationFromStepOne = this.fb.group({
+      fullName: [undefined, Validators.required],
+      fatherName: [undefined, Validators.required],
+      email: [undefined, Validators.required],
+      mobile: [undefined, Validators.required],
+      gender: [undefined, undefined],
+      dob: [undefined,undefined],
+
     });
+    this.registrationFromStepTwo = this.fb.group({
+      documentType: [undefined],
+      documentNumber: [undefined],
+    });
+    this.registrationFromStepThird = this.fb.group({
+      pincode: [undefined],
+      address: [undefined],
+      area: [undefined, Validators.required],
+    });
+
+
+
   }
   getDocumentTypeText(value: string | number) {
     return this.documentTypeModel?.find(x => x.Id == value)?.Name;
   }
-  AddKycDocument(){    
+  AddKycDocument() {
     debugger;
-    if(this.kycDocumentModel.KycdocumentTypeId == undefined && this.kycDocumentModel.Kycnumber == undefined) {
+    if (this.kycDocumentModel.KycdocumentTypeId == undefined && this.kycDocumentModel.Kycnumber == undefined) {
       return;
     }
-    let exist = this.model.KycDocuments.find(x=>x.KycdocumentTypeId == this.KycDocumentModel.KycdocumentTypeId );
-    if(exist) {
-      this.toast.warning('Document already added' , 'Duplicate Record');
+    let exist = this.model.KycDocuments.find(x => x.KycdocumentTypeId == this.KycDocumentModel.KycdocumentTypeId);
+    if (exist) {
+      this.toast.warning('Document already added', 'Duplicate Record');
       return;
     } else {
       this.model.KycDocuments.push(this.kycDocumentModel);
       this.kycDocumentModel = new UserKYCPostModel();
-    }    
+    }
   }
-  RemoveDocument(index: number){    
-    this.model.KycDocuments.splice(index,1);
+  RemoveDocument(index: number) {
+    this.model.KycDocuments.splice(index, 1);
   }
   onChangeDocType(value: number) {
-    
+
     if (value > 0) {
       this.kycDocumentModel.KycdocumentTypeId = value;
     }
     //this.model.Kycnumber = undefined;
-    if (this.kycDocumentModel?.KycdocumentTypeId ) {
+    if (this.kycDocumentModel?.KycdocumentTypeId) {
 
 
       let dataItem = this.documentTypeModel?.find(x => x.Id == (this.KycDocumentModel?.KycdocumentTypeId ?? value)) as DDLDocumentTypeModel;
       this.DocumentCharLength = dataItem.DocumentNumberLength;
 
-      if (this.kycDocumentModel?.KycdocumentTypeId> 0) {
-        this.registrationFrom.get("documentType")?.setValidators(Validators.required);
-        this.registrationFrom.get("KycNumber")?.setValidators(Validators.compose([Validators.required, Validators.maxLength(this.DocumentCharLength), Validators.minLength(this.DocumentCharLength)]));
+      if (this.kycDocumentModel?.KycdocumentTypeId > 0) {
+        this.registrationFromStepTwo.get("documentType")?.setValidators(Validators.required);
+        this.registrationFromStepTwo.get("KycNumber")?.setValidators(Validators.compose([Validators.required, Validators.maxLength(this.DocumentCharLength), Validators.minLength(this.DocumentCharLength)]));
       }
       else {
-        this.registrationFrom.get("documentType")?.setValidators(null);
-        this.registrationFrom.get("documentNumber")?.setValidators(null);
+        this.registrationFromStepTwo.get("documentType")?.setValidators(null);
+        this.registrationFromStepTwo.get("documentNumber")?.setValidators(null);
       }
 
     }
     else {
-      this.registrationFrom.get("documentType")?.setValidators(null);
-      this.registrationFrom.get("documentNumber")?.setValidators(null);
+      this.registrationFromStepTwo.get("documentType")?.setValidators(null);
+      this.registrationFromStepTwo.get("documentNumber")?.setValidators(null);
     }
 
-    this.registrationFrom.get("documentType")?.updateValueAndValidity();
-    this.registrationFrom.get("documentNumber")?.updateValueAndValidity();
+    this.registrationFromStepTwo.get("documentType")?.updateValueAndValidity();
+    this.registrationFromStepTwo.get("documentNumber")?.updateValueAndValidity();
   }
-  onSubmit() {   
-    if(this.model.KycDocuments.length<1) {
+  onSubmit() {
+    if (this.model.KycDocuments.length < 1) {
       this.toast.info('Please select kyc document', 'Required');
       return;
     }
-    this.registrationFrom.markAllAsTouched();
-    if (this.registrationFrom.valid) {    
-     let subscription = this._customerService.CustomerRegistration(this.Model).subscribe(response => {
-     subscription.unsubscribe();
-     if(response.IsSuccess) {
-      this.toast.success( 'Registration successful', 'Success');
-     // this._router.navigate([this.routing_Url.AdminModule+'/'+this.routing_Url.MasterModule + this.routing_Url.Product_List_Url]);
-     } else {
-       this.toast.error(response.Message?.toString(), 'Error');
-     }
-     })
-     }
+
+    this.registrationFromStepOne.markAllAsTouched();
+    this.registrationFromStepTwo.markAllAsTouched();
+    this.registrationFromStepThird.markAllAsTouched();
+    if (this.registrationFromStepOne.valid && this.registrationFromStepTwo.valid && this.registrationFromStepThird.valid) {
+      let subscription = this._customerService.CustomerRegistration(this.Model).subscribe(response => {
+        subscription.unsubscribe();
+        if (response.IsSuccess) {
+          this.toast.success('Registration successful', 'Success');
+          // this._router.navigate([this.routing_Url.AdminModule+'/'+this.routing_Url.MasterModule + this.routing_Url.Product_List_Url]);
+        } else {
+          this.toast.error(response.Message?.toString(), 'Error');
+        }
+      })
+    }
   }
 }

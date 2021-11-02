@@ -137,11 +137,11 @@ namespace AurigainLoanERP.Api
 
             app.UseRouting();
             app.UseStaticFiles();
-            //app.UseStaticFiles(new StaticFileOptions
-            //{
-            //    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "Content")),
-            //    RequestPath = "/Content"
-            //});
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "StaticFiles")),
+                RequestPath = "/StaticFiles"
+            });
 
             // Enable directory browsing
             //app.UseDirectoryBrowser(new DirectoryBrowserOptions

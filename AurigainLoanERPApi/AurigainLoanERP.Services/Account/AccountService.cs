@@ -4,6 +4,7 @@ using AurigainLoanERP.Shared.Common.Model;
 using AurigainLoanERP.Shared.ContractModel;
 using AurigainLoanERP.Shared.ExtensionMethod;
 using AutoMapper;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -19,11 +20,15 @@ namespace AurigainLoanERP.Services.Account
         public readonly IMapper _mapper;
         private AurigainContext _db;
         private readonly Security _security;
-        public AccountService(IMapper mapper, AurigainContext db, IConfiguration _configuration)
+        private readonly EmailHelper _emailHelper;
+
+        public AccountService(IMapper mapper, AurigainContext db, IConfiguration _configuration, IHostingEnvironment environment)
         {
             this._mapper = mapper;
             _security = new Security(_configuration);
             _db = db;
+            _emailHelper = new EmailHelper(_configuration,environment);
+
         }
         public async Task<ApiServiceResponseModel<OtpModel>> GetOtp(OtpRequestModel model)
         {
@@ -186,13 +191,17 @@ namespace AurigainLoanERP.Services.Account
             ApiServiceResponseModel<LoginResponseModel> ResponseObject = new Shared.Common.Model.ApiServiceResponseModel<LoginResponseModel>();
             LoginResponseModel response = new LoginResponseModel();
             try
-            {                
-                    var user = await _db.UserMaster.Where(x => x.Mobile == model.MobileNumber || x.Email == model.MobileNumber && x.Password == model.Password).Include(x => x.UserRole).FirstOrDefaultAsync();
+            {
+               // Dictionary<string, string> replaceValues = new Dictionary<string, string>();
+               // replaceValues.Add("{{UserName}}", "Akash");
+               //await _emailHelper.SendHTMLBodyMail("akash14singhal@gmail.com","test mail html", EmailPathConstant.RegisterTemplate, replaceValues);
+
+                    var user = await _db.UserMaster.Where(x => (x.Mobile == model.MobileNumber.Trim() || x.Email == model.MobileNumber.Trim()) && x.Password == model.Password.Trim()  && !x.IsDelete ).Include(x => x.UserRole).FirstOrDefaultAsync();
                     if (user != null)
                     {
                         if (!user.IsApproved && !user.IsActive.Value)
                         {
-                            return CreateResponse<LoginResponseModel>(null, "yourt account not activated, Please confirm with admin!", false, ((int)ApiStatusCode.UnApproved));
+                            return CreateResponse<LoginResponseModel>(null, "your account not activated, Please confirm with admin!", false, ((int)ApiStatusCode.UnApproved));
                         }
                         UserLoginLog log = new UserLoginLog
                         {
