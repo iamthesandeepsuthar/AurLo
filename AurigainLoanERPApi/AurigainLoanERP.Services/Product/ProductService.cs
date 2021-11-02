@@ -128,9 +128,25 @@ namespace AurigainLoanERP.Services.Product
                     {
                         return CreateResponse<string>("", ResponseMessage.RecordAlreadyExist, false, ((int)ApiStatusCode.AlreadyExist), "", null);
                     }
-                    var product = _mapper.Map<AurigainLoanERP.Data.Database.Product>(model);
-                    product.CreatedDate = DateTime.Now;
-                    var result = await _db.Product.AddAsync(product);
+                    Data.Database.Product product = new Data.Database.Product
+                    {
+                        Name = model.Name,
+                        BankId = model.BankId,
+                        CreatedDate = DateTime.Now,
+                        InterestRate = model.InterestRate,
+                        InterestRateApplied = model.InterestRateApplied,
+                        MaximumAmount = model.MaximumAmount,
+                        MaximumTenure = model.MaximumTenure,
+                        MinimumAmount= model.MinimumAmount,
+                        IsActive= model.IsActive,
+                        IsDelete = false,
+                        Notes = model.Notes,
+                        ProductCategoryId = model.ProductCategoryId,
+                        ProcessingFee = model.ProcessingFee,
+                        MinimumTenure = model.MinimumTenure,
+                        CreatedBy = ((int)UserRoleEnum.Admin)
+                    };
+                        var result = await _db.Product.AddAsync(product);
                 }
                 else
                 {
