@@ -1,331 +1,294 @@
 <!-- Page Header Title start -->
 <div class="widget-header">
-  <div class="row d-block d-sm-flex align-items-center justify-content-between text-center text-sm-left">
-    <div>
-      <h1>Set door step agent Availibility</h1>
-      <!-- Breadcrumb Start -->
-      <nav class="custom-breadcrum">
-        <ol class="breadcrumb justify-content-center justify-content-sm-start">
-          <li class="breadcrumb-item"><a routerLink="/dashboard">Home</a></li>
-          <li class="breadcrumb-item"><a href="javascript:void(0)">Master</a></li>
-          <li class="breadcrumb-item"><a routerLink="/admin/door-step-agent/door-step-agents-list">Door Step Agent </a>
-          </li>
-          <li class="breadcrumb-item active" aria-current="page"> door step agent Availibility</li>
-        </ol>
-      </nav>
-      <!-- Breadcrumb End -->
-    </div>
+    <div class="row d-block d-sm-flex align-items-center justify-content-between text-center text-sm-left">
+        <div>
+            <h1>Set door step agent Availibility</h1>
+            <!-- Breadcrumb Start -->
+            <nav class="custom-breadcrum">
+                <ol class="breadcrumb justify-content-center justify-content-sm-start">
+                    <li class="breadcrumb-item"><a routerLink="/dashboard">Home</a></li>
+                    <li class="breadcrumb-item"><a href="javascript:void(0)">Master</a></li>
+                    <li class="breadcrumb-item"><a routerLink="/admin/door-step-agent/door-step-agents-list">Door Step Agent </a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page"> door step agent Availibility</li>
+                </ol>
+            </nav>
+            <!-- Breadcrumb End -->
+        </div>
 
-  </div>
+    </div>
 </div>
 <!-- Page Header Title end -->
 
 
 
 <div class="page-mid-data-table">
-  <div class="widget-content widget-content p-3 form-grp-w-border">
-    <h2> <img src="assets/img/personal_detail.png">Door Agent Availability Detail</h2>
+    <div class="widget-content widget-content p-3 form-grp-w-border">
+        <h2> <img src="assets/img/personal_detail.png">Door Agent Availability Detail</h2>
 
-    <div class="page-profile d-flex align-items-center justify-content-center mx-auto mb-3"><img
-        [src]="userModel?.ProfilePath" onerror="this.src='assets/img/user-default.jpg'"></div>
-    <div class="text-center">
-      <h4 class="text-black">{{userModel?.FullName}}</h4>
-      <p class="font-w-600"><i class="fas fa-mobile-alt"></i><a
-          href="tel:{{userModel?.Mobile}}">{{userModel?.Mobile}}</a> </p>
-    </div>
-    <form [formGroup]="formGroup" (ngSubmit)="onFrmSubmit()">
+        <div class="page-profile d-flex align-items-center justify-content-center mx-auto mb-3"><img [src]="userModel?.ProfilePath" onerror="this.src='assets/img/user-default.jpg'"></div>
+        <div class="text-center">
+            <h4 class="text-black">{{userModel?.FullName}}</h4>
+            <p class="font-w-600"><i class="fas fa-mobile-alt"></i><a href="tel:{{userModel?.Mobile}}">{{userModel?.Mobile}}</a> </p>
+        </div>
+        <form [formGroup]="formGroup" (ngSubmit)="onFrmSubmit()">
 
-      <div class="page-mid-data-table-center">
-        <div class="table-responsive mt-3 table-time">
-          <table class="table table-striped dataTable table-header table-blue table-no-border">
-            <thead>
-              <tr>
-                <th></th>
-                <th>Start</th>
-                <th>End</th>
-                <th>Day of</th>
-              </tr>
-            </thead>
-            <tbody>
+            <div class="page-mid-data-table-center mt-4 mb-4">
+                <div class="table-responsive table-time">
+                    <table class="table table-striped dataTable table-header table-blue table-no-border">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Start</th>
+                                <th>End</th>
+                                <th>Day of</th>
+                            </tr>
+                        </thead>
+                        <tbody>
 
-              <tr>
-                <td>Monday</td>
-                <td> <input type="time" [(ngModel)]="model.MondayST" formControlName="MondayST"
-                    [ngClass]="{ 'is-invalid': f.MondayST.errors && f.MondayST.touched}" class="form-control"
-                    placeholder="Time picker"> </td>
-                <td> <input type="time" [(ngModel)]="model.MondayET" formControlName="MondayET"
-                    [ngClass]="{ 'is-invalid': f.MondayET.errors && f.MondayET.touched}" class="form-control"
-                    placeholder="Time picker"> </td>
-                <td>
-                  <label class="new-control new-checkbox big-checkbox checkbox-info">
+                            <tr>
+                                <td>Monday</td>
+                                <td> <input type="time" [(ngModel)]="model.MondayST" formControlName="MondayST" [ngClass]="{ 'is-invalid': f.MondayST.errors && f.MondayST.touched}" class="form-control" placeholder="Time picker"> </td>
+                                <td> <input type="time" [(ngModel)]="model.MondayET" formControlName="MondayET" [ngClass]="{ 'is-invalid': f.MondayET.errors && f.MondayET.touched}" class="form-control" placeholder="Time picker"> </td>
+                                <td>
+                                    <label class="new-control new-checkbox big-checkbox checkbox-info">
                     <input type="checkbox"   [checked]="!model.MondayST && !model.MondayET"
                       (change)="setFieldValidation('MondayST','MondayET',$event)" class="new-control-input">
                     <span class="new-control-indicator"></span>&nbsp;
                   </label>
-                </td>
-              </tr>
-              <tr>
-                <td>Tuesday</td>
-                <td> <input type="time" [(ngModel)]="model.TuesdayST" formControlName="TuesdayST"
-                    [ngClass]="{ 'is-invalid': f.TuesdayST.errors && f.TuesdayST.touched}" class="form-control"
-                    placeholder="Time picker">
-                </td>
-                <td> <input type="time" [(ngModel)]="model.TuesdayET" formControlName="TuesdayET"
-                    [ngClass]="{ 'is-invalid': f.TuesdayET.errors && f.TuesdayET.touched}" class="form-control"
-                    placeholder="Time picker">
-                </td>
-                <td>
-                  <label class="new-control new-checkbox big-checkbox checkbox-info">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Tuesday</td>
+                                <td> <input type="time" [(ngModel)]="model.TuesdayST" formControlName="TuesdayST" [ngClass]="{ 'is-invalid': f.TuesdayST.errors && f.TuesdayST.touched}" class="form-control" placeholder="Time picker">
+                                </td>
+                                <td> <input type="time" [(ngModel)]="model.TuesdayET" formControlName="TuesdayET" [ngClass]="{ 'is-invalid': f.TuesdayET.errors && f.TuesdayET.touched}" class="form-control" placeholder="Time picker">
+                                </td>
+                                <td>
+                                    <label class="new-control new-checkbox big-checkbox checkbox-info">
                     <input type="checkbox" [checked]="!model.TuesdayST && !model.TuesdayET"
                       (change)="setFieldValidation('TuesdayST','TuesdayET',$event)" class="new-control-input">
                     <span class="new-control-indicator"></span>&nbsp;
                   </label>
-                </td>
-              </tr>
-              <tr>
-                <td>Wednesday</td>
-                <td> <input type="time" [(ngModel)]="model.WednesdayST" formControlName="WednesdayST"
-                    [ngClass]="{ 'is-invalid': f.WednesdayST.errors && f.WednesdayST.touched}" class="form-control"
-                    placeholder="Time picker">
-                </td>
-                <td> <input type="time" [(ngModel)]="model.WednesdayET" formControlName="WednesdayET"
-                    [ngClass]="{ 'is-invalid': f.WednesdayET.errors && f.WednesdayET.touched}" class="form-control"
-                    placeholder="Time picker">
-                </td>
-                <td>
-                  <label class="new-control new-checkbox big-checkbox checkbox-info">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Wednesday</td>
+                                <td> <input type="time" [(ngModel)]="model.WednesdayST" formControlName="WednesdayST" [ngClass]="{ 'is-invalid': f.WednesdayST.errors && f.WednesdayST.touched}" class="form-control" placeholder="Time picker">
+                                </td>
+                                <td> <input type="time" [(ngModel)]="model.WednesdayET" formControlName="WednesdayET" [ngClass]="{ 'is-invalid': f.WednesdayET.errors && f.WednesdayET.touched}" class="form-control" placeholder="Time picker">
+                                </td>
+                                <td>
+                                    <label class="new-control new-checkbox big-checkbox checkbox-info">
                     <input type="checkbox" [checked]="!model.WednesdayST && !model.WednesdayET"
                       (change)="setFieldValidation('WednesdayST','WednesdayET',$event)"
                       class="new-control-input"> <span class="new-control-indicator"></span>&nbsp;
                   </label>
-                </td>
-              </tr>
-              <tr>
-                <td>Thursday</td>
-                <td> <input type="time" [(ngModel)]="model.ThursdayST" formControlName="ThursdayST"
-                    [ngClass]="{ 'is-invalid': f.ThursdayST.errors && f.ThursdayST.touched}" class="form-control"
-                    placeholder="Time picker">
-                </td>
-                <td> <input type="time" [(ngModel)]="model.ThursdayET" formControlName="ThursdayET"
-                    [ngClass]="{ 'is-invalid': f.ThursdayET.errors && f.ThursdayET.touched}" class="form-control"
-                    placeholder="Time picker">
-                </td>
-                <td>
-                  <label class="new-control new-checkbox big-checkbox checkbox-info">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Thursday</td>
+                                <td> <input type="time" [(ngModel)]="model.ThursdayST" formControlName="ThursdayST" [ngClass]="{ 'is-invalid': f.ThursdayST.errors && f.ThursdayST.touched}" class="form-control" placeholder="Time picker">
+                                </td>
+                                <td> <input type="time" [(ngModel)]="model.ThursdayET" formControlName="ThursdayET" [ngClass]="{ 'is-invalid': f.ThursdayET.errors && f.ThursdayET.touched}" class="form-control" placeholder="Time picker">
+                                </td>
+                                <td>
+                                    <label class="new-control new-checkbox big-checkbox checkbox-info">
                     <input type="checkbox" [checked]="!model.ThursdayST && !model.ThursdayET"
                       (change)="setFieldValidation('ThursdayST','ThursdayET',$event)" class="new-control-input">
                     <span class="new-control-indicator"></span>&nbsp;
                   </label>
-                </td>
-              </tr>
-              <tr>
-                <td>Friday</td>
-                <td> <input type="time" [(ngModel)]="model.FridayST" formControlName="FridayST"
-                    [ngClass]="{ 'is-invalid': f.FridayST.errors && f.FridayST.touched}" class="form-control"
-                    placeholder="Time picker"> </td>
-                <td> <input type="time" [(ngModel)]="model.FridayET" formControlName="FridayET"
-                    [ngClass]="{ 'is-invalid': f.FridayET.errors && f.FridayET.touched}" class="form-control"
-                    placeholder="Time picker"> </td>
-                <td>
-                  <label class="new-control new-checkbox big-checkbox checkbox-info">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Friday</td>
+                                <td> <input type="time" [(ngModel)]="model.FridayST" formControlName="FridayST" [ngClass]="{ 'is-invalid': f.FridayST.errors && f.FridayST.touched}" class="form-control" placeholder="Time picker"> </td>
+                                <td> <input type="time" [(ngModel)]="model.FridayET" formControlName="FridayET" [ngClass]="{ 'is-invalid': f.FridayET.errors && f.FridayET.touched}" class="form-control" placeholder="Time picker"> </td>
+                                <td>
+                                    <label class="new-control new-checkbox big-checkbox checkbox-info">
                     <input type="checkbox" [checked]="!model.FridayST && !model.FridayET"
                       (change)="setFieldValidation('FridayST','FridayET',$event)" class="new-control-input">
                     <span class="new-control-indicator"></span>&nbsp;
                   </label>
-                </td>
-              </tr>
-              <tr>
-                <td>Saturday</td>
-                <td> <input type="time" [(ngModel)]="model.SaturdayST"
-                    [ngClass]="{ 'is-invalid': f.SaturdayST.errors && f.SaturdayST.touched}"
-                    formControlName="SaturdayST" class="form-control" placeholder="Time picker">
-                </td>
-                <td> <input type="time" [(ngModel)]="model.SaturdayET"
-                    [ngClass]="{ 'is-invalid': f.SaturdayET.errors && f.SaturdayET.touched}"
-                    formControlName="SaturdayET" class="form-control" placeholder="Time picker">
-                </td>
-                <td>
-                  <label class="new-control new-checkbox big-checkbox checkbox-info">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Saturday</td>
+                                <td> <input type="time" [(ngModel)]="model.SaturdayST" [ngClass]="{ 'is-invalid': f.SaturdayST.errors && f.SaturdayST.touched}" formControlName="SaturdayST" class="form-control" placeholder="Time picker">
+                                </td>
+                                <td> <input type="time" [(ngModel)]="model.SaturdayET" [ngClass]="{ 'is-invalid': f.SaturdayET.errors && f.SaturdayET.touched}" formControlName="SaturdayET" class="form-control" placeholder="Time picker">
+                                </td>
+                                <td>
+                                    <label class="new-control new-checkbox big-checkbox checkbox-info">
                     <input type="checkbox" [checked]="!model.SaturdayST && !model.SaturdayET"
                       (change)="setFieldValidation('SaturdayST','SaturdayET',$event)" class="new-control-input">
                     <span class="new-control-indicator"></span>&nbsp;
                   </label>
-                </td>
-              </tr>
-              <tr>
-                <td>Sunday</td>
-                <td> <input type="time" [(ngModel)]="model.SundayST"
-                    [ngClass]="{ 'is-invalid': f.SundayST.errors && f.SundayST.touched}" formControlName="SundayST"
-                    class="form-control" placeholder="Time picker"> </td>
-                <td> <input type="time" [(ngModel)]="model.SundayET"
-                    [ngClass]="{ 'is-invalid': f.SundayET.errors && f.SundayET.touched}" formControlName="SundayET"
-                    class="form-control" placeholder="Time picker"> </td>
-                <td>
-                  <label class="new-control new-checkbox big-checkbox checkbox-info">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Sunday</td>
+                                <td> <input type="time" [(ngModel)]="model.SundayST" [ngClass]="{ 'is-invalid': f.SundayST.errors && f.SundayST.touched}" formControlName="SundayST" class="form-control" placeholder="Time picker"> </td>
+                                <td> <input type="time" [(ngModel)]="model.SundayET" [ngClass]="{ 'is-invalid': f.SundayET.errors && f.SundayET.touched}" formControlName="SundayET" class="form-control" placeholder="Time picker"> </td>
+                                <td>
+                                    <label class="new-control new-checkbox big-checkbox checkbox-info">
                     <input type="checkbox" [checked]="!model.SundayST && !model.SundayET"
                       (change)="setFieldValidation('SundayST','SundayET',$event)" class="new-control-input">
                     <span class="new-control-indicator"></span>&nbsp;
                   </label>
-                </td>
-              </tr>
+                                </td>
+                            </tr>
 
-            </tbody>
-          </table>
-        </div>
-        <div class="form-row mt-4">
+                        </tbody>
+                    </table>
+                </div>
+                <div class="form-row mt-4 m-0 px-3">
 
-          <div class="form-group col-md-4">
-            <label>Capacity</label>
+                    <div class="form-group col-md-4">
+                        <label>Capacity</label>
 
-            <select class="form-control" [ngClass]="{ 'is-invalid': f.Capacity.errors && f.Capacity.touched}"
-              class="form-control" id="input4" placeholder="Hours (1-10)" formControlName="Capacity"
-              formControlName="Capacity" [(ngModel)]="model.Capacity">
+                        <select class="form-control" [ngClass]="{ 'is-invalid': f.Capacity.errors && f.Capacity.touched}" class="form-control" id="input4" placeholder="Hours (1-10)" formControlName="Capacity" formControlName="Capacity" [(ngModel)]="model.Capacity">
 
               <option value="{{item}}" *ngFor="let item of capacityValues">{{item}}</option>
 
             </select>
-          </div>
-          <div class="form-group col-md-4">
-            <label>Pin code</label>
-            <input type="text" (blur)="GetAvailableArea()" [maxlength]="6" [(ngModel)]="PinCode"
-              [ngClass]="{ 'is-invalid': f.PinCode.errors && f.PinCode.touched}" formControlName="PinCode"
-              class="form-control" placeholder="Pin Code">
-          </div>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label>Pin code</label>
+                        <input type="text" (blur)="GetAvailableArea()" [maxlength]="6" [(ngModel)]="PinCode" [ngClass]="{ 'is-invalid': f.PinCode.errors && f.PinCode.touched}" formControlName="PinCode" class="form-control" placeholder="Pin Code">
+                    </div>
 
-          <div class="form-group col-md-4">
-            <label>Area</label>
-            <ng-select formControlName="PincodeAreaId" [items]="ddlavailibleAreaModel"
-              [ngClass]="{ 'is-invalid': f.PincodeAreaId.errors && f.PincodeAreaId.touched}" bindLabel="AreaName"
-              bindValue="Id" placeholder="Pin code" appendTo="body" [(ngModel)]="model.PincodeAreaId">
-            </ng-select>
+                    <div class="form-group col-md-4">
+                        <label>Area</label>
+                        <ng-select formControlName="PincodeAreaId" [items]="ddlavailibleAreaModel" [ngClass]="{ 'is-invalid': f.PincodeAreaId.errors && f.PincodeAreaId.touched}" bindLabel="AreaName" bindValue="Id" placeholder="Pin code" appendTo="body" [(ngModel)]="model.PincodeAreaId">
+                        </ng-select>
 
-          </div>
-        </div>
+                    </div>
+                </div>
 
 
-        <div class="form-footer-btn-grp widget-content widget-content p-3 text-center">
-          <!-- <button type="button" class="btn btn-primary mr-3"><i class="fas fa-chevron-left mr-1"></i> Back</button> -->
-          <button type="submit" class="btn btn-success mr-3"><i class="fas fa-check mr-1"></i>Submit</button>
-          <button routerLink="/admin/door-step-agent/door-step-agents-list" type="button"
-            class="btn btn-outline-danger"><i class="fas fa-times mr-1"></i> Cancel</button>
-        </div>
+                <div class="form-footer-btn-grp widget-content widget-content p-3 text-center">
+                    <!-- <button type="button" class="btn btn-primary mr-3"><i class="fas fa-chevron-left mr-1"></i> Back</button> -->
+                    <button type="submit" class="btn btn-success mr-3"><i class="fas fa-check mr-1"></i>Submit</button>
+                    <button routerLink="/admin/door-step-agent/door-step-agents-list" type="button" class="btn btn-outline-danger"><i class="fas fa-times mr-1"></i> Cancel</button>
+                </div>
 
 
-        <div class="col-md-12 table-responsive" *ngIf="dataModel!.length>0">
-          <table class="table">
-            <thead>
-              <tr>
-                <th>Monday</th>
-                <th>Tuesday</th>
-                <th>Wednesday</th>
-                <th>Thursday</th>
-                <th>Friday</th>
-                <th>Saturday</th>
-                <th>Sunday</th>
-                <th>Capacity</th>
-                <th>Area</th>
-                <th> Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let record of dataModel; let index=index">
-                <td>
-                  <ng-container *ngIf="record?.MondaySt && record?.MondayEt  ; else mondayDayOff">
-                    {{record?.MondaySt }}-{{record?.MondayEt}}
-                  </ng-container>
-                  <ng-template #mondayDayOff>
-                    <span class="user-day-off">
+                <div class="col-md-12 table-responsive" *ngIf="dataModel!.length>0">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Monday</th>
+                                <th>Tuesday</th>
+                                <th>Wednesday</th>
+                                <th>Thursday</th>
+                                <th>Friday</th>
+                                <th>Saturday</th>
+                                <th>Sunday</th>
+                                <th>Capacity</th>
+                                <th>Area</th>
+                                <th> Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let record of dataModel; let index=index">
+                                <td>
+                                    <ng-container *ngIf="record?.MondaySt && record?.MondayEt  ; else mondayDayOff">
+                                        {{record?.MondaySt }}-{{record?.MondayEt}}
+                                    </ng-container>
+                                    <ng-template #mondayDayOff>
+                                        <span class="user-day-off">
                       Day Off
                     </span>
-                  </ng-template>
+                                    </ng-template>
 
 
 
-                </td>
-                <td>
-                  <ng-container *ngIf="record?.TuesdaySt && record?.TuesdayEt  ; else TuesdayDayOff">
-                    {{record?.TuesdaySt+'-'+ record?.TuesdayEt}}
-                  </ng-container>
-                  <ng-template #TuesdayDayOff>
-                    <span class="user-day-off">
+                                </td>
+                                <td>
+                                    <ng-container *ngIf="record?.TuesdaySt && record?.TuesdayEt  ; else TuesdayDayOff">
+                                        {{record?.TuesdaySt+'-'+ record?.TuesdayEt}}
+                                    </ng-container>
+                                    <ng-template #TuesdayDayOff>
+                                        <span class="user-day-off">
                       Day Off
                     </span>
-                  </ng-template>
+                                    </ng-template>
 
 
-                </td>
-                <td>
-                  <ng-container *ngIf="record?.WednesdaySt && record?.WednesdayEt  ; else WednesdayDayOff">
-                    {{record?.WednesdaySt+'-'+ record?.WednesdayEt}}
-                  </ng-container>
-                  <ng-template #WednesdayDayOff>
-                    <span class="user-day-off">
+                                </td>
+                                <td>
+                                    <ng-container *ngIf="record?.WednesdaySt && record?.WednesdayEt  ; else WednesdayDayOff">
+                                        {{record?.WednesdaySt+'-'+ record?.WednesdayEt}}
+                                    </ng-container>
+                                    <ng-template #WednesdayDayOff>
+                                        <span class="user-day-off">
                       Day Off
                     </span>
-                  </ng-template>
+                                    </ng-template>
 
 
-                </td>
-                <td>
-                  <ng-container *ngIf="record?.ThursdaySt && record?.ThursdayEt  ; else ThursdayDayOff">
-                    {{record?.ThursdaySt+'-'+ record?.ThursdayEt}}
-                  </ng-container>
-                  <ng-template #ThursdayDayOff>
-                    <span class="user-day-off">
+                                </td>
+                                <td>
+                                    <ng-container *ngIf="record?.ThursdaySt && record?.ThursdayEt  ; else ThursdayDayOff">
+                                        {{record?.ThursdaySt+'-'+ record?.ThursdayEt}}
+                                    </ng-container>
+                                    <ng-template #ThursdayDayOff>
+                                        <span class="user-day-off">
                       Day Off
                     </span>
-                  </ng-template>
+                                    </ng-template>
 
 
-                </td>
-                <td>
-                  <ng-container *ngIf="record?.FridaySt && record?.FridayEt  ; else FridayDayOff">
-                    {{record?.FridaySt+'-'+ record?.FridayEt}}
-                  </ng-container>
-                  <ng-template #FridayDayOff>
-                    <span class="user-day-off">
+                                </td>
+                                <td>
+                                    <ng-container *ngIf="record?.FridaySt && record?.FridayEt  ; else FridayDayOff">
+                                        {{record?.FridaySt+'-'+ record?.FridayEt}}
+                                    </ng-container>
+                                    <ng-template #FridayDayOff>
+                                        <span class="user-day-off">
                       Day Off
                     </span>
-                  </ng-template>
+                                    </ng-template>
 
 
-                </td>
-                <td>
-                  <ng-container *ngIf="record?.SaturdaySt && record?.SaturdayEt  ; else SaturdayDayOff">
-                    {{record?.SaturdaySt+'-'+ record?.SaturdayEt}}
-                  </ng-container>
-                  <ng-template #SaturdayDayOff>
-                    <span class="user-day-off">
+                                </td>
+                                <td>
+                                    <ng-container *ngIf="record?.SaturdaySt && record?.SaturdayEt  ; else SaturdayDayOff">
+                                        {{record?.SaturdaySt+'-'+ record?.SaturdayEt}}
+                                    </ng-container>
+                                    <ng-template #SaturdayDayOff>
+                                        <span class="user-day-off">
                       Day Off
                     </span>
-                  </ng-template>
+                                    </ng-template>
 
 
-                </td>
-                <td>
-                  <ng-container *ngIf="record?.SundaySt && record?.SundayEt  ; else SundayDayOff">
-                    {{record?.SundaySt+'-'+ record?.SundayEt}}
-                  </ng-container>
-                  <ng-template #SundayDayOff>
-                    <span class="user-day-off">
+                                </td>
+                                <td>
+                                    <ng-container *ngIf="record?.SundaySt && record?.SundayEt  ; else SundayDayOff">
+                                        {{record?.SundaySt+'-'+ record?.SundayEt}}
+                                    </ng-container>
+                                    <ng-template #SundayDayOff>
+                                        <span class="user-day-off">
                       Day Off
                     </span>
-                  </ng-template>
+                                    </ng-template>
 
 
-                </td>
-                <td>{{record?.Capacity}}</td>
-                <td>{{record?.Area}}</td>
-                <td>
-                  <a (click)="onBindDetail(index)" type="button" title="edit"><i class="fas fa-edit"></i></a>
-                  <!-- <a  type="button" title="remove"><i class="fas fa-trash-alt"></i></a> -->
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+                                </td>
+                                <td>{{record?.Capacity}}</td>
+                                <td>{{record?.Area}}</td>
+                                <td>
+                                    <a (click)="onBindDetail(index)" type="button" title="edit"><i class="fas fa-edit"></i></a>
+                                    <!-- <a  type="button" title="remove"><i class="fas fa-trash-alt"></i></a> -->
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
 
-      </div>
-    </form>
-  </div>
+            </div>
+        </form>
+    </div>
 </div>

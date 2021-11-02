@@ -82,8 +82,9 @@
                   </div>
                 </div>
                 <div class="step-form-btn-grp mt-3">
-                  <button mat-button matStepperNext type="button" class="btn btn-primary" (click)="registrationFromStepOne.markAllAsTouched()"> <i
-                      class="fas fa-check mr-1"></i> Save & Next</button>
+                  <button mat-button matStepperNext type="button" class="btn btn-primary"
+                    (click)="registrationFromStepOne.markAllAsTouched()"> <i class="fas fa-check mr-1"></i> Save &
+                    Next</button>
                 </div>
               </div>
             </ng-template>
@@ -109,8 +110,23 @@
                     <input type="text" class="form-control" placeholder="document number"
                       formControlName="documentNumber"
                       [ngClass]="{ 'is-invalid': f2.documentNumber.errors && f2.documentNumber.touched}"
-                      [(ngModel)]="KycDocumentModel.Kycnumber"  (keypress)="onCheckValidInput($event)"  [maxlength]="DocumentCharLength" [minlength]="DocumentCharLength">
+                      [(ngModel)]="KycDocumentModel.Kycnumber" (keypress)="onCheckValidInput($event)"
+                      [maxlength]="DocumentCharLength" [minlength]="DocumentCharLength">
                     <!-- <div class="invalid-feedback"
+                        <ng-template matStepLabel>Document's Detail</ng-template>
+                        <ng-template matStepContent>
+                            <div class="step-grp-content">
+                                <div class="row">
+                                    <div class="form-group col-md-5 pr-2">
+                                        <label>Document Type</label>
+                                        <ng-select [items]="documentTypeModel" (ngModelChange)="onChangeDocType($event)" [searchable]="true" bindLabel="Name" bindValue="Id" placeholder="select document type" formControlName="documentType" [ngClass]="{ 'is-invalid': f2.documentType.errors && f2.documentType.touched}"
+                                            [(ngModel)]="KycDocumentModel.KycdocumentTypeId">
+                                        </ng-select>
+                                    </div>
+                                    <div class="form-group col-md-5 pl-2 pr-2">
+                                        <label>Document Number</label>
+                                        <input type="text" class="form-control" placeholder="document number" formControlName="documentNumber" [ngClass]="{ 'is-invalid': f2.documentNumber.errors && f2.documentNumber.touched}" [(ngModel)]="KycDocumentModel.Kycnumber">
+                                        <!-- <div class="invalid-feedback"
                                   *ngIf="!registrationFrom.get('documentNumber')?.hasError('required') && ((registrationFrom.get('documentNumber')?.hasError('maxlength')
                                   || registrationFrom.get('documentNumber')?.hasError('minlength')) && registrationFrom.get('documentNumber')?.touched)
                                   || (registrationFrom.get('documentNumber')?.hasError('maxlength') || registrationFrom.get('documentNumber')?.hasError('minlength'))">
@@ -130,16 +146,17 @@
                           <tr>
                             <th>Document Type</th>
                             <th>Document number</th>
-                            <th></th>
+                            <th>Action</th>
                           </tr>
                         </thead>
                         <tbody>
                           <tr *ngFor="let doc of Model.KycDocuments; let i=index">
                             <td>{{getDocumentTypeText(doc.KycdocumentTypeId)}}</td>
                             <td>{{doc.Kycnumber}}</td>
-                            <td class="text-denger">
-                              <a title="Remove" style="cursor:pointer" (click)="RemoveDocument(i)"> <i
-                                  class="fas fa-trash"></i></a>
+                            <td class="table-action-btn">
+                              <a title="Remove" style="cursor:pointer" (click)="RemoveDocument(i)"
+                                class="table-action-btn-delete" data-toggle="tooltip" data-placement="bottom"
+                                title="Remove"><i class="fas fa-trash-alt"></i></a>
                             </td>
                           </tr>
                         </tbody>
@@ -151,8 +168,8 @@
                 <div class="step-form-btn-grp mt-3">
                   <button mat-button matStepperPrevious class="btn btn-outline-danger mr-2"><i
                       class="fas fa-angle-left mr-1"></i>Back</button>
-                  <button mat-button matStepperNext type="button" (click)="registrationFromStepTwo.markAllAsTouched()" class="btn btn-primary"> <i
-                      class="fas fa-check mr-1"></i> Save & Next</button>
+                  <button mat-button matStepperNext type="button" (click)="registrationFromStepTwo.markAllAsTouched()"
+                    class="btn btn-primary"> <i class="fas fa-check mr-1"></i> Save & Next</button>
                 </div>
               </div>
             </ng-template>
@@ -183,7 +200,7 @@
                   <textarea class="form-control" [(ngModel)]="Model.Address" formControlName="address"
                     [ngClass]="{ 'is-invalid': f3.address.errors && f3.address.touched}"
                     id="exampleFormControlTextarea1" rows="2" placeholder="enter address here"></textarea>
-                    <div class="invalid-feedback"
+                  <div class="invalid-feedback"
                     *ngIf="(registrationFromStepThird.get('address')?.hasError('required') && registrationFromStepThird.get('address')?.touched)">
                     fill address</div>
                 </div>
@@ -191,8 +208,8 @@
               <div class="step-form-btn-grp mt-3 text-center">
                 <button mat-button matStepperPrevious class="btn btn-outline-danger mr-2"><i
                     class="fas fa-angle-left mr-1"></i>Back</button>
-                <button mat-button matStepperNext type="submit" class="btn btn-primary"> <i
-                    class="fas fa-check mr-1" (click)="registrationFromStepThird.markAllAsTouched()"></i> Register</button>
+                <button mat-button matStepperNext type="submit" class="btn btn-primary"> <i class="fas fa-check mr-1"
+                    (click)="registrationFromStepThird.markAllAsTouched()"></i> Register</button>
               </div>
             </div>
           </form>
