@@ -109,7 +109,7 @@
                     <input type="text" class="form-control" placeholder="document number"
                       formControlName="documentNumber"
                       [ngClass]="{ 'is-invalid': f2.documentNumber.errors && f2.documentNumber.touched}"
-                      [(ngModel)]="KycDocumentModel.Kycnumber">
+                      [(ngModel)]="KycDocumentModel.Kycnumber"  (keypress)="onCheckValidInput($event)"  [maxlength]="DocumentCharLength" [minlength]="DocumentCharLength">
                     <!-- <div class="invalid-feedback"
                                   *ngIf="!registrationFrom.get('documentNumber')?.hasError('required') && ((registrationFrom.get('documentNumber')?.hasError('maxlength')
                                   || registrationFrom.get('documentNumber')?.hasError('minlength')) && registrationFrom.get('documentNumber')?.touched)
