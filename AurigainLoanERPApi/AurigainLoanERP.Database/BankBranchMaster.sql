@@ -1,7 +1,7 @@
 ﻿CREATE TABLE [dbo].[BankBranchMaster]
 (
 	[Id] INT NOT NULL PRIMARY KEY Identity(1,1), 
-    [BranchName] NCHAR(10) NOT NULL, 
+    [BranchName] NVARCHAR(300) NOT NULL, 
     [BranchCode] NVARCHAR(100) NOT NULL, 
     [IFSC] nvarchar(50)NOT NULL,
     [Pincode] NVARCHAR(20) NOT NULL,

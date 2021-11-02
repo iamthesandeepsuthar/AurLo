@@ -154,10 +154,10 @@ ngOnInit(): void {
   let subscription = this._managerService.AddUpdateManager(this.Model).subscribe(response => {
   subscription.unsubscribe();
   if(response.IsSuccess) {
-    if(this.fileData != null) {
-      this.Id = Number(response.Data);
-      this.onUploadProfileImage();
-    }
+    // if(this.fileData != null) {
+    //   this.Id = Number(response.Data);
+    //   this.onUploadProfileImage();
+    // }
    this.toast.success( this.Id ==0 ?'Record save successful' : 'Record update successful' , 'Success');
    this._router.navigate([this.routing_Url.AdminModule+'/' + this.routing_Url.Manager_List_Url]);
   } else {

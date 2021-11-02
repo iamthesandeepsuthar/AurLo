@@ -1,5 +1,5 @@
 import { PincodeAreaModel } from './../../../../../Shared/Model/master-model/district.model';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -48,6 +48,7 @@ export class AddUpdateDistrictComponent implements OnInit {
       this.Id = this._activatedRoute.snapshot.params.id;
     }
   }
+  @ViewChild('HideAddUpdateModel') HideAddUpdateModel!: ElementRef;
   ngOnInit(): void {
     this.formInit();
     this.getStates();
@@ -59,7 +60,6 @@ export class AddUpdateDistrictComponent implements OnInit {
     let subscription = this._districtService.GetDistrict(this.Id).subscribe((res) => {
       subscription.unsubscribe();
       if (res.IsSuccess) {
-        debugger
         this.model = res.Data as DistrictModel;
       } else {
         this.toast.warning('Record not found', 'No Record');
@@ -116,7 +116,6 @@ export class AddUpdateDistrictComponent implements OnInit {
       });
     }
   }
-
   addToList() {
     this.districtForm.get("Pin")?.setValidators(Validators.required);
     this.districtForm.get("areaName")?.setValidators(Validators.required);
@@ -126,12 +125,12 @@ export class AddUpdateDistrictComponent implements OnInit {
     if (this.pincodeAreaModel.AreaName != undefined && this.pincodeAreaModel.Pincode != undefined) {
       this.model.Areas.push(this.pincodeAreaModel);
       this.clearPincodeArea();
+      this.HideAddUpdateModel.nativeElement.click();
     } else {
       this.toast.warning('Pincode and Area Name Cannot Be Blank', 'Warning');
     }
 
   }
-
   getPincode(index: number) {
     this.pincodeAreaModel = Object.assign(this.model.Areas[index]);
     this.model.Areas.splice(index, 1);
@@ -142,7 +141,6 @@ export class AddUpdateDistrictComponent implements OnInit {
     this.pincodeAreaModel = Object.assign(this.model.Areas[index]);
     if (this.model.Areas[index].Id == 0 || !this.model.Areas[index].Id) {
       this.model.Areas.splice(index, 1);
-
     }
   }
   updatePincode() {

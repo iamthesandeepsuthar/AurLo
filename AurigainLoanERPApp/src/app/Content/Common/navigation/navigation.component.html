@@ -4,7 +4,7 @@
     <nav id="sidebar">
         <div class="shadow-bottom"></div>
 
-        <ul *ngIf="userModel.RoleId!=roleEnum.Customer" class="list-unstyled menu-categories" id="accordionExample">
+        <ul *ngIf="IsAdminMenu" class="list-unstyled menu-categories" id="accordionExample">
 
             <li class="menu" routerLinkActive="menu-active">
                 <a routerLink="/dashboard" aria-expanded="false" class="dropdown-toggle">
@@ -145,7 +145,7 @@
 
 
         </ul>
-        <ul *ngIf="userModel.RoleId==roleEnum.Customer" class="list-unstyled menu-categories" id="accordionExample">
+        <ul *ngIf="IsCustomerMenu" class="list-unstyled menu-categories" id="accordionExample">
 
           <li class="menu" routerLinkActive="menu-active">
               <a routerLink="/customer" aria-expanded="false" class="dropdown-toggle">

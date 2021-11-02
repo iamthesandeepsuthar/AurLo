@@ -3,6 +3,8 @@ using AurigainLoanERP.Shared.Common.Method;
 using AurigainLoanERP.Shared.Common.Model;
 using AurigainLoanERP.Shared.ContractModel;
 using AutoMapper;
+using AutoMapper.Configuration;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -10,6 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static AurigainLoanERP.Shared.Enums.FixedValueEnums;
+using Microsoft.Extensions.Configuration;
 
 namespace AurigainLoanERP.Services.Customer
 {
@@ -17,10 +20,12 @@ namespace AurigainLoanERP.Services.Customer
     {
         public readonly IMapper _mapper;
         private AurigainContext _db;
-        public CustomerService(IMapper mapper, AurigainContext db)
+        private readonly EmailHelper _emailHelper;
+        public CustomerService(IMapper mapper, AurigainContext db, Microsoft.Extensions.Configuration.IConfiguration _configuration, IHostingEnvironment environment)
         {
             this._mapper = mapper;
             _db = db;
+            _emailHelper = new EmailHelper(_configuration, environment);
         }
         public async Task<ApiServiceResponseModel<string>> AddUpdateAsync(CustomerRegistrationModel model)
         {
@@ -29,11 +34,26 @@ namespace AurigainLoanERP.Services.Customer
                 await _db.Database.BeginTransactionAsync();
                 if (model != null)
                 {                   
-                    var response = await SaveCustomerAsync(model);
-                    if (response)
+                    var userId = await SaveCustomerAsync(model);
+                    if (userId> 0)
                     {
-                        _db.Database.CommitTransaction();
-                        return CreateResponse<string>("", ResponseMessage.Save, true, ((int)ApiStatusCode.Ok));
+                        var result  = await SaveUserKYCAsync(model.KycDocuments, userId);
+                        if (result)
+                        {
+                            var user = await _db.UserMaster.Where(x => x.Id == userId).FirstOrDefaultAsync();
+                            Dictionary<string, string> replaceValues = new Dictionary<string, string>();
+                            replaceValues.Add("{{UserName}}", user.Email  + "/" + user.Mobile);
+                            replaceValues.Add("{{Password}}", user.Password);
+                            await _emailHelper.SendHTMLBodyMail(user.Email, "Registration Notification", EmailPathConstant.RegisterTemplate, replaceValues);
+                            _db.Database.CommitTransaction();                          
+                            return CreateResponse<string>("", ResponseMessage.Save, true, ((int)ApiStatusCode.Ok));
+                        }
+                        else
+                        {
+                            _db.Database.RollbackTransaction();
+                            return CreateResponse<string>(null, "Document not uploaded !,Please try again.", false, ((int)ApiStatusCode.DataBaseTransactionFailed));
+                        }
+                      
                     }
                     _db.Database.RollbackTransaction();
                     return CreateResponse<string>(null, ResponseMessage.UserExist, false, ((int)ApiStatusCode.DataBaseTransactionFailed));
@@ -49,7 +69,7 @@ namespace AurigainLoanERP.Services.Customer
                 return CreateResponse<string>(null, ResponseMessage.Fail, false, ((int)ApiStatusCode.ServerException), ex.InnerException == null ? ex.Message : ex.InnerException.Message);
             }
         }
-        private async Task<bool> SaveCustomerAsync(CustomerRegistrationModel model)
+        private async Task<long> SaveCustomerAsync(CustomerRegistrationModel model)
         {
             try
             {
@@ -96,7 +116,7 @@ namespace AurigainLoanERP.Services.Customer
                     }
                     else
                     {
-                        return false;
+                        return 0;
                     }
                 }
                 else
@@ -115,10 +135,51 @@ namespace AurigainLoanERP.Services.Customer
                     }
                     await _db.SaveChangesAsync();
                 }
-                return true;
+                return model.UserId;
             }
             catch (Exception)
             {  throw;  }
+        }
+        private async Task<bool> SaveUserKYCAsync(List<UserKycPostModel> model, long userId)
+        {
+            try
+            {
+                if (model != null)
+                {
+
+                    foreach (var item in model)
+                    {
+                        if (item.Id == default)
+                        {
+                            var objModel = new UserKyc();
+                            objModel.CreatedOn = DateTime.Now;
+                            objModel.UserId = userId;
+                            objModel.KycdocumentTypeId = item.KycdocumentTypeId;
+                            objModel.Kycnumber = !string.IsNullOrEmpty(item.Kycnumber) ? item.Kycnumber : null; //_security.EncryptData(item.Kycnumber)
+                            var result = await _db.UserKyc.AddAsync(objModel);
+
+                        }
+                        else
+                        {
+                            var objModel = await _db.UserKyc.FirstOrDefaultAsync(x => x.Id == item.Id && x.UserId == userId);
+                            objModel.ModifiedOn = DateTime.Now;
+                            objModel.UserId = userId;
+                            objModel.Kycnumber = !string.IsNullOrEmpty(item.Kycnumber) ? item.Kycnumber : null; //_security.EncryptData(item.Kycnumber)
+                            objModel.KycdocumentTypeId = item.KycdocumentTypeId;
+                        }
+                    }
+                    await _db.SaveChangesAsync();
+
+
+                }
+                return true;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
         }
     }
 }

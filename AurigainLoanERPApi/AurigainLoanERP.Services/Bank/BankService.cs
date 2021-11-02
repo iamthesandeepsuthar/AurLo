@@ -187,7 +187,7 @@ namespace AurigainLoanERP.Services.Bank
                                 ConfigurationSettingJson = null,
                                 IsDelete = false
                             };
-                         await  _db.BankBranchMaster.AddAsync(b);                         
+                         await  _db.BankBranchMaster.AddAsync(b);                        
                         }
                         else 
                         {
@@ -202,13 +202,12 @@ namespace AurigainLoanERP.Services.Bank
                                 existBranch.Ifsc = branch.Ifsc;
                                 existBranch.Pincode = branch.Pincode;
                                 existBranch.Address = branch.Address;
-                                existBranch.ContactNumber = branch.ContactNumber;
-                            }
+                                existBranch.ContactNumber = branch.ContactNumber;                                
+                            }                           
                         }
                         await _db.SaveChangesAsync();
-                    }
-                }
-                
+                    }                   
+                }                
                 return CreateResponse<string>(model.Name, model.Id > 0 ? ResponseMessage.Update : ResponseMessage.Save, true, ((int)ApiStatusCode.Ok));
             }
             catch (Exception ex)

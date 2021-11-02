@@ -105,7 +105,6 @@ export class CustomerSignUpComponent implements OnInit {
     return this.documentTypeModel?.find(x => x.Id == value)?.Name;
   }
   AddKycDocument() {
-    debugger;
     if (this.kycDocumentModel.KycdocumentTypeId == undefined && this.kycDocumentModel.Kycnumber == undefined) {
       return;
     }
@@ -164,12 +163,13 @@ export class CustomerSignUpComponent implements OnInit {
       let subscription = this._customerService.CustomerRegistration(this.Model).subscribe(response => {
         subscription.unsubscribe();
         if (response.IsSuccess) {
-          this.toast.success('Registration successful', 'Success');
-          // this._router.navigate([this.routing_Url.AdminModule+'/'+this.routing_Url.MasterModule + this.routing_Url.Product_List_Url]);
+          this.toast.success('Registration successful , Check you email where we share login credential', 'Success');
+          this._router.navigate([this.routing_Url.LoginUrl]);
         } else {
           this.toast.error(response.Message?.toString(), 'Error');
         }
       })
     }
   }
+
 }
