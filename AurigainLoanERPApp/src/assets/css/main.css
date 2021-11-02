@@ -3489,7 +3489,7 @@ li.menu span.shape2 {
 }
 
 .table-header thead {
-    background: #607d8b;
+    background: #607d8b !important;
 }
 
 .switch-custom-d {
@@ -3623,6 +3623,7 @@ table tbody tr:nth-of-type(odd) .table-data-name span {
     width: 180px;
     border-radius: 100%;
     overflow: hidden;
+    box-shadow: 0 0 20px #e5e5e5;
 }
 
 .table-v-align-top td {
@@ -3837,6 +3838,9 @@ table tbody tr:nth-of-type(odd) .table-data-name span {
 .page-mid-data-table-center {
     max-width: 900px;
     margin: auto;
+    box-shadow: 0 0 20px #c9d8f1;
+    border-radius: 15px;
+    overflow: hidden;
 }
 
 .table-green thead {
@@ -3848,7 +3852,7 @@ table tbody tr:nth-of-type(odd) .table-data-name span {
 }
 
 table.table.table-striped.dataTable.table-header.table-blue tbody tr:nth-of-type(odd) {
-    background: #fff9ee !important;
+    background: #eaf0f9 !important;
 }
 
 .table-no-border tr,
