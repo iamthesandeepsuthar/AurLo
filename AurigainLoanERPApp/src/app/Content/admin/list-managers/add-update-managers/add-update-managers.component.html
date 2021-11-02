@@ -21,11 +21,12 @@
 <div class="p-4">
     <div class="update-manager">
         <div class="page-profile-w-edit">
-            <div class="page-profile d-flex align-items-center justify-content-center mx-auto mb-3"><img src="assets/img/user-default.jpg"></div>
+            <div class="page-profile d-flex align-items-center justify-content-center mx-auto mb-3">
             <div class="upload-btn-wrapper mt-0">
-              <img [src]="">
-                <input type="file" name="myfile" />
+              <img [src]="previewUrl" onerror="this.src='assets/img/user-default.jpg'">
+              <input type="file" name="myfile" (change)="fileProgress($event)" />
             </div>
+          </div>
             <button *ngIf="Id>0" class="btn-upload" data-toggle="tooltip" data-placement="bottom" title="Change Profile"><i class="fas fa-edit"></i></button>
         </div>
         <form [formGroup]="managerFrom" (ngSubmit)="onSubmit()">

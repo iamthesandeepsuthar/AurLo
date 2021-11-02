@@ -55,14 +55,12 @@ export class AddUpdateAgentComponent implements OnInit,AfterContentChecked {
     readonly _commonService: CommonService, private readonly _toast: ToastrService, private readonly _userSettingService: UserSettingService) {
     if (this._activatedRoute.snapshot.params.id) {
       this.Id = this._activatedRoute.snapshot.params.id;
-
     }
     this.model.User = new UserPostModel();
     this.model.UserKYC = [] as UserKYCPostModel[];
     this.model.UserNominee = new UserNomineePostModel();
     this.model.BankDetails = new UserBankDetailsPostModel();
     this.model.Documents = [] as DocumentPostModel[];
-
   }
 
   ngOnInit(): void {
@@ -77,7 +75,6 @@ export class AddUpdateAgentComponent implements OnInit,AfterContentChecked {
 
     this.cdr.detectChanges();
   }
-
   GetDropDown() {
     this._commonService.GetDropDown([DropDown_key.ddlQualification, DropDown_key.ddlState, DropDown_key.ddlGender]).subscribe(res => {
       if (res.IsSuccess) {
@@ -88,7 +85,6 @@ export class AddUpdateAgentComponent implements OnInit,AfterContentChecked {
       }
     });
   }
-
   GetFilterDropDown(key: string, FilterFrom: string, Values: any) {
 
     if (Values) {
@@ -114,7 +110,6 @@ export class AddUpdateAgentComponent implements OnInit,AfterContentChecked {
       });
     }
   }
-
   onFrmSubmit() {
     this.formGroup.markAllAsTouched();
     let ChildValid: boolean = this.submitChildData();
@@ -189,12 +184,10 @@ export class AddUpdateAgentComponent implements OnInit,AfterContentChecked {
 
     return isValid;
   }
-
   bindDocs(docs: DocumentPostModel[]) {
 
     this.model.Documents = docs;
   }
-
   formInit() {
     this.formGroup = this.fb.group({
       FullName: [undefined, Validators.required],
@@ -215,8 +208,6 @@ export class AddUpdateAgentComponent implements OnInit,AfterContentChecked {
 
     });
   }
-
-
   onGetDetail() {
     if (this.Id > 0) {
       this._userAgentService.GetAgent(this.Id).subscribe(res => {
@@ -310,7 +301,6 @@ export class AddUpdateAgentComponent implements OnInit,AfterContentChecked {
     this.fileData = fileInput.target.files[0] as File;
     this.preview();
   }
-
   preview() {
     // Show preview
     const mimeType = this.fileData?.type;
@@ -338,11 +328,5 @@ export class AddUpdateAgentComponent implements OnInit,AfterContentChecked {
         }
       });
     }
-
-
-
-
   }
-
-
 }

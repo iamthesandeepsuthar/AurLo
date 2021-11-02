@@ -11,12 +11,14 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Routing_Url } from 'src/app/Shared/Helper/constants';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { UserSettingPostModel } from 'src/app/Shared/Model/User-setting-model/user-setting.model';
+import { UserSettingService } from 'src/app/Shared/Services/user-setting-services/user-setting.service';
 
 @Component({
   selector: 'app-add-update-managers',
   templateUrl: './add-update-managers.component.html',
   styleUrls: ['./add-update-managers.component.scss'],
-  providers: [UserManagerService,UserRoleService,StateDistrictService]
+  providers: [UserManagerService,UserRoleService,StateDistrictService,UserSettingService]
 })
 export class AddUpdateManagersComponent implements OnInit {
   Id: number = 0;
@@ -28,13 +30,16 @@ export class AddUpdateManagersComponent implements OnInit {
   get routing_Url() { return Routing_Url }
   get f() { return this.managerFrom.controls; }
   get Model(): UserManagerModel{  return this.model; }
+
+  fileData!: File;
+  previewUrl: any = null;
   constructor(private readonly fb: FormBuilder,
     private readonly _managerService: UserManagerService,
     private readonly _roleService: UserRoleService,
     private readonly _stateService: StateDistrictService,
     private _activatedRoute: ActivatedRoute,
     private _router: Router,
-    private readonly toast: ToastrService) {
+    private readonly toast: ToastrService, private readonly _userSettingService: UserSettingService) {
       this.model.IsActive = true;
 if (this._activatedRoute.snapshot.params.id) {
 this.Id = this._activatedRoute.snapshot.params.id;
@@ -111,12 +116,48 @@ ngOnInit(): void {
   }
   });
   }
+  fileProgress(fileInput: any) {
+    this.fileData = fileInput.target.files[0] as File;
+    this.preview();
+  }
+  preview() {
+    // Show preview
+    const mimeType = this.fileData?.type;
+    if (mimeType.match(/image\/*/) == null) {
+      return;
+    }
+    const reader = new FileReader();
+    reader.readAsDataURL(this.fileData);
+    reader.onload = (event) => {
+      this.previewUrl = reader.result;
+    };
+  }
+  onUploadProfileImage() {
+    if (this.Id) {
+      let profileModel = new UserSettingPostModel();
+      profileModel.FileName = this.fileData?.name;
+      profileModel.UserId = Number(this.Id);
+      profileModel.ProfileBase64 = this.previewUrl;
+      this._userSettingService.UpdateUserProfile(profileModel).then(res => {
+
+        if (res.IsSuccess) {
+          this.toast.success('profile picture upload successful', 'Upload Status');
+        } else {
+          this.toast.error(res.Message as string, 'Upload Status');
+        }
+      });
+    }
+  }
   onSubmit() {
   this.managerFrom.markAllAsTouched();
   if (this.managerFrom.valid) {
   let subscription = this._managerService.AddUpdateManager(this.Model).subscribe(response => {
   subscription.unsubscribe();
   if(response.IsSuccess) {
+    if(this.fileData != null) {
+      this.Id = Number(response.Data);
+      this.onUploadProfileImage();
+    }
    this.toast.success( this.Id ==0 ?'Record save successful' : 'Record update successful' , 'Success');
    this._router.navigate([this.routing_Url.AdminModule+'/' + this.routing_Url.Manager_List_Url]);
   } else {

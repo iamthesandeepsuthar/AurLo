@@ -40,11 +40,9 @@ export class DetailDoorStepAgentComponent implements OnInit {
   getDetail() {
     let serviceCall = this._userDoorStepService.GetDoorStepAgent(this.Id).subscribe(response => {
       serviceCall.unsubscribe();
-      debugger
       if (response.IsSuccess) {
         if (response?.Data) {
           this.model = response?.Data as DoorStepAgentViewModel;
-
         } else {
           this._router.navigate([`../${Routing_Url.DoorStepAgentListUrl}`]);
         }
