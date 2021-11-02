@@ -10,6 +10,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Routing_Url } from 'src/app/Shared/Helper/constants';
 import { UserKYCPostModel } from 'src/app/Shared/Model/doorstep-agent-model/door-step-agent.model';
+import { CommonService } from 'src/app/Shared/Services/common.service';
 
 
 @Component({
@@ -46,6 +47,7 @@ export class CustomerSignUpComponent implements OnInit {
     private readonly _stateService: StateDistrictService,
     private readonly toast: ToastrService,
     private _activatedRoute: ActivatedRoute,
+    readonly _commonService: CommonService,
     private _router: Router) {
     this.model = new CustomerRegistrationModel();
     this.model.IsActive = true;
@@ -60,6 +62,7 @@ export class CustomerSignUpComponent implements OnInit {
     let subscription = this._documentType.GetDDLDocumentType().subscribe(response => {
       subscription.unsubscribe();
       if (response.IsSuccess) {
+        debugger
         this.documentTypeModel = response.Data as DDLDocumentTypeModel[];
       } else {
         this.toast.warning(response.Message as string, 'Server Error');
@@ -104,6 +107,7 @@ export class CustomerSignUpComponent implements OnInit {
   getDocumentTypeText(value: string | number) {
     return this.documentTypeModel?.find(x => x.Id == value)?.Name;
   }
+
   AddKycDocument() {
     if (this.kycDocumentModel.KycdocumentTypeId == undefined && this.kycDocumentModel.Kycnumber == undefined) {
       return;
@@ -171,5 +175,19 @@ export class CustomerSignUpComponent implements OnInit {
       })
     }
   }
+
+  onCheckValidInput(val: any) {
+
+    let dataItem = this.documentTypeModel.find(x => x.Id == this.KycDocumentModel.KycdocumentTypeId) as DDLDocumentTypeModel;
+
+    if (dataItem.IsNumeric) {
+      return this._commonService.NumberOnly(val);
+
+    } else {
+      return this._commonService.AlphaNumericOnly(val);
+
+    }
+  }
+
 
 }
