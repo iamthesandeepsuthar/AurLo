@@ -7,9 +7,8 @@ import * as CryptoJS from 'crypto-js';
 export class SecurityService {
 
   constructor() { }
-  
-  setStorage(key : string, value : string) {
 
+  setStorage(key : string, value : string) {
     let encValue = this.encrypt(value);
     let encKey = this.encrypt(key)
     localStorage.setItem(key, encValue);
@@ -17,22 +16,20 @@ export class SecurityService {
   }
 
   getStorage(key:string) {
-
     let encKey = this.encrypt(key);
     let decValue = localStorage.getItem(key)
     return decValue ? this.decrypt(decValue) : undefined;
   }
+
   removeStorage(key:string) {
     let encKey = this.encrypt(key);
-
     localStorage.removeItem(key);
-
   }
 
   encrypt(txt:string) {
     return CryptoJS.AES.encrypt(txt, environment.AESKey.trim()).toString();
   }
-  
+
   decrypt(txt :string) {
     return CryptoJS.AES.decrypt(txt, environment.AESKey.trim()).toString(CryptoJS.enc.Utf8);
   }
