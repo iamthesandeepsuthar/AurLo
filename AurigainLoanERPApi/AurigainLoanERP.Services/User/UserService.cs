@@ -830,14 +830,13 @@ namespace AurigainLoanERP.Services.User
                             agentUser.IsActive = !agentUser.IsActive;
                             break;
 
-
-
+                        case (int)UserRoleEnum.Supervisor:
+                            var supervisorUser =await _db.Managers.Where(x => x.UserId == id).FirstOrDefaultAsync();
+                            supervisorUser.IsActive = !supervisorUser.IsActive;
+                            break;
                     }
-
                     await _db.SaveChangesAsync();
-
                 }
-
                 _db.Database.CommitTransaction();
                 return CreateResponse(true as object, ResponseMessage.Update, true, ((int)ApiStatusCode.Ok));
             }
@@ -845,7 +844,6 @@ namespace AurigainLoanERP.Services.User
             {
                 _db.Database.RollbackTransaction();
                 return CreateResponse(true as object, ResponseMessage.Fail, true, ((int)ApiStatusCode.ServerException), ex.Message);
-
             }
         }
 
@@ -1625,7 +1623,7 @@ namespace AurigainLoanERP.Services.User
                     if (isExist == null)
                     {
 
-                        //model.RoleId = ((int)UserRoleEnum.Supervisor);
+                        model.RoleId = ((int)UserRoleEnum.Supervisor);
                         Random random = new Random();
                         UserMaster user = new UserMaster
                         {

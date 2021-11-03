@@ -1,3 +1,4 @@
+import { UserSettingService } from 'src/app/Shared/Services/user-setting-services/user-setting.service';
 import { UserManagerModel } from './../../../Shared/Model/master-model/user-manager-model.model';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
@@ -13,7 +14,7 @@ import { MatTableDataSource } from '@angular/material/table';
   selector: 'app-list-managers',
   templateUrl: './list-managers.component.html',
   styleUrls: ['./list-managers.component.scss'],
-  providers: [ManagerService]
+  providers: [ManagerService,UserSettingService]
 })
 export class ListManagersComponent implements OnInit {
 
@@ -23,7 +24,7 @@ export class ListManagersComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort!: MatSort;
   id!: number;
-  displayedColumns: string[] = ['index', 'FullName','Mobile','Mpin','RoleName', 'IsActive', 'Action'];
+  displayedColumns: string[] = ['index', 'FullName','Mobile','Mpin','RoleName','IsApproved', 'IsActive', 'Action'];
   ViewdisplayedColumns = [{ Value: 'FullName', Text: 'Name' },
                           { Value:'RoleName', Text:'Role'},
                           {Value: 'Mobile', Text: 'Mobile Number'},
@@ -32,7 +33,8 @@ export class ListManagersComponent implements OnInit {
   totalRecords: number = 0;
   constructor(private readonly _managerService: ManagerService,
               private readonly _commonService: CommonService,
-              private readonly toast: ToastrService) { }
+              private readonly toast: ToastrService,
+              private readonly _userSettingService:UserSettingService) { }
 
   ngOnInit(): void {
     this.getList();
@@ -75,6 +77,27 @@ export class ListManagersComponent implements OnInit {
     this.indexModel.PageSize = event.pageSize;
     this.indexModel.IsPostBack = true;
     this.getList();
+  }
+  OnApproveStatus(Id: number) {
+    this._commonService.Question(Message.ConfirmUpdate as string).then(isTrue => {
+      if (isTrue) {
+        let subscription = this._userSettingService.UpdateApproveStatus(Id).subscribe(
+          data => {
+            subscription.unsubscribe();
+            if (data.IsSuccess) {
+              this.toast.success(data.Message as string, 'Access Permission');
+              this.getList();
+            } else {
+              this.toast.warning(data.Message as string, 'Server Error');
+            }
+          },
+          error => {
+            this.toast.error(error.Message as string, 'Error');
+          }
+        );
+      }
+    });
+
   }
 
   OnActiveStatus(Id: number) {

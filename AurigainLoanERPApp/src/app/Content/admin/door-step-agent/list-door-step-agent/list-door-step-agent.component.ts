@@ -50,7 +50,6 @@ export class ListDoorStepAgentComponent implements OnInit {
       serve.unsubscribe();
       if (response.IsSuccess) {
         this.model = response.Data as DoorStepAgentListModel[];
-        console.log(this.model);
         this.dataSource = new MatTableDataSource<DoorStepAgentListModel>(this.model);
         this.totalRecords = response.TotalRecord as number;
         if (!this.indexModel.IsPostBack) {

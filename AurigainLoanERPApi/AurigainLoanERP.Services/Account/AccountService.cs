@@ -21,7 +21,6 @@ namespace AurigainLoanERP.Services.Account
         private AurigainContext _db;
         private readonly Security _security;
         private readonly EmailHelper _emailHelper;
-
         public AccountService(IMapper mapper, AurigainContext db, IConfiguration _configuration, IHostingEnvironment environment)
         {
             this._mapper = mapper;
@@ -201,7 +200,7 @@ namespace AurigainLoanERP.Services.Account
                     {
                         if (!user.IsApproved && !user.IsActive.Value)
                         {
-                            return CreateResponse<LoginResponseModel>(null, "your account not activated, Please confirm with admin!", false, ((int)ApiStatusCode.UnApproved));
+                            return CreateResponse<LoginResponseModel>(null, "Your account not activated, Please confirm with admin!", false, ((int)ApiStatusCode.UnApproved));
                         }
                         UserLoginLog log = new UserLoginLog
                         {
@@ -222,7 +221,7 @@ namespace AurigainLoanERP.Services.Account
                     }
                     else
                     {
-                        return CreateResponse<LoginResponseModel>(null, "You have not register with us,Please Signup", false, ((int)ApiStatusCode.RecordNotFound));
+                        return CreateResponse<LoginResponseModel>(null, "You are not registered with us. Please sign up.", false, ((int)ApiStatusCode.RecordNotFound));
                     }
                
                 return CreateResponse<LoginResponseModel>(response, "Login Successful", true, ((int)ApiStatusCode.Ok));
@@ -232,6 +231,5 @@ namespace AurigainLoanERP.Services.Account
                 return CreateResponse<LoginResponseModel>(null, ResponseMessage.NotFound, false, ((int)ApiStatusCode.ServerException), ex.Message ?? ex.InnerException.ToString());
             }
         }
-
     }
 }

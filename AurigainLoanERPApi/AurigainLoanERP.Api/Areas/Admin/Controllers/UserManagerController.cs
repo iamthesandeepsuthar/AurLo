@@ -50,5 +50,11 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
         {
             return await _userSerivce.UserManagerDetailAsync(Id);
         }
+        // GET api/<AgentController>/5
+        [HttpGet("[action]/{id}")]
+        public async Task<ApiServiceResponseModel<object>> UpdateActiveStatus(long id)
+        {
+            return await _userSerivce.UpateActiveStatus(id);
+        }
     }
 }

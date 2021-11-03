@@ -127,9 +127,8 @@ export class AddUpdateDistrictComponent implements OnInit {
       this.clearPincodeArea();
       this.HideAddUpdateModel.nativeElement.click();
     } else {
-      this.toast.warning('Pincode and Area Name Cannot Be Blank', 'Warning');
+      this.toast.warning('Pincode and Area name cannot be blank', 'Required');
     }
-
   }
   getPincode(index: number) {
     this.pincodeAreaModel = Object.assign(this.model.Areas[index]);

@@ -25,5 +25,11 @@ namespace AurigainLoanERP.Api.Areas
         {
             return await _customer.AddUpdateAsync(model);
         }
+
+        [HttpGet("[action]")]
+        public async Task<ApiServiceResponseModel<string>> test() 
+        {
+            return await _customer.TestEmail();
+        }
     }
 }

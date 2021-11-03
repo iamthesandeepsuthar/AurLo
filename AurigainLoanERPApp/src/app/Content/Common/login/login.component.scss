@@ -31,6 +31,10 @@ body {
 .form-form .form-container .form-content {
     background: url(../../../../assets/img/pay_bg.png);
 }
+form i {
+  margin-left: -30px;
+  cursor: pointer;
+}
 
 @media (max-width: 991px) {
     .login-logo {

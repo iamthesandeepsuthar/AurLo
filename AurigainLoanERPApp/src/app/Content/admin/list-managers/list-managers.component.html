@@ -14,7 +14,7 @@
           </nav>
           <!-- Breadcrumb End -->
       </div>
-      <button class="btn btn-dark btn-sm mt-2 mt-sm-0" routerLink="./add-manager/0" routerLinkActive="router-link-active" > <i  class="fas fa-plus"></i> Add Manager's User</button>
+      <button class="btn btn-dark btn-sm mt-2 mt-sm-0" routerLink="./add-manager/0" routerLinkActive="router-link-active" > <i  class="fas fa-plus"></i> Add Manager User</button>
   </div>
 </div>
 <!-- Page Header Title end -->
@@ -69,15 +69,22 @@
                   <th mat-header-cell *matHeaderCellDef mat-sort-header> {{column!.Text}} </th>
                   <td mat-cell *matCellDef="let element"> {{element[column!.Value]}} </td>
               </ng-container>
-
+              <ng-container matColumnDef="IsApproved">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Approval</th>
+                <td mat-cell *matCellDef="let element" class="table-action-btn">
+                    <a (click)="OnApproveStatus(element!.UserId)" title="Update Approved Status">
+                        <i *ngIf="element!.IsApproved" class="fas fa-check-circle text-success"></i>
+                        <i *ngIf="!element!.IsApproved" class="fas fa-ban text-danger"></i>
+                    </a>
+                </td>
+            </ng-container>
               <ng-container matColumnDef="IsActive">
                   <th mat-header-cell *matHeaderCellDef mat-sort-header>Status </th>
                   <td mat-cell *matCellDef="let element" class="table-action-btn">
-                      <a (click)="OnActiveStatus(element!.Id)" title="Update Active Status">
+                      <a (click)="OnActiveStatus(element!.UserId)" title="Update Active Status">
                           <i *ngIf="element!.IsActive" class="fas fa-check-circle text-success"></i>
                           <i *ngIf="!element!.IsActive" class="fas fa-ban text-danger"></i>
                       </a>
-
                   </td>
               </ng-container>
 

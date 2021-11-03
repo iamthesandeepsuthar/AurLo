@@ -216,10 +216,6 @@ namespace AurigainLoanERP.Data.Database
             {
                 entity.Property(e => e.AppointmentDate).HasColumnType("datetime");
 
-                entity.Property(e => e.AppointmentTime)
-                    .IsRowVersion()
-                    .IsConcurrencyToken();
-
                 entity.Property(e => e.CreatedDate)
                     .HasColumnType("datetime")
                     .HasDefaultValueSql("(getdate())");
@@ -236,19 +232,19 @@ namespace AurigainLoanERP.Data.Database
                     .WithMany(p => p.GoldLoanFreshLeadAppointmentDetail)
                     .HasForeignKey(d => d.BankId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__GoldLoanF__BankI__4F12BBB9");
+                    .HasConstraintName("FK__GoldLoanF__BankI__57A801BA");
 
                 entity.HasOne(d => d.Branch)
                     .WithMany(p => p.GoldLoanFreshLeadAppointmentDetail)
                     .HasForeignKey(d => d.BranchId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__GoldLoanF__Branc__5006DFF2");
+                    .HasConstraintName("FK__GoldLoanF__Branc__589C25F3");
 
                 entity.HasOne(d => d.GlfreshLead)
                     .WithMany(p => p.GoldLoanFreshLeadAppointmentDetail)
                     .HasForeignKey(d => d.GlfreshLeadId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__GoldLoanF__GLFre__50FB042B");
+                    .HasConstraintName("FK__GoldLoanF__GLFre__59904A2C");
             });
 
             modelBuilder.Entity<GoldLoanFreshLeadJewelleryDetail>(entity =>
