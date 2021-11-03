@@ -17,14 +17,11 @@ import { DDLDocumentTypeModel, DocumentTypeModel } from 'src/app/Shared/Model/ma
 export class UserKYCDetailSectionComponent implements OnInit {
   @Input() kycModel = [] as UserKYCPostModel[];
   @Output() onSubmit = new EventEmitter<UserKYCPostModel[]>();
-
   model: UserKYCPostModel = {} as UserKYCPostModel;
-
   formGroup = new FormGroup({});
   docTypeModel!: DDLDocumentTypeModel[];
   get f() { return this.formGroup.controls; }
   DocCharLenght = 0;
-
   constructor(private readonly fb: FormBuilder, private readonly _kycDocumentTypeService: KycDocumentTypeService,
     readonly _commonService: CommonService, private readonly _alertService: AlertService) { }
 
@@ -100,7 +97,7 @@ export class UserKYCDetailSectionComponent implements OnInit {
   }
 
   onChangeDocType(value: number) {
-    
+
     if (value > 0) {
       this.model.KycdocumentTypeId = value;
     }
