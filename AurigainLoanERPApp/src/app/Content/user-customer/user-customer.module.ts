@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { CustomerRoutingModule } from './customer-routing.module';
+import {  UserCustomerRoutingModule } from './user-customer-routing.module';
 import { SharedModule } from 'src/app/Shared/Helper/shared/shared.module';
 import { CustomerDashboardComponent } from './customer-dashboard/customer-dashboard.component';
 
@@ -12,8 +12,8 @@ import { CustomerDashboardComponent } from './customer-dashboard/customer-dashbo
   ],
   imports: [
     CommonModule,
-    CustomerRoutingModule,
+    UserCustomerRoutingModule,
     SharedModule
   ]
 })
-export class CustomerModule { }
+export class UserCustomerModule { }

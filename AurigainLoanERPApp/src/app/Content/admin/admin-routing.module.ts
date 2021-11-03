@@ -4,16 +4,20 @@ import { ListManagersComponent } from './list-managers/list-managers.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthenticationGuard } from 'src/app/Shared/Helper/authentication.guard';
+import { CustomersModule } from './customers/customers.module';
+import { Routing_Url } from '../../Shared/Helper/constants';
 
 
 const routes: Routes = [
 
-  { path: "master", loadChildren: () => import('./master/master.module').then(m => m.MasterModule) },
-  {path: 'door-step-agent',loadChildren: () => import('./door-step-agent/door-step-agent.module').then(m=>m.DoorStepAgentModule)},
-  {path: 'agent',loadChildren: () => import('./agent/agent.module').then(m=>m.AgentModule)},
-  {path: 'managers', component:ListManagersComponent , canActivate: [AuthenticationGuard]},
-  {path:'managers/add-manager/:id', component:AddUpdateManagersComponent, canActivate:[AuthenticationGuard]},
-  {path:'managers/detail-manager/:id', component:DetailManagersComponent,canActivate:[AuthenticationGuard]}
+  { path: Routing_Url.MasterModule, loadChildren: () => import('./master/master.module').then(m => m.MasterModule) },
+  { path: Routing_Url.DoorStepModule, loadChildren: () => import('./door-step-agent/door-step-agent.module').then(m => m.DoorStepAgentModule) },
+  { path: Routing_Url.AgentModule, loadChildren: () => import('./agent/agent.module').then(m => m.AgentModule) },
+  { path: Routing_Url.CustomersModule, loadChildren: () => import('./customers/customers.module').then(m => m.CustomersModule) },
+
+  { path: 'managers', component: ListManagersComponent, canActivate: [AuthenticationGuard] },
+  { path: 'managers/add-manager/:id', component: AddUpdateManagersComponent, canActivate: [AuthenticationGuard] },
+  { path: 'managers/detail-manager/:id', component: DetailManagersComponent, canActivate: [AuthenticationGuard] }
 
 ];
 
