@@ -142,7 +142,7 @@
                   <td mat-cell *matCellDef="let element"> {{element[column!.Value]}} </td>
               </ng-container>
               <ng-container matColumnDef="IsNumeric">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>Status </th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Numeric format </th>
                 <td mat-cell *matCellDef="let element" [ngClass]="{'text-success':element.IsNumeric == true }" class="table-action-btn">
                   {{element.IsNumeric? 'Yes': 'No'}}
                 </td>
