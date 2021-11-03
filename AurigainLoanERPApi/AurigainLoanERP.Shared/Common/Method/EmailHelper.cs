@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace AurigainLoanERP.Shared.Common.Method
 {
-    public class EmailHelper
+    public class EmailHelper : BaseService
     {
         readonly SmtpClient _client;
         readonly IConfiguration _configuration;
@@ -81,7 +81,9 @@ namespace AurigainLoanERP.Shared.Common.Method
                     builder.HtmlBody = SourceReader.ReadToEnd();
 
                 }
-              
+                var path = GetBaseUrl();
+                builder.HtmlBody = builder.HtmlBody.Replace("{{BasePath}}", path);
+
                 if (replaceValues != null)
                 {
                     foreach (var item in replaceValues)

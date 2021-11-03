@@ -176,7 +176,6 @@ namespace AurigainLoanERP.Services.FreshLead
             }
             catch { throw; }
         }
-
         private async Task<bool> SaveAppointmentDetail(GoldLoanFreshLeadAppointmentDetailModel model, long freshLeadId)
         {
             try
@@ -186,7 +185,7 @@ namespace AurigainLoanERP.Services.FreshLead
                     GoldLoanFreshLeadAppointmentDetail appointment = new GoldLoanFreshLeadAppointmentDetail
                     {
                         AppointmentDate = model.AppointmentDate,
-                        AppointmentTime = model.AppointmentTime,
+                        AppointmentTime = model.AppointmentTime.ToTimeSpanValue(),
                         BankId = model.BankId,
                         BranchId = model.BranchId,
                         CreatedDate = DateTime.Now,
@@ -202,7 +201,7 @@ namespace AurigainLoanERP.Services.FreshLead
                 {
                     var detail = await _db.GoldLoanFreshLeadAppointmentDetail.Where(x => x.Id == model.Id).FirstOrDefaultAsync();
                     detail.AppointmentDate = model.AppointmentDate;
-                    detail.AppointmentTime = model.AppointmentTime;
+                   detail.AppointmentTime = model.AppointmentTime.ToTimeSpanValue();
                     detail.BankId = model.BankId;
                     detail.BranchId = model.BranchId;
                     await _db.SaveChangesAsync();
@@ -214,7 +213,6 @@ namespace AurigainLoanERP.Services.FreshLead
                 throw;
             }            
         }
-
         private async Task<bool> SaveKycDocumentDetail(GoldLoanFreshLeadKycDocumentModel model, long freshLeadId) 
         {
             try

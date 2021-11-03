@@ -35,7 +35,7 @@ namespace AurigainLoanERP.Shared.ContractModel
         public int BankId { get; set; }
         public int BranchId { get; set; }
         public DateTime? AppointmentDate { get; set; }
-        public byte[] AppointmentTime { get; set; }
+        public string AppointmentTime { get; set; }
         public long GlfreshLeadId { get; set; }
         public bool? IsActive { get; set; }        
         public DateTime CreatedDate { get; set; }

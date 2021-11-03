@@ -10,7 +10,7 @@
                   <li class="breadcrumb-item"><a href="javascript:void(0)">Master</a></li>
                   <li class="breadcrumb-item"><a
                           routerLink="{{'/' + this.routing_Url.MasterModule + this.routing_Url.Product_List_Url}}">
-                          Product</a></li>
+                          Product's</a></li>
                   <li class="breadcrumb-item active" aria-current="page">{{Id==0 ?'Add Product':'Update Product'}}
                   </li>
 
@@ -28,7 +28,7 @@
               <label>Product Name</label>
               <input type="text" class="form-control"
               [ngClass]="{ 'is-invalid': f.productName.errors && f.productName.touched}"
-              [(ngModel)]="Model.Name" formControlName="productName" id="productName" placeholder="product name">
+              [(ngModel)]="Model.Name" formControlName="productName" id="productName" placeholder="Product name">
               <div class="invalid-feedback"
               *ngIf="(productFrom.get('productName')?.hasError('required') && productFrom.get('productName')?.touched)">Please
               enter product name</div>
@@ -36,7 +36,7 @@
           <div class="form-group col-md-4">
               <label>Product category</label>
               <ng-select [items]="DDLProductCategory" [searchable]="true" bindLabel="Name" bindValue="Id"
-              placeholder="select product category" formControlName="productCategory"
+              placeholder="Select product category" formControlName="productCategory"
               [ngClass]="{ 'is-invalid': f.productCategory.errors && f.productCategory.touched}"
               [(ngModel)]="model.ProductCategoryId">
           </ng-select>
@@ -47,7 +47,7 @@
           <div class="form-group col-md-4">
             <label>Bank</label>
             <ng-select [items]="DDLBankModel" [searchable]="true" bindLabel="Name" bindValue="Id"
-            placeholder="select bank" formControlName="bank" [(ngModel)]="model.BankId"
+            placeholder="Select bank" formControlName="bank" [(ngModel)]="model.BankId"
             [ngClass]="{ 'is-invalid': f.bank.errors && f.bank.touched}">
           </ng-select>
           <div class="invalid-feedback"
@@ -56,44 +56,44 @@
           </div>
           <div class="form-group col-md-4">
               <label>Minimum amount</label>
-              <input type="number" class="form-control" formControlName="minAmount"
+              <input type="number" class="form-control" min="0" formControlName="minAmount"
               [ngClass]="{ 'is-invalid': f.minAmount.errors && f.minAmount.touched}"
-              [(ngModel)]="Model.MinimumAmount" id="minAmount" placeholder="₹ min amount">
+              [(ngModel)]="Model.MinimumAmount" id="minAmount" placeholder="₹ Min amount">
               <div class="invalid-feedback" *ngIf="(productFrom.get('minAmount')?.hasError('required') && productFrom.get('minAmount')?.touched)">Please enter minimum amount</div>
           </div>
           <div class="form-group col-md-4">
               <label>Maximum amount</label>
-              <input type="number" class="form-control"  formControlName="maxAmount"
+              <input type="number" class="form-control" [min]="Model.MinimumAmount"  formControlName="maxAmount"
               [ngClass]="{ 'is-invalid': f.maxAmount.errors && f.maxAmount.touched}"
-              [(ngModel)]="Model.MaximumAmount"id="maxAmount" placeholder="₹ max amount">
+              [(ngModel)]="Model.MaximumAmount"id="maxAmount" placeholder="₹ Max amount">
               <div class="invalid-feedback" *ngIf="(productFrom.get('maxAmount')?.hasError('required') && productFrom.get('maxAmount')?.touched)">Please enter maximum amount</div>
             </div>
           <div class="form-group col-md-4">
               <label>Interest rate</label>
               <input type="number" class="form-control" id="input1" formControlName="interestRate"
               [ngClass]="{ 'is-invalid': f.interestRate.errors && f.interestRate.touched}"
-              [(ngModel)]="Model.InterestRate" placeholder="rate of interest">
+              [(ngModel)]="Model.InterestRate" placeholder="Rate of interest">
               <div class="invalid-feedback" *ngIf="(productFrom.get('interestRate')?.hasError('required') && productFrom.get('interestRate')?.touched)">Please enter rate of interest</div>
           </div>
           <div class="form-group col-md-4">
             <label>Min Tenure</label>
-            <input type="number" class="form-control" formControlName="minTenure"
+            <input type="number" min="1" class="form-control" formControlName="minTenure"
             [ngClass]="{ 'is-invalid': f.minTenure.errors && f.minTenure.touched}"
-            [(ngModel)]="Model.MinimumTenure" id="minTenure" placeholder="min tenure">
+            [(ngModel)]="Model.MinimumTenure" id="minTenure" placeholder="Min tenure">
             <div class="invalid-feedback" *ngIf="(productFrom.get('minTenure')?.hasError('required') && productFrom.get('minTenure')?.touched)">Please enter minimum tenure</div>
           </div>
           <div class="form-group col-md-4">
             <label>Max Tenure</label>
-            <input type="number" class="form-control" formControlName="maxTenure"
+            <input type="number" [min]="Model.MinimumTenure" class="form-control" formControlName="maxTenure"
             [ngClass]="{ 'is-invalid': f.maxTenure.errors && f.maxTenure.touched}"
-            [(ngModel)]="Model.MaximumTenure" id="maxTenure" placeholder="max tenure">
+            [(ngModel)]="Model.MaximumTenure" id="maxTenure" placeholder="Max tenure">
             <div class="invalid-feedback" *ngIf="(productFrom.get('maxTenure')?.hasError('required') && productFrom.get('maxTenure')?.touched)">Please enter maximum tenure</div>
           </div>
           <div class="form-group col-md-4">
               <label>Processing Fee</label>
               <input type="number" class="form-control" [(ngModel)]="Model.ProcessingFee"
               [ngClass]="{ 'is-invalid': f.processingFee.errors && f.processingFee.touched}"
-              formControlName="processingFee" id="input1" placeholder="processing fee">
+              formControlName="processingFee" id="input1" placeholder="Processing fee">
               <div class="invalid-feedback" *ngIf="(productFrom.get('processingFee')?.hasError('required') && productFrom.get('processingFee')?.touched)">Please enter processing fee</div>
           </div>
           <div class="form-group col-md-6">

@@ -103,23 +103,19 @@ export class AddUpdateBankComponent implements OnInit {
   }
 
   addToBranchList() {
-    // this.branchModel.BranchName == undefined ?  this.toast.info('Please enter required * field of branch', 'Required') : null ;
-    if (
-      this.branchModel.BranchName == undefined &&
-      this.BranchModel.Ifsc == undefined &&
-      this.branchModel.BranchCode == undefined && this.branchModel.Pincode == undefined
+    if (this.branchModel.BranchName == undefined ||
+        this.BranchModel.Ifsc == undefined ||
+        this.branchModel.BranchCode == undefined ||
+        this.branchModel.Pincode == undefined
     ) {
       this.toast.info('Please enter required * field of branch', 'Required');
       return;
     } else {
-      if (
-        this.model.Branches.find(
-          (x) =>
-            x.BranchName == this.branchModel.BranchName &&
-            x.Ifsc == this.branchModel.Ifsc
-        )
-      ) {
-        this.toast.warning('branch already exist into list', 'Duplicate');
+      let checkExist =this.model.Branches.find(  (x) =>
+      x.BranchCode == this.branchModel.BranchCode || x.Ifsc == this.branchModel.Ifsc
+  );
+      if (checkExist ) {
+        this.toast.warning('Branch already exist into list ,Please check branch code ,IFSC code', 'Duplicate');
         return;
       } else {
         this.model.Branches.push(this.branchModel);

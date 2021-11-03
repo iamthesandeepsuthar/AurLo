@@ -9,6 +9,7 @@ namespace AurigainLoanERP.Services.Customer
 {
     public interface ICustomerService
     {
+        public Task<ApiServiceResponseModel<string>> TestEmail();
         public Task<ApiServiceResponseModel<string>> AddUpdateAsync(CustomerRegistrationModel model);
     }
 }

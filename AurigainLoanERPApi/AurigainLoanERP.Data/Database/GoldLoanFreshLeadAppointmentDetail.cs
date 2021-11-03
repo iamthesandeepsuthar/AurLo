@@ -13,7 +13,7 @@ namespace AurigainLoanERP.Data.Database
         public int BankId { get; set; }
         public int BranchId { get; set; }
         public DateTime? AppointmentDate { get; set; }
-        public byte[] AppointmentTime { get; set; }
+        public TimeSpan? AppointmentTime { get; set; }
         public long GlfreshLeadId { get; set; }
         public bool? IsActive { get; set; }
         public bool? IsDelete { get; set; }

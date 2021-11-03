@@ -27,6 +27,13 @@ namespace AurigainLoanERP.Services.Customer
             _db = db;
             _emailHelper = new EmailHelper(_configuration, environment);
         }
+        public async Task<ApiServiceResponseModel<string>> TestEmail() {          
+            Dictionary<string, string> replaceValues = new Dictionary<string, string>();
+            replaceValues.Add("{{UserName}}", "Aakash");
+            replaceValues.Add("{{Password}}", "1234556");
+            await _emailHelper.SendHTMLBodyMail("sandeep.suthar08@gmail.com", "Registration Notification", EmailPathConstant.RegisterTemplate, replaceValues);
+            return CreateResponse<string>("", ResponseMessage.Save, true, ((int)ApiStatusCode.Ok));
+        }
         public async Task<ApiServiceResponseModel<string>> AddUpdateAsync(CustomerRegistrationModel model)
         {
             try
@@ -42,7 +49,7 @@ namespace AurigainLoanERP.Services.Customer
                         {
                             var user = await _db.UserMaster.Where(x => x.Id == userId).FirstOrDefaultAsync();
                             Dictionary<string, string> replaceValues = new Dictionary<string, string>();
-                            replaceValues.Add("{{UserName}}", user.Email  + "/" + user.Mobile);
+                            replaceValues.Add("{{UserName}}", user.Email);
                             replaceValues.Add("{{Password}}", user.Password);
                             await _emailHelper.SendHTMLBodyMail(user.Email, "Registration Notification", EmailPathConstant.RegisterTemplate, replaceValues);
                             _db.Database.CommitTransaction();                          

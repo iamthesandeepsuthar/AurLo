@@ -1,6 +1,7 @@
 ﻿
 
 using AurigainLoanERP.Shared.Common.Model;
+using Microsoft.AspNetCore.Http;
 using System;
 
 namespace AurigainLoanERP.Shared.Common.Method
@@ -72,6 +73,13 @@ namespace AurigainLoanERP.Shared.Common.Method
 
                 throw;
             }
+        }
+
+        public string GetBaseUrl() 
+        {
+            IHttpContextAccessor _httpContext = new HttpContextAccessor();
+
+            return string.Concat(_httpContext.HttpContext.Request.IsHttps ? "https://" : "http://", _httpContext.HttpContext.Request.HttpContext.Request.Host.Value);
         }
     }
 }

@@ -2,12 +2,12 @@
 <div class="widget-header">
     <div class="row d-block d-sm-flex align-items-center justify-content-between text-center text-sm-left">
         <div>
-            <h1> Add Manager's User </h1>
+            <h1> Add Manager User </h1>
             <!-- Breadcrumb Start -->
             <nav class="custom-breadcrum">
                 <ol class="breadcrumb justify-content-center justify-content-sm-start">
                     <li class="breadcrumb-item"><a routerLink="/dashboard">Home</a></li>
-                    <li class="breadcrumb-item active"><a routerLink="{{ '../../../' + this.routing_Url.Manager_List_Url}}" href="javascript:void(0)">Manager's User </a></li>
+                    <li class="breadcrumb-item active"><a routerLink="{{ '../../../' + this.routing_Url.Manager_List_Url}}" href="javascript:void(0)">Manager User </a></li>
                 </ol>
             </nav>
             <!-- Breadcrumb End -->
@@ -35,13 +35,13 @@
                 <label>Full Name</label>
                 <input type="text" class="form-control" id="fullName"
                 [ngClass]="{ 'is-invalid': f.FullName.errors && f.FullName.touched}"
-                 [(ngModel)]="Model.FullName" formControlName="FullName" placeholder="full name">
+                 [(ngModel)]="Model.FullName" formControlName="FullName" placeholder="Full name">
                  <div class="invalid-feedback" *ngIf="(managerFrom.get('FullName')?.hasError('required') && managerFrom.get('FullName')?.touched)">enter full name </div>
             </div>
             <div class="form-group col-md-4">
                 <label>Father's Name</label>
                 <input type="text" class="form-control" [(ngModel)]="Model.FatherName"
-                [ngClass]="{ 'is-invalid': f.FatherName.errors && f.FatherName.touched}" formControlName="FatherName" id="fatherName" placeholder="father name">
+                [ngClass]="{ 'is-invalid': f.FatherName.errors && f.FatherName.touched}" formControlName="FatherName" id="fatherName" placeholder="Father's name">
                 <div class="invalid-feedback" *ngIf="(managerFrom.get('FatherName')?.hasError('required') && managerFrom.get('FatherName')?.touched)">enter father name</div>
             </div>
             <div class="form-group col-md-4">
@@ -56,21 +56,21 @@
                 <label>Mobile Number</label>
                 <input type="text" class="form-control" [(ngModel)]="Model.Mobile" id="mobileNumber"
                 [ngClass]="{ 'is-invalid': f.MobileNumber.errors && f.MobileNumber.touched}"
-                 formControlName="MobileNumber" placeholder="mobile number">
+                 formControlName="MobileNumber" placeholder="Mobile number">
                  <div class="invalid-feedback" *ngIf="(managerFrom.get('MobileNumber')?.hasError('required') && managerFrom.get('MobileNumber')?.touched)">enter mobile number</div>
             </div>
             <div class="form-group col-md-4">
                 <label>Email ID</label>
                 <input type="text" class="form-control"
                 [ngClass]="{ 'is-invalid': f.EmailId.errors && f.EmailId.touched}"
-                [(ngModel)]="Model.EmailId" formControlName="EmailId" id="emailId" placeholder="email id">
+                [(ngModel)]="Model.EmailId" formControlName="EmailId" id="emailId" placeholder="Email id">
                 <div class="invalid-feedback" *ngIf="(managerFrom.get('EmailId')?.hasError('required') && managerFrom.get('EmailId')?.touched)">enter email id </div>
             </div>
             <div class="form-group col-md-4">
                 <label>User Role</label>
                 <ng-select [items]="roleModel" [searchable]="true" bindLabel="Name" bindValue="Id"
                 [ngClass]="{ 'is-invalid': f.UserRole.errors && f.UserRole.touched}"
-            placeholder="select role" formControlName="UserRole" [(ngModel)]="Model.RoleId">
+            placeholder="Select user role" formControlName="UserRole" [(ngModel)]="Model.RoleId">
           </ng-select>
           <div class="invalid-feedback" *ngIf="(managerFrom.get('UserRole')?.hasError('required') && managerFrom.get('UserRole')?.touched)">select user role </div>
             </div>
@@ -92,7 +92,7 @@
                 <label>Pincode</label>
                 <input type="text" class="form-control" minlength="6" [(ngModel)]="Model.Pincode"
                 [ngClass]="{ 'is-invalid': f.Pincode.errors && f.Pincode.touched}"
-                formControlName="Pincode" placeholder="pincode">
+                formControlName="Pincode" placeholder="Pincode">
                 <div class="invalid-feedback" *ngIf="(managerFrom.get('Pincode')?.hasError('required') && managerFrom.get('Pincode')?.touched)">enter pincode</div>
             </div>
             <div class="form-group col-md-4">
@@ -140,7 +140,7 @@
             </div>
             <div class="form-group col-md-12">
               <label>Address</label>
-              <textarea rows="1" class="form-control" id="32" formControlName="Address" [(ngModel)]="Model.Address" placeholder="enter address "> </textarea>
+              <textarea rows="1" class="form-control" id="32" formControlName="Address" [(ngModel)]="Model.Address" placeholder="Enter Address "> </textarea>
             </div>
         </div>
         <div class="form-footer-btn-grp widget-content widget-content p-3 text-center">

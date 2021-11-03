@@ -4,7 +4,7 @@
     [BankId] INT NOT NULL references BankMaster(Id), 
     [BranchId] int not null references BankBranchMaster (Id), 
     [AppointmentDate] DATETIME NULL, 
-    [AppointmentTime] TIMESTAMP NULL, 
+    [AppointmentTime] TIME NULL, 
     [GLFreshLeadId] bigint not null references GoldLoanFreshLead(Id),
     [IsActive] BIT NOT NULL DEFAULT 1,
     [IsDelete] BIT NULL DEFAULT 0, 

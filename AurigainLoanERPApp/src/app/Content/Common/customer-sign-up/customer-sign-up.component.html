@@ -16,7 +16,7 @@
                     <label>Full Name <em class="text-danger">*</em> </label>
                     <input type="text" class="form-control" id="fullName" [(ngModel)]="Model.FullName"
                       formControlName="fullName" [ngClass]="{ 'is-invalid': f1.fullName.errors && f1.fullName.touched}"
-                      placeholder="full name">
+                      placeholder="Full name">
                     <div class="invalid-feedback"
                       *ngIf="(registrationFromStepOne.get('fullName')?.hasError('required') && registrationFromStepOne.get('fullName')?.touched)">
                       full name required</div>
@@ -26,7 +26,7 @@
                     <input type="text" class="form-control" id="fatherName" [(ngModel)]="Model.FatherName"
                       formControlName="fatherName"
                       [ngClass]="{ 'is-invalid': f1.fatherName.errors && f1.fatherName.touched}"
-                      placeholder="father name">
+                      placeholder="Father's name">
                     <div class="invalid-feedback"
                       *ngIf="(registrationFromStepOne.get('fatherName')?.hasError('required') && registrationFromStepOne.get('fatherName')?.touched)">
                       father name required</div>
@@ -35,16 +35,16 @@
                     <label>Email<em class="text-danger">*</em> </label>
                     <input type="email" class="form-control" id="email" [(ngModel)]="Model.User.Email"
                       formControlName="email" [ngClass]="{ 'is-invalid': f1.email.errors && f1.email.touched}"
-                      placeholder="email id">
+                      placeholder="Email Id">
                     <div class="invalid-feedback"
                       *ngIf="(registrationFromStepOne.get('email')?.hasError('required') && registrationFromStepOne.get('email')?.touched)">
                       email id required</div>
                   </div>
                   <div class="form-group col-md-6">
                     <label>Mobile Number <em class="text-danger">*</em> </label>
-                    <input type="text" class="form-control" [(ngModel)]="Model.User.Mobile" formControlName="mobile"
+                    <input type="text" class="form-control" maxlength="10" (keypress)="_commonService.NumberOnly($event)" [(ngModel)]="Model.User.Mobile" formControlName="mobile"
                       [ngClass]="{ 'is-invalid': f1.mobile.errors && f1.mobile.touched}" id="mobileNumber"
-                      placeholder="mobile number">
+                      placeholder="Mobile number">
                     <div class="invalid-feedback"
                       *ngIf="(registrationFromStepOne.get('mobile')?.hasError('required') && registrationFromStepOne.get('mobile')?.touched)">
                       mobile number required</div>
@@ -100,14 +100,14 @@
                   <div class="form-group col-md-5 pr-2">
                     <label>Document Type</label>
                     <ng-select [items]="documentTypeModel" (ngModelChange)="onChangeDocType($event)" [searchable]="true"
-                      bindLabel="Name" bindValue="Id" placeholder="select document type" formControlName="documentType"
+                      bindLabel="Name" bindValue="Id" placeholder="Select document type" formControlName="documentType"
                       [ngClass]="{ 'is-invalid': f2.documentType.errors && f2.documentType.touched}"
                       [(ngModel)]="KycDocumentModel.KycdocumentTypeId">
                     </ng-select>
                   </div>
                   <div class="form-group col-md-5 pl-2 pr-2">
                     <label>Document Number</label>
-                    <input type="text" class="form-control" placeholder="document number"
+                    <input type="text" class="form-control" placeholder="Document number"
                       formControlName="documentNumber"
                       [ngClass]="{ 'is-invalid': f2.documentNumber.errors && f2.documentNumber.touched}"
                       [(ngModel)]="KycDocumentModel.Kycnumber" (keypress)="onCheckValidInput($event)"
@@ -183,23 +183,23 @@
               <div class="row">
                 <div class="form-group col-md-6">
                   <label>Pincode</label>
-                  <input type="text" class="form-control" (blur)="getAreaByPincode($event)" placeholder="pincode">
+                  <input type="text" class="form-control" (blur)="getAreaByPincode($event)" placeholder="Pincode">
                 </div>
                 <div class="form-group col-md-6">
                   <label>Area (Location)</label>
                   <ng-select [items]="areaModel" [searchable]="true" bindLabel="AreaName" bindValue="Id"
-                    placeholder="select area" formControlName="area"
+                    placeholder="Select area" formControlName="area"
                     [ngClass]="{ 'is-invalid': f3.area.errors && f3.area.touched}" [(ngModel)]="model.PincodeAreaId">
                   </ng-select>
                   <div class="invalid-feedback"
                     *ngIf="(registrationFromStepThird.get('area')?.hasError('required') && registrationFromStepThird.get('area')?.touched)">
-                    select area location</div>
+                    Select area location</div>
                 </div>
                 <div class="form-group col-md-12">
                   <label>Address</label>
                   <textarea class="form-control" [(ngModel)]="Model.Address" formControlName="address"
                     [ngClass]="{ 'is-invalid': f3.address.errors && f3.address.touched}"
-                    id="exampleFormControlTextarea1" rows="2" placeholder="enter address here"></textarea>
+                    id="exampleFormControlTextarea1" rows="2" placeholder="Enter address here"></textarea>
                   <div class="invalid-feedback"
                     *ngIf="(registrationFromStepThird.get('address')?.hasError('required') && registrationFromStepThird.get('address')?.touched)">
                     fill address</div>
