@@ -5,13 +5,17 @@ export class DocumentTypeModel {
   IsDelete!: boolean;
   CreatedOn!: Date;
   DocumentNumberLength!: number;
-  IsNumeric!:boolean;
-  ModifiedOn!:Date | null;
+  IsNumeric!: boolean;
+  ModifiedOn!: Date | null;
+  IsKyc!: boolean;
+  RequiredFileCount!: number;
 }
 
 export class DDLDocumentTypeModel {
   Id!: number;
   Name!: string | null;
   DocumentNumberLength!: number;
-  IsNumeric!:boolean;
+  IsNumeric!: boolean;
+  IsKyc!: boolean;
+  RequiredFileCount!: number;
 }
