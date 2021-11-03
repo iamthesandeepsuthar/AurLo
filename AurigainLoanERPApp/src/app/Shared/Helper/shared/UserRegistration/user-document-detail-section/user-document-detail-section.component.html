@@ -75,6 +75,7 @@
       <div class="form-group col-md-4">
         <label>Cancelled Cheque Picture</label>
         <input type="hidden" name="CancelledCheque" [(ngModel)]="TotalChequeDoc" formControlName="CancelledCheque">
+
         <app-file-selector [CurrentFileLength]="TotalChequeDoc??0" [MaxFileLength]="1"
           (FilesChanged)="onDocumentAttach(docTypeEnum.CancelledCheque, $event,false)"
           [ngClass]="{ 'is-invalid': f.CancelledCheque?.errors && f.CancelledCheque?.touched}">

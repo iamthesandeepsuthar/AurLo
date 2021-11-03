@@ -116,7 +116,7 @@ debugger
   }
 
   HandleFileInput(event: any) {
-
+debugger
     let TotalFilesCount = ((this.CurrentFileLength > 0 && this.Files?.length > 0 ? this.Files?.length : this.CurrentFileLength) + 1)
     if (TotalFilesCount <= this.MaxFileLength) {
       let files = event.target.files;

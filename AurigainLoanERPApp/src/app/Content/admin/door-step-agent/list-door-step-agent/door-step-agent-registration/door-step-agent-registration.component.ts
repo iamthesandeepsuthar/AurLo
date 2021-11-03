@@ -17,6 +17,7 @@ import { UserSettingService } from "src/app/Shared/Services/user-setting-service
 import { UserSettingPostModel } from "src/app/Shared/Model/User-setting-model/user-setting.model";
 import { FileInfo } from '../../../../Common/file-selector/file-selector.component';
 import { UserSecurityDepositComponent } from '../../../../../Shared/Helper/shared/UserRegistration/user-security-deposit/user-security-deposit.component';
+import { UserRoleEnum } from '../../../../../Shared/Enum/fixed-value';
 
 
 @Component({
@@ -121,7 +122,7 @@ export class DoorStepAgentRegistrationComponent implements OnInit,AfterContentCh
     if (this.formGroup.valid && ChildValid) {
 
       this.model.User.UserName = this.model.User.UserName ? this.model.User.UserName : this.model.User.Email;
-      this.model.User.UserRoleId = this.model.User.UserRoleId ? this.model.User.UserRoleId : 1;
+      this.model.User.UserRoleId = this.model.User.UserRoleId ? this.model.User.UserRoleId : UserRoleEnum.DoorStepAgent;
       this.model.User.IsApproved = false;
       this.model.SelfFunded = Boolean(this.model.SelfFunded);
 

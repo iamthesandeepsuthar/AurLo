@@ -117,7 +117,7 @@ namespace AurigainLoanERP.Services.User
                 var result = (from agent in _db.UserAgent
                                   //join user in _db.UserMaster on agent.UserId equals user.Id
                                   //join role in _db.UserRole on user.UserRoleId equals role.Id
-                              where !agent.User.IsDelete && (string.IsNullOrEmpty(model.Search) || agent.FullName.Contains(model.Search) || agent.User.Email.Contains(model.Search) || agent.User.UserName.Contains(model.Search))
+                              where !agent.User.IsDelete && agent.User.UserRoleId == (int)UserRoleEnum.Agent && (string.IsNullOrEmpty(model.Search) || agent.FullName.Contains(model.Search) || agent.User.Email.Contains(model.Search) || agent.User.UserName.Contains(model.Search))
                               select agent);
                 switch (model.OrderBy)
                 {
@@ -253,7 +253,9 @@ namespace AurigainLoanERP.Services.User
                         }
                         if (objAgent.User.UserDocument != null)
                         {
-                            foreach (var item in objAgent.User.UserDocument)
+                            var docs = objAgent.User.UserDocument.Where(x => x.IsActive == true && !x.IsDelete && _db.UserDocumentFiles.Count(y=> y.DocumentId==x.Id && y.IsActive.Value && !y.IsDelete)>0);
+
+                            foreach (var item in docs)
                             {
                                 //  objDoorStepAgentModel.Documents.Add(_mapper.Map<UserDocumentViewModel>(item.value));
                                 objAgentModel.Documents.Add(new UserDocumentViewModel
@@ -268,7 +270,7 @@ namespace AurigainLoanERP.Services.User
                                     ModifiedOn = item.ModifiedOn ?? null,
                                     CreatedBy = item.CreatedBy ?? null,
                                     ModifiedBy = item.ModifiedBy ?? null,
-                                    UserDocumentFiles = _db.UserDocumentFiles.Where(x => x.DocumentId == item.Id).Select(fileitem => new UserDocumentFilesViewModel
+                                    UserDocumentFiles = _db.UserDocumentFiles.Where(x => x.DocumentId == item.Id && !x.IsDelete && x.IsActive == true).Select(fileitem => new UserDocumentFilesViewModel
                                     {
                                         Id = fileitem.Id,
                                         DocumentId = fileitem.DocumentId,
@@ -327,7 +329,7 @@ namespace AurigainLoanERP.Services.User
                 var result = (from agent in _db.UserDoorStepAgent
                                   //join user in _db.UserMaster on agent.UserId equals user.Id
                                   //join role in _db.UserRole on user.UserRoleId equals role.Id
-                              where !agent.IsDelete && (string.IsNullOrEmpty(model.Search) || agent.FullName.Contains(model.Search) || agent.User.Email.Contains(model.Search) || agent.User.UserName.Contains(model.Search))
+                              where !agent.IsDelete && agent.User.UserRoleId == (int)UserRoleEnum.DoorStepAgent && (string.IsNullOrEmpty(model.Search) || agent.FullName.Contains(model.Search) || agent.User.Email.Contains(model.Search) || agent.User.UserName.Contains(model.Search))
                               select agent);
                 switch (model.OrderBy)
                 {
@@ -547,7 +549,8 @@ namespace AurigainLoanERP.Services.User
                         }
                         if (objDoorStepAgent.User.UserDocument != null)
                         {
-                            foreach (var item in objDoorStepAgent.User.UserDocument)
+                            var docs = objDoorStepAgent.User.UserDocument.Where(x => x.IsActive == true && !x.IsDelete);
+                            foreach (var item in docs)
                             {
                                 //  objDoorStepAgentModel.Documents.Add(_mapper.Map<UserDocumentViewModel>(item.value));
                                 objDoorStepAgentModel.Documents.Add(new UserDocumentViewModel
@@ -562,7 +565,7 @@ namespace AurigainLoanERP.Services.User
                                     ModifiedOn = item.ModifiedOn ?? null,
                                     CreatedBy = item.CreatedBy ?? null,
                                     ModifiedBy = item.ModifiedBy ?? null,
-                                    UserDocumentFiles = _db.UserDocumentFiles.Where(x => x.DocumentId == item.Id).Select(fileitem => new UserDocumentFilesViewModel
+                                    UserDocumentFiles = _db.UserDocumentFiles.Where(x => x.DocumentId == item.Id && !x.IsDelete && x.IsActive == true).Select(fileitem => new UserDocumentFilesViewModel
                                     {
                                         Id = fileitem.Id,
                                         DocumentId = fileitem.DocumentId,
