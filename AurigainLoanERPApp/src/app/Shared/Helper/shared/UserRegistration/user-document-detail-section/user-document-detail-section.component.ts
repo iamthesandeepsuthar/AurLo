@@ -49,12 +49,12 @@ export class UserDocumentDetailSectionComponent implements OnInit {
   ngOnChanges(changes: SimpleChanges): void {
 
     if (changes.documentModel.previousValue != changes.documentModel.currentValue) {
-      this.checkExistingFilesCount();
-    }
+    this.checkExistingFilesCount();
+     }
 
   }
   onFrmSubmit() {
-
+    debugger
     this.formGroup.markAllAsTouched();
     if (this.formGroup.valid) {
       this.onSubmit.emit(this.documentModel);
@@ -63,7 +63,7 @@ export class UserDocumentDetailSectionComponent implements OnInit {
   }
 
   onDocumentAttach(docuemtnTypeId: number, file: FileInfo[], isEdit: boolean) {
-
+debugger
     let docIndex = this.documentModel.findIndex(x => x.DocumentTypeId == docuemtnTypeId);
     switch (docuemtnTypeId) {
       case this.docTypeEnum.AadhaarCard:
@@ -80,16 +80,17 @@ export class UserDocumentDetailSectionComponent implements OnInit {
         break;
 
     }
+
     if (docIndex >= 0) {
 
-      this.documentModel[docIndex].Files.forEach((element) => {
-        if (element.Id > 0) {
-          element.IsEditMode = true;
-          element.File = undefined;
+      // this.documentModel[docIndex].Files.forEach((element) => {
+      //   if (element.Id > 0) {
+      //     element.IsEditMode = true;
+      //     element.File = undefined;
 
-        }
+      //   }
 
-      });
+      // });
 
       file.forEach(element => {
 
@@ -166,12 +167,15 @@ export class UserDocumentDetailSectionComponent implements OnInit {
 
         switch (element.DocumentTypeId) {
           case this.docTypeEnum.AadhaarCard:
+            debugger
             this.TotalAdharDoc = element?.Files?.length > 0 ? element?.Files?.length : undefined;
             break;
           case this.docTypeEnum.PANCard:
+            debugger
             this.TotalPANDoc = element?.Files?.length > 0 ? element?.Files?.length : undefined;
             break;
           case this.docTypeEnum.CancelledCheque:
+            debugger
             this.TotalChequeDoc = element?.Files?.length > 0 ? element?.Files?.length : undefined;
             break;
         }

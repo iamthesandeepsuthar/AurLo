@@ -44,7 +44,7 @@ export class CommonService extends AlertService {
   }
 
   checkDecimalNumberOnly(event: any): boolean {
-    debugger
+    
     var charCode = (event.which) ? event.which : event.keyCode;
     if (charCode == 46) {
       //Check if the text already contains the . character

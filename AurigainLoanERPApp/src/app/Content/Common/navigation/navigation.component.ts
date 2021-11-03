@@ -24,7 +24,7 @@ export class NavigationComponent implements OnInit {
     this._authService.IsAuthenticate();
 
     this._authService.IsAuthentication.subscribe(x => {
-      debugger
+     
       this.userModel = this._authService.GetUserDetail() as LoginResponseModel;
       if (this.userModel.RoleId == this.roleEnum.Customer) {
 

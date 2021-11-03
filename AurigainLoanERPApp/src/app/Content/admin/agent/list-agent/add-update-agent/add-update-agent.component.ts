@@ -17,6 +17,7 @@ import { AgentService } from "src/app/Shared/Services/agent-services/agent.servi
 import { AlertService } from "src/app/Shared/Services/alert.service";
 import { CommonService } from "src/app/Shared/Services/common.service";
 import { UserSettingService } from "src/app/Shared/Services/user-setting-services/user-setting.service";
+import { UserRoleEnum } from '../../../../../Shared/Enum/fixed-value';
 
 
 @Component({
@@ -116,14 +117,14 @@ export class AddUpdateAgentComponent implements OnInit,AfterContentChecked {
     if (this.formGroup.valid && ChildValid) {
 
       this.model.User.UserName = this.model.User.UserName ? this.model.User.UserName : this.model.User.Email;
-      this.model.User.UserRoleId = this.model.User.UserRoleId ? this.model.User.UserRoleId : 1;
+      this.model.User.UserRoleId = this.model.User.UserRoleId ? this.model.User.UserRoleId : UserRoleEnum.Agent;
       this.model.User.IsApproved = false;
       // this.model.SelfFunded = Boolean(this.model.SelfFunded);
       debugger;
       let serv = this._userAgentService.AddUpdateDoorStepAgent(this.model).subscribe(res => {
         serv.unsubscribe();
         if (res.IsSuccess) {
-          this._toast.success('Doorstep agent added successful', 'Success');
+          this._toast.success('Agent added successful', 'Success');
           this._router.navigate([this.routing_Url.AdminModule + '/' + this.routing_Url.AgentModule + '/' + this.routing_Url.AgentListUrl]);
         } else {
           this._toast.error(Message.SaveFail, 'Error');
@@ -153,7 +154,7 @@ export class AddUpdateAgentComponent implements OnInit,AfterContentChecked {
       this._childUserSecurityDepositSection.formGroup.markAllAsTouched();
     }
 
-
+debugger
     if (this._childUserBankDetailSection && this._childUserBankDetailSection.formGroup.valid) {
       this._childUserBankDetailSection.onFrmSubmit();
     } else {
