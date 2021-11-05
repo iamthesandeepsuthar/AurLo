@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit {
           this._authService.SaveUserDetail(data);
           switch (data.RoleId) {
             case UserRoleEnum.Customer:
-              this._route.navigate([Routing_Url.CustomerModule]);
+              this._route.navigate([Routing_Url.UserCustomerModule]);
 
               break;
 

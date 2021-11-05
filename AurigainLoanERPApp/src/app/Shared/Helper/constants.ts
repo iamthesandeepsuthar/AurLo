@@ -161,7 +161,9 @@ export class Routing_Url {
   public static MasterModule = 'master';
   public static DoorStepModule = 'door-step-agent';
   public static AgentModule = 'agent';
-  public static CustomerModule = 'customer';
+  public static CustomersModule = 'customers'; //for admin
+
+  public static UserCustomerModule = 'user-customer'; //for login
 
   //#endregion
 

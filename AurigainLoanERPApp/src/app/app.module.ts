@@ -9,7 +9,7 @@ import { FooterComponent } from "./Content/Common/footer/footer.component";
 import { HeaderComponent } from "./Content/Common/header/header.component";
 import { NavigationComponent } from "./Content/Common/navigation/navigation.component";
 import { PageNotFoundComponent } from "./Content/Common/page-not-found/page-not-found.component";
-import { CustomerModule } from "./Content/customer/customer.module";
+import { UserCustomerModule } from "./Content/user-customer/user-customer.module";
 import { AppInterceptor } from "./Shared/Helper/app.interceptor";
 import { BaseAPIService } from "./Shared/Helper/base-api.service";
 import { LoaderService } from "./Shared/Helper/loader.service";
@@ -19,7 +19,6 @@ import { DashboardModule } from "./Content/dashboard/dashboard.module";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HtmlComponent } from './Content/html/html.component';
 import { LoginComponent } from './Content/Common/login/login.component';
-import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { CustomerSignUpComponent } from './Content/Common/customer-sign-up/customer-sign-up.component';
 
 @NgModule({
@@ -39,15 +38,16 @@ import { CustomerSignUpComponent } from './Content/Common/customer-sign-up/custo
     AppRoutingModule,
     SharedModule,
     AdminModule,
-    CustomerModule,
+    UserCustomerModule,
     CommonModule,
     DashboardModule,
     BrowserAnimationsModule,
 
   ],
-  providers: [ BaseAPIService,
+  providers: [BaseAPIService,
 
-    LoaderService, { provide: HTTP_INTERCEPTORS, useClass: AppInterceptor, multi: true }, {provide: LocationStrategy, useClass: PathLocationStrategy}],
+    LoaderService, { provide: HTTP_INTERCEPTORS, useClass: AppInterceptor, multi: true },
+    { provide: LocationStrategy, useClass: PathLocationStrategy }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

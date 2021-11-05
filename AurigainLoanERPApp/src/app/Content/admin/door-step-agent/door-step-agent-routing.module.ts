@@ -13,6 +13,9 @@ const routes: Routes = [
     path: `${Routing_Url.DoorStepAgentListUrl}`, component: ListDoorStepAgentComponent, canActivate: [AuthenticationGuard]
   },
   {
+    path: `${Routing_Url.DoorStepAgentListUrl}`, component: ListDoorStepAgentComponent, canActivate: [AuthenticationGuard]
+  },
+  {
     path: `${Routing_Url.DoorStepAgentRegistrationUrl}/:id`, component: DoorStepAgentRegistrationComponent, canActivate: [AuthenticationGuard]
   },
   {
