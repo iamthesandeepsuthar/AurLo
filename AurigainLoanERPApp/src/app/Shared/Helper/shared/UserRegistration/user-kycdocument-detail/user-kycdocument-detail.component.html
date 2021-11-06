@@ -28,7 +28,9 @@
 
         <div class="form-group col-md-2">
           <label>{{itm!.Name }} Attachment</label>
-          <input type="hidden" name="File" [(ngModel)]="documentModel[idx]!.Files!.length" formControlName="File">
+          <input type="hidden" name="File"
+            ngModel="{{documentModel[idx]!.Files!.length>0 ?documentModel[idx]!.Files!.length :undefined}}"
+            formControlName="File">
 
           <app-file-selector (FilesChanged)="onDocumentAttach(itm.Id, $event,false)"
             [ngClass]="{ 'is-invalid':documentFormField!.controls![idx].get('File')?.hasError('required') && documentFormField!.controls![idx].get('File')?.touched}"
