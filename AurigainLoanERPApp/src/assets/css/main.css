@@ -4080,6 +4080,41 @@ table {
     font-family: 'Nunito', sans-serif !important;
 }
 
+.rounded-pills-icon .nav-pills li a {
+    width: 140px !important;
+}
+
+.rounded-tab-icon .nav-link {
+    font-size: 20px;
+    color: #000;
+    padding: 10px 25px;
+}
+
+.rounded-tab-icon .nav-link img {
+    max-width: 55px;
+    margin-right: 5px;
+}
+
+.nav-tabs .nav-link:hover {
+    border-color: transparent !important;
+}
+
+.nav-tabs .nav-link.active:hover {
+    border-top-color: #e0e6ed !important;
+    border-right-color: #e0e6ed !important;
+    border-left-color: #e0e6ed !important;
+}
+
+.rounded-tab-icon .nav-tabs .nav-link {
+    border-radius: 20px 20px 0px 0px;
+    margin: 0px 15px;
+}
+
+.rounded-tab-icon .nav-tabs .nav-link.active {
+    background: #002767;
+    color: #fff;
+}
+
 
 /* .custom-modal .modal-content .modal-body {
     background: url(https://blog.2checkout.com/wp-content/uploads/2018/11/how-does-the-payment-processing-industry-work-1.png);
