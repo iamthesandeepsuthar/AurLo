@@ -7,12 +7,13 @@ import { DocumentPostModel } from 'src/app/Shared/Model/doorstep-agent-model/doo
 import { CommonService } from 'src/app/Shared/Services/common.service';
 import { FilePostModel } from '../../../../Model/doorstep-agent-model/door-step-agent.model';
 import { DoorStepAgentService } from '../../../../Services/door-step-agent-services/door-step-agent.service';
+import { UserSettingService } from '../../../../Services/user-setting-services/user-setting.service';
 
 @Component({
   selector: 'app-user-document-detail-section',
   templateUrl: './user-document-detail-section.component.html',
   styleUrls: ['./user-document-detail-section.component.scss'],
-  providers: [DoorStepAgentService]
+  providers: [DoorStepAgentService,UserSettingService]
 })
 export class UserDocumentDetailSectionComponent implements OnInit {
   @Input() documentModel = [] as DocumentPostModel[];
@@ -38,7 +39,8 @@ export class UserDocumentDetailSectionComponent implements OnInit {
     return item ?? undefined;
   }
 
-  constructor(private readonly fb: FormBuilder, private readonly _toast: ToastrService, readonly _commonService: CommonService, readonly _doorStepAgent: DoorStepAgentService) { }
+  constructor(private readonly fb: FormBuilder, private readonly _toast: ToastrService,private readonly _userSettingService :UserSettingService,
+     readonly _commonService: CommonService, readonly _doorStepAgent: DoorStepAgentService) { }
 
 
   ngOnInit(): void {
@@ -187,7 +189,7 @@ export class UserDocumentDetailSectionComponent implements OnInit {
   }
 
   removeDocFile(file: FilePostModel, docId: number, docTypeId: number) {
-    this._doorStepAgent.DeleteDocumentFile(file.Id, docId).subscribe(res => {
+    this._userSettingService.DeleteDocumentFile(file.Id, docId).subscribe(res => {
       if (res.IsSuccess) {
         this._toast.success('File Removed', 'Success');
         let docIndex = this.documentModel!.findIndex(x => x.DocumentTypeId == docTypeId)

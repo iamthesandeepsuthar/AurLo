@@ -8,6 +8,7 @@ import { DropDown_key, Routing_Url, Message } from "src/app/Shared/Helper/consta
 import { UserBankDetailSectionComponent } from "src/app/Shared/Helper/shared/UserRegistration/user-bank-detail-section/user-bank-detail-section.component";
 import { UserDocumentDetailSectionComponent } from "src/app/Shared/Helper/shared/UserRegistration/user-document-detail-section/user-document-detail-section.component";
 import { UserKYCDetailSectionComponent } from "src/app/Shared/Helper/shared/UserRegistration/user-kycdetail-section/user-kycdetail-section.component";
+import { UserKYCDocumentDetailComponent } from "src/app/Shared/Helper/shared/UserRegistration/user-kycdocument-detail/user-kycdocument-detail.component";
 import { UserNomineeDetailSectionComponent } from "src/app/Shared/Helper/shared/UserRegistration/user-nominee-detail-section/user-nominee-detail-section.component";
 import { UserSecurityDepositComponent } from "src/app/Shared/Helper/shared/UserRegistration/user-security-deposit/user-security-deposit.component";
 import { AgentPostModel, AgentViewModel } from "src/app/Shared/Model/Agent/agent.model";
@@ -49,6 +50,8 @@ export class AddUpdateAgentComponent implements OnInit,AfterContentChecked {
   @ViewChild(UserKYCDetailSectionComponent, { static: false }) _childUserKYCDetailSection!: UserKYCDetailSectionComponent;
   @ViewChild(UserNomineeDetailSectionComponent, { static: false }) _childUserNomineeDetailSection!: UserNomineeDetailSectionComponent;
   @ViewChild(UserSecurityDepositComponent, { static: false }) _childUserSecurityDepositSection!: UserSecurityDepositComponent;
+  @ViewChild(UserKYCDocumentDetailComponent, { static: false }) _childUserKYCDocumentSection!: UserKYCDocumentDetailComponent;
+
   //#endregion
 
   constructor(private cdr: ChangeDetectorRef,private readonly _alertService: AlertService, private readonly fb: FormBuilder,
@@ -153,8 +156,12 @@ export class AddUpdateAgentComponent implements OnInit,AfterContentChecked {
     if (this._childUserSecurityDepositSection) {
       this._childUserSecurityDepositSection.formGroup.markAllAsTouched();
     }
+    if (this._childUserKYCDocumentSection) {
+      this._childUserKYCDocumentSection.frmGroup.markAllAsTouched();
+    }
 
-debugger
+
+
     if (this._childUserBankDetailSection && this._childUserBankDetailSection.formGroup.valid) {
       this._childUserBankDetailSection.onFrmSubmit();
     } else {
@@ -176,6 +183,12 @@ debugger
     // } else {
     //   isValid = false;
     // }
+
+    if (isValid && this._childUserKYCDocumentSection && this._childUserKYCDocumentSection.frmGroup.valid) {
+      this._childUserKYCDocumentSection.onFrmSubmit();
+    } else {
+      isValid = false;
+    }
 
     if (isValid && this._childUserNomineeDetailSection && this._childUserNomineeDetailSection.formGroup.valid) {
       this._childUserNomineeDetailSection.onFrmSubmit();

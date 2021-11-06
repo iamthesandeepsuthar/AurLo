@@ -4,7 +4,7 @@
 <div class="widget-header">
   <div class="row d-block d-sm-flex align-items-center justify-content-between text-center text-sm-left">
     <div>
-      <h1>{{Id>0 ?'Update':'Add'}}  agent</h1>
+      <h1>{{Id>0 ?'Update':'Add'}} agent</h1>
       <!-- Breadcrumb Start -->
       <nav class="custom-breadcrum">
         <ol class="breadcrumb justify-content-center justify-content-sm-start">
@@ -35,8 +35,8 @@
           <img [src]="previewUrl" onerror="this.src='assets/img/user-default.jpg'">
           <input type="file" name="myfile" (change)="fileProgress($event)" />
         </div>
-        <button *ngIf="Id>0"  type="button" data-toggle="tooltip" (click)="onUploadProfileImage()" data-placement="bottom"
-          title="Upload Profile">
+        <button *ngIf="Id>0" type="button" data-toggle="tooltip" (click)="onUploadProfileImage()"
+          data-placement="bottom" title="Upload Profile">
           <i class="fas fa-cloud-upload-alt"></i>
 
           <!-- <i class="fas fa-cloud-upload-alt"></i> -->
@@ -58,15 +58,15 @@
             placeholder="full name">
           <div class="invalid-feedback"
             *ngIf="(formGroup.get('FullName')?.hasError('required') && formGroup.get('FullName')?.touched)">
-           enter full name</div>
+            enter full name</div>
 
         </div>
 
         <div class="form-group col-md-4 date-icon-with-label">
           <label>Date of birth</label>
-          <input class="form-control" #datepickerYMD="bsDatepicker" placeholder="DD-MM-YYYY" formControlName="DateOfBirth"
-            [ngClass]="{ 'is-invalid': f.DateOfBirth.errors && f.DateOfBirth.touched}" bsDatepicker
-            [(ngModel)]="model.DateOfBirth" [maxDate]="maxDate"
+          <input class="form-control" #datepickerYMD="bsDatepicker" placeholder="DD-MM-YYYY"
+            formControlName="DateOfBirth" [ngClass]="{ 'is-invalid': f.DateOfBirth.errors && f.DateOfBirth.touched}"
+            bsDatepicker [(ngModel)]="model.DateOfBirth" [maxDate]="maxDate"
             [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', adaptivePosition: true,isAnimated: true, showWeekNumbers: false }">
           <i class="fas fa-calendar-alt"></i>
           <div class="invalid-feedback"
@@ -161,11 +161,12 @@
         </div>
         <div class="form-group col-md-12">
           <label>Address</label>
-          <textarea class="form-control" [ngClass]="{ 'is-invalid': f.Address.errors && f.Address.touched}" placeholder="Address here"
-            [(ngModel)]="model.Address" id="exampleFormControlTextarea1" formControlName="Address" rows="1"></textarea>
+          <textarea class="form-control" [ngClass]="{ 'is-invalid': f.Address.errors && f.Address.touched}"
+            placeholder="Address here" [(ngModel)]="model.Address" id="exampleFormControlTextarea1"
+            formControlName="Address" rows="1"></textarea>
           <div class="invalid-feedback"
             *ngIf="(formGroup.get('Address')?.hasError('required') && formGroup.get('Address')?.touched)">
-            Please enter  address</div>
+            Please enter address</div>
 
         </div>
         <div class="form-group col-md-4">
@@ -211,17 +212,19 @@
 </app-user-nominee-detail-section>
 <app-user-bank-detail-section [bankModel]="model.BankDetails" (onSubmit)="model.BankDetails=$event">
 </app-user-bank-detail-section>
-<app-user-kycdetail-section [kycModel]="model.UserKYC" (onSubmit)="model.UserKYC=$event">
+<!-- <app-user-kycdetail-section [kycModel]="model.UserKYC" (onSubmit)="model.UserKYC=$event">
 </app-user-kycdetail-section>
 
 <app-user-document-detail-section [documentModel]="model.Documents" (onSubmit)="bindDocs($event)">
-</app-user-document-detail-section>
+</app-user-document-detail-section> -->
+<app-user-kycdocument-detail [documentModel]="model.Documents" (onKYCSubmit)="model.UserKYC=$event"
+  (onDocSubmit)="bindDocs($event)" [kycModel]="model.UserKYC"></app-user-kycdocument-detail>
 
 <div class="form-footer-btn-grp mt-3 mb-3 widget-content widget-content p-3 text-center">
   <button type="submit" class="btn btn-success mr-3" (click)="onFrmSubmit()"> <i class="fas fa-check mr-1"></i> Save
     application</button>
   <!-- <button type="button" (click)="onFrmReset()" class="btn btn-primary mr-3"> <i class="fas fa-redo-alt mr-1"></i> Reset</button> -->
-  <button type="button" class="btn btn-outline-danger"routerLink="{{ '../../' + this.routing_Url.AgentListUrl}}"> <i
+  <button type="button" class="btn btn-outline-danger" routerLink="{{ '../../' + this.routing_Url.AgentListUrl}}"> <i
       class="fas fa-times mr-1"></i> Cancel</button>
 </div>
 <!-- </form> -->

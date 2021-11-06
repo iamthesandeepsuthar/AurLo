@@ -4,8 +4,7 @@
     <div class="form-row">
       <div class="form-group col-md-4">
         <label>Document Type</label>
-        <!-- <ng-select [items]="dropDown!.ddlDocumentType" [searchable]="true" bindLabel="Text" bindValue="Value" placeholder="document type"
-        appendTo="body" [(ngModel)]="model.KycdocumentTypeId"> -->
+
         <ng-select [items]="docTypeModel" [searchable]="true" bindLabel="Name" bindValue="Id"
           placeholder="document type" appendTo="body" (ngModelChange)="onChangeDocType($event)"
           formControlName="KycdocumentType" [(ngModel)]="model.KycdocumentTypeId"

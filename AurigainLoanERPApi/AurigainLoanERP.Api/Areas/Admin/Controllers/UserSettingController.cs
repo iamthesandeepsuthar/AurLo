@@ -82,5 +82,12 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
         {
             return await _userSerivce.GetUserAvailibilty(id);
         }
+
+        [HttpDelete("{id}/{documentId}")]
+        public async Task<ApiServiceResponseModel<object>> DeleteDocumentFile(long id,long documentId)
+        {
+            return await _userSerivce.DeleteDocumentFile(id, documentId);
+        }
+
     }
 }

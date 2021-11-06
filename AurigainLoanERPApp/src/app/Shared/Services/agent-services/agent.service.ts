@@ -36,12 +36,4 @@ export class AgentService {
   }
 
 
-
-  DeleteDocumentFile(id: number,documentId:number): Observable<ApiResponse<string>> {
-    let url = `${this._baseService.API_Url.DoorstepAgentDeleteDocumentFileApi}${id}/${documentId}`;
-    return this._baseService.Delete(url);
-  }
-
-
-
 }

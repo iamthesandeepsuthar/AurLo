@@ -46,4 +46,9 @@ export class UserSettingService {
     let url = `${this._baseService.API_Url.GetUserAvailibiltyListApi}${id}`;
     return this._baseService.get(url);
   }
+
+  DeleteDocumentFile(id: number,documentId:number): Observable<ApiResponse<string>> {
+    let url = `${this._baseService.API_Url.DeleteDocumentFileApi}${id}/${documentId}`;
+    return this._baseService.Delete(url);
+  }
 }
