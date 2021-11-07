@@ -13,6 +13,8 @@ namespace AurigainLoanERP.Shared.Common.Model
 
     public static class EmailPathConstant
     {
-        public const string RegisterTemplate = "\\StaticFiles\\EmailTemplate\\Registration.html";    
+        public const string RegisterTemplate = "\\StaticFiles\\EmailTemplate\\Registration.html";
+        public const string UserApproveTemplate = "\\StaticFiles\\EmailTemplate\\Registration.html";
+
     }
 }
