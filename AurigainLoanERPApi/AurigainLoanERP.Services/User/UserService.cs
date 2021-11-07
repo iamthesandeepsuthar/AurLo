@@ -1005,7 +1005,7 @@ namespace AurigainLoanERP.Services.User
                 if (user.IsApproved)
                 {
                     Dictionary<string, string> replaceValues = new Dictionary<string, string>();
-                    replaceValues.Add("{{UserName}}", user.Email);
+                    replaceValues.Add("{{UserName}}", user.UserName);
                     await _emailHelper.SendHTMLBodyMail(user.Email, "Aurigain: approval Notification", EmailPathConstant.UserApproveTemplate, replaceValues);
                 }
 
