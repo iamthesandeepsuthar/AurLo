@@ -1484,16 +1484,106 @@
     </div>
 
 
-</div>
 
-<!-- Gallery popup start -->
-<div class="modal fade show-gallery modal-doc-show" id="Doc-Popup" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-        <div class="modal-content bg-transparent">
-            <button type="button" class="close modal-btn-with-no-header" data-dismiss="modal" aria-label="Close"> <i class="fas fa-times"></i></button>
-            <div class="modal-body p-0 text-center">
-                <img src="assets/img/default.jpg" alt="" /> </div>
+
+
+    <div class="p-4 rounded-tab-icon">
+
+        <nav>
+            <div class="nav nav-tabs justify-content-center" id="nav-tab" role="tablist">
+                <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">
+                    <img src="assets/img/personal_detail.png" alt="AurLo"> Personal Details</a>
+                <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">
+                    <img src="assets/img/document_details.png" alt="AurLo"> Document's Detail</a>
+                <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">
+                    <img src="assets/img/address.png" alt="AurLo"> Address Detail</a>
+            </div>
+        </nav>
+        <div class="tab-content py-4" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                <div class="form-row row-flex-width">
+
+                    <div class="col-lg-3 col-xl-2 pr-5 mb-4 mb-lg-0 agent-door-profile-img-box upload-btn-wrapper">
+                        <div class="agent-door-profile-img d-flex align-items-center justify-content-center">
+                            <img src="assets/img/user-default.jpg">
+                            <input type="file" name="myfile" />
+                        </div>
+                        <button type="button" data-toggle="tooltip" data-placement="bottom" title="Upload Profile">
+          <i class="fas fa-cloud-upload-alt"></i>
+
+          <!-- <i class="fas fa-cloud-upload-alt"></i> -->
+        </button>
+                    </div>
+
+                    <div class="col-lg-9 col-xl-10 row">
+
+                        <div class="table-responsive">
+                            <table class="table  table-borderless table-data-info table-font-17 table-v-align-top m-0">
+                                <tbody>
+                                    <tr>
+                                        <td style="width: 18%;"> <strong> Full Name: </strong> </td>
+                                        <td style="width: 32%;">Rohit Kumar sharma</td>
+                                        <td><strong> Father's Name: </strong> </td>
+                                        <td>Suresh sharma</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td><strong> Email ID: </strong> </td>
+                                        <td>ma578811@gmail.com</td>
+                                        <td><strong> Mobile Number : </strong> </td>
+                                        <td>+91 9856987952</td>
+                                    </tr>
+
+                                    <tr>
+
+                                        <td><strong> Date of birth: </strong> </td>
+                                        <td>20-02-1997</td>
+                                        <td><strong> Gender: </strong> </td>
+                                        <td>Male</td>
+                                    </tr>
+
+
+
+
+
+                                </tbody>
+                            </table>
+                        </div>
+
+
+
+                    </div>
+
+                    <div class="form-footer-btn-grp widget-content widget-content pt-3 text-center w-100">
+                        <button type="submit" class="btn btn-success mr-3"> <i class="fas fa-check mr-1"></i> Submit</button>
+                        <button type="button" class="btn btn-outline-danger"> <i class="fas fa-times mr-1"></i> Cancel</button>
+                    </div>
+
+
+
+                </div>
+            </div>
+            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                2
+            </div>
+            <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                2
+            </div>
+        </div>
+
+
+    </div>
+
+
+
+    <!-- Gallery popup start -->
+    <div class="modal fade show-gallery modal-doc-show" id="Doc-Popup" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content bg-transparent">
+                <button type="button" class="close modal-btn-with-no-header" data-dismiss="modal" aria-label="Close"> <i class="fas fa-times"></i></button>
+                <div class="modal-body p-0 text-center">
+                    <img src="assets/img/default.jpg" alt="" /> </div>
+            </div>
         </div>
     </div>
-</div>
-<!-- Gallery popup  End -->
+    <!-- Gallery popup  End -->
