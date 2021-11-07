@@ -119,9 +119,14 @@ export class AddUpdateAgentComponent implements OnInit,AfterContentChecked {
     let ChildValid: boolean = this.submitChildData();
     if (this.formGroup.valid && ChildValid) {
 
-      this.model.User.UserName = this.model.User.UserName ? this.model.User.UserName : this.model.User.Email;
-      this.model.User.UserRoleId = this.model.User.UserRoleId ? this.model.User.UserRoleId : UserRoleEnum.Agent;
-      this.model.User.IsApproved = false;
+
+      if (!this.model.Id || this.model.Id == 0) {
+        this.model.User.IsApproved = false;
+        this.model.User.UserRoleId = this.model.User.UserRoleId ? this.model.User.UserRoleId : UserRoleEnum.DoorStepAgent;
+        this.model.User.UserName = this.model.User.UserName ? this.model.User.UserName : this.model.User.Email;
+
+      }
+
       // this.model.SelfFunded = Boolean(this.model.SelfFunded);
       debugger;
       let serv = this._userAgentService.AddUpdateDoorStepAgent(this.model).subscribe(res => {
@@ -160,46 +165,50 @@ export class AddUpdateAgentComponent implements OnInit,AfterContentChecked {
       this._childUserKYCDocumentSection.frmGroup.markAllAsTouched();
     }
 
-
-
     if (this._childUserBankDetailSection && this._childUserBankDetailSection.formGroup.valid) {
       this._childUserBankDetailSection.onFrmSubmit();
-    } else {
+    } else if (isValid && this._childUserBankDetailSection && !this._childUserBankDetailSection.formGroup.valid) {
       isValid = false;
     }
+
     if (isValid && this._childUserDocumentDetailSection && this._childUserDocumentDetailSection.formGroup.valid) {
       this._childUserDocumentDetailSection.onFrmSubmit();
-    } else {
+    }
+    else if (isValid && this._childUserDocumentDetailSection && !this._childUserDocumentDetailSection.formGroup.valid) {
       isValid = false;
     }
+
     if (isValid && this._childUserKYCDetailSection && this._childUserKYCDetailSection.formGroup.valid) {
       this._childUserKYCDetailSection.onFrmSubmit();
-    } else {
+    }
+    else if (isValid && this._childUserKYCDetailSection && !this._childUserKYCDetailSection.formGroup.valid) {
       isValid = false;
     }
 
-    // if (isValid && this._childUserSecurityDepositSection && this._childUserSecurityDepositSection.formGroup.valid) {
-    //   this._childUserSecurityDepositSection.onFrmSubmit();
-    // } else {
-    //   isValid = false;
-    // }
-
-    if (isValid && this._childUserKYCDocumentSection && this._childUserKYCDocumentSection.frmGroup.valid) {
-      this._childUserKYCDocumentSection.onFrmSubmit();
-    } else {
+    if (isValid && this._childUserSecurityDepositSection && this._childUserSecurityDepositSection.formGroup.valid) {
+      this._childUserSecurityDepositSection.onFrmSubmit();
+    }
+    else if (isValid && this._childUserSecurityDepositSection && !this._childUserSecurityDepositSection.formGroup.valid) {
       isValid = false;
     }
 
     if (isValid && this._childUserNomineeDetailSection && this._childUserNomineeDetailSection.formGroup.valid) {
       this._childUserNomineeDetailSection.onFrmSubmit();
-    } else {
+    }
+    else if (isValid && this._childUserNomineeDetailSection && !this._childUserNomineeDetailSection.formGroup.valid) {
+      isValid = false;
+    }
+
+    if (isValid && this._childUserKYCDocumentSection && this._childUserKYCDocumentSection.frmGroup.valid) {
+      this._childUserKYCDocumentSection.onFrmSubmit();
+    }
+    else if (isValid && this._childUserKYCDocumentSection && !this._childUserKYCDocumentSection.frmGroup.valid) {
       isValid = false;
     }
 
     return isValid;
   }
   bindDocs(docs: DocumentPostModel[]) {
-
     this.model.Documents = docs;
   }
   formInit() {
@@ -236,7 +245,6 @@ export class AddUpdateAgentComponent implements OnInit,AfterContentChecked {
             this.model.Address = data?.Address;
             this.model.DistrictId = data?.DistrictId;
             this.model.StateId = data?.StateId;
-
             this.model.PinCode = data?.PinCode;
             this.model.DateOfBirth = data?.DateOfBirth;
             this.previewUrl = data?.User.ProfilePath;

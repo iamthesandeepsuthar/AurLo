@@ -3,7 +3,7 @@
 
 
 
-  <form [formGroup]="frmGroup">
+  <form [formGroup]="frmGroup" *ngIf="this.docTypeModel">
 
     <ng-container formArrayName="DocumentFormField" *ngFor="let itm of this.docTypeModel;let idx=index">
       <div class="form-row" [formGroupName]="idx">

@@ -46,12 +46,12 @@ export class UserKYCDocumentDetailComponent implements OnInit, OnChanges {
     //Add '${implements OnChanges}' to the class.
     debugger
 
-    if (this.documentModel) {
-      this.documentModel = this.documentModel.sort(x => x.DocumentTypeId);
-    }
-    if (this.kycModel) {
-      this.kycModel = this.kycModel.sort(x => x.KycdocumentTypeId);
-    }
+    // if (this.documentModel) {
+    //   this.documentModel = this.documentModel?.sort(function (a, b) { return a.DocumentTypeId - b.DocumentTypeId });
+    // }
+    // if (this.kycModel) {
+    //   this.kycModel = this.kycModel?.sort(function (a, b) { return a.KycdocumentTypeId - b.KycdocumentTypeId });
+    // }
 
   }
 
@@ -59,9 +59,13 @@ export class UserKYCDocumentDetailComponent implements OnInit, OnChanges {
     this._kycDocumentTypeService.GetDDLDocumentType().subscribe(res => {
       if (res.IsSuccess) {
         this.docTypeModel = res.Data as DDLDocumentTypeModel[];
+        this.docTypeModel = this.docTypeModel?.sort(function (a, b) { return a.Id - b.Id });
+
         this.docTypeModel!.forEach(x => {
+          debugger
           let existingKYCItem = this.kycModel.findIndex(xi => xi.KycdocumentTypeId == x.Id);
           let existingDocItem = this.documentModel.findIndex(xi => xi.DocumentTypeId == x.Id);
+
 
           if (this.kycModel!.length != this.docTypeModel!.length && existingKYCItem < 0) {
             let item = {} as UserKYCPostModel;

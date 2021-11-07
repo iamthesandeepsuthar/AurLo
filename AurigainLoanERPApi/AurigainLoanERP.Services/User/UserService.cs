@@ -1233,8 +1233,7 @@ namespace AurigainLoanERP.Services.User
                     objModel.DistrictId = model.DistrictId;
                     objModel.PinCode = model.PinCode;
                     objModel.SelfFunded = model.SelfFunded;
-                    objModel.IsActive = true;
-
+                    objModel.IsActive = true; 
                     objModel.QualificationId = model.QualificationId;
                     var result = await _db.UserDoorStepAgent.AddAsync(objModel);
                     await _db.SaveChangesAsync();
@@ -1299,7 +1298,7 @@ namespace AurigainLoanERP.Services.User
 
                         documentId = objDocment.Id;
                     }
-
+                    string fileSavePath = string.Concat( FilePathConstant.UserDocsFile,userId, "\\");
 
                     foreach (var fileitem in item.Files)
                     {
@@ -1326,8 +1325,8 @@ namespace AurigainLoanERP.Services.User
                             else
                             {
                                 objFileModel.DocumentId = documentId;
-                                objFileModel.FileName = _fileHelper.Save(fileitem.File, FilePathConstant.UserAgentFile, fileitem.FileName);
-                                objFileModel.Path = Path.Combine(FilePathConstant.UserAgentFile, objFileModel.FileName);
+                                objFileModel.FileName = _fileHelper.Save(fileitem.File, fileSavePath, fileitem.FileName);
+                                objFileModel.Path = Path.Combine(fileSavePath, objFileModel.FileName);
                                 objFileModel.FileType = _fileHelper.GetFileExtension(objFileModel.FileName); //fileitem.File.ContentType;
                             }
 
@@ -1340,8 +1339,8 @@ namespace AurigainLoanERP.Services.User
                             {
                                 var objFileModel = new UserDocumentFiles();
                                 objFileModel.DocumentId = documentId;
-                                objFileModel.FileName = _fileHelper.Save(fileitem.File, FilePathConstant.UserAgentFile, fileitem.FileName);
-                                objFileModel.Path = Path.Combine(FilePathConstant.UserAgentFile, objFileModel.FileName);
+                                objFileModel.FileName = _fileHelper.Save(fileitem.File, fileSavePath, fileitem.FileName);
+                                objFileModel.Path = Path.Combine(fileSavePath, objFileModel.FileName);
 
                                 objFileModel.FileType = _fileHelper.GetFileExtension(fileitem.File); //fileitem.File.ContentType;
                                 await _db.UserDocumentFiles.AddAsync(objFileModel);

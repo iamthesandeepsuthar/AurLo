@@ -7,7 +7,7 @@ namespace AurigainLoanERP.Shared.Common.Model
     public static class FilePathConstant
     {
         public const string UserProfile = "\\Content\\UserFiles\\UserProfile\\";
-        public const string UserAgentFile = "\\Content\\UserFiles\\Agent\\";
+        public const string UserDocsFile = "\\Content\\UserFiles\\UserDocs\\";
         public const string BankLogoFile = "\\Content\\BankFiles\\Logo\\";
     }
 
