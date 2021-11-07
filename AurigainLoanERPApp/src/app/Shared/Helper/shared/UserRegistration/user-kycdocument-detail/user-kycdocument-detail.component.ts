@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
+import { Component, OnInit, Input, Output, EventEmitter, SimpleChanges, OnChanges } from "@angular/core";
 import { FormGroup, AbstractControl, FormArray, FormBuilder, Validators } from "@angular/forms";
 import { ToastrService } from "ngx-toastr";
 import { FileInfo } from "src/app/Content/Common/file-selector/file-selector.component";
@@ -16,7 +16,7 @@ import { UserSettingService } from 'src/app/Shared/Services/user-setting-service
   providers: [KycDocumentTypeService, UserSettingService]
 
 })
-export class UserKYCDocumentDetailComponent implements OnInit {
+export class UserKYCDocumentDetailComponent implements OnInit, OnChanges {
   @Input() kycModel = [] as UserKYCPostModel[];
   @Output() onKYCSubmit = new EventEmitter<UserKYCPostModel[]>();
 
@@ -38,28 +38,41 @@ export class UserKYCDocumentDetailComponent implements OnInit {
 
     this.formInt();
     this.getDocumentType();
+
+
+  }
+  ngOnChanges(): void {
+    //Called before any other lifecycle hook. Use it to inject dependencies, but avoid any serious work here.
+    //Add '${implements OnChanges}' to the class.
+    debugger
+
+    if (this.documentModel) {
+      this.documentModel = this.documentModel.sort(x => x.DocumentTypeId);
+    }
+    if (this.kycModel) {
+      this.kycModel = this.kycModel.sort(x => x.KycdocumentTypeId);
+    }
+
   }
 
   getDocumentType() {
     this._kycDocumentTypeService.GetDDLDocumentType().subscribe(res => {
       if (res.IsSuccess) {
-        debugger
         this.docTypeModel = res.Data as DDLDocumentTypeModel[];
         this.docTypeModel!.forEach(x => {
+          let existingKYCItem = this.kycModel.findIndex(xi => xi.KycdocumentTypeId == x.Id);
+          let existingDocItem = this.documentModel.findIndex(xi => xi.DocumentTypeId == x.Id);
 
-
-          if (this.kycModel!.length != this.docTypeModel!.length) {
+          if (this.kycModel!.length != this.docTypeModel!.length && existingKYCItem < 0) {
             let item = {} as UserKYCPostModel;
             item.KycdocumentTypeId = x.Id;
-
             this.kycModel.push(item);
           }
 
-          if (this.documentModel!.length != this.docTypeModel!.length) {
+          if (this.documentModel!.length != this.docTypeModel!.length && existingDocItem < 0) {
             let item = {} as DocumentPostModel;
             item.DocumentTypeId = x.Id;
             item.Files = [];
-
             this.documentModel.push(item);
           }
           this.addDocsItemControl(x.DocumentNumberLength);
@@ -85,7 +98,6 @@ export class UserKYCDocumentDetailComponent implements OnInit {
   }
   addDocsItemControl(DocCharLenght: number) {
     const docs = this.f.DocumentFormField as FormArray;
-    debugger
     this.f.DocumentFormField.push(
       this.fb.group({
         DocumentNumber: [undefined, Validators.compose([Validators.required, Validators.maxLength(DocCharLenght), Validators.minLength(DocCharLenght)])],
@@ -121,16 +133,15 @@ export class UserKYCDocumentDetailComponent implements OnInit {
     });
   }
 
-  onDocumentAttach(docuemtnTypeId: number, file: FileInfo[], isEdit: boolean) {
+  onDocumentAttach(docuemtnTypeId: number, files: FileInfo[]) {
 
     let docIndex = this.documentModel.findIndex(x => x.DocumentTypeId == docuemtnTypeId);
 
 
     if (docIndex >= 0) {
-      file.forEach(element => {
-
+      this.documentModel[docIndex].Files = this.documentModel[docIndex].Files.filter(x => x.Id > 0);
+      files.forEach(element => {
         let Indx = this.documentModel[docIndex].Files.findIndex(x => x.File == element.FileBase64);
-
         if (Indx < 0) {
           let File = {} as FilePostModel;
           File.File = element.FileBase64;
@@ -144,7 +155,7 @@ export class UserKYCDocumentDetailComponent implements OnInit {
       let doc = {} as DocumentPostModel;
       doc.Files = [] as FilePostModel[];
       doc.DocumentTypeId = docuemtnTypeId;
-      file.forEach(element => {
+      files.forEach(element => {
         let File = {} as FilePostModel;
         File.File = element.FileBase64;
         File.FileName = element.Name;

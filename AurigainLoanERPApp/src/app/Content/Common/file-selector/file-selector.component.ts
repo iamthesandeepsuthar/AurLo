@@ -83,8 +83,6 @@ export class FileSelectorComponent {
 
 
   RemoveFile(file: FileInfo) {
-
-
     let index = this._files.indexOf(file);
     if (index > -1) {
       this._files.splice(index, 1);
@@ -98,8 +96,8 @@ export class FileSelectorComponent {
     if (file) {
 
       let fileUrl = file.FileBase64;
-debugger
-      let isDoc= ['doc', 'docx', 'ppt', 'pptx', 'pdf', 'txt', 'xlx', 'xlsx'].some(x => x.toLowerCase() === file.Name.split('.')[1].toLowerCase())
+      debugger
+      let isDoc = ['doc', 'docx', 'ppt', 'pptx', 'pdf', 'txt', 'xlx', 'xlsx'].some(x => x.toLowerCase() === file.Name.split('.')[1].toLowerCase())
 
       var newWin = open("'url'", "_blank");
       if (isDoc) {
@@ -116,8 +114,8 @@ debugger
   }
 
   HandleFileInput(event: any) {
-debugger
-    let TotalFilesCount = ((this.CurrentFileLength > 0 && this.Files?.length > 0 ? this.Files?.length : this.CurrentFileLength) + 1)
+    debugger
+    let TotalFilesCount = (this.CurrentFileLength ? this.CurrentFileLength : this.Files?.length) + 1
     if (TotalFilesCount <= this.MaxFileLength) {
       let files = event.target.files;
       if (files.length == 0) {

@@ -29,18 +29,25 @@
         <div class="form-group col-md-2">
           <label>{{itm!.Name }} Attachment</label>
           <input type="hidden" name="File"
-            ngModel="{{documentModel[idx]!.Files!.length>0 ?documentModel[idx]!.Files!.length :undefined}}"
+            ngModel="{{(documentModel[idx]!.Files!.length>0) && (itm.RequiredFileCount == documentModel[idx]!.Files!.length) ? documentModel[idx]!.Files!.length :undefined}}"
             formControlName="File">
 
-          <app-file-selector (FilesChanged)="onDocumentAttach(itm.Id, $event,false)"
-            [ngClass]="{ 'is-invalid':documentFormField!.controls![idx].get('File')?.hasError('required') && documentFormField!.controls![idx].get('File')?.touched}"
-            [CurrentFileLength]="documentModel[idx]!.Files!.length ??0" [MaxFileLength]="itm.RequiredFileCount">
+          <app-file-selector (FilesChanged)="onDocumentAttach(itm.Id, $event)"
+            [ngClass]="{ 'is-invalid':(documentFormField!.controls![idx].get('File')?.hasError('required') && documentFormField!.controls![idx].get('File')?.touched )||( documentModel[idx]!.Files!.length>0 && itm.RequiredFileCount != documentModel[idx]!.Files!.length)}"
+            [CurrentFileLength]="documentModel[idx]!.Files!.length ?? 0" [MaxFileLength]="itm.RequiredFileCount">
           </app-file-selector>
+          {{itm.RequiredFileCount +'/'+ documentModel[idx]!.Files!.length}}
 
 
           <div class="invalid-feedback"
-            *ngIf="(this.documentFormField!.controls![idx].get('File')?.hasError('required') && this.documentFormField!.controls![idx].get('File')?.touched)">
+            *ngIf="(this.documentFormField!.controls![idx].get('File')?.hasError('required') && this.documentFormField!.controls![idx].get('File')?.touched) &&  !documentModel[idx]!.Files!.length">
             Please Add {{itm!.Name }} doc ...! </div>
+
+
+          <div class="invalid-feedback"
+            *ngIf="this.documentFormField!.controls![idx].get('File')?.hasError('required') && documentModel[idx]!.Files!.length>0 &&  itm.RequiredFileCount != documentModel[idx]!.Files!.length">
+            Please Add anther side {{itm!.Name }} doc ...! </div>
+
           <ul *ngIf="documentModel!.length>0 && documentModel &&  documentModel[idx]!.DocumentTypeId > 0 ">
 
             <ng-container *ngFor="let item of documentModel[idx]?.Files">

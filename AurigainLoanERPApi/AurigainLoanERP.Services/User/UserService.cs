@@ -531,7 +531,7 @@ namespace AurigainLoanERP.Services.User
                         {
 
 
-                            objDoorStepAgentModel.UserKYC = objDoorStepAgent.User.UserKyc.Select(x => new UserKycViewModel
+                            objDoorStepAgentModel.UserKYC = objDoorStepAgent.User.UserKyc.OrderBy(x=>x.KycdocumentTypeId).Select(x => new UserKycViewModel
                             {
 
                                 Id = x.Id,
@@ -549,7 +549,7 @@ namespace AurigainLoanERP.Services.User
                         }
                         if (objDoorStepAgent.User.UserDocument != null)
                         {
-                            var docs = objDoorStepAgent.User.UserDocument.Where(x => x.IsActive == true && !x.IsDelete);
+                            var docs = objDoorStepAgent.User.UserDocument.Where(x => x.IsActive == true && !x.IsDelete).OrderBy(x=>x.DocumentTypeId);
                             foreach (var item in docs)
                             {
                                 //  objDoorStepAgentModel.Documents.Add(_mapper.Map<UserDocumentViewModel>(item.value));
