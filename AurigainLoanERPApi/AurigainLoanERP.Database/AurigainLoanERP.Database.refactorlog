@@ -70,4 +70,60 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="Pincode" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="fd974714-2cb2-48c5-92d2-3fbdd0849fce" ChangeDateTime="11/09/2021 18:42:40">
+    <Property Name="ElementName" Value="[dbo].[BTGoldLoanLead].[SecondryMobile]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[BTGoldLoanLead]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="SecondaryMobile" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="3c9dc1e7-e804-4b33-bc38-e263d5ccdace" ChangeDateTime="11/09/2021 18:52:39">
+    <Property Name="ElementName" Value="[dbo].[BTGoldLoanLeadAddressDetail].[AeraPinCodeId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[BTGoldLoanLeadAddressDetail]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="AeraPincodeId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="4a380576-dcae-41d2-bde0-d8d6ee23bc33" ChangeDateTime="11/09/2021 19:03:41">
+    <Property Name="ElementName" Value="[dbo].[BTGoldLoanLeadExistingLoanDetail].[LoanAmount]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[BTGoldLoanLeadExistingLoanDetail]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Amount" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="f89a36c3-4bc6-47b3-906d-392beb6ec033" ChangeDateTime="11/09/2021 19:03:48">
+    <Property Name="ElementName" Value="[dbo].[BTGoldLoanLeadExistingLoanDetail].[Datail]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[BTGoldLoanLeadExistingLoanDetail]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Date" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="1b430cc1-e959-4e0e-9e7e-d9a65c63ba2a" ChangeDateTime="11/09/2021 19:08:17">
+    <Property Name="ElementName" Value="[dbo].[BTGoldLoanLeadJewelleryDetail].[TypeID]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[BTGoldLoanLeadJewelleryDetail]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="JewelleryTypeId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="4fdade3b-821a-4188-a9b5-6eedc3ce8a46" ChangeDateTime="11/09/2021 19:09:46">
+    <Property Name="ElementName" Value="[dbo].[BTGoldLoanLeadJewelleryDetail].[VAT]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[BTGoldLoanLeadJewelleryDetail]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Weight" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="4e72e25f-cb6b-4f0b-b41f-f5d1b7a9fc28" ChangeDateTime="11/09/2021 19:11:29">
+    <Property Name="ElementName" Value="[dbo].[BTGoldLoanLeadJewelleryDetail].[Karat]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[BTGoldLoanLeadJewelleryDetail]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Karats" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="062e9ba7-07fc-4aab-952f-ebfa15de8787" ChangeDateTime="11/09/2021 19:21:44">
+    <Property Name="ElementName" Value="[dbo].[BTGoldLoanLeadDocumentDetail].[ForeClosure]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[BTGoldLoanLeadDocumentDetail]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="ForeClosureLetter" />
+  </Operation>
 </Operations>

@@ -99,6 +99,13 @@
     <Build Include="GoldLoanFreshLeadAppointmentDetail.sql" />
     <Build Include="GoldLoanFreshLeadKycDocument.sql" />
     <Build Include="UserCustomer.sql" />
+    <Build Include="BTGoldLoanLead.sql" />
+    <Build Include="BTGoldLoanLeadAddressDetail.sql" />
+    <Build Include="BTGoldLoanLeadKYCDetail.sql" />
+    <Build Include="BTGoldLoanLeadExistingLoanDetail.sql" />
+    <Build Include="BTGoldLoanLeadJewelleryDetail.sql" />
+    <Build Include="BTGoldLoanLeadAppointmentDetail.sql" />
+    <Build Include="BTGoldLoanLeadDocumentDetail.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="AurigainLoanERP.Database.refactorlog" />
