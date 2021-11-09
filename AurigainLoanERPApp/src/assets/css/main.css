@@ -3531,6 +3531,7 @@ li.menu span.shape2 {
     font-size: 20px;
     margin-right: 10px;
     color: #000;
+    text-transform: capitalize;
 }
 
 table tbody tr:nth-of-type(odd) .table-data-name span {
