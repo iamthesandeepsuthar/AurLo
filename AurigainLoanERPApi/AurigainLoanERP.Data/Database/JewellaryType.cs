@@ -9,6 +9,11 @@ namespace AurigainLoanERP.Data.Database
 {
     public partial class JewellaryType
     {
+        public JewellaryType()
+        {
+            BtgoldLoanLeadJewelleryDetail = new HashSet<BtgoldLoanLeadJewelleryDetail>();
+        }
+
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
@@ -17,5 +22,7 @@ namespace AurigainLoanERP.Data.Database
         public DateTime CreatedOn { get; set; }
         public DateTime? ModifiedOn { get; set; }
         public long? CreatedBy { get; set; }
+
+        public virtual ICollection<BtgoldLoanLeadJewelleryDetail> BtgoldLoanLeadJewelleryDetail { get; set; }
     }
 }

@@ -11,6 +11,8 @@ namespace AurigainLoanERP.Data.Database
     {
         public DocumentType()
         {
+            BtgoldLoanLeadKycdetailPoadocumentType = new HashSet<BtgoldLoanLeadKycdetail>();
+            BtgoldLoanLeadKycdetailPoidocumentType = new HashSet<BtgoldLoanLeadKycdetail>();
             GoldLoanFreshLeadKycDocument = new HashSet<GoldLoanFreshLeadKycDocument>();
             UserDocument = new HashSet<UserDocument>();
             UserKyc = new HashSet<UserKyc>();
@@ -27,6 +29,8 @@ namespace AurigainLoanERP.Data.Database
         public DateTime CreatedOn { get; set; }
         public DateTime? ModifiedOn { get; set; }
 
+        public virtual ICollection<BtgoldLoanLeadKycdetail> BtgoldLoanLeadKycdetailPoadocumentType { get; set; }
+        public virtual ICollection<BtgoldLoanLeadKycdetail> BtgoldLoanLeadKycdetailPoidocumentType { get; set; }
         public virtual ICollection<GoldLoanFreshLeadKycDocument> GoldLoanFreshLeadKycDocument { get; set; }
         public virtual ICollection<UserDocument> UserDocument { get; set; }
         public virtual ICollection<UserKyc> UserKyc { get; set; }
