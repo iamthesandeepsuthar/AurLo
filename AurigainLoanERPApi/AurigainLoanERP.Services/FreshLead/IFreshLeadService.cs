@@ -11,9 +11,10 @@ namespace AurigainLoanERP.Services.FreshLead
     {
         #region  <<Gold Loan>>
         Task<ApiServiceResponseModel<string>> SaveGoldLoanFreshLeadAsync(GoldLoanFreshLeadModel model);
+        Task<ApiServiceResponseModel<List<GoldLoanFreshLeadListModel>>> GoldLoanFreshLeadListAsync(IndexModel model);
         #endregion
         #region <<Other Lead>>
-
+        Task<ApiServiceResponseModel<string>> SaveFreshLeadHLCLPLAsync(FreshLeadHLPLCLModel model);
         #endregion
     }
 }

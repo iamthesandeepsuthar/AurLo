@@ -6,8 +6,8 @@ import { ListCustomerComponent } from './list-customer/list-customer.component';
 
 const routes: Routes = [
   {
-    path: `${Routing_Url.DoorStepAgentListUrl}`, component: ListCustomerComponent, canActivate: [AuthenticationGuard]
-  },
+    path: `${Routing_Url.Customer_List_Url}`, component: ListCustomerComponent, canActivate: [AuthenticationGuard]
+  },  
 ];
 
 @NgModule({

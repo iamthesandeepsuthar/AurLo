@@ -70,6 +70,5 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
         }
 
 
-   
     }
 }
