@@ -9,7 +9,7 @@ import { KycDocumentTypeService } from 'src/app/Shared/Services/master-services/
   selector: 'app-add-update-document-type',
   templateUrl: './add-update-document-type.component.html',
   styleUrls: ['./add-update-document-type.component.scss'],
-  providers:[KycDocumentTypeService]
+  providers: [KycDocumentTypeService]
 })
 export class AddUpdateDocumentTypeComponent implements OnInit {
   Id: number = 0;
@@ -17,21 +17,21 @@ export class AddUpdateDocumentTypeComponent implements OnInit {
   documentTypeForm!: FormGroup;
   get routing_Url() { return Routing_Url }
   get f() { return this.documentTypeForm.controls; }
-  get Model(): DocumentTypeModel{  return this.model; }
+  get Model(): DocumentTypeModel { return this.model; }
 
   constructor(private readonly fb: FormBuilder,
-              private readonly _documentTypeService: KycDocumentTypeService,
-              private _activatedRoute: ActivatedRoute,
-              private _router: Router,
-              private readonly toast: ToastrService) {
+    private readonly _documentTypeService: KycDocumentTypeService,
+    private _activatedRoute: ActivatedRoute,
+    private _router: Router,
+    private readonly toast: ToastrService) {
 
-                if(this.Id == 0) { this.model.IsNumeric = false; }
-   if (this._activatedRoute.snapshot.params.id) {
-    this.Id = this._activatedRoute.snapshot.params.id;
+    if (this.Id == 0) { this.model.IsNumeric = false; }
+    if (this._activatedRoute.snapshot.params.id) {
+      this.Id = this._activatedRoute.snapshot.params.id;
+    }
   }
-     }
 
-   ngOnInit(): void {
+  ngOnInit(): void {
     this.formInit();
     if (this.Id > 0) {
 
@@ -43,7 +43,9 @@ export class AddUpdateDocumentTypeComponent implements OnInit {
       Name: [undefined, Validators.required],
       IsActive: [true],
       IsNumeric: [false],
-      DocumentNumberLength: [undefined, Validators.required]
+      DocumentNumberLength: [undefined, Validators.required],
+      IsKyc: [false],
+      RequiredFileCount: [undefined, Validators.required]
     });
   }
   onGetDetail() {
@@ -51,9 +53,9 @@ export class AddUpdateDocumentTypeComponent implements OnInit {
     let subscription = this._documentTypeService.GetDocumentType(this.Id).subscribe(res => {
       subscription.unsubscribe();
       if (res.IsSuccess) {
-      this.model = res.Data as DocumentTypeModel;
+        this.model = res.Data as DocumentTypeModel;
       } else {
-    this.toast.warning('Record not found', 'No Record');
+        this.toast.warning('Record not found', 'No Record');
       }
     });
   }
@@ -62,9 +64,9 @@ export class AddUpdateDocumentTypeComponent implements OnInit {
     if (this.documentTypeForm.valid) {
       let subscription = this._documentTypeService.AddUpdateDocumentType(this.Model).subscribe(response => {
         subscription.unsubscribe();
-        if(response.IsSuccess) {
-         this.toast.success( this.Id ==0 ?'Record save successful' : 'Record update successful' , 'Success');
-         this._router.navigate([this.routing_Url.AdminModule+'/'+this.routing_Url.MasterModule + this.routing_Url.Kyc_Document_Type_List_Url]);
+        if (response.IsSuccess) {
+          this.toast.success(this.Id == 0 ? 'Record save successful' : 'Record update successful', 'Success');
+          this._router.navigate([this.routing_Url.AdminModule + '/' + this.routing_Url.MasterModule + this.routing_Url.Kyc_Document_Type_List_Url]);
         } else {
           this.toast.error(response.Message?.toString(), 'Error');
         }

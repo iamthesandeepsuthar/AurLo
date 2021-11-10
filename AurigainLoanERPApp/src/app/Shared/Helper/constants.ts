@@ -80,6 +80,8 @@ export class API_Url {
 
   //#endregion
 
+
+
   //#region << Agent>>
   public static AgentListApi = `${environment.apiEndPoint}Agent/Get`;
   public static AgentAddUpdateApi = `${environment.apiEndPoint}Agent/AddUpdate`;
@@ -98,6 +100,8 @@ export class API_Url {
   public static GetUserAvailableAreaApi = `${environment.apiEndPoint}UserSetting/GetUserAvailableAreaForRolebyPinCode/`;
   public static SetUserAvailabilityApi = `${environment.apiEndPoint}UserSetting/SetUserAvailibilty`;
   public static GetUserAvailibiltyListApi = `${environment.apiEndPoint}UserSetting/GetUserAvailibiltyList/`;
+  public static DeleteDocumentFileApi = `${environment.apiEndPoint}UserSetting/DeleteDocumentFile/`;
+
 
   //#endregion
 

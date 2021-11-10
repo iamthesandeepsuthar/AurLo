@@ -18,6 +18,7 @@ import { UserSettingPostModel } from "src/app/Shared/Model/User-setting-model/us
 import { FileInfo } from '../../../../Common/file-selector/file-selector.component';
 import { UserSecurityDepositComponent } from '../../../../../Shared/Helper/shared/UserRegistration/user-security-deposit/user-security-deposit.component';
 import { UserRoleEnum } from '../../../../../Shared/Enum/fixed-value';
+import { UserKYCDocumentDetailComponent } from '../../../../../Shared/Helper/shared/UserRegistration/user-kycdocument-detail/user-kycdocument-detail.component';
 
 
 @Component({
@@ -26,7 +27,7 @@ import { UserRoleEnum } from '../../../../../Shared/Enum/fixed-value';
   styleUrls: ['./door-step-agent-registration.component.scss'],
   providers: [DoorStepAgentService, UserSettingService]
 })
-export class DoorStepAgentRegistrationComponent implements OnInit,AfterContentChecked {
+export class DoorStepAgentRegistrationComponent implements OnInit, AfterContentChecked {
   Id: number = 0;
   model = new DoorStepAgentPostModel();
   profileModel = {} as UserSettingPostModel;
@@ -48,8 +49,9 @@ export class DoorStepAgentRegistrationComponent implements OnInit,AfterContentCh
   @ViewChild(UserKYCDetailSectionComponent, { static: false }) _childUserKYCDetailSection!: UserKYCDetailSectionComponent;
   @ViewChild(UserNomineeDetailSectionComponent, { static: false }) _childUserNomineeDetailSection!: UserNomineeDetailSectionComponent;
   @ViewChild(UserSecurityDepositComponent, { static: false }) _childUserSecurityDepositSection!: UserSecurityDepositComponent;
+  @ViewChild(UserKYCDocumentDetailComponent, { static: false }) _childUserKYCDocumentSection!: UserKYCDocumentDetailComponent;
 
-  constructor(private cdr: ChangeDetectorRef,private readonly _alertService: AlertService, private readonly fb: FormBuilder,
+  constructor(private cdr: ChangeDetectorRef, private readonly _alertService: AlertService, private readonly fb: FormBuilder,
     private readonly _userDoorStepService: DoorStepAgentService, private _activatedRoute: ActivatedRoute, private _router: Router,
     readonly _commonService: CommonService, private readonly _toast: ToastrService, private readonly _userSettingService: UserSettingService) {
     if (this._activatedRoute.snapshot.params.id) {
@@ -121,9 +123,12 @@ export class DoorStepAgentRegistrationComponent implements OnInit,AfterContentCh
     let ChildValid: boolean = this.submitChildData();
     if (this.formGroup.valid && ChildValid) {
 
-      this.model.User.UserName = this.model.User.UserName ? this.model.User.UserName : this.model.User.Email;
-      this.model.User.UserRoleId = this.model.User.UserRoleId ? this.model.User.UserRoleId : UserRoleEnum.DoorStepAgent;
-      this.model.User.IsApproved = false;
+      if (!this.model.Id || this.model.Id == 0) {
+        this.model.User.IsApproved = false;
+        this.model.User.UserRoleId = this.model.User.UserRoleId ? this.model.User.UserRoleId : UserRoleEnum.DoorStepAgent;
+        this.model.User.UserName = this.model.User.UserName ? this.model.User.UserName : this.model.User.Email;
+
+      }
       this.model.SelfFunded = Boolean(this.model.SelfFunded);
 
       let serv = this._userDoorStepService.AddUpdateDoorStepAgent(this.model).subscribe(res => {
@@ -147,6 +152,7 @@ export class DoorStepAgentRegistrationComponent implements OnInit,AfterContentCh
     this.formGroup.reset();
   }
   submitChildData(): boolean {
+
     let isValid = true;
     if (this._childUserBankDetailSection) {
       this._childUserBankDetailSection.formGroup.markAllAsTouched();
@@ -163,35 +169,54 @@ export class DoorStepAgentRegistrationComponent implements OnInit,AfterContentCh
     if (this._childUserSecurityDepositSection) {
       this._childUserSecurityDepositSection.formGroup.markAllAsTouched();
     }
+    if (this._childUserKYCDocumentSection) {
+      this._childUserKYCDocumentSection.frmGroup.markAllAsTouched();
+    }
+
 
 
     if (this._childUserBankDetailSection && this._childUserBankDetailSection.formGroup.valid) {
       this._childUserBankDetailSection.onFrmSubmit();
-    } else {
-      isValid = false;
-    }
-    if (isValid && this._childUserDocumentDetailSection && this._childUserDocumentDetailSection.formGroup.valid) {
-      this._childUserDocumentDetailSection.onFrmSubmit();
-    } else {
-      isValid = false;
-    }
-    if (isValid && this._childUserKYCDetailSection && this._childUserKYCDetailSection.formGroup.valid) {
-      this._childUserKYCDetailSection.onFrmSubmit();
-    } else {
+    } else if (isValid && this._childUserBankDetailSection && !this._childUserBankDetailSection.formGroup.valid) {
       isValid = false;
     }
 
-    // if (isValid && this._childUserSecurityDepositSection && this._childUserSecurityDepositSection.formGroup.valid) {
-    //   this._childUserSecurityDepositSection.onFrmSubmit();
-    // } else {
-    //   isValid = false;
-    // }
+    if (isValid && this._childUserDocumentDetailSection && this._childUserDocumentDetailSection.formGroup.valid) {
+      this._childUserDocumentDetailSection.onFrmSubmit();
+    }
+    else if (isValid && this._childUserDocumentDetailSection && !this._childUserDocumentDetailSection.formGroup.valid) {
+      isValid = false;
+    }
+
+    if (isValid && this._childUserKYCDetailSection && this._childUserKYCDetailSection.formGroup.valid) {
+      this._childUserKYCDetailSection.onFrmSubmit();
+    }
+    else if (isValid && this._childUserKYCDetailSection && !this._childUserKYCDetailSection.formGroup.valid) {
+      isValid = false;
+    }
+
+    if (isValid && this._childUserSecurityDepositSection && this._childUserSecurityDepositSection.formGroup.valid) {
+      this._childUserSecurityDepositSection.onFrmSubmit();
+    }
+    else if (isValid && this._childUserSecurityDepositSection && !this._childUserSecurityDepositSection.formGroup.valid) {
+      isValid = false;
+    }
 
     if (isValid && this._childUserNomineeDetailSection && this._childUserNomineeDetailSection.formGroup.valid) {
       this._childUserNomineeDetailSection.onFrmSubmit();
-    } else {
+    }
+    else if (isValid && this._childUserNomineeDetailSection && !this._childUserNomineeDetailSection.formGroup.valid) {
       isValid = false;
     }
+
+    if (isValid && this._childUserKYCDocumentSection && this._childUserKYCDocumentSection.frmGroup.valid) {
+      this._childUserKYCDocumentSection.onFrmSubmit();
+    }
+    else if (isValid && this._childUserKYCDocumentSection && !this._childUserKYCDocumentSection.frmGroup.valid) {
+      isValid = false;
+    }
+
+
 
     return isValid;
   }
@@ -245,7 +270,7 @@ export class DoorStepAgentRegistrationComponent implements OnInit,AfterContentCh
         if (res.IsSuccess) {
           let data = res.Data as DoorStepAgentViewModel;
           if (data) {
-            debugger
+
             this.model.Id = data?.Id;
             this.model.FullName = data?.FullName;
             this.model.FatherName = data?.FatherName;
@@ -289,6 +314,8 @@ export class DoorStepAgentRegistrationComponent implements OnInit,AfterContentCh
                 } as UserKYCPostModel;
 
               });
+              this.model.UserKYC = this.model.UserKYC.sort(x => x.KycdocumentTypeId);
+
             }
 
             if (data?.UserNominee) {

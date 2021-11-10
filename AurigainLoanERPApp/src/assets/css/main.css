@@ -3092,7 +3092,7 @@ td.table-action-btn button {
 }
 
 .form-grp-w-border h2 {
-    margin-top: -33px;
+    margin-top: -33px !important;
     background: #ffffff;
     width: -webkit-max-content;
     width: max-content;
@@ -3106,7 +3106,7 @@ td.table-action-btn button {
     display: flex;
     align-items: center;
     border: solid 2px #ff8400;
-    font-weight: 600;
+    font-weight: 600 !important;
 }
 
 .form-grp-w-border h2 img {
@@ -3531,6 +3531,7 @@ li.menu span.shape2 {
     font-size: 20px;
     margin-right: 10px;
     color: #000;
+    text-transform: capitalize;
 }
 
 table tbody tr:nth-of-type(odd) .table-data-name span {
@@ -4028,7 +4029,7 @@ table.table.table-striped.dataTable.table-header.table-blue tbody tr:nth-of-type
 }
 
 .reg-steper .mat-step-text-label {
-    font-size: 22px;
+    font-size: 23px;
 }
 
 .reg-steper .mat-step-icon {
@@ -4068,6 +4069,16 @@ table.table.table-striped.dataTable.table-header.table-blue tbody tr:nth-of-type
     background-size: 48px;
 }
 
+.gold-loan-steper .mat-step:nth-child(3) mat-step-header .mat-step-icon {
+    background: #f3f3f3 url(../img/jewellery.png) no-repeat center center;
+    background-size: 48px;
+}
+
+.gold-loan-steper .mat-step:nth-child(4) mat-step-header .mat-step-icon {
+    background: #f3f3f3 url(../img/appointment.png) no-repeat center center;
+    background-size: 40px;
+}
+
 .reg-steper .mat-step-icon.mat-step-icon-state-edit {
     background: #3fb744 !important;
 }
@@ -4078,6 +4089,46 @@ table.table.table-striped.dataTable.table-header.table-blue tbody tr:nth-of-type
 
 table {
     font-family: 'Nunito', sans-serif !important;
+}
+
+.rounded-pills-icon .nav-pills li a {
+    width: 140px !important;
+}
+
+.rounded-tab-icon .nav-link {
+    font-size: 20px;
+    color: #000;
+    padding: 10px 25px;
+}
+
+.rounded-tab-icon .nav-link img {
+    max-width: 55px;
+    margin-right: 5px;
+}
+
+.nav-tabs .nav-link:hover {
+    border-color: transparent !important;
+}
+
+.nav-tabs .nav-link.active:hover {
+    border-top-color: #e0e6ed !important;
+    border-right-color: #e0e6ed !important;
+    border-left-color: #e0e6ed !important;
+}
+
+.rounded-tab-icon .nav-tabs .nav-link {
+    border-radius: 20px 20px 0px 0px;
+    margin: 0px 15px;
+}
+
+.rounded-tab-icon .nav-tabs .nav-link.active {
+    background: #002767;
+    color: #fff;
+}
+
+.gold-loan-steper .step-grp-content {
+    background: #efefef;
+    margin-top: 0px;
 }
 
 

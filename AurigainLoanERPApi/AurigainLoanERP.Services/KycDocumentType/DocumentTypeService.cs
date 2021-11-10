@@ -59,7 +59,9 @@ namespace AurigainLoanERP.Services.KycDocumentType
                     Id = x.Id,
                     Name = x.DocumentName,
                     IsNumeric = x.IsNumeric,
-                    DocumentNumberLength = x.DocumentNumberLength?? null
+                    DocumentNumberLength = x.DocumentNumberLength?? null,
+                    IsKyc = x.IsKyc,
+                    RequiredFileCount = x.RequiredFileCount  
                 }).ToListAsync();
 
                 if (types.Count > 0)
@@ -130,6 +132,8 @@ namespace AurigainLoanERP.Services.KycDocumentType
                     type.IsActive = model.IsActive;
                     type.IsNumeric = model.IsNumeric;
                     type.DocumentNumberLength = model.DocumentNumberLength;
+                    type.IsKyc = model.IsKyc;
+                    type.RequiredFileCount = model.RequiredFileCount;
                     type.ModifiedOn = DateTime.Now;
 
                 }

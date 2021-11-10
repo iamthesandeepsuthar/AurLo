@@ -14,6 +14,8 @@ namespace AurigainLoanERP.Shared.ContractModel
         public bool? IsActive { get; set; }
         public bool IsDelete { get; set; }
         public bool IsNumeric { get; set; }
+        public bool IsKyc { get; set; }
+        public int RequiredFileCount { get; set; }
         public DateTime CreatedOn { get; set; }
         public DateTime? ModifiedOn { get; set; }
         public int? DocumentNumberLength { get; set;}
@@ -28,6 +30,8 @@ namespace AurigainLoanERP.Shared.ContractModel
         public string Name { get; set; }
         public bool IsNumeric { get; set; }
         public int? DocumentNumberLength { get; set; }
+        public bool IsKyc { get; set; }
+        public int RequiredFileCount { get; set; }
     }
 
 

@@ -7,6 +7,7 @@
       <div class="form-group col-md-4">
         <label>Aadhaar Card Picture</label>
         <input type="hidden" name="AadhaarCard" [(ngModel)]="TotalAdharDoc" formControlName="AadhaarCard">
+
         <app-file-selector (FilesChanged)="onDocumentAttach(docTypeEnum.AadhaarCard, $event,false)"
           [ngClass]="{ 'is-invalid': f.AadhaarCard?.errors && f.AadhaarCard?.touched}"
           [CurrentFileLength]="TotalAdharDoc??0" [MaxFileLength]="2">

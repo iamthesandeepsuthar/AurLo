@@ -60,7 +60,8 @@
                             "src/assets/css/authentication/form-1.css",
                             "src/assets/css/authentication/form-2.css",
                             "src/assets/css/forms/switches.css",
-                            "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css"
+                            "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+                            "src/assets/css/components/tabs-accordian/custom-tabs.css"
 
 
                         ],
@@ -173,7 +174,8 @@
                             "src/assets/css/authentication/form-1.css",
                             "src/assets/css/authentication/form-2.css",
                             "src/assets/css/forms/switches.css",
-                            "node_modules/ngx-bootstrap/datepicker/bs-datepicker.css"
+                            "node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
+                            "src/assets/css/components/tabs-accordian/custom-tabs.css"
                         ],
                         "scripts": [
                             "src/assets/js/libs/jquery-3.1.1.min.js",

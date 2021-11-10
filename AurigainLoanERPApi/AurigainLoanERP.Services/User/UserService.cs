@@ -24,12 +24,16 @@ namespace AurigainLoanERP.Services.User
         private AurigainContext _db;
         private readonly Security _security;
         private readonly FileHelper _fileHelper;
+        private readonly EmailHelper _emailHelper;
+
         public UserService(IMapper mapper, AurigainContext db, IConfiguration _configuration, IHostingEnvironment environment)
         {
             this._mapper = mapper;
             _db = db;
             _security = new Security(_configuration);
             _fileHelper = new FileHelper(environment);
+            _emailHelper = new EmailHelper(_configuration, environment);
+
 
         }
 
@@ -253,7 +257,7 @@ namespace AurigainLoanERP.Services.User
                         }
                         if (objAgent.User.UserDocument != null)
                         {
-                            var docs = objAgent.User.UserDocument.Where(x => x.IsActive == true && !x.IsDelete && _db.UserDocumentFiles.Count(y=> y.DocumentId==x.Id && y.IsActive.Value && !y.IsDelete)>0);
+                            var docs = objAgent.User.UserDocument.Where(x => x.IsActive == true && !x.IsDelete && _db.UserDocumentFiles.Count(y => y.DocumentId == x.Id && y.IsActive.Value && !y.IsDelete) > 0);
 
                             foreach (var item in docs)
                             {
@@ -531,7 +535,7 @@ namespace AurigainLoanERP.Services.User
                         {
 
 
-                            objDoorStepAgentModel.UserKYC = objDoorStepAgent.User.UserKyc.Select(x => new UserKycViewModel
+                            objDoorStepAgentModel.UserKYC = objDoorStepAgent.User.UserKyc.OrderBy(x => x.KycdocumentTypeId).Select(x => new UserKycViewModel
                             {
 
                                 Id = x.Id,
@@ -549,7 +553,7 @@ namespace AurigainLoanERP.Services.User
                         }
                         if (objDoorStepAgent.User.UserDocument != null)
                         {
-                            var docs = objDoorStepAgent.User.UserDocument.Where(x => x.IsActive == true && !x.IsDelete);
+                            var docs = objDoorStepAgent.User.UserDocument.Where(x => x.IsActive == true && !x.IsDelete).OrderBy(x => x.DocumentTypeId);
                             foreach (var item in docs)
                             {
                                 //  objDoorStepAgentModel.Documents.Add(_mapper.Map<UserDocumentViewModel>(item.value));
@@ -831,7 +835,7 @@ namespace AurigainLoanERP.Services.User
                             break;
 
                         case (int)UserRoleEnum.Supervisor:
-                            var supervisorUser =await _db.Managers.Where(x => x.UserId == id).FirstOrDefaultAsync();
+                            var supervisorUser = await _db.Managers.Where(x => x.UserId == id).FirstOrDefaultAsync();
                             supervisorUser.IsActive = !supervisorUser.IsActive;
                             break;
                     }
@@ -1000,6 +1004,14 @@ namespace AurigainLoanERP.Services.User
                 user.ModifiedOn = DateTime.Now;
                 await _db.SaveChangesAsync();
                 _db.Database.CommitTransaction();
+
+                if (user.IsApproved)
+                {
+                    Dictionary<string, string> replaceValues = new Dictionary<string, string>();
+                    replaceValues.Add("{{UserName}}", user.UserName);
+                    await _emailHelper.SendHTMLBodyMail(user.Email, "Aurigain: approval Notification", EmailPathConstant.UserApproveTemplate, replaceValues);
+                }
+
                 return CreateResponse(true as object, ResponseMessage.Update, true, ((int)ApiStatusCode.Ok));
             }
             catch (Exception ex)
@@ -1022,9 +1034,7 @@ namespace AurigainLoanERP.Services.User
                     _fileHelper.Delete(Path.Combine(objFileModel.Path, objFileModel.FileName));
                     _db.UserDocumentFiles.Remove(objFileModel);
                     await _db.SaveChangesAsync();
-                }
-
-
+                } 
                 _db.Database.CommitTransaction();
                 return CreateResponse(true as object, ResponseMessage.Update, true, ((int)ApiStatusCode.Ok));
             }
@@ -1229,7 +1239,6 @@ namespace AurigainLoanERP.Services.User
                     objModel.PinCode = model.PinCode;
                     objModel.SelfFunded = model.SelfFunded;
                     objModel.IsActive = true;
-
                     objModel.QualificationId = model.QualificationId;
                     var result = await _db.UserDoorStepAgent.AddAsync(objModel);
                     await _db.SaveChangesAsync();
@@ -1294,7 +1303,7 @@ namespace AurigainLoanERP.Services.User
 
                         documentId = objDocment.Id;
                     }
-
+                    string fileSavePath = string.Concat(FilePathConstant.UserDocsFile, userId, "\\");
 
                     foreach (var fileitem in item.Files)
                     {
@@ -1321,8 +1330,8 @@ namespace AurigainLoanERP.Services.User
                             else
                             {
                                 objFileModel.DocumentId = documentId;
-                                objFileModel.FileName = _fileHelper.Save(fileitem.File, FilePathConstant.UserAgentFile, fileitem.FileName);
-                                objFileModel.Path = Path.Combine(FilePathConstant.UserAgentFile, objFileModel.FileName);
+                                objFileModel.FileName = _fileHelper.Save(fileitem.File, fileSavePath, fileitem.FileName);
+                                objFileModel.Path = Path.Combine(fileSavePath, objFileModel.FileName);
                                 objFileModel.FileType = _fileHelper.GetFileExtension(objFileModel.FileName); //fileitem.File.ContentType;
                             }
 
@@ -1335,8 +1344,8 @@ namespace AurigainLoanERP.Services.User
                             {
                                 var objFileModel = new UserDocumentFiles();
                                 objFileModel.DocumentId = documentId;
-                                objFileModel.FileName = _fileHelper.Save(fileitem.File, FilePathConstant.UserAgentFile, fileitem.FileName);
-                                objFileModel.Path = Path.Combine(FilePathConstant.UserAgentFile, objFileModel.FileName);
+                                objFileModel.FileName = _fileHelper.Save(fileitem.File, fileSavePath, fileitem.FileName);
+                                objFileModel.Path = Path.Combine(fileSavePath, objFileModel.FileName);
 
                                 objFileModel.FileType = _fileHelper.GetFileExtension(fileitem.File); //fileitem.File.ContentType;
                                 await _db.UserDocumentFiles.AddAsync(objFileModel);

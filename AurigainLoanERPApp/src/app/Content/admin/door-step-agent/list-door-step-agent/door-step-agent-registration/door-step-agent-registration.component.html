@@ -250,13 +250,16 @@
 </app-user-nominee-detail-section>
 <app-user-bank-detail-section [bankModel]="model.BankDetails" (onSubmit)="model.BankDetails=$event">
 </app-user-bank-detail-section>
-<app-user-kycdetail-section [kycModel]="model.UserKYC" (onSubmit)="model.UserKYC=$event">
-</app-user-kycdetail-section>
+<!-- <app-user-kycdetail-section [kycModel]="model.UserKYC" (onSubmit)="model.UserKYC=$event">
+</app-user-kycdetail-section> -->
 <!-- <app-user-security-deposit [userSecurity]="model.SecurityDeposit" (onSubmit)="model.SecurityDeposit=$event">
 </app-user-security-deposit> -->
-
+<!--
 <app-user-document-detail-section [documentModel]="model.Documents" (onSubmit)="bindDocs($event)">
-</app-user-document-detail-section>
+</app-user-document-detail-section> -->
+
+<app-user-kycdocument-detail [documentModel]="model.Documents" (onKYCSubmit)="model.UserKYC=$event"
+  (onDocSubmit)="bindDocs($event)" [kycModel]="model.UserKYC"></app-user-kycdocument-detail>
 
 <div class="form-footer-btn-grp mt-3 mb-3 widget-content widget-content p-3 text-center">
   <button type="submit" class="btn btn-success mr-3" (click)="onFrmSubmit()"> <i class="fas fa-check mr-1"></i> Save

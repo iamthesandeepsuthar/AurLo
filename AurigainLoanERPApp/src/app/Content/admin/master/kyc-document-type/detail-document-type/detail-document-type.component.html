@@ -36,6 +36,16 @@
         <label>Is Numeric (Alpha Numeric Value)</label>
         <label>{{model.IsNumeric ? 'Yes': 'No'}}</label>
     </div>
+
+    <div class="form-group col-md-4">
+      <label>Attachment File Count</label>
+      <label>{{model.RequiredFileCount}}</label>
+  </div>
+    <div class="form-group col-md-4">
+      <label>Applicable for KYC</label>
+      <label>{{model.IsKyc ? 'Yes': 'No'}}</label>
+  </div>
+
       <div class="form-group col-md-4">
           <label>Is Active (status)</label>
           <label>{{model.IsActive ? 'Yes': 'No'}}</label>

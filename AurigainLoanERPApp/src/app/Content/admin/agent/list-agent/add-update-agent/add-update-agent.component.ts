@@ -8,6 +8,7 @@ import { DropDown_key, Routing_Url, Message } from "src/app/Shared/Helper/consta
 import { UserBankDetailSectionComponent } from "src/app/Shared/Helper/shared/UserRegistration/user-bank-detail-section/user-bank-detail-section.component";
 import { UserDocumentDetailSectionComponent } from "src/app/Shared/Helper/shared/UserRegistration/user-document-detail-section/user-document-detail-section.component";
 import { UserKYCDetailSectionComponent } from "src/app/Shared/Helper/shared/UserRegistration/user-kycdetail-section/user-kycdetail-section.component";
+import { UserKYCDocumentDetailComponent } from "src/app/Shared/Helper/shared/UserRegistration/user-kycdocument-detail/user-kycdocument-detail.component";
 import { UserNomineeDetailSectionComponent } from "src/app/Shared/Helper/shared/UserRegistration/user-nominee-detail-section/user-nominee-detail-section.component";
 import { UserSecurityDepositComponent } from "src/app/Shared/Helper/shared/UserRegistration/user-security-deposit/user-security-deposit.component";
 import { AgentPostModel, AgentViewModel } from "src/app/Shared/Model/Agent/agent.model";
@@ -49,6 +50,8 @@ export class AddUpdateAgentComponent implements OnInit,AfterContentChecked {
   @ViewChild(UserKYCDetailSectionComponent, { static: false }) _childUserKYCDetailSection!: UserKYCDetailSectionComponent;
   @ViewChild(UserNomineeDetailSectionComponent, { static: false }) _childUserNomineeDetailSection!: UserNomineeDetailSectionComponent;
   @ViewChild(UserSecurityDepositComponent, { static: false }) _childUserSecurityDepositSection!: UserSecurityDepositComponent;
+  @ViewChild(UserKYCDocumentDetailComponent, { static: false }) _childUserKYCDocumentSection!: UserKYCDocumentDetailComponent;
+
   //#endregion
 
   constructor(private cdr: ChangeDetectorRef,private readonly _alertService: AlertService, private readonly fb: FormBuilder,
@@ -116,9 +119,14 @@ export class AddUpdateAgentComponent implements OnInit,AfterContentChecked {
     let ChildValid: boolean = this.submitChildData();
     if (this.formGroup.valid && ChildValid) {
 
-      this.model.User.UserName = this.model.User.UserName ? this.model.User.UserName : this.model.User.Email;
-      this.model.User.UserRoleId = this.model.User.UserRoleId ? this.model.User.UserRoleId : UserRoleEnum.Agent;
-      this.model.User.IsApproved = false;
+
+      if (!this.model.Id || this.model.Id == 0) {
+        this.model.User.IsApproved = false;
+        this.model.User.UserRoleId = this.model.User.UserRoleId ? this.model.User.UserRoleId : UserRoleEnum.DoorStepAgent;
+        this.model.User.UserName = this.model.User.UserName ? this.model.User.UserName : this.model.User.Email;
+
+      }
+
       // this.model.SelfFunded = Boolean(this.model.SelfFunded);
       debugger;
       let serv = this._userAgentService.AddUpdateDoorStepAgent(this.model).subscribe(res => {
@@ -153,40 +161,54 @@ export class AddUpdateAgentComponent implements OnInit,AfterContentChecked {
     if (this._childUserSecurityDepositSection) {
       this._childUserSecurityDepositSection.formGroup.markAllAsTouched();
     }
+    if (this._childUserKYCDocumentSection) {
+      this._childUserKYCDocumentSection.frmGroup.markAllAsTouched();
+    }
 
-debugger
     if (this._childUserBankDetailSection && this._childUserBankDetailSection.formGroup.valid) {
       this._childUserBankDetailSection.onFrmSubmit();
-    } else {
-      isValid = false;
-    }
-    if (isValid && this._childUserDocumentDetailSection && this._childUserDocumentDetailSection.formGroup.valid) {
-      this._childUserDocumentDetailSection.onFrmSubmit();
-    } else {
-      isValid = false;
-    }
-    if (isValid && this._childUserKYCDetailSection && this._childUserKYCDetailSection.formGroup.valid) {
-      this._childUserKYCDetailSection.onFrmSubmit();
-    } else {
+    } else if (isValid && this._childUserBankDetailSection && !this._childUserBankDetailSection.formGroup.valid) {
       isValid = false;
     }
 
-    // if (isValid && this._childUserSecurityDepositSection && this._childUserSecurityDepositSection.formGroup.valid) {
-    //   this._childUserSecurityDepositSection.onFrmSubmit();
-    // } else {
-    //   isValid = false;
-    // }
+    if (isValid && this._childUserDocumentDetailSection && this._childUserDocumentDetailSection.formGroup.valid) {
+      this._childUserDocumentDetailSection.onFrmSubmit();
+    }
+    else if (isValid && this._childUserDocumentDetailSection && !this._childUserDocumentDetailSection.formGroup.valid) {
+      isValid = false;
+    }
+
+    if (isValid && this._childUserKYCDetailSection && this._childUserKYCDetailSection.formGroup.valid) {
+      this._childUserKYCDetailSection.onFrmSubmit();
+    }
+    else if (isValid && this._childUserKYCDetailSection && !this._childUserKYCDetailSection.formGroup.valid) {
+      isValid = false;
+    }
+
+    if (isValid && this._childUserSecurityDepositSection && this._childUserSecurityDepositSection.formGroup.valid) {
+      this._childUserSecurityDepositSection.onFrmSubmit();
+    }
+    else if (isValid && this._childUserSecurityDepositSection && !this._childUserSecurityDepositSection.formGroup.valid) {
+      isValid = false;
+    }
 
     if (isValid && this._childUserNomineeDetailSection && this._childUserNomineeDetailSection.formGroup.valid) {
       this._childUserNomineeDetailSection.onFrmSubmit();
-    } else {
+    }
+    else if (isValid && this._childUserNomineeDetailSection && !this._childUserNomineeDetailSection.formGroup.valid) {
+      isValid = false;
+    }
+
+    if (isValid && this._childUserKYCDocumentSection && this._childUserKYCDocumentSection.frmGroup.valid) {
+      this._childUserKYCDocumentSection.onFrmSubmit();
+    }
+    else if (isValid && this._childUserKYCDocumentSection && !this._childUserKYCDocumentSection.frmGroup.valid) {
       isValid = false;
     }
 
     return isValid;
   }
   bindDocs(docs: DocumentPostModel[]) {
-
     this.model.Documents = docs;
   }
   formInit() {
@@ -223,7 +245,6 @@ debugger
             this.model.Address = data?.Address;
             this.model.DistrictId = data?.DistrictId;
             this.model.StateId = data?.StateId;
-
             this.model.PinCode = data?.PinCode;
             this.model.DateOfBirth = data?.DateOfBirth;
             this.previewUrl = data?.User.ProfilePath;
