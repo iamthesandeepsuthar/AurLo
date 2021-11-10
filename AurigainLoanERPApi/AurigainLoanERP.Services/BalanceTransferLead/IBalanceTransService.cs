@@ -4,7 +4,7 @@ using System.Text;
 
 namespace AurigainLoanERP.Services.BalanceTransferLead
 {
-    public interface IBalanceTransService
+   public interface IBalanceTransService
     {
     }
 }

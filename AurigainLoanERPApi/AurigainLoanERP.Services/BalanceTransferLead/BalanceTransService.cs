@@ -1,10 +1,14 @@
-﻿using System;
+﻿using AurigainLoanERP.Shared.ContractModel;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace AurigainLoanERP.Services.BalanceTransferLead
 {
-    public class BalanceTransService
+    public class BalanceTransService : IBalanceTransService
     {
+        BTGoldLoanLeadViewModel objbt = new BTGoldLoanLeadViewModel();
+    
+        
     }
 }
