@@ -3092,7 +3092,7 @@ td.table-action-btn button {
 }
 
 .form-grp-w-border h2 {
-    margin-top: -33px;
+    margin-top: -33px !important;
     background: #ffffff;
     width: -webkit-max-content;
     width: max-content;
@@ -3106,7 +3106,7 @@ td.table-action-btn button {
     display: flex;
     align-items: center;
     border: solid 2px #ff8400;
-    font-weight: 600;
+    font-weight: 600 !important;
 }
 
 .form-grp-w-border h2 img {
