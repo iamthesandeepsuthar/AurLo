@@ -1,6 +1,7 @@
 using AurigainLoanERP.Data.Database;
 using AurigainLoanERP.Services;
 using AurigainLoanERP.Services.Account;
+using AurigainLoanERP.Services.BalanceTransferLead;
 using AurigainLoanERP.Services.Bank;
 using AurigainLoanERP.Services.Common;
 using AurigainLoanERP.Services.Customer;
@@ -184,14 +185,16 @@ namespace AurigainLoanERP.Api
             services.AddTransient<IPaymentModeService, PaymentModeService>().Reverse();
             services.AddTransient<IAccountService, AccountService>().Reverse();
             services.AddTransient<IUserService, UserService>().Reverse();
-            services.AddTransient<IJewellaryTypeService, JewellaryTypeService>().Reverse();
-            services.AddTransient < AurigainLoanERP.Services.ProductCategory.IProductCategoriesService, AurigainLoanERP.Services.ProductCategory.ProductCategoriesService>().Reverse();
+            services.AddTransient<IJewellaryTypeService, JewellaryTypeService>().Reverse(); 
             services.AddTransient<IBankService, BankService>().Reverse();
             services.AddTransient<IBranchService, BranchService>().Reverse();
             services.AddTransient<IProductService, ProductService>().Reverse();
             services.AddTransient<IProductCategoriesService, ProductCategoriesService>().Reverse();
             services.AddTransient<IFreshLeadService, FreshLeadService>().Reverse();
-            services.AddTransient<ICustomerService, CustomerService>().Reverse();           
+            services.AddTransient<ICustomerService, CustomerService>().Reverse();
+            services.AddTransient<IBalanceTransService, BalanceTransService>().Reverse();
+
+            
         }
     }
 }

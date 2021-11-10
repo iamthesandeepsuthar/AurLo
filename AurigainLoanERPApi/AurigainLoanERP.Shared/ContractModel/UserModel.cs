@@ -291,7 +291,7 @@ namespace AurigainLoanERP.Shared.ContractModel
         public string SundayEt { get; set; }
         public int? Capacity { get; set; }
         public long? PincodeAreaId { get; set; }
-        public string PinCode {get; set;}
+        public string PinCode { get; set; }
         public string Area { get; set; }
         public bool? IsActive { get; set; }
         public bool IsDelete { get; set; }
@@ -355,16 +355,10 @@ namespace AurigainLoanERP.Shared.ContractModel
         public List<FilePostModel> Files { get; set; }
 
     }
-    public class FilePostModel
+    public class FilePostModel : FileModel
     {
         public long Id { get; set; }
-        public string FileName { get; set; }
-        public string File { get; set; }
-        public string FileType { get; set; }
-        /// <summary>
-        /// If Is Edit =true then Update file in database Document not blank, if ie edit = true and Document is blank then remove file
-        /// </summary>
-        public bool IsEditMode { get; set; }
+
 
     }
     public class AgentPostModel
@@ -470,7 +464,7 @@ namespace AurigainLoanERP.Shared.ContractModel
         public string SundayET { get; set; }
         public int? Capacity { get; set; }
         public long? PincodeAreaId { get; set; }
-       
+
     }
     #endregion
 

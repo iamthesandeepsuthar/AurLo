@@ -44,21 +44,21 @@ namespace AurigainLoanERP.Shared.ContractModel
         public long Id { get; set; }
         public int? BranchId { get; set; }
         public DateTime? AppointmentDate { get; set; }
-        public TimeSpan? AppointmentTime { get; set; }
+        public string AppointmentTime { get; set; }
     }
     public class BtGoldLoanLeadDocumentPostModel
     {
         public long Id { get; set; }
-        public string CustomerPhoto { get; set; }
-        public string KycDocumentPoi { get; set; }
-        public string KycDocumentPoa { get; set; }
-        public string BlankCheque1 { get; set; }
-        public string BlankCheque2 { get; set; }
-        public string LoanDocument { get; set; }
-        public string AggrementLastPage { get; set; }
-        public string PromissoryNote { get; set; }
-        public string AtmwithdrawalSlip { get; set; }
-        public string ForeClosureLetter { get; set; }
+        public FileModel? CustomerPhoto { get; set; }
+        public FileModel? KycDocumentPoi { get; set; }
+        public FileModel? KycDocumentPoa { get; set; }
+        public FileModel? BlankCheque1 { get; set; }
+        public FileModel? BlankCheque2 { get; set; }
+        public FileModel? LoanDocument { get; set; }
+        public FileModel? AggrementLastPage { get; set; }
+        public FileModel? PromissoryNote { get; set; }
+        public FileModel? AtmwithdrawalSlip { get; set; }
+        public FileModel? ForeClosureLetter { get; set; }
     }
 
     public class BtGoldLoanLeadExistingLoanPostModel
@@ -90,5 +90,18 @@ namespace AurigainLoanERP.Shared.ContractModel
         public string PoidocumentNumber { get; set; }
         public int PoadocumentTypeId { get; set; }
         public string PoadocumentNumber { get; set; }
+    }
+
+    public class FileModel
+    {
+       
+        public string FileName { get; set; }
+        public string File { get; set; }
+        public string FileType { get; set; }
+        /// <summary>
+        /// If Is Edit =true then Update file in database Document not blank, if ie edit = true and Document is blank then remove file
+        /// </summary>
+        public bool IsEditMode { get; set; }
+
     }
 }
