@@ -7,8 +7,8 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
 {
     public class BalanceTransService : IBalanceTransService
     {
-        BTGoldLoanLeadViewModel objbt = new BTGoldLoanLeadViewModel();
-    
+
         
+
     }
 }
