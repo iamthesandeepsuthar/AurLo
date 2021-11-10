@@ -156,6 +156,11 @@ export class API_Url {
  //#region <<Customer Registration>>
   public static Customer_Registration_Api = `${environment.apiEndPoint}Customer/RegisterCustomer/`;
  // #endregion
+
+
+ //#region  <<Gold Loan Fresh Lead >>
+  public static Gold_Loan_Fresh_Lead_List_Api = `${environment.apiEndPoint}GoldLoanFreshLead/ListGoldLoanFreshLeadAsync`;
+ //#endregion
 }
 
 export class Routing_Url {
@@ -165,7 +170,7 @@ export class Routing_Url {
   public static MasterModule = 'master';
   public static DoorStepModule = 'door-step-agent';
   public static AgentModule = 'agent';
-  public static CustomersModule = 'customers'; //for admin
+  public static CustomersModule = 'customer'; //for admin
 
   public static UserCustomerModule = 'user-customer'; //for login
 
@@ -216,6 +221,11 @@ export class Routing_Url {
   public static DoorStepAgenDetailUrl = 'detail';
   public static DoorStepAgentAvailibilityUrl = 'user-availibility';
   public static DoorStepAgentListUrl = 'door-step-agents-list';
+  //#endregion
+
+  //#region <<Customer>>
+  public static Customer_List_Url = 'list';
+  public static Customer_Profile_Url ="profile/";
   //#endregion
 
   //#region  <<Agent >>

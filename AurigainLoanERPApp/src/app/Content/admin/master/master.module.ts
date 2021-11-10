@@ -32,6 +32,7 @@ import { DetailProductComponent } from './products/detail-product/detail-product
 import { JewellaryComponent } from './jewellary/jewellary.component';
 import { AddJewellaryComponent } from './jewellary/add-jewellary/add-jewellary.component';
 import { DetailJewellaryComponent } from './jewellary/detail-jewellary/detail-jewellary.component';
+import { GoldLoanFreshLeadsComponent } from './gold-loan-fresh-leads/gold-loan-fresh-leads.component';
 
 
 @NgModule({
@@ -66,7 +67,8 @@ import { DetailJewellaryComponent } from './jewellary/detail-jewellary/detail-je
     AddJewellaryComponent,
     DetailJewellaryComponent,
     AddUpdateBankComponent,
-    DetailBankComponent
+    DetailBankComponent,
+    GoldLoanFreshLeadsComponent
 
   ],
   imports: [

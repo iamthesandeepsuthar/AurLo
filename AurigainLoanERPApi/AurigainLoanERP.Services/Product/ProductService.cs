@@ -95,6 +95,30 @@ namespace AurigainLoanERP.Services.Product
                 return CreateResponse<List<DDLProductModel>>(null, ResponseMessage.NotFound, false, ((int)ApiStatusCode.ServerException), ex.Message ?? ex.InnerException.ToString());
             }
         }
+        public async Task<ApiServiceResponseModel<List<DDLProductModel>>> ProductsByCategory(int id) 
+        {
+
+            try
+            {
+                var product = await _db.Product.Where(x=>x.ProductCategoryId == id).Select(x => new DDLProductModel
+                {
+                    Id = x.Id,
+                    Name = x.Name
+                }).ToListAsync();
+                if (product.Count() > 0)
+                {
+                    return CreateResponse<List<DDLProductModel>>(product, ResponseMessage.Success, true, ((int)ApiStatusCode.Ok));
+                }
+                else
+                {
+                    return CreateResponse<List<DDLProductModel>>(null, ResponseMessage.NotFound, true, ((int)ApiStatusCode.RecordNotFound));
+                }
+            }
+            catch (Exception ex)
+            {
+                return CreateResponse<List<DDLProductModel>>(null, ResponseMessage.NotFound, false, ((int)ApiStatusCode.ServerException), ex.Message ?? ex.InnerException.ToString());
+            }
+        }
         public async Task<ApiServiceResponseModel<ProductModel>> GetById(int id)
         {
             try

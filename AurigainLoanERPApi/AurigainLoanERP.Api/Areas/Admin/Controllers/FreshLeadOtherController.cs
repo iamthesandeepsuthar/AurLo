@@ -12,20 +12,20 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class GoldLoanFreshLeadController : ControllerBase
+    public class FreshLeadOtherController : ControllerBase
     {
         private readonly IFreshLeadService _freshLead;
-        public GoldLoanFreshLeadController(IFreshLeadService freshLead)
+        public FreshLeadOtherController(IFreshLeadService freshLead)
         {
             _freshLead = freshLead;
         }
-        // POST api/GoldLoanFreshLead/AddUpdateGoldLoanFreshLead
+        // POST api/FreshLeadOther/AddUpdateFreshLeadOther
         [HttpPost("[action]")]
-        public async Task<ApiServiceResponseModel<string>> AddUpdateGoldLoanFreshLead(GoldLoanFreshLeadModel model)
+        public async Task<ApiServiceResponseModel<string>> AddUpdateFreshLeadOther(FreshLeadHLPLCLModel model)
         {
             if (ModelState.IsValid)
             {
-                return await _freshLead.SaveGoldLoanFreshLeadAsync(model);
+                return await _freshLead.SaveFreshLeadHLCLPLAsync(model);
             }
             else
             {
@@ -36,12 +36,6 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
                 obj.Exception = ModelState.ErrorCount.ToString();
                 return obj;
             }
-        }
-
-        [HttpPost("[action]")]
-        public async Task<ApiServiceResponseModel<List<GoldLoanFreshLeadListModel>>> GoldLoanFreshLeadListAsync(IndexModel model) 
-        {
-            return await _freshLead.GoldLoanFreshLeadListAsync(model);
         }
     }
 }

@@ -3092,7 +3092,7 @@ td.table-action-btn button {
 }
 
 .form-grp-w-border h2 {
-    margin-top: -33px;
+    margin-top: -33px !important;
     background: #ffffff;
     width: -webkit-max-content;
     width: max-content;
@@ -3106,7 +3106,7 @@ td.table-action-btn button {
     display: flex;
     align-items: center;
     border: solid 2px #ff8400;
-    font-weight: 600;
+    font-weight: 600 !important;
 }
 
 .form-grp-w-border h2 img {
@@ -4029,7 +4029,7 @@ table.table.table-striped.dataTable.table-header.table-blue tbody tr:nth-of-type
 }
 
 .reg-steper .mat-step-text-label {
-    font-size: 22px;
+    font-size: 23px;
 }
 
 .reg-steper .mat-step-icon {
@@ -4067,6 +4067,16 @@ table.table.table-striped.dataTable.table-header.table-blue tbody tr:nth-of-type
 .reg-steper .mat-step:nth-child(3) mat-step-header .mat-step-icon {
     background: #f3f3f3 url(../img/address.png) no-repeat center center;
     background-size: 48px;
+}
+
+.gold-loan-steper .mat-step:nth-child(3) mat-step-header .mat-step-icon {
+    background: #f3f3f3 url(../img/jewellery.png) no-repeat center center;
+    background-size: 48px;
+}
+
+.gold-loan-steper .mat-step:nth-child(4) mat-step-header .mat-step-icon {
+    background: #f3f3f3 url(../img/appointment.png) no-repeat center center;
+    background-size: 40px;
 }
 
 .reg-steper .mat-step-icon.mat-step-icon-state-edit {
@@ -4114,6 +4124,11 @@ table {
 .rounded-tab-icon .nav-tabs .nav-link.active {
     background: #002767;
     color: #fff;
+}
+
+.gold-loan-steper .step-grp-content {
+    background: #efefef;
+    margin-top: 0px;
 }
 
 

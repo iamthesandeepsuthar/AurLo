@@ -7,7 +7,7 @@ import { ListCustomerComponent } from './list-customer/list-customer.component';
 
 @NgModule({
   declarations: [
-    ListCustomerComponent
+    ListCustomerComponent,    
   ],
   imports: [
     CommonModule,

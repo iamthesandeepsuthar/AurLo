@@ -25,7 +25,12 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
         {
             return await _product.Products();
         }
-
+        // GET api/Product/Products
+        [HttpGet("[action]/{id}")]
+        public async Task<ApiServiceResponseModel<List<DDLProductModel>>> ProductbyCategory(int id)
+        {
+            return await _product.ProductsByCategory(id);
+        }
         [HttpPost("[action]")]
         public async Task<ApiServiceResponseModel<List<ProductModel>>> GetList(IndexModel model)
         {

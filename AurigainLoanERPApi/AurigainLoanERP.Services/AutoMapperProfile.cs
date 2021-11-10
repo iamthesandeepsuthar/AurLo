@@ -41,7 +41,8 @@ namespace AurigainLoanERP.Services
             CreateMap<BankMaster, BankModel>().ReverseMap();
             CreateMap<BankBranchMaster, BranchModel>().ReverseMap();
             CreateMap<GoldLoanFreshLead, GoldLoanFreshLeadModel>().ReverseMap();
-            CreateMap<UserAvailability, UserAvailabilityViewModel>().ForMember(d => d.Area, opt => opt.MapFrom(src => src.PincodeArea.AreaName)).ReverseMap() ;   
+            CreateMap<UserAvailability, UserAvailabilityViewModel>().ForMember(d => d.Area, opt => opt.MapFrom(src => src.PincodeArea.AreaName)).ReverseMap() ;
+            CreateMap<FreshLeadHlplcl, FreshLeadHLPLCLModel>().ReverseMap();
         }
     }
 }

@@ -716,8 +716,8 @@ namespace AurigainLoanERP.Services.User
             try
             {
                 var detail = await _db.Managers.Where(x => x.Id == Id).Include(x => x.District).Include(x => x.State).Include(x => x.User).Include(x => x.User.UserRole).FirstOrDefaultAsync();
-                if (detail != null)
-                {
+                if (detail == null)
+                {                    
                     UserManagerModel manager = new UserManagerModel
                     {
                         FullName = detail.FullName,
@@ -805,7 +805,7 @@ namespace AurigainLoanERP.Services.User
             catch (Exception ex)
             {
 
-                return CreateResponse<UserViewModel>(null, ResponseMessage.Fail, true, ((int)ApiStatusCode.InternalServerError));
+                return CreateResponse<UserViewModel>(null, ResponseMessage.Fail, false, ((int)ApiStatusCode.InternalServerError));
 
             }
         }
@@ -850,6 +850,7 @@ namespace AurigainLoanERP.Services.User
                 return CreateResponse(true as object, ResponseMessage.Fail, true, ((int)ApiStatusCode.ServerException), ex.Message);
             }
         }
+
         public async Task<ApiServiceResponseModel<object>> UpdateDeleteStatus(long id)
         {
             try
@@ -870,19 +871,21 @@ namespace AurigainLoanERP.Services.User
                             break;
 
                         case (int)UserRoleEnum.Agent:
-                            var agentUser = user.UserAgent.Where(x => x.UserId == id).FirstOrDefault();
-
+                            var agentUser = _db.UserAgent.Where(x => x.UserId == id).FirstOrDefault();
                             agentUser.IsDelete = !agentUser.IsDelete;
+                            break;
+                        case (int)UserRoleEnum.Supervisor:
+                            var supervisorUser = _db.Managers.Where(x => x.UserId == id).FirstOrDefault();
+                            supervisorUser.IsDelete = !supervisorUser.IsDelete;
                             break;
                     }
                     await _db.SaveChangesAsync();
-
                 }
 
                 _db.Database.CommitTransaction();
                 return CreateResponse(true as object, ResponseMessage.Update, true, ((int)ApiStatusCode.Ok));
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 _db.Database.RollbackTransaction();
                 return CreateResponse(true as object, ResponseMessage.Fail, true, ((int)ApiStatusCode.DataBaseTransactionFailed));

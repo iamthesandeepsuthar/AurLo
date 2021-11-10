@@ -191,7 +191,7 @@ namespace AurigainLoanERP.Api
             services.AddTransient<IProductService, ProductService>().Reverse();
             services.AddTransient<IProductCategoriesService, ProductCategoriesService>().Reverse();
             services.AddTransient<IFreshLeadService, FreshLeadService>().Reverse();
-            services.AddTransient<ICustomerService, CustomerService>().Reverse();
+            services.AddTransient<ICustomerService, CustomerService>().Reverse();           
         }
     }
 }

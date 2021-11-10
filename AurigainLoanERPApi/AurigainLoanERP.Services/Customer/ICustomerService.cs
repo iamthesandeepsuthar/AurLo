@@ -10,6 +10,12 @@ namespace AurigainLoanERP.Services.Customer
     public interface ICustomerService
     {
         public Task<ApiServiceResponseModel<string>> TestEmail();
+        Task<ApiServiceResponseModel<object>> UpateActiveStatus(long id);
+        Task<ApiServiceResponseModel<object>> UpdateDeleteStatus(long id);
+        Task<ApiServiceResponseModel<object>> UpdateApproveStatus(long id);
+        Task<ApiServiceResponseModel<List<CustomerListModel>>> GetListAsync(IndexModel model);
         public Task<ApiServiceResponseModel<string>> AddUpdateAsync(CustomerRegistrationModel model);
+        public Task<ApiServiceResponseModel<CustomerRegistrationViewModel>> GetCustomerDetail(long id);
+       
     }
 }
