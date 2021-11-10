@@ -93,6 +93,13 @@ namespace AurigainLoanERP.Shared.Enums
             Pending = 3,
             
         }
+        
+        public enum FreshLeadType { 
+        [StringValue("Salaried")]
+        Salaried = 0,
+        [StringValue("NonSalaried")]
+        NonSalaried =1
+        }
     }
 
 

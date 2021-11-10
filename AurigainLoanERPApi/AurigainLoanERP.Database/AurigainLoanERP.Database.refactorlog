@@ -70,4 +70,11 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="Pincode" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="9e6555b2-b7e2-4a28-8c6c-3170191c8e9d" ChangeDateTime="11/05/2021 15:23:31">
+    <Property Name="ElementName" Value="[dbo].[FreshLeadHLPLCL].[NoOfYear]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[FreshLeadHLPLCL]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="NoOfITR" />
+  </Operation>
 </Operations>

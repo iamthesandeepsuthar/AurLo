@@ -28,4 +28,43 @@ namespace AurigainLoanERP.Shared.ContractModel
         public UserPostModel User { get; set;}
         public List<UserKycPostModel> KycDocuments { get; set;}
     }
+
+    public class CustomerListModel 
+    {
+        public long Id { get; set;}
+        public string FullName { get; set;}
+        public string FatherName { get; set;}
+        public string EmailId { get; set;}
+        public string Mobile { get; set;}
+        public bool? IsActive { get; set;}
+        public bool IsApproved { get; set;}
+        public long UserId { get; set;}
+        public string Mpin { get; set;}
+        public string ProfileImageUrl { get; set;}
+        public string Gender { get; set;}
+    }
+
+    public class CustomerRegistrationViewModel 
+    {
+        public CustomerRegistrationViewModel() 
+        {
+            KycDocuments = new List<UserKycPostModel>();
+        }
+        public long Id { get; set; }
+        public string FullName { get; set; }
+        public string FatherName { get; set; }
+        public string Gender { get; set; }
+        public long UserId { get; set; }
+        public string EmailId { get; set;}
+        public string Mobile { get; set;}
+        public string Pincode { get; set;}
+        public string State { get; set;}
+        public string District { get; set; }
+        public string AreaName { get; set;}
+        public string Address { get; set; }         
+        public DateTime? DateOfBirth { get; set; }
+        public bool? IsActive { get; set; }
+        public DateTime CreatedOn { get; set; }
+        public List<UserKycPostModel> KycDocuments { get; set; }
+    }
 }

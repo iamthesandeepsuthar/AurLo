@@ -25,11 +25,37 @@ namespace AurigainLoanERP.Api.Areas
         {
             return await _customer.AddUpdateAsync(model);
         }
+        [HttpPost("[action]")]
+        public async Task<ApiServiceResponseModel<List<CustomerListModel>>> GetListAsync(IndexModel model) 
+        {
+            return await _customer.GetListAsync(model);
+        }
 
         [HttpGet("[action]")]
         public async Task<ApiServiceResponseModel<string>> test() 
         {
             return await _customer.TestEmail();
+        }
+        [HttpGet("[action]/{id}")]
+        public async Task<ApiServiceResponseModel<object>> UpdateApproveStatus(long id)
+        {
+            return await _customer.UpdateApproveStatus(id);
+        }
+        // DELETE api/<AgentController>/5
+        [HttpDelete("[action]/{id}")]
+        public async Task<ApiServiceResponseModel<object>> Delete(long id)
+        {
+            return await _customer.UpdateDeleteStatus(id);
+        }       
+        [HttpGet("[action]/{id}")]
+        public async Task<ApiServiceResponseModel<object>> UpdatActiveStatus(long id)
+        {
+            return await _customer.UpateActiveStatus(id);
+        }
+        [HttpGet("[action]/{id}")]
+        public async Task<ApiServiceResponseModel<CustomerRegistrationViewModel>> GetByIdAysnc(long id) 
+        {
+            return await _customer.GetCustomerDetail(id);
         }
     }
 }

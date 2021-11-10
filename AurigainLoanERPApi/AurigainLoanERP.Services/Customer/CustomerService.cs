@@ -13,6 +13,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static AurigainLoanERP.Shared.Enums.FixedValueEnums;
 using Microsoft.Extensions.Configuration;
+using AurigainLoanERP.Shared.ExtensionMethod;
 
 namespace AurigainLoanERP.Services.Customer
 {
@@ -34,6 +35,139 @@ namespace AurigainLoanERP.Services.Customer
             await _emailHelper.SendHTMLBodyMail("sandeep.suthar08@gmail.com", "Registration Notification", EmailPathConstant.RegisterTemplate, replaceValues);
             return CreateResponse<string>("", ResponseMessage.Save, true, ((int)ApiStatusCode.Ok));
         }
+        public async Task<ApiServiceResponseModel<List<CustomerListModel>>> GetListAsync(IndexModel model) 
+        {
+            ApiServiceResponseModel<List<CustomerListModel>> objResponse = new ApiServiceResponseModel<List<CustomerListModel>>();
+            try
+            {
+                var result = (from customer in _db.UserCustomer
+                              where !customer.User.IsDelete && (string.IsNullOrEmpty(model.Search) || customer.FullName.Contains(model.Search) || customer.User.Email.Contains(model.Search) || customer.User.UserName.Contains(model.Search))
+                              select customer);
+                switch (model.OrderBy)
+                {
+                    case "FullName":
+                        result = model.OrderByAsc ? (from orderData in result orderby orderData.FullName ascending select orderData) : (from orderData in result orderby orderData.FullName descending select orderData);
+                        break;
+                    case "Mobile":
+                        result = model.OrderByAsc ? (from orderData in result orderby orderData.User.Mobile ascending select orderData) : (from orderData in result orderby orderData.User.Mobile descending select orderData);
+                        break;
+                    case "Email":
+                        result = model.OrderByAsc ? (from orderData in result orderby orderData.User.Email ascending select orderData) : (from orderData in result orderby orderData.User.Email descending select orderData);
+                        break;
+                    default:
+                        result = model.OrderByAsc ? (from orderData in result orderby orderData.User.UserRole.Name ascending select orderData) : (from orderData in result orderby orderData.User.UserRole.Name descending select orderData);
+                        break;
+                }
+
+                var data = result.Skip(((model.Page == 0 ? 1 : model.Page) - 1) * (model.PageSize != 0 ? model.PageSize : int.MaxValue)).Take(model.PageSize != 0 ? model.PageSize : int.MaxValue);
+
+                objResponse.Data = await (from detail in data
+                                          where detail.IsDelete == false
+                                          select new CustomerListModel
+                                          {
+                                              Id = detail.Id,
+                                              UserId = detail.User != null ? detail.User.Id : default,
+                                              FullName = detail.FullName ?? null, 
+                                              EmailId = detail.User.Email,
+                                              Mobile = detail.User.Mobile,
+                                              FatherName = detail.FatherName,
+                                              IsApproved = detail.User.IsApproved,
+                                              Gender = detail.Gender ?? null,                                          
+                                              ProfileImageUrl = detail.User.ProfilePath.ToAbsolutePath() ?? null,                                             
+                                              IsActive = detail.User.IsActive,
+                                              Mpin = detail.User.Mpin                                            
+                                          }).ToListAsync();
+                if (result != null)
+                {
+                    return CreateResponse(objResponse.Data, ResponseMessage.Success, true, ((int)ApiStatusCode.Ok), TotalRecord: result.Count());
+                }
+                else
+                {
+                    return CreateResponse<List<CustomerListModel>>(null, ResponseMessage.NotFound, true, ((int)ApiStatusCode.RecordNotFound), TotalRecord: 0);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return CreateResponse<List<CustomerListModel>>(null, ResponseMessage.Fail, false, ((int)ApiStatusCode.ServerException), ex.Message ?? ex.InnerException.ToString());
+            }
+        }
+        public async Task<ApiServiceResponseModel<object>> UpateActiveStatus(long id)
+        {
+            try
+            {
+                await _db.Database.BeginTransactionAsync();
+                var user = await _db.UserMaster.FirstOrDefaultAsync(X => X.Id == id);
+                if (user != null)
+                {
+                    user.IsActive = !user.IsActive;
+
+                    switch (user.UserRoleId)
+                    {
+                            case (int)UserRoleEnum.Customer:
+                            var customerUser = await _db.UserCustomer.Where(x => x.UserId == id).FirstOrDefaultAsync();
+                            customerUser.IsActive = !customerUser.IsActive;
+                            break;
+                    }
+                    await _db.SaveChangesAsync();
+                }
+                _db.Database.CommitTransaction();
+                return CreateResponse(true as object, ResponseMessage.Update, true, ((int)ApiStatusCode.Ok));
+            }
+            catch (Exception ex)
+            {
+                _db.Database.RollbackTransaction();
+                return CreateResponse(true as object, ResponseMessage.Fail, true, ((int)ApiStatusCode.ServerException), ex.Message);
+            }
+        }
+        public async Task<ApiServiceResponseModel<object>> UpdateDeleteStatus(long id)
+        {
+            try
+            {
+                await _db.Database.BeginTransactionAsync();
+                var user = await _db.UserMaster.FirstOrDefaultAsync(X => X.Id == id);
+
+                if (user != null)
+                {
+                    user.IsDelete = !user.IsDelete;
+                    switch (user.UserRoleId)
+                    {                       
+                        case (int)UserRoleEnum.Customer:
+                            var supervisorUser = _db.UserCustomer.Where(x => x.UserId == id).FirstOrDefault();
+                            supervisorUser.IsDelete = !supervisorUser.IsDelete;
+                            break;
+                    }
+                    await _db.SaveChangesAsync();
+                }
+
+                _db.Database.CommitTransaction();
+                return CreateResponse(true as object, ResponseMessage.Update, true, ((int)ApiStatusCode.Ok));
+            }
+            catch (Exception ex)
+            {
+                _db.Database.RollbackTransaction();
+                return CreateResponse(true as object, ResponseMessage.Fail, true, ((int)ApiStatusCode.DataBaseTransactionFailed));
+
+            }
+        }
+        public async Task<ApiServiceResponseModel<object>> UpdateApproveStatus(long id)
+        {
+            try
+            {
+                await _db.Database.BeginTransactionAsync();
+                var user = await _db.UserMaster.FirstOrDefaultAsync(X => X.Id == id);
+                user.IsApproved = !user.IsApproved;
+                user.ModifiedOn = DateTime.Now;
+                await _db.SaveChangesAsync();
+                _db.Database.CommitTransaction();
+                return CreateResponse(true as object, ResponseMessage.Update, true, ((int)ApiStatusCode.Ok));
+            }
+            catch (Exception ex)
+            {
+                _db.Database.RollbackTransaction();
+                return CreateResponse(true as object, ResponseMessage.Fail, true, ((int)ApiStatusCode.ServerException), ex.Message);
+            }
+        }
         public async Task<ApiServiceResponseModel<string>> AddUpdateAsync(CustomerRegistrationModel model)
         {
             try
@@ -51,7 +185,7 @@ namespace AurigainLoanERP.Services.Customer
                             Dictionary<string, string> replaceValues = new Dictionary<string, string>();
                             replaceValues.Add("{{UserName}}", user.Email);
                             replaceValues.Add("{{Password}}", user.Password);
-                            await _emailHelper.SendHTMLBodyMail(user.Email, "Registration Notification", EmailPathConstant.RegisterTemplate, replaceValues);
+                            await _emailHelper.SendHTMLBodyMail(user.Email,"Registration Notification", EmailPathConstant.RegisterTemplate, replaceValues);
                             _db.Database.CommitTransaction();                          
                             return CreateResponse<string>("", ResponseMessage.Save, true, ((int)ApiStatusCode.Ok));
                         }
@@ -76,6 +210,56 @@ namespace AurigainLoanERP.Services.Customer
                 return CreateResponse<string>(null, ResponseMessage.Fail, false, ((int)ApiStatusCode.ServerException), ex.InnerException == null ? ex.Message : ex.InnerException.Message);
             }
         }
+        public async Task<ApiServiceResponseModel<CustomerRegistrationViewModel>> GetCustomerDetail(long id) 
+        {
+            try
+            {
+                var detail = await _db.UserCustomer.Where(x => x.Id == id).Include(x => x.User).ThenInclude(x => x.UserKyc).Include(x=>x.PincodeArea).ThenInclude(y =>y.District).ThenInclude(y=>y.State).FirstOrDefaultAsync();
+                if (detail != null)
+                {
+                    CustomerRegistrationViewModel customer = new CustomerRegistrationViewModel
+                    {
+                        Id = detail.Id,
+                        UserId = detail.UserId,
+                        FullName = detail.FullName,
+                        FatherName = detail.FatherName,
+                        EmailId = detail.User.Email,
+                        Mobile = detail.User.Mobile,
+                        Gender = detail.Gender,
+                        DateOfBirth = detail.DateOfBirth,
+                        Address = detail.Address,
+                        AreaName = detail.PincodeArea.AreaName,
+                        Pincode = detail.PincodeArea.Pincode,
+                        District = detail.PincodeArea.District.Name,
+                        State = detail.PincodeArea.District.State.Name,
+                        IsActive = detail.IsActive,
+                        CreatedOn = detail.CreatedOn                        
+                    };
+                    var docs =await _db.UserKyc.Where(x => x.UserId == detail.UserId).ToListAsync();
+                    foreach(var doc  in docs) 
+                    {
+                        UserKycPostModel kycDoc = new UserKycPostModel 
+                        {
+                            Id = doc.Id,
+                            KycdocumentTypeId = doc.KycdocumentTypeId,
+                            Kycnumber = doc.Kycnumber
+                        };
+                        customer.KycDocuments.Add(kycDoc);
+                    }
+                    return CreateResponse<CustomerRegistrationViewModel>(customer, ResponseMessage.Success, true, ((int)ApiStatusCode.Ok));
+                }
+                else
+                {
+                    return CreateResponse<CustomerRegistrationViewModel>(null, ResponseMessage.NotFound, false, ((int)ApiStatusCode.NotFound));
+                }
+            }
+            catch (Exception ex) 
+            {
+                return CreateResponse<CustomerRegistrationViewModel>(null, ex.Message + " "+ ex.InnerException.Message, false, ((int)ApiStatusCode.InternalServerError));
+            }           
+        }
+
+        #region <<Private Method>>
         private async Task<long> SaveCustomerAsync(CustomerRegistrationModel model)
         {
             try
@@ -188,5 +372,6 @@ namespace AurigainLoanERP.Services.Customer
             }
 
         }
+        #endregion
     }
 }

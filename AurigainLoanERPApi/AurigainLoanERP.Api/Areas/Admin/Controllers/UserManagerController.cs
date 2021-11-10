@@ -56,5 +56,11 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
         {
             return await _userSerivce.UpateActiveStatus(id);
         }
+
+        [HttpDelete("[action]/{Id}")]
+        public async Task<ApiServiceResponseModel<object>> DeleteManager(long id) 
+        {
+            return await _userSerivce.UpdateDeleteStatus(id);
+        }
     }
 }

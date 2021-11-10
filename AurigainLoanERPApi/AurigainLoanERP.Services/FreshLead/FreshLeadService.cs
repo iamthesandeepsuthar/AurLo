@@ -25,6 +25,67 @@ namespace AurigainLoanERP.Services.FreshLead
             _db = db;           
         }
         #region  <<Gold Loan Fresh Lead>>
+
+        public async Task<ApiServiceResponseModel<List<GoldLoanFreshLeadListModel>>> GoldLoanFreshLeadListAsync(IndexModel model) 
+        {
+            ApiServiceResponseModel<List<GoldLoanFreshLeadListModel>> objResponse = new ApiServiceResponseModel<List<GoldLoanFreshLeadListModel>>();
+            try
+            {
+                var result = (from goldLoanLead in _db.GoldLoanFreshLead     
+                              //join user in _db.UserMaster on goldLoanLead.LeadSourceByUserId equals user.Id
+                              //join appointment in _db.GoldLoanFreshLeadAppointmentDetail on goldLoanLead.Id equals appointment.GlfreshLeadId
+                              //join product in _db.Product on goldLoanLead.ProductId equals product.Id
+                              //join bank in _db.BankMaster on appointment.BankId equals bank.Id
+                              //join kycDocument in _db.GoldLoanFreshLeadKycDocument on goldLoanLead.Id equals kycDocument.GlfreshLeadId
+                              //join area in _db.PincodeArea on kycDocument.PincodeAreaId equals area.Id
+                              where !goldLoanLead.IsDelete && (string.IsNullOrEmpty(model.Search) || goldLoanLead.FullName.Contains(model.Search) || goldLoanLead.FatherName.Contains(model.Search) || goldLoanLead.Gender.Contains(model.Search) || goldLoanLead.GoldLoanFreshLeadKycDocument.FirstOrDefault().PincodeArea.Pincode.Contains(model.Search))
+                              select goldLoanLead);
+                switch (model.OrderBy)
+                {
+                    case "FullName":
+                        result = model.OrderByAsc ? (from orderData in result orderby orderData.FullName ascending select orderData) : (from orderData in result orderby orderData.FullName descending select orderData);
+                        break;
+                    case "FatherName":
+                        result = model.OrderByAsc ? (from orderData in result orderby orderData.FatherName ascending select orderData) : (from orderData in result orderby orderData.FatherName descending select orderData);
+                        break;
+                    case "Gender":
+                        result = model.OrderByAsc ? (from orderData in result orderby orderData.Gender ascending select orderData) : (from orderData in result orderby orderData.Gender descending select orderData);
+                        break;
+                    default:
+                        result = model.OrderByAsc ? (from orderData in result orderby orderData.PrimaryMobileNumber ascending select orderData) : (from orderData in result orderby orderData.PrimaryMobileNumber descending select orderData);
+                        break;
+                }
+
+                var data = result.Skip(((model.Page == 0 ? 1 : model.Page) - 1) * (model.PageSize != 0 ? model.PageSize : int.MaxValue)).Take(model.PageSize != 0 ? model.PageSize : int.MaxValue);
+
+                objResponse.Data = await (from detail in data
+                                          where detail.IsDelete == false
+                                          select new GoldLoanFreshLeadListModel
+                                          {
+                                              Id = detail.Id,                                             
+                                              FullName = detail.FullName ?? null,                                                                                        
+                                              FatherName = detail.FatherName,                                             
+                                              Gender = detail.Gender ?? null,                                           
+                                              IsActive = detail.IsActive.Value,  
+                                              ProductName = detail.Product.Name,
+                                              Pincode = detail.GoldLoanFreshLeadKycDocument.FirstOrDefault().PincodeArea.Pincode,
+                                               
+                                          }).ToListAsync();
+                if (result != null)
+                {
+                    return CreateResponse(objResponse.Data, ResponseMessage.Success, true, ((int)ApiStatusCode.Ok), TotalRecord: result.Count());
+                }
+                else
+                {
+                    return CreateResponse<List<GoldLoanFreshLeadListModel>>(null, ResponseMessage.NotFound, true, ((int)ApiStatusCode.RecordNotFound), TotalRecord: 0);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return CreateResponse<List<GoldLoanFreshLeadListModel>>(null, ResponseMessage.Fail, false, ((int)ApiStatusCode.ServerException), ex.Message ?? ex.InnerException.ToString());
+            }
+        }
         public async Task<ApiServiceResponseModel<string>>SaveGoldLoanFreshLeadAsync(GoldLoanFreshLeadModel model) 
         {
             ApiServiceResponseModel<string> objResponse = new ApiServiceResponseModel<string>();
@@ -79,6 +140,41 @@ namespace AurigainLoanERP.Services.FreshLead
 
         #region <<Personal Loan , Home Loan , Vehicel Loan Fresh Lead>>
 
+        public async Task<ApiServiceResponseModel<string>> SaveFreshLeadHLCLPLAsync(FreshLeadHLPLCLModel model)
+        {
+            ApiServiceResponseModel<string> objResponse = new ApiServiceResponseModel<string>();
+            try
+            {
+                if (model != null)
+                {
+                    await _db.Database.BeginTransactionAsync();
+
+                    
+                    var result  = await SavePLHLCLFreshLead(model);
+
+                    if (result.status)
+                    {
+                        _db.Database.CommitTransaction();
+                        return CreateResponse<string>("", result.Msg, true, ((int)ApiStatusCode.Ok)); ;
+                    }
+                    else
+                    {
+                        _db.Database.RollbackTransaction();
+                        return CreateResponse<string>("", result.Msg, true, ((int)ApiStatusCode.Ok)); ;
+                    }                  
+                }
+                else
+                {
+                    return CreateResponse<string>("", ResponseMessage.InvalidData, false, ((int)ApiStatusCode.InvaildModel));
+                }
+            }
+            catch (Exception ex)
+            {
+                _db.Database.RollbackTransaction();
+                return CreateResponse<string>(null, ResponseMessage.Fail, false, ((int)ApiStatusCode.ServerException), ex.InnerException == null ? ex.Message : ex.InnerException.Message);
+            }
+        }
+
         #endregion
 
         #region  <<Private method>>
@@ -97,6 +193,7 @@ namespace AurigainLoanERP.Services.FreshLead
                     FatherName = model.FatherName,
                     LeadSourceByUserId = model.LeadSourceByUserId,
                     Purpose = model.Purpose,
+                    ProductId= model.ProductId,
                     SecondaryMobileNumber = model.SecondaryMobileNumber,
                     PrimaryMobileNumber = model.PrimaryMobileNumber,
                     Gender = model.Gender,
@@ -133,7 +230,81 @@ namespace AurigainLoanERP.Services.FreshLead
             }
                  
         }
+        private async Task<ResposeData> SavePLHLCLFreshLead(FreshLeadHLPLCLModel model)
+        {
+            ResposeData returnObject = new ResposeData();
+            try
+            {
+                if (model.Id == default || model.Id == 0)
+                {
+                    var isExist =await  _db.FreshLeadHlplcl.Where(x => x.ProductId == model.ProductId && x.MobileNumber == model.MobileNumber).FirstOrDefaultAsync();
+                    if (isExist == null)
+                    {
+                        FreshLeadHlplcl lead = new FreshLeadHlplcl
+                        {
+                            IsActive = model.IsActive,
+                            IsDelete = false,
+                            CreatedDate = DateTime.Now,
+                            FullName = model.FullName,
+                            FatherName = model.FatherName,
+                            LeadSourceByUserId = model.LeadSourceByUserId,
+                            ProductId = model.ProductId,
+                            LeadType = model.LeadType,
+                            AnnualIncome = model.AnnualIncome,
+                            EmailId = model.EmailId,
+                            EmployeeType = model.EmployeeType,
+                            NoOfItr = model.NoOfItr,
+                            MobileNumber = model.MobileNumber,
+                            LoanAmount = model.LoanAmount,
+                            ModifiedDate = null
+                        };
+                        await _db.FreshLeadHlplcl.AddAsync(lead);
+                        await _db.SaveChangesAsync();
+                        returnObject.status = true;
+                        returnObject.Msg = "Saved Record";
+                        return returnObject;
+                    }
+                    else 
+                    {
+                        returnObject.status = true;
+                        returnObject.Msg = "Already Exist";
+                        return returnObject;
+                    }                  
+                }
+                else
+                {
+                    var lead = await _db.FreshLeadHlplcl.Where(x => x.Id == model.Id).FirstOrDefaultAsync();
+                    if (lead != null)
+                    {
+                        lead.FullName = model.FullName;
+                        lead.FatherName = model.FatherName;
+                        lead.LeadSourceByUserId = model.LeadSourceByUserId;
+                        lead.LoanAmount = model.LoanAmount;
+                        lead.MobileNumber = model.MobileNumber;
+                        lead.ModifiedDate = DateTime.Now;
+                        lead.LeadType = model.LeadType;
+                        lead.NoOfItr = model.NoOfItr;
+                        lead.ProductId = model.ProductId;
+                        lead.EmployeeType = model.EmployeeType;
+                        lead.EmailId = model.EmailId;
+                        lead.EmployeeType = model.EmployeeType;
+                        lead.IsActive = model.IsActive;
+                        await _db.SaveChangesAsync();
+                        returnObject.status = true;
+                        returnObject.Msg = "Update Record";
+                        return returnObject;
+                    }
+                    returnObject.status =false;
+                    returnObject.Msg = "Record Not Exist";
+                    return returnObject;
+                }
+            }
+            catch
+            {
+                throw;
+            }
 
+        }
         private async Task<bool> SaveJewelleryDetail(GoldLoanFreshLeadJewelleryDetailModel model , long freshLeadId) 
         {
             try
@@ -253,6 +424,12 @@ namespace AurigainLoanERP.Services.FreshLead
             {
                 throw;
             }
+        }
+
+        private class ResposeData
+        {
+            public bool status { get; set;}
+            public string Msg {get;set;}
         }
         #endregion
     }

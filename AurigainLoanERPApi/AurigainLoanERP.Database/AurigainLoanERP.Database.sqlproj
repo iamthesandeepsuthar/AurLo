@@ -66,6 +66,7 @@
     <None Include="PostScript\DocumentTypeInsert.sql" />
     <None Include="PostScript\UserRoleInsert.sql" />
     <None Include="AurigainLoanERP_1.Database.publish.xml" />
+    <None Include="PostScript\ProductCategoryInsert.sql" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="UserRole.sql" />
@@ -99,6 +100,7 @@
     <Build Include="GoldLoanFreshLeadAppointmentDetail.sql" />
     <Build Include="GoldLoanFreshLeadKycDocument.sql" />
     <Build Include="UserCustomer.sql" />
+    <Build Include="FreshLeadHLPLCL.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="AurigainLoanERP.Database.refactorlog" />

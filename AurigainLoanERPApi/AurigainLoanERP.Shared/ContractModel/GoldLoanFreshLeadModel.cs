@@ -22,6 +22,7 @@ namespace AurigainLoanERP.Shared.ContractModel
         public double LoanAmountRequired { get; set; }
         public string Purpose { get; set; }
         public long LeadSourceByUserId { get; set; }
+        public int ProductId { get; set;}
         public DateTime CreatedDate { get; set; }       
         public bool? IsActive { get; set; }      
         public GoldLoanFreshLeadKycDocumentModel KycDocument { get; set;}
@@ -64,5 +65,23 @@ namespace AurigainLoanERP.Shared.ContractModel
         public bool? IsActive { get; set; }
         public DateTime CreatedDate { get; set; }
         public long GlfreshLeadId { get; set; }
+    }
+
+    public class GoldLoanFreshLeadListModel
+    {
+        public long Id { get; set; }
+        public string FullName { get; set; }
+        public string FatherName { get; set; }
+        public DateTime DateOfBirth { get; set; }
+        public string Gender { get; set; }
+        public string PrimaryMobileNumber { get; set; }
+        public long LeadSourceByUserId { get; set; }
+        public string LeadSourceByUserName { get; set; }
+        public double LoanAmountRequired {get;set;}
+        public int ProductId { get; set; }
+        public string ProductName { get; set;}
+        public DateTime CreatedDate { get; set; }
+        public string Pincode { get; set;}
+        public bool IsActive { get; set;}
     }
 }
