@@ -28,7 +28,6 @@ namespace AurigainLoanERP.Services.FreshLead
             _db = db;
             _emailHelper = new EmailHelper(_configuration, environment);
 
-
         }
         #region  <<Gold Loan Fresh Lead>>
 
@@ -37,13 +36,7 @@ namespace AurigainLoanERP.Services.FreshLead
             ApiServiceResponseModel<List<GoldLoanFreshLeadListModel>> objResponse = new ApiServiceResponseModel<List<GoldLoanFreshLeadListModel>>();
             try
             {
-                var result = (from goldLoanLead in _db.GoldLoanFreshLead     
-                              //join user in _db.UserMaster on goldLoanLead.LeadSourceByUserId equals user.Id
-                              //join appointment in _db.GoldLoanFreshLeadAppointmentDetail on goldLoanLead.Id equals appointment.GlfreshLeadId
-                              //join product in _db.Product on goldLoanLead.ProductId equals product.Id
-                              //join bank in _db.BankMaster on appointment.BankId equals bank.Id
-                              //join kycDocument in _db.GoldLoanFreshLeadKycDocument on goldLoanLead.Id equals kycDocument.GlfreshLeadId
-                              //join area in _db.PincodeArea on kycDocument.PincodeAreaId equals area.Id
+                var result = (from goldLoanLead in _db.GoldLoanFreshLead                                  
                               where !goldLoanLead.IsDelete && (string.IsNullOrEmpty(model.Search) || goldLoanLead.FullName.Contains(model.Search) || goldLoanLead.FatherName.Contains(model.Search) || goldLoanLead.Gender.Contains(model.Search) || goldLoanLead.GoldLoanFreshLeadKycDocument.FirstOrDefault().PincodeArea.Pincode.Contains(model.Search))
                               select goldLoanLead);
                 switch (model.OrderBy)
