@@ -28,7 +28,7 @@ namespace AurigainLoanERP.Services.KycDocumentType
             {
                 var result = (from role in _db.DocumentType
                               where !role.IsDelete && (string.IsNullOrEmpty(model.Search) || role.DocumentName.Contains(model.Search))
-                              orderby (model.OrderByAsc  && model.OrderBy == "Name" ? role.DocumentName : "") ascending
+                              orderby (model.OrderByAsc && model.OrderBy == "Name" ? role.DocumentName : "") ascending
                               orderby (!model.OrderByAsc && model.OrderBy == "Name" ? role.DocumentName : "") descending
                               select role);
                 var data = await result.Skip(((model.Page == 0 ? 1 : model.Page) - 1) * (model.PageSize != 0 ? model.PageSize : int.MaxValue)).Take(model.PageSize != 0 ? model.PageSize : int.MaxValue).ToListAsync();
@@ -41,7 +41,7 @@ namespace AurigainLoanERP.Services.KycDocumentType
                 }
                 else
                 {
-                    return CreateResponse<List<DocumentTypeModel>>(null, ResponseMessage.NotFound, true,((int)ApiStatusCode.RecordNotFound), TotalRecord: 0);
+                    return CreateResponse<List<DocumentTypeModel>>(null, ResponseMessage.NotFound, true, ((int)ApiStatusCode.RecordNotFound), TotalRecord: 0);
                 }
             }
             catch (Exception ex)
@@ -50,27 +50,27 @@ namespace AurigainLoanERP.Services.KycDocumentType
             }
 
         }
-        public async Task<ApiServiceResponseModel<List<DDLDocumentTypeModel>>> GetDocumentType()
+        public async Task<ApiServiceResponseModel<List<DDLDocumentTypeModel>>> GetDocumentType(bool? isKYC = null)
         {
             try
             {
-                var types = await _db.DocumentType.Select(x => new DDLDocumentTypeModel
+                var types = await _db.DocumentType.Where(x => (isKYC.HasValue ? x.IsKyc == isKYC.Value : true)).Select(x => new DDLDocumentTypeModel
                 {
                     Id = x.Id,
                     Name = x.DocumentName,
                     IsNumeric = x.IsNumeric,
-                    DocumentNumberLength = x.DocumentNumberLength?? null,
+                    DocumentNumberLength = x.DocumentNumberLength ?? null,
                     IsKyc = x.IsKyc,
-                    RequiredFileCount = x.RequiredFileCount  
+                    RequiredFileCount = x.RequiredFileCount
                 }).ToListAsync();
 
                 if (types.Count > 0)
                 {
-                    return CreateResponse<List<DDLDocumentTypeModel>>(types, ResponseMessage.Success, true,((int)ApiStatusCode.Ok));
+                    return CreateResponse<List<DDLDocumentTypeModel>>(types, ResponseMessage.Success, true, ((int)ApiStatusCode.Ok));
                 }
                 else
                 {
-                    return CreateResponse<List<DDLDocumentTypeModel>>(null, ResponseMessage.NotFound, true,((int)ApiStatusCode.RecordNotFound));
+                    return CreateResponse<List<DDLDocumentTypeModel>>(null, ResponseMessage.NotFound, true, ((int)ApiStatusCode.RecordNotFound));
                 }
 
             }
@@ -86,17 +86,17 @@ namespace AurigainLoanERP.Services.KycDocumentType
 
             try
             {
-                
+
                 var result = await (from c1 in _db.DocumentType
-                                        where !c1.IsDelete && c1.IsActive.Value && c1.Id == id
-                                        select c1).FirstOrDefaultAsync();               
+                                    where !c1.IsDelete && c1.IsActive.Value && c1.Id == id
+                                    select c1).FirstOrDefaultAsync();
                 if (result != null)
                 {
-                    return CreateResponse<DocumentTypeModel>(_mapper.Map<DocumentTypeModel>(result), ResponseMessage.Success, true,((int)ApiStatusCode.Ok));
+                    return CreateResponse<DocumentTypeModel>(_mapper.Map<DocumentTypeModel>(result), ResponseMessage.Success, true, ((int)ApiStatusCode.Ok));
                 }
                 else
                 {
-                    return CreateResponse<DocumentTypeModel>(null, ResponseMessage.NotFound, true,((int)ApiStatusCode.RecordNotFound));
+                    return CreateResponse<DocumentTypeModel>(null, ResponseMessage.NotFound, true, ((int)ApiStatusCode.RecordNotFound));
                 }
 
             }
@@ -111,7 +111,7 @@ namespace AurigainLoanERP.Services.KycDocumentType
         public async Task<ApiServiceResponseModel<string>> AddUpdateAsync(DocumentTypeModel model)
         {
             try
-            {              
+            {
                 await _db.Database.BeginTransactionAsync();
                 if (model.Id == 0)
                 {
@@ -122,8 +122,8 @@ namespace AurigainLoanERP.Services.KycDocumentType
                     }
                     var type = _mapper.Map<DocumentType>(model);
                     type.CreatedOn = DateTime.Now;
-                    var result = await _db.DocumentType.AddAsync(type);                   
-                   
+                    var result = await _db.DocumentType.AddAsync(type);
+
                 }
                 else
                 {
@@ -139,7 +139,7 @@ namespace AurigainLoanERP.Services.KycDocumentType
                 }
                 await _db.SaveChangesAsync();
                 _db.Database.CommitTransaction();
-                return CreateResponse<string>(model.DocumentName, model.Id > 0 ? ResponseMessage.Update : ResponseMessage.Save, true,((int)ApiStatusCode.Ok));
+                return CreateResponse<string>(model.DocumentName, model.Id > 0 ? ResponseMessage.Update : ResponseMessage.Save, true, ((int)ApiStatusCode.Ok));
             }
             catch (Exception ex)
             {
@@ -157,7 +157,7 @@ namespace AurigainLoanERP.Services.KycDocumentType
                 objRole.IsDelete = !objRole.IsDelete;
                 objRole.ModifiedOn = DateTime.Now;
                 await _db.SaveChangesAsync();
-                return CreateResponse<object>(true, ResponseMessage.Update, true,((int)ApiStatusCode.Ok));
+                return CreateResponse<object>(true, ResponseMessage.Update, true, ((int)ApiStatusCode.Ok));
 
             }
             catch (Exception)
@@ -175,7 +175,7 @@ namespace AurigainLoanERP.Services.KycDocumentType
                 type.IsActive = !type.IsActive;
                 type.ModifiedOn = DateTime.Now;
                 await _db.SaveChangesAsync();
-                return CreateResponse<object>(true, ResponseMessage.Update, true,((int)ApiStatusCode.Ok));
+                return CreateResponse<object>(true, ResponseMessage.Update, true, ((int)ApiStatusCode.Ok));
             }
             catch (Exception)
             {

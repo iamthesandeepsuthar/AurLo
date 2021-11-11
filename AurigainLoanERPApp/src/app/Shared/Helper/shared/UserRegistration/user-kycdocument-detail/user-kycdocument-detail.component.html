@@ -7,7 +7,7 @@
 
         <ng-container formArrayName="DocumentFormField" *ngFor="let itm of this.docTypeModel;let idx=index">
             <div class="form-row" [formGroupName]="idx">
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-3">
                     <label>{{itm!.Name }} Number</label>
 
 
@@ -23,7 +23,7 @@
                         {{itm!.Name }} number length must be {{itm!.DocumentNumberLength}} char or digit...! </div>
                 </div>
 
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-2">
                     <label>{{itm!.Name }} Attachment</label>
                     <input type="hidden" name="File" ngModel="{{(documentModel[idx]!.Files!.length>0) && (itm.RequiredFileCount == documentModel[idx]!.Files!.length) ? documentModel[idx]!.Files!.length :undefined}}" formControlName="File">
 

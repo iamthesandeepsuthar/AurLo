@@ -15,15 +15,15 @@ export class KycDocumentTypeService {
     let url = `${this._baseService.API_Url.Kyc_Document_Type_Detail_Api}${id}`;
     return this._baseService.get(url);
   }
-  GetDDLDocumentType(): Observable<ApiResponse<DDLDocumentTypeModel[]>> {
-    let url = `${this._baseService.API_Url.Kyc_Document_Type_Dropdown_Api}`;
+  GetDDLDocumentType(isKYC?: boolean): Observable<ApiResponse<DDLDocumentTypeModel[]>> {
+    let url = `${this._baseService.API_Url.Kyc_Document_Type_Dropdown_Api}${isKYC == null ? '' : '/' + isKYC}`;
     return this._baseService.get(url);
   }
   AddUpdateDocumentType(model: DocumentTypeModel): Observable<ApiResponse<string>> {
     let url = `${this._baseService.API_Url.Kyc_Document_Type_Add_Update_Api}`;
     return this._baseService.post(url, model);
   }
-  ChangeActiveStatus(id:number, status? :string): Observable<ApiResponse<DocumentTypeModel[]>> {
+  ChangeActiveStatus(id: number, status?: string): Observable<ApiResponse<DocumentTypeModel[]>> {
     let url = `${this._baseService.API_Url.Kyc_Document_Type_Active_Status_Api}${id}`;
     return this._baseService.get(url);
   }
