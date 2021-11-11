@@ -14,7 +14,7 @@ import { DashboardModule } from '../../dashboard/dashboard.module';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-
+  isShowPass = false;
   model = {} as LoginPostModel;
   get routing_Url() { return Routing_Url };
 
