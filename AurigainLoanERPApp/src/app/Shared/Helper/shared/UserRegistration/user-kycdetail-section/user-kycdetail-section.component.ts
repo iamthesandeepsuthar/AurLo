@@ -32,7 +32,7 @@ export class UserKYCDetailSectionComponent implements OnInit {
 
 
   getDocumentType() {
-    this._kycDocumentTypeService.GetDDLDocumentType().subscribe(res => {
+    this._kycDocumentTypeService.GetDDLDocumentType(true).subscribe(res => {
       if (res.IsSuccess) {
 
         this.docTypeModel = res.Data as DDLDocumentTypeModel[];

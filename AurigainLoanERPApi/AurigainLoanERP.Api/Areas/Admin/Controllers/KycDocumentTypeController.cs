@@ -23,10 +23,10 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
             return await _documentService.GetAllAsync(model);
         }
         // GET api/KycDocumentType/DocumentTypes
-        [HttpGet("[action]")]
-        public async Task<ApiServiceResponseModel<List<DDLDocumentTypeModel>>> DocumentTypes()
+        [HttpGet("[action]/{isKYC?}")]
+        public async Task<ApiServiceResponseModel<List<DDLDocumentTypeModel>>> DocumentTypes(bool? isKYC = null)
         {
-            return await _documentService.GetDocumentType();
+            return await _documentService.GetDocumentType(isKYC); 
         }
 
         // POST api/KycDocumentType/SubmitDocumentType

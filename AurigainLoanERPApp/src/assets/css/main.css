@@ -4131,6 +4131,14 @@ table {
     margin-top: 0px;
 }
 
+.file-upload-details .file-upload-details-remove {
+    margin-left: 10px;
+}
+
+.dt--pagination {
+    margin-left: auto;
+}
+
 
 /* .custom-modal .modal-content .modal-body {
     background: url(https://blog.2checkout.com/wp-content/uploads/2018/11/how-does-the-payment-processing-industry-work-1.png);
