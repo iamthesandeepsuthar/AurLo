@@ -153,14 +153,20 @@ export class API_Url {
   public static Branch_Detail_Api = `${environment.apiEndPoint}BankBranch/GetById/`;
   //#endregion
 
- //#region <<Customer Registration>>
+  //#region <<Customer Registration>>
   public static Customer_Registration_Api = `${environment.apiEndPoint}Customer/RegisterCustomer/`;
- // #endregion
+  // #endregion
 
 
- //#region  <<Gold Loan Fresh Lead >>
+  //#region  <<Gold Loan Fresh Lead >>
   public static Gold_Loan_Fresh_Lead_List_Api = `${environment.apiEndPoint}GoldLoanFreshLead/ListGoldLoanFreshLeadAsync`;
- //#endregion
+  public static Gold_Loan_Fresh_Lead__AddUpdate_Api = `${environment.apiEndPoint}GoldLoanFreshLead/AddUpdateGoldLoanFreshLead`;
+  public static Gold_Loan_Fresh_Lead__Detail_Api = `${environment.apiEndPoint}GoldLoanFreshLead/Detail/`;
+  public static Gold_Loan_Fresh_Lead__Delete_Api = `${environment.apiEndPoint}GoldLoanFreshLead/DeleteProduct/`;
+  public static Gold_Loan_Fresh_Lead__ActiveStatus_Api = `${environment.apiEndPoint}GoldLoanFreshLead/UpdateActiveStatus/`;
+
+
+  //#endregion
 }
 
 export class Routing_Url {
@@ -225,7 +231,7 @@ export class Routing_Url {
 
   //#region <<Customer>>
   public static Customer_List_Url = 'list';
-  public static Customer_Profile_Url ="profile/";
+  public static Customer_Profile_Url = "profile/";
   //#endregion
 
   //#region  <<Agent >>
