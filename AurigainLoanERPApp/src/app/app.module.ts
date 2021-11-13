@@ -20,6 +20,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HtmlComponent } from './Content/html/html.component';
 import { LoginComponent } from './Content/Common/login/login.component';
 import { CustomerSignUpComponent } from './Content/Common/customer-sign-up/customer-sign-up.component';
+import { UserBackendOperatorModule } from './Content/user-backend-operator/user-backend-operator.module';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { CustomerSignUpComponent } from './Content/Common/customer-sign-up/custo
     SharedModule,
     AdminModule,
     UserCustomerModule,
+    UserBackendOperatorModule,
     CommonModule,
     DashboardModule,
     BrowserAnimationsModule,

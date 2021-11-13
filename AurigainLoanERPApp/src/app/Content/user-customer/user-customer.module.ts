@@ -5,12 +5,18 @@ import {  UserCustomerRoutingModule } from './user-customer-routing.module';
 import { SharedModule } from 'src/app/Shared/Helper/shared/shared.module';
 import { CustomerDashboardComponent } from './customer-dashboard/customer-dashboard.component';
 import { CustomerProfileComponent } from './customer-profile/customer-profile.component';
+import { GoldLoanFreshLeadComponent } from './Leads/gold-loan-fresh-lead/gold-loan-fresh-lead.component';
+import { AddEditGoldLoanFreshLeadComponent } from './Leads/gold-loan-fresh-lead/add-edit-gold-loan-fresh-lead/add-edit-gold-loan-fresh-lead.component';
+import { DetailGoldLoanFreshLeadComponent } from './Leads/gold-loan-fresh-lead/detail-gold-loan-fresh-lead/detail-gold-loan-fresh-lead.component';
 
 
 @NgModule({
   declarations: [
     CustomerDashboardComponent,
-    CustomerProfileComponent
+    CustomerProfileComponent,
+    GoldLoanFreshLeadComponent,
+    AddEditGoldLoanFreshLeadComponent,
+    DetailGoldLoanFreshLeadComponent
   ],
   imports: [
     CommonModule,
