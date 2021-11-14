@@ -6,6 +6,7 @@
     [DateOfBirth] DATETIME NOT NULL, 
     [Gender] NVARCHAR(50) NOT NULL, 
     [PrimaryMobileNumber] NVARCHAR(20) NOT NULL, 
+    [Email] NVARCHAR(250) NULL,
     [ProductId] int not null references Product(Id),
     [LeadSourceByUserId] BIGINT NOT NULL references UserMaster(Id), 
     [SecondaryMobileNumber] NVARCHAR(20) NULL, 
@@ -14,5 +15,6 @@
     [CreatedDate] DATETIME NOT NULL DEFAULT getDate(), 
     [ModifedDate] DATETIME NULL, 
     [IsActive] BIT NOT NULL DEFAULT 1, 
-    [IsDelete] BIT NOT NULL DEFAULT 0
+    [IsDelete] BIT NOT NULL DEFAULT 0, 
+    
 )

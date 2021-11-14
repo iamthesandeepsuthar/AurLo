@@ -34,22 +34,46 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
         {
             try
             {
+                await _db.Database.BeginTransactionAsync();
                 if (model.Id == 0 || model.Id == default)
                 {
 
-                    var objData = _mapper.Map<AurigainLoanERP.Data.Database.BtgoldLoanLead>(model);
+                    var objData = new BtgoldLoanLead();
+
+                    objData.FullName = !string.IsNullOrEmpty(model.FullName) ? model.FullName : null;
+                    objData.FatherName = !string.IsNullOrEmpty(model.FatherName) ? model.FatherName : null;
+                    objData.Gender = !string.IsNullOrEmpty(model.Gender) ? model.Gender : null;
+                    objData.DateOfBirth = model.DateOfBirth != null ? model.DateOfBirth : DateTime.MinValue;
+                    objData.Profession = !string.IsNullOrEmpty(model.Profession) ? model.Profession : null;
+                    objData.Mobile = !string.IsNullOrEmpty(model.Mobile) ? model.Mobile : null;
+                    objData.EmailId = !string.IsNullOrEmpty(model.EmailId) ? model.EmailId : null;
+                    objData.SecondaryMobile = !string.IsNullOrEmpty(model.SecondaryMobile) ? model.SecondaryMobile : null;
+                    objData.Purpose = !string.IsNullOrEmpty(model.Purpose) ? model.Purpose : null;
+                    objData.LeadSourceByuserId = model.LeadSourceByuserId;
                     objData.CreatedOn = DateTime.Now;
-                    objData.CreatedBy = 0;
+                    objData.CreatedBy = null;
+                    objData.IsActive = true;
 
                     var result = await _db.BtgoldLoanLead.AddAsync(objData);
                     await _db.SaveChangesAsync();
                     model.Id = result.Entity.Id;
-                    return CreateResponse<string>(model.Id.ToString(), model.Id > 0 ? ResponseMessage.Update : ResponseMessage.Save, true, ((int)ApiStatusCode.Ok));
                 }
                 else
                 {
-                    var objData = await _db.BtgoldLoanLead.FirstOrDefaultAsync(x => x.Id == model.Id);
-
+                    var objData = await _db.BtgoldLoanLead.FirstOrDefaultAsync(x => x.Id == model.Id && x.IsActive.Value && !x.IsDelete);
+                    objData.FullName = !string.IsNullOrEmpty(model.FullName) ? model.FullName : null;
+                    objData.FatherName = !string.IsNullOrEmpty(model.FatherName) ? model.FatherName : null;
+                    objData.Gender = !string.IsNullOrEmpty(model.Gender) ? model.Gender : null;
+                    objData.DateOfBirth = model.DateOfBirth != null ? model.DateOfBirth : DateTime.MinValue;
+                    objData.Profession = !string.IsNullOrEmpty(model.Profession) ? model.Profession : null;
+                    objData.Mobile = !string.IsNullOrEmpty(model.Mobile) ? model.Mobile : null;
+                    objData.EmailId = !string.IsNullOrEmpty(model.EmailId) ? model.EmailId : null;
+                    objData.SecondaryMobile = !string.IsNullOrEmpty(model.SecondaryMobile) ? model.SecondaryMobile : null;
+                    objData.Purpose = !string.IsNullOrEmpty(model.Purpose) ? model.Purpose : null;
+                    objData.LeadSourceByuserId = model.LeadSourceByuserId;
+                    objData.ModifiedOn = DateTime.Now;
+                    objData.CreatedBy = null;
+                    await _db.SaveChangesAsync();
 
                 }
 
@@ -81,11 +105,12 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                     await SetJewelleryDetail(model.JewelleryDetail, model.Id);
 
                 }
-
+                _db.Database.CommitTransaction();
                 return CreateResponse<string>(model.Id.ToString(), model.Id > 0 ? ResponseMessage.Update : ResponseMessage.Save, true, ((int)ApiStatusCode.Ok));
             }
             catch (Exception ex)
             {
+                _db.Database.RollbackTransaction();
 
                 return CreateResponse<string>(null, ResponseMessage.Fail, false, ((int)ApiStatusCode.ServerException), ex.Message ?? ex.InnerException.ToString());
 
@@ -134,7 +159,7 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
             }
             catch
             {
-                return false;
+                throw;
 
             }
         }
@@ -177,7 +202,7 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
             }
             catch
             {
-                return false;
+                throw;
 
             }
         }
@@ -397,7 +422,7 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
             }
             catch
             {
-                return false;
+                throw;
 
             }
         }
@@ -449,8 +474,7 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
             }
             catch
             {
-                return false;
-
+                throw;
             }
         }
 
@@ -494,8 +518,7 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
             }
             catch
             {
-                return false;
-
+                throw;
             }
         }
 
@@ -539,8 +562,7 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
             }
             catch
             {
-                return false;
-
+                throw;
             }
         }
 

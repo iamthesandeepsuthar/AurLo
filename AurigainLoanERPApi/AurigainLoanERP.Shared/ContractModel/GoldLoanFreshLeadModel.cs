@@ -17,6 +17,8 @@ namespace AurigainLoanERP.Shared.ContractModel
         public string FatherName { get; set; }
         public DateTime DateOfBirth { get; set; }
         public string Gender { get; set; }
+        public string Email { get; set; }
+
         public string PrimaryMobileNumber { get; set; }
         public string SecondaryMobileNumber { get; set; }
         public double LoanAmountRequired { get; set; }
