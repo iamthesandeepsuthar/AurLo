@@ -37,7 +37,6 @@ export class CustomerSignUpComponent implements OnInit {
   }
   get f1() { return this.registrationFromStepOne.controls; }
   get f2() { return this.registrationFromStepTwo.controls; }
-
   get f3() { return this.registrationFromStepThird.controls; }
 
   get routing_Url() { return Routing_Url }
