@@ -30,4 +30,9 @@ export class ProductService {
     let url = `${this._baseService.API_Url.Product_Delete_Api}${id}/${status}`;
     return this._baseService.Delete(url);
   }
+
+  GetProductbyCategory(id: number): Observable<ApiResponse<ProductModel[]>> {
+    let url = `${this._baseService.API_Url.Product_Delete_Api}${id}/${status}`;
+    return this._baseService.Delete(url);
+  }
 }

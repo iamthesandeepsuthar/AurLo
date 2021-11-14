@@ -28,61 +28,148 @@
         <div class="custom_stepers-body-items-form row">
           <div class="form-group col-md-4">
             <label>Select Product </label>
-            <select class="form-control">
-              <option>--Select--</option>
-              <option>--Select--</option>
-              <option>--Select--</option>
-            </select>
+
+            <ng-select [items]="ddlProductModel" (ngModelChange)="onChangeProduct($event)" [searchable]="true"
+              bindLabel="Name" bindValue="Id" placeholder="Select product" formControlName="Product"
+              [ngClass]="{ 'is-invalid': f1.Product.errors && f1.Product.touched}" [(ngModel)]="model.ProductId">
+            </ng-select>
+
+
+            <div class="invalid-feedback"
+              *ngIf="(leadFromPersonalDetail.get('Product')?.hasError('required') && leadFromPersonalDetail.get('Product')?.touched)">
+              Enter Product! </div>
+
           </div>
           <div class="form-group col-md-4">
             <label>Email</label>
-            <input type="text" class="form-control" id="input1" placeholder="Enter here">
+            <input type="text" class="form-control" id="input1" placeholder="Email Address" formControlName="Email"
+              [ngClass]="{ 'is-invalid': f1.Email.errors && f1.Email.touched}" [(ngModel)]="model.Email">
+
+
+
+            <div class="invalid-feedback"
+              *ngIf="(leadFromPersonalDetail.get('Email')?.hasError('required') && leadFromPersonalDetail.get('Email')?.touched)">
+              Enter Email! </div>
+
+            <div class="invalid-feedback" *ngIf="!leadFromPersonalDetail.get('Email')?.hasError('required') && leadFromPersonalDetail.get('Email')?.touched
+              && leadFromPersonalDetail.get('Email')?.invalid">
+              Please fill Correct Email...! </div>
+
+          </div>
+
+          <div class="form-group col-md-4">
+            <label>Full Name</label>
+            <input type="text" (keypress)="!_commonService.NumberOnly($event)" class="form-control" id="input2"
+              placeholder="Full Name" formControlName="FullName"
+              [ngClass]="{ 'is-invalid': f1.FullName.errors && f1.FullName.touched}" [(ngModel)]="model.FullName">
+
+            <div class="invalid-feedback"
+              *ngIf="(leadFromPersonalDetail.get('FullName')?.hasError('required') && leadFromPersonalDetail.get('FullName')?.touched)">
+              Enter Full Name! </div>
+
           </div>
           <div class="form-group col-md-4">
-            <label>Full name</label>
-            <input type="text" class="form-control" id="input1" placeholder="Enter Full name">
+            <label>Father's Name</label>
+            <input type="text" (keypress)="!_commonService.NumberOnly($event)" class="form-control" id="input3"
+              placeholder="Father's Name" formControlName="FatherName"
+              [ngClass]="{ 'is-invalid': f1.FatherName.errors && f1.FatherName.touched}" [(ngModel)]="model.FatherName">
+
+            <div class="invalid-feedback"
+              *ngIf="(leadFromPersonalDetail.get('FatherName')?.hasError('required') && leadFromPersonalDetail.get('FatherName')?.touched)">
+              Enter Father Name! </div>
+
           </div>
           <div class="form-group col-md-4">
-            <label>Father's name</label>
-            <input type="text" class="form-control" id="input1" placeholder="Enter name">
+            <label>Date of Birth</label>
+            <input class="form-control" id="input4" type="date" placeholder="DD-MM-YYYY" [(ngModel)]="model.DateOfBirth"
+              formControlName="DOB" [ngClass]="{ 'is-invalid': f1.DOB.errors && f1.DOB.touched}">
+
+            <div class="invalid-feedback"
+              *ngIf="(leadFromPersonalDetail.get('DOB')?.hasError('required') && leadFromPersonalDetail.get('DOB')?.touched)">
+              Select Date of Birht! </div>
+
           </div>
-          <div class="form-group col-md-4">
-            <label>Date of birth</label>
-            <input type="text" class="form-control" id="input1" placeholder="20-02-1997">
-          </div>
+
           <div class="form-group col-md-4">
             <label>Gender</label>
-            <div class="form-radio-check-grp">
-              <div class="n-chk d-inline">
-                <label class="new-control new-radio radio-classic-info">
-                  <input type="radio" class="new-control-input" name="custom-radio-2" checked>
-                  <span class="new-control-indicator"></span>Male
-                </label>
-              </div>
-              <div class="n-chk d-inline">
-                <label class="new-control new-radio radio-classic-info">
-                  <input type="radio" class="new-control-input" name="custom-radio-2">
-                  <span class="new-control-indicator"></span>Female
-                </label>
-              </div>
+
+            <div class="form-radio-check-grp border-0 pl-0">
+
+              <ng-container *ngFor="let item of dropDown!.ddlGender">
+                <div class="n-chk d-inline">
+                  <label class="new-control new-radio radio-classic-info">
+                    <input type="radio" formControlName="Gender" class="new-control-input" value="{{item.Value}}"
+                      name="Gender" [(ngModel)]="model.Gender">
+                    <span class="new-control-indicator"></span>{{item.Text}}
+                  </label>
+                </div>
+              </ng-container>
+
+              <div class="invalid-feedback"
+                *ngIf="(leadFromPersonalDetail.get('Gender')?.hasError('required') && leadFromPersonalDetail.get('Gender')?.touched)">
+                Select Gender! </div>
+
             </div>
+
+
           </div>
           <div class="form-group col-md-4">
-            <label>Mobile number</label>
-            <input type="text" class="form-control" id="input1" placeholder="8956298857">
+            <label>Mobile Number</label>
+            <input type="text" [minlength]="10" [maxLength]="12" (keypress)="_commonService.NumberOnly($event)"
+              placeholder="Mobile Number" class="form-control" id="input5" [(ngModel)]="model.PrimaryMobileNumber"
+              formControlName="Mobile" [ngClass]="{ 'is-invalid': f1.Mobile.errors && f1.Mobile.touched}">
+
+
+            <div class="invalid-feedback"
+              *ngIf="(leadFromPersonalDetail.get('Mobile')?.hasError('required') && leadFromPersonalDetail.get('Mobile')?.touched)">
+              Enter Mobile Number! </div>
+
+            <div class="invalid-feedback"
+              *ngIf="!leadFromPersonalDetail.get('Mobile')?.hasError('required') && ((leadFromPersonalDetail.get('Mobile')?.hasError('maxlength') || leadFromPersonalDetail.get('Mobile')?.hasError('minlength')) && leadFromPersonalDetail.get('Mobile')?.touched) || (leadFromPersonalDetail.get('Mobile')?.hasError('maxlength') || leadFromPersonalDetail.get('Mobile')?.hasError('minlength'))">
+              Mobile length must be 10-12 digit...! </div>
+
           </div>
+
           <div class="form-group col-md-4">
-            <label>Alternative Mobile number</label>
-            <input type="text" class="form-control" id="input1" placeholder="Enter number">
+            <label>Alternate Mobile Number</label>
+            <input type="text" [minlength]="10" [maxLength]="12" class="form-control"
+              (keypress)="_commonService.NumberOnly($event)" id="input6" placeholder="Alternative Mobile"
+              [(ngModel)]="model.SecondaryMobileNumber" formControlName="AlternativeMobile"
+              [ngClass]="{ 'is-invalid': f1.AlternativeMobile.errors && f1.AlternativeMobile.touched}">
+
+
+            <div class="invalid-feedback"
+              *ngIf="(leadFromPersonalDetail.get('AlternativeMobile')?.hasError('required') && leadFromPersonalDetail.get('AlternativeMobile')?.touched)">
+              Enter Alternate Mobile Number! </div>
+            <div class="invalid-feedback"
+              *ngIf="!leadFromPersonalDetail.get('AlternativeMobile')?.hasError('required') && ((leadFromPersonalDetail.get('AlternativeMobile')?.hasError('maxlength') || leadFromPersonalDetail.get('AlternativeMobile')?.hasError('minlength')) && leadFromPersonalDetail.get('AlternativeMobile')?.touched) || (leadFromPersonalDetail.get('AlternativeMobile')?.hasError('maxlength') || leadFromPersonalDetail.get('AlternativeMobile')?.hasError('minlength'))">
+              Alternate Mobile length must be 10-12 digit...! </div>
+
           </div>
+
           <div class="form-group col-md-4">
             <label>Amount Loan</label>
-            <input type="text" class="form-control" id="input1" placeholder="₹5,00,000">
+            <input type="text" class="form-control" (keypress)="_commonService.checkDecimalNumberOnly($event)"
+              id="input7" placeholder="Amount" [(ngModel)]="model.LoanAmountRequired" formControlName="Amount"
+              [ngClass]="{ 'is-invalid': f1.Amount.errors && f1.Amount.touched}">
+
+            <div class="invalid-feedback"
+              *ngIf="(leadFromPersonalDetail.get('Amount')?.hasError('required') && leadFromPersonalDetail.get('Amount')?.touched)">
+              Enter Amount! </div>
+
           </div>
+
           <div class="form-group col-md-4">
             <label>Purpose of Loan</label>
-            <input type="text" class="form-control" id="input1" placeholder="Enter Purpose">
+            <input type="text" class="form-control" id="input8" placeholder="Purpose" [(ngModel)]="model.Purpose"
+              formControlName="Purpose" [ngClass]="{ 'is-invalid': f1.Purpose.errors && f1.Purpose.touched}">
+
+            <div class="invalid-feedback"
+              *ngIf="(leadFromPersonalDetail.get('Purpose')?.hasError('required') && leadFromPersonalDetail.get('Purpose')?.touched)">
+              Enter Purpose! </div>
+
           </div>
+
         </div>
       </div>
 
@@ -97,27 +184,65 @@
       <div class="step-grp-content">
         <div class="custom_stepers-body-items-form row">
           <div class="form-group col-md-4">
-            <label>Select Document Type</label>
-            <select class="form-control">
-              <option>--Select--</option>
-              <option>--Select--</option>
-              <option>--Select--</option>
-            </select>
+            <label>Document Type</label>
+
+
+            <ng-select [items]="ddlDocumentTypeModel" (ngModelChange)="onChangeDocument($event)" [searchable]="true"
+              bindLabel="Name" bindValue="Id" placeholder="Select Document Type" formControlName="DocumentType"
+              [ngClass]="{ 'is-invalid': f2.DocumentType.errors && f2.DocumentType.touched}"
+              [(ngModel)]="model.KycDocument.KycDocumentTypeId">
+            </ng-select>
+            <div class="invalid-feedback"
+              *ngIf="(leadFromDocumentDetail.get('DocumentType')?.hasError('required') && leadFromDocumentDetail.get('DocumentType')?.touched)">
+              select Document Type! </div>
+
           </div>
           <div class="form-group col-md-4">
             <label>Document Number</label>
-            <input type="text" class="form-control" id="input1" placeholder="Enter here">
+            <input type="text" class="form-control" id="input9" placeholder="Document Number"
+              [(ngModel)]="model.KycDocument.DocumentNumber" formControlName="DocumentNumber"
+              [ngClass]="{ 'is-invalid': f2.DocumentNumber.errors && f2.DocumentNumber.touched}">
+            <div class="invalid-feedback"
+              *ngIf="(leadFromDocumentDetail.get('DocumentNumber')?.hasError('required') && leadFromDocumentDetail.get('DocumentNumber')?.touched)">
+              Enter Document Number! </div>
+
           </div>
 
           <div class="form-group col-md-4">
-            <label>Pincode</label>
-            <input type="text" class="form-control" id="input1" placeholder="302004">
+            <label>PAN Number</label>
+            <input type="text" class="form-control" id="input10" placeholder="PAN Number"
+              [(ngModel)]="model.KycDocument.PanNumber" formControlName="PanNumber"
+              [ngClass]="{ 'is-invalid': f2.PanNumber.errors && f2.PanNumber.touched}">
+            <div class="invalid-feedback"
+              *ngIf="(leadFromDocumentDetail.get('PanNumber')?.hasError('required') && leadFromDocumentDetail.get('PanNumber')?.touched)">
+              Enter Pan Number! </div>
+
+          </div>
+
+          <div class="form-group col-md-4">
+            <label>Pin Code</label>
+            <input type="text" class="form-control" (keypress)="_commonService.NumberOnly($event)"
+              (change)="onChangePinCode()" id="input10" placeholder="Pin Code" [(ngModel)]="PinCode"
+              formControlName="Pincode" [ngClass]="{ 'is-invalid': f2.Pincode.errors && f2.Pincode.touched}">
+            <div class="invalid-feedback"
+              *ngIf="(leadFromDocumentDetail.get('Pincode')?.hasError('required') && leadFromDocumentDetail.get('Pincode')?.touched)">
+              Enter Pin Code! </div>
+
           </div>
 
 
           <div class="form-group col-md-4">
-            <label>Area name</label>
-            <input type="text" class="form-control" id="input1" placeholder="Mansarover">
+            <label>Area Name</label>
+            <ng-select [items]="ddlDocumentTypeModel" [searchable]="true" bindLabel="Name" bindValue="Id"
+              placeholder="Select Area" formControlName="Aarea"
+              [ngClass]="{ 'is-invalid': f2.Aarea.errors && f2.Aarea.touched}"
+              [(ngModel)]="model.KycDocument.PincodeAreaId">
+
+            </ng-select>
+            <div class="invalid-feedback"
+              *ngIf="(leadFromDocumentDetail.get('Aarea')?.hasError('required') && leadFromDocumentDetail.get('Aarea')?.touched)">
+              select Area! </div>
+
           </div>
 
         </div>
@@ -130,33 +255,55 @@
       </div>
     </form>
   </mat-step>
+
   <mat-step [stepControl]="leadFromJewelleryDetail">
     <form [formGroup]="leadFromJewelleryDetail" (ngSubmit)="onSubmit()">
       <ng-template matStepLabel>Jewellery Details</ng-template>
       <div class="step-grp-content">
         <div class="custom_stepers-body-items-form row">
           <div class="form-group col-md-4">
-            <label>Type of Jewellery</label>
-            <select class="form-control">
-              <option>--Select--</option>
-              <option>--Select--</option>
-              <option>--Select--</option>
-            </select>
+            <label>Jewellery Type</label>
+
+            <ng-select [items]="ddlJewelleryType" [searchable]="true" bindLabel="Name" bindValue="Id"
+              placeholder="Select Jewellery Type" formControlName="JewelleryType"
+              [ngClass]="{ 'is-invalid': f3.JewelleryType.errors && f3.JewelleryType.touched}"
+              [(ngModel)]="model.JewelleryDetail.JewelleryTypeId">
+            </ng-select>
+            <div class="invalid-feedback"
+              *ngIf="(leadFromJewelleryDetail.get('JewelleryType')?.hasError('required') && leadFromJewelleryDetail.get('JewelleryType')?.touched)">
+              select Jewellery Type! </div>
           </div>
+
           <div class="form-group col-md-4">
             <label>Quantity</label>
             <!-- 1-10 -->
-            <input type="number" class="form-control" id="input1" [min]="1" [max]="10" placeholder="Quantity">
+            <input type="number" (keypress)="_commonService.NumberOnly($event)" class="form-control" id="input12"
+              [min]="1" [max]="10" maxlength="2" placeholder="Quantity" [(ngModel)]="model.JewelleryDetail.Quantity"
+              formControlName="Quantity" [ngClass]="{ 'is-invalid': f3.Quantity.errors && f3.Quantity.touched}">
+
+            <div class="invalid-feedback"
+              *ngIf="(leadFromJewelleryDetail.get('Quantity')?.hasError('required') && leadFromJewelleryDetail.get('Quantity')?.touched)">
+              Enter Quantity! </div>
+
+          </div>
+
+          <div class="form-group col-md-4">
+            <label>Weight (in grams)</label>
+            <input type="number" (keypress)="_commonService.checkDecimalNumberOnly($event)" class="form-control"
+              id="input13" placeholder="Weight" [(ngModel)]="model.JewelleryDetail.Weight" formControlName="Weight"
+              [ngClass]="{ 'is-invalid': f3.Weight.errors && f3.Weight.touched}">
+            <div class="invalid-feedback"
+              *ngIf="(leadFromJewelleryDetail.get('Weight')?.hasError('required') && leadFromJewelleryDetail.get('Weight')?.touched)">
+              Enter Weight! </div>
+
 
           </div>
           <div class="form-group col-md-4">
-            <label>Weight (in grams)</label>
-            <input type="number" class="form-control" id="input1" placeholder="Weight">
-          </div>
-          <div class="form-group col-md-4">
-            <label>Select Karats</label>
-            <select class="form-control">
-              <option>--Select--</option>
+            <label>Karats</label>
+            <select class="form-control" formControlName="Karats"
+              [ngClass]="{ 'is-invalid': f3.Karats.errors && f3.Karats.touched}"
+              [(ngModel)]="model.JewelleryDetail.Karat">
+              <option selected>--Select--</option>
               <option value="18">18</option>
               <option value="20">20</option>
               <option value="22">22</option>
@@ -164,10 +311,20 @@
 
 
             </select>
+            <div class="invalid-feedback"
+              *ngIf="(leadFromJewelleryDetail.get('Karats')?.hasError('required') && leadFromJewelleryDetail.get('Karats')?.touched)">
+              select Karats! </div>
           </div>
+
           <div class="form-group col-md-4">
             <label>Tenure </label>
-            <input type="number" class="form-control" id="input1" placeholder="Enter Tenure">
+            <input type="number" (keypress)="_commonService.NumberOnly($event)" class="form-control" id="input14"
+              placeholder="Tenure" [(ngModel)]="model.JewelleryDetail.PreferredLoanTenure" formControlName="Tenure"
+              [ngClass]="{ 'is-invalid': f3.Tenure.errors && f3.Tenure.touched}">
+
+            <div class="invalid-feedback"
+              *ngIf="(leadFromJewelleryDetail.get('Tenure')?.hasError('required') && leadFromJewelleryDetail.get('Tenure')?.touched)">
+              select Tenure! </div>
           </div>
         </div>
       </div>
@@ -188,11 +345,17 @@
           <div class="form-group col-md-4">
             <!-- this will auto fill from document pincode field blur event -->
             <label> Branch</label>
-            <select class="form-control">
-              <option>--Select--</option>
-              <option>--Select--</option>
-              <option>--Select--</option>
-            </select>
+
+            <ng-select [items]="ddlBranchModel" [searchable]="true" bindLabel="Name" bindValue="Id"
+              placeholder="Select Brnach" formControlName="Branch"
+              [ngClass]="{ 'is-invalid': f4.Branch.errors && f4.Branch.touched}"
+              [(ngModel)]="model.AppointmentDetail.BranchId">
+            </ng-select>
+
+            <div class="invalid-feedback"
+              *ngIf="(leadFromAppointmentDetail.get('Branch')?.hasError('required') && leadFromAppointmentDetail.get('Branch')?.touched)">
+              select Branch! </div>
+
           </div>
           <!-- <div class="form-group col-md-4">
           <label>Bank Name</label>
@@ -204,11 +367,28 @@
         </div> -->
           <div class="form-group col-md-4">
             <label>Date of Appointment</label>
-            <input type="text" class="form-control" id="input1" placeholder="20-02-1998">
+
+            <input class="form-control" #datepickerYMD="bsDatepicker" placeholder="DD-MM-YYYY"
+              formControlName="DateofAppointment"
+              [ngClass]="{ 'is-invalid': f4.DateofAppointment.errors && f4.DateofAppointment.touched}" bsDatepicker
+              [(ngModel)]="model.AppointmentDetail.AppointmentDate"
+              [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', adaptivePosition: true,isAnimated: true, showWeekNumbers: false }">
+            <i class="fas fa-calendar-alt"></i>
+
+            <div class="invalid-feedback"
+              *ngIf="(leadFromAppointmentDetail.get('DateofAppointment')?.hasError('required') && leadFromAppointmentDetail.get('DateofAppointment')?.touched)">
+              select date of Appointment </div>
+
           </div>
           <div class="form-group col-md-4">
             <label> Time of Appointment</label>
-            <input type="text" class="form-control" id="input1" placeholder="Enter time">
+            <input type="time" class="form-control" id="input16" [(ngModel)]="model.AppointmentDetail.AppointmentTime"
+              formControlName="TimeofAppointment"
+              [ngClass]="{ 'is-invalid': f4.TimeofAppointment.errors && f4.TimeofAppointment.touched}"
+              class="form-control" placeholder="Time picker">
+            <div class="invalid-feedback"
+              *ngIf="(leadFromAppointmentDetail.get('TimeofAppointment')?.hasError('required') && leadFromAppointmentDetail.get('TimeofAppointment')?.touched)">
+              select Time of Appointment </div>
           </div>
           <!-- <div class="form-group col-md-4">
           <label> Branch name</label>

@@ -1,4 +1,9 @@
 export class GoldLoanFreshLeadModel {
+  constructor() {
+    this.KycDocument = new GoldLoanFreshLeadKycDocumentModel();
+    this.AppointmentDetail = new GoldLoanFreshLeadAppointmentDetailModel();
+    this.JewelleryDetail = new GoldLoanFreshLeadJewelleryDetailModel();
+  }
   Id!: number;
   FullName!: string;
   FatherName!: string;
@@ -17,6 +22,7 @@ export class GoldLoanFreshLeadModel {
   AppointmentDetail!: GoldLoanFreshLeadAppointmentDetailModel;
   JewelleryDetail!: GoldLoanFreshLeadJewelleryDetailModel;
 }
+
 
 export class GoldLoanFreshLeadAppointmentDetailModel {
   Id!: number;
