@@ -11,6 +11,7 @@ namespace AurigainLoanERP.Data.Database
     {
         public Product()
         {
+            BtgoldLoanLead = new HashSet<BtgoldLoanLead>();
             FreshLeadHlplcl = new HashSet<FreshLeadHlplcl>();
             GoldLoanFreshLead = new HashSet<GoldLoanFreshLead>();
         }
@@ -35,6 +36,7 @@ namespace AurigainLoanERP.Data.Database
 
         public virtual BankMaster Bank { get; set; }
         public virtual ProductCategory ProductCategory { get; set; }
+        public virtual ICollection<BtgoldLoanLead> BtgoldLoanLead { get; set; }
         public virtual ICollection<FreshLeadHlplcl> FreshLeadHlplcl { get; set; }
         public virtual ICollection<GoldLoanFreshLead> GoldLoanFreshLead { get; set; }
     }

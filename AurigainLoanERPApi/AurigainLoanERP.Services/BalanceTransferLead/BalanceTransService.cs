@@ -51,6 +51,8 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                     objData.Purpose = !string.IsNullOrEmpty(model.Purpose) ? model.Purpose : null;
                     objData.LeadSourceByuserId = model.LeadSourceByuserId;
                     objData.CreatedOn = DateTime.Now;
+                    objData.LoanAmount = model.LoanAmount;
+                    objData.ProductId = model.ProductId;
                     objData.CreatedBy = null;
                     objData.IsActive = true;
 
@@ -229,8 +231,6 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                         PromissoryNote = model.PromissoryNote != null ? _fileHelper.Save(model.PromissoryNote.File, fileSavePath, model.PromissoryNote.FileName) : null,
                         AtmwithdrawalSlip = model.AtmwithdrawalSlip != null ? _fileHelper.Save(model.AtmwithdrawalSlip.File, fileSavePath, model.AtmwithdrawalSlip.FileName) : null,
                         ForeClosureLetter = model.ForeClosureLetter != null ? _fileHelper.Save(model.ForeClosureLetter.File, fileSavePath, model.ForeClosureLetter.FileName) : null,
-
-
                     };
 
                     var result = await _db.BtgoldLoanLeadDocumentDetail.AddAsync(objModel);

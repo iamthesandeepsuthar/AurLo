@@ -5,8 +5,10 @@
     [FatherName] NVARCHAR(3000) NOT NULL, 
     [Gender] VARCHAR(50) NOT NULL, 
     [DateOfBirth] DATETIME NOT NULL, 
-    [Profession] VARCHAR(350) NULL, 
+    [Profession] VARCHAR(350) NULL,   
     [Mobile] VARCHAR(20) NOT NULL,
+    [LoanAmount] DECIMAL NOT NULL, 
+    [ProductId] INT Not NULL References Product(Id),
     [EmailId] NVARCHAR(500) NULL, 
     [SecondaryMobile] VARCHAR(20) NULL, 
     [Purpose] NVARCHAR(3000) NULL, 
@@ -16,5 +18,6 @@
     [CreatedOn] DATETIME NOT NULL DEFAULT GETDATE(), 
     [ModifiedOn] DATETIME NULL, 
     [CreatedBy] BIGINT NULL, 
-    [ModifiedBy] BIGINT NULL,
+    [ModifiedBy] BIGINT NULL, 
+    
 )

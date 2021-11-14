@@ -26,6 +26,8 @@ namespace AurigainLoanERP.Data.Database
         public DateTime DateOfBirth { get; set; }
         public string Profession { get; set; }
         public string Mobile { get; set; }
+        public decimal LoanAmount { get; set; }
+        public int ProductId { get; set; }
         public string EmailId { get; set; }
         public string SecondaryMobile { get; set; }
         public string Purpose { get; set; }
@@ -38,6 +40,7 @@ namespace AurigainLoanERP.Data.Database
         public long? ModifiedBy { get; set; }
 
         public virtual UserMaster LeadSourceByuser { get; set; }
+        public virtual Product Product { get; set; }
         public virtual ICollection<BtgoldLoanLeadAddressDetail> BtgoldLoanLeadAddressDetail { get; set; }
         public virtual ICollection<BtgoldLoanLeadAppointmentDetail> BtgoldLoanLeadAppointmentDetail { get; set; }
         public virtual ICollection<BtgoldLoanLeadDocumentDetail> BtgoldLoanLeadDocumentDetail { get; set; }

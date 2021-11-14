@@ -11,6 +11,7 @@ namespace AurigainLoanERP.Shared.ContractModel
     public class BTGoldLoanLeadPostModel
     {
         public long Id { get; set; }
+        public int ProductId { get; set;}
         public string FullName { get; set; }
         public string FatherName { get; set; }
         public string Gender { get; set; }
@@ -20,6 +21,7 @@ namespace AurigainLoanERP.Shared.ContractModel
         public string EmailId { get; set; }
         public string SecondaryMobile { get; set; }
         public string Purpose { get; set; }
+        public decimal LoanAmount { get; set;}
         public long LeadSourceByuserId { get; set; }
 
         public BtGoldLoanLeadAddressPostModel AddressDetail { get; set; }
@@ -60,7 +62,6 @@ namespace AurigainLoanERP.Shared.ContractModel
         public FileModel? AtmwithdrawalSlip { get; set; }
         public FileModel? ForeClosureLetter { get; set; }
     }
-
     public class BtGoldLoanLeadExistingLoanPostModel
     {
         public long Id { get; set; }
@@ -91,7 +92,6 @@ namespace AurigainLoanERP.Shared.ContractModel
         public int PoadocumentTypeId { get; set; }
         public string PoadocumentNumber { get; set; }
     }
-
     public class FileModel
     {
        
