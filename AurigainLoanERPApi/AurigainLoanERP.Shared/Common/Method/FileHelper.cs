@@ -1,4 +1,5 @@
-﻿using HeyRed.Mime;
+﻿using AurigainLoanERP.Shared.ExtensionMethod;
+using HeyRed.Mime;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Hosting.Internal;
 using Microsoft.AspNetCore.Http;
@@ -25,11 +26,12 @@ namespace AurigainLoanERP.Shared.Common
         /// <param name="filePath">save location file path</param>
         /// <param name="fileName">file name if required custom name</param>
         /// <returns></returns>
+        
         public string Save(string base64str, string filePath, string fileName = null)
         {
             try
             {
-                if (!string.IsNullOrEmpty(base64str) && !string.IsNullOrEmpty(filePath))
+                if (!string.IsNullOrEmpty(base64str) && base64str.IsBase64() && !string.IsNullOrEmpty(filePath))
                 {
                     base64str = Regex.Replace(base64str, @"^\s*$\n", string.Empty, RegexOptions.Multiline).TrimEnd();
                     byte[] byteArr;
