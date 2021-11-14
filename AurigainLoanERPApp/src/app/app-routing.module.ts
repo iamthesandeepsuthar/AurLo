@@ -6,6 +6,7 @@ import { AuthenticationGuard } from './Shared/Helper/authentication.guard';
 import { HtmlComponent } from './Content/html/html.component';
 import { LoginComponent } from './Content/Common/login/login.component';
 import { CustomerSignUpComponent } from './Content/Common/customer-sign-up/customer-sign-up.component';
+import { UserBackendOperatorModule } from './Content/user-backend-operator/user-backend-operator.module';
 
 
 const routes: Routes = [
@@ -13,6 +14,8 @@ const routes: Routes = [
   { path: "dashboard", loadChildren: () => import('./Content/dashboard/dashboard.module').then(m => m.DashboardModule) },
   { path: Routing_Url.AdminModule, loadChildren: () => import('./Content/admin/admin.module').then(m => m.AdminModule) },
   { path: Routing_Url.UserCustomerModule, loadChildren: () => import('./Content/user-customer/user-customer.module').then(m => m.UserCustomerModule) },
+  { path: Routing_Url.UserBackendOperatorModule, loadChildren: () => import('./Content/user-backend-operator/user-backend-operator.module').then(m => m.UserBackendOperatorModule) },
+
   { path: 'manish', component: HtmlComponent },
   { path: Routing_Url.LoginUrl , component: LoginComponent },
   { path: Routing_Url.CustomerSignUpUrl , component: CustomerSignUpComponent },

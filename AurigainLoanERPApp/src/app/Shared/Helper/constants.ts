@@ -177,8 +177,8 @@ export class Routing_Url {
   public static DoorStepModule = 'door-step-agent';
   public static AgentModule = 'agent';
   public static CustomersModule = 'customer'; //for admin
-
   public static UserCustomerModule = 'user-customer'; //for login
+  public static UserBackendOperatorModule = 'backend-operator'; //for login
 
   //#endregion
 
