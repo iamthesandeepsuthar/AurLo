@@ -443,8 +443,6 @@ namespace AurigainLoanERP.Data.Database
 
                 entity.Property(e => e.DateOfBirth).HasColumnType("datetime");
 
-                entity.Property(e => e.Email).HasMaxLength(250);
-
                 entity.Property(e => e.FatherName).HasMaxLength(2000);
 
                 entity.Property(e => e.FullName)
