@@ -26,7 +26,7 @@ namespace AurigainLoanERP.Shared.Common
         /// <param name="filePath">save location file path</param>
         /// <param name="fileName">file name if required custom name</param>
         /// <returns></returns>
-        
+
         public string Save(string base64str, string filePath, string fileName = null)
         {
             try
@@ -51,7 +51,7 @@ namespace AurigainLoanERP.Shared.Common
                     {
                         Directory.CreateDirectory(path);
                     }
-                    fileName = string.IsNullOrEmpty(fileName) ? Guid.NewGuid().ToString() + GetFileExtension(base64str) : fileName.Replace(" ", "_");
+                    fileName = string.IsNullOrEmpty(fileName) ? Guid.NewGuid().ToString() + GetFileExtension(base64str) : fileName.Split(".").Length > 1 ? fileName.Replace(" ", "_") : fileName.Replace(" ", "_") + GetFileExtension(base64str);
                     File.WriteAllBytes(Path.Combine(path, fileName), byteArr);
                     return fileName;
                 }
