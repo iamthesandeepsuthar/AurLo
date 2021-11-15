@@ -31,29 +31,34 @@ namespace AurigainLoanERP.Shared.Common
         {
             try
             {
-                if (!string.IsNullOrEmpty(base64str) && base64str.IsBase64() && !string.IsNullOrEmpty(filePath))
+                if (!string.IsNullOrEmpty(base64str))
                 {
+                    base64str = base64str.Replace(" ", "");
                     base64str = Regex.Replace(base64str, @"^\s*$\n", string.Empty, RegexOptions.Multiline).TrimEnd();
-                    byte[] byteArr;
-                    if (base64str.Split(';').Length > 0)
+                    if (base64str.IsBase64() && !string.IsNullOrEmpty(filePath))
                     {
-                        string[] Fileinfo = base64str.Split(';');
-                        byteArr = Convert.FromBase64String(Fileinfo[1].Substring(Fileinfo[1].IndexOf(',') + 1));
-                    }
-                    else
-                    {
-                        byteArr = Convert.FromBase64String(base64str);
-                    }
 
-                    //  saveFile = filePath;
-                    string path = GetPhysicalPath(filePath);
-                    if (!Directory.Exists(path))
-                    {
-                        Directory.CreateDirectory(path);
+                        byte[] byteArr;
+                        if (base64str.Split(';').Length > 0)
+                        {
+                            string[] Fileinfo = base64str.Split(';');
+                            byteArr = Convert.FromBase64String(Fileinfo[1].Substring(Fileinfo[1].IndexOf(',') + 1));
+                        }
+                        else
+                        {
+                            byteArr = Convert.FromBase64String(base64str);
+                        }
+
+                        //  saveFile = filePath;
+                        string path = GetPhysicalPath(filePath);
+                        if (!Directory.Exists(path))
+                        {
+                            Directory.CreateDirectory(path);
+                        }
+                        fileName = string.IsNullOrEmpty(fileName) ? Guid.NewGuid().ToString() + GetFileExtension(base64str) : fileName.Split(".").Length > 1 ? fileName.Replace(" ", "_") : fileName.Replace(" ", "_") + GetFileExtension(base64str);
+                        File.WriteAllBytes(Path.Combine(path, fileName), byteArr);
+                        return fileName;
                     }
-                    fileName = string.IsNullOrEmpty(fileName) ? Guid.NewGuid().ToString() + GetFileExtension(base64str) : fileName.Split(".").Length > 1 ? fileName.Replace(" ", "_") : fileName.Replace(" ", "_") + GetFileExtension(base64str);
-                    File.WriteAllBytes(Path.Combine(path, fileName), byteArr);
-                    return fileName;
                 }
             }
             catch
@@ -145,6 +150,12 @@ namespace AurigainLoanERP.Shared.Common
 
                 string mime = (base64String.Split(';')[0]).Split(':')[1];
                 ext = MimeTypesMap.GetExtension(mime);
+
+                if (ext =="bin")
+                {
+                    ext = mime.Split("/")[1].ToLower();
+
+                }
 
                 ext = string.Concat(".", ext);
             }

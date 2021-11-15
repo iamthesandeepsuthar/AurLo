@@ -9,7 +9,8 @@ namespace AurigainLoanERP.Shared.Common.Model
         public const string UserProfile = "\\Content\\UserFiles\\UserProfile\\";
         public const string UserDocsFile = "\\Content\\UserFiles\\UserDocs\\";
         public const string BankLogoFile = "\\Content\\BankFiles\\Logo\\";
-        public const string LeadsDocsFile = "\\Content\\UserFiles\\LeadsDocs\\";
+        public const string BTGoldLeadsDocsFile = "\\Content\\UserFiles\\LeadsDocs\\BTGoldLoan\\";
+        public const string FreshGoldLeadsDocsFile = "\\Content\\UserFiles\\LeadsDocs\\FreshGoldLoan\\";
 
     }
 

@@ -56,7 +56,7 @@ namespace AurigainLoanERP.Shared.ExtensionMethod
              
             try
             {
-                base64String = Regex.Replace(base64String, @"^\s*$\n", string.Empty, RegexOptions.Multiline).TrimEnd();
+                base64String = Regex.Replace(base64String, @"^\s*$\n", string.Empty).TrimEnd();
 
               
                 if (base64String.Split(';').Length > 0)
@@ -66,7 +66,7 @@ namespace AurigainLoanERP.Shared.ExtensionMethod
                 }
 
                 if (string.IsNullOrEmpty(base64String) || base64String.Length % 4 != 0
-               || base64String.Contains(" ") || base64String.Contains("\t") || base64String.Contains("\r") || base64String.Contains("\n"))
+               || base64String.Contains(" ") || base64String.Contains("\t") || base64String.Contains("\r") )
                 { return false; }
 
 

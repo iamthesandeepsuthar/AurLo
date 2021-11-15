@@ -213,7 +213,7 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
         {
             try
             {
-                string fileSavePath = string.Concat(FilePathConstant.LeadsDocsFile, "", LeadId, "\\");
+                string fileSavePath = string.Concat(FilePathConstant.BTGoldLeadsDocsFile, "", LeadId, "\\");
 
                 if (model.Id == default || model.Id == 0)
                 {
@@ -221,16 +221,16 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                     {
 
                         LeadId = LeadId,
-                        CustomerPhoto = model.CustomerPhoto != null ? _fileHelper.Save(model.CustomerPhoto.File, fileSavePath, model.CustomerPhoto.FileName) : null,
-                        KycdocumentPoi = model.KycDocumentPoi != null ? _fileHelper.Save(model.KycDocumentPoi.File, fileSavePath, model.KycDocumentPoi.FileName) : null,
-                        KycdocumentPoa = model.KycDocumentPoa != null ? _fileHelper.Save(model.KycDocumentPoa.File, fileSavePath, model.KycDocumentPoa.FileName) : null,
-                        BlankCheque1 = model.BlankCheque1 != null ? _fileHelper.Save(model.BlankCheque1.File, fileSavePath, model.BlankCheque1.FileName) : null,
-                        BlankCheque2 = model.BlankCheque2 != null ? _fileHelper.Save(model.BlankCheque2.File, fileSavePath, model.BlankCheque2.FileName) : null,
-                        LoanDocument = model.LoanDocument != null ? _fileHelper.Save(model.LoanDocument.File, fileSavePath, model.LoanDocument.FileName) : null,
-                        AggrementLastPage = model.AggrementLastPage != null ? _fileHelper.Save(model.AggrementLastPage.File, fileSavePath, model.AggrementLastPage.FileName) : null,
-                        PromissoryNote = model.PromissoryNote != null ? _fileHelper.Save(model.PromissoryNote.File, fileSavePath, model.PromissoryNote.FileName) : null,
-                        AtmwithdrawalSlip = model.AtmwithdrawalSlip != null ? _fileHelper.Save(model.AtmwithdrawalSlip.File, fileSavePath, model.AtmwithdrawalSlip.FileName) : null,
-                        ForeClosureLetter = model.ForeClosureLetter != null ? _fileHelper.Save(model.ForeClosureLetter.File, fileSavePath, model.ForeClosureLetter.FileName) : null,
+                        CustomerPhoto = model.CustomerPhoto != null ? Path.Combine(fileSavePath, _fileHelper.Save(model.CustomerPhoto.File, fileSavePath, model.CustomerPhoto.FileName) ): null,
+                        KycdocumentPoi = model.KycDocumentPoi != null ? Path.Combine(fileSavePath, _fileHelper.Save(model.KycDocumentPoi.File, fileSavePath, model.KycDocumentPoi.FileName) ): null,
+                        KycdocumentPoa = model.KycDocumentPoa != null ? Path.Combine(fileSavePath, _fileHelper.Save(model.KycDocumentPoa.File, fileSavePath, model.KycDocumentPoa.FileName) ): null,
+                        BlankCheque1 = model.BlankCheque1 != null ? Path.Combine(fileSavePath, _fileHelper.Save(model.BlankCheque1.File, fileSavePath, model.BlankCheque1.FileName) ): null,
+                        BlankCheque2 = model.BlankCheque2 != null ? Path.Combine(fileSavePath, _fileHelper.Save(model.BlankCheque2.File, fileSavePath, model.BlankCheque2.FileName) ): null,
+                        LoanDocument = model.LoanDocument != null ? Path.Combine(fileSavePath, _fileHelper.Save(model.LoanDocument.File, fileSavePath, model.LoanDocument.FileName) ): null,
+                        AggrementLastPage = model.AggrementLastPage != null ? Path.Combine(fileSavePath, _fileHelper.Save(model.AggrementLastPage.File, fileSavePath, model.AggrementLastPage.FileName) ): null,
+                        PromissoryNote = model.PromissoryNote != null ? Path.Combine(fileSavePath, _fileHelper.Save(model.PromissoryNote.File, fileSavePath, model.PromissoryNote.FileName) ): null,
+                        AtmwithdrawalSlip = model.AtmwithdrawalSlip != null ? Path.Combine(fileSavePath, _fileHelper.Save(model.AtmwithdrawalSlip.File, fileSavePath, model.AtmwithdrawalSlip.FileName) ): null,
+                        ForeClosureLetter = model.ForeClosureLetter != null ? Path.Combine(fileSavePath, _fileHelper.Save(model.ForeClosureLetter.File, fileSavePath, model.ForeClosureLetter.FileName) ): null,
                     };
 
                     var result = await _db.BtgoldLoanLeadDocumentDetail.AddAsync(objModel);
