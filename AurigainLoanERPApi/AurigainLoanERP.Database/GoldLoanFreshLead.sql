@@ -12,9 +12,11 @@
     [SecondaryMobileNumber] NVARCHAR(20) NULL, 
     [LoanAmountRequired] FLOAT NOT NULL, 
     [Purpose] NVARCHAR(1000) NULL,    
+    [CustomerUserId] BIGINT NULL References UserMaster(Id), 
     [CreatedDate] DATETIME NOT NULL DEFAULT getDate(), 
     [ModifedDate] DATETIME NULL, 
     [IsActive] BIT NOT NULL DEFAULT 1, 
     [IsDelete] BIT NOT NULL DEFAULT 0, 
+    
     
 )

@@ -22,16 +22,19 @@ namespace AurigainLoanERP.Data.Database
         public DateTime DateOfBirth { get; set; }
         public string Gender { get; set; }
         public string PrimaryMobileNumber { get; set; }
+        public string Email { get; set; }
         public int ProductId { get; set; }
         public long LeadSourceByUserId { get; set; }
         public string SecondaryMobileNumber { get; set; }
         public double LoanAmountRequired { get; set; }
         public string Purpose { get; set; }
+        public long? CustomerUserId { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime? ModifedDate { get; set; }
         public bool? IsActive { get; set; }
         public bool IsDelete { get; set; }
 
+        public virtual UserMaster CustomerUser { get; set; }
         public virtual UserMaster LeadSourceByUser { get; set; }
         public virtual Product Product { get; set; }
         public virtual ICollection<GoldLoanFreshLeadAppointmentDetail> GoldLoanFreshLeadAppointmentDetail { get; set; }

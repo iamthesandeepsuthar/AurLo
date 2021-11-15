@@ -36,9 +36,19 @@ namespace AurigainLoanERP.Services.FreshLead
             ApiServiceResponseModel<List<GoldLoanFreshLeadListModel>> objResponse = new ApiServiceResponseModel<List<GoldLoanFreshLeadListModel>>();
             try
             {
-                var result = (from goldLoanLead in _db.GoldLoanFreshLead                                  
+                IQueryable<GoldLoanFreshLead> result;
+                if (model.UserId == null)
+                {
+                    result = (from goldLoanLead in _db.GoldLoanFreshLead
                               where !goldLoanLead.IsDelete && (string.IsNullOrEmpty(model.Search) || goldLoanLead.FullName.Contains(model.Search) || goldLoanLead.FatherName.Contains(model.Search) || goldLoanLead.Gender.Contains(model.Search) || goldLoanLead.GoldLoanFreshLeadKycDocument.FirstOrDefault().PincodeArea.Pincode.Contains(model.Search))
+                              select goldLoanLead);                }
+                else 
+                {
+                    result = (from goldLoanLead in _db.GoldLoanFreshLead
+                              where !goldLoanLead.IsDelete && goldLoanLead.LeadSourceByUserId == model.UserId && (string.IsNullOrEmpty(model.Search) || goldLoanLead.FullName.Contains(model.Search) || goldLoanLead.FatherName.Contains(model.Search) || goldLoanLead.Gender.Contains(model.Search) || goldLoanLead.GoldLoanFreshLeadKycDocument.FirstOrDefault().PincodeArea.Pincode.Contains(model.Search))
                               select goldLoanLead);
+                }
+                 
                 switch (model.OrderBy)
                 {
                     case "FullName":
@@ -67,8 +77,7 @@ namespace AurigainLoanERP.Services.FreshLead
                                               Gender = detail.Gender ?? null,                                           
                                               IsActive = detail.IsActive.Value,  
                                               ProductName = detail.Product.Name,
-                                              Pincode = detail.GoldLoanFreshLeadKycDocument.FirstOrDefault().PincodeArea.Pincode,
-                                               
+                                              Pincode = detail.GoldLoanFreshLeadKycDocument.FirstOrDefault().PincodeArea.Pincode,                                               
                                           }).ToListAsync();
                 if (result != null)
                 {
@@ -95,43 +104,50 @@ namespace AurigainLoanERP.Services.FreshLead
                     await _db.Database.BeginTransactionAsync();
 
                     long leadId = 0;
-                    leadId = await SaveBasicDetailGoldFreshLead(model);
-
-                    if (leadId > 0)
+                    var customerUserId = await SaveCustomerFreshLead(model);
+                    if (customerUserId > 0)
                     {
-                        if (model.KycDocument != null)
+                        leadId = await SaveBasicDetailGoldFreshLead(model,customerUserId);
+                        if (leadId > 0)
                         {
-                            await SaveKycDocumentDetail(model.KycDocument, leadId);
-                        }
+                            if (model.KycDocument != null)
+                            {
+                                await SaveKycDocumentDetail(model.KycDocument, leadId);
+                            }
 
-                        if (model.AppointmentDetail != null)
+                            if (model.AppointmentDetail != null)
+                            {
+                                await SaveAppointmentDetail(model.AppointmentDetail, leadId);
+                            }
+
+                            if (model.JewelleryDetail != null)
+                            {
+                                await SaveJewelleryDetail(model.JewelleryDetail, leadId);
+                            }
+
+
+                            //Dictionary<string, string> replaceValues = new Dictionary<string, string>();
+                            //replaceValues.Add("{{UserName}}", user.UserName);
+                            //await _emailHelper.SendHTMLBodyMail(user.Email, "Aurigain: Gold Loan Application Notification", EmailPathConstant.GoldLoanLeadGenerationTemplate, replaceValues);
+
+                            _db.Database.CommitTransaction();
+                            return CreateResponse<string>(leadId.ToString(), ResponseMessage.Save, true, ((int)ApiStatusCode.Ok));
+                        }
+                        else
                         {
-                            await SaveAppointmentDetail(model.AppointmentDetail, leadId);
+                            _db.Database.RollbackTransaction();
+                            return CreateResponse<string>(null, ResponseMessage.UserExist, false, ((int)ApiStatusCode.DataBaseTransactionFailed));
                         }
-
-                        if (model.JewelleryDetail != null)
-                        {
-                            await SaveJewelleryDetail(model.JewelleryDetail, leadId);
-                        }
-
-
-                        //Dictionary<string, string> replaceValues = new Dictionary<string, string>();
-                        //replaceValues.Add("{{UserName}}", user.UserName);
-                        //await _emailHelper.SendHTMLBodyMail(user.Email, "Aurigain: Gold Loan Application Notification", EmailPathConstant.GoldLoanLeadGenerationTemplate, replaceValues);
-
-                        _db.Database.CommitTransaction();
-                        return CreateResponse<string>(leadId.ToString(), ResponseMessage.Save, true, ((int)ApiStatusCode.Ok));
                     }
-                    else
+                    else 
                     {
                         _db.Database.RollbackTransaction();
                         return CreateResponse<string>(null, ResponseMessage.UserExist, false, ((int)ApiStatusCode.DataBaseTransactionFailed));
-                    }
+                    }            
                 }
                 else
                 {
                     return CreateResponse<string>(null, ResponseMessage.InvalidData, false, ((int)ApiStatusCode.InvaildModel));
-
                 }
             }
             catch (Exception ex)
@@ -182,7 +198,57 @@ namespace AurigainLoanERP.Services.FreshLead
         #endregion
 
         #region  <<Private method>>
-        private async Task<long> SaveBasicDetailGoldFreshLead(GoldLoanFreshLeadModel model)
+        private async Task<long> SaveCustomerFreshLead(GoldLoanFreshLeadModel model)
+        {
+            try
+            {
+                var isExist = await _db.UserMaster.Where(x => x.Email == model.Email || x.Mobile == model.PrimaryMobileNumber && x.IsDelete == false).FirstOrDefaultAsync();
+                if (isExist != null) 
+                {
+                    return isExist.Id;
+                }
+                Random random = new Random();
+                UserMaster user = new UserMaster
+                {
+                    Email = model.Email,
+                    Mobile = model.PrimaryMobileNumber,
+                    IsActive = true,
+                    IsApproved = false,
+                    IsWhatsApp = true,
+                    CreatedOn = DateTime.Now,
+                    Password = "12345",
+                    UserName = model.FullName,
+                    Mpin = random.Next(100000, 199999).ToString(),
+                    UserRoleId = ((int)UserRoleEnum.Customer),                    
+                    IsDelete = false,
+                    ProfilePath = null
+                };
+                var customerUser = await _db.UserMaster.AddAsync(user);
+                await _db.SaveChangesAsync();
+
+                UserCustomer customer = new UserCustomer 
+                {
+                    FullName = model.FullName,
+                    FatherName = model.FatherName,
+                    DateOfBirth = model.DateOfBirth,
+                    UserId = customerUser.Entity.Id,
+                    Gender = model.Gender,
+                    IsActive = model.IsActive,
+                    IsDelete = false,
+                    PincodeAreaId = model.KycDocument.PincodeAreaId,
+                    Address = model.KycDocument.AddressLine1,
+                    CreatedBy = (int)UserRoleEnum.Admin
+                };
+                var result = await _db.UserCustomer.AddAsync(customer);
+                await _db.SaveChangesAsync();
+                return customerUser.Entity.Id;
+            }
+            catch 
+            {
+                throw;
+            }          
+        }
+        private async Task<long> SaveBasicDetailGoldFreshLead(GoldLoanFreshLeadModel model , long customerUserId)
         {
             try
             {
@@ -194,6 +260,8 @@ namespace AurigainLoanERP.Services.FreshLead
                     IsDelete = false,
                     CreatedDate = DateTime.Now,
                     FullName = model.FullName,
+                    Email = model.Email,
+                    CustomerUserId = customerUserId,
                     FatherName = model.FatherName,
                     LeadSourceByUserId = model.LeadSourceByUserId,
                     Purpose = model.Purpose,
