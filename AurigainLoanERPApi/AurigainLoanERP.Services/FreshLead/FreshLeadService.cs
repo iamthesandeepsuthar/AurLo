@@ -45,7 +45,7 @@ namespace AurigainLoanERP.Services.FreshLead
                 else 
                 {
                     result = (from goldLoanLead in _db.GoldLoanFreshLead
-                              where !goldLoanLead.IsDelete && goldLoanLead.LeadSourceByUserId == model.UserId && (string.IsNullOrEmpty(model.Search) || goldLoanLead.FullName.Contains(model.Search) || goldLoanLead.FatherName.Contains(model.Search) || goldLoanLead.Gender.Contains(model.Search) || goldLoanLead.GoldLoanFreshLeadKycDocument.FirstOrDefault().PincodeArea.Pincode.Contains(model.Search))
+                              where !goldLoanLead.IsDelete && goldLoanLead.CustomerUserId == model.UserId && (string.IsNullOrEmpty(model.Search) || goldLoanLead.FullName.Contains(model.Search) || goldLoanLead.FatherName.Contains(model.Search) || goldLoanLead.Gender.Contains(model.Search) || goldLoanLead.GoldLoanFreshLeadKycDocument.FirstOrDefault().PincodeArea.Pincode.Contains(model.Search))
                               select goldLoanLead);
                 }
                  
