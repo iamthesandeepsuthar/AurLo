@@ -135,6 +135,7 @@ export class API_Url {
   public static Product_Delete_Api = `${environment.apiEndPoint}Product/DeleteProduct/`;
   public static Product_ActiveStatus_Api = `${environment.apiEndPoint}Product/ChangeActiveStatus/`;
   public static Product_Detail_Api = `${environment.apiEndPoint}Product/GetById/`;
+  public static Product_Dropdown_By_Category_Api = `${environment.apiEndPoint}Product/ProductbyCategory/`;
   //#endregion
 
   //#region  << Bank & Branch  >>

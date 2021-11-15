@@ -14,5 +14,6 @@ namespace AurigainLoanERP.Services.Bank
         Task<ApiServiceResponseModel<string>> AddUpdateAsync(BranchModel model);
         Task<ApiServiceResponseModel<object>> UpateActiveStatus(int id);
         Task<ApiServiceResponseModel<object>> UpdateDeleteStatus(int id);
+        Task<ApiServiceResponseModel<List<DDLBranchModel>>> BranchesbyPinCode(string PinCode);
     }
 }

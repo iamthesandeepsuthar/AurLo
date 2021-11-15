@@ -16,3 +16,11 @@ export enum UserRoleEnum {
   DoorStepAgent = 6,
   Customer = 7
 }
+
+export enum ProductCategoryEnum {
+  GoldLoan = 1,
+  PersonalLoan = 2,
+  CarLoan = 3,
+  HomeLoan = 4,
+
+}
