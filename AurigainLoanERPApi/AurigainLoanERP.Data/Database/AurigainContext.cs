@@ -443,6 +443,8 @@ namespace AurigainLoanERP.Data.Database
 
                 entity.Property(e => e.DateOfBirth).HasColumnType("datetime");
 
+                entity.Property(e => e.Email).HasMaxLength(250);
+
                 entity.Property(e => e.FatherName).HasMaxLength(2000);
 
                 entity.Property(e => e.FullName)
@@ -467,17 +469,22 @@ namespace AurigainLoanERP.Data.Database
 
                 entity.Property(e => e.SecondaryMobileNumber).HasMaxLength(20);
 
+                entity.HasOne(d => d.CustomerUser)
+                    .WithMany(p => p.GoldLoanFreshLeadCustomerUser)
+                    .HasForeignKey(d => d.CustomerUserId)
+                    .HasConstraintName("FK__GoldLoanF__Custo__53A266AC");
+
                 entity.HasOne(d => d.LeadSourceByUser)
-                    .WithMany(p => p.GoldLoanFreshLead)
+                    .WithMany(p => p.GoldLoanFreshLeadLeadSourceByUser)
                     .HasForeignKey(d => d.LeadSourceByUserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__GoldLoanF__LeadS__6ABAD62E");
+                    .HasConstraintName("FK__GoldLoanF__LeadS__50C5FA01");
 
                 entity.HasOne(d => d.Product)
                     .WithMany(p => p.GoldLoanFreshLead)
                     .HasForeignKey(d => d.ProductId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__GoldLoanF__Produ__6E8B6712");
+                    .HasConstraintName("FK__GoldLoanF__Produ__51BA1E3A");
             });
 
             modelBuilder.Entity<GoldLoanFreshLeadAppointmentDetail>(entity =>
@@ -512,7 +519,7 @@ namespace AurigainLoanERP.Data.Database
                     .WithMany(p => p.GoldLoanFreshLeadAppointmentDetail)
                     .HasForeignKey(d => d.GlfreshLeadId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__GoldLoanF__GLFre__6D9742D9");
+                    .HasConstraintName("FK__GoldLoanF__GLFre__52AE4273");
             });
 
             modelBuilder.Entity<GoldLoanFreshLeadJewelleryDetail>(entity =>
@@ -533,7 +540,7 @@ namespace AurigainLoanERP.Data.Database
                     .WithMany(p => p.GoldLoanFreshLeadJewelleryDetail)
                     .HasForeignKey(d => d.GlfreshLeadId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__GoldLoanF__GLFre__6BAEFA67");
+                    .HasConstraintName("FK__GoldLoanF__GLFre__4EDDB18F");
             });
 
             modelBuilder.Entity<GoldLoanFreshLeadKycDocument>(entity =>
@@ -564,7 +571,7 @@ namespace AurigainLoanERP.Data.Database
                     .WithMany(p => p.GoldLoanFreshLeadKycDocument)
                     .HasForeignKey(d => d.GlfreshLeadId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__GoldLoanF__GLFre__6CA31EA0");
+                    .HasConstraintName("FK__GoldLoanF__GLFre__4FD1D5C8");
 
                 entity.HasOne(d => d.KycDocumentType)
                     .WithMany(p => p.GoldLoanFreshLeadKycDocument)

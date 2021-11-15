@@ -15,7 +15,8 @@ namespace AurigainLoanERP.Services.Customer
         Task<ApiServiceResponseModel<object>> UpdateApproveStatus(long id);
         Task<ApiServiceResponseModel<List<CustomerListModel>>> GetListAsync(IndexModel model);
         public Task<ApiServiceResponseModel<string>> AddUpdateAsync(CustomerRegistrationModel model);
-        public Task<ApiServiceResponseModel<CustomerRegistrationViewModel>> GetCustomerDetail(long id);
+        public Task<ApiServiceResponseModel<CustomerRegistrationViewModel>>GetCustomerProfile(long id);
+        public Task<ApiServiceResponseModel<CustomerRegistrationModel>> GetCustomerDetail(long id);
        
     }
 }

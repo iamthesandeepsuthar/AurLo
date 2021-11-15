@@ -210,7 +210,7 @@ namespace AurigainLoanERP.Services.Customer
                 return CreateResponse<string>(null, ResponseMessage.Fail, false, ((int)ApiStatusCode.ServerException), ex.InnerException == null ? ex.Message : ex.InnerException.Message);
             }
         }
-        public async Task<ApiServiceResponseModel<CustomerRegistrationViewModel>> GetCustomerDetail(long id) 
+        public async Task<ApiServiceResponseModel<CustomerRegistrationViewModel>> GetCustomerProfile(long id) 
         {
             try
             {
@@ -233,7 +233,8 @@ namespace AurigainLoanERP.Services.Customer
                         District = detail.PincodeArea.District.Name,
                         State = detail.PincodeArea.District.State.Name,
                         IsActive = detail.IsActive,
-                        CreatedOn = detail.CreatedOn                        
+                        CreatedOn = detail.CreatedOn,
+                        
                     };
                     var docs =await _db.UserKyc.Where(x => x.UserId == detail.UserId).ToListAsync();
                     foreach(var doc  in docs) 
@@ -257,6 +258,63 @@ namespace AurigainLoanERP.Services.Customer
             {
                 return CreateResponse<CustomerRegistrationViewModel>(null, ex.Message + " "+ ex.InnerException.Message, false, ((int)ApiStatusCode.InternalServerError));
             }           
+        }
+        public async Task<ApiServiceResponseModel<CustomerRegistrationModel>> GetCustomerDetail(long id) 
+        {
+            try
+            {
+                var data = await _db.UserCustomer.Where(x => x.Id == id).Include(x => x.PincodeArea).Include(x => x.User).FirstOrDefaultAsync();
+                if (data != null)
+                {
+                    List<UserKycPostModel> userDocuments = new List<UserKycPostModel>();
+                    UserPostModel user = new UserPostModel
+                    {
+                        Id = data.User.Id,
+                        Email = data.User.Email,
+                        Mobile = data.User.Mobile,
+                        UserRoleId = data.User.UserRoleId,
+                        IsApproved = data.User.IsApproved,
+                        IsWhatsApp= data.User.IsWhatsApp,
+                        UserName = data.User.UserName
+                    };
+                    var documents = _db.UserKyc.Where(x => x.UserId == data.UserId).ToList();
+                    foreach (var doc in documents) 
+                    {
+                        UserKycPostModel d = new UserKycPostModel 
+                        {
+                            KycdocumentTypeId = doc.KycdocumentTypeId,
+                            Kycnumber = doc.Kycnumber,
+                            Id = doc.Id
+                        };
+                        userDocuments.Add(d);
+                    }
+                    CustomerRegistrationModel customer = new CustomerRegistrationModel 
+                    {
+                        User = user,
+                        FullName = data.FullName,
+                        Address = data.Address,
+                        FatherName = data.FatherName,
+                        Gender = data.Gender,
+                        DateOfBirth = data.DateOfBirth,
+                        IsActive = data.IsActive,
+                        PincodeAreaId = data.PincodeAreaId,
+                        UserId = data.UserId,
+                        KycDocuments = userDocuments,
+                        CreatedOn = data.CreatedOn                     
+                    };
+                    return CreateResponse<CustomerRegistrationModel>(customer, ResponseMessage.Success, true, ((int)ApiStatusCode.Ok));
+
+                }
+                else
+                {
+                    return CreateResponse<CustomerRegistrationModel>(null, ResponseMessage.NotFound, false, ((int)ApiStatusCode.NotFound));
+                }
+                
+            }
+            catch (Exception ex) 
+            {
+                return CreateResponse<CustomerRegistrationModel>(null, ex.Message + " " + ex.InnerException.Message, false, ((int)ApiStatusCode.InternalServerError));
+            }
         }
 
         #region <<Private Method>>
