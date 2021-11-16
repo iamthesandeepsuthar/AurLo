@@ -42,6 +42,10 @@ export class LoginComponent implements OnInit {
               this._route.navigate([Routing_Url.UserCustomerModule]);
 
               break;
+              case UserRoleEnum.Operator:
+              this._route.navigate([Routing_Url.UserBackendOperatorModule]);
+
+              break;
 
             default:
               this._route.navigate(['']);

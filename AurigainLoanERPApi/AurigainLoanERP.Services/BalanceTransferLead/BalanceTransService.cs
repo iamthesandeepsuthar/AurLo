@@ -34,12 +34,13 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
         {
             try
             {
+                
                 await _db.Database.BeginTransactionAsync();
                 if (model.Id == 0 || model.Id == default)
                 {
-
+                    var customerUserId = await SaveCustomerBTFreshLead(model);
+                    model.CustomerUserId = customerUserId;
                     var objData = new BtgoldLoanLead();
-
                     objData.FullName = !string.IsNullOrEmpty(model.FullName) ? model.FullName : null;
                     objData.FatherName = !string.IsNullOrEmpty(model.FatherName) ? model.FatherName : null;
                     objData.Gender = !string.IsNullOrEmpty(model.Gender) ? model.Gender : null;
@@ -51,6 +52,7 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                     objData.Purpose = !string.IsNullOrEmpty(model.Purpose) ? model.Purpose : null;
                     objData.LeadSourceByuserId = model.LeadSourceByuserId;
                     objData.CreatedOn = DateTime.Now;
+                    objData.CustomerUserId = model.CustomerUserId;
                     objData.LoanAmount = model.LoanAmount;
                     objData.ProductId = model.ProductId;
                     objData.CreatedBy = null;
@@ -76,7 +78,6 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                     objData.ModifiedOn = DateTime.Now;
                     objData.CreatedBy = null;
                     await _db.SaveChangesAsync();
-
                 }
 
                 if (model.AddressDetail != null)
@@ -119,9 +120,122 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
             }
 
         }
+        public async Task<ApiServiceResponseModel<List<BTGoldLoanLeadListModel>>> BTGolddLoanLeadList(IndexModel model)
+        {
+            ApiServiceResponseModel<List<BTGoldLoanLeadListModel>> objResponse = new ApiServiceResponseModel<List<BTGoldLoanLeadListModel>>();
+            try
+            {
+                IQueryable<BtgoldLoanLead> result;
+                if (model.UserId == null)
+                {
+                    result = (from goldLoanLead in _db.BtgoldLoanLead
+                              where !goldLoanLead.IsDelete && (string.IsNullOrEmpty(model.Search) || goldLoanLead.FullName.Contains(model.Search) || goldLoanLead.FatherName.Contains(model.Search) || goldLoanLead.Gender.Contains(model.Search) || goldLoanLead.BtgoldLoanLeadAddressDetail.FirstOrDefault().AeraPincode.Pincode.Contains(model.Search))
+                              select goldLoanLead);
+                }
+                else
+                {
+                    result = (from goldLoanLead in _db.BtgoldLoanLead
+                              where !goldLoanLead.IsDelete && goldLoanLead.CustomerUserId == model.UserId && (string.IsNullOrEmpty(model.Search) || goldLoanLead.FullName.Contains(model.Search) || goldLoanLead.FatherName.Contains(model.Search) || goldLoanLead.Gender.Contains(model.Search) || goldLoanLead.BtgoldLoanLeadAddressDetail.FirstOrDefault().AeraPincode.Pincode.Contains(model.Search))
+                              select goldLoanLead);
+                }
 
-        #region << Private >>
+                switch (model.OrderBy)
+                {
+                    case "FullName":
+                        result = model.OrderByAsc ? (from orderData in result orderby orderData.FullName ascending select orderData) : (from orderData in result orderby orderData.FullName descending select orderData);
+                        break;
+                    case "FatherName":
+                        result = model.OrderByAsc ? (from orderData in result orderby orderData.FatherName ascending select orderData) : (from orderData in result orderby orderData.FatherName descending select orderData);
+                        break;
+                    case "Gender":
+                        result = model.OrderByAsc ? (from orderData in result orderby orderData.Gender ascending select orderData) : (from orderData in result orderby orderData.Gender descending select orderData);
+                        break;
+                    default:
+                        result = model.OrderByAsc ? (from orderData in result orderby orderData.Mobile ascending select orderData) : (from orderData in result orderby orderData.Mobile descending select orderData);
+                        break;
+                }
 
+                var data = result.Skip(((model.Page == 0 ? 1 : model.Page) - 1) * (model.PageSize != 0 ? model.PageSize : int.MaxValue)).Take(model.PageSize != 0 ? model.PageSize : int.MaxValue);
+
+                objResponse.Data = await (from detail in data
+                                          where detail.IsDelete == false
+                                          select new BTGoldLoanLeadListModel
+                                          {
+                                              Id = detail.Id,
+                                              FullName = detail.FullName ?? null,
+                                              FatherName = detail.FatherName,
+                                              Gender = detail.Gender ?? null,
+                                              IsActive = detail.IsActive.Value,
+                                              ProductName = detail.Product.Name,
+                                              Pincode = detail.BtgoldLoanLeadAddressDetail.FirstOrDefault().AeraPincode.Pincode,
+                                          }).ToListAsync();
+                if (result != null)
+                {
+                    return CreateResponse(objResponse.Data, ResponseMessage.Success, true, ((int)ApiStatusCode.Ok), TotalRecord: result.Count());
+                }
+                else
+                {
+                    return CreateResponse<List<BTGoldLoanLeadListModel>>(null, ResponseMessage.NotFound, true, ((int)ApiStatusCode.RecordNotFound), TotalRecord: 0);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return CreateResponse<List<BTGoldLoanLeadListModel>>(null, ResponseMessage.Fail, false, ((int)ApiStatusCode.ServerException), ex.Message ?? ex.InnerException.ToString());
+            }
+        }
+
+        #region <<Private Method Of Balance Transafer Gold Loan Lead>>
+        private async Task<long> SaveCustomerBTFreshLead(BTGoldLoanLeadPostModel model)
+        {
+            try
+            {
+                var isExist = await _db.UserMaster.Where(x => x.Email == model.EmailId || x.Mobile == model.Mobile && x.IsDelete == false).FirstOrDefaultAsync();
+                if (isExist != null)
+                {
+                    return isExist.Id;
+                }
+                Random random = new Random();
+                UserMaster user = new UserMaster
+                {
+                    Email = model.EmailId,
+                    Mobile = model.Mobile,
+                    IsActive = true,
+                    IsApproved = false,
+                    IsWhatsApp = true,
+                    CreatedOn = DateTime.Now,
+                    Password = "12345",
+                    UserName = model.FullName,
+                    Mpin = random.Next(100000, 199999).ToString(),
+                    UserRoleId = ((int)UserRoleEnum.Customer),
+                    IsDelete = false,
+                    ProfilePath = null
+                };
+                var customerUser = await _db.UserMaster.AddAsync(user);
+                await _db.SaveChangesAsync();
+
+                UserCustomer customer = new UserCustomer
+                {
+                    FullName = model.FullName,
+                    FatherName = model.FatherName,
+                    DateOfBirth = model.DateOfBirth,
+                    UserId = customerUser.Entity.Id,
+                    Gender = model.Gender,
+                    IsActive = true,
+                    IsDelete = false,
+                    PincodeAreaId = model.AddressDetail.AeraPincodeId,
+                    Address = model.AddressDetail.Address,
+                    CreatedBy = (int)UserRoleEnum.Admin
+                };
+                var result = await _db.UserCustomer.AddAsync(customer);
+                await _db.SaveChangesAsync();
+                return customerUser.Entity.Id;
+            }
+            catch
+            {
+                throw;
+            }
+        }
         private async Task<bool> SetAddressDetailAsync(BtGoldLoanLeadAddressPostModel model, long LeadId)
         {
             try
@@ -165,7 +279,6 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
 
             }
         }
-
         private async Task<bool> SetAppointmentDetailAsync(BtGoldLoanLeadAppointmentPostModel model, long LeadId)
         {
             try
@@ -208,7 +321,6 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
 
             }
         }
-
         private async Task<bool> SetDocumentDetail(BtGoldLoanLeadDocumentPostModel model, long LeadId)
         {
             try
@@ -426,7 +538,6 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
 
             }
         }
-
         private async Task<bool> SetExistingLoanDetail(BtGoldLoanLeadExistingLoanPostModel model, long LeadId)
         {
             try
@@ -477,7 +588,6 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                 throw;
             }
         }
-
         private async Task<bool> SetJewelleryDetail(BtGoldLoanLeadJewelleryDetailPostModel model, long LeadId)
         {
             try
@@ -521,7 +631,6 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                 throw;
             }
         }
-
         private async Task<bool> SetKYCDetail(BtGoldLoanLeadKYCDetailPostModel model, long LeadId)
         {
             try
@@ -565,9 +674,6 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                 throw;
             }
         }
-
-
-
         #endregion
     }
 }

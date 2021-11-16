@@ -12,12 +12,12 @@
     [EmailId] NVARCHAR(500) NULL, 
     [SecondaryMobile] VARCHAR(20) NULL, 
     [Purpose] NVARCHAR(3000) NULL, 
-    [LeadSourceBYUserId] BIGINT NOT NULL REFERENCES USERMASTER(ID),
+    [LeadSourceBYUserId] BIGINT NOT NULL references UserMaster(Id),
+    [CustomerUserId] BIGINT NOT NULL references UserMaster(Id), 
     [IsActive] BIT NOT NULL DEFAULT 1, 
     [IsDelete] BIT NOT NULL DEFAULT 0, 
     [CreatedOn] DATETIME NOT NULL DEFAULT GETDATE(), 
     [ModifiedOn] DATETIME NULL, 
     [CreatedBy] BIGINT NULL, 
-    [ModifiedBy] BIGINT NULL, 
-    
+    [ModifiedBy] BIGINT NULL,   
 )

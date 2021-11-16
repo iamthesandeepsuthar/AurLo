@@ -15,6 +15,7 @@ namespace AurigainLoanERP.Shared.ContractModel
         public bool LeadType { get; set;}
         public double? AnnualIncome { get; set; }
         public long LeadSourceByUserId { get; set; }
+        public long CustomerUserId { get; set;}
         public int ProductId { get; set; }
         public string EmployeeType { get; set; }
         public int? NoOfItr { get; set; }

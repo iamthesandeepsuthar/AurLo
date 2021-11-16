@@ -102,9 +102,8 @@ namespace AurigainLoanERP.Services.FreshLead
                 if (model != null)
                 {
                     await _db.Database.BeginTransactionAsync();
-
-                    long leadId = 0;
-                    var customerUserId = await SaveCustomerFreshLead(model);
+                    var customerUserId = await SaveCustomerFreshLead(model);         
+                    long leadId = 0;                   
                     if (customerUserId > 0)
                     {
                         leadId = await SaveBasicDetailGoldFreshLead(model,customerUserId);
@@ -159,7 +158,73 @@ namespace AurigainLoanERP.Services.FreshLead
         #endregion
 
         #region <<Personal Loan , Home Loan , Vehicel Loan Fresh Lead>>
+        public async Task<ApiServiceResponseModel<List<FreshLeadHLPLCLModel>>> FreshLeadHLPLCLList(IndexModel model)
+        {
+            ApiServiceResponseModel<List<FreshLeadHLPLCLModel>> objResponse = new ApiServiceResponseModel<List<FreshLeadHLPLCLModel>>();
+            try
+            {
+                IQueryable<FreshLeadHlplcl> result;
+                if (model.UserId == null)
+                {
+                    result = (from Lead in _db.FreshLeadHlplcl
+                              where !Lead.IsDelete && (string.IsNullOrEmpty(model.Search) || Lead.FullName.Contains(model.Search) || Lead.FatherName.Contains(model.Search) || Lead.CustomerUser.UserCustomer.FirstOrDefault().FullName.Contains(model.Search))
+                              select Lead);
+                }
+                else
+                {
+                    result = (from Lead in _db.FreshLeadHlplcl
+                              where !Lead.IsDelete && Lead.CustomerUserId == model.UserId && (string.IsNullOrEmpty(model.Search) || Lead.FullName.Contains(model.Search) || Lead.FatherName.Contains(model.Search) || Lead.CustomerUser.UserCustomer.FirstOrDefault().FullName.Contains(model.Search))
+                              select Lead);
+                }
 
+                switch (model.OrderBy)
+                {
+                    case "FullName":
+                        result = model.OrderByAsc ? (from orderData in result orderby orderData.FullName ascending select orderData) : (from orderData in result orderby orderData.FullName descending select orderData);
+                        break;
+                    case "FatherName":
+                        result = model.OrderByAsc ? (from orderData in result orderby orderData.FatherName ascending select orderData) : (from orderData in result orderby orderData.FatherName descending select orderData);
+                        break;
+                    case "Gender":
+                        result = model.OrderByAsc ? (from orderData in result orderby orderData.Gender ascending select orderData) : (from orderData in result orderby orderData.Gender descending select orderData);
+                        break;
+                    default:
+                        result = model.OrderByAsc ? (from orderData in result orderby orderData.MobileNumber ascending select orderData) : (from orderData in result orderby orderData.PrimaryMobileNumber descending select orderData);
+                        break;
+                }
+
+                var data = result.Skip(((model.Page == 0 ? 1 : model.Page) - 1) * (model.PageSize != 0 ? model.PageSize : int.MaxValue)).Take(model.PageSize != 0 ? model.PageSize : int.MaxValue);
+
+                objResponse.Data = await (from detail in data
+                                          where detail.IsDelete == false
+                                          select new FreshLeadHLPLCLModel
+                                          {
+                                              Id = detail.Id,
+                                              FullName = detail.FullName ?? null,
+                                              FatherName = detail.FatherName,
+                                              AnnualIncome = detail.AnnualIncome,
+                                              EmployeeType = detail.EmployeeType,
+                                              LoanAmount = detail.LoanAmount,
+                                              LeadType = detail.LeadType,
+                                             // Gender = detail.Gender ?? null,
+                                              IsActive = detail.IsActive.Value,
+                                             // ProductName = detail.Product.Name,
+                                            //  Pincode = detail.GoldLoanFreshLeadKycDocument.FirstOrDefault().PincodeArea.Pincode,
+                                          }).ToListAsync();
+                if (result != null)
+                {
+                    return CreateResponse(objResponse.Data, ResponseMessage.Success, true, ((int)ApiStatusCode.Ok), TotalRecord: result.Count());
+                }
+                else
+                {
+                    return CreateResponse<List<FreshLeadHLPLCLModel>>(null, ResponseMessage.NotFound, true, ((int)ApiStatusCode.RecordNotFound), TotalRecord: 0);
+                }
+            }
+            catch (Exception ex)
+            {
+                return CreateResponse<List<FreshLeadHLPLCLModel>>(null, ResponseMessage.Fail, false, ((int)ApiStatusCode.ServerException), ex.Message ?? ex.InnerException.ToString());
+            }
+        }
         public async Task<ApiServiceResponseModel<string>> SaveFreshLeadHLCLPLAsync(FreshLeadHLPLCLModel model)
         {
             ApiServiceResponseModel<string> objResponse = new ApiServiceResponseModel<string>();
@@ -168,10 +233,9 @@ namespace AurigainLoanERP.Services.FreshLead
                 if (model != null)
                 {
                     await _db.Database.BeginTransactionAsync();
-
-                    
+                    var customerUserId = await SaveCustomerHLPLCL(model);
+                    model.CustomerUserId = customerUserId;                    
                     var result  = await SavePLHLCLFreshLead(model);
-
                     if (result.status)
                     {
                         _db.Database.CommitTransaction();
@@ -197,7 +261,57 @@ namespace AurigainLoanERP.Services.FreshLead
 
         #endregion
 
-        #region  <<Private method>>
+        #region  <<Private Method Of Fresh Gold Loan Lead>>
+        private async Task<long> SaveCustomerHLPLCL(FreshLeadHLPLCLModel model) 
+        {
+            try
+            {
+                var isExist = await _db.UserMaster.Where(x => x.Email == model.EmailId || x.Mobile == model.MobileNumber && x.IsDelete == false).FirstOrDefaultAsync();
+                if (isExist != null)
+                {
+                    return isExist.Id;
+                }
+                Random random = new Random();
+                UserMaster user = new UserMaster
+                {
+                    Email = model.EmailId,
+                    Mobile = model.MobileNumber,
+                    IsActive = true,
+                    IsApproved = false,
+                    IsWhatsApp = true,
+                    CreatedOn = DateTime.Now,
+                    Password = "12345",
+                    UserName = model.FullName,
+                    Mpin = random.Next(100000, 199999).ToString(),
+                    UserRoleId = ((int)UserRoleEnum.Customer),
+                    IsDelete = false,
+                    ProfilePath = null
+                };
+                var customerUser = await _db.UserMaster.AddAsync(user);
+                await _db.SaveChangesAsync();
+
+                UserCustomer customer = new UserCustomer
+                {
+                    FullName = model.FullName,
+                    FatherName = model.FatherName,
+                    DateOfBirth = DateTime.Now,
+                    UserId = customerUser.Entity.Id,
+                    Gender = "Male",
+                    IsActive = model.IsActive,
+                    IsDelete = false,
+                    PincodeAreaId = null,
+                    Address = "",
+                    CreatedBy = (int)UserRoleEnum.Admin
+                };
+                var result = await _db.UserCustomer.AddAsync(customer);
+                await _db.SaveChangesAsync();
+                return customerUser.Entity.Id;
+            }
+            catch
+            {
+                throw;
+            }
+        }
         private async Task<long> SaveCustomerFreshLead(GoldLoanFreshLeadModel model)
         {
             try
@@ -320,6 +434,7 @@ namespace AurigainLoanERP.Services.FreshLead
                             FullName = model.FullName,
                             FatherName = model.FatherName,
                             LeadSourceByUserId = model.LeadSourceByUserId,
+                            CustomerUserId = model.CustomerUserId,
                             ProductId = model.ProductId,
                             LeadType = model.LeadType,
                             AnnualIncome = model.AnnualIncome,

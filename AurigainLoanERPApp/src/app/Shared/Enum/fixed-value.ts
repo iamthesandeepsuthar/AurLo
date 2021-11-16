@@ -14,5 +14,6 @@ export enum UserRoleEnum {
   Supervisor = 4,
   Agent = 5,
   DoorStepAgent = 6,
-  Customer = 7
+  Customer = 7,
+  Operator = 8,
 }

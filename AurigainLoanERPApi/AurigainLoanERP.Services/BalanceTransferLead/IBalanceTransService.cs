@@ -9,6 +9,7 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
 {
    public interface IBalanceTransService
     {
+        Task<ApiServiceResponseModel<List<BTGoldLoanLeadListModel>>> BTGolddLoanLeadList(IndexModel model);
         Task<ApiServiceResponseModel<string>> AddUpdateAsync(BTGoldLoanLeadPostModel model);
     }
 }

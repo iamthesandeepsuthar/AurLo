@@ -11,8 +11,10 @@ namespace AurigainLoanERP.Data.Database
     {
         public UserMaster()
         {
-            BtgoldLoanLead = new HashSet<BtgoldLoanLead>();
-            FreshLeadHlplcl = new HashSet<FreshLeadHlplcl>();
+            BtgoldLoanLeadCustomerUser = new HashSet<BtgoldLoanLead>();
+            BtgoldLoanLeadLeadSourceByuser = new HashSet<BtgoldLoanLead>();
+            FreshLeadHlplclCustomerUser = new HashSet<FreshLeadHlplcl>();
+            FreshLeadHlplclLeadSourceByUser = new HashSet<FreshLeadHlplcl>();
             GoldLoanFreshLeadCustomerUser = new HashSet<GoldLoanFreshLead>();
             GoldLoanFreshLeadLeadSourceByUser = new HashSet<GoldLoanFreshLead>();
             Managers = new HashSet<Managers>();
@@ -51,8 +53,10 @@ namespace AurigainLoanERP.Data.Database
         public long? ModifiedBy { get; set; }
 
         public virtual UserRole UserRole { get; set; }
-        public virtual ICollection<BtgoldLoanLead> BtgoldLoanLead { get; set; }
-        public virtual ICollection<FreshLeadHlplcl> FreshLeadHlplcl { get; set; }
+        public virtual ICollection<BtgoldLoanLead> BtgoldLoanLeadCustomerUser { get; set; }
+        public virtual ICollection<BtgoldLoanLead> BtgoldLoanLeadLeadSourceByuser { get; set; }
+        public virtual ICollection<FreshLeadHlplcl> FreshLeadHlplclCustomerUser { get; set; }
+        public virtual ICollection<FreshLeadHlplcl> FreshLeadHlplclLeadSourceByUser { get; set; }
         public virtual ICollection<GoldLoanFreshLead> GoldLoanFreshLeadCustomerUser { get; set; }
         public virtual ICollection<GoldLoanFreshLead> GoldLoanFreshLeadLeadSourceByUser { get; set; }
         public virtual ICollection<Managers> Managers { get; set; }

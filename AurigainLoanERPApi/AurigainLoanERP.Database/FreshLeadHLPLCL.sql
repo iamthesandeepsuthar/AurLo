@@ -9,11 +9,12 @@
     [LoanAmount] FLOAT NOT NULL, 
     [AnnualIncome] FLOAT NULL, 
     [LeadSourceByUserId] BIGINT NOT NULL references UserMaster(Id), 
+    [CustomerUserId] BIGINT NOT NULL references UserMaster(Id),
     [ProductId] INT NOT NULL references Product(Id), 
     [EmployeeType] NVARCHAR(200) NULL, 
     [NoOfITR] INT NULL, 
     [IsActive] BIT NOT NULL DEFAULT 1, 
     [IsDelete] BIT NOT NULL DEFAULT 0, 
     [CreatedDate] DATETIME NOT NULL DEFAULT getDate(), 
-    [ModifiedDate] DATETIME NULL
+    [ModifiedDate] DATETIME NULL,    
 )
