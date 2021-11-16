@@ -8,6 +8,7 @@ import { CustomerProfileComponent } from './customer-profile/customer-profile.co
 import { GoldLoanFreshLeadComponent } from './Leads/gold-loan-fresh-lead/gold-loan-fresh-lead.component';
 import { AddEditGoldLoanFreshLeadComponent } from './Leads/gold-loan-fresh-lead/add-edit-gold-loan-fresh-lead/add-edit-gold-loan-fresh-lead.component';
 import { DetailGoldLoanFreshLeadComponent } from './Leads/gold-loan-fresh-lead/detail-gold-loan-fresh-lead/detail-gold-loan-fresh-lead.component';
+import { UpdateCustomerProfileComponent } from './update-customer-profile/update-customer-profile.component';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { DetailGoldLoanFreshLeadComponent } from './Leads/gold-loan-fresh-lead/d
     CustomerProfileComponent,
     GoldLoanFreshLeadComponent,
     AddEditGoldLoanFreshLeadComponent,
-    DetailGoldLoanFreshLeadComponent
+    DetailGoldLoanFreshLeadComponent,
+    UpdateCustomerProfileComponent
   ],
   imports: [
     CommonModule,

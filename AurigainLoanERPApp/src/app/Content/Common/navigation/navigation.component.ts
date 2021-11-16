@@ -16,10 +16,12 @@ export class NavigationComponent implements OnInit {
   userModel = {} as LoginResponseModel;
   IsAdminMenu: boolean = false;
   IsCustomerMenu: boolean = false;
+  IsOperatorMenu: boolean = false;
   isProd = environment.production;
   constructor(private readonly _authService: AuthService) {
     this.IsAdminMenu = false;
     this.IsCustomerMenu = false;
+    this.IsOperatorMenu = false;
   }
 
   ngOnInit(): void {
@@ -29,11 +31,11 @@ export class NavigationComponent implements OnInit {
 
       this.userModel = this._authService.GetUserDetail() as LoginResponseModel;
       if (this.userModel.RoleId == this.roleEnum.Customer) {
-
         this.IsCustomerMenu = true;
+      } else if(this.userModel.RoleId == this.roleEnum.Operator) {
+        this.IsOperatorMenu = true;
       } else {
         this.IsAdminMenu = true;
-
       }
     });
   }

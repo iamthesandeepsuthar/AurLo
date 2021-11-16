@@ -6,7 +6,7 @@ import { AuthenticationGuard } from './Shared/Helper/authentication.guard';
 import { HtmlComponent } from './Content/html/html.component';
 import { LoginComponent } from './Content/Common/login/login.component';
 import { CustomerSignUpComponent } from './Content/Common/customer-sign-up/customer-sign-up.component';
-import { UserBackendOperatorModule } from './Content/user-backend-operator/user-backend-operator.module';
+
 
 
 const routes: Routes = [

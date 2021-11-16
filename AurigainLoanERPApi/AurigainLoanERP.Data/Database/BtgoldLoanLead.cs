@@ -32,6 +32,7 @@ namespace AurigainLoanERP.Data.Database
         public string SecondaryMobile { get; set; }
         public string Purpose { get; set; }
         public long LeadSourceByuserId { get; set; }
+        public long CustomerUserId { get; set; }
         public bool? IsActive { get; set; }
         public bool IsDelete { get; set; }
         public DateTime CreatedOn { get; set; }
@@ -39,6 +40,7 @@ namespace AurigainLoanERP.Data.Database
         public long? CreatedBy { get; set; }
         public long? ModifiedBy { get; set; }
 
+        public virtual UserMaster CustomerUser { get; set; }
         public virtual UserMaster LeadSourceByuser { get; set; }
         public virtual Product Product { get; set; }
         public virtual ICollection<BtgoldLoanLeadAddressDetail> BtgoldLoanLeadAddressDetail { get; set; }

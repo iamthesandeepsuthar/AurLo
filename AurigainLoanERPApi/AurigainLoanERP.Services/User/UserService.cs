@@ -716,7 +716,7 @@ namespace AurigainLoanERP.Services.User
             try
             {
                 var detail = await _db.Managers.Where(x => x.Id == Id).Include(x => x.District).Include(x => x.State).Include(x => x.User).Include(x => x.User.UserRole).FirstOrDefaultAsync();
-                if (detail == null)
+                if (detail != null)
                 {                    
                     UserManagerModel manager = new UserManagerModel
                     {
