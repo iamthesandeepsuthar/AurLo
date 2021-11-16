@@ -15,6 +15,10 @@ namespace AurigainLoanERP.Shared.Common
         public const string SMTP_USER = "SMTP:UserName";
         public const string SMTP_PASSWORD = "SMTP:Password";
 
+
+        public const string JWT_Key = "Jwt:Key";
+        public const string JWT_ISSUER = "Jwt:Issuer";
+
 #if DEBUG
         public const string ALLOWED_HOSTS_KEY = "AllowedHost:Development";
 #else
@@ -26,6 +30,6 @@ namespace AurigainLoanERP.Shared.Common
         public const string CONNECTION_STRING = "ConnectionStrings:Production";        
 #endif
 
-        
+
     }
 }

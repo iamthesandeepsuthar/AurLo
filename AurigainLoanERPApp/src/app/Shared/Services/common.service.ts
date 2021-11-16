@@ -43,8 +43,12 @@ export class CommonService extends AlertService {
     return true;
   }
 
+  MaskString(strValue: string, lastShowDigit: number) {
+    return strValue.replace(/\d(?=\d{`${lastShowDigit}`})/g, "X");
+  }
+
   checkDecimalNumberOnly(event: any): boolean {
-    
+
     var charCode = (event.which) ? event.which : event.keyCode;
     if (charCode == 46) {
       //Check if the text already contains the . character
