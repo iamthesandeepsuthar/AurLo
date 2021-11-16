@@ -185,11 +185,11 @@ namespace AurigainLoanERP.Services.FreshLead
                     case "FatherName":
                         result = model.OrderByAsc ? (from orderData in result orderby orderData.FatherName ascending select orderData) : (from orderData in result orderby orderData.FatherName descending select orderData);
                         break;
-                    case "Gender":
-                        result = model.OrderByAsc ? (from orderData in result orderby orderData.Gender ascending select orderData) : (from orderData in result orderby orderData.Gender descending select orderData);
+                    case "MobileNumber":
+                        result = model.OrderByAsc ? (from orderData in result orderby orderData.MobileNumber ascending select orderData) : (from orderData in result orderby orderData.MobileNumber descending select orderData);
                         break;
                     default:
-                        result = model.OrderByAsc ? (from orderData in result orderby orderData.MobileNumber ascending select orderData) : (from orderData in result orderby orderData.PrimaryMobileNumber descending select orderData);
+                        result = model.OrderByAsc ? (from orderData in result orderby orderData.CreatedDate ascending select orderData) : (from orderData in result orderby orderData.CreatedDate descending select orderData);
                         break;
                 }
 
