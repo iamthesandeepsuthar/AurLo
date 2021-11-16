@@ -22,38 +22,15 @@ namespace AurigainLoanERP.Services.Bank
             this._mapper = mapper;
             _db = db;
         }
-        public async Task<ApiServiceResponseModel<List<DDLBranchModel>>> Branches(int bankId)
-        {
-            try
-            {
-                var branches = await _db.BankBranchMaster.Where(x=>x.BankId == bankId).Select(x => new DDLBranchModel
-                {
-                    Id = x.Id,
-                    BranchName = x.BranchName,
-                    Ifsc = x.Ifsc
-                }).ToListAsync();
-
-                if (branches.Count() > 0)
-                {
-                    return CreateResponse<List<DDLBranchModel>>(branches, ResponseMessage.Success, true, ((int)ApiStatusCode.Ok));
-                }
-                else
-                {
-                    return CreateResponse<List<DDLBranchModel>>(null, ResponseMessage.NotFound, true, ((int)ApiStatusCode.RecordNotFound));
-                }
-            }
-            catch (Exception ex)
-            {
-                return CreateResponse<List<DDLBranchModel>>(null, ResponseMessage.NotFound, false, ((int)ApiStatusCode.ServerException), ex.Message ?? ex.InnerException.ToString());
-            }
-        }
+        c
         public async Task<ApiServiceResponseModel<BranchModel>> GetById(int id)
         {
             try
             {
                 var result = await _db.BankBranchMaster.Where(x => x.IsDelete == false && x.Id == id).FirstOrDefaultAsync();
-                if (result != null) { 
-                
+                if (result != null)
+                {
+
                     return CreateResponse<BranchModel>(_mapper.Map<BranchModel>(result), ResponseMessage.Success, true, ((int)ApiStatusCode.Ok));
                 }
                 else
@@ -79,7 +56,7 @@ namespace AurigainLoanERP.Services.Bank
                     }
                     var branch = _mapper.Map<AurigainLoanERP.Data.Database.BankBranchMaster>(model);
                     branch.CreatedDate = DateTime.Now;
-                    var result = await _db.BankBranchMaster.AddAsync(branch);                  
+                    var result = await _db.BankBranchMaster.AddAsync(branch);
                     await _db.SaveChangesAsync();
                     return CreateResponse<string>(model.BranchName, model.Id > 0 ? ResponseMessage.Update : ResponseMessage.Save, true, ((int)ApiStatusCode.Ok));
                 }
@@ -139,6 +116,32 @@ namespace AurigainLoanERP.Services.Bank
             }
 
 
-        }        
+        }
+
+        public async Task<ApiServiceResponseModel<List<DDLBranchModel>>> BranchesbyPinCode(string PinCode)
+        {
+            try
+            {
+                var branches = await _db.BankBranchMaster.Where(x => x.Pincode == PinCode).Select(x => new DDLBranchModel
+                {
+                    Id = x.Id,
+                    BranchName = x.BranchName,
+                    Ifsc = x.Ifsc
+                }).ToListAsync();
+
+                if (branches.Count() > 0)
+                {
+                    return CreateResponse<List<DDLBranchModel>>(branches, ResponseMessage.Success, true, ((int)ApiStatusCode.Ok));
+                }
+                else
+                {
+                    return CreateResponse<List<DDLBranchModel>>(null, ResponseMessage.NotFound, true, ((int)ApiStatusCode.RecordNotFound));
+                }
+            }
+            catch (Exception ex)
+            {
+                return CreateResponse<List<DDLBranchModel>>(null, ResponseMessage.NotFound, false, ((int)ApiStatusCode.ServerException), ex.Message ?? ex.InnerException.ToString());
+            }
+        }
     }
 }

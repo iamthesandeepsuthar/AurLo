@@ -66,5 +66,13 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
         {
             return await _branch.UpateActiveStatus(id);
         }
+
+        // GET api/BankBranch/GetById/5
+        [HttpGet("[action]/{PinCode}")]
+        public async Task<ApiServiceResponseModel<List<DDLBranchModel>>> BranchesbyPinCode(string PinCode)
+        {
+            return await _branch.BranchesbyPinCode(PinCode);
+        }
+         
     }
 }

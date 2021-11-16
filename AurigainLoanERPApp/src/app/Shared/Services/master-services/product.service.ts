@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { BaseAPIService } from '../../Helper/base-api.service';
 import { ApiResponse, IndexModel } from '../../Helper/common-model';
-import { ProductModel } from '../../Model/master-model/product-model.model';
+import { DDLProductModel, ProductModel } from '../../Model/master-model/product-model.model';
 
 @Injectable()
 export class ProductService {
@@ -31,8 +31,8 @@ export class ProductService {
     return this._baseService.Delete(url);
   }
 
-  GetProductbyCategory(id: number): Observable<ApiResponse<ProductModel[]>> {
-    let url = `${this._baseService.API_Url.Product_Delete_Api}${id}/${status}`;
-    return this._baseService.Delete(url);
+  GetProductbyCategory(id: number): Observable<ApiResponse<DDLProductModel[]>> {
+    let url = `${this._baseService.API_Url.Product_Dropdown_By_Category_Api}${id} `;
+    return this._baseService.get(url);
   }
 }

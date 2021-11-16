@@ -79,6 +79,21 @@
               Enter Father Name! </div>
 
           </div>
+
+          <div class="form-group col-md-4 date-icon-with-label">
+            <label>Date of Birth</label>
+            <input class="form-control" #datepickerYMD="bsDatepicker" placeholder="DD-MM-YYYY" formControlName="DOB"
+              [ngClass]="{ 'is-invalid': f1.DOB.errors && f1.DOB.touched}" bsDatepicker [(ngModel)]="model.DateOfBirth"
+              [maxDate]="maxDate"
+              [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', adaptivePosition: true,isAnimated: true, showWeekNumbers: false }">
+            <i class="fas fa-calendar-alt"></i>
+            <div class="invalid-feedback"
+              *ngIf="(leadFromPersonalDetail.get('DOB')?.hasError('required') && leadFromPersonalDetail.get('DOB')?.touched)">
+              Please Select Date...! </div>
+
+          </div>
+          <!--
+
           <div class="form-group col-md-4">
             <label>Date of Birth</label>
             <input class="form-control" id="input4" type="date" placeholder="DD-MM-YYYY" [(ngModel)]="model.DateOfBirth"
@@ -88,7 +103,7 @@
               *ngIf="(leadFromPersonalDetail.get('DOB')?.hasError('required') && leadFromPersonalDetail.get('DOB')?.touched)">
               Select Date of Birht! </div>
 
-          </div>
+          </div> -->
 
           <div class="form-group col-md-4">
             <label>Gender</label>
@@ -201,7 +216,8 @@
             <label>Document Number</label>
             <input type="text" class="form-control" id="input9" placeholder="Document Number"
               [(ngModel)]="model.KycDocument.DocumentNumber" formControlName="DocumentNumber"
-              [ngClass]="{ 'is-invalid': f2.DocumentNumber.errors && f2.DocumentNumber.touched}">
+              [ngClass]="{ 'is-invalid': f2.DocumentNumber.errors && f2.DocumentNumber.touched}"
+              (keypress)="onCheckDocumentNumber($event)" maxlength="docMaxChar">
             <div class="invalid-feedback"
               *ngIf="(leadFromDocumentDetail.get('DocumentNumber')?.hasError('required') && leadFromDocumentDetail.get('DocumentNumber')?.touched)">
               Enter Document Number! </div>
