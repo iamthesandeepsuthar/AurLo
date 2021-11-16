@@ -13,12 +13,14 @@ import { ProductCategoryEnum } from 'src/app/Shared/Enum/fixed-value';
 import { KycDocumentTypeService } from 'src/app/Shared/Services/master-services/kyc-document-type.service';
 import { StateDistrictService } from 'src/app/Shared/Services/master-services/state-district.service';
 import { AvailableAreaModel } from 'src/app/Shared/Model/User-setting-model/user-availibility.model';
+import { BankBranchService } from '../../../../../Shared/Services/master-services/bank-branch.service';
+import { JewelleryTypeService } from 'src/app/Shared/Services/master-services/jewellery-type.service';
 
 @Component({
   selector: 'app-add-edit-gold-loan-fresh-lead',
   templateUrl: './add-edit-gold-loan-fresh-lead.component.html',
   styleUrls: ['./add-edit-gold-loan-fresh-lead.component.scss'],
-  providers: [ProductService, KycDocumentTypeService, StateDistrictService]
+  providers: [ProductService, KycDocumentTypeService, StateDistrictService, BankBranchService, JewelleryTypeService]
 })
 export class AddEditGoldLoanFreshLeadComponent implements OnInit {
   model = new GoldLoanFreshLeadModel();
@@ -32,9 +34,9 @@ export class AddEditGoldLoanFreshLeadComponent implements OnInit {
 
   ddlProductModel!: DDLProductModel[];
   ddlDocumentTypeModel!: DDLDocumentTypeModel[];
-  ddlJewelleryType!: DDLJewellaryType[];
   ddlBranchModel!: DDLBranchModel[];
   ddlAreaModel!: AvailableAreaModel[];
+  ddlJewellaryType!: DDLJewellaryType[];
   PinCode!: string;
 
   get f1() { return this.leadFromPersonalDetail.controls; }
@@ -45,16 +47,17 @@ export class AddEditGoldLoanFreshLeadComponent implements OnInit {
 
   constructor(private readonly fb: FormBuilder, readonly _commonService: CommonService,
     private readonly _productService: ProductService, private readonly _kycDocumentTypeService: KycDocumentTypeService,
-    private readonly _stateDistrictService: StateDistrictService
+    private readonly _stateDistrictService: StateDistrictService,
+    private readonly _bankBranchService: BankBranchService,
+    private readonly _jewelleryTypeService: JewelleryTypeService
   ) {
 
   }
 
   ngOnInit(): void {
     this.formInit();
-    this.GetDropDown();
-    this.getDDLProducts();
-    this.getDDLDocumentType();
+    this.GetDropDowns()
+
   }
 
   formInit() {
@@ -102,41 +105,75 @@ export class AddEditGoldLoanFreshLeadComponent implements OnInit {
     this.leadFromJewelleryDetail.markAllAsTouched();
     this.leadFromAppointmentDetail.markAllAsTouched();
   }
+  //#region  <<DropDown>>
+  GetDropDowns(){
+    this.GetDropDownGender();
+    this.getDDLProducts();
+    this.getDDLDocumentType();
+    this.GetDDLJewelleryType();
+  }
+
   getDDLProducts() {
-    this._productService.GetProductbyCategory(ProductCategoryEnum.GoldLoan).subscribe(res => {
+    let serve = this._productService.GetProductbyCategory(ProductCategoryEnum.GoldLoan).subscribe(res => {
+      serve.unsubscribe();
       if (res.IsSuccess) {
-        this.ddlProductModel = res.Data as DDLProductModel[];
-
+        this.ddlProductModel = res?.Data as DDLProductModel[];
       }
-
     });
   }
+
   getDDLDocumentType() {
-    debugger
-    this._kycDocumentTypeService.GetDDLDocumentType(true).subscribe(res => {
+    let serve = this._kycDocumentTypeService.GetDDLDocumentType(true).subscribe(res => {
+      serve.unsubscribe();
       if (res.IsSuccess) {
-        debugger
-        this.ddlDocumentTypeModel = res.Data as DDLDocumentTypeModel[];
+        this.ddlDocumentTypeModel = res?.Data as DDLDocumentTypeModel[];
       }
     });
   }
 
-  GetDropDown() {
-    this._commonService.GetDropDown([DropDown_key.ddlGender]).subscribe(res => {
+  GetDropDownGender() {
+    let serve = this._commonService.GetDropDown([DropDown_key.ddlGender]).subscribe(res => {
+      serve.unsubscribe();
       if (res.IsSuccess) {
-        let ddls = res.Data as DropDownModel;
-        this.dropDown.ddlState = ddls.ddlState;
-        this.dropDown.ddlQualification = ddls.ddlQualification;
-        this.dropDown.ddlGender = ddls.ddlGender;
+        let ddls = res?.Data as DropDownModel;
+        this.dropDown.ddlState = ddls?.ddlState;
+        this.dropDown.ddlQualification = ddls?.ddlQualification;
+        this.dropDown.ddlGender = ddls?.ddlGender;
       }
     });
   }
 
-  onChangeProduct(value: number) {
+  getDropDownBranch() {
+    let serve = this._bankBranchService.GetBranchesbyPinCode(this.PinCode).subscribe(res => {
+      serve.unsubscribe();
+      if (res.IsSuccess) {
+        this.ddlBranchModel = res?.Data as DDLBranchModel[];
+      }
+    });
+  }
+
+  getDropDownPinCodeArea() {
+    let serve = this._stateDistrictService.GetAreaByPincode(this.PinCode).subscribe(res => {
+      serve.unsubscribe();
+      if (res.IsSuccess) {
+        this.ddlAreaModel = res?.Data as AvailableAreaModel[];
+      }
+    })
 
   }
+
+  GetDDLJewelleryType() {
+    let serve = this._jewelleryTypeService.GetDDLJewelleryType().subscribe(res => {
+      serve.unsubscribe();
+      if (res.IsSuccess) {
+        this.ddlJewellaryType = res.Data as DDLJewellaryType[];
+      }
+    });
+
+  }
+
+
   onChangeDocument(vale: number) { }
-
 
   onCheckDocumentNumber(val: any) {
 
@@ -152,17 +189,10 @@ export class AddEditGoldLoanFreshLeadComponent implements OnInit {
   }
 
   onChangePinCode() {
-    // this.PinCode
-    this.getPinCodeArea();
-    this.getBranch();
+    this.getDropDownPinCodeArea();
+    this.getDropDownBranch();
   }
-  getBranch() { }
-  getPinCodeArea() {
-    this._stateDistrictService.GetAreaByPincode(this.PinCode).subscribe(res => {
-      if (res.IsSuccess) {
-        this.ddlAreaModel = res.Data as AvailableAreaModel[];
-      }
-    })
 
-  }
+  //#endregion
+
 }

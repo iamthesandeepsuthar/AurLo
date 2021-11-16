@@ -1,4 +1,4 @@
-import { BankModel, DDLBankModel } from './../../Model/master-model/bank-model.model';
+import { BankModel, DDLBankModel, DDLBranchModel } from './../../Model/master-model/bank-model.model';
 import { Injectable } from '@angular/core';
 import { BaseAPIService } from '../../Helper/base-api.service';
 import { ApiResponse, IndexModel } from '../../Helper/common-model';
@@ -23,7 +23,7 @@ export class BankBranchService {
     let url = `${this._baseService.API_Url.Bank_AddUpdate_Api}`;
     return this._baseService.post(url, model);
   }
-  ChangeActiveStatus(id:number, status? :string): Observable<ApiResponse<BankModel[]>> {
+  ChangeActiveStatus(id: number, status?: string): Observable<ApiResponse<BankModel[]>> {
     let url = `${this._baseService.API_Url.Bank_ActiveStatus_Api}${id}`;
     return this._baseService.get(url);
   }
@@ -35,4 +35,11 @@ export class BankBranchService {
     let url = `${this._baseService.API_Url.Bank_Dropdown_List_Api}`;
     return this._baseService.get(url);
   }
+
+
+  GetBranchesbyPinCode(pinCode: string) : Observable<ApiResponse<DDLBranchModel[]>> {
+    let url = `${this._baseService.API_Url.Branches_by_PinCode_Api}${pinCode}`;
+    return this._baseService.get(url);
+  }
+
 }

@@ -29,7 +29,7 @@
           <div class="form-group col-md-4">
             <label>Select Product </label>
 
-            <ng-select [items]="ddlProductModel" (ngModelChange)="onChangeProduct($event)" [searchable]="true"
+            <ng-select [items]="ddlProductModel"  [searchable]="true"
               bindLabel="Name" bindValue="Id" placeholder="Select product" formControlName="Product"
               [ngClass]="{ 'is-invalid': f1.Product.errors && f1.Product.touched}" [(ngModel)]="model.ProductId">
             </ng-select>
@@ -280,7 +280,7 @@
           <div class="form-group col-md-4">
             <label>Jewellery Type</label>
 
-            <ng-select [items]="ddlJewelleryType" [searchable]="true" bindLabel="Name" bindValue="Id"
+            <ng-select [items]="ddlJewellaryType" [searchable]="true" bindLabel="Name" bindValue="Id"
               placeholder="Select Jewellery Type" formControlName="JewelleryType"
               [ngClass]="{ 'is-invalid': f3.JewelleryType.errors && f3.JewelleryType.touched}"
               [(ngModel)]="model.JewelleryDetail.JewelleryTypeId">
@@ -362,7 +362,7 @@
             <!-- this will auto fill from document pincode field blur event -->
             <label> Branch</label>
 
-            <ng-select [items]="ddlBranchModel" [searchable]="true" bindLabel="Name" bindValue="Id"
+            <ng-select [items]="ddlBranchModel" [searchable]="true" bindLabel="BranchName" bindValue="Id"
               placeholder="Select Brnach" formControlName="Branch"
               [ngClass]="{ 'is-invalid': f4.Branch.errors && f4.Branch.touched}"
               [(ngModel)]="model.AppointmentDetail.BranchId">
