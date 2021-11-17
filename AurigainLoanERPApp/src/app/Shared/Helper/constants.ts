@@ -168,7 +168,7 @@ export class API_Url {
 
 
   //#region  <<Gold Loan Fresh Lead >>
-  public static Gold_Loan_Fresh_Lead_List_Api = `${environment.apiEndPoint}GoldLoanFreshLead/GoldLoanFreshLeadListAsync`;
+  public static Gold_Loan_Fresh_Lead_List_Api = `${environment.apiEndPoint}GoldLoanFreshLead/GoldLoanFreshLeadList`;
   public static Gold_Loan_Fresh_Lead__AddUpdate_Api = `${environment.apiEndPoint}GoldLoanFreshLead/AddUpdateGoldLoanFreshLead`;
   public static Gold_Loan_Fresh_Lead__Detail_Api = `${environment.apiEndPoint}GoldLoanFreshLead/GoldLoanFreshLeadDetail/`;
   public static Gold_Loan_Fresh_Lead__Delete_Api = `${environment.apiEndPoint}GoldLoanFreshLead/DeleteProduct/`;
