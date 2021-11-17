@@ -22,17 +22,25 @@ export class DoorStepAgentAvailabilityComponent implements OnInit {
   userModel = {} as UserViewModel;
   model = {} as UserAvailibilityPostModel;
   ddlavailibleAreaModel = [] as AvailableAreaModel[];
-  dataModel = [] as UserAvailabilityViewModel[];
+  dataModel: UserAvailabilityViewModel[] = [];
 
   userRoleEnum = UserRoleEnum;
   formGroup!: FormGroup;
+
+  DayOffMonday = true;
+  DayOffTuesday = true;
+  DayOffWednesday = true;
+  DayOffThursday = true;
+  DayOffFriday = true;
+  DayOffSaturday = true;
+  DayOffSunday = true;
+
   get f() { return this.formGroup.controls; }
   get capacityValues() { return Array.from({ length: 10 }, (val, i) => i + 1) }
   PinCode!: string;
   constructor(private readonly _alertService: AlertService, private readonly fb: FormBuilder,
     private readonly _userSettingService: UserSettingService, private _activatedRoute: ActivatedRoute, private _router: Router,
     readonly _commonService: CommonService, private readonly _toast: ToastrService,) {
-
     this.userId = this._activatedRoute.snapshot.params.userId;
   }
 
@@ -125,9 +133,7 @@ export class DoorStepAgentAvailabilityComponent implements OnInit {
     }
   }
   onBindDetail(idx: number) {
-    let data = this.dataModel[idx]
-
-
+    let data = this.dataModel[idx];
     this.model.Id = data.Id
     this.model.UserId = data.UserId
     this.model.MondayST = data.MondaySt;
@@ -156,6 +162,28 @@ export class DoorStepAgentAvailabilityComponent implements OnInit {
     this.setFieldValidation('FridayST', 'FridayET', this.model.FridayST && this.model.FridayET);
     this.setFieldValidation('SaturdayST', 'SaturdayET', this.model.SaturdayST && this.model.SaturdayET);
     this.setFieldValidation('SundayST', 'SundayET', this.model.SundayST && this.model.SundayET);
+
+    if (this.model.MondayST && this.model.MondayET) {
+      this.DayOffMonday = false;
+    }
+    if (this.model.TuesdayST && this.model.TuesdayET) {
+      this.DayOffTuesday = false;
+    }
+    if (this.model.WednesdayST && this.model.WednesdayET) {
+      this.DayOffWednesday = false;
+    }
+    if (this.model.ThursdayST && this.model.ThursdayET) {
+      this.DayOffThursday = false;
+    }
+    if (this.model.FridayST && this.model.FridayET) {
+      this.DayOffFriday = false;
+    }
+    if (this.model.SaturdayST && this.model.SaturdayET) {
+      this.DayOffSaturday = false;
+    }
+    if (this.model.SundayST && this.model.SundayET) {
+      this.DayOffSunday = false;
+    }
 
 
 

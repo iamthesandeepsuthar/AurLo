@@ -48,7 +48,7 @@
             </thead>
             <tbody>
 
-              <tr [ngClass]="{'items-day-off': (!model.MondayST && !model.MondayET)}">
+              <tr [ngClass]="{'items-day-off': (DayOffMonday)}">
                 <td>Monday</td>
                 <td> <input type="time" [(ngModel)]="model.MondayST" formControlName="MondayST"
                     [ngClass]="{ 'is-invalid': f.MondayST.errors && f.MondayST.touched}" class="form-control"
@@ -58,13 +58,14 @@
                     placeholder="Time picker"> </td>
                 <td>
                   <label class="new-control new-checkbox big-checkbox checkbox-info">
-                    <input type="checkbox" [checked]="!model.MondayST && !model.MondayET"
-                      (change)="setFieldValidation('MondayST','MondayET',$event)" class="new-control-input">
+                    <input type="checkbox" [checked]="DayOffMonday"
+                      (change)="DayOffMonday=!DayOffMonday;setFieldValidation('MondayST','MondayET',$event)"
+                      class="new-control-input">
                     <span class="new-control-indicator"></span>&nbsp;
                   </label>
                 </td>
               </tr>
-              <tr [ngClass]="{'items-day-off':( !model.TuesdayST && !model.TuesdayET)}">
+              <tr [ngClass]="{'items-day-off':( DayOffTuesday)}">
                 <td>Tuesday</td>
                 <td> <input type="time" [(ngModel)]="model.TuesdayST" formControlName="TuesdayST"
                     [ngClass]="{ 'is-invalid': f.TuesdayST.errors && f.TuesdayST.touched}" class="form-control"
@@ -76,13 +77,14 @@
                 </td>
                 <td>
                   <label class="new-control new-checkbox big-checkbox checkbox-info">
-                    <input type="checkbox" [checked]="!model.TuesdayST && !model.TuesdayET"
-                      (change)="setFieldValidation('TuesdayST','TuesdayET',$event)" class="new-control-input">
+                    <input type="checkbox" [checked]="DayOffTuesday"
+                      (change)="DayOffTuesday=!DayOffTuesday;setFieldValidation('TuesdayST','TuesdayET',$event)"
+                      class="new-control-input">
                     <span class="new-control-indicator"></span>&nbsp;
                   </label>
                 </td>
               </tr>
-              <tr [ngClass]="{'items-day-off':( !model.WednesdayST && !model.WednesdayET)}">
+              <tr [ngClass]="{'items-day-off':( DayOffWednesday)}">
                 <td>Wednesday</td>
                 <td> <input type="time" [(ngModel)]="model.WednesdayST" formControlName="WednesdayST"
                     [ngClass]="{ 'is-invalid': f.WednesdayST.errors && f.WednesdayST.touched}" class="form-control"
@@ -94,13 +96,13 @@
                 </td>
                 <td>
                   <label class="new-control new-checkbox big-checkbox checkbox-info">
-                    <input type="checkbox" [checked]="!model.WednesdayST && !model.WednesdayET"
-                      (change)="setFieldValidation('WednesdayST','WednesdayET',$event)" class="new-control-input"> <span
-                      class="new-control-indicator"></span>&nbsp;
+                    <input type="checkbox" [checked]="DayOffWednesday"
+                      (change)="DayOffWednesday=!DayOffWednesday ;setFieldValidation('WednesdayST','WednesdayET',$event)"
+                      class="new-control-input"> <span class="new-control-indicator"></span>&nbsp;
                   </label>
                 </td>
               </tr>
-              <tr [ngClass]="{'items-day-off':( !model.ThursdayST && !model.ThursdayET)}">
+              <tr [ngClass]="{'items-day-off':( DayOffThursday)}">
                 <td>Thursday</td>
                 <td> <input type="time" [(ngModel)]="model.ThursdayST" formControlName="ThursdayST"
                     [ngClass]="{ 'is-invalid': f.ThursdayST.errors && f.ThursdayST.touched}" class="form-control"
@@ -112,13 +114,14 @@
                 </td>
                 <td>
                   <label class="new-control new-checkbox big-checkbox checkbox-info">
-                    <input type="checkbox" [checked]="!model.ThursdayST && !model.ThursdayET"
-                      (change)="setFieldValidation('ThursdayST','ThursdayET',$event)" class="new-control-input">
+                    <input type="checkbox" [checked]="DayOffThursday"
+                      (change)="DayOffThursday =!DayOffThursday;setFieldValidation('ThursdayST','ThursdayET',$event)"
+                      class="new-control-input">
                     <span class="new-control-indicator"></span>&nbsp;
                   </label>
                 </td>
               </tr>
-              <tr [ngClass]="{'items-day-off':( !model.FridayST && !model.FridayET)}">
+              <tr [ngClass]="{'items-day-off':( DayOffFriday)}">
                 <td>Friday</td>
                 <td> <input type="time" [(ngModel)]="model.FridayST" formControlName="FridayST"
                     [ngClass]="{ 'is-invalid': f.FridayST.errors && f.FridayST.touched}" class="form-control"
@@ -128,13 +131,14 @@
                     placeholder="Time picker"> </td>
                 <td>
                   <label class="new-control new-checkbox big-checkbox checkbox-info">
-                    <input type="checkbox" [checked]="!model.FridayST && !model.FridayET"
-                      (change)="setFieldValidation('FridayST','FridayET',$event)" class="new-control-input">
+                    <input type="checkbox" [checked]="DayOffFriday"
+                      (change)="DayOffFriday=!DayOffFriday;setFieldValidation('FridayST','FridayET',$event)"
+                      class="new-control-input">
                     <span class="new-control-indicator"></span>&nbsp;
                   </label>
                 </td>
               </tr>
-              <tr [ngClass]="{'items-day-off':( !model.SaturdayST && !model.SaturdayET)}">
+              <tr [ngClass]="{'items-day-off':( DayOffSaturday)}">
                 <td>Saturday</td>
                 <td> <input type="time" [(ngModel)]="model.SaturdayST"
                     [ngClass]="{ 'is-invalid': f.SaturdayST.errors && f.SaturdayST.touched}"
@@ -146,13 +150,14 @@
                 </td>
                 <td>
                   <label class="new-control new-checkbox big-checkbox checkbox-info">
-                    <input type="checkbox" [checked]="!model.SaturdayST && !model.SaturdayET"
-                      (change)="setFieldValidation('SaturdayST','SaturdayET',$event)" class="new-control-input">
+                    <input type="checkbox" [checked]="DayOffSaturday"
+                      (change)="DayOffSaturday=!DayOffSaturday;setFieldValidation('SaturdayST','SaturdayET',$event)"
+                      class="new-control-input">
                     <span class="new-control-indicator"></span>&nbsp;
                   </label>
                 </td>
               </tr>
-              <tr [ngClass]="{'items-day-off':( !model.SundayST && !model.SundayET)}">
+              <tr [ngClass]="{'items-day-off':( DayOffSunday)}">
                 <td>Sunday</td>
                 <td> <input type="time" [(ngModel)]="model.SundayST"
                     [ngClass]="{ 'is-invalid': f.SundayST.errors && f.SundayST.touched}" formControlName="SundayST"
@@ -162,8 +167,9 @@
                     class="form-control" placeholder="Time picker"> </td>
                 <td>
                   <label class="new-control new-checkbox big-checkbox checkbox-info">
-                    <input type="checkbox" [checked]="!model.SundayST && !model.SundayET"
-                      (change)="setFieldValidation('SundayST','SundayET',$event)" class="new-control-input">
+                    <input type="checkbox" [checked]="DayOffSunday"
+                      (change)="DayOffSunday=!DayOffSunday; setFieldValidation('SundayST','SundayET',$event)"
+                      class="new-control-input">
                     <span class="new-control-indicator"></span>&nbsp;
                   </label>
                 </td>
@@ -211,7 +217,7 @@
         </div>
 
 
-        <div class="col-md-12 table-responsive" *ngIf="dataModel!.length>0">
+        <div class="col-md-12 table-responsive" *ngIf="dataModel">
           <table class="table">
             <thead>
               <tr>
