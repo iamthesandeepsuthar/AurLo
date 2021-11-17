@@ -4143,6 +4143,34 @@ table {
     display: none !important;
 }
 
+.items-day-off td:nth-child(2) input,
+.items-day-off td:nth-child(3) input {
+    opacity: 0;
+}
+
+.items-day-off td:nth-child(2),
+.items-day-off td:nth-child(3) {
+    position: relative;
+}
+
+.items-day-off td:nth-child(2):before,
+.items-day-off td:nth-child(3):before {
+    position: absolute;
+    content: "Day Off";
+    background: rgb(255 212 216 / 50%);
+    top: 0;
+    width: 100%;
+    left: 0;
+    height: 100%;
+    z-index: 999;
+    vertical-align: middle;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 21px;
+    color: #e10000;
+}
+
 
 /* .custom-modal .modal-content .modal-body {
     background: url(https://blog.2checkout.com/wp-content/uploads/2018/11/how-does-the-payment-processing-industry-work-1.png);
