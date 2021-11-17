@@ -48,7 +48,7 @@ namespace AurigainLoanERP.Shared.ContractModel
     {
         public CustomerRegistrationViewModel() 
         {
-            KycDocuments = new List<UserKycPostModel>();
+            KycDocuments = new List<CustomerKycViewModel>();
         }
         public long Id { get; set; }
         public string FullName { get; set; }
@@ -65,6 +65,15 @@ namespace AurigainLoanERP.Shared.ContractModel
         public DateTime? DateOfBirth { get; set; }
         public bool? IsActive { get; set; }
         public DateTime CreatedOn { get; set; }
-        public List<UserKycPostModel> KycDocuments { get; set; }
+        public List<CustomerKycViewModel> KycDocuments { get; set; }
     }
+    public class CustomerKycViewModel
+    {
+        public long Id { get; set; }
+        public string Kycnumber { get; set; }
+        public int KycdocumentTypeId { get; set; }
+        public string KycdocumentTypeName { get; set; }
+        public long UserId { get; set; }       
+    }
+
 }

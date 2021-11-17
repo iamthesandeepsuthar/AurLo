@@ -82,6 +82,7 @@ export class IndexModel {
   OrderByAsc: boolean;
   IsPostBack: boolean;
   AdvanceSearchModel?: any;
+  UserId!: number;
   constructor() {
     this.PageSize = 10;
     this.IsPostBack = false;

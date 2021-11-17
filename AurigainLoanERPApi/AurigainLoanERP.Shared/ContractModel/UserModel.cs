@@ -334,6 +334,7 @@ namespace AurigainLoanERP.Shared.ContractModel
         public long Id { get; set; }
         public string Kycnumber { get; set; }
         public int KycdocumentTypeId { get; set; }
+        
     }
     public class UserReportingPersonPostModel
     {

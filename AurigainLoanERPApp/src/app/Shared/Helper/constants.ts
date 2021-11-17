@@ -161,17 +161,27 @@ export class API_Url {
 
   //#region <<Customer Registration>>
   public static Customer_Registration_Api = `${environment.apiEndPoint}Customer/RegisterCustomer/`;
+  public static Customer_Profile_Detail_Api = `${environment.apiEndPoint}Customer/GetCustomerProfile/`;
+  public static Customer_Get_Detail_Api = `${environment.apiEndPoint}Customer/GetCustomerDetail/`;
+  public static Customer_List_Api = `${environment.apiEndPoint}Customer/GetListAsync`;
   // #endregion
 
 
   //#region  <<Gold Loan Fresh Lead >>
-  public static Gold_Loan_Fresh_Lead_List_Api = `${environment.apiEndPoint}GoldLoanFreshLead/ListGoldLoanFreshLeadAsync`;
+  public static Gold_Loan_Fresh_Lead_List_Api = `${environment.apiEndPoint}GoldLoanFreshLead/GoldLoanFreshLeadListAsync`;
   public static Gold_Loan_Fresh_Lead__AddUpdate_Api = `${environment.apiEndPoint}GoldLoanFreshLead/AddUpdateGoldLoanFreshLead`;
-  public static Gold_Loan_Fresh_Lead__Detail_Api = `${environment.apiEndPoint}GoldLoanFreshLead/Detail/`;
+  public static Gold_Loan_Fresh_Lead__Detail_Api = `${environment.apiEndPoint}GoldLoanFreshLead/GoldLoanFreshLeadDetail/`;
   public static Gold_Loan_Fresh_Lead__Delete_Api = `${environment.apiEndPoint}GoldLoanFreshLead/DeleteProduct/`;
   public static Gold_Loan_Fresh_Lead__ActiveStatus_Api = `${environment.apiEndPoint}GoldLoanFreshLead/UpdateActiveStatus/`;
+  //#endregion
+  //#region <<Personal - Car - Home - Loan >>
+   public static Personal_Home_Car_Loan_List_Api = `${environment.apiEndPoint}GoldLoanFreshLead/PersonalHomeCarLoanList`
+  //#endregion
 
-
+  //#region  <<Balance Transfer Gold Loan Lead>>
+  public static BT_Gold_Loan_Lead_List_Api = `${environment.apiEndPoint}GoldLoanBalanceTransfer/BTGoldLoanLeadListAsync`;
+  public static BT_Gold_Loan_Lead__AddUpdate_Api = `${environment.apiEndPoint}GoldLoanBalanceTransfer/AddUpdateGoldLoanFreshLead`;
+  public static BT_Gold_Loan_Lead__Detail_Api = `${environment.apiEndPoint}GoldLoanBalanceTransfer/BTGoldLoanLeadDetail/`;
   //#endregion
 }
 
@@ -238,6 +248,14 @@ export class Routing_Url {
   //#region <<Customer>>
   public static Customer_List_Url = 'list';
   public static Customer_Profile_Url = "profile/";
+  //#endregion
+
+  //#region <<BackEnd Operator URL>>
+  public static BackEnd_Customer_List_Url = 'register-customers';
+  public static  BackEnd_Fresh_GoldLoan_List_Url = 'gold-loan-fresh-leads';
+  public static   BackEnd_BT_GoldLoan_List_Url = 'balance-transfer-leads';
+  public static  BackEnd_Profile_Url = 'door-step-agents-list';
+  public static BackEnd_OtherLoan_Leads_Url = 'other-loan-leads';
   //#endregion
 
   //#region  <<Agent >>

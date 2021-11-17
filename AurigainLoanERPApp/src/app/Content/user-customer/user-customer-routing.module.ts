@@ -1,3 +1,4 @@
+import { UpdateCustomerProfileComponent } from './update-customer-profile/update-customer-profile.component';
 
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -10,10 +11,11 @@ import { DetailGoldLoanFreshLeadComponent } from './Leads/gold-loan-fresh-lead/d
 
 const routes: Routes = [
   {path:'', component: CustomerDashboardComponent },
-  {path:'profile/', component: CustomerProfileComponent , canActivate:[AuthenticationGuard]},
+  {path:'profile/:id', component: CustomerProfileComponent , canActivate:[AuthenticationGuard]},
   {path:'gold-loan-lead/', component: GoldLoanFreshLeadComponent , canActivate:[AuthenticationGuard]},
   {path:'gold-loan-lead/addupdate/:id', component: AddEditGoldLoanFreshLeadComponent , canActivate:[AuthenticationGuard]},
   {path:'gold-loan-lead/detail/:id', component: DetailGoldLoanFreshLeadComponent , canActivate:[AuthenticationGuard]},
+  {path:'update-profile/:id', component: UpdateCustomerProfileComponent , canActivate:[AuthenticationGuard]},
 
 ];
 @NgModule({
