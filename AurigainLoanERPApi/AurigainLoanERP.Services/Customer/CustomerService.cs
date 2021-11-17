@@ -275,7 +275,7 @@ namespace AurigainLoanERP.Services.Customer
         {
             try
             {
-                var data = await _db.UserCustomer.Where(x => x.Id == id).Include(x => x.PincodeArea).Include(x => x.User).FirstOrDefaultAsync();
+                var data = await _db.UserCustomer.Where(x => x.UserId == id).Include(x => x.PincodeArea).Include(x => x.User).FirstOrDefaultAsync();
                 if (data != null)
                 {
                     List<UserKycPostModel> userDocuments = new List<UserKycPostModel>();
