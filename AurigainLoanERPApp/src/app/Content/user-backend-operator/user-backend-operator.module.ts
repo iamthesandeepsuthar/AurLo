@@ -10,6 +10,7 @@ import { DetailBalanceTransferLeadComponent } from './balance-transfer-gold-loan
 import { OtherLoanLeadsComponent } from './other-loan-leads/other-loan-leads.component';
 import { DetailOtherLoanLeadComponent } from './other-loan-leads/detail-other-loan-lead/detail-other-loan-lead.component';
 import { RegisterCustomersComponent } from './register-customers/register-customers.component';
+import { SharedModule } from 'src/app/Shared/Helper/shared/shared.module';
 
 
 
@@ -26,7 +27,8 @@ import { RegisterCustomersComponent } from './register-customers/register-custom
   ],
   imports: [
     CommonModule,
-    UserBackendOperatorRoutingModule
+    UserBackendOperatorRoutingModule,
+    SharedModule,
   ]
 })
 export class UserBackendOperatorModule { }

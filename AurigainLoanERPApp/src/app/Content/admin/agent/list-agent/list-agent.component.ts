@@ -118,7 +118,6 @@ export class ListAgentComponent implements OnInit {
     });
 
   }
-
   updateDeleteStatus(id: number) {
 
     this._commonService.Question(Message.ConfirmUpdate as string).then(result => {
@@ -140,7 +139,6 @@ export class ListAgentComponent implements OnInit {
       }
     });
   }
-
   OnApproveStatus(Id: number) {
     this._commonService.Question(Message.ConfirmUpdate as string).then(isTrue => {
 
