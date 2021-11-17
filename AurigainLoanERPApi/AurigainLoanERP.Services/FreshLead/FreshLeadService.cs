@@ -107,7 +107,17 @@ namespace AurigainLoanERP.Services.FreshLead
                 if (model != null)
                 {
                     await _db.Database.BeginTransactionAsync();
-                    var customerUserId = await SaveCustomerFreshLead(model);         
+                    long customerUserId = 0;
+                    if (model.CustomerUserId == 0)
+                    {
+                        customerUserId = await SaveCustomerFreshLead(model);
+                    }
+                    else
+                    {
+                        customerUserId = model.CustomerUserId.Value;
+
+                    }
+                             
                     long leadId = 0;                   
                     if (customerUserId > 0)
                     {
@@ -169,7 +179,7 @@ namespace AurigainLoanERP.Services.FreshLead
                                     .Include(x=>x.Product)
                                     .Include(x => x.LeadSourceByUser)
                                     .Include(x => x.GoldLoanFreshLeadKycDocument).ThenInclude(y=>y.KycDocumentType)
-                                    .Include(x => x.GoldLoanFreshLeadJewelleryDetail).ThenInclude(z=>z.JewelleryType)
+                                 //   .Include(x => x.GoldLoanFreshLeadJewelleryDetail).ThenInclude(z=>z.JewelleryTypeId)
                                     .Include(x => x.GoldLoanFreshLeadAppointmentDetail).ThenInclude(p=>p.Branch).ThenInclude(p=>p.Bank).FirstOrDefaultAsync();
                
                 if (detail != null)
@@ -201,7 +211,7 @@ namespace AurigainLoanERP.Services.FreshLead
                     leadDetail.KycDocument.Pincode = await _db.GoldLoanFreshLeadKycDocument.Where(x => x.GlfreshLeadId == detail.Id).Include(x => x.PincodeArea).Select(x => x.PincodeArea.Pincode).FirstOrDefaultAsync();
                     leadDetail.KycDocument.AddressLine1 =detail.GoldLoanFreshLeadKycDocument.Where(x => x.GlfreshLeadId == detail.Id).FirstOrDefault().AddressLine1;
                     leadDetail.JewelleryDetail.JewelleryTypeId = detail.GoldLoanFreshLeadJewelleryDetail.Where(x => x.GlfreshLeadId == detail.Id).FirstOrDefault().JewelleryTypeId;
-                    leadDetail.JewelleryDetail.JewelleryTypeName = detail.GoldLoanFreshLeadJewelleryDetail.Where(x => x.GlfreshLeadId == detail.Id).FirstOrDefault().JewelleryType.Name;
+                    //leadDetail.JewelleryDetail.JewelleryTypeName = detail.GoldLoanFreshLeadJewelleryDetail.Where(x => x.GlfreshLeadId == detail.Id).FirstOrDefault().JewelleryType.Name;
                     leadDetail.JewelleryDetail.Karat = detail.GoldLoanFreshLeadJewelleryDetail.Where(x => x.GlfreshLeadId == detail.Id).FirstOrDefault().Karat;
                     leadDetail.JewelleryDetail.Quantity = detail.GoldLoanFreshLeadJewelleryDetail.Where(x => x.GlfreshLeadId == detail.Id).FirstOrDefault().Quantity;
                     leadDetail.JewelleryDetail.Weight = detail.GoldLoanFreshLeadJewelleryDetail.Where(x => x.GlfreshLeadId == detail.Id).FirstOrDefault().Weight;

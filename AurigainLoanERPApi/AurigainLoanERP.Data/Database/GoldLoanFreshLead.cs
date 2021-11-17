@@ -28,7 +28,7 @@ namespace AurigainLoanERP.Data.Database
         public string SecondaryMobileNumber { get; set; }
         public double LoanAmountRequired { get; set; }
         public string Purpose { get; set; }
-        public long? CustomerUserId { get; set; }
+        public long CustomerUserId { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime? ModifedDate { get; set; }
         public bool? IsActive { get; set; }
