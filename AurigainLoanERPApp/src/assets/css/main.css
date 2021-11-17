@@ -4143,6 +4143,12 @@ table {
     display: none !important;
 }
 
+.items-day-off td:nth-child(1),
+.items-day-off td:nth-child(2),
+.items-day-off td:nth-child(3) {
+    opacity: 0.3;
+}
+
 
 /* .custom-modal .modal-content .modal-body {
     background: url(https://blog.2checkout.com/wp-content/uploads/2018/11/how-does-the-payment-processing-industry-work-1.png);
