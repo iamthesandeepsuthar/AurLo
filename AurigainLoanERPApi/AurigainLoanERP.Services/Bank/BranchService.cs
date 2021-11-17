@@ -22,7 +22,31 @@ namespace AurigainLoanERP.Services.Bank
             this._mapper = mapper;
             _db = db;
         }
-        c
+        public async Task<ApiServiceResponseModel<List<DDLBranchModel>>> Branches(int bankId)
+        {
+            try
+            {
+                var branches = await _db.BankBranchMaster.Where(x => x.BankId == bankId).Select(x => new DDLBranchModel
+                {
+                    Id = x.Id,
+                    BranchName = x.BranchName,
+                    Ifsc = x.Ifsc
+                }).ToListAsync();
+
+                if (branches.Count() > 0)
+                {
+                    return CreateResponse<List<DDLBranchModel>>(branches, ResponseMessage.Success, true, ((int)ApiStatusCode.Ok));
+                }
+                else
+                {
+                    return CreateResponse<List<DDLBranchModel>>(null, ResponseMessage.NotFound, true, ((int)ApiStatusCode.RecordNotFound));
+                }
+            }
+            catch (Exception ex)
+            {
+                return CreateResponse<List<DDLBranchModel>>(null, ResponseMessage.NotFound, false, ((int)ApiStatusCode.ServerException), ex.Message ?? ex.InnerException.ToString());
+            }
+        }
         public async Task<ApiServiceResponseModel<BranchModel>> GetById(int id)
         {
             try

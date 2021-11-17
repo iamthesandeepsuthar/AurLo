@@ -152,6 +152,11 @@ export class API_Url {
   public static Branch_Delete_Api = `${environment.apiEndPoint}BankBranch/DeleteBranch/`;
   public static Branch_ActiveStatus_Api = `${environment.apiEndPoint}BankBranch/UpdateActiveStatus/`;
   public static Branch_Detail_Api = `${environment.apiEndPoint}BankBranch/GetById/`;
+  public static Branches_by_PinCode_Api = `${environment.apiEndPoint}BankBranch/BranchesbyPinCode/`;
+
+
+
+
   //#endregion
 
   //#region <<Customer Registration>>

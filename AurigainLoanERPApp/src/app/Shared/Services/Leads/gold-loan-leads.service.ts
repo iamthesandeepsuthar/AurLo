@@ -14,7 +14,7 @@ export class GoldLoanLeadsService {
     let url = `${this._baseService.API_Url.Gold_Loan_Fresh_Lead_List_Api}`;
     return this._baseService.post(url, model);
   }
-  GetById(id: number): Observable<ApiResponse<BankModel>> {
+  GetById(id: number): Observable<ApiResponse<GoldLoanFreshLeadModel>> {
     let url = `${this._baseService.API_Url.Gold_Loan_Fresh_Lead__Detail_Api}${id}`;
     return this._baseService.get(url);
   }

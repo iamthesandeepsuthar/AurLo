@@ -25,7 +25,7 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
         // GET api/KycDocumentType/DocumentTypes
         [HttpGet("[action]/{isKYC?}")]
         public async Task<ApiServiceResponseModel<List<DDLDocumentTypeModel>>> DocumentTypes(bool? isKYC = null)
-        {
+       {
             return await _documentService.GetDocumentType(isKYC); 
         }
 
