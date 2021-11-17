@@ -17,7 +17,7 @@ using AurigainLoanERP.Shared.ExtensionMethod;
 
 namespace AurigainLoanERP.Services.Customer
 {
-    public class CustomerService : BaseService , ICustomerService
+    public class CustomerService : BaseService, ICustomerService
     {
         public readonly IMapper _mapper;
         private AurigainContext _db;
@@ -28,14 +28,15 @@ namespace AurigainLoanERP.Services.Customer
             _db = db;
             _emailHelper = new EmailHelper(_configuration, environment);
         }
-        public async Task<ApiServiceResponseModel<string>> TestEmail() {          
+        public async Task<ApiServiceResponseModel<string>> TestEmail()
+        {
             Dictionary<string, string> replaceValues = new Dictionary<string, string>();
             replaceValues.Add("{{UserName}}", "Aakash");
             replaceValues.Add("{{Password}}", "1234556");
             await _emailHelper.SendHTMLBodyMail("sandeep.suthar08@gmail.com", "Registration Notification", EmailPathConstant.RegisterTemplate, replaceValues);
             return CreateResponse<string>("", ResponseMessage.Save, true, ((int)ApiStatusCode.Ok));
         }
-        public async Task<ApiServiceResponseModel<List<CustomerListModel>>> GetListAsync(IndexModel model) 
+        public async Task<ApiServiceResponseModel<List<CustomerListModel>>> GetListAsync(IndexModel model)
         {
             ApiServiceResponseModel<List<CustomerListModel>> objResponse = new ApiServiceResponseModel<List<CustomerListModel>>();
             try
@@ -67,15 +68,15 @@ namespace AurigainLoanERP.Services.Customer
                                           {
                                               Id = detail.Id,
                                               UserId = detail.User != null ? detail.User.Id : default,
-                                              FullName = detail.FullName ?? null, 
+                                              FullName = detail.FullName ?? null,
                                               EmailId = detail.User.Email,
                                               Mobile = detail.User.Mobile,
                                               FatherName = detail.FatherName,
                                               IsApproved = detail.User.IsApproved,
-                                              Gender = detail.Gender ?? null,                                          
-                                              ProfileImageUrl = detail.User.ProfilePath.ToAbsolutePath() ?? null,                                             
+                                              Gender = detail.Gender ?? null,
+                                              ProfileImageUrl = detail.User.ProfilePath.ToAbsolutePath() ?? null,
                                               IsActive = detail.User.IsActive,
-                                              Mpin = detail.User.Mpin                                            
+                                              Mpin = detail.User.Mpin
                                           }).ToListAsync();
                 if (result != null)
                 {
@@ -104,7 +105,7 @@ namespace AurigainLoanERP.Services.Customer
 
                     switch (user.UserRoleId)
                     {
-                            case (int)UserRoleEnum.Customer:
+                        case (int)UserRoleEnum.Customer:
                             var customerUser = await _db.UserCustomer.Where(x => x.UserId == id).FirstOrDefaultAsync();
                             customerUser.IsActive = !customerUser.IsActive;
                             break;
@@ -131,7 +132,7 @@ namespace AurigainLoanERP.Services.Customer
                 {
                     user.IsDelete = !user.IsDelete;
                     switch (user.UserRoleId)
-                    {                       
+                    {
                         case (int)UserRoleEnum.Customer:
                             var supervisorUser = _db.UserCustomer.Where(x => x.UserId == id).FirstOrDefault();
                             supervisorUser.IsDelete = !supervisorUser.IsDelete;
@@ -174,19 +175,19 @@ namespace AurigainLoanERP.Services.Customer
             {
                 await _db.Database.BeginTransactionAsync();
                 if (model != null)
-                {                   
+                {
                     var userId = await SaveCustomerAsync(model);
-                    if (userId> 0)
+                    if (userId > 0)
                     {
-                        var result  = await SaveUserKYCAsync(model.KycDocuments, userId);
+                        var result = await SaveUserKYCAsync(model.KycDocuments, userId);
                         if (result)
                         {
                             var user = await _db.UserMaster.Where(x => x.Id == userId).FirstOrDefaultAsync();
                             Dictionary<string, string> replaceValues = new Dictionary<string, string>();
                             replaceValues.Add("{{UserName}}", user.Email);
                             replaceValues.Add("{{Password}}", user.Password);
-                            await _emailHelper.SendHTMLBodyMail(user.Email,"Registration Notification", EmailPathConstant.RegisterTemplate, replaceValues);
-                            _db.Database.CommitTransaction();                          
+                            await _emailHelper.SendHTMLBodyMail(user.Email, "Registration Notification", EmailPathConstant.RegisterTemplate, replaceValues);
+                            _db.Database.CommitTransaction();
                             return CreateResponse<string>("", ResponseMessage.Save, true, ((int)ApiStatusCode.Ok));
                         }
                         else
@@ -194,7 +195,7 @@ namespace AurigainLoanERP.Services.Customer
                             _db.Database.RollbackTransaction();
                             return CreateResponse<string>(null, "Document not uploaded !,Please try again.", false, ((int)ApiStatusCode.DataBaseTransactionFailed));
                         }
-                      
+
                     }
                     _db.Database.RollbackTransaction();
                     return CreateResponse<string>(null, ResponseMessage.UserExist, false, ((int)ApiStatusCode.DataBaseTransactionFailed));
@@ -212,13 +213,15 @@ namespace AurigainLoanERP.Services.Customer
         }
 
         //for profile detail
-        public async Task<ApiServiceResponseModel<CustomerRegistrationViewModel>> GetCustomerProfile(long id) 
+        public async Task<ApiServiceResponseModel<CustomerRegistrationViewModel>> GetCustomerProfile(long id)
         {
             try
             {
-                var detail = await _db.UserCustomer.Where(x => x.UserId== id).Include(x => x.User).ThenInclude(x => x.UserKyc).Include(x=>x.PincodeArea).ThenInclude(y =>y.District).ThenInclude(y=>y.State).FirstOrDefaultAsync();
+                var detail = await _db.UserCustomer.Where(x => x.UserId == id).Include(x => x.User).ThenInclude(x => x.UserKyc).Include(x => x.PincodeArea).ThenInclude(y => y.District).ThenInclude(y => y.State).FirstOrDefaultAsync();
+
                 if (detail != null)
                 {
+                    var loanDetail = await _db.GoldLoanFreshLead.FirstOrDefaultAsync(x => x.IsActive.Value && !x.IsDelete && x.CustomerUserId == detail.UserId);
                     CustomerRegistrationViewModel customer = new CustomerRegistrationViewModel
                     {
                         Id = detail.Id,
@@ -227,6 +230,7 @@ namespace AurigainLoanERP.Services.Customer
                         FatherName = detail.FatherName,
                         EmailId = detail.User.Email,
                         Mobile = detail.User.Mobile,
+                        SecondaryMobileNumber = loanDetail.SecondaryMobileNumber,
                         Gender = detail.Gender,
                         DateOfBirth = detail.DateOfBirth,
                         Address = detail.Address,
@@ -236,10 +240,12 @@ namespace AurigainLoanERP.Services.Customer
                         State = detail.PincodeArea.District.State.Name,
                         IsActive = detail.IsActive,
                         CreatedOn = detail.CreatedOn,
-                        
+                        LoanAmount = loanDetail.LoanAmountRequired ,
+                        LoanPurpose =loanDetail.Purpose
+
                     };
-                    var docs =await _db.UserKyc.Where(x => x.UserId == detail.UserId).Include(x=>x.KycdocumentType).ToListAsync();
-                    foreach(var doc  in docs) 
+                    var docs = await _db.UserKyc.Where(x => x.UserId == detail.UserId).Include(x => x.KycdocumentType).ToListAsync();
+                    foreach (var doc in docs)
                     {
                         CustomerKycViewModel kycDoc = new CustomerKycViewModel
                         {
@@ -258,14 +264,14 @@ namespace AurigainLoanERP.Services.Customer
                     return CreateResponse<CustomerRegistrationViewModel>(null, ResponseMessage.NotFound, false, ((int)ApiStatusCode.NotFound));
                 }
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
-                return CreateResponse<CustomerRegistrationViewModel>(null, ex.Message + " "+ ex.InnerException.Message, false, ((int)ApiStatusCode.InternalServerError));
-            }           
+                return CreateResponse<CustomerRegistrationViewModel>(null, ex.Message + " " + ex.InnerException.Message, false, ((int)ApiStatusCode.InternalServerError));
+            }
         }
 
         //for edit pupose
-        public async Task<ApiServiceResponseModel<CustomerRegistrationModel>> GetCustomerDetail(long id) 
+        public async Task<ApiServiceResponseModel<CustomerRegistrationModel>> GetCustomerDetail(long id)
         {
             try
             {
@@ -280,13 +286,13 @@ namespace AurigainLoanERP.Services.Customer
                         Mobile = data.User.Mobile,
                         UserRoleId = data.User.UserRoleId,
                         IsApproved = data.User.IsApproved,
-                        IsWhatsApp= data.User.IsWhatsApp,
+                        IsWhatsApp = data.User.IsWhatsApp,
                         UserName = data.User.UserName
                     };
                     var documents = _db.UserKyc.Where(x => x.UserId == data.UserId).ToList();
-                    foreach (var doc in documents) 
+                    foreach (var doc in documents)
                     {
-                        UserKycPostModel d = new UserKycPostModel 
+                        UserKycPostModel d = new UserKycPostModel
                         {
                             KycdocumentTypeId = doc.KycdocumentTypeId,
                             Kycnumber = doc.Kycnumber,
@@ -294,7 +300,7 @@ namespace AurigainLoanERP.Services.Customer
                         };
                         userDocuments.Add(d);
                     }
-                    CustomerRegistrationModel customer = new CustomerRegistrationModel 
+                    CustomerRegistrationModel customer = new CustomerRegistrationModel
                     {
                         User = user,
                         FullName = data.FullName,
@@ -306,7 +312,7 @@ namespace AurigainLoanERP.Services.Customer
                         PincodeAreaId = data.PincodeAreaId,
                         UserId = data.UserId,
                         KycDocuments = userDocuments,
-                        CreatedOn = data.CreatedOn                     
+                        CreatedOn = data.CreatedOn
                     };
                     return CreateResponse<CustomerRegistrationModel>(customer, ResponseMessage.Success, true, ((int)ApiStatusCode.Ok));
 
@@ -315,9 +321,9 @@ namespace AurigainLoanERP.Services.Customer
                 {
                     return CreateResponse<CustomerRegistrationModel>(null, ResponseMessage.NotFound, false, ((int)ApiStatusCode.NotFound));
                 }
-                
+
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 return CreateResponse<CustomerRegistrationModel>(null, ex.Message + " " + ex.InnerException.Message, false, ((int)ApiStatusCode.InternalServerError));
             }
@@ -359,12 +365,12 @@ namespace AurigainLoanERP.Services.Customer
                             FatherName = model.FatherName,
                             DateOfBirth = model.DateOfBirth,
                             UserId = model.UserId,
-                            Gender = model.Gender,                        
+                            Gender = model.Gender,
                             IsActive = model.IsActive,
                             IsDelete = model.IsDelete,
                             PincodeAreaId = model.PincodeAreaId,
-                            Address = model.Address,                           
-                            CreatedBy = (int)UserRoleEnum.Admin                            
+                            Address = model.Address,
+                            CreatedBy = (int)UserRoleEnum.Admin
                         };
                         var res = await _db.UserCustomer.AddAsync(customer);
                         await _db.SaveChangesAsync();
@@ -393,7 +399,7 @@ namespace AurigainLoanERP.Services.Customer
                 return model.UserId;
             }
             catch (Exception)
-            {  throw;  }
+            { throw; }
         }
         private async Task<bool> SaveUserKYCAsync(List<UserKycPostModel> model, long userId)
         {

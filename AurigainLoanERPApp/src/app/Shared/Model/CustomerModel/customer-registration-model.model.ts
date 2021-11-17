@@ -21,7 +21,7 @@ export class CustomerRegistrationModel {
   CreatedBy!: number | null;
   ModifiedBy!: number | null;
   User!: UserPostModel;
-  KycDocuments!:UserKYCPostModel[];
+  KycDocuments!: UserKYCPostModel[];
 }
 
 export class CustomerRegistrationViewModel {
@@ -40,6 +40,9 @@ export class CustomerRegistrationViewModel {
   DateOfBirth!: string | null;
   IsActive!: boolean | null;
   CreatedOn!: string;
+  LoanAmount!: string;
+  SecondaryMobileNumber!: string;
+  LoanPurpose!: string;
   KycDocuments!: CustomerKycViewModel[];
 }
 
