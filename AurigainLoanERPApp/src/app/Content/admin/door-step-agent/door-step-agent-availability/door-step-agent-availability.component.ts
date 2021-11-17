@@ -102,6 +102,42 @@ export class DoorStepAgentAvailabilityComponent implements OnInit {
     let startTimeField = this.formGroup.get(startTimeFC);
     let endTimeField = this.formGroup.get(endTimeFC);
 
+
+    if (this.DayOffMonday) {
+      this.model.MondayST = null;
+      this.model.MondayET = null;
+    }
+    if (this.DayOffTuesday) {
+      this.model.TuesdayST = null;
+      this.model.TuesdayET = null;
+    }
+    if (this.DayOffWednesday) {
+      this.model.WednesdayST = null;
+      this.model.WednesdayET = null;
+
+    }
+    if (this.DayOffThursday) {
+      this.model.ThursdayST = null;
+      this.model.ThursdayET = null;
+
+    }
+    if (this.DayOffFriday) {
+      this.model.FridayST = null;
+      this.model.FridayET = null;
+
+    }
+    if (this.DayOffSaturday) {
+      this.model.SaturdayST = null;
+      this.model.SaturdayET = null;
+
+    }
+    if (this.DayOffSunday) {
+      this.model.SundayST = null;
+      this.model.SundayET = null;
+
+    }
+
+
     if (setRequired.target.checked) {
       startTimeField?.setValidators(null);
       endTimeField?.setValidators(null);
@@ -110,7 +146,6 @@ export class DoorStepAgentAvailabilityComponent implements OnInit {
       startTimeField?.setValidators(Validators.required);
       endTimeField?.setValidators(Validators.required);
     }
-
 
     startTimeField?.updateValueAndValidity();
     endTimeField?.updateValueAndValidity();
