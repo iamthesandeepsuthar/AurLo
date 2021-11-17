@@ -317,7 +317,7 @@ namespace AurigainLoanERP.Services.Customer
             }
         }
 
-        #region <<Private Method>>
+        #region <<Private Method Of Customer>>
         private async Task<long> SaveCustomerAsync(CustomerRegistrationModel model)
         {
             try
@@ -430,6 +430,7 @@ namespace AurigainLoanERP.Services.Customer
             }
 
         }
+
         #endregion
     }
 }

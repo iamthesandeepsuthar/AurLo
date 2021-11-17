@@ -129,13 +129,14 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                 if (model.UserId == null)
                 {
                     result = (from goldLoanLead in _db.BtgoldLoanLead
-                              where !goldLoanLead.IsDelete && (string.IsNullOrEmpty(model.Search) || goldLoanLead.FullName.Contains(model.Search) || goldLoanLead.FatherName.Contains(model.Search) || goldLoanLead.Gender.Contains(model.Search) || goldLoanLead.BtgoldLoanLeadAddressDetail.FirstOrDefault().AeraPincode.Pincode.Contains(model.Search))
+                              where !goldLoanLead.IsDelete && (string.IsNullOrEmpty(model.Search) || goldLoanLead.FullName.Contains(model.Search) || goldLoanLead.FatherName.Contains(model.Search) || goldLoanLead.Gender.Contains(model.Search) || goldLoanLead.BtgoldLoanLeadAddressDetail.FirstOrDefault().AeraPincode.Pincode.Contains(model.Search)) || goldLoanLead.Product.Name.Contains(model.Search)
                               select goldLoanLead);
                 }
                 else
                 {
                     result = (from goldLoanLead in _db.BtgoldLoanLead
-                              where !goldLoanLead.IsDelete && goldLoanLead.CustomerUserId == model.UserId && (string.IsNullOrEmpty(model.Search) || goldLoanLead.FullName.Contains(model.Search) || goldLoanLead.FatherName.Contains(model.Search) || goldLoanLead.Gender.Contains(model.Search) || goldLoanLead.BtgoldLoanLeadAddressDetail.FirstOrDefault().AeraPincode.Pincode.Contains(model.Search))
+                              where !goldLoanLead.IsDelete && goldLoanLead.CustomerUserId == model.UserId && (string.IsNullOrEmpty(model.Search) || goldLoanLead.FullName.Contains(model.Search) || goldLoanLead.FatherName.Contains(model.Search) || goldLoanLead.Gender.Contains(model.Search) || goldLoanLead.BtgoldLoanLeadAddressDetail.FirstOrDefault().AeraPincode.Pincode.Contains(model.Search)) ||
+                              goldLoanLead.Product.Name.Contains(model.Search)
                               select goldLoanLead);
                 }
 
@@ -147,7 +148,10 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                     case "FatherName":
                         result = model.OrderByAsc ? (from orderData in result orderby orderData.FatherName ascending select orderData) : (from orderData in result orderby orderData.FatherName descending select orderData);
                         break;
-                    case "Gender":
+                    case "Pincode":
+                        result = model.OrderByAsc ? (from orderData in result orderby orderData.Gender ascending select orderData) : (from orderData in result orderby orderData.Gender descending select orderData);
+                        break;
+                    case "ProductName":
                         result = model.OrderByAsc ? (from orderData in result orderby orderData.Gender ascending select orderData) : (from orderData in result orderby orderData.Gender descending select orderData);
                         break;
                     default:

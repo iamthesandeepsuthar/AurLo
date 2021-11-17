@@ -21,6 +21,7 @@ namespace AurigainLoanERP.Data.Database
         public DateTime CreatedDate { get; set; }
         public DateTime? ModifiedDate { get; set; }
 
+        public virtual JewellaryType JewelleryType {get;set;}
         public virtual GoldLoanFreshLead GlfreshLead { get; set; }
     }
 }

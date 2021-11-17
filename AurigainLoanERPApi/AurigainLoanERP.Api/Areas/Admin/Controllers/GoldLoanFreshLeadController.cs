@@ -43,5 +43,10 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
         {
             return await _freshLead.GoldLoanFreshLeadListAsync(model);
         }
+        [HttpGet("[action]")]
+        public async Task<ApiServiceResponseModel<GoldLoanFreshLeadViewModel>> GoldLoanFreshLeadDetail(long id) 
+        {
+            return await _freshLead.FreshGoldLoanLeadDetailAsync(id);
+        }
     }
 }
