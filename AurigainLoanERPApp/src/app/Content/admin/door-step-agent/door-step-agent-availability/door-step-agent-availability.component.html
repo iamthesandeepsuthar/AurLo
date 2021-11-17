@@ -48,7 +48,7 @@
             </thead>
             <tbody>
 
-              <tr [ngClass]="{'items-day-off': model.MondayST && model.MondayET}">
+              <tr [ngClass]="{'items-day-off': (!model.MondayST && !model.MondayET)}">
                 <td>Monday</td>
                 <td> <input type="time" [(ngModel)]="model.MondayST" formControlName="MondayST"
                     [ngClass]="{ 'is-invalid': f.MondayST.errors && f.MondayST.touched}" class="form-control"
@@ -64,7 +64,7 @@
                   </label>
                 </td>
               </tr>
-              <tr [ngClass]="{'items-day-off': model.TuesdayST && model.TuesdayET}">
+              <tr [ngClass]="{'items-day-off':( !model.TuesdayST && !model.TuesdayET)}">
                 <td>Tuesday</td>
                 <td> <input type="time" [(ngModel)]="model.TuesdayST" formControlName="TuesdayST"
                     [ngClass]="{ 'is-invalid': f.TuesdayST.errors && f.TuesdayST.touched}" class="form-control"
@@ -82,7 +82,7 @@
                   </label>
                 </td>
               </tr>
-              <tr [ngClass]="{'items-day-off': model.WednesdayST && model.WednesdayET}">
+              <tr [ngClass]="{'items-day-off':( !model.WednesdayST && !model.WednesdayET)}">
                 <td>Wednesday</td>
                 <td> <input type="time" [(ngModel)]="model.WednesdayST" formControlName="WednesdayST"
                     [ngClass]="{ 'is-invalid': f.WednesdayST.errors && f.WednesdayST.touched}" class="form-control"
@@ -100,7 +100,7 @@
                   </label>
                 </td>
               </tr>
-              <tr [ngClass]="{'items-day-off': model.ThursdayST && model.ThursdayET}">
+              <tr [ngClass]="{'items-day-off':( !model.ThursdayST && !model.ThursdayET)}">
                 <td>Thursday</td>
                 <td> <input type="time" [(ngModel)]="model.ThursdayST" formControlName="ThursdayST"
                     [ngClass]="{ 'is-invalid': f.ThursdayST.errors && f.ThursdayST.touched}" class="form-control"
@@ -118,7 +118,7 @@
                   </label>
                 </td>
               </tr>
-              <tr [ngClass]="{'items-day-off': model.FridayST && model.FridayET}">
+              <tr [ngClass]="{'items-day-off':( !model.FridayST && !model.FridayET)}">
                 <td>Friday</td>
                 <td> <input type="time" [(ngModel)]="model.FridayST" formControlName="FridayST"
                     [ngClass]="{ 'is-invalid': f.FridayST.errors && f.FridayST.touched}" class="form-control"
@@ -134,7 +134,7 @@
                   </label>
                 </td>
               </tr>
-              <tr [ngClass]="{'items-day-off': model.SaturdayST && model.SaturdayET}">
+              <tr [ngClass]="{'items-day-off':( !model.SaturdayST && !model.SaturdayET)}">
                 <td>Saturday</td>
                 <td> <input type="time" [(ngModel)]="model.SaturdayST"
                     [ngClass]="{ 'is-invalid': f.SaturdayST.errors && f.SaturdayST.touched}"
@@ -152,7 +152,7 @@
                   </label>
                 </td>
               </tr>
-              <tr [ngClass]="{'items-day-off': model.SundayST && model.SundayET}">
+              <tr [ngClass]="{'items-day-off':( !model.SundayST && !model.SundayET)}">
                 <td>Sunday</td>
                 <td> <input type="time" [(ngModel)]="model.SundayST"
                     [ngClass]="{ 'is-invalid': f.SundayST.errors && f.SundayST.touched}" formControlName="SundayST"
