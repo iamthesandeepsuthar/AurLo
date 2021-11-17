@@ -4143,23 +4143,33 @@ table {
     display: none !important;
 }
 
-.items-day-off td:nth-child(1),
-.items-day-off td:nth-child(2),
-.items-day-off td:nth-child(3) {
-    opacity: 0.3;
+.items-day-off td:nth-child(2) input,
+.items-day-off td:nth-child(3) input {
+    opacity: 0;
 }
 
+.items-day-off td:nth-child(2),
+.items-day-off td:nth-child(3) {
+    position: relative;
+}
 
-/* .items-day-off td:nth-child(1):before {
+.items-day-off td:nth-child(2):before,
+.items-day-off td:nth-child(3):before {
     position: absolute;
-    content: "";
-    background: rgba(0,0,0,0.5);
+    content: "Day Off";
+    background: rgb(255 212 216 / 50%);
     top: 0;
     width: 100%;
     left: 0;
     height: 100%;
-    z-index: 9999999999;
-} */
+    z-index: 999;
+    vertical-align: middle;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 21px;
+    color: #e10000;
+}
 
 
 /* .custom-modal .modal-content .modal-body {
