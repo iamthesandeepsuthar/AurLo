@@ -52,7 +52,7 @@ namespace AurigainLoanERP.Api.Areas
         {
             return await _customer.UpateActiveStatus(id);
         }
-        [HttpGet("[action]/{id}")]  // In parameter pass customer UserId 
+        [HttpGet("[action]/{userId}")]  // In parameter pass customer UserId 
         public async Task<ApiServiceResponseModel<CustomerRegistrationViewModel>> GetCustomerProfile(long userId) 
         {
             return await _customer.GetCustomerProfile(userId);

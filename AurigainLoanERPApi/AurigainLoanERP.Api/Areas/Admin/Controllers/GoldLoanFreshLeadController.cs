@@ -39,7 +39,7 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
         }
 
         [HttpPost("[action]")]
-        public async Task<ApiServiceResponseModel<List<GoldLoanFreshLeadListModel>>> GoldLoanFreshLeadListAsync(IndexModel model) 
+        public async Task<ApiServiceResponseModel<List<GoldLoanFreshLeadListModel>>> GoldLoanFreshLeadList(IndexModel model) 
         {
             return await _freshLead.GoldLoanFreshLeadListAsync(model);
         }
