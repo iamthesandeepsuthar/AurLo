@@ -115,9 +115,9 @@ namespace AurigainLoanERP.Services.FreshLead
                     else
                     {
                         customerUserId = model.CustomerUserId.Value;
-
-                    }
-                             
+                        var adminUserId =await  _db.UserMaster.Where(x => x.UserRoleId == ((int)UserRoleEnum.Admin)).Select(x=>x.Id).FirstOrDefaultAsync();
+                        model.LeadSourceByUserId = adminUserId;
+                    }                             
                     long leadId = 0;                   
                     if (customerUserId > 0)
                     {
@@ -694,7 +694,6 @@ namespace AurigainLoanERP.Services.FreshLead
                 throw;
             }
         }
-
         private class ResposeData
         {
             public bool status { get; set;}
