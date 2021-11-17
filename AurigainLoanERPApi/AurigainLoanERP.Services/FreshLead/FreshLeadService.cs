@@ -160,13 +160,18 @@ namespace AurigainLoanERP.Services.FreshLead
                 return CreateResponse<string>(null, ResponseMessage.Fail, false, ((int)ApiStatusCode.ServerException), ex.InnerException == null ? ex.Message : ex.InnerException.Message);
             }
         }
-
         public async Task<ApiServiceResponseModel<GoldLoanFreshLeadViewModel>> FreshGoldLoanLeadDetailAsync(long id) 
         {
             GoldLoanFreshLeadViewModel leadDetail = new GoldLoanFreshLeadViewModel();
             try
             {
-                var detail = await _db.GoldLoanFreshLead.Where(x => x.Id == id).Include(x => x.LeadSourceByUser).Include(x => x.GoldLoanFreshLeadKycDocument).Include(x => x.GoldLoanFreshLeadJewelleryDetail).Include(x => x.GoldLoanFreshLeadAppointmentDetail).FirstOrDefaultAsync();
+                var detail = await _db.GoldLoanFreshLead.Where(x => x.Id == id)
+                                    .Include(x=>x.Product)
+                                    .Include(x => x.LeadSourceByUser)
+                                    .Include(x => x.GoldLoanFreshLeadKycDocument).ThenInclude(y=>y.KycDocumentType)
+                                    .Include(x => x.GoldLoanFreshLeadJewelleryDetail).ThenInclude(z=>z.JewelleryType)
+                                    .Include(x => x.GoldLoanFreshLeadAppointmentDetail).ThenInclude(p=>p.Branch).ThenInclude(p=>p.Bank).FirstOrDefaultAsync();
+               
                 if (detail != null)
                 {
                     leadDetail.Id = detail.Id;
@@ -190,11 +195,11 @@ namespace AurigainLoanERP.Services.FreshLead
                     leadDetail.KycDocument.DocumentNumber = detail.GoldLoanFreshLeadKycDocument.
                                                             Where(x => x.GlfreshLeadId == detail.Id).FirstOrDefault().DocumentNumber;
                     leadDetail.KycDocument.PanNumber = detail.GoldLoanFreshLeadKycDocument.Where(x => x.GlfreshLeadId == detail.Id).FirstOrDefault().PanNumber;
-                    leadDetail.KycDocument.PincodeAreaName = detail.GoldLoanFreshLeadKycDocument.Where(x => x.GlfreshLeadId == detail.Id).FirstOrDefault().PincodeArea.AreaName;
-                    leadDetail.KycDocument.DistrictName = detail.GoldLoanFreshLeadKycDocument.Where(x => x.GlfreshLeadId == detail.Id).FirstOrDefault().PincodeArea.District.Name;
-                    leadDetail.KycDocument.StateName = detail.GoldLoanFreshLeadKycDocument.Where(x => x.GlfreshLeadId == detail.Id).FirstOrDefault().PincodeArea.District.State.Name;
-                    leadDetail.KycDocument.Pincode = detail.GoldLoanFreshLeadKycDocument.Where(x => x.GlfreshLeadId == detail.Id).FirstOrDefault().PincodeArea.Pincode;
-                    leadDetail.KycDocument.AddressLine1 = detail.GoldLoanFreshLeadKycDocument.Where(x => x.GlfreshLeadId == detail.Id).FirstOrDefault().AddressLine1;
+                   leadDetail.KycDocument.PincodeAreaName =await _db.GoldLoanFreshLeadKycDocument.Where(x => x.GlfreshLeadId == detail.Id).Include                                                   (x=>x.PincodeArea).Select(x=>x.PincodeArea.AreaName).FirstOrDefaultAsync();
+                    leadDetail.KycDocument.DistrictName = await _db.GoldLoanFreshLeadKycDocument.Where(x => x.GlfreshLeadId == detail.Id).Include(x => x.PincodeArea).ThenInclude(y=>y.District).Select(x => x.PincodeArea.District.Name).FirstOrDefaultAsync();
+                    leadDetail.KycDocument.StateName = await _db.GoldLoanFreshLeadKycDocument.Where(x => x.GlfreshLeadId == detail.Id).Include(x => x.PincodeArea).ThenInclude(y => y.District).ThenInclude(y=>y.State).Select(x => x.PincodeArea.District.State.Name).FirstOrDefaultAsync();
+                    leadDetail.KycDocument.Pincode = await _db.GoldLoanFreshLeadKycDocument.Where(x => x.GlfreshLeadId == detail.Id).Include(x => x.PincodeArea).Select(x => x.PincodeArea.Pincode).FirstOrDefaultAsync();
+                    leadDetail.KycDocument.AddressLine1 =detail.GoldLoanFreshLeadKycDocument.Where(x => x.GlfreshLeadId == detail.Id).FirstOrDefault().AddressLine1;
                     leadDetail.JewelleryDetail.JewelleryTypeId = detail.GoldLoanFreshLeadJewelleryDetail.Where(x => x.GlfreshLeadId == detail.Id).FirstOrDefault().JewelleryTypeId;
                     leadDetail.JewelleryDetail.JewelleryTypeName = detail.GoldLoanFreshLeadJewelleryDetail.Where(x => x.GlfreshLeadId == detail.Id).FirstOrDefault().JewelleryType.Name;
                     leadDetail.JewelleryDetail.Karat = detail.GoldLoanFreshLeadJewelleryDetail.Where(x => x.GlfreshLeadId == detail.Id).FirstOrDefault().Karat;
@@ -223,6 +228,7 @@ namespace AurigainLoanERP.Services.FreshLead
         }
         #endregion
 
+        
         #region <<Personal Loan , Home Loan , Vehicel Loan Fresh Lead>>
         public async Task<ApiServiceResponseModel<List<FreshLeadHLPLCLModel>>> FreshLeadHLPLCLList(IndexModel model)
         {

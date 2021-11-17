@@ -214,7 +214,7 @@ namespace AurigainLoanERP.Services.Customer
         {
             try
             {
-                var detail = await _db.UserCustomer.Where(x => x.Id == id).Include(x => x.User).ThenInclude(x => x.UserKyc).Include(x=>x.PincodeArea).ThenInclude(y =>y.District).ThenInclude(y=>y.State).FirstOrDefaultAsync();
+                var detail = await _db.UserCustomer.Where(x => x.UserId== id).Include(x => x.User).ThenInclude(x => x.UserKyc).Include(x=>x.PincodeArea).ThenInclude(y =>y.District).ThenInclude(y=>y.State).FirstOrDefaultAsync();
                 if (detail != null)
                 {
                     CustomerRegistrationViewModel customer = new CustomerRegistrationViewModel
@@ -236,14 +236,16 @@ namespace AurigainLoanERP.Services.Customer
                         CreatedOn = detail.CreatedOn,
                         
                     };
-                    var docs =await _db.UserKyc.Where(x => x.UserId == detail.UserId).ToListAsync();
+                    var docs =await _db.UserKyc.Where(x => x.UserId == detail.UserId).Include(x=>x.KycdocumentType).ToListAsync();
                     foreach(var doc  in docs) 
                     {
-                        UserKycPostModel kycDoc = new UserKycPostModel 
+                        CustomerKycViewModel kycDoc = new CustomerKycViewModel
                         {
                             Id = doc.Id,
                             KycdocumentTypeId = doc.KycdocumentTypeId,
-                            Kycnumber = doc.Kycnumber
+                            Kycnumber = doc.Kycnumber,
+                            KycdocumentTypeName = doc.KycdocumentType.DocumentName,
+                            UserId = doc.UserId
                         };
                         customer.KycDocuments.Add(kycDoc);
                     }
