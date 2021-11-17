@@ -33,7 +33,7 @@
             <td><strong> Father's name : </strong> </td>
             <td>{{model?.FatherName ?? 'N/A'}}</td>
             <td><strong> Date of birth: </strong> </td>
-            <td>{{(model?.DateOfBirth | date : 'DD-MM-YYYY') ?? 'N/A'}}</td>
+            <td>{{(model?.DateOfBirth | date : 'dd-MM-YYYY') ?? 'N/A'}}</td>
           </tr>
 
           <tr>
@@ -69,13 +69,14 @@
     <div class="table-responsive">
       <table class="table  table-borderless table-data-info table-font-17 table-v-align-top m-0">
         <tbody>
+
           <tr *ngFor="let items of model!.KycDocuments">
 
 
             <td style="width: 20%;"> <strong> Document Type: </strong> </td>
-            <td style="width: 30%;">{{items!.KycdocumentTypeName ?? 'N/A'}}</td>
+            <td style="width: 30%;">{{items?.KycdocumentTypeName ?? 'N/A'}}</td>
             <td style="width: 20%;"><strong> Document Number: </strong> </td>
-            <td style="width: 30%;">{{items!.Kycnumber ?? 'N/A'}}</td>
+            <td style="width: 30%;">{{items?.Kycnumber ?? 'N/A'}}</td>
           </tr>
 
           <tr>
