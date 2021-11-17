@@ -9,6 +9,8 @@ import { BalanceTransferGoldLoanLeadsComponent } from './balance-transfer-gold-l
 import { DetailBalanceTransferLeadComponent } from './balance-transfer-gold-loan-leads/detail-balance-transfer-lead/detail-balance-transfer-lead.component';
 import { OtherLoanLeadsComponent } from './other-loan-leads/other-loan-leads.component';
 import { DetailOtherLoanLeadComponent } from './other-loan-leads/detail-other-loan-lead/detail-other-loan-lead.component';
+import { RegisterCustomersComponent } from './register-customers/register-customers.component';
+
 
 
 @NgModule({
@@ -19,7 +21,8 @@ import { DetailOtherLoanLeadComponent } from './other-loan-leads/detail-other-lo
     BalanceTransferGoldLoanLeadsComponent,
     DetailBalanceTransferLeadComponent,
     OtherLoanLeadsComponent,
-    DetailOtherLoanLeadComponent
+    DetailOtherLoanLeadComponent,
+    RegisterCustomersComponent
   ],
   imports: [
     CommonModule,

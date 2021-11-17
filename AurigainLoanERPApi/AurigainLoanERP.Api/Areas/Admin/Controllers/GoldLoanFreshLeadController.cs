@@ -48,5 +48,12 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
         {
             return await _freshLead.FreshGoldLoanLeadDetailAsync(id);
         }
+
+        [HttpPost("[action]")]
+        public async Task<ApiServiceResponseModel<List<FreshLeadHLPLCLModel>>> PersonalHomeCarLoanList(IndexModel model)
+        {
+            return await _freshLead.FreshLeadHLPLCLList(model);
+
+        } 
     }
 }
