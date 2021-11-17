@@ -4150,6 +4150,18 @@ table {
 }
 
 
+/* .items-day-off td:nth-child(1):before {
+    position: absolute;
+    content: "";
+    background: rgba(0,0,0,0.5);
+    top: 0;
+    width: 100%;
+    left: 0;
+    height: 100%;
+    z-index: 9999999999;
+} */
+
+
 /* .custom-modal .modal-content .modal-body {
     background: url(https://blog.2checkout.com/wp-content/uploads/2018/11/how-does-the-payment-processing-industry-work-1.png);
     background-repeat: no-repeat;
