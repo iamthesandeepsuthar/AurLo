@@ -33,7 +33,6 @@ export class AddEditGoldLoanFreshLeadComponent implements OnInit {
   leadFromAppointmentDetail!: FormGroup;
   dropDown = new DropDownModel();
   get ddlkeys() { return DropDown_key };
-
   ddlProductModel!: DDLProductModel[];
   ddlDocumentTypeModel!: DDLDocumentTypeModel[];
   ddlBranchModel!: DDLBranchModel[];
@@ -53,10 +52,7 @@ export class AddEditGoldLoanFreshLeadComponent implements OnInit {
     private readonly _stateDistrictService: StateDistrictService,
     private readonly _bankBranchService: BankBranchService,
     private readonly _jewelleryTypeService: JewelleryTypeService, private readonly _auth: AuthService,
-    private readonly _goldLoanLeadService: GoldLoanLeadsService, private readonly toast: ToastrService
-
-  ) {
-
+    private readonly _goldLoanLeadService: GoldLoanLeadsService, private readonly toast: ToastrService) {
   }
 
   ngOnInit(): void {
@@ -130,16 +126,12 @@ export class AddEditGoldLoanFreshLeadComponent implements OnInit {
           this.leadFromAppointmentDetail.reset();
           this.model = new GoldLoanFreshLeadModel();
 
-        }else{
+        } else {
           this.toast.success(Message.SaveFail);
 
         }
       });
     }
-
-
-
-
   }
 
   onGetDetail() {
@@ -147,7 +139,6 @@ export class AddEditGoldLoanFreshLeadComponent implements OnInit {
       serve.unsubscribe();
       if (res.IsSuccess) {
         this.model = res.Data as GoldLoanFreshLeadModel;
-
       }
     })
   }
