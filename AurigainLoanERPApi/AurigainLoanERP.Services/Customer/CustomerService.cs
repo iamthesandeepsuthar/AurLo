@@ -210,6 +210,8 @@ namespace AurigainLoanERP.Services.Customer
                 return CreateResponse<string>(null, ResponseMessage.Fail, false, ((int)ApiStatusCode.ServerException), ex.InnerException == null ? ex.Message : ex.InnerException.Message);
             }
         }
+
+        //for profile detail
         public async Task<ApiServiceResponseModel<CustomerRegistrationViewModel>> GetCustomerProfile(long id) 
         {
             try
@@ -261,6 +263,8 @@ namespace AurigainLoanERP.Services.Customer
                 return CreateResponse<CustomerRegistrationViewModel>(null, ex.Message + " "+ ex.InnerException.Message, false, ((int)ApiStatusCode.InternalServerError));
             }           
         }
+
+        //for edit pupose
         public async Task<ApiServiceResponseModel<CustomerRegistrationModel>> GetCustomerDetail(long id) 
         {
             try
