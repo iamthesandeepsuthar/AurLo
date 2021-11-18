@@ -1,21 +1,21 @@
 <!-- Page Header Title start -->
 <div class="widget-header">
-  <div class="row d-block d-sm-flex align-items-center justify-content-between text-center text-sm-left">
-    <div>
-      <h1>Door Step Agent</h1>
-      <!-- Breadcrumb Start -->
-      <nav class="custom-breadcrum">
-        <ol class="breadcrumb justify-content-center justify-content-sm-start">
-          <li class="breadcrumb-item"><a routerLink="/dashboard">Home</a></li>
-          <li class="breadcrumb-item"><a href="javascript:void(0)">Master</a></li>
-          <li class="breadcrumb-item active" aria-current="page">Door Step Agent </li>
-        </ol>
-      </nav>
-      <!-- Breadcrumb End -->
+    <div class="row d-block d-sm-flex align-items-center justify-content-between text-center text-sm-left">
+        <div>
+            <h1>Door Step Agent</h1>
+            <!-- Breadcrumb Start -->
+            <nav class="custom-breadcrum">
+                <ol class="breadcrumb justify-content-center justify-content-sm-start">
+                    <li class="breadcrumb-item"><a routerLink="/dashboard">Home</a></li>
+                    <li class="breadcrumb-item"><a href="javascript:void(0)">Master</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Door Step Agent </li>
+                </ol>
+            </nav>
+            <!-- Breadcrumb End -->
+        </div>
+        <a class="btn btn-dark btn-sm mt-2 mt-sm-0" routerLink="../{{routing_Url.DoorStepAgentRegistrationUrl+'/0'}}">
+            <i class="fas fa-plus"></i> Add door step agent</a>
     </div>
-    <a class="btn btn-dark btn-sm mt-2 mt-sm-0" routerLink="../{{routing_Url.DoorStepAgentRegistrationUrl+'/0'}}">
-      <i class="fas fa-plus"></i> Add door step agent</a>
-  </div>
 </div>
 <!-- Page Header Title end -->
 
@@ -26,12 +26,12 @@
 
 <div class="px-3">
 
-  <div id="zero-config_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
+    <div id="zero-config_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
 
-    <div class="dt--top-section mx-0">
-      <div class="row position-relative">
-        <div class="col-12 col-md-4 d-flex justify-content-sm-start justify-content-center">
-          <div class="dataTables_length" id="zero-config_length"><label>Results :
+        <div class="dt--top-section mx-0">
+            <div class="row position-relative">
+                <div class="col-12 col-md-4 d-flex justify-content-sm-start justify-content-center">
+                    <div class="dataTables_length" id="zero-config_length"><label>Results :
               <select name="zero-config_length" [(ngModel)]="indexModel.PageSize" (change)="onPageSizeChange()"
                 aria-controls="zero-config" class="form-control">
                 <option value="101">All</option>
@@ -39,9 +39,9 @@
                 <option value="20">20</option>
                 <option value="50">50</option>
               </select></label></div>
-        </div>
-        <div class="col-12 col-md-8 d-flex justify-content-sm-end justify-content-center mt-sm-0 mt-3">
-          <div id="zero-config_filter" class="dataTables_filter"><label>
+                </div>
+                <div class="col-12 col-md-8 d-flex justify-content-sm-end justify-content-center mt-sm-0 mt-3">
+                    <div id="zero-config_filter" class="dataTables_filter"><label>
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                 class="feather feather-search">
@@ -51,7 +51,7 @@
               <input type="search" [(ngModel)]="indexModel.Search" (blur)="onSearch()" class="form-control"
                 placeholder="Search..." aria-controls="zero-config"></label></div>
 
-          <!-- <div class="ad-filter-btn-grp">
+                    <!-- <div class="ad-filter-btn-grp">
             <button data-toggle="collapse" href="#advance-filter1" type="submit" class="ad-filter-btn"> <img
                 src="assets/img/filter.png" data-toggle="tooltip" data-placement="bottom" title="Advance filter">
             </button>
@@ -62,9 +62,9 @@
                 class="fa fa-th-large"></i></button>
           </div> -->
 
-        </div>
-      </div>
-      <!-- <div class="collapse open-advance-filter" id="advance-filter1">
+                </div>
+            </div>
+            <!-- <div class="collapse open-advance-filter" id="advance-filter1">
         <div class="open-advance-filter-header">Advance Search
           <a data-toggle="collapse" href="#advance-filter1"> <i class="fas fa-times"></i></a>
         </div>
@@ -131,342 +131,327 @@
 
 
       </div> -->
-    </div>
+        </div>
 
 
-    <ng-container *ngIf="isTableView; else elseTemplate">
+        <ng-container *ngIf="isTableView; else elseTemplate">
 
 
-      <div class="table-responsive">
+            <div class="table-responsive">
 
-        <table class="custom-mat-table" mat-table [dataSource]="dataSource" matSort
-          class="mat-elevation-z8 table table-striped dataTable table-header" style="width: 100%;" role="grid"
-          aria-describedby="zero-config_info" (matSortChange)="sortData($event)">
+                <table class="custom-mat-table" mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 table table-striped dataTable table-header" style="width: 100%;" role="grid" aria-describedby="zero-config_info" (matSortChange)="sortData($event)">
 
-          <ng-container matColumnDef="index">
-            <th mat-header-cell *matHeaderCellDef>#</th>
-            <td mat-cell *matCellDef="let element; let i = index;">
-              {{(indexModel.Page-1)*indexModel.PageSize +(i+1)}}</td>
-          </ng-container>
+                    <ng-container matColumnDef="index">
+                        <th mat-header-cell *matHeaderCellDef>#</th>
+                        <td mat-cell *matCellDef="let element; let i = index;">
+                            {{(indexModel.Page-1)*indexModel.PageSize +(i+1)}}</td>
+                    </ng-container>
 
-          <ng-container [matColumnDef]="column.Value" *ngFor="let column of ViewdisplayedColumns, let in=index">
+                    <ng-container [matColumnDef]="column.Value" *ngFor="let column of ViewdisplayedColumns, let in=index">
 
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> {{column.Text}} </th>
-            <td [ngClass]="{'sorting_1 table-data-name': in==0}" mat-cell *matCellDef="let element"> <span
-                *ngIf="in==0">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> {{column.Text}} </th>
+                        <td [ngClass]="{'sorting_1 table-data-name': in==0}" mat-cell *matCellDef="let element"> <span *ngIf="in==0">
                 {{element[column.Value].substring(0,1)}} </span> {{element[column.Value]}}
-            </td>
-          </ng-container>
-          <ng-container matColumnDef="IsApproved">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>Approval </th>
-            <td mat-cell *matCellDef="let element" class="table-action-btn">
-              <a (click)="OnApproveStatus(element.UserId)" title="Update approval status">
-                <i *ngIf="element.IsApproved" class="fas fa-user-check text-success"></i>
-                <i *ngIf="!element.IsApproved" class="fas fa-user-times text-danger"></i>
-              </a>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="IsApproved">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Approval </th>
+                        <td mat-cell *matCellDef="let element" class="table-action-btn">
+                            <a (click)="OnApproveStatus(element.UserId)" title="Update approval status">
+                                <i *ngIf="element.IsApproved" class="fas fa-user-check text-success"></i>
+                                <i *ngIf="!element.IsApproved" class="fas fa-user-times text-danger"></i>
+                            </a>
 
-            </td>
-          </ng-container>
-
-
-          <ng-container matColumnDef="IsActive">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>Status </th>
-            <td mat-cell *matCellDef="let element" class="table-action-btn">
-              <a (click)="OnActiveStatus(element.UserId)" title="Update Active Status">
-                <i *ngIf="element.IsActive" class="fas fa-check-circle text-success"></i>
-                <i *ngIf="!element.IsActive" class="fas fa-ban text-danger"></i>
-              </a>
-
-            </td>
-          </ng-container>
-
-          <ng-container matColumnDef="Action">
-            <th width="150" mat-header-cell *matHeaderCellDef> Action </th>
-            <td mat-cell *matCellDef="let row" class="table-action-btn">
-              <a class="table-action-btn-edit"
-                routerLink="../{{routing_Url.DoorStepAgentRegistrationUrl+'/'+row.UserId}}" title="Edit">
-                <i class="fas fa-edit"></i>
-              </a>
-              <a class="table-action-btn-view" routerLink="../{{routing_Url.DoorStepAgenDetailUrl+'/'+row.UserId}}"
-                title="Detail">
-                <i class="fas fa-eye"></i>
-              </a>
-
-              <a class="table-action-btn-view" routerLink="../{{routing_Url.DoorStepAgentAvailibilityUrl+'/'+row.UserId}}"
-                title="Door Step Agent availibility">
-                <i class="fas fa-business-time"></i>
-              </a>
-
-              <a class="table-action-btn-delete" (click)="updateDeleteStatus(row.UserId)" title="Delete">
-                <i class="fas fa-trash-alt"></i>
-              </a>
-            </td>
-          </ng-container>
-
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-        </table>
-
-      </div>
-      <div class="dt--bottom-section d-sm-flex justify-content-sm-between text-center">
-        <div class="dt--pagination">
-          <div class="dataTables_paginate paging_simple_numbers" id="zero-config_paginate">
-            <ul class="pagination">
+                        </td>
+                    </ng-container>
 
 
-              <mat-paginator #paginator [length]="totalRecords" [pageSize]="indexModel.PageSize"
-                (page)="onPaginateChange($event)" showFirstLastButtons *ngIf="totalRecords!=0">
-              </mat-paginator>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </ng-container>
-    <ng-template #elseTemplate>
+                    <ng-container matColumnDef="IsActive">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Status </th>
+                        <td mat-cell *matCellDef="let element" class="table-action-btn">
+                            <a (click)="OnActiveStatus(element.UserId)" title="Update Active Status">
+                                <i *ngIf="element.IsActive" class="fas fa-check-circle text-success"></i>
+                                <i *ngIf="!element.IsActive" class="fas fa-ban text-danger"></i>
+                            </a>
 
-      <section class="door-step-agent-grid-view">
-        <div class="row">
+                        </td>
+                    </ng-container>
 
-          <div class="col-sm-6 col-md-4 col-lg-6 col-xl-3 mb-3">
-            <div class="custom-card-2 d-flex flex-column">
-              <div class="custom-card-2-header text-center">
-                <div class="custom-card-2-img d-flex align-items-center justify-content-center"><img
-                    src="assets/img/user-default.jpg"></div>
-                <h3>Akash kumar sharma</h3>
-                <small>#985636987</small>
-                <div class="dropdown card-action-box">
-                  <button class="" type="button" data-toggle="dropdown"><i class="fas fa-ellipsis-v"></i></button>
-                  <ul class="dropdown-menu">
-                    <li><a href="#"><i class="fas fa-eye"></i> View</a></li>
-                    <li><a href="#"><i class="fas fa-plus"></i> Add</a></li>
-                    <li><a href="#"><i class="fas fa-edit"></i> Edit</a></li>
-                    <li><a href="#"><i class="fas fa-trash-alt"></i> Delete</a></li>
-                  </ul>
-                </div>
-              </div>
-              <div class="custom-card-2-body">
-                <ul class="p-0 pt-2 pb-2 m-0">
-                  <li> <strong>Working Days</strong> <span>Mon-sat</span> </li>
-                  <li> <strong>Working Hours</strong> <span>8:30AM to 3PM</span> </li>
-                  <li> <strong>Capacity</strong> <span>05</span> </li>
-                  <li> <strong>Location</strong> <span> Banglore, India </span> </li>
-                </ul>
-              </div>
-              <button type="submit" class="btn btn-primary w-100 mt-auto"><i class="fas fa-check mr-1"></i> Edit
-                Availibity</button>
+                    <ng-container matColumnDef="Action">
+                        <th width="150" mat-header-cell *matHeaderCellDef> Action </th>
+                        <td mat-cell *matCellDef="let row" class="table-action-btn">
+                            <a class="table-action-btn-edit" routerLink="../{{routing_Url.DoorStepAgentRegistrationUrl+'/'+row.UserId}}" title="Edit">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a class="table-action-btn-view" routerLink="../{{routing_Url.DoorStepAgenDetailUrl+'/'+row.UserId}}" title="Detail">
+                                <i class="fas fa-eye"></i>
+                            </a>
+
+                            <a class="table-action-btn-time" routerLink="../{{routing_Url.DoorStepAgentAvailibilityUrl+'/'+row.UserId}}" title="Door Step Agent availibility">
+                                <i class="fas fa-business-time"></i>
+                            </a>
+
+                            <a class="table-action-btn-delete" (click)="updateDeleteStatus(row.UserId)" title="Delete">
+                                <i class="fas fa-trash-alt"></i>
+                            </a>
+                        </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+
             </div>
-          </div>
-          <div class="col-sm-6 col-md-4 col-lg-6 col-xl-3 mb-3">
-            <div class="custom-card-2 d-flex flex-column">
-              <div class="custom-card-2-header text-center">
-                <div class="custom-card-2-img d-flex align-items-center justify-content-center"><img
-                    src="assets/img/user-default.jpg"></div>
-                <h3>Akash kumar sharma</h3>
-                <small>#985636987</small>
-                <div class="dropdown card-action-box">
-                  <button class="" type="button" data-toggle="dropdown"><i class="fas fa-ellipsis-v"></i></button>
-                  <ul class="dropdown-menu">
-                    <li><a href="#"><i class="fas fa-eye"></i> View</a></li>
-                    <li><a href="#"><i class="fas fa-plus"></i> Add</a></li>
-                    <li><a href="#"><i class="fas fa-edit"></i> Edit</a></li>
-                    <li><a href="#"><i class="fas fa-trash-alt"></i> Delete</a></li>
-                  </ul>
+            <div class="dt--bottom-section d-sm-flex justify-content-sm-between text-center">
+                <div class="dt--pagination">
+                    <div class="dataTables_paginate paging_simple_numbers" id="zero-config_paginate">
+                        <ul class="pagination">
+
+
+                            <mat-paginator #paginator [length]="totalRecords" [pageSize]="indexModel.PageSize" (page)="onPaginateChange($event)" showFirstLastButtons *ngIf="totalRecords!=0">
+                            </mat-paginator>
+                        </ul>
+                    </div>
                 </div>
-              </div>
-              <div class="custom-card-2-body">
-                <ul class="p-0 pt-2 pb-2 m-0">
-                  <li> <strong>Working Days</strong> <span>Mon-sat</span> </li>
-                  <li> <strong>Working Hours</strong> <span>8:30AM to 3PM</span> </li>
-                  <li> <strong>Capacity</strong> <span>05</span> </li>
-                  <li> <strong>Location</strong> <span> Banglore, India </span> </li>
-                </ul>
-              </div>
-              <button type="submit" class="btn btn-primary w-100 mt-auto"><i class="fas fa-check mr-1"></i> Edit
-                Availibity</button>
             </div>
-          </div>
-          <div class="col-sm-6 col-md-4 col-lg-6 col-xl-3 mb-3">
-            <div class="custom-card-2 d-flex flex-column">
-              <div class="custom-card-2-header text-center">
-                <div class="custom-card-2-img d-flex align-items-center justify-content-center"><img
-                    src="assets/img/user-default.jpg"></div>
-                <h3>Akash kumar sharma</h3>
-                <small>#985636987</small>
-                <div class="dropdown card-action-box">
-                  <button class="" type="button" data-toggle="dropdown"><i class="fas fa-ellipsis-v"></i></button>
-                  <ul class="dropdown-menu">
-                    <li><a href="#"><i class="fas fa-eye"></i> View</a></li>
-                    <li><a href="#"><i class="fas fa-plus"></i> Add</a></li>
-                    <li><a href="#"><i class="fas fa-edit"></i> Edit</a></li>
-                    <li><a href="#"><i class="fas fa-trash-alt"></i> Delete</a></li>
-                  </ul>
-                </div>
-              </div>
-              <div class="custom-card-2-body">
-                <ul class="p-0 pt-2 pb-2 m-0">
-                  <li> <strong>Working Days</strong> <span>Mon-sat</span> </li>
-                  <li> <strong>Working Hours</strong> <span>8:30AM to 3PM</span> </li>
-                  <li> <strong>Capacity</strong> <span>05</span> </li>
-                  <li> <strong>Location</strong> <span> Banglore, India </span> </li>
-                </ul>
-              </div>
-              <button type="submit" class="btn btn-primary w-100 mt-auto"><i class="fas fa-check mr-1"></i> Edit
+        </ng-container>
+        <ng-template #elseTemplate>
+
+            <section class="door-step-agent-grid-view">
+                <div class="row">
+
+                    <div class="col-sm-6 col-md-4 col-lg-6 col-xl-3 mb-3">
+                        <div class="custom-card-2 d-flex flex-column">
+                            <div class="custom-card-2-header text-center">
+                                <div class="custom-card-2-img d-flex align-items-center justify-content-center"><img src="assets/img/user-default.jpg"></div>
+                                <h3>Akash kumar sharma</h3>
+                                <small>#985636987</small>
+                                <div class="dropdown card-action-box">
+                                    <button class="" type="button" data-toggle="dropdown"><i class="fas fa-ellipsis-v"></i></button>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#"><i class="fas fa-eye"></i> View</a></li>
+                                        <li><a href="#"><i class="fas fa-plus"></i> Add</a></li>
+                                        <li><a href="#"><i class="fas fa-edit"></i> Edit</a></li>
+                                        <li><a href="#"><i class="fas fa-trash-alt"></i> Delete</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="custom-card-2-body">
+                                <ul class="p-0 pt-2 pb-2 m-0">
+                                    <li> <strong>Working Days</strong> <span>Mon-sat</span> </li>
+                                    <li> <strong>Working Hours</strong> <span>8:30AM to 3PM</span> </li>
+                                    <li> <strong>Capacity</strong> <span>05</span> </li>
+                                    <li> <strong>Location</strong> <span> Banglore, India </span> </li>
+                                </ul>
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100 mt-auto"><i class="fas fa-check mr-1"></i> Edit
                 Availibity</button>
-            </div>
-          </div>
-          <div class="col-sm-6 col-md-4 col-lg-6 col-xl-3 mb-3">
-            <div class="custom-card-2 d-flex flex-column">
-              <div class="custom-card-2-header text-center">
-                <div class="custom-card-2-img d-flex align-items-center justify-content-center"><img
-                    src="assets/img/user-default.jpg"></div>
-                <h3>Akash kumar sharma</h3>
-                <small>#985636987</small>
-                <div class="dropdown card-action-box">
-                  <button class="" type="button" data-toggle="dropdown"><i class="fas fa-ellipsis-v"></i></button>
-                  <ul class="dropdown-menu">
-                    <li><a href="#"><i class="fas fa-eye"></i> View</a></li>
-                    <li><a href="#"><i class="fas fa-plus"></i> Add</a></li>
-                    <li><a href="#"><i class="fas fa-edit"></i> Edit</a></li>
-                    <li><a href="#"><i class="fas fa-trash-alt"></i> Delete</a></li>
-                  </ul>
-                </div>
-              </div>
-              <div class="custom-card-2-body">
-                <ul class="p-0 pt-2 pb-2 m-0">
-                  <li> <strong>Working Days</strong> <span>Mon-sat</span> </li>
-                  <li> <strong>Working Hours</strong> <span>8:30AM to 3PM</span> </li>
-                  <li> <strong>Capacity</strong> <span>05</span> </li>
-                  <li> <strong>Location</strong> <span> Banglore, India </span> </li>
-                </ul>
-              </div>
-              <button type="submit" class="btn btn-primary w-100 mt-auto"><i class="fas fa-check mr-1"></i> Edit
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4 col-lg-6 col-xl-3 mb-3">
+                        <div class="custom-card-2 d-flex flex-column">
+                            <div class="custom-card-2-header text-center">
+                                <div class="custom-card-2-img d-flex align-items-center justify-content-center"><img src="assets/img/user-default.jpg"></div>
+                                <h3>Akash kumar sharma</h3>
+                                <small>#985636987</small>
+                                <div class="dropdown card-action-box">
+                                    <button class="" type="button" data-toggle="dropdown"><i class="fas fa-ellipsis-v"></i></button>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#"><i class="fas fa-eye"></i> View</a></li>
+                                        <li><a href="#"><i class="fas fa-plus"></i> Add</a></li>
+                                        <li><a href="#"><i class="fas fa-edit"></i> Edit</a></li>
+                                        <li><a href="#"><i class="fas fa-trash-alt"></i> Delete</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="custom-card-2-body">
+                                <ul class="p-0 pt-2 pb-2 m-0">
+                                    <li> <strong>Working Days</strong> <span>Mon-sat</span> </li>
+                                    <li> <strong>Working Hours</strong> <span>8:30AM to 3PM</span> </li>
+                                    <li> <strong>Capacity</strong> <span>05</span> </li>
+                                    <li> <strong>Location</strong> <span> Banglore, India </span> </li>
+                                </ul>
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100 mt-auto"><i class="fas fa-check mr-1"></i> Edit
                 Availibity</button>
-            </div>
-          </div>
-          <div class="col-sm-6 col-md-4 col-lg-6 col-xl-3 mb-3">
-            <div class="custom-card-2 d-flex flex-column">
-              <div class="custom-card-2-header text-center">
-                <div class="custom-card-2-img d-flex align-items-center justify-content-center"><img
-                    src="assets/img/user-default.jpg"></div>
-                <h3>Akash kumar sharma</h3>
-                <small>#985636987</small>
-                <div class="dropdown card-action-box">
-                  <button class="" type="button" data-toggle="dropdown"><i class="fas fa-ellipsis-v"></i></button>
-                  <ul class="dropdown-menu">
-                    <li><a href="#"><i class="fas fa-eye"></i> View</a></li>
-                    <li><a href="#"><i class="fas fa-plus"></i> Add</a></li>
-                    <li><a href="#"><i class="fas fa-edit"></i> Edit</a></li>
-                    <li><a href="#"><i class="fas fa-trash-alt"></i> Delete</a></li>
-                  </ul>
-                </div>
-              </div>
-              <div class="custom-card-2-body">
-                <ul class="p-0 pt-2 pb-2 m-0">
-                  <li> <strong>Working Days</strong> <span>Mon-sat</span> </li>
-                  <li> <strong>Working Hours</strong> <span>8:30AM to 3PM</span> </li>
-                  <li> <strong>Capacity</strong> <span>05</span> </li>
-                  <li> <strong>Location</strong> <span> Banglore, India </span> </li>
-                </ul>
-              </div>
-              <button type="submit" class="btn btn-primary w-100 mt-auto"><i class="fas fa-check mr-1"></i> Edit
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4 col-lg-6 col-xl-3 mb-3">
+                        <div class="custom-card-2 d-flex flex-column">
+                            <div class="custom-card-2-header text-center">
+                                <div class="custom-card-2-img d-flex align-items-center justify-content-center"><img src="assets/img/user-default.jpg"></div>
+                                <h3>Akash kumar sharma</h3>
+                                <small>#985636987</small>
+                                <div class="dropdown card-action-box">
+                                    <button class="" type="button" data-toggle="dropdown"><i class="fas fa-ellipsis-v"></i></button>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#"><i class="fas fa-eye"></i> View</a></li>
+                                        <li><a href="#"><i class="fas fa-plus"></i> Add</a></li>
+                                        <li><a href="#"><i class="fas fa-edit"></i> Edit</a></li>
+                                        <li><a href="#"><i class="fas fa-trash-alt"></i> Delete</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="custom-card-2-body">
+                                <ul class="p-0 pt-2 pb-2 m-0">
+                                    <li> <strong>Working Days</strong> <span>Mon-sat</span> </li>
+                                    <li> <strong>Working Hours</strong> <span>8:30AM to 3PM</span> </li>
+                                    <li> <strong>Capacity</strong> <span>05</span> </li>
+                                    <li> <strong>Location</strong> <span> Banglore, India </span> </li>
+                                </ul>
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100 mt-auto"><i class="fas fa-check mr-1"></i> Edit
                 Availibity</button>
-            </div>
-          </div>
-          <div class="col-sm-6 col-md-4 col-lg-6 col-xl-3 mb-3">
-            <div class="custom-card-2 d-flex flex-column">
-              <div class="custom-card-2-header text-center">
-                <div class="custom-card-2-img d-flex align-items-center justify-content-center"><img
-                    src="assets/img/user-default.jpg"></div>
-                <h3>Akash kumar sharma</h3>
-                <small>#985636987</small>
-                <div class="dropdown card-action-box">
-                  <button class="" type="button" data-toggle="dropdown"><i class="fas fa-ellipsis-v"></i></button>
-                  <ul class="dropdown-menu">
-                    <li><a href="#"><i class="fas fa-eye"></i> View</a></li>
-                    <li><a href="#"><i class="fas fa-plus"></i> Add</a></li>
-                    <li><a href="#"><i class="fas fa-edit"></i> Edit</a></li>
-                    <li><a href="#"><i class="fas fa-trash-alt"></i> Delete</a></li>
-                  </ul>
-                </div>
-              </div>
-              <div class="custom-card-2-body">
-                <ul class="p-0 pt-2 pb-2 m-0">
-                  <li> <strong>Working Days</strong> <span>Mon-sat</span> </li>
-                  <li> <strong>Working Hours</strong> <span>8:30AM to 3PM</span> </li>
-                  <li> <strong>Capacity</strong> <span>05</span> </li>
-                  <li> <strong>Location</strong> <span> Banglore, India </span> </li>
-                </ul>
-              </div>
-              <button type="submit" class="btn btn-primary w-100 mt-auto"><i class="fas fa-check mr-1"></i> Edit
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4 col-lg-6 col-xl-3 mb-3">
+                        <div class="custom-card-2 d-flex flex-column">
+                            <div class="custom-card-2-header text-center">
+                                <div class="custom-card-2-img d-flex align-items-center justify-content-center"><img src="assets/img/user-default.jpg"></div>
+                                <h3>Akash kumar sharma</h3>
+                                <small>#985636987</small>
+                                <div class="dropdown card-action-box">
+                                    <button class="" type="button" data-toggle="dropdown"><i class="fas fa-ellipsis-v"></i></button>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#"><i class="fas fa-eye"></i> View</a></li>
+                                        <li><a href="#"><i class="fas fa-plus"></i> Add</a></li>
+                                        <li><a href="#"><i class="fas fa-edit"></i> Edit</a></li>
+                                        <li><a href="#"><i class="fas fa-trash-alt"></i> Delete</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="custom-card-2-body">
+                                <ul class="p-0 pt-2 pb-2 m-0">
+                                    <li> <strong>Working Days</strong> <span>Mon-sat</span> </li>
+                                    <li> <strong>Working Hours</strong> <span>8:30AM to 3PM</span> </li>
+                                    <li> <strong>Capacity</strong> <span>05</span> </li>
+                                    <li> <strong>Location</strong> <span> Banglore, India </span> </li>
+                                </ul>
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100 mt-auto"><i class="fas fa-check mr-1"></i> Edit
                 Availibity</button>
-            </div>
-          </div>
-          <div class="col-sm-6 col-md-4 col-lg-6 col-xl-3 mb-3">
-            <div class="custom-card-2 d-flex flex-column">
-              <div class="custom-card-2-header text-center">
-                <div class="custom-card-2-img d-flex align-items-center justify-content-center"><img
-                    src="assets/img/user-default.jpg"></div>
-                <h3>Akash kumar sharma</h3>
-                <small>#985636987</small>
-                <div class="dropdown card-action-box">
-                  <button class="" type="button" data-toggle="dropdown"><i class="fas fa-ellipsis-v"></i></button>
-                  <ul class="dropdown-menu">
-                    <li><a href="#"><i class="fas fa-eye"></i> View</a></li>
-                    <li><a href="#"><i class="fas fa-plus"></i> Add</a></li>
-                    <li><a href="#"><i class="fas fa-edit"></i> Edit</a></li>
-                    <li><a href="#"><i class="fas fa-trash-alt"></i> Delete</a></li>
-                  </ul>
-                </div>
-              </div>
-              <div class="custom-card-2-body">
-                <ul class="p-0 pt-2 pb-2 m-0">
-                  <li> <strong>Working Days</strong> <span>Mon-sat</span> </li>
-                  <li> <strong>Working Hours</strong> <span>8:30AM to 3PM</span> </li>
-                  <li> <strong>Capacity</strong> <span>05</span> </li>
-                  <li> <strong>Location</strong> <span> Banglore, India </span> </li>
-                </ul>
-              </div>
-              <button type="submit" class="btn btn-primary w-100 mt-auto"><i class="fas fa-check mr-1"></i> Edit
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4 col-lg-6 col-xl-3 mb-3">
+                        <div class="custom-card-2 d-flex flex-column">
+                            <div class="custom-card-2-header text-center">
+                                <div class="custom-card-2-img d-flex align-items-center justify-content-center"><img src="assets/img/user-default.jpg"></div>
+                                <h3>Akash kumar sharma</h3>
+                                <small>#985636987</small>
+                                <div class="dropdown card-action-box">
+                                    <button class="" type="button" data-toggle="dropdown"><i class="fas fa-ellipsis-v"></i></button>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#"><i class="fas fa-eye"></i> View</a></li>
+                                        <li><a href="#"><i class="fas fa-plus"></i> Add</a></li>
+                                        <li><a href="#"><i class="fas fa-edit"></i> Edit</a></li>
+                                        <li><a href="#"><i class="fas fa-trash-alt"></i> Delete</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="custom-card-2-body">
+                                <ul class="p-0 pt-2 pb-2 m-0">
+                                    <li> <strong>Working Days</strong> <span>Mon-sat</span> </li>
+                                    <li> <strong>Working Hours</strong> <span>8:30AM to 3PM</span> </li>
+                                    <li> <strong>Capacity</strong> <span>05</span> </li>
+                                    <li> <strong>Location</strong> <span> Banglore, India </span> </li>
+                                </ul>
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100 mt-auto"><i class="fas fa-check mr-1"></i> Edit
                 Availibity</button>
-            </div>
-          </div>
-          <div class="col-sm-6 col-md-4 col-lg-6 col-xl-3 mb-3">
-            <div class="custom-card-2 d-flex flex-column">
-              <div class="custom-card-2-header text-center">
-                <div class="custom-card-2-img d-flex align-items-center justify-content-center"><img
-                    src="assets/img/user-default.jpg"></div>
-                <h3>Akash kumar sharma</h3>
-                <small>#985636987</small>
-                <div class="dropdown card-action-box">
-                  <button class="" type="button" data-toggle="dropdown"><i class="fas fa-ellipsis-v"></i></button>
-                  <ul class="dropdown-menu">
-                    <li><a href="#"><i class="fas fa-eye"></i> View</a></li>
-                    <li><a href="#"><i class="fas fa-plus"></i> Add</a></li>
-                    <li><a href="#"><i class="fas fa-edit"></i> Edit</a></li>
-                    <li><a href="#"><i class="fas fa-trash-alt"></i> Delete</a></li>
-                  </ul>
-                </div>
-              </div>
-              <div class="custom-card-2-body">
-                <ul class="p-0 pt-2 pb-2 m-0">
-                  <li> <strong>Working Days</strong> <span>Mon-sat</span> </li>
-                  <li> <strong>Working Hours</strong> <span>8:30AM to 3PM</span> </li>
-                  <li> <strong>Capacity</strong> <span>05</span> </li>
-                  <li> <strong>Location</strong> <span> Banglore, India </span> </li>
-                </ul>
-              </div>
-              <button type="submit" class="btn btn-primary w-100 mt-auto"><i class="fas fa-check mr-1"></i> Edit
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4 col-lg-6 col-xl-3 mb-3">
+                        <div class="custom-card-2 d-flex flex-column">
+                            <div class="custom-card-2-header text-center">
+                                <div class="custom-card-2-img d-flex align-items-center justify-content-center"><img src="assets/img/user-default.jpg"></div>
+                                <h3>Akash kumar sharma</h3>
+                                <small>#985636987</small>
+                                <div class="dropdown card-action-box">
+                                    <button class="" type="button" data-toggle="dropdown"><i class="fas fa-ellipsis-v"></i></button>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#"><i class="fas fa-eye"></i> View</a></li>
+                                        <li><a href="#"><i class="fas fa-plus"></i> Add</a></li>
+                                        <li><a href="#"><i class="fas fa-edit"></i> Edit</a></li>
+                                        <li><a href="#"><i class="fas fa-trash-alt"></i> Delete</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="custom-card-2-body">
+                                <ul class="p-0 pt-2 pb-2 m-0">
+                                    <li> <strong>Working Days</strong> <span>Mon-sat</span> </li>
+                                    <li> <strong>Working Hours</strong> <span>8:30AM to 3PM</span> </li>
+                                    <li> <strong>Capacity</strong> <span>05</span> </li>
+                                    <li> <strong>Location</strong> <span> Banglore, India </span> </li>
+                                </ul>
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100 mt-auto"><i class="fas fa-check mr-1"></i> Edit
                 Availibity</button>
-            </div>
-          </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4 col-lg-6 col-xl-3 mb-3">
+                        <div class="custom-card-2 d-flex flex-column">
+                            <div class="custom-card-2-header text-center">
+                                <div class="custom-card-2-img d-flex align-items-center justify-content-center"><img src="assets/img/user-default.jpg"></div>
+                                <h3>Akash kumar sharma</h3>
+                                <small>#985636987</small>
+                                <div class="dropdown card-action-box">
+                                    <button class="" type="button" data-toggle="dropdown"><i class="fas fa-ellipsis-v"></i></button>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#"><i class="fas fa-eye"></i> View</a></li>
+                                        <li><a href="#"><i class="fas fa-plus"></i> Add</a></li>
+                                        <li><a href="#"><i class="fas fa-edit"></i> Edit</a></li>
+                                        <li><a href="#"><i class="fas fa-trash-alt"></i> Delete</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="custom-card-2-body">
+                                <ul class="p-0 pt-2 pb-2 m-0">
+                                    <li> <strong>Working Days</strong> <span>Mon-sat</span> </li>
+                                    <li> <strong>Working Hours</strong> <span>8:30AM to 3PM</span> </li>
+                                    <li> <strong>Capacity</strong> <span>05</span> </li>
+                                    <li> <strong>Location</strong> <span> Banglore, India </span> </li>
+                                </ul>
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100 mt-auto"><i class="fas fa-check mr-1"></i> Edit
+                Availibity</button>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4 col-lg-6 col-xl-3 mb-3">
+                        <div class="custom-card-2 d-flex flex-column">
+                            <div class="custom-card-2-header text-center">
+                                <div class="custom-card-2-img d-flex align-items-center justify-content-center"><img src="assets/img/user-default.jpg"></div>
+                                <h3>Akash kumar sharma</h3>
+                                <small>#985636987</small>
+                                <div class="dropdown card-action-box">
+                                    <button class="" type="button" data-toggle="dropdown"><i class="fas fa-ellipsis-v"></i></button>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#"><i class="fas fa-eye"></i> View</a></li>
+                                        <li><a href="#"><i class="fas fa-plus"></i> Add</a></li>
+                                        <li><a href="#"><i class="fas fa-edit"></i> Edit</a></li>
+                                        <li><a href="#"><i class="fas fa-trash-alt"></i> Delete</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="custom-card-2-body">
+                                <ul class="p-0 pt-2 pb-2 m-0">
+                                    <li> <strong>Working Days</strong> <span>Mon-sat</span> </li>
+                                    <li> <strong>Working Hours</strong> <span>8:30AM to 3PM</span> </li>
+                                    <li> <strong>Capacity</strong> <span>05</span> </li>
+                                    <li> <strong>Location</strong> <span> Banglore, India </span> </li>
+                                </ul>
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100 mt-auto"><i class="fas fa-check mr-1"></i> Edit
+                Availibity</button>
+                        </div>
+                    </div>
 
 
 
-        </div>
-      </section>
+                </div>
+            </section>
 
-    </ng-template>
-  </div>
+        </ng-template>
+    </div>
 </div>
 
 

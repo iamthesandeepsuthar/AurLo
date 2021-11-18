@@ -3061,6 +3061,10 @@ td.table-action-btn button {
     color: #607d8b;
 }
 
+.table-action-btn .table-action-btn-time {
+    color: #3f51b5;
+}
+
 .table>thead>tr>th {
     font-weight: 800 !important;
     color: #000 !important;
