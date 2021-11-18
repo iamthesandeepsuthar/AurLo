@@ -200,6 +200,7 @@ namespace AurigainLoanERP.Services.FreshLead
                 var detail = await _db.GoldLoanFreshLead.Where(x => x.Id == id)
                                     .Include(x => x.Product).ThenInclude(x=>x.ProductCategory)
                                     .Include(x => x.LeadSourceByUser)
+                                    .Include(x=>x.GoldLoanFreshLeadJewelleryDetail)
                                     .Include(x => x.GoldLoanFreshLeadKycDocument).ThenInclude(y => y.KycDocumentType)
                                     //   .Include(x => x.GoldLoanFreshLeadJewelleryDetail).ThenInclude(z=>z.JewelleryTypeId)
                                     .Include(x => x.GoldLoanFreshLeadAppointmentDetail).ThenInclude(p => p.Branch).ThenInclude(p => p.Bank).FirstOrDefaultAsync();
