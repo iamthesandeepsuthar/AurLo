@@ -113,6 +113,7 @@ namespace AurigainLoanERP.Shared.ContractModel
         public string LeadSourceUserName { get; set;}
         public int ProductId { get; set; }
         public string ProductName { get; set;}
+        public string ProductCategoryName { get; set;}
         public DateTime CreatedDate { get; set; }
         public bool? IsActive { get; set; }
         public GoldLoanFreshLeadKycDocumentViewModel KycDocument { get; set; }
@@ -143,6 +144,7 @@ namespace AurigainLoanERP.Shared.ContractModel
         public int BranchId { get; set; }
         public string BranchName { get; set;}
         public string IFSC { get; set;}
+        public string Pincode { get; set;}
         public DateTime? AppointmentDate { get; set; }
         public string AppointmentTime { get; set; }        
     }

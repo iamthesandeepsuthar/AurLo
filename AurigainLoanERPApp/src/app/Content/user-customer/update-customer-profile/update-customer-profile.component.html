@@ -28,7 +28,7 @@
                         <div class="custom_stepers-body-items-form row">
                             <div class="form-group col-md-6">
                                 <label>Full Name <em class="text-danger">*</em> </label>
-                                <input type="text" class="form-control" id="fullName" formControlName="fullName" [ngClass]="{ 'is-invalid': f1.fullName.errors && f1.fullName.touched}" placeholder="Full name">
+                                <input type="text" class="form-control"[(ngModel)]="model.FullName" id="fullName" formControlName="fullName" [ngClass]="{ 'is-invalid': f1.fullName.errors && f1.fullName.touched}" placeholder="Full name">
                                 <div class="invalid-feedback" *ngIf="(registrationFromStepOne.get('fullName')?.hasError('required') && registrationFromStepOne.get('fullName')?.touched)">
                                     full name required</div>
                             </div>

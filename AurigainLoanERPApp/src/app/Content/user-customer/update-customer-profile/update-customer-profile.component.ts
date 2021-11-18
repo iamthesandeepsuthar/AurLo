@@ -65,13 +65,12 @@ export class UpdateCustomerProfileComponent implements OnInit {
   }
 
   getUserDetail() {
-    debugger
     let serve = this._customerService.GetCustomerGetById(this.userId).subscribe(res => {
       serve.unsubscribe();
-      debugger
       if (res.IsSuccess) {
-
         this.model = res.Data as CustomerRegistrationModel;
+        this.model.DateOfBirth = this.model.DateOfBirth as Date;
+        alert(this.model.DateOfBirth);
       }
       else {
 
@@ -84,7 +83,7 @@ export class UpdateCustomerProfileComponent implements OnInit {
     let subscription = this._documentType.GetDDLDocumentType().subscribe(response => {
       subscription.unsubscribe();
       if (response.IsSuccess) {
-        
+
         this.documentTypeModel = response.Data as DDLDocumentTypeModel[];
       } else {
         this.toast.warning(response.Message as string, 'Server Error');

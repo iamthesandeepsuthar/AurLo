@@ -12,9 +12,9 @@ import { DetailGoldLoanFreshLeadComponent } from './Leads/gold-loan-fresh-lead/d
 const routes: Routes = [
   {path:'', component: CustomerDashboardComponent },
   {path:'profile/:id', component: CustomerProfileComponent , canActivate:[AuthenticationGuard]},
-  {path:'gold-loan-lead/', component: GoldLoanFreshLeadComponent , canActivate:[AuthenticationGuard]},
-  {path:'gold-loan-lead/addupdate/:id', component: AddEditGoldLoanFreshLeadComponent , canActivate:[AuthenticationGuard]},
-  {path:'gold-loan-lead/detail/:id', component: DetailGoldLoanFreshLeadComponent , canActivate:[AuthenticationGuard]},
+  {path:'gold-loan-leads', component: GoldLoanFreshLeadComponent , canActivate:[AuthenticationGuard]},
+  {path:'gold-loan-leads/addupdate/:id', component: AddEditGoldLoanFreshLeadComponent , canActivate:[AuthenticationGuard]},
+  {path:'gold-loan-leads/detail/:id', component: DetailGoldLoanFreshLeadComponent , canActivate:[AuthenticationGuard]},
   {path:'update-profile/:id', component: UpdateCustomerProfileComponent , canActivate:[AuthenticationGuard]},
 
 ];

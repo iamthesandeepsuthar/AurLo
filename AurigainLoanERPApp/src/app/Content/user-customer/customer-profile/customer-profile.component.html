@@ -43,7 +43,7 @@
             <td><strong> Mobile number: </strong> </td>
             <td>{{model?.Mobile ?? 'N/A'}}</td>
           </tr>
-     
+
         </tbody>
       </table>
     </div>
@@ -85,8 +85,13 @@
             <td><strong> Pincode: </strong> </td>
             <td>{{model?.Pincode ??'N/A'}}</td>
           </tr>
+
         </tbody>
       </table>
     </div>
   </div>
+  <div class="form-footer-btn-grp widget-content widget-content p-3 text-center">
+    <a type="submit" routerLink="/user-customer/update-profile/{{model.Id}}" class="btn btn-success mr-3"> <i class="fas fa-check mr-1"></i> Update Profile </a>
+    <a type="button" routerLink="/user-customer" class="btn btn-outline-danger"> <i class="fas fa-times mr-1"></i> Cancel</a>
+</div>
 </div>
