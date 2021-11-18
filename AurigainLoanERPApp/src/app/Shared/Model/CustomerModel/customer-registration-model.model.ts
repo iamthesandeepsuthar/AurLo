@@ -40,9 +40,7 @@ export class CustomerRegistrationViewModel {
   DateOfBirth!: string | null;
   IsActive!: boolean | null;
   CreatedOn!: string;
-  LoanAmount!: string;
-  SecondaryMobileNumber!: string;
-  LoanPurpose!: string;
+ 
   KycDocuments!: CustomerKycViewModel[];
 }
 

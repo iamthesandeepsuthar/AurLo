@@ -68,11 +68,9 @@ namespace AurigainLoanERP.Shared.ContractModel
         public DateTime? DateOfBirth { get; set; }
         public bool? IsActive { get; set; }
         public DateTime CreatedOn { get; set; }
-        public double? LoanAmount { get; set; }
-
-        public string LoanPurpose { get; set; }
+      
         public List<CustomerKycViewModel> KycDocuments { get; set; }
-        public string SecondaryMobileNumber { get; set; }
+       
     }
     public class CustomerKycViewModel
     {

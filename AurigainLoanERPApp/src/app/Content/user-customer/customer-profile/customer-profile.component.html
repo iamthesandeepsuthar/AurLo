@@ -43,20 +43,7 @@
             <td><strong> Mobile number: </strong> </td>
             <td>{{model?.Mobile ?? 'N/A'}}</td>
           </tr>
-          <tr>
-
-
-            <td><strong> Alternate number: </strong> </td>
-            <td>{{model.SecondaryMobileNumber ??'N/A'}}</td>
-          </tr>
-
-          <tr>
-
-            <td><strong> Amount Loan: </strong> </td>
-            <td>{{model.LoanAmount ? '₹' : ''}} {{ (model.LoanAmount| number) ?? 'N/A'}}</td>
-            <td><strong> Purpose of Loan: </strong> </td>
-            <td>{{model.LoanPurpose ??'N/A'}}</td>
-          </tr>
+     
         </tbody>
       </table>
     </div>
