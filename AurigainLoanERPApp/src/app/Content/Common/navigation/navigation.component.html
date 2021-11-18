@@ -174,7 +174,7 @@
     <ul *ngIf="IsCustomerMenu" class="list-unstyled menu-categories" id="accordionExample">
 
       <li class="menu" routerLinkActive="menu-active">
-        <a routerLink="/customer" aria-expanded="false" class="dropdown-toggle">
+        <a routerLink="/user-customer" aria-expanded="false" class="dropdown-toggle">
           <div class="">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
               stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -189,7 +189,7 @@
         </a>
       </li>
       <li class="menu" routerLinkActive="menu-active">
-        <a routerLink="{{this.routing_Url.AdminModule+'/'+this.routing_Url.DoorStepModule+'/'+this.routing_Url.DoorStepAgentListUrl}}"
+        <a routerLink="user-customer/profile/{{loginUserId}}"
           aria-expanded="false" class="dropdown-toggle">
           <div class="">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -206,7 +206,7 @@
       </li>
 
       <li class="menu" routerLinkActive="menu-active">
-        <a routerLink="{{this.routing_Url.AdminModule+'/'+this.routing_Url.AgentModule+'/'+this.routing_Url.AgentListUrl}}"
+        <a routerLink=""
           aria-expanded="false" class="dropdown-toggle">
           <div class="">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"

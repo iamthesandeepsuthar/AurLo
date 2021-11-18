@@ -226,7 +226,7 @@ namespace AurigainLoanERP.Services.Customer
 
                 if (detail != null)
                 {
-                    var loanDetail = await _db.GoldLoanFreshLead.FirstOrDefaultAsync(x => x.IsActive.Value && !x.IsDelete && x.CustomerUserId == detail.UserId);
+                   // var loanDetail = await _db.GoldLoanFreshLead.FirstOrDefaultAsync(x => x.IsActive.Value && !x.IsDelete && x.CustomerUserId == detail.UserId);
                     CustomerRegistrationViewModel customer = new CustomerRegistrationViewModel
                     {
                         Id = detail.Id,
@@ -235,7 +235,7 @@ namespace AurigainLoanERP.Services.Customer
                         FatherName = detail.FatherName,
                         EmailId = detail.User.Email,
                         Mobile = detail.User.Mobile,
-                        SecondaryMobileNumber = loanDetail.SecondaryMobileNumber,
+                       // SecondaryMobileNumber = loanDetail.SecondaryMobileNumber,
                         Gender = detail.Gender,
                         DateOfBirth = detail.DateOfBirth,
                         Address = detail.Address,
@@ -245,8 +245,8 @@ namespace AurigainLoanERP.Services.Customer
                         State = detail.PincodeArea.District.State.Name,
                         IsActive = detail.IsActive,
                         CreatedOn = detail.CreatedOn,
-                        LoanAmount = loanDetail.LoanAmountRequired ,
-                        LoanPurpose =loanDetail.Purpose
+                        //LoanAmount = loanDetail.LoanAmountRequired ,
+                        //LoanPurpose =loanDetail.Purpose
 
                     };
                     var docs = await _db.UserKyc.Where(x => x.UserId == detail.UserId).Include(x => x.KycdocumentType).ToListAsync();
