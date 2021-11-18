@@ -244,7 +244,7 @@
         </a>
       </li>
       <li class="menu" routerLinkActive="menu-active">
-        <a routerLink="{{this.routing_Url.AdminModule+'/'+this.routing_Url.AgentModule+'/'+this.routing_Url.AgentListUrl}}"
+        <a routerLink="{{this.routing_Url.UserBackendOperatorModule+'/'+'profile/{{loginUserId}}'}}"
           aria-expanded="false" class="dropdown-toggle">
           <div class="">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -309,7 +309,7 @@
           <span class="shape2"></span>
         </a>
       </li>
-      
+
       <li class="menu" routerLinkActive="menu-active">
         <a routerLink="{{this.routing_Url.UserBackendOperatorModule+'/'+this.routing_Url.BackEnd_OtherLoan_Leads_Url}}"
           aria-expanded="false" class="dropdown-toggle">

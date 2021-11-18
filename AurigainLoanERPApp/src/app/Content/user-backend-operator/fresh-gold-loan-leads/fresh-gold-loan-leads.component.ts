@@ -24,12 +24,14 @@ export class FreshGoldLoanLeadsComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort!: MatSort;
 
-  displayedColumns: string[] = ['index', 'FullName', 'Gender', 'Mpin', 'IsActive', 'IsApproved', 'Action'];
+  displayedColumns: string[] = ['index', 'FullName','FatherName' ,'PrimaryMobileNumber','LoanAmountRequired', 'LeadSourceByUserName','ProductName','Pincode', 'IsActive', 'Action'];
   ViewdisplayedColumns = [{ Value: 'FullName', Text: 'Full Name' },
-  { Value: 'Gender', Text: 'Gender' },
-  { Value: 'Mpin', Text: 'MPIN' },
-  { Value: 'Email', Text: 'Email' },
-  { Value: 'Mobile', Text: 'Mobile' }];
+  { Value: 'PrimaryMobileNumber', Text: 'Mobile Number' },
+  { Value: 'LeadSourceByUserName', Text: 'Lead Source By' },
+  { Value: 'LoanAmountRequired', Text: 'Loan Amount' },
+  { Value: 'FatherName', Text: 'Father Name' },
+  { Value: 'ProductName', Text: 'Product' },
+  { Value:'Pincode', Text: 'Pincode'}];
    indexModel = new IndexModel();
   totalRecords: number = 0;
   get routing_Url() { return Routing_Url };
@@ -51,6 +53,7 @@ export class FreshGoldLoanLeadsComponent implements OnInit {
       serve.unsubscribe();
       if (response.IsSuccess) {
         this.model = response.Data as GoldLoanFreshLeadListModel[];
+        console.log(this.model);
         this.dataSource = new MatTableDataSource<GoldLoanFreshLeadListModel>(this.model);
         this.totalRecords = response.TotalRecord as number;
         if (!this.indexModel.IsPostBack) {

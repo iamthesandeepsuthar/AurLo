@@ -11,6 +11,7 @@ import { OtherLoanLeadsComponent } from './other-loan-leads/other-loan-leads.com
 import { DetailOtherLoanLeadComponent } from './other-loan-leads/detail-other-loan-lead/detail-other-loan-lead.component';
 import { RegisterCustomersComponent } from './register-customers/register-customers.component';
 import { SharedModule } from 'src/app/Shared/Helper/shared/shared.module';
+import { BackendUserProfileComponent } from './backend-user-profile/backend-user-profile.component';
 
 
 
@@ -23,7 +24,8 @@ import { SharedModule } from 'src/app/Shared/Helper/shared/shared.module';
     DetailBalanceTransferLeadComponent,
     OtherLoanLeadsComponent,
     DetailOtherLoanLeadComponent,
-    RegisterCustomersComponent
+    RegisterCustomersComponent,
+    BackendUserProfileComponent
   ],
   imports: [
     CommonModule,

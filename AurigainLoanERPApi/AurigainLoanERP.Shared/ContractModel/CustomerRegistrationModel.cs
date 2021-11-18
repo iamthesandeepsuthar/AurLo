@@ -37,9 +37,11 @@ namespace AurigainLoanERP.Shared.ContractModel
         public string EmailId { get; set;}
         public string Mobile { get; set;}
         public bool? IsActive { get; set;}
+        public string Pincode { get; set;}
         public bool IsApproved { get; set;}
         public long UserId { get; set;}
         public string Mpin { get; set;}
+        public string Password { get; set;}
         public string ProfileImageUrl { get; set;}
         public string Gender { get; set;}
     }

@@ -18,7 +18,6 @@ namespace AurigainLoanERP.Data.Database
         public double LoanAmount { get; set; }
         public double? AnnualIncome { get; set; }
         public long LeadSourceByUserId { get; set; }
-        public long CustomerUserId { get; set; }
         public int ProductId { get; set; }
         public string EmployeeType { get; set; }
         public int? NoOfItr { get; set; }
@@ -27,7 +26,6 @@ namespace AurigainLoanERP.Data.Database
         public DateTime CreatedDate { get; set; }
         public DateTime? ModifiedDate { get; set; }
 
-        public virtual UserMaster CustomerUser { get; set; }
         public virtual UserMaster LeadSourceByUser { get; set; }
         public virtual Product Product { get; set; }
     }

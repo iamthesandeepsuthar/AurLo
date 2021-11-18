@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace AurigainLoanERP.Api.Areas.Admin.Controllers
 {
-    [Route("api/[controller]/[action]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class GoldLoanBalanceTransferController : ControllerBase
     {
@@ -20,7 +20,7 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
             _objBTLead = objBTLead;
 
         }
-        [HttpPost]
+        [HttpPost("[action]")]
         public async Task<ApiServiceResponseModel<string>> AddUpdateGoldLoanFreshLead(BTGoldLoanLeadPostModel model)
         {
             if (ModelState.IsValid)
@@ -38,7 +38,7 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
             }
         }
         [HttpPost("[action]")]
-        public async Task<ApiServiceResponseModel<List<BTGoldLoanLeadListModel>>> BTGoldLoanLeadListAsync(IndexModel model)
+        public async Task<ApiServiceResponseModel<List<BTGoldLoanLeadListModel>>> BTGoldLoanLeadList(IndexModel model)
         {
             return await _objBTLead.BTGolddLoanLeadList(model);
         }

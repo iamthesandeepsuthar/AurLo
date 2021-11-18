@@ -26,7 +26,7 @@ namespace AurigainLoanERP.Api.Areas
             return await _customer.AddUpdateAsync(model);
         }
         [HttpPost("[action]")]
-        public async Task<ApiServiceResponseModel<List<CustomerListModel>>> GetListAsync(IndexModel model) 
+        public async Task<ApiServiceResponseModel<List<CustomerListModel>>> GetList(IndexModel model) 
         {
             return await _customer.GetListAsync(model);
         }

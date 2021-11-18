@@ -1,3 +1,4 @@
+import { BackendUserProfileComponent } from './backend-user-profile/backend-user-profile.component';
 import { OtherLoanLeadsComponent } from './other-loan-leads/other-loan-leads.component';
 import { DetailBalanceTransferLeadComponent } from './balance-transfer-gold-loan-leads/detail-balance-transfer-lead/detail-balance-transfer-lead.component';
 import { BalanceTransferGoldLoanLeadsComponent } from './balance-transfer-gold-loan-leads/balance-transfer-gold-loan-leads.component';
@@ -13,6 +14,7 @@ import { RegisterCustomersComponent } from './register-customers/register-custom
 
 const routes: Routes = [
   {path:'', component: BackendOperatorDashboardComponent },
+  {path:'profile/:id', component: BackendUserProfileComponent,canActivate:[AuthenticationGuard]},
   {path:'register-customers', component: RegisterCustomersComponent, canActivate:[AuthenticationGuard]},
   {path: 'gold-loan-fresh-leads', component: FreshGoldLoanLeadsComponent, canActivate:[AuthenticationGuard]},
   {path: 'gold-loan-fresh-leads/detail/:id', component:DetailFreshGoldLoanLeadComponent, canActivate:[AuthenticationGuard]},

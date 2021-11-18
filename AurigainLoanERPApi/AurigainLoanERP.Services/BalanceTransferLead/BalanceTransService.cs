@@ -148,6 +148,9 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                     case "FatherName":
                         result = model.OrderByAsc ? (from orderData in result orderby orderData.FatherName ascending select orderData) : (from orderData in result orderby orderData.FatherName descending select orderData);
                         break;
+                    case "LoanAmountRequired":
+                        result = model.OrderByAsc ? (from orderData in result orderby orderData.FatherName ascending select orderData) : (from orderData in result orderby orderData.FatherName descending select orderData);
+                        break;
                     case "Pincode":
                         result = model.OrderByAsc ? (from orderData in result orderby orderData.Gender ascending select orderData) : (from orderData in result orderby orderData.Gender descending select orderData);
                         break;
@@ -167,8 +170,12 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                                           {
                                               Id = detail.Id,
                                               FullName = detail.FullName ?? null,
+                                              LeadSourceByUserName = detail.LeadSourceByuser.UserName,
+                                              LoanAmountRequired = ((double)detail.LoanAmount),
+                                              PrimaryMobileNumber = detail.Mobile,
                                               FatherName = detail.FatherName,
                                               Gender = detail.Gender ?? null,
+                                              Email = detail.EmailId,
                                               IsActive = detail.IsActive.Value,
                                               ProductName = detail.Product.Name,
                                               Pincode = detail.BtgoldLoanLeadAddressDetail.FirstOrDefault().AeraPincode.Pincode,

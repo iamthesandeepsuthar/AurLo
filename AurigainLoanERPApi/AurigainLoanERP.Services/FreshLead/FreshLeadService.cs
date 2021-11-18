@@ -40,7 +40,7 @@ namespace AurigainLoanERP.Services.FreshLead
                 if (model.UserId == null)
                 {
                     result = (from goldLoanLead in _db.GoldLoanFreshLead
-                              where !goldLoanLead.IsDelete && (string.IsNullOrEmpty(model.Search) || goldLoanLead.FullName.Contains(model.Search) || goldLoanLead.FatherName.Contains(model.Search) || goldLoanLead.Gender.Contains(model.Search) || goldLoanLead.GoldLoanFreshLeadKycDocument.FirstOrDefault().PincodeArea.Pincode.Contains(model.Search)) ||
+                              where !goldLoanLead.IsDelete && (string.IsNullOrEmpty(model.Search) || goldLoanLead.FullName.Contains(model.Search) || goldLoanLead.PrimaryMobileNumber.Contains(model.Search) || goldLoanLead.FatherName.Contains(model.Search) || goldLoanLead.GoldLoanFreshLeadKycDocument.FirstOrDefault().PincodeArea.Pincode.Contains(model.Search)) ||
                                 goldLoanLead.Product.Name.Contains(model.Search)
                               select goldLoanLead);
                 }
@@ -58,6 +58,12 @@ namespace AurigainLoanERP.Services.FreshLead
                         result = model.OrderByAsc ? (from orderData in result orderby orderData.FullName ascending select orderData) : (from orderData in result orderby orderData.FullName descending select orderData);
                         break;
                     case "FatherName":
+                        result = model.OrderByAsc ? (from orderData in result orderby orderData.FatherName ascending select orderData) : (from orderData in result orderby orderData.FatherName descending select orderData);
+                        break;
+                    case "PrimaryMobileNumber":
+                        result = model.OrderByAsc ? (from orderData in result orderby orderData.FatherName ascending select orderData) : (from orderData in result orderby orderData.FatherName descending select orderData);
+                        break;
+                    case "LeadSourceByUserName":
                         result = model.OrderByAsc ? (from orderData in result orderby orderData.FatherName ascending select orderData) : (from orderData in result orderby orderData.FatherName descending select orderData);
                         break;
                     case "Pincode":
@@ -79,8 +85,12 @@ namespace AurigainLoanERP.Services.FreshLead
                                           {
                                               Id = detail.Id,
                                               FullName = detail.FullName ?? null,
+                                              PrimaryMobileNumber = detail.PrimaryMobileNumber,
+                                              LeadSourceByUserName = detail.LeadSourceByUser.UserName,
                                               FatherName = detail.FatherName,
                                               Gender = detail.Gender ?? null,
+                                              Email = detail.Email,
+                                              LoanAmountRequired = detail.LoanAmountRequired,
                                               IsActive = detail.IsActive.Value,
                                               ProductName = detail.Product.Name,
                                               Pincode = detail.GoldLoanFreshLeadKycDocument.FirstOrDefault().PincodeArea.Pincode,
@@ -255,13 +265,16 @@ namespace AurigainLoanERP.Services.FreshLead
                 if (model.UserId == null)
                 {
                     result = (from Lead in _db.FreshLeadHlplcl
-                              where !Lead.IsDelete && (string.IsNullOrEmpty(model.Search) || Lead.LeadType == (FreshLeadType.Salaried.GetStringValue().Equals(model.Search) || FreshLeadType.NonSalaried.GetStringValue().Equals(model.Search) ? (FreshLeadType.Salaried.GetStringValue().Equals(model.Search) ? false : true) : Lead.LeadType) || Lead.FullName.Contains(model.Search) || Lead.FatherName.Contains(model.Search) || Lead.CustomerUser.UserCustomer.FirstOrDefault().FullName.Contains(model.Search))
+                              join product in _db.Product on Lead.ProductId equals product.Id
+                              join ProductCategory in _db.ProductCategory on product.ProductCategoryId equals ProductCategory.Id
+                              join leadScoureUser in _db.UserMaster on  Lead.LeadSourceByUserId equals leadScoureUser.Id
+                              where !Lead.IsDelete && (string.IsNullOrEmpty(model.Search) || Lead.LeadType == (FreshLeadType.Salaried.GetStringValue().Equals(model.Search) || FreshLeadType.NonSalaried.GetStringValue().Equals(model.Search) ? (FreshLeadType.Salaried.GetStringValue().Equals(model.Search) ? false : true) : Lead.LeadType) || Lead.FullName.Contains(model.Search) || Lead.FatherName.Contains(model.Search) || product.Name.Contains(model.Search) || ProductCategory.Name.Contains(model.Search))
                               select Lead);
                 }
                 else
                 {
                     result = (from Lead in _db.FreshLeadHlplcl
-                              where !Lead.IsDelete && Lead.CustomerUserId == model.UserId && (string.IsNullOrEmpty(model.Search) || Lead.FullName.Contains(model.Search) || Lead.FatherName.Contains(model.Search) || Lead.CustomerUser.UserCustomer.FirstOrDefault().FullName.Contains(model.Search))
+                              where !Lead.IsDelete && (string.IsNullOrEmpty(model.Search) || Lead.FullName.Contains(model.Search) || Lead.FatherName.Contains(model.Search))
                               select Lead);
                 }
 
@@ -275,6 +288,12 @@ namespace AurigainLoanERP.Services.FreshLead
                         break;
                     case "MobileNumber":
                         result = model.OrderByAsc ? (from orderData in result orderby orderData.MobileNumber ascending select orderData) : (from orderData in result orderby orderData.MobileNumber descending select orderData);
+                        break;
+                    case "ProductName":
+                        result = model.OrderByAsc ? (from orderData in result orderby orderData.Product.Name ascending select orderData) : (from orderData in result orderby orderData.MobileNumber descending select orderData);
+                        break;
+                    case "ProductCategory":
+                        result = model.OrderByAsc ? (from orderData in result orderby orderData.Product.ProductCategory.Name ascending select orderData) : (from orderData in result orderby orderData.MobileNumber descending select orderData);
                         break;
                     default:
                         result = model.OrderByAsc ? (from orderData in result orderby orderData.CreatedDate ascending select orderData) : (from orderData in result orderby orderData.CreatedDate descending select orderData);
@@ -291,13 +310,15 @@ namespace AurigainLoanERP.Services.FreshLead
                                               FullName = detail.FullName ?? null,
                                               FatherName = detail.FatherName,
                                               AnnualIncome = detail.AnnualIncome,
+                                              MobileNumber = detail.MobileNumber,
                                               EmployeeType = detail.EmployeeType,
                                               LoanAmount = detail.LoanAmount,
                                               LeadType = detail.LeadType,
-                                              // Gender = detail.Gender ?? null,
+                                              ProductCategoryName = detail.Product.ProductCategory.Name,
                                               IsActive = detail.IsActive.Value,
-                                              // ProductName = detail.Product.Name,
-                                              //  Pincode = detail.GoldLoanFreshLeadKycDocument.FirstOrDefault().PincodeArea.Pincode,
+                                              ProductName = detail.Product.Name,
+                                              LeadSourceByUserName = detail.LeadSourceByUser.UserName
+                                              //Pincode = detail.GoldLoanFreshLeadKycDocument.FirstOrDefault().PincodeArea.Pincode,
                                           }).ToListAsync();
                 if (result != null)
                 {
@@ -321,8 +342,8 @@ namespace AurigainLoanERP.Services.FreshLead
                 if (model != null)
                 {
                     await _db.Database.BeginTransactionAsync();
-                    var customerUserId = await SaveCustomerHLPLCL(model);
-                    model.CustomerUserId = customerUserId;
+                  //  var customerUserId = await SaveCustomerHLPLCL(model);
+                   // model.CustomerUserId = customerUserId;
                     var result = await SavePLHLCLFreshLead(model);
                     if (result.status)
                     {
@@ -522,7 +543,7 @@ namespace AurigainLoanERP.Services.FreshLead
                             FullName = model.FullName,
                             FatherName = model.FatherName,
                             LeadSourceByUserId = model.LeadSourceByUserId,
-                            CustomerUserId = model.CustomerUserId,
+                          //  CustomerUserId = model.CustomerUserId,
                             ProductId = model.ProductId,
                             LeadType = model.LeadType,
                             AnnualIncome = model.AnnualIncome,

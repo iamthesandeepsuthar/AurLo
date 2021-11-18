@@ -163,7 +163,7 @@ export class API_Url {
   public static Customer_Registration_Api = `${environment.apiEndPoint}Customer/RegisterCustomer/`;
   public static Customer_Profile_Detail_Api = `${environment.apiEndPoint}Customer/GetCustomerProfile/`;
   public static Customer_Get_Detail_Api = `${environment.apiEndPoint}Customer/GetCustomerDetail/`;
-  public static Customer_List_Api = `${environment.apiEndPoint}Customer/GetListAsync`;
+  public static Customer_List_Api = `${environment.apiEndPoint}Customer/GetList`;
   // #endregion
 
 
@@ -179,7 +179,7 @@ export class API_Url {
   //#endregion
 
   //#region  <<Balance Transfer Gold Loan Lead>>
-  public static BT_Gold_Loan_Lead_List_Api = `${environment.apiEndPoint}GoldLoanBalanceTransfer/BTGoldLoanLeadListAsync`;
+  public static BT_Gold_Loan_Lead_List_Api = `${environment.apiEndPoint}GoldLoanBalanceTransfer/BTGoldLoanLeadList`;
   public static BT_Gold_Loan_Lead__AddUpdate_Api = `${environment.apiEndPoint}GoldLoanBalanceTransfer/AddUpdateGoldLoanFreshLead`;
   public static BT_Gold_Loan_Lead__Detail_Api = `${environment.apiEndPoint}GoldLoanBalanceTransfer/BTGoldLoanLeadDetail/`;
   //#endregion

@@ -13,4 +13,12 @@ export class PersonalHomeCarLoanService {
     let url = `${this._baseService.API_Url.Personal_Home_Car_Loan_List_Api}`;
     return this._baseService.post(url, model);
   }
+  ChangeActiveStatus(id: number, status?: string): Observable<ApiResponse<number>> {
+    let url = `${this._baseService.API_Url.Gold_Loan_Fresh_Lead__ActiveStatus_Api}${id}`;
+    return this._baseService.get(url);
+  }
+  Delete(id: number): Observable<ApiResponse<number>> {
+    let url = `${this._baseService.API_Url.Gold_Loan_Fresh_Lead__Delete_Api}${id}`;
+    return this._baseService.Delete(url);
+  }
 }

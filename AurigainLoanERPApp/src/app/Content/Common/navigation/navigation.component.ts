@@ -18,6 +18,7 @@ export class NavigationComponent implements OnInit {
   IsCustomerMenu: boolean = false;
   IsOperatorMenu: boolean = false;
   isProd = environment.production;
+  loginUserId!: number;
   constructor(private readonly _authService: AuthService) {
     this.IsAdminMenu = false;
     this.IsCustomerMenu = false;
@@ -30,6 +31,7 @@ export class NavigationComponent implements OnInit {
     this._authService.IsAuthentication.subscribe(x => {
 
       this.userModel = this._authService.GetUserDetail() as LoginResponseModel;
+      this.loginUserId = this.userModel.UserId;
       if (this.userModel.RoleId == this.roleEnum.Customer) {
         this.IsCustomerMenu = true;
       } else if(this.userModel.RoleId == this.roleEnum.Operator) {

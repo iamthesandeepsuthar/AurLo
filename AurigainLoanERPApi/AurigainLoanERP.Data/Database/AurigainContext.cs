@@ -428,14 +428,8 @@ namespace AurigainLoanERP.Data.Database
 
                 entity.Property(e => e.NoOfItr).HasColumnName("NoOfITR");
 
-                entity.HasOne(d => d.CustomerUser)
-                    .WithMany(p => p.FreshLeadHlplclCustomerUser)
-                    .HasForeignKey(d => d.CustomerUserId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__FreshLead__Custo__6991A7CB");
-
                 entity.HasOne(d => d.LeadSourceByUser)
-                    .WithMany(p => p.FreshLeadHlplclLeadSourceByUser)
+                    .WithMany(p => p.FreshLeadHlplcl)
                     .HasForeignKey(d => d.LeadSourceByUserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__FreshLead__LeadS__67A95F59");

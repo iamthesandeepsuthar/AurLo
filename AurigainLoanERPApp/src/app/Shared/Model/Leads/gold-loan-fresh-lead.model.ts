@@ -61,19 +61,20 @@ export class GoldLoanFreshLeadKycDocumentModel {
   GlfreshLeadId!: number;
 }
 
-export interface GoldLoanFreshLeadListModel {
-  Id: number;
-  FullName: string;
-  FatherName: string;
-  DateOfBirth: string;
-  Gender: string;
-  PrimaryMobileNumber: string;
-  LeadSourceByUserId: number;
-  LeadSourceByUserName: string;
-  LoanAmountRequired: number;
-  ProductId: number;
-  ProductName: string;
-  CreatedDate: string;
-  Pincode: string;
-  IsActive: boolean;
+export class GoldLoanFreshLeadListModel {
+  Id!: number;
+  FullName!: string;
+  FatherName!: string;
+  DateOfBirth!: string;
+  Gender!: string;
+  Email!: string;
+  PrimaryMobileNumber!: string;
+  LeadSourceByUserId!: number;
+  LeadSourceByUserName!: string;
+  LoanAmountRequired!: number;
+  ProductId!: number;
+  ProductName!: string;
+  CreatedDate!: string;
+  Pincode!: string;
+  IsActive!: boolean;
 }

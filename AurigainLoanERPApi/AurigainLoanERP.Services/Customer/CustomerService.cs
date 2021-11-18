@@ -40,8 +40,9 @@ namespace AurigainLoanERP.Services.Customer
             ApiServiceResponseModel<List<CustomerListModel>> objResponse = new ApiServiceResponseModel<List<CustomerListModel>>();
             try
             {
+
                 var result = (from customer in _db.UserCustomer
-                              where !customer.User.IsDelete && (string.IsNullOrEmpty(model.Search) || customer.FullName.Contains(model.Search) || customer.User.Email.Contains(model.Search) || customer.User.UserName.Contains(model.Search))
+                              where !customer.User.IsDelete && (string.IsNullOrEmpty(model.Search) || customer.FullName.Contains(model.Search) || customer.User.Mobile.Contains(model.Search) || customer.User.Email.Contains(model.Search)) || customer.PincodeArea.Pincode.Contains(model.Search) || customer.Gender.Contains(model.Search)
                               select customer);
                 switch (model.OrderBy)
                 {
@@ -52,6 +53,9 @@ namespace AurigainLoanERP.Services.Customer
                         result = model.OrderByAsc ? (from orderData in result orderby orderData.User.Mobile ascending select orderData) : (from orderData in result orderby orderData.User.Mobile descending select orderData);
                         break;
                     case "Email":
+                        result = model.OrderByAsc ? (from orderData in result orderby orderData.User.Email ascending select orderData) : (from orderData in result orderby orderData.User.Email descending select orderData);
+                        break;
+                    case "Pincode":
                         result = model.OrderByAsc ? (from orderData in result orderby orderData.User.Email ascending select orderData) : (from orderData in result orderby orderData.User.Email descending select orderData);
                         break;
                     default:
@@ -75,7 +79,8 @@ namespace AurigainLoanERP.Services.Customer
                                               Gender = detail.Gender ?? null,                                          
                                               ProfileImageUrl = detail.User.ProfilePath.ToAbsolutePath() ?? null,                                             
                                               IsActive = detail.User.IsActive,
-                                              Mpin = detail.User.Mpin                                            
+                                              Password = detail.User.Password ,
+                                              Pincode = detail.PincodeArea.Pincode
                                           }).ToListAsync();
                 if (result != null)
                 {

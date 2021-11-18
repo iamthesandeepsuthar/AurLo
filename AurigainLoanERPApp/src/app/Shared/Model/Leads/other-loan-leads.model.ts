@@ -13,6 +13,8 @@ export class FreshLeadHLPLCLModel {
   LeadSourceUserName!: string;
   CustomerUserId!: number;
   ProductId!: number;
+  ProductName!:string;
+  ProductCategoryName!: string;
   EmployeeType!: string;
   NoOfItr!: number | null;
   IsActive!: boolean | null;

@@ -91,6 +91,7 @@ export class BTGoldLoanLeadListModel {
   FatherName!: string;
   DateOfBirth!: string;
   Gender!: string;
+  Email!:string;
   PrimaryMobileNumber!: string;
   LeadSourceByUserId!: number;
   LeadSourceByUserName!: string;
