@@ -1,1 +1,147 @@
-<p>detail-gold-loan-fresh-lead works!</p>
+
+    <!-- Page Header Title start -->
+<div class="widget-header">
+  <div class="row d-block d-sm-flex align-items-center justify-content-between text-center text-sm-left">
+    <div>
+      <h1>Gold Loan Fresh Lead</h1>
+      <!-- Breadcrumb Start -->
+      <nav class="custom-breadcrum">
+        <ol class="breadcrumb justify-content-center justify-content-sm-start">
+          <li class="breadcrumb-item"><a href="#">Home</a></li>
+          <li class="breadcrumb-item"><a href="#">Gold Loan Fresh Leads</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Detail</li>
+        </ol>
+      </nav>
+      <!-- Breadcrumb End -->
+    </div>
+  </div>
+</div>
+<!-- Page Header Title end -->
+    <div class="detail-d-2 pb-4">
+
+      <div class="widget-content widget-content p-3 form-grp-w-border">
+          <h2> <img src="assets/img/personal_detail.png">Personal Details</h2>
+          <div class="table-responsive">
+              <table class="table  table-borderless table-data-info table-font-17 table-v-align-top m-0">
+                  <tbody>
+                      <tr>
+                          <td style="width: 20%;"> <strong> Product Category: </strong> </td>
+                          <td style="width: 30%;">{{model.ProductCategoryName}}</td>
+                          <td style="width: 20%;"><strong> Product Name: </strong> </td>
+                          <td style="width: 30%;">{{model.ProductName}}</td>
+                      </tr>
+                      <tr>
+                          <td><strong> Full Name: </strong> </td>
+                          <td>{{model.FullName}}</td>
+                          <td><strong> Father's Name:</strong> </td>
+                          <td>{{model.FatherName}}</td>
+                      </tr>
+                      <tr>
+                          <td><strong> Date of Birth: </strong> </td>
+                          <td>{{model.DateOfBirth | date}}</td>
+                          <td><strong> Gender: </strong> </td>
+                          <td>{{model.Gender}}</td>
+                      </tr>
+                      <tr>
+                          <td><strong> Mobile Number: </strong> </td>
+                          <td>{{model.PrimaryMobileNumber}}</td>
+                          <td><strong> Alternative  Mobile Number: </strong> </td>
+                          <td>{{model.SecondaryMobileNumber}}</td>
+                      </tr>
+                      <tr>
+                          <td><strong> Amount Loan: </strong> </td>
+                          <td>₹{{model.LoanAmountRequired}}</td>
+                          <td><strong> Purpose of Loan: </strong> </td>
+                          <td>{{model.Purpose}}</td>
+                      </tr>
+                  </tbody>
+              </table>
+          </div>
+      </div>
+
+      <div class="widget-content widget-content p-3 form-grp-w-border">
+          <h2> <img src="assets/img/document_details.png">Document Details</h2>
+          <div class="table-responsive">
+              <table class="table  table-borderless table-data-info table-font-17 table-v-align-top m-0">
+                  <tbody>
+                      <tr>
+                          <td style="width: 20%;"> <strong> Document Type: </strong> </td>
+                          <td style="width: 30%;">{{model.KycDocument.KycDocumentTypeName}}</td>
+                          <td style="width: 20%;"><strong> Document Number: </strong> </td>
+                          <td style="width: 30%;">{{model.KycDocument.DocumentNumber}}</td>
+                      </tr>
+                      <tr>
+                          <td><strong> Address: </strong> </td>
+                          <td>{{model.KycDocument.AddressLine1}}</td>
+                      </tr>
+                      <tr>
+                          <td><strong> Area Name: </strong> </td>
+                          <td>{{model.KycDocument.PincodeAreaName}}</td>
+                          <td><strong> District: </strong> </td>
+                          <td>{{model.KycDocument.DistrictName}}</td>
+                      </tr>
+                      <tr>
+                          <td><strong> State: </strong> </td>
+                          <td>{{model.KycDocument.StateName}}</td>
+                          <td><strong> Pincode: </strong> </td>
+                          <td>{{model.KycDocument.Pincode}}</td>
+                      </tr>
+                  </tbody>
+              </table>
+          </div>
+      </div>
+
+      <div class="widget-content widget-content p-3 form-grp-w-border">
+          <h2> <img src="assets/img/jewellery.png">Jewellery Details</h2>
+          <div class="table-responsive">
+              <table class="table  table-borderless table-data-info table-font-17 table-v-align-top m-0">
+                  <tbody>
+                      <tr>
+                          <td style="width: 20%;"> <strong> Type of Jewellery: </strong> </td>
+                          <td style="width: 30%;">{{model.JewelleryDetail.JewelleryTypeName}}</td>
+                          <td style="width: 20%;"><strong> Quantity: </strong> </td>
+                          <td style="width: 30%;">{{model.JewelleryDetail.Quantity}}</td>
+                      </tr>
+                      <tr>
+                          <td><strong> Weight (in grams): </strong> </td>
+                          <td>{{model.JewelleryDetail.Weight}}</td>
+                          <td><strong> Karats : </strong> </td>
+                          <td>{{model.JewelleryDetail.Karat}}</td>
+                      </tr>
+                      <tr>
+                          <td><strong> Tenure: </strong> </td>
+                          <td>{{model.JewelleryDetail.PreferredLoanTenure}}</td>
+                      </tr>
+                  </tbody>
+              </table>
+          </div>
+      </div>
+
+      <div class="widget-content widget-content p-3 form-grp-w-border">
+          <h2> <img src="assets/img/appointment.png">Appointment Details</h2>
+          <div class="table-responsive">
+              <table class="table  table-borderless table-data-info table-font-17 table-v-align-top m-0">
+                  <tbody>
+                      <tr>
+                          <td style="width: 20%;"> <strong> Bank Name: </strong> </td>
+                          <td style="width: 30%;">{{model.AppointmentDetail.BankName}} | {{model.AppointmentDetail.BranchName}}</td>
+                          <td style="width: 20%;"><strong> IFSC Code: </strong> </td>
+                          <td style="width: 30%;">{{model.AppointmentDetail.IFSC}}</td>
+                      </tr>
+                      <tr>
+                          <td><strong> Date of Appointment: </strong> </td>
+                          <td>{{model.AppointmentDetail.AppointmentDate}}</td>
+                          <td><strong> Time of Appointment : </strong> </td>
+                          <td>{{model.AppointmentDetail.AppointmentTime}}</td>
+                      </tr>
+                      <tr>
+                          <td><strong> Branch name: </strong> </td>
+                          <td>{{model.AppointmentDetail.BranchName}}</td>
+                          <td><strong> Pincode: </strong> </td>
+                          <td>{{model.AppointmentDetail.Pincode}}</td>
+                      </tr>
+                  </tbody>
+              </table>
+          </div>
+      </div>
+  </div>

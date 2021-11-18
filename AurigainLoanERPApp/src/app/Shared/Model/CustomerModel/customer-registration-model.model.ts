@@ -13,7 +13,7 @@ export class CustomerRegistrationModel {
   UserId!: number;
   PincodeAreaId!: number | null;
   Address!: string;
-  DateOfBirth!: string | null;
+  DateOfBirth!: Date | null;
   IsActive!: boolean | null;
   IsDelete!: boolean;
   CreatedOn!: string;
@@ -40,7 +40,7 @@ export class CustomerRegistrationViewModel {
   DateOfBirth!: string | null;
   IsActive!: boolean | null;
   CreatedOn!: string;
- 
+
   KycDocuments!: CustomerKycViewModel[];
 }
 

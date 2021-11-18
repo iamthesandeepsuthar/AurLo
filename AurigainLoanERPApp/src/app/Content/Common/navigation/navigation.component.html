@@ -173,8 +173,8 @@
     <!-- Customer Menu -->
     <ul *ngIf="IsCustomerMenu" class="list-unstyled menu-categories" id="accordionExample">
 
-      <li class="menu" routerLinkActive="menu-active">
-        <a routerLink="/user-customer" aria-expanded="false" class="dropdown-toggle">
+      <li routerLinkActive="menu-active" class="menu">
+        <a  routerLink="/user-customer" aria-expanded="false" class="dropdown-toggle">
           <div class="">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
               stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -206,7 +206,7 @@
       </li>
 
       <li class="menu" routerLinkActive="menu-active">
-        <a routerLink=""
+        <a routerLink="{{this.routing_Url.UserCustomerModule+'/'+this.routing_Url.Customer_Gold_Loan_Fresh_Lead_List_Url}}"
           aria-expanded="false" class="dropdown-toggle">
           <div class="">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"

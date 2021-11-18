@@ -39,7 +39,6 @@ export class DetailDistrictComponent implements OnInit {
       .subscribe((res) => {
         subscription.unsubscribe();
         if (res.IsSuccess) {
-          debugger;
           this.model = res.Data as DistrictModel;
         } else {
           this.toast.warning('Record not found', 'No Record');
