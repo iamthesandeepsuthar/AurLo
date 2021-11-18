@@ -18,6 +18,7 @@ import { JewelleryTypeService } from 'src/app/Shared/Services/master-services/je
 import { AuthService } from '../../../../../Shared/Helper/auth.service';
 import { GoldLoanLeadsService } from 'src/app/Shared/Services/Leads/gold-loan-leads.service';
 import { ToastrService } from 'ngx-toastr';
+import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-add-edit-gold-loan-fresh-lead',
   templateUrl: './add-edit-gold-loan-fresh-lead.component.html',
@@ -25,6 +26,7 @@ import { ToastrService } from 'ngx-toastr';
   providers: [ProductService, KycDocumentTypeService, StateDistrictService, BankBranchService, JewelleryTypeService, GoldLoanLeadsService]
 })
 export class AddEditGoldLoanFreshLeadComponent implements OnInit {
+  leadId!:number;
   model = new GoldLoanFreshLeadModel();
   maxDate = new Date();
   leadFromPersonalDetail!: FormGroup;
@@ -50,15 +52,18 @@ export class AddEditGoldLoanFreshLeadComponent implements OnInit {
   constructor(private readonly fb: FormBuilder, readonly _commonService: CommonService,
     private readonly _productService: ProductService, private readonly _kycDocumentTypeService: KycDocumentTypeService,
     private readonly _stateDistrictService: StateDistrictService,
-    private readonly _bankBranchService: BankBranchService,
+    private readonly _bankBranchService: BankBranchService, private readonly _activatedRoute: ActivatedRoute,
     private readonly _jewelleryTypeService: JewelleryTypeService, private readonly _auth: AuthService,
     private readonly _goldLoanLeadService: GoldLoanLeadsService, private readonly toast: ToastrService) {
   }
 
   ngOnInit(): void {
     this.formInit();
-    this.GetDropDowns()
-
+    this.GetDropDowns();
+if(this._activatedRoute.snapshot.params.id){
+  this.leadId=this._activatedRoute.snapshot.params.id;
+  this.onGetDetail();
+}
   }
 
   formInit() {
@@ -135,7 +140,7 @@ export class AddEditGoldLoanFreshLeadComponent implements OnInit {
   }
 
   onGetDetail() {
-    let serve = this._goldLoanLeadService.GetById(1).subscribe(res => {
+    let serve = this._goldLoanLeadService.GetById(this.leadId).subscribe(res => {
       serve.unsubscribe();
       if (res.IsSuccess) {
         this.model = res.Data as GoldLoanFreshLeadModel;

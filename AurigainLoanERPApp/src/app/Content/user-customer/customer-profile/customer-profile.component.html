@@ -17,86 +17,89 @@
 <div class="detail-d-2 pb-4">
 
   <div class="widget-content widget-content p-3 form-grp-w-border">
-      <h2> <img src="assets/img/personal_detail.png">Personal Details</h2>
+    <h2> <img src="assets/img/personal_detail.png">Personal Details</h2>
 
-      <div class="table-responsive">
-          <table class="table  table-borderless table-data-info table-font-17 table-v-align-top m-0">
-              <tbody>
-                  <tr>
-                      <td style="width: 20%;"> <strong> Full Name </strong> </td>
-                      <td style="width: 30%;">Aakash Agrawal</td>
-                      <td style="width: 20%;"><strong>Email Id </strong> </td>
-                      <td style="width: 30%;">akash14singhal@gmail.com</td>
-                  </tr>
-                  <tr>
-                      <td><strong> Full name: </strong> </td>
-                      <td>Rohit kumar sharma</td>
-                      <td><strong> Father's name : </strong> </td>
-                      <td>Mohit sharma</td>
-                  </tr>
+    <div class="table-responsive">
+      <table class="table  table-borderless table-data-info table-font-17 table-v-align-top m-0">
+        <tbody>
+          <tr>
+            <td style="width: 20%;"> <strong> Full Name </strong> </td>
+            <td style="width: 30%;">{{model!.FullName ?? 'N/A'}}</td>
+            <td style="width: 20%;"><strong>Email Id </strong> </td>
+            <td style="width: 30%;">{{model!.EmailId ?? 'N/A'}}</td>
+          </tr>
+          <tr>
 
-                  <tr>
+            <td><strong> Father's name : </strong> </td>
+            <td>{{model?.FatherName ?? 'N/A'}}</td>
+            <td><strong> Date of birth: </strong> </td>
+            <td>{{(model?.DateOfBirth | date : 'dd-MM-YYYY') ?? 'N/A'}}</td>
+          </tr>
 
-                      <td><strong> Date of birth: </strong> </td>
-                      <td>20-02-1997</td>
-                      <td><strong> Gender: </strong> </td>
-                      <td>Male</td>
-                  </tr>
+          <tr>
 
-                  <tr>
-                      <td><strong> Mobile number: </strong> </td>
-                      <td>+91 9862354895</td>
-                      <td><strong> Alternative  Mobile number: </strong> </td>
-                      <td>+91 9929126987</td>
-                  </tr>
+            <td><strong> Gender: </strong> </td>
+            <td>{{model?.Gender?? 'N/A'}}</td>
+            <td><strong> Mobile number: </strong> </td>
+            <td>{{model?.Mobile ?? 'N/A'}}</td>
+          </tr>
+          <tr>
 
-                  <tr>
 
-                      <td><strong> Amount Loan: </strong> </td>
-                      <td>₹5,00,000</td>
-                      <td><strong> Purpose of Loan: </strong> </td>
-                      <td>Enter Purpose</td>
-                  </tr>
-              </tbody>
-          </table>
-      </div>
+            <td><strong> Alternate number: </strong> </td>
+            <td>{{model.SecondaryMobileNumber ??'N/A'}}</td>
+          </tr>
+
+          <tr>
+
+            <td><strong> Amount Loan: </strong> </td>
+            <td>{{model.LoanAmount ? '₹' : ''}} {{ (model.LoanAmount| number) ?? 'N/A'}}</td>
+            <td><strong> Purpose of Loan: </strong> </td>
+            <td>{{model.LoanPurpose ??'N/A'}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
 
   </div>
 
   <div class="widget-content widget-content p-3 form-grp-w-border">
-      <h2> <img src="assets/img/document_details.png">Document & Address Detail</h2>
-      <div class="table-responsive">
-          <table class="table  table-borderless table-data-info table-font-17 table-v-align-top m-0">
-              <tbody>
-                  <tr>
-                      <td style="width: 20%;"> <strong> Document Type: </strong> </td>
-                      <td style="width: 30%;">Aadhaar card</td>
-                      <td style="width: 20%;"><strong> Document Number: </strong> </td>
-                      <td style="width: 30%;">9658-6689-6699-8888</td>
-                  </tr>
+    <h2> <img src="assets/img/document_details.png">Document & Address Detail</h2>
+    <div class="table-responsive">
+      <table class="table  table-borderless table-data-info table-font-17 table-v-align-top m-0">
+        <tbody>
 
-                  <tr>
-                      <td><strong> Address: </strong> </td>
-                      <td>5-A new joshi colony</td>
-                  </tr>
+          <tr *ngFor="let items of model!.KycDocuments">
 
-                  <tr>
 
-                      <td><strong> Area name: </strong> </td>
-                      <td>Mansarover</td>
-                      <td><strong> District: </strong> </td>
-                      <td>Jaipur</td>
-                  </tr>
-                  <tr>
+            <td style="width: 20%;"> <strong> Document Type: </strong> </td>
+            <td style="width: 30%;">{{items?.KycdocumentTypeName ?? 'N/A'}}</td>
+            <td style="width: 20%;"><strong> Document Number: </strong> </td>
+            <td style="width: 30%;">{{items?.Kycnumber ?? 'N/A'}}</td>
+          </tr>
 
-                      <td><strong> State: </strong> </td>
-                      <td>Rajasthan</td>
-                      <td><strong> Pincode: </strong> </td>
-                      <td>302004</td>
-                  </tr>
-              </tbody>
-          </table>
-      </div>
+          <tr>
+            <td><strong> Address: </strong> </td>
+            <td>{{model!.Address ?? 'N/A'}}</td>
+          </tr>
+
+          <tr>
+
+            <td><strong> Area name: </strong> </td>
+            <td>{{model?.AreaName ?? 'N/A'}}</td>
+            <td><strong> District: </strong> </td>
+            <td>{{model!.District ?? 'N/A'}}</td>
+          </tr>
+          <tr>
+
+            <td><strong> State: </strong> </td>
+            <td>{{model?.State ?? 'N/A' }}</td>
+            <td><strong> Pincode: </strong> </td>
+            <td>{{model?.Pincode ??'N/A'}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
