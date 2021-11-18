@@ -69,8 +69,11 @@ export class UpdateCustomerProfileComponent implements OnInit {
       serve.unsubscribe();
       if (res.IsSuccess) {
         this.model = res.Data as CustomerRegistrationModel;
-        this.model.DateOfBirth = this.model.DateOfBirth as Date;
-        alert(this.model.DateOfBirth);
+          this.model.DateOfBirth = new  Date(this.model.DateOfBirth as Date);
+        debugger
+        if (this.model.PinCode) {
+          this.getAreaByPincode(this.model.PinCode);
+        }
       }
       else {
 
@@ -91,16 +94,16 @@ export class UpdateCustomerProfileComponent implements OnInit {
     });
   }
   getAreaByPincode(value: any) {
-    let pincode = value.currentTarget.value;
-    let subscription = this._stateService.GetAreaByPincode(pincode).subscribe(response => {
-      subscription.unsubscribe();
-      if (response.IsSuccess) {
-        this.areaModel = response.Data as AvailableAreaModel[];
-      } else {
-        this.toast.warning(response.Message as string, 'Server Error');
-
-      }
-    });
+    if (value) {
+      let subscription = this._stateService.GetAreaByPincode(value).subscribe(response => {
+        subscription.unsubscribe();
+        if (response.IsSuccess) {
+          this.areaModel = response.Data as AvailableAreaModel[];
+        } else {
+          this.toast.warning(response.Message as string, 'Server Error');
+        }
+      });
+    }
   }
   formInit() {
     this.registrationFromStepOne = this.fb.group({
