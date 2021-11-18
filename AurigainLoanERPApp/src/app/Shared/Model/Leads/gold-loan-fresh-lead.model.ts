@@ -53,6 +53,7 @@ export class GoldLoanFreshLeadKycDocumentModel {
   KycDocumentTypeId!: number;
   DocumentNumber?: string;
   PanNumber!: string;
+  Pincode!: string;
   PincodeAreaId!: number;
   AddressLine1!: string;
   AddressLine2!: string;

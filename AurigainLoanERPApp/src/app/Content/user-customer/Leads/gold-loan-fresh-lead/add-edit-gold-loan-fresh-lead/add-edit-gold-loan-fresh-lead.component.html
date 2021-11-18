@@ -257,7 +257,7 @@
           <div class="form-group col-md-4">
             <label>Pin Code</label>
             <input type="text" [maxlength]="6" class="form-control" (keypress)="_commonService.NumberOnly($event)"
-              (blur)="onChangePinCode()" id="input10" placeholder="Pin Code" [(ngModel)]="PinCode"
+              (blur)="onChangePinCode()" id="input10" placeholder="Pin Code" [(ngModel)]="model.KycDocument.Pincode"
               formControlName="Pincode" [ngClass]="{ 'is-invalid': f2.Pincode.errors && f2.Pincode.touched}">
             <div class="invalid-feedback"
               *ngIf="(leadFromDocumentDetail.get('Pincode')?.hasError('required') && leadFromDocumentDetail.get('Pincode')?.touched)">

@@ -40,7 +40,7 @@ export class AddEditGoldLoanFreshLeadComponent implements OnInit {
   ddlBranchModel!: DDLBranchModel[];
   ddlAreaModel!: AvailableAreaModel[];
   ddlJewellaryType!: DDLJewellaryType[];
-  PinCode: string | any;
+ // PinCode: string | any;
 
   get f1() { return this.leadFromPersonalDetail.controls; }
   get f2() { return this.leadFromDocumentDetail.controls; }
@@ -60,8 +60,10 @@ export class AddEditGoldLoanFreshLeadComponent implements OnInit {
   ngOnInit(): void {
     this.formInit();
     this.GetDropDowns();
+
+
     if (this._activatedRoute.snapshot.params.id) {
-      this.leadId = this._activatedRoute.snapshot.params.id;
+            this.leadId = this._activatedRoute.snapshot.params.id;
       this.onGetDetail();
     }
   }
@@ -141,17 +143,22 @@ export class AddEditGoldLoanFreshLeadComponent implements OnInit {
 
   onGetDetail() {
     let serve = this._goldLoanLeadService.GetById(this.leadId).subscribe(res => {
+      debugger
       serve.unsubscribe();
       if (res.IsSuccess) {
         this.model = res.Data as GoldLoanFreshLeadModel;
+        debugger
+        if(this.model.KycDocument.Pincode){
+          this.onChangePinCode();
+        }
       }
     })
   }
   //#region  <<DropDown>>
   GetDropDowns() {
+    this.getDDLDocumentType();
     this.GetDropDownGender();
     this.getDDLProducts();
-    this.getDDLDocumentType();
     this.GetDDLJewelleryType();
   }
 
@@ -186,7 +193,7 @@ export class AddEditGoldLoanFreshLeadComponent implements OnInit {
   }
 
   getDropDownBranch() {
-    let serve = this._bankBranchService.GetBranchesbyPinCode(this.PinCode).subscribe(res => {
+    let serve = this._bankBranchService.GetBranchesbyPinCode(this.model.KycDocument.Pincode).subscribe(res => {
       serve.unsubscribe();
       if (res.IsSuccess) {
         this.ddlBranchModel = res?.Data as DDLBranchModel[];
@@ -196,7 +203,7 @@ export class AddEditGoldLoanFreshLeadComponent implements OnInit {
 
   getDropDownPinCodeArea() {
 
-    let serve = this._stateDistrictService.GetAreaByPincode(this.PinCode as string).subscribe(res => {
+    let serve = this._stateDistrictService.GetAreaByPincode(this.model.KycDocument.Pincode as string).subscribe(res => {
       serve.unsubscribe();
       if (res.IsSuccess) {
         this.ddlAreaModel = res?.Data as AvailableAreaModel[];
@@ -237,7 +244,7 @@ export class AddEditGoldLoanFreshLeadComponent implements OnInit {
   }
 
   onChangePinCode() {
-    if (this.PinCode) {
+    if (this.model.KycDocument.Pincode) {
       this.getDropDownPinCodeArea();
       this.getDropDownBranch();
     }
