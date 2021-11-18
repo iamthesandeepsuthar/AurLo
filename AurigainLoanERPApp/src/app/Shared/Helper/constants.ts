@@ -188,6 +188,8 @@ export class API_Url {
 export class Routing_Url {
 
   //#region <<Module URL>>
+  public static DashBoardModule = 'dashboard';
+
   public static AdminModule = 'admin';
   public static MasterModule = 'master';
   public static DoorStepModule = 'door-step-agent';

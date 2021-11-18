@@ -26,7 +26,7 @@ import { ActivatedRoute } from '@angular/router';
   providers: [ProductService, KycDocumentTypeService, StateDistrictService, BankBranchService, JewelleryTypeService, GoldLoanLeadsService]
 })
 export class AddEditGoldLoanFreshLeadComponent implements OnInit {
-  leadId!:number;
+  leadId: number = 0;
   model = new GoldLoanFreshLeadModel();
   maxDate = new Date();
   leadFromPersonalDetail!: FormGroup;
@@ -60,10 +60,10 @@ export class AddEditGoldLoanFreshLeadComponent implements OnInit {
   ngOnInit(): void {
     this.formInit();
     this.GetDropDowns();
-if(this._activatedRoute.snapshot.params.id){
-  this.leadId=this._activatedRoute.snapshot.params.id;
-  this.onGetDetail();
-}
+    if (this._activatedRoute.snapshot.params.id) {
+      this.leadId = this._activatedRoute.snapshot.params.id;
+      this.onGetDetail();
+    }
   }
 
   formInit() {

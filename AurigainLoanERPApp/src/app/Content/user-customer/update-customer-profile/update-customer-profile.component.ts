@@ -1,3 +1,4 @@
+
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -69,14 +70,17 @@ export class UpdateCustomerProfileComponent implements OnInit {
       serve.unsubscribe();
       if (res.IsSuccess) {
         this.model = res.Data as CustomerRegistrationModel;
-          this.model.DateOfBirth = new  Date(this.model.DateOfBirth as Date);
-        debugger
+
+        if (this.model.DateOfBirth) {
+          this.model.DateOfBirth = new Date(this.model.DateOfBirth as Date);
+        }
         if (this.model.PinCode) {
           this.getAreaByPincode(this.model.PinCode);
         }
+
       }
       else {
-
+        this._router.navigate([`/${Routing_Url.CustomersModule}`])
       }
     });
 
