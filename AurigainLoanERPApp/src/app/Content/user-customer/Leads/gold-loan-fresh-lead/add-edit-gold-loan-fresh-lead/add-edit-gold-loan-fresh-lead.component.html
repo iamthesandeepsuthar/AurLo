@@ -68,11 +68,12 @@
 
           <div class="form-group col-md-4 date-icon-with-label">
             <label>Date of Birth</label>
-            <input class="form-control" #datepickerYMD="bsDatepicker" autocomplete="off" placeholder="DD-MM-YYYY" formControlName="DOB" (focus)="datepickerYMD.show()"
+            <input class="form-control" #datepickerYMD="bsDatepicker" autocomplete="off" placeholder="DD-MM-YYYY"
+              formControlName="DOB" (focus)="datepickerYMD.show()"
               [ngClass]="{ 'is-invalid': f1.DOB.errors && f1.DOB.touched}" bsDatepicker [(ngModel)]="model.DateOfBirth"
               [maxDate]="maxDate"
               [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', adaptivePosition: true,isAnimated: true, showWeekNumbers: false }">
-            <i class="fas fa-calendar-alt" (click)="datepickerYMD.show()" ></i>
+            <i class="fas fa-calendar-alt" (click)="datepickerYMD.show()"></i>
             <div class="invalid-feedback"
               *ngIf="(leadFromPersonalDetail.get('DOB')?.hasError('required') && leadFromPersonalDetail.get('DOB')?.touched)">
               Please Select Date...! </div>
@@ -116,8 +117,9 @@
           </div>
           <div class="form-group col-md-4">
             <label>Email</label>
-            <input type="text" class="form-control" maxlength="200" id="input1" placeholder="Email Address" formControlName="Email"
-              [ngClass]="{ 'is-invalid': f1.Email.errors && f1.Email.touched}" [(ngModel)]="model.Email">
+            <input type="text" class="form-control" maxlength="200" id="input1" placeholder="Email Address"
+              formControlName="Email" [ngClass]="{ 'is-invalid': f1.Email.errors && f1.Email.touched}"
+              [(ngModel)]="model.Email">
 
 
 
@@ -180,7 +182,8 @@
           <div class="form-group col-md-12">
             <label>Purpose of Loan</label>
             <textarea type="text" class="form-control" id="input8" placeholder="Purpose" [(ngModel)]="model.Purpose"
-              formControlName="Purpose" [ngClass]="{ 'is-invalid': f1.Purpose.errors && f1.Purpose.touched}" maxlength="1000" >
+              formControlName="Purpose" [ngClass]="{ 'is-invalid': f1.Purpose.errors && f1.Purpose.touched}"
+              maxlength="1000">
             </textarea>
             <div class="invalid-feedback"
               *ngIf="(leadFromPersonalDetail.get('Purpose')?.hasError('required') && leadFromPersonalDetail.get('Purpose')?.touched)">
@@ -205,7 +208,8 @@
             <label>Document Type</label>
 
 
-            <ng-select [items]="ddlDocumentTypeModel" (ngModelChange)="onChangeDocument($event)" [searchable]="true"
+            <ng-select [items]="ddlDocumentTypeModel"
+              (change)="this.model.KycDocument.DocumentNumber = null;onChangeDocument($event)" [searchable]="true"
               bindLabel="Name" bindValue="Id" placeholder="Select Document Type" formControlName="DocumentType"
               [ngClass]="{ 'is-invalid': f2.DocumentType.errors && f2.DocumentType.touched}"
               [(ngModel)]="model.KycDocument.KycDocumentTypeId">
@@ -337,8 +341,8 @@
           </div>
           <div class="form-group col-md-4">
             <label>Karats</label>
-            <ng-select  [items]="ddlKarats" bindLabel="Value" bindValue="Values" formControlName="Karats" placeholder="Select Karats"
-              [ngClass]="{ 'is-invalid': f3.Karats.errors && f3.Karats.touched}"
+            <ng-select [items]="ddlKarats" bindLabel="Name" bindValue="Id" formControlName="Karats"
+              placeholder="Select Karats" [ngClass]="{ 'is-invalid': f3.Karats.errors && f3.Karats.touched}"
               [(ngModel)]="model.JewelleryDetail.Karat">
 
             </ng-select>

@@ -42,7 +42,7 @@ export class GoldLoanFreshLeadJewelleryDetailModel {
   JewelleryTypeId!: number;
   Quantity!: number | null;
   Weight!: number | null;
-  Karat!: number | null;
+  Karat!: number|null ;
   GlfreshLeadId!: number;
   IsActive!: boolean;
   CreatedDate!: string;
@@ -51,7 +51,7 @@ export class GoldLoanFreshLeadJewelleryDetailModel {
 export class GoldLoanFreshLeadKycDocumentModel {
   Id!: number;
   KycDocumentTypeId!: number;
-  DocumentNumber?: string;
+  DocumentNumber!: string|null;
   PanNumber!: string;
   Pincode!: string;
   PincodeAreaId!: number;

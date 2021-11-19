@@ -40,7 +40,7 @@ export class AddEditGoldLoanFreshLeadComponent implements OnInit {
   ddlBranchModel!: DDLBranchModel[];
   ddlAreaModel!: AvailableAreaModel[];
   ddlJewellaryType!: DDLJewellaryType[];
-  ddlKarats = [{ Value: 18 }, { Value: 20 }, { Value: 22 }, { Value: 24 }];
+  ddlKarats = [{ Name: "18 Karats", Id: 18 }, { Name: "20  Karats", Id: 20 }, { Name: "22  Karats", Id: 22 }, { Name: "24  Karats", Id: 24 }];
   UserId = 0;
   // PinCode: string | any;
 
@@ -86,11 +86,11 @@ export class AddEditGoldLoanFreshLeadComponent implements OnInit {
     });
 
     this.leadFromDocumentDetail = this.fb.group({
-      DocumentType: [undefined, undefined],
-      DocumentNumber: [undefined, undefined],
+      DocumentType: [undefined],
+      DocumentNumber: [undefined],
       PanNumber: [undefined, Validators.compose([Validators.minLength(10), Validators.maxLength(10)])],
       Pincode: [undefined, Validators.compose([Validators.minLength(6), Validators.maxLength(6)])],
-      Aarea: [undefined, undefined],
+      Aarea: [undefined],
     });
 
     this.leadFromJewelleryDetail = this.fb.group({
@@ -125,6 +125,7 @@ export class AddEditGoldLoanFreshLeadComponent implements OnInit {
         this.model.CustomerUserId = this._auth.GetUserDetail()?.UserId as number;
 
       }
+
       this.model.JewelleryDetail.Karat = this.model.JewelleryDetail.Karat ? Number(this.model.JewelleryDetail.Karat) : null;
       this.model.JewelleryDetail.Weight = this.model.JewelleryDetail.Weight ? Number(this.model.JewelleryDetail.Weight) : null;
       this.model.LoanAmountRequired = this.model.LoanAmountRequired ? Number(this.model.LoanAmountRequired) : null;
@@ -139,7 +140,7 @@ export class AddEditGoldLoanFreshLeadComponent implements OnInit {
           this.leadFromJewelleryDetail.reset();
           this.leadFromAppointmentDetail.reset();
           this.model = new GoldLoanFreshLeadModel();
-          this._router.navigate(['/gold-loan-leads'])
+          this._router.navigate(['/user-customer/gold-loan-leads'])
 
         } else {
           this.toast.success(Message.SaveFail);
@@ -155,7 +156,12 @@ export class AddEditGoldLoanFreshLeadComponent implements OnInit {
       serve.unsubscribe();
       if (res.IsSuccess) {
         this.model = res.Data as GoldLoanFreshLeadModel;
-        debugger
+
+        if (this.model.KycDocument.KycDocumentTypeId) {
+          this.onChangeDocument(this.model.KycDocument.KycDocumentTypeId);
+        }
+
+
         if (this.model.KycDocument.Pincode) {
           this.onChangePinCode();
         }
@@ -232,7 +238,7 @@ export class AddEditGoldLoanFreshLeadComponent implements OnInit {
 
 
   onChangeDocument(value: number) {
-    this.model.KycDocument.DocumentNumber = undefined;
+
     let doc = this.ddlDocumentTypeModel?.find(x => x.Id == value);
     this.f2.DocumentNumber.setValidators(Validators.compose([Validators.minLength(doc?.DocumentNumberLength as number), Validators.maxLength(doc?.DocumentNumberLength as number)]));
     this.f2.DocumentNumber.updateValueAndValidity();
