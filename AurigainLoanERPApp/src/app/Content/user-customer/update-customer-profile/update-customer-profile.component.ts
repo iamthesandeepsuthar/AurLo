@@ -67,7 +67,7 @@ export class UpdateCustomerProfileComponent implements OnInit {
       serve.unsubscribe();
       if (res.IsSuccess) {
         this.model = res.Data as CustomerRegistrationModel;
-        alert(this.model.Id);
+
         if (this.model.DateOfBirth) {
           this.model.DateOfBirth = new Date(this.model.DateOfBirth as Date);
         }
@@ -83,6 +83,7 @@ export class UpdateCustomerProfileComponent implements OnInit {
 
   }
   getDocumentType() {
+    this.documentTypeModel = [];
     let subscription = this._documentType.GetDDLDocumentType().subscribe(response => {
       subscription.unsubscribe();
       if (response.IsSuccess) {
@@ -93,14 +94,20 @@ export class UpdateCustomerProfileComponent implements OnInit {
     });
   }
   getAreaByPincode(value: any) {
+    // this.areaModel = [];
     if (value) {
+      debugger
       let subscription = this._stateService.GetAreaByPincode(value).subscribe(response => {
         subscription.unsubscribe();
+        debugger
         if (response.IsSuccess) {
           this.areaModel = response.Data as AvailableAreaModel[];
         } else {
           this.toast.warning(response.Message as string, 'Server Error');
         }
+        if (!this.areaModel || this.areaModel.length == 0) {
+          this.model.PincodeAreaId = null;
+         }
       });
     }
   }
