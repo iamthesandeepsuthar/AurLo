@@ -280,7 +280,7 @@ namespace AurigainLoanERP.Services.Customer
                 var data = await _db.UserCustomer.Where(x => x.UserId == id).Include(x => x.PincodeArea).Include(x => x.User).FirstOrDefaultAsync();
                 if (data != null)
                 {
-                    List<UserKycPostModel> userDocuments = new List<UserKycPostModel>();
+                 
                     UserPostModel user = new UserPostModel
                     {
                         Id = data.User.Id,
@@ -291,19 +291,16 @@ namespace AurigainLoanERP.Services.Customer
                         IsWhatsApp = data.User.IsWhatsApp,
                         UserName = data.User.UserName
                     };
-                    var documents = _db.UserKyc.Where(x => x.UserId == data.UserId).ToList();
-                    foreach (var doc in documents)
+                    List<UserKycPostModel> userDocuments = _db.UserKyc.Where(x => x.UserId == data.UserId).Select(x => new UserKycPostModel
                     {
-                        UserKycPostModel d = new UserKycPostModel
-                        {
-                            KycdocumentTypeId = doc.KycdocumentTypeId,
-                            Kycnumber = doc.Kycnumber,
-                            Id = doc.Id
-                        };
-                        userDocuments.Add(d);
-                    }
+                        KycdocumentTypeId = x.KycdocumentTypeId,
+                        Kycnumber = x.Kycnumber,
+                        Id = x.Id
+                    }).ToList();
+                                        
                     CustomerRegistrationModel customer = new CustomerRegistrationModel
                     {
+                        Id= data.Id,
                         User = user,
                         FullName = data.FullName,
                         Address = data.Address,
@@ -312,6 +309,7 @@ namespace AurigainLoanERP.Services.Customer
                         DateOfBirth = data.DateOfBirth,
                         IsActive = data.IsActive,
                         PincodeAreaId = data.PincodeAreaId,
+                        PinCode = data.PincodeArea.Pincode,
                         UserId = data.UserId,
                         KycDocuments = userDocuments,
                         CreatedOn = data.CreatedOn
@@ -379,7 +377,7 @@ namespace AurigainLoanERP.Services.Customer
                     }
                     else
                     {
-                        return 0;
+                        return isExist.Id;
                     }
                 }
                 else
@@ -432,10 +430,10 @@ namespace AurigainLoanERP.Services.Customer
                         }
                     }
                     await _db.SaveChangesAsync();
-
-
+                    return true;
                 }
-                return true;
+                return false;
+              
             }
             catch (Exception)
             {

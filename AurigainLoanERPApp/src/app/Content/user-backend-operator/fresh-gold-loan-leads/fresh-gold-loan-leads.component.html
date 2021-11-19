@@ -6,7 +6,6 @@
             <!-- Breadcrumb Start -->
             <nav class="custom-breadcrum">
                 <ol class="breadcrumb justify-content-center justify-content-sm-start">
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
                     <li class="breadcrumb-item"><a href="javascript:void(0)">Dashboard</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Gold Loan Fresh Lead</li>
                 </ol>
@@ -117,11 +116,16 @@
               title="Edit">
               <i class="fas fa-edit"></i>
             </a> -->
-                        <a class="table-action-btn-view" routerLink="../{{routing_Url.AgenDetailUrl +'/'+ row.UserId}}" title="Detail">
+                        <<<<<<< HEAD <a class="table-action-btn-view" routerLink="../{{routing_Url.AgenDetailUrl +'/'+ row.UserId}}" title="Detail">
                             <i class="fas fa-eye"></i>
-                        </a>
+                            </a>
+                            =======
+                            <a class="table-action-btn-view" routerLink="./{{routing_Url.BackEnd_Fresh_Lead_Detail_Url +'/'+ row.Id}}" title="Detail">
+                                <i class="fas fa-eye"></i>
+                            </a>
+                            >>>>>>> 13ed85df260334863af19e16331d23afa6fc480b
 
-                        <!-- <a class="table-action-btn-delete" (click)="updateDeleteStatus(row?.UserId)" title="Delete">
+                            <!-- <a class="table-action-btn-delete" (click)="updateDeleteStatus(row?.UserId)" title="Delete">
               <i class="fas fa-trash-alt"></i>
             </a> -->
                     </td>

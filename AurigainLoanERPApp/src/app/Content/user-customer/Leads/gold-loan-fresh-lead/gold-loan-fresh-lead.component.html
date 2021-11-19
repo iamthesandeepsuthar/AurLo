@@ -6,15 +6,15 @@
             <!-- Breadcrumb Start -->
             <nav class="custom-breadcrum">
                 <ol class="breadcrumb justify-content-center justify-content-sm-start">
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item"><a routerLink="/user-customer">Dashboard</a></li>
+
+                    <li class="breadcrumb-item"><a routerLink="/Dashboard">Home</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Gold Loan Fresh Lead</li>
                 </ol>
             </nav>
             <!-- Breadcrumb End -->
         </div>
-        <a class="btn btn-dark btn-sm mt-2 mt-sm-0" routerLink="../gold-loan-fresh-lead/add-edit-gold-loan-fresh-lead/0">
-            <i class="fas fa-plus"></i>New Lead</a>
+        <a class="btn btn-dark btn-sm mt-2 mt-sm-0" routerLink="addupdate/0">
+            <i class="fas fa-plus mr-1"></i>New Lead</a>
     </div>
 </div>
 <!-- Page Header Title end -->
@@ -117,11 +117,16 @@
               title="Edit">
               <i class="fas fa-edit"></i>
             </a> -->
-                        <a class="table-action-btn-view" routerLink="./gold-loan-leads/addupdate/0" title="Add New Lead">
+                        <<<<<<< HEAD <a class="table-action-btn-view" routerLink="./gold-loan-leads/addupdate/0" title="Add New Lead">
                             <i class="fas fa-eye"></i>
-                        </a>
+                            </a>
+                            =======
+                            <a class="table-action-btn-view" routerLink="../gold-loan-leads/detail/{{row.Id}}" title="View Detail">
+                                <i class="fas fa-eye"></i>
+                            </a>
+                            >>>>>>> 13ed85df260334863af19e16331d23afa6fc480b
 
-                        <!-- <a class="table-action-btn-delete" (click)="updateDeleteStatus(row?.UserId)" title="Delete">
+                            <!-- <a class="table-action-btn-delete" (click)="updateDeleteStatus(row?.UserId)" title="Delete">
               <i class="fas fa-trash-alt"></i>
             </a> -->
                     </td>

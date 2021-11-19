@@ -1,3 +1,4 @@
+
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -56,34 +57,35 @@ export class UpdateCustomerProfileComponent implements OnInit {
       this.userId = this._activatedRoute.snapshot.params.id;
       this.getUserDetail();
     }
-
   }
-
   ngOnInit(): void {
     this.getDocumentType();
     this.formInit();
   }
-
   getUserDetail() {
     let serve = this._customerService.GetCustomerGetById(this.userId).subscribe(res => {
       serve.unsubscribe();
       if (res.IsSuccess) {
         this.model = res.Data as CustomerRegistrationModel;
-        this.model.DateOfBirth = this.model.DateOfBirth as Date;
-        alert(this.model.DateOfBirth);
+        alert(this.model.Id);
+        if (this.model.DateOfBirth) {
+          this.model.DateOfBirth = new Date(this.model.DateOfBirth as Date);
+        }
+        if (this.model.PinCode) {
+          this.getAreaByPincode(this.model.PinCode);
+        }
+
       }
       else {
-
+        this._router.navigate([`/${Routing_Url.CustomersModule}`])
       }
     });
 
   }
-
   getDocumentType() {
     let subscription = this._documentType.GetDDLDocumentType().subscribe(response => {
       subscription.unsubscribe();
       if (response.IsSuccess) {
-
         this.documentTypeModel = response.Data as DDLDocumentTypeModel[];
       } else {
         this.toast.warning(response.Message as string, 'Server Error');
@@ -91,16 +93,16 @@ export class UpdateCustomerProfileComponent implements OnInit {
     });
   }
   getAreaByPincode(value: any) {
-    let pincode = value.currentTarget.value;
-    let subscription = this._stateService.GetAreaByPincode(pincode).subscribe(response => {
-      subscription.unsubscribe();
-      if (response.IsSuccess) {
-        this.areaModel = response.Data as AvailableAreaModel[];
-      } else {
-        this.toast.warning(response.Message as string, 'Server Error');
-
-      }
-    });
+    if (value) {
+      let subscription = this._stateService.GetAreaByPincode(value).subscribe(response => {
+        subscription.unsubscribe();
+        if (response.IsSuccess) {
+          this.areaModel = response.Data as AvailableAreaModel[];
+        } else {
+          this.toast.warning(response.Message as string, 'Server Error');
+        }
+      });
+    }
   }
   formInit() {
     this.registrationFromStepOne = this.fb.group({
@@ -150,10 +152,7 @@ export class UpdateCustomerProfileComponent implements OnInit {
     if (value > 0) {
       this.kycDocumentModel.KycdocumentTypeId = value;
     }
-    //this.model.Kycnumber = undefined;
     if (this.kycDocumentModel?.KycdocumentTypeId) {
-
-
       let dataItem = this.documentTypeModel?.find(x => x.Id == (this.KycDocumentModel?.KycdocumentTypeId ?? value)) as DDLDocumentTypeModel;
       this.DocumentCharLength = dataItem.DocumentNumberLength;
 
@@ -165,7 +164,6 @@ export class UpdateCustomerProfileComponent implements OnInit {
         this.registrationFromStepTwo.get("documentType")?.setValidators(null);
         this.registrationFromStepTwo.get("documentNumber")?.setValidators(null);
       }
-
     }
     else {
       this.registrationFromStepTwo.get("documentType")?.setValidators(null);
@@ -189,7 +187,7 @@ export class UpdateCustomerProfileComponent implements OnInit {
         subscription.unsubscribe();
         if (response.IsSuccess) {
           this.toast.success('Registration successful , Check you email where we share login credential', 'Success');
-          this._router.navigate([this.routing_Url.LoginUrl]);
+          this._router.navigate([this.routing_Url.UserCustomerModule]);
         } else {
           this.toast.error(response.Message?.toString(), 'Error');
         }
@@ -198,16 +196,11 @@ export class UpdateCustomerProfileComponent implements OnInit {
   }
 
   onCheckValidInput(val: any) {
-
     let dataItem = this.documentTypeModel.find(x => x.Id == this.KycDocumentModel.KycdocumentTypeId) as DDLDocumentTypeModel;
-
     if (dataItem.IsNumeric) {
       return this._commonService.NumberOnly(val);
-
     } else {
       return this._commonService.AlphaNumericOnly(val);
-
     }
   }
-
 }

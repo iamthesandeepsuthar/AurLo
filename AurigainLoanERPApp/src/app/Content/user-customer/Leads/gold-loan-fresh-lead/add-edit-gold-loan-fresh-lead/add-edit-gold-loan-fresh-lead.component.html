@@ -6,14 +6,15 @@
       <!-- Breadcrumb Start -->
       <nav class="custom-breadcrum">
         <ol class="breadcrumb justify-content-center justify-content-sm-start">
-          <li class="breadcrumb-item"><a href="#">Home</a></li>
-          <li class="breadcrumb-item"><a href="#">Gold Loan Fresh Lead</a></li>
-          <li class="breadcrumb-item active" aria-current="page">Add Update</li>
+          <li class="breadcrumb-item"><a routerLink="/dashboard">Home</a></li>
+          <li class="breadcrumb-item"><a routerLink="../../../gold-loan-leads">Gold Loan Fresh Lead</a></li>
+          <li class="breadcrumb-item active" aria-current="page">{{leadId ==0 ? 'Add new lead' : 'Update lead'}}</li>
         </ol>
       </nav>
       <!-- Breadcrumb End -->
     </div>
-    <button class="btn btn-dark btn-sm mt-2 mt-sm-0"> <i class="fas fa-plus"></i> Back</button>
+    <button class="btn btn-dark btn-sm mt-2 mt-sm-0" routerLink="../../../gold-loan-leads"> <i
+        class="fas fa-angle-left mr-1"></i> Back</button>
 
   </div>
 </div>
@@ -256,7 +257,7 @@
           <div class="form-group col-md-4">
             <label>Pin Code</label>
             <input type="text" [maxlength]="6" class="form-control" (keypress)="_commonService.NumberOnly($event)"
-              (blur)="onChangePinCode()" id="input10" placeholder="Pin Code" [(ngModel)]="PinCode"
+              (blur)="onChangePinCode()" id="input10" placeholder="Pin Code" [(ngModel)]="model.KycDocument.Pincode"
               formControlName="Pincode" [ngClass]="{ 'is-invalid': f2.Pincode.errors && f2.Pincode.touched}">
             <div class="invalid-feedback"
               *ngIf="(leadFromDocumentDetail.get('Pincode')?.hasError('required') && leadFromDocumentDetail.get('Pincode')?.touched)">
@@ -325,9 +326,9 @@
 
           <div class="form-group col-md-4">
             <label>Weight (in grams)</label>
-            <input type="text" [maxlength]="10" (keypress)="_commonService.checkDecimalNumberOnly($event)" class="form-control"
-              id="input13" placeholder="Weight" [(ngModel)]="model.JewelleryDetail.Weight" formControlName="Weight"
-              [ngClass]="{ 'is-invalid': f3.Weight.errors && f3.Weight.touched}">
+            <input type="text" [maxlength]="10" (keypress)="_commonService.checkDecimalNumberOnly($event)"
+              class="form-control" id="input13" placeholder="Weight" [(ngModel)]="model.JewelleryDetail.Weight"
+              formControlName="Weight" [ngClass]="{ 'is-invalid': f3.Weight.errors && f3.Weight.touched}">
             <div class="invalid-feedback"
               *ngIf="(leadFromJewelleryDetail.get('Weight')?.hasError('required') && leadFromJewelleryDetail.get('Weight')?.touched)">
               Enter Weight! </div>
@@ -354,9 +355,9 @@
 
           <div class="form-group col-md-4">
             <label>Tenure </label>
-            <input type="text" [maxlength]="3" (keypress)="_commonService.NumberOnly($event)" class="form-control" id="input14"
-              placeholder="Tenure" [(ngModel)]="model.JewelleryDetail.PreferredLoanTenure" formControlName="Tenure"
-              [ngClass]="{ 'is-invalid': f3.Tenure.errors && f3.Tenure.touched}">
+            <input type="text" [maxlength]="3" (keypress)="_commonService.NumberOnly($event)" class="form-control"
+              id="input14" placeholder="Tenure" [(ngModel)]="model.JewelleryDetail.PreferredLoanTenure"
+              formControlName="Tenure" [ngClass]="{ 'is-invalid': f3.Tenure.errors && f3.Tenure.touched}">
 
             <div class="invalid-feedback"
               *ngIf="(leadFromJewelleryDetail.get('Tenure')?.hasError('required') && leadFromJewelleryDetail.get('Tenure')?.touched)">
@@ -401,19 +402,20 @@
           <label>IFSC Code</label>
           <input type="text" class="form-control" id="input1" placeholder="HDFC0098">
         </div> -->
-        <div class="form-group col-md-4 date-icon-with-label">
-          <label>Date of Birth</label>
-          <input class="form-control" #datepickerYMD="bsDatepicker" placeholder="DD-MM-YYYY"formControlName="DateofAppointment"
-          [ngClass]="{ 'is-invalid': f4.DateofAppointment.errors && f4.DateofAppointment.touched}" bsDatepicker
-          [(ngModel)]="model.AppointmentDetail.AppointmentDate"
-          [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', adaptivePosition: true,isAnimated: true, showWeekNumbers: false }">
-          <i class="fas fa-calendar-alt"></i>
-          <div class="invalid-feedback"
-          *ngIf="(leadFromAppointmentDetail.get('DateofAppointment')?.hasError('required') && leadFromAppointmentDetail.get('DateofAppointment')?.touched)">
-          select date of Appointment </div>
+          <div class="form-group col-md-4 date-icon-with-label">
+            <label>Date of Birth</label>
+            <input class="form-control" #datepickerYMD="bsDatepicker" placeholder="DD-MM-YYYY"
+              formControlName="DateofAppointment"
+              [ngClass]="{ 'is-invalid': f4.DateofAppointment.errors && f4.DateofAppointment.touched}" bsDatepicker
+              [(ngModel)]="model.AppointmentDetail.AppointmentDate"
+              [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', adaptivePosition: true,isAnimated: true, showWeekNumbers: false }">
+            <i class="fas fa-calendar-alt"></i>
+            <div class="invalid-feedback"
+              *ngIf="(leadFromAppointmentDetail.get('DateofAppointment')?.hasError('required') && leadFromAppointmentDetail.get('DateofAppointment')?.touched)">
+              select date of Appointment </div>
 
 
-        </div>
+          </div>
 
 
           <div class="form-group col-md-4">

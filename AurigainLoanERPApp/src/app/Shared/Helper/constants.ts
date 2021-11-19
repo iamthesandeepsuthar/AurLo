@@ -188,6 +188,8 @@ export class API_Url {
 export class Routing_Url {
 
   //#region <<Module URL>>
+  public static DashBoardModule = 'dashboard';
+
   public static AdminModule = 'admin';
   public static MasterModule = 'master';
   public static DoorStepModule = 'door-step-agent';
@@ -258,6 +260,7 @@ export class Routing_Url {
   public static   BackEnd_BT_GoldLoan_List_Url = 'balance-transfer-leads';
   public static  BackEnd_Profile_Url = 'door-step-agents-list';
   public static BackEnd_OtherLoan_Leads_Url = 'other-loan-leads';
+  public static BackEnd_Fresh_Lead_Detail_Url = 'detail'
   //#endregion
 
   //#region  <<Agent >>

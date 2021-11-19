@@ -12,6 +12,7 @@ export class CustomerRegistrationModel {
   Gender!: string;
   UserId!: number;
   PincodeAreaId!: number | null;
+  PinCode! :string;
   Address!: string;
   DateOfBirth!: Date | null;
   IsActive!: boolean | null;

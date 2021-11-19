@@ -21,9 +21,6 @@ export class DetailGoldLoanFreshLeadComponent implements OnInit {
               private readonly toast: ToastrService,
               private _activatedRoute: ActivatedRoute,) {
                 this.model = new GoldLoanFreshLeadViewModel();
-                this.model.AppointmentDetail = new GoldLoanFreshLeadAppointmentDetailViewModel();
-                this.model.KycDocument = new GoldLoanFreshLeadKycDocumentViewModel();
-                this.model.JewelleryDetail = new GoldLoanFreshLeadJewelleryDetailViewModel();
                 if (this._activatedRoute.snapshot.params.id) {
                   this.Id = this._activatedRoute.snapshot.params.id;
                 }
