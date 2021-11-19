@@ -3107,7 +3107,7 @@ td.table-action-btn button {
     padding: 0px 15px;
     font-size: 20px;
     color: #000000;
-    margin-bottom: 18px;
+    margin-bottom: 18px !important;
     padding: 4px 15px;
     border-radius: 50px;
     line-height: normal;
@@ -4193,6 +4193,10 @@ table {
 
 .mat-paginator {
     background: transparent !important;
+}
+
+h4 {
+    font-size: 1.5rem !important;
 }
 
 
