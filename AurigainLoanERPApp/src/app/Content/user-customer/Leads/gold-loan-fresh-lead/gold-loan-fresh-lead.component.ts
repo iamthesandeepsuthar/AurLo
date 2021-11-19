@@ -45,7 +45,7 @@ export class GoldLoanFreshLeadComponent implements OnInit {
     private readonly _authService: AuthService) { }
   ngOnInit(): void {
     let user = this._authService.GetUserDetail();
-    this.indexModel.UserId  =  10045       //     user!.UserId;
+    this.indexModel.UserId  = user!.UserId;
     this.getList();
   }
   getList(): void {

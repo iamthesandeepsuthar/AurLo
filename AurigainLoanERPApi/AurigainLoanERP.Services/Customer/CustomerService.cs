@@ -300,6 +300,7 @@ namespace AurigainLoanERP.Services.Customer
                                         
                     CustomerRegistrationModel customer = new CustomerRegistrationModel
                     {
+                        Id= data.Id,
                         User = user,
                         FullName = data.FullName,
                         Address = data.Address,
@@ -376,7 +377,7 @@ namespace AurigainLoanERP.Services.Customer
                     }
                     else
                     {
-                        return 0;
+                        return isExist.Id;
                     }
                 }
                 else
@@ -429,10 +430,10 @@ namespace AurigainLoanERP.Services.Customer
                         }
                     }
                     await _db.SaveChangesAsync();
-
-
+                    return true;
                 }
-                return true;
+                return false;
+              
             }
             catch (Exception)
             {
