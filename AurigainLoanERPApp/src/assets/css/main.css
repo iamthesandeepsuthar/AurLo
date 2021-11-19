@@ -3075,6 +3075,10 @@ td.table-action-btn button {
     font-size: 14px;
 }
 
+.widget.box .widget-header .btn i {
+    margin-right: 8px;
+}
+
 .sm-form-center {
     max-width: 450px;
     margin: auto;
@@ -4175,6 +4179,22 @@ table {
     color: #e10000;
 }
 
+.table-data-name {
+    display: flex;
+    align-items: center;
+    line-height: 15px;
+    min-width: 160px;
+}
+
+.table-shadow {
+    box-shadow: 0 0 20px 10px #c9d8f1 !important;
+    border-radius: 15px;
+}
+
+.mat-paginator {
+    background: transparent !important;
+}
+
 
 /* .custom-modal .modal-content .modal-body {
     background: url(https://blog.2checkout.com/wp-content/uploads/2018/11/how-does-the-payment-processing-industry-work-1.png);
@@ -4301,6 +4321,14 @@ table {
 
 
 /* Responsive start */
+
+@media (max-width: 1600px) {
+    .table-data-name span {
+        height: 30px;
+        width: 30px;
+        font-size: 17px;
+    }
+}
 
 @media (max-width: 992px) {
     .menu-active .shape1,

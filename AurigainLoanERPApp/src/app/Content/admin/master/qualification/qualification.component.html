@@ -13,7 +13,7 @@
             </nav>
             <!-- Breadcrumb End -->
         </div>
-        <button class="btn btn-dark btn-sm mt-2 mt-sm-0" routerLink="./add-qualification/0" routerLinkActive="router-link-active" > <i  class="fas fa-plus"></i> Add  Qualification</button>
+        <button class="btn btn-dark btn-sm mt-2 mt-sm-0" routerLink="./add-qualification/0" routerLinkActive="router-link-active"> <i  class="fas fa-plus"></i> Add  Qualification</button>
     </div>
 </div>
 <!-- Page Header Title end -->
@@ -126,7 +126,7 @@
 
             </div> -->
         </div>
-        <div class="table-responsive">
+        <div class="table-responsive table-shadow">
 
             <table class="custom-mat-table" mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 table table-striped dataTable table-header" style="width: 100%;" role="grid" aria-describedby="zero-config_info" (matSortChange)="sortData($event)">
 
@@ -172,7 +172,7 @@
                     <ul class="pagination">
 
                         <mat-paginator #paginator [length]="totalRecords" [pageSize]="indexModel.PageSize" (page)="onPaginateChange($event)" showFirstLastButtons *ngIf="totalRecords!=0">
-                  </mat-paginator>
+                        </mat-paginator>
                     </ul>
                 </div>
             </div>
