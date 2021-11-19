@@ -46,7 +46,7 @@
           <div class="form-group col-md-4">
             <label>Full Name</label>
             <input type="text" (keypress)="!_commonService.NumberOnly($event)" class="form-control" id="input2"
-              placeholder="Full Name" formControlName="FullName"
+              placeholder="Full Name" formControlName="FullName" maxlength="200"
               [ngClass]="{ 'is-invalid': f1.FullName.errors && f1.FullName.touched}" [(ngModel)]="model.FullName">
 
             <div class="invalid-feedback"
@@ -57,7 +57,7 @@
           <div class="form-group col-md-4">
             <label>Father's Name</label>
             <input type="text" (keypress)="!_commonService.NumberOnly($event)" class="form-control" id="input3"
-              placeholder="Father's Name" formControlName="FatherName"
+              placeholder="Father's Name" formControlName="FatherName" maxlength="200"
               [ngClass]="{ 'is-invalid': f1.FatherName.errors && f1.FatherName.touched}" [(ngModel)]="model.FatherName">
 
             <div class="invalid-feedback"
@@ -68,11 +68,11 @@
 
           <div class="form-group col-md-4 date-icon-with-label">
             <label>Date of Birth</label>
-            <input class="form-control" #datepickerYMD="bsDatepicker" placeholder="DD-MM-YYYY" formControlName="DOB"
+            <input class="form-control" #datepickerYMD="bsDatepicker" autocomplete="off" placeholder="DD-MM-YYYY" formControlName="DOB" (focus)="datepickerYMD.show()"
               [ngClass]="{ 'is-invalid': f1.DOB.errors && f1.DOB.touched}" bsDatepicker [(ngModel)]="model.DateOfBirth"
               [maxDate]="maxDate"
               [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', adaptivePosition: true,isAnimated: true, showWeekNumbers: false }">
-            <i class="fas fa-calendar-alt"></i>
+            <i class="fas fa-calendar-alt" (click)="datepickerYMD.show()" ></i>
             <div class="invalid-feedback"
               *ngIf="(leadFromPersonalDetail.get('DOB')?.hasError('required') && leadFromPersonalDetail.get('DOB')?.touched)">
               Please Select Date...! </div>
@@ -116,7 +116,7 @@
           </div>
           <div class="form-group col-md-4">
             <label>Email</label>
-            <input type="text" class="form-control" id="input1" placeholder="Email Address" formControlName="Email"
+            <input type="text" class="form-control" maxlength="200" id="input1" placeholder="Email Address" formControlName="Email"
               [ngClass]="{ 'is-invalid': f1.Email.errors && f1.Email.touched}" [(ngModel)]="model.Email">
 
 
@@ -132,7 +132,7 @@
           </div>
           <div class="form-group col-md-4">
             <label>Mobile Number</label>
-            <input type="text" [minlength]="10" [maxlength]="12" (keypress)="_commonService.NumberOnly($event)"
+            <input type="text" [minlength]="10" [maxlength]="10" (keypress)="_commonService.NumberOnly($event)"
               placeholder="Mobile Number" class="form-control" id="input5" [(ngModel)]="model.PrimaryMobileNumber"
               formControlName="Mobile" [ngClass]="{ 'is-invalid': f1.Mobile.errors && f1.Mobile.touched}">
 
@@ -149,7 +149,7 @@
 
           <div class="form-group col-md-4">
             <label>Alternate Mobile Number</label>
-            <input type="text" [minlength]="10" [maxlength]="12" class="form-control"
+            <input type="text" [minlength]="10" [maxlength]="10" class="form-control"
               (keypress)="_commonService.NumberOnly($event)" id="input6" placeholder="Alternative Mobile"
               [(ngModel)]="model.SecondaryMobileNumber" formControlName="AlternativeMobile"
               [ngClass]="{ 'is-invalid': f1.AlternativeMobile.errors && f1.AlternativeMobile.touched}">
@@ -177,11 +177,11 @@
 
           </div>
 
-          <div class="form-group col-md-4">
+          <div class="form-group col-md-12">
             <label>Purpose of Loan</label>
-            <input type="text" class="form-control" id="input8" placeholder="Purpose" [(ngModel)]="model.Purpose"
-              formControlName="Purpose" [ngClass]="{ 'is-invalid': f1.Purpose.errors && f1.Purpose.touched}">
-
+            <textarea type="text" class="form-control" id="input8" placeholder="Purpose" [(ngModel)]="model.Purpose"
+              formControlName="Purpose" [ngClass]="{ 'is-invalid': f1.Purpose.errors && f1.Purpose.touched}" maxlength="1000" >
+            </textarea>
             <div class="invalid-feedback"
               *ngIf="(leadFromPersonalDetail.get('Purpose')?.hasError('required') && leadFromPersonalDetail.get('Purpose')?.touched)">
               Enter Purpose! </div>
@@ -216,7 +216,7 @@
 
           </div>
           <div class="form-group col-md-4">
-            <label>Document Number : {{docMaxChar}}</label>
+            <label>Document Number : </label>
             <input type="text" class="form-control" id="input9" placeholder="Document Number"
               [(ngModel)]="model.KycDocument.DocumentNumber" formControlName="DocumentNumber"
               [ngClass]="{ 'is-invalid': f2.DocumentNumber.errors && f2.DocumentNumber.touched}"
@@ -337,17 +337,11 @@
           </div>
           <div class="form-group col-md-4">
             <label>Karats</label>
-            <select class="form-control" formControlName="Karats"
+            <ng-select  [items]="ddlKarats" bindLabel="Value" bindValue="Values" formControlName="Karats" placeholder="Select Karats"
               [ngClass]="{ 'is-invalid': f3.Karats.errors && f3.Karats.touched}"
               [(ngModel)]="model.JewelleryDetail.Karat">
-              <option selected>--Select--</option>
-              <option value="18">18</option>
-              <option value="20">20</option>
-              <option value="22">22</option>
-              <option value="24">24</option>
 
-
-            </select>
+            </ng-select>
             <div class="invalid-feedback"
               *ngIf="(leadFromJewelleryDetail.get('Karats')?.hasError('required') && leadFromJewelleryDetail.get('Karats')?.touched)">
               select Karats! </div>
