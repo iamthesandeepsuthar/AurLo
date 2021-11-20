@@ -697,7 +697,7 @@ namespace AurigainLoanERP.Services.FreshLead
                     {
                         AppointmentDate = model.AppointmentDate,
                         AppointmentTime = model.AppointmentTime.ToTimeSpanValue(),
-                        BankId = model.BankId,
+                        BankId =  _db.BankBranchMaster.FirstOrDefault(x=> x.IsActive.Value && !x.IsDelete && x.Id==model.BranchId ).BankId,
                         BranchId = model.BranchId,
                         CreatedDate = DateTime.Now,
                         IsActive = true,
@@ -713,7 +713,7 @@ namespace AurigainLoanERP.Services.FreshLead
                     var detail = await _db.GoldLoanFreshLeadAppointmentDetail.Where(x => x.Id == model.Id).FirstOrDefaultAsync();
                     detail.AppointmentDate = model.AppointmentDate;
                     detail.AppointmentTime = model.AppointmentTime.ToTimeSpanValue();
-                    detail.BankId = model.BankId;
+                    detail.BankId = _db.BankBranchMaster.FirstOrDefault(x => x.IsActive.Value && !x.IsDelete && x.Id == model.BranchId).BankId;
                     detail.BranchId = model.BranchId;
                     await _db.SaveChangesAsync();
                     return true;

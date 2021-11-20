@@ -18,7 +18,7 @@ import { JewelleryTypeService } from 'src/app/Shared/Services/master-services/je
 import { AuthService } from '../../../../../Shared/Helper/auth.service';
 import { GoldLoanLeadsService } from 'src/app/Shared/Services/Leads/gold-loan-leads.service';
 import { ToastrService } from 'ngx-toastr';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-add-edit-gold-loan-fresh-lead',
   templateUrl: './add-edit-gold-loan-fresh-lead.component.html',
@@ -40,7 +40,9 @@ export class AddEditGoldLoanFreshLeadComponent implements OnInit {
   ddlBranchModel!: DDLBranchModel[];
   ddlAreaModel!: AvailableAreaModel[];
   ddlJewellaryType!: DDLJewellaryType[];
- // PinCode: string | any;
+  ddlKarats = [{ Name: "18 Karats", Id: 18 }, { Name: "20  Karats", Id: 20 }, { Name: "22  Karats", Id: 22 }, { Name: "24  Karats", Id: 24 }];
+  UserId = 0;
+  // PinCode: string | any;
 
   get f1() { return this.leadFromPersonalDetail.controls; }
   get f2() { return this.leadFromDocumentDetail.controls; }
@@ -51,10 +53,11 @@ export class AddEditGoldLoanFreshLeadComponent implements OnInit {
 
   constructor(private readonly fb: FormBuilder, readonly _commonService: CommonService,
     private readonly _productService: ProductService, private readonly _kycDocumentTypeService: KycDocumentTypeService,
-    private readonly _stateDistrictService: StateDistrictService,
+    private readonly _stateDistrictService: StateDistrictService, readonly _router: Router,
     private readonly _bankBranchService: BankBranchService, private readonly _activatedRoute: ActivatedRoute,
     private readonly _jewelleryTypeService: JewelleryTypeService, private readonly _auth: AuthService,
     private readonly _goldLoanLeadService: GoldLoanLeadsService, private readonly toast: ToastrService) {
+    this.UserId = this._auth.GetUserDetail()?.UserId as number;
   }
 
   ngOnInit(): void {
@@ -63,7 +66,7 @@ export class AddEditGoldLoanFreshLeadComponent implements OnInit {
 
 
     if (this._activatedRoute.snapshot.params.id) {
-            this.leadId = this._activatedRoute.snapshot.params.id;
+      this.leadId = this._activatedRoute.snapshot.params.id;
       this.onGetDetail();
     }
   }
@@ -83,11 +86,11 @@ export class AddEditGoldLoanFreshLeadComponent implements OnInit {
     });
 
     this.leadFromDocumentDetail = this.fb.group({
-      DocumentType: [undefined, undefined],
-      DocumentNumber: [undefined, undefined],
+      DocumentType: [undefined],
+      DocumentNumber: [undefined],
       PanNumber: [undefined, Validators.compose([Validators.minLength(10), Validators.maxLength(10)])],
       Pincode: [undefined, Validators.compose([Validators.minLength(6), Validators.maxLength(6)])],
-      Aarea: [undefined, undefined],
+      Aarea: [undefined],
     });
 
     this.leadFromJewelleryDetail = this.fb.group({
@@ -114,10 +117,15 @@ export class AddEditGoldLoanFreshLeadComponent implements OnInit {
     this.leadFromJewelleryDetail.markAllAsTouched();
     this.leadFromAppointmentDetail.markAllAsTouched();
     if (this.leadFromPersonalDetail.valid && this.leadFromDocumentDetail.valid && this.leadFromJewelleryDetail.valid && this.leadFromAppointmentDetail.valid) {
+
       if (this.model.Id == undefined || this.model.Id == 0) {
-        this.model.CustomerUserId = this._auth.GetUserDetail()?.UserId as number;
         this.model.IsActive = true;
       }
+      if (this.UserId > 0) {
+        this.model.CustomerUserId = this._auth.GetUserDetail()?.UserId as number;
+
+      }
+
       this.model.JewelleryDetail.Karat = this.model.JewelleryDetail.Karat ? Number(this.model.JewelleryDetail.Karat) : null;
       this.model.JewelleryDetail.Weight = this.model.JewelleryDetail.Weight ? Number(this.model.JewelleryDetail.Weight) : null;
       this.model.LoanAmountRequired = this.model.LoanAmountRequired ? Number(this.model.LoanAmountRequired) : null;
@@ -132,6 +140,7 @@ export class AddEditGoldLoanFreshLeadComponent implements OnInit {
           this.leadFromJewelleryDetail.reset();
           this.leadFromAppointmentDetail.reset();
           this.model = new GoldLoanFreshLeadModel();
+          this._router.navigate(['/user-customer/gold-loan-leads'])
 
         } else {
           this.toast.success(Message.SaveFail);
@@ -147,8 +156,13 @@ export class AddEditGoldLoanFreshLeadComponent implements OnInit {
       serve.unsubscribe();
       if (res.IsSuccess) {
         this.model = res.Data as GoldLoanFreshLeadModel;
-        debugger
-        if(this.model.KycDocument.Pincode){
+
+        if (this.model.KycDocument.KycDocumentTypeId) {
+          this.onChangeDocument(this.model.KycDocument.KycDocumentTypeId);
+        }
+
+
+        if (this.model.KycDocument.Pincode) {
           this.onChangePinCode();
         }
       }
@@ -224,7 +238,7 @@ export class AddEditGoldLoanFreshLeadComponent implements OnInit {
 
 
   onChangeDocument(value: number) {
-    this.model.KycDocument.DocumentNumber = undefined;
+
     let doc = this.ddlDocumentTypeModel?.find(x => x.Id == value);
     this.f2.DocumentNumber.setValidators(Validators.compose([Validators.minLength(doc?.DocumentNumberLength as number), Validators.maxLength(doc?.DocumentNumberLength as number)]));
     this.f2.DocumentNumber.updateValueAndValidity();

@@ -15,7 +15,7 @@ import { UserSettingService } from 'src/app/Shared/Services/user-setting-service
   selector: 'app-gold-loan-fresh-lead',
   templateUrl: './gold-loan-fresh-lead.component.html',
   styleUrls: ['./gold-loan-fresh-lead.component.scss'],
-  providers: [GoldLoanLeadsService,UserSettingService,AuthService]
+  providers: [GoldLoanLeadsService, UserSettingService, AuthService]
 })
 export class GoldLoanFreshLeadComponent implements OnInit {
   userId!: number;
@@ -24,14 +24,14 @@ export class GoldLoanFreshLeadComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort!: MatSort;
 
-  displayedColumns: string[] = ['index', 'FullName','FatherName' ,'PrimaryMobileNumber','LoanAmountRequired', 'LeadSourceByUserName','ProductName','Pincode', 'IsActive', 'Action'];
+  displayedColumns: string[] = ['index', 'FullName', 'FatherName', 'PrimaryMobileNumber', 'LoanAmountRequired', 'LeadSourceByUserName', 'ProductName', 'Pincode', 'IsActive', 'Action'];
   ViewdisplayedColumns = [{ Value: 'FullName', Text: 'Full Name' },
   { Value: 'PrimaryMobileNumber', Text: 'Mobile Number' },
   { Value: 'LeadSourceByUserName', Text: 'Lead Source By' },
   { Value: 'LoanAmountRequired', Text: 'Loan Amount' },
   { Value: 'FatherName', Text: 'Father Name' },
   { Value: 'ProductName', Text: 'Product' },
-  { Value:'Pincode', Text: 'Pincode'}];
+  { Value: 'Pincode', Text: 'Pincode' }];
   indexModel = new IndexModel();
   totalRecords: number = 0;
   get routing_Url() { return Routing_Url };
@@ -42,18 +42,22 @@ export class GoldLoanFreshLeadComponent implements OnInit {
     private readonly _commonService: CommonService,
     private readonly toast: ToastrService,
     private readonly _userSettingService: UserSettingService,
-    private readonly _authService: AuthService) { }
-  ngOnInit(): void {
+    private readonly _authService: AuthService) {
     let user = this._authService.GetUserDetail();
-    this.indexModel.UserId  = user!.UserId;
-    this.getList();
+    this.indexModel.UserId = user!.UserId;
   }
-  getList(): void {
-    let serve = this._freshLeadService.GetList(this.indexModel).subscribe(response => {
+
+  ngOnInit() {
+
+    this.getLeadList();
+
+  }
+
+  getLeadList(): void {
+     let serve = this._freshLeadService.GetList(this.indexModel).subscribe(response => {
       serve.unsubscribe();
       if (response.IsSuccess) {
         this.model = response.Data as GoldLoanFreshLeadListModel[];
-        console.log(this.model);
         this.dataSource = new MatTableDataSource<GoldLoanFreshLeadListModel>(this.model);
         this.totalRecords = response.TotalRecord as number;
         if (!this.indexModel.IsPostBack) {
@@ -69,30 +73,31 @@ export class GoldLoanFreshLeadComponent implements OnInit {
         this.toast.error(error.Message as string, 'Error');
       });
   }
+  
   sortData(event: any): void {
 
     this.indexModel.OrderBy = event.active;
     this.indexModel.OrderByAsc = event.direction == "asc" ? true : false;
     this.indexModel.IsPostBack = true;
-    this.getList();
+    this.getLeadList();
   }
   onSearch() {
     this.indexModel.Page = 1;
     this.indexModel.IsPostBack = false;
 
-    this.getList();
+    this.getLeadList();
   }
   onPaginateChange(event: any) {
     this.indexModel.Page = event.pageIndex + 1;
     this.indexModel.PageSize = event.pageSize;
     this.indexModel.IsPostBack = true;
-    this.getList();
+    this.getLeadList();
   }
   onPageSizeChange() {
 
     this.indexModel.IsPostBack = true;
     this.indexModel.PageSize = Number(this.indexModel.PageSize);
-    this.getList();
+    this.getLeadList();
   }
   OnActiveStatus(Id: number) {
 
@@ -104,7 +109,7 @@ export class GoldLoanFreshLeadComponent implements OnInit {
             serv.unsubscribe();
             if (data.IsSuccess) {
               this._commonService.Success(data.Message as string)
-              this.getList();
+              this.getLeadList();
             }
           },
           error => {
@@ -125,7 +130,7 @@ export class GoldLoanFreshLeadComponent implements OnInit {
             serv.unsubscribe();
             if (data.IsSuccess) {
               this.toast.success(data.Message as string, 'Removed');
-              this.getList();
+              this.getLeadList();
             } else {
               this.toast.warning(data.Message as string, 'Server Error');
             }
@@ -146,7 +151,7 @@ export class GoldLoanFreshLeadComponent implements OnInit {
             serv.unsubscribe();
             if (data.IsSuccess) {
               this.toast.success(data.Message as string, 'Access Permission');
-              this.getList();
+              this.getLeadList();
             } else {
               this.toast.warning(data.Message as string, 'Server Error');
             }
