@@ -208,10 +208,11 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                     .Include(x => x.BtgoldLoanLeadExistingLoanDetail)
                     .Include(x => x.BtgoldLoanLeadJewelleryDetail).ThenInclude(x => x.JewelleryType)
                     .Include(x => x.BtgoldLoanLeadDocumentDetail)
-                    .Include(x => x.BtgoldLoanLeadKycdetail).ThenInclude(x => x.PoadocumentType).Include(x => x.BtgoldLoanLeadKycdetail).ThenInclude(x => x.PoidocumentType).FirstOrDefaultAsync();
+                    .Include(x => x.BtgoldLoanLeadKycdetail).ThenInclude(x => x.PoadocumentType)
+                    .Include(x => x.BtgoldLoanLeadKycdetail).ThenInclude(x => x.PoidocumentType).FirstOrDefaultAsync();
 
                 BTGoldLoanLeadViewModel objModel = new BTGoldLoanLeadViewModel();
-
+                
 
                 return null;
 
