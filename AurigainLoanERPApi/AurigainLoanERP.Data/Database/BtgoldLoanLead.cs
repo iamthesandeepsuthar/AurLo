@@ -33,6 +33,8 @@ namespace AurigainLoanERP.Data.Database
         public string Purpose { get; set; }
         public long LeadSourceByuserId { get; set; }
         public long CustomerUserId { get; set; }
+        public bool IsInternalLead { get; set; }
+        public int? LeadStatus { get; set; }
         public bool? IsActive { get; set; }
         public bool IsDelete { get; set; }
         public DateTime CreatedOn { get; set; }

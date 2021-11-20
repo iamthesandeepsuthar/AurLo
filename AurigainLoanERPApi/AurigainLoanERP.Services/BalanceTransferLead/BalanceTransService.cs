@@ -34,7 +34,7 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
         {
             try
             {
-                
+
                 await _db.Database.BeginTransactionAsync();
                 if (model.Id == 0 || model.Id == default)
                 {
@@ -196,6 +196,33 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
             }
         }
 
+        public async Task<ApiServiceResponseModel<BTGoldLoanLeadViewModel>> BTGoldLoanDetail(int id)
+        {
+            try
+            {
+                var detail = await _db.BtgoldLoanLead.Where(x => x.Id == id && !x.IsDelete && x.IsActive == true)
+                    .Include(x => x.LeadSourceByuser).Include(x => x.CustomerUser)
+                    .Include(x => x.Product).ThenInclude(x => x.ProductCategory)
+                    .Include(x => x.BtgoldLoanLeadAddressDetail).ThenInclude(x => x.AeraPincode).ThenInclude(x => x.District).ThenInclude(x => x.State)
+                    .Include(x => x.BtgoldLoanLeadAppointmentDetail).ThenInclude(x => x.Branch).ThenInclude(x => x.Bank)
+                    .Include(x => x.BtgoldLoanLeadExistingLoanDetail)
+                    .Include(x => x.BtgoldLoanLeadJewelleryDetail).ThenInclude(x => x.JewelleryType)
+                    .Include(x => x.BtgoldLoanLeadDocumentDetail)
+                    .Include(x => x.BtgoldLoanLeadKycdetail).ThenInclude(x => x.PoadocumentType).Include(x => x.BtgoldLoanLeadKycdetail).ThenInclude(x => x.PoidocumentType).FirstOrDefaultAsync();
+
+                BTGoldLoanLeadViewModel objModel = new BTGoldLoanLeadViewModel();
+
+
+                return null;
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
         #region <<Private Method Of Balance Transafer Gold Loan Lead>>
         private async Task<long> SaveCustomerBTFreshLead(BTGoldLoanLeadPostModel model)
         {
@@ -344,16 +371,16 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                     {
 
                         LeadId = LeadId,
-                        CustomerPhoto = model.CustomerPhoto != null ? Path.Combine(fileSavePath, _fileHelper.Save(model.CustomerPhoto.File, fileSavePath, model.CustomerPhoto.FileName) ): null,
-                        KycdocumentPoi = model.KycDocumentPoi != null ? Path.Combine(fileSavePath, _fileHelper.Save(model.KycDocumentPoi.File, fileSavePath, model.KycDocumentPoi.FileName) ): null,
-                        KycdocumentPoa = model.KycDocumentPoa != null ? Path.Combine(fileSavePath, _fileHelper.Save(model.KycDocumentPoa.File, fileSavePath, model.KycDocumentPoa.FileName) ): null,
-                        BlankCheque1 = model.BlankCheque1 != null ? Path.Combine(fileSavePath, _fileHelper.Save(model.BlankCheque1.File, fileSavePath, model.BlankCheque1.FileName) ): null,
-                        BlankCheque2 = model.BlankCheque2 != null ? Path.Combine(fileSavePath, _fileHelper.Save(model.BlankCheque2.File, fileSavePath, model.BlankCheque2.FileName) ): null,
-                        LoanDocument = model.LoanDocument != null ? Path.Combine(fileSavePath, _fileHelper.Save(model.LoanDocument.File, fileSavePath, model.LoanDocument.FileName) ): null,
-                        AggrementLastPage = model.AggrementLastPage != null ? Path.Combine(fileSavePath, _fileHelper.Save(model.AggrementLastPage.File, fileSavePath, model.AggrementLastPage.FileName) ): null,
-                        PromissoryNote = model.PromissoryNote != null ? Path.Combine(fileSavePath, _fileHelper.Save(model.PromissoryNote.File, fileSavePath, model.PromissoryNote.FileName) ): null,
-                        AtmwithdrawalSlip = model.AtmwithdrawalSlip != null ? Path.Combine(fileSavePath, _fileHelper.Save(model.AtmwithdrawalSlip.File, fileSavePath, model.AtmwithdrawalSlip.FileName) ): null,
-                        ForeClosureLetter = model.ForeClosureLetter != null ? Path.Combine(fileSavePath, _fileHelper.Save(model.ForeClosureLetter.File, fileSavePath, model.ForeClosureLetter.FileName) ): null,
+                        CustomerPhoto = model.CustomerPhoto != null ? Path.Combine(fileSavePath, _fileHelper.Save(model.CustomerPhoto.File, fileSavePath, model.CustomerPhoto.FileName)) : null,
+                        KycdocumentPoi = model.KycDocumentPoi != null ? Path.Combine(fileSavePath, _fileHelper.Save(model.KycDocumentPoi.File, fileSavePath, model.KycDocumentPoi.FileName)) : null,
+                        KycdocumentPoa = model.KycDocumentPoa != null ? Path.Combine(fileSavePath, _fileHelper.Save(model.KycDocumentPoa.File, fileSavePath, model.KycDocumentPoa.FileName)) : null,
+                        BlankCheque1 = model.BlankCheque1 != null ? Path.Combine(fileSavePath, _fileHelper.Save(model.BlankCheque1.File, fileSavePath, model.BlankCheque1.FileName)) : null,
+                        BlankCheque2 = model.BlankCheque2 != null ? Path.Combine(fileSavePath, _fileHelper.Save(model.BlankCheque2.File, fileSavePath, model.BlankCheque2.FileName)) : null,
+                        LoanDocument = model.LoanDocument != null ? Path.Combine(fileSavePath, _fileHelper.Save(model.LoanDocument.File, fileSavePath, model.LoanDocument.FileName)) : null,
+                        AggrementLastPage = model.AggrementLastPage != null ? Path.Combine(fileSavePath, _fileHelper.Save(model.AggrementLastPage.File, fileSavePath, model.AggrementLastPage.FileName)) : null,
+                        PromissoryNote = model.PromissoryNote != null ? Path.Combine(fileSavePath, _fileHelper.Save(model.PromissoryNote.File, fileSavePath, model.PromissoryNote.FileName)) : null,
+                        AtmwithdrawalSlip = model.AtmwithdrawalSlip != null ? Path.Combine(fileSavePath, _fileHelper.Save(model.AtmwithdrawalSlip.File, fileSavePath, model.AtmwithdrawalSlip.FileName)) : null,
+                        ForeClosureLetter = model.ForeClosureLetter != null ? Path.Combine(fileSavePath, _fileHelper.Save(model.ForeClosureLetter.File, fileSavePath, model.ForeClosureLetter.FileName)) : null,
                     };
 
                     var result = await _db.BtgoldLoanLeadDocumentDetail.AddAsync(objModel);
