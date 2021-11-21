@@ -3020,10 +3020,11 @@ table .badge-dark {
     color: #000000;
 }
 
-.date-icon-with-label .fa-calendar-alt {
+.date-icon-with-label .fa-calendar-alt,
+.date-icon-with-label .date-icon-with-label-items {
     position: absolute;
-    top: 43px;
-    right: 30px;
+    top: 40px;
+    right: 25px;
     font-size: 20px;
 }
 
@@ -4197,6 +4198,61 @@ table {
 
 h4 {
     font-size: 1.5rem !important;
+}
+
+.dropdown-item-img {
+    height: 80px;
+    width: 80px;
+    overflow: hidden;
+    background: #000;
+    border-radius: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    box-shadow: 0 0 20px #ddd;
+    border: none;
+}
+
+.dropdown-item-name {
+    white-space: normal;
+    line-height: 22px;
+    margin: 10px 0px 5px 0px;
+}
+
+.dropdown-item-sign-out {
+    color: #002767 !important;
+}
+
+.form-control-before-icon svg {
+    position: absolute;
+    top: 8px;
+    left: 10px;
+    height: 28px;
+    width: 28px;
+}
+
+.form-control-before-icon input.form-control {
+    padding-left: 38px;
+}
+
+.verify-otp-card .verify-otp-card-items:first-child {
+    margin-left: 0px;
+}
+
+.verify-otp-card-items {
+    flex: 1;
+    margin: 3px;
+}
+
+.verify-otp-card .verify-otp-card-items:last-child {
+    margin-right: 0px;
+}
+
+.verify-otp-card-items input {
+    font-size: 23px;
+    text-align: center;
+    padding: 8px !important;
 }
 
 
