@@ -22,6 +22,7 @@ namespace AurigainLoanERP.Data.Database
         public virtual DbSet<BankBranchMaster> BankBranchMaster { get; set; }
         public virtual DbSet<BankMaster> BankMaster { get; set; }
         public virtual DbSet<BtgoldLoanLead> BtgoldLoanLead { get; set; }
+        public virtual DbSet<BtgoldLoanLeadActionHistory> BtgoldLoanLeadActionHistory { get; set; }
         public virtual DbSet<BtgoldLoanLeadAddressDetail> BtgoldLoanLeadAddressDetail { get; set; }
         public virtual DbSet<BtgoldLoanLeadAppointmentDetail> BtgoldLoanLeadAppointmentDetail { get; set; }
         public virtual DbSet<BtgoldLoanLeadDocumentDetail> BtgoldLoanLeadDocumentDetail { get; set; }
@@ -32,6 +33,7 @@ namespace AurigainLoanERP.Data.Database
         public virtual DbSet<DocumentType> DocumentType { get; set; }
         public virtual DbSet<FreshLeadHlplcl> FreshLeadHlplcl { get; set; }
         public virtual DbSet<GoldLoanFreshLead> GoldLoanFreshLead { get; set; }
+        public virtual DbSet<GoldLoanFreshLeadActionHistory> GoldLoanFreshLeadActionHistory { get; set; }
         public virtual DbSet<GoldLoanFreshLeadAppointmentDetail> GoldLoanFreshLeadAppointmentDetail { get; set; }
         public virtual DbSet<GoldLoanFreshLeadJewelleryDetail> GoldLoanFreshLeadJewelleryDetail { get; set; }
         public virtual DbSet<GoldLoanFreshLeadKycDocument> GoldLoanFreshLeadKycDocument { get; set; }
@@ -64,7 +66,7 @@ namespace AurigainLoanERP.Data.Database
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=LAPTOP-VC0IBCS1;Database=Aurigain;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer("Server=.\\SQLExpress01;Database=Aurigain;Trusted_Connection=True;");
             }
         }
 
@@ -111,7 +113,7 @@ namespace AurigainLoanERP.Data.Database
                     .WithMany(p => p.BankBranchMaster)
                     .HasForeignKey(d => d.BankId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__BankBranc__BankI__4A4E069C");
+                    .HasConstraintName("FK__BankBranc__BankI__2BC97F7C");
             });
 
             modelBuilder.Entity<BankMaster>(entity =>
@@ -195,19 +197,44 @@ namespace AurigainLoanERP.Data.Database
                     .WithMany(p => p.BtgoldLoanLeadCustomerUser)
                     .HasForeignKey(d => d.CustomerUserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__BTGoldLoa__Custo__1C1D2798");
+                    .HasConstraintName("FK__BTGoldLoa__Custo__7E8CC4B1");
 
                 entity.HasOne(d => d.LeadSourceByuser)
                     .WithMany(p => p.BtgoldLoanLeadLeadSourceByuser)
                     .HasForeignKey(d => d.LeadSourceByuserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__BTGoldLoa__LeadS__1D114BD1");
+                    .HasConstraintName("FK__BTGoldLoa__LeadS__7CA47C3F");
 
                 entity.HasOne(d => d.Product)
                     .WithMany(p => p.BtgoldLoanLead)
                     .HasForeignKey(d => d.ProductId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__BTGoldLoa__Produ__1B29035F");
+                    .HasConstraintName("FK__BTGoldLoa__Produ__7D98A078");
+            });
+
+            modelBuilder.Entity<BtgoldLoanLeadActionHistory>(entity =>
+            {
+                entity.ToTable("BTGoldLoanLeadActionHistory");
+
+                entity.Property(e => e.ActionDate)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.AssignFromUser)
+                    .WithMany(p => p.BtgoldLoanLeadActionHistoryAssignFromUser)
+                    .HasForeignKey(d => d.AssignFromUserId)
+                    .HasConstraintName("FK__BTGoldLoa__Assig__00750D23");
+
+                entity.HasOne(d => d.AssignToUser)
+                    .WithMany(p => p.BtgoldLoanLeadActionHistoryAssignToUser)
+                    .HasForeignKey(d => d.AssignToUserId)
+                    .HasConstraintName("FK__BTGoldLoa__Assig__0169315C");
+
+                entity.HasOne(d => d.Lead)
+                    .WithMany(p => p.BtgoldLoanLeadActionHistory)
+                    .HasForeignKey(d => d.LeadId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__BTGoldLoa__LeadI__7F80E8EA");
             });
 
             modelBuilder.Entity<BtgoldLoanLeadAddressDetail>(entity =>
@@ -221,18 +248,18 @@ namespace AurigainLoanERP.Data.Database
                 entity.HasOne(d => d.AeraPincode)
                     .WithMany(p => p.BtgoldLoanLeadAddressDetailAeraPincode)
                     .HasForeignKey(d => d.AeraPincodeId)
-                    .HasConstraintName("FK__BTGoldLoa__AeraP__46486B8E");
+                    .HasConstraintName("FK__BTGoldLoa__AeraP__15A53433");
 
                 entity.HasOne(d => d.CorrespondAeraPincode)
                     .WithMany(p => p.BtgoldLoanLeadAddressDetailCorrespondAeraPincode)
                     .HasForeignKey(d => d.CorrespondAeraPincodeId)
-                    .HasConstraintName("FK__BTGoldLoa__Corre__473C8FC7");
+                    .HasConstraintName("FK__BTGoldLoa__Corre__1699586C");
 
                 entity.HasOne(d => d.Lead)
                     .WithMany(p => p.BtgoldLoanLeadAddressDetail)
                     .HasForeignKey(d => d.LeadId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__BTGoldLoa__LeadI__15702A09");
+                    .HasConstraintName("FK__BTGoldLoa__LeadI__76EBA2E9");
             });
 
             modelBuilder.Entity<BtgoldLoanLeadAppointmentDetail>(entity =>
@@ -244,13 +271,13 @@ namespace AurigainLoanERP.Data.Database
                 entity.HasOne(d => d.Branch)
                     .WithMany(p => p.BtgoldLoanLeadAppointmentDetail)
                     .HasForeignKey(d => d.BranchId)
-                    .HasConstraintName("FK__BTGoldLoa__Branc__4924D839");
+                    .HasConstraintName("FK__BTGoldLoa__Branc__1881A0DE");
 
                 entity.HasOne(d => d.Lead)
                     .WithMany(p => p.BtgoldLoanLeadAppointmentDetail)
                     .HasForeignKey(d => d.LeadId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__BTGoldLoa__LeadI__16644E42");
+                    .HasConstraintName("FK__BTGoldLoa__LeadI__77DFC722");
             });
 
             modelBuilder.Entity<BtgoldLoanLeadDocumentDetail>(entity =>
@@ -267,7 +294,7 @@ namespace AurigainLoanERP.Data.Database
                     .WithMany(p => p.BtgoldLoanLeadDocumentDetail)
                     .HasForeignKey(d => d.LeadId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__BTGoldLoa__LeadI__1758727B");
+                    .HasConstraintName("FK__BTGoldLoa__LeadI__78D3EB5B");
             });
 
             modelBuilder.Entity<BtgoldLoanLeadExistingLoanDetail>(entity =>
@@ -292,7 +319,7 @@ namespace AurigainLoanERP.Data.Database
                     .WithMany(p => p.BtgoldLoanLeadExistingLoanDetail)
                     .HasForeignKey(d => d.LeadId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__BTGoldLoa__LeadI__184C96B4");
+                    .HasConstraintName("FK__BTGoldLoa__LeadI__79C80F94");
             });
 
             modelBuilder.Entity<BtgoldLoanLeadJewelleryDetail>(entity =>
@@ -304,13 +331,13 @@ namespace AurigainLoanERP.Data.Database
                 entity.HasOne(d => d.JewelleryType)
                     .WithMany(p => p.BtgoldLoanLeadJewelleryDetail)
                     .HasForeignKey(d => d.JewelleryTypeId)
-                    .HasConstraintName("FK__BTGoldLoa__Jewel__4CF5691D");
+                    .HasConstraintName("FK__BTGoldLoa__Jewel__1C5231C2");
 
                 entity.HasOne(d => d.Lead)
                     .WithMany(p => p.BtgoldLoanLeadJewelleryDetail)
                     .HasForeignKey(d => d.LeadId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__BTGoldLoa__LeadI__1940BAED");
+                    .HasConstraintName("FK__BTGoldLoa__LeadI__7ABC33CD");
             });
 
             modelBuilder.Entity<BtgoldLoanLeadKycdetail>(entity =>
@@ -337,19 +364,19 @@ namespace AurigainLoanERP.Data.Database
                     .WithMany(p => p.BtgoldLoanLeadKycdetail)
                     .HasForeignKey(d => d.LeadId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__BTGoldLoa__LeadI__1A34DF26");
+                    .HasConstraintName("FK__BTGoldLoa__LeadI__7BB05806");
 
                 entity.HasOne(d => d.PoadocumentType)
                     .WithMany(p => p.BtgoldLoanLeadKycdetailPoadocumentType)
                     .HasForeignKey(d => d.PoadocumentTypeId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__BTGoldLoa__POADo__4FD1D5C8");
+                    .HasConstraintName("FK__BTGoldLoa__POADo__1F2E9E6D");
 
                 entity.HasOne(d => d.PoidocumentType)
                     .WithMany(p => p.BtgoldLoanLeadKycdetailPoidocumentType)
                     .HasForeignKey(d => d.PoidocumentTypeId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__BTGoldLoa__POIDo__4EDDB18F");
+                    .HasConstraintName("FK__BTGoldLoa__POIDo__1E3A7A34");
             });
 
             modelBuilder.Entity<District>(entity =>
@@ -432,13 +459,13 @@ namespace AurigainLoanERP.Data.Database
                     .WithMany(p => p.FreshLeadHlplcl)
                     .HasForeignKey(d => d.LeadSourceByUserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__FreshLead__LeadS__062DE679");
+                    .HasConstraintName("FK__FreshLead__LeadS__67A95F59");
 
                 entity.HasOne(d => d.Product)
                     .WithMany(p => p.FreshLeadHlplcl)
                     .HasForeignKey(d => d.ProductId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__FreshLead__Produ__07220AB2");
+                    .HasConstraintName("FK__FreshLead__Produ__689D8392");
             });
 
             modelBuilder.Entity<GoldLoanFreshLead>(entity =>
@@ -479,19 +506,42 @@ namespace AurigainLoanERP.Data.Database
                     .WithMany(p => p.GoldLoanFreshLeadCustomerUser)
                     .HasForeignKey(d => d.CustomerUserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__GoldLoanF__Custo__0EC32C7A");
+                    .HasConstraintName("FK__GoldLoanF__Custo__6A85CC04");
 
                 entity.HasOne(d => d.LeadSourceByUser)
                     .WithMany(p => p.GoldLoanFreshLeadLeadSourceByUser)
                     .HasForeignKey(d => d.LeadSourceByUserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__GoldLoanF__LeadS__0BE6BFCF");
+                    .HasConstraintName("FK__GoldLoanF__LeadS__50C5FA01");
 
                 entity.HasOne(d => d.Product)
                     .WithMany(p => p.GoldLoanFreshLead)
                     .HasForeignKey(d => d.ProductId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__GoldLoanF__Produ__0CDAE408");
+                    .HasConstraintName("FK__GoldLoanF__Produ__51BA1E3A");
+            });
+
+            modelBuilder.Entity<GoldLoanFreshLeadActionHistory>(entity =>
+            {
+                entity.Property(e => e.ActionDate)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.AssignFromUser)
+                    .WithMany(p => p.GoldLoanFreshLeadActionHistoryAssignFromUser)
+                    .HasForeignKey(d => d.AssignFromUserId)
+                    .HasConstraintName("FK__GoldLoanF__Assig__035179CE");
+
+                entity.HasOne(d => d.AssignToUser)
+                    .WithMany(p => p.GoldLoanFreshLeadActionHistoryAssignToUser)
+                    .HasForeignKey(d => d.AssignToUserId)
+                    .HasConstraintName("FK__GoldLoanF__Assig__04459E07");
+
+                entity.HasOne(d => d.Lead)
+                    .WithMany(p => p.GoldLoanFreshLeadActionHistory)
+                    .HasForeignKey(d => d.LeadId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__GoldLoanF__LeadI__025D5595");
             });
 
             modelBuilder.Entity<GoldLoanFreshLeadAppointmentDetail>(entity =>
@@ -514,19 +564,19 @@ namespace AurigainLoanERP.Data.Database
                     .WithMany(p => p.GoldLoanFreshLeadAppointmentDetail)
                     .HasForeignKey(d => d.BankId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__GoldLoanF__BankI__1B5E0D89");
+                    .HasConstraintName("FK__GoldLoanF__BankI__57A801BA");
 
                 entity.HasOne(d => d.Branch)
                     .WithMany(p => p.GoldLoanFreshLeadAppointmentDetail)
                     .HasForeignKey(d => d.BranchId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__GoldLoanF__Branc__1C5231C2");
+                    .HasConstraintName("FK__GoldLoanF__Branc__589C25F3");
 
                 entity.HasOne(d => d.GlfreshLead)
                     .WithMany(p => p.GoldLoanFreshLeadAppointmentDetail)
                     .HasForeignKey(d => d.GlfreshLeadId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__GoldLoanF__GLFre__090A5324");
+                    .HasConstraintName("FK__GoldLoanF__GLFre__52AE4273");
             });
 
             modelBuilder.Entity<GoldLoanFreshLeadJewelleryDetail>(entity =>
@@ -547,7 +597,7 @@ namespace AurigainLoanERP.Data.Database
                     .WithMany(p => p.GoldLoanFreshLeadJewelleryDetail)
                     .HasForeignKey(d => d.GlfreshLeadId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__GoldLoanF__GLFre__09FE775D");
+                    .HasConstraintName("FK__GoldLoanF__GLFre__4EDDB18F");
             });
 
             modelBuilder.Entity<GoldLoanFreshLeadKycDocument>(entity =>
@@ -578,19 +628,19 @@ namespace AurigainLoanERP.Data.Database
                     .WithMany(p => p.GoldLoanFreshLeadKycDocument)
                     .HasForeignKey(d => d.GlfreshLeadId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__GoldLoanF__GLFre__0AF29B96");
+                    .HasConstraintName("FK__GoldLoanF__GLFre__4FD1D5C8");
 
                 entity.HasOne(d => d.KycDocumentType)
                     .WithMany(p => p.GoldLoanFreshLeadKycDocument)
                     .HasForeignKey(d => d.KycDocumentTypeId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__GoldLoanF__KycDo__1975C517");
+                    .HasConstraintName("FK__GoldLoanF__KycDo__10E07F16");
 
                 entity.HasOne(d => d.PincodeArea)
                     .WithMany(p => p.GoldLoanFreshLeadKycDocument)
                     .HasForeignKey(d => d.PincodeAreaId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__GoldLoanF__Pinco__53D770D6");
+                    .HasConstraintName("FK__GoldLoanF__Pinco__3552E9B6");
             });
 
             modelBuilder.Entity<JewellaryType>(entity =>
@@ -642,19 +692,19 @@ namespace AurigainLoanERP.Data.Database
                     .WithMany(p => p.Managers)
                     .HasForeignKey(d => d.DistrictId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Managers__Distri__6D9742D9");
+                    .HasConstraintName("FK__Managers__Distri__3CF40B7E");
 
                 entity.HasOne(d => d.State)
                     .WithMany(p => p.Managers)
                     .HasForeignKey(d => d.StateId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Managers__StateI__6E8B6712");
+                    .HasConstraintName("FK__Managers__StateI__3DE82FB7");
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.Managers)
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Managers__UserId__6CA31EA0");
+                    .HasConstraintName("FK__Managers__UserId__3BFFE745");
             });
 
             modelBuilder.Entity<PaymentMode>(entity =>
@@ -698,7 +748,7 @@ namespace AurigainLoanERP.Data.Database
                     .WithMany(p => p.PincodeArea)
                     .HasForeignKey(d => d.DistrictId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__PincodeAr__Distr__1A9EF37A");
+                    .HasConstraintName("FK__PincodeAr__Distr__5BAD9CC8");
             });
 
             modelBuilder.Entity<Product>(entity =>
@@ -715,13 +765,13 @@ namespace AurigainLoanERP.Data.Database
                     .WithMany(p => p.Product)
                     .HasForeignKey(d => d.BankId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Product__BankId__7073AF84");
+                    .HasConstraintName("FK__Product__BankId__477199F1");
 
                 entity.HasOne(d => d.ProductCategory)
                     .WithMany(p => p.Product)
                     .HasForeignKey(d => d.ProductCategoryId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Product__Product__436BFEE3");
+                    .HasConstraintName("FK__Product__Product__5F492382");
             });
 
             modelBuilder.Entity<ProductCategory>(entity =>
@@ -810,19 +860,19 @@ namespace AurigainLoanERP.Data.Database
                 entity.HasOne(d => d.District)
                     .WithMany(p => p.UserAgent)
                     .HasForeignKey(d => d.DistrictId)
-                    .HasConstraintName("FK__UserAgent__Distr__46B27FE2");
+                    .HasConstraintName("FK__UserAgent__Distr__123EB7A3");
 
                 entity.HasOne(d => d.Qualification)
                     .WithMany(p => p.UserAgent)
                     .HasForeignKey(d => d.QualificationId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__UserAgent__Quali__245D67DE");
+                    .HasConstraintName("FK__UserAgent__Quali__114A936A");
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.UserAgent)
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__UserAgent__UserI__09746778");
+                    .HasConstraintName("FK__UserAgent__UserI__5D95E53A");
             });
 
             modelBuilder.Entity<UserAvailability>(entity =>
@@ -908,7 +958,7 @@ namespace AurigainLoanERP.Data.Database
                     .WithMany(p => p.UserBank)
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__UserBank__UserId__0B5CAFEA");
+                    .HasConstraintName("FK__UserBank__UserId__5F7E2DAC");
             });
 
             modelBuilder.Entity<UserCustomer>(entity =>
@@ -934,13 +984,13 @@ namespace AurigainLoanERP.Data.Database
                 entity.HasOne(d => d.PincodeArea)
                     .WithMany(p => p.UserCustomer)
                     .HasForeignKey(d => d.PincodeAreaId)
-                    .HasConstraintName("FK__UserCusto__Pinco__7EC1CEDB");
+                    .HasConstraintName("FK__UserCusto__Pinco__4959E263");
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.UserCustomer)
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__UserCusto__UserI__7DCDAAA2");
+                    .HasConstraintName("FK__UserCusto__UserI__4865BE2A");
             });
 
             modelBuilder.Entity<UserDocument>(entity =>
@@ -959,13 +1009,13 @@ namespace AurigainLoanERP.Data.Database
                     .WithMany(p => p.UserDocument)
                     .HasForeignKey(d => d.DocumentTypeId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__UserDocum__Docum__1881A0DE");
+                    .HasConstraintName("FK__UserDocum__Docum__11D4A34F");
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.UserDocument)
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__UserDocum__UserI__0C50D423");
+                    .HasConstraintName("FK__UserDocum__UserI__607251E5");
             });
 
             modelBuilder.Entity<UserDocumentFiles>(entity =>
@@ -992,7 +1042,7 @@ namespace AurigainLoanERP.Data.Database
                     .WithMany(p => p.UserDocumentFiles)
                     .HasForeignKey(d => d.DocumentId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__UserDocum__Docum__114A936A");
+                    .HasConstraintName("FK__UserDocum__Docum__17036CC0");
             });
 
             modelBuilder.Entity<UserDoorStepAgent>(entity =>
@@ -1030,24 +1080,24 @@ namespace AurigainLoanERP.Data.Database
                 entity.HasOne(d => d.District)
                     .WithMany(p => p.UserDoorStepAgent)
                     .HasForeignKey(d => d.DistrictId)
-                    .HasConstraintName("FK__UserDoorS__Distr__489AC854");
+                    .HasConstraintName("FK__UserDoorS__Distr__19DFD96B");
 
                 entity.HasOne(d => d.Qualification)
                     .WithMany(p => p.UserDoorStepAgent)
                     .HasForeignKey(d => d.QualificationId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__UserDoorS__Quali__1332DBDC");
+                    .HasConstraintName("FK__UserDoorS__Quali__18EBB532");
 
                 entity.HasOne(d => d.SecurityDeposit)
                     .WithMany(p => p.UserDoorStepAgent)
                     .HasForeignKey(d => d.SecurityDepositId)
-                    .HasConstraintName("FK__UserDoorS__Secur__151B244E");
+                    .HasConstraintName("FK__UserDoorS__Secur__1AD3FDA4");
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.UserDoorStepAgent)
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__UserDoorS__UserI__0D44F85C");
+                    .HasConstraintName("FK__UserDoorS__UserI__6166761E");
             });
 
             modelBuilder.Entity<UserKyc>(entity =>
@@ -1075,13 +1125,13 @@ namespace AurigainLoanERP.Data.Database
                     .WithMany(p => p.UserKyc)
                     .HasForeignKey(d => d.KycdocumentTypeId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__UserKYC__KYCDocu__1A69E950");
+                    .HasConstraintName("FK__UserKYC__KYCDocu__12C8C788");
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.UserKyc)
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__UserKYC__UserId__0E391C95");
+                    .HasConstraintName("FK__UserKYC__UserId__634EBE90");
             });
 
             modelBuilder.Entity<UserLoginLog>(entity =>
@@ -1096,7 +1146,7 @@ namespace AurigainLoanERP.Data.Database
                     .WithMany(p => p.UserLoginLog)
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__UserLogin__UserI__0F2D40CE");
+                    .HasConstraintName("FK__UserLogin__UserI__6442E2C9");
             });
 
             modelBuilder.Entity<UserMaster>(entity =>
@@ -1128,7 +1178,7 @@ namespace AurigainLoanERP.Data.Database
                     .WithMany(p => p.UserMaster)
                     .HasForeignKey(d => d.UserRoleId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__UserMaste__UserR__14E61A24");
+                    .HasConstraintName("FK__UserMaste__UserR__625A9A57");
             });
 
             modelBuilder.Entity<UserNominee>(entity =>
@@ -1155,7 +1205,7 @@ namespace AurigainLoanERP.Data.Database
                     .WithMany(p => p.UserNominee)
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__UserNomin__UserI__10216507");
+                    .HasConstraintName("FK__UserNomin__UserI__65370702");
             });
 
             modelBuilder.Entity<UserOtp>(entity =>
@@ -1179,7 +1229,7 @@ namespace AurigainLoanERP.Data.Database
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.UserOtp)
                     .HasForeignKey(d => d.UserId)
-                    .HasConstraintName("FK__UserOTP__UserId__11158940");
+                    .HasConstraintName("FK__UserOTP__UserId__662B2B3B");
             });
 
             modelBuilder.Entity<UserReportingPerson>(entity =>
@@ -1194,13 +1244,13 @@ namespace AurigainLoanERP.Data.Database
                     .WithMany(p => p.UserReportingPersonReportingUser)
                     .HasForeignKey(d => d.ReportingUserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__UserRepor__Repor__12FDD1B2");
+                    .HasConstraintName("FK__UserRepor__Repor__681373AD");
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.UserReportingPersonUser)
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__UserRepor__UserI__1209AD79");
+                    .HasConstraintName("FK__UserRepor__UserI__671F4F74");
             });
 
             modelBuilder.Entity<UserRole>(entity =>
@@ -1248,13 +1298,13 @@ namespace AurigainLoanERP.Data.Database
                     .WithMany(p => p.UserSecurityDepositDetails)
                     .HasForeignKey(d => d.PaymentModeId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__UserSecur__Payme__1EA48E88");
+                    .HasConstraintName("FK__UserSecur__Payme__245D67DE");
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.UserSecurityDepositDetails)
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__UserSecur__UserI__13F1F5EB");
+                    .HasConstraintName("FK__UserSecur__UserI__690797E6");
             });
 
             OnModelCreatingPartial(modelBuilder);

@@ -11,9 +11,13 @@ namespace AurigainLoanERP.Data.Database
     {
         public UserMaster()
         {
+            BtgoldLoanLeadActionHistoryAssignFromUser = new HashSet<BtgoldLoanLeadActionHistory>();
+            BtgoldLoanLeadActionHistoryAssignToUser = new HashSet<BtgoldLoanLeadActionHistory>();
             BtgoldLoanLeadCustomerUser = new HashSet<BtgoldLoanLead>();
             BtgoldLoanLeadLeadSourceByuser = new HashSet<BtgoldLoanLead>();
             FreshLeadHlplcl = new HashSet<FreshLeadHlplcl>();
+            GoldLoanFreshLeadActionHistoryAssignFromUser = new HashSet<GoldLoanFreshLeadActionHistory>();
+            GoldLoanFreshLeadActionHistoryAssignToUser = new HashSet<GoldLoanFreshLeadActionHistory>();
             GoldLoanFreshLeadCustomerUser = new HashSet<GoldLoanFreshLead>();
             GoldLoanFreshLeadLeadSourceByUser = new HashSet<GoldLoanFreshLead>();
             Managers = new HashSet<Managers>();
@@ -52,9 +56,13 @@ namespace AurigainLoanERP.Data.Database
         public long? ModifiedBy { get; set; }
 
         public virtual UserRole UserRole { get; set; }
+        public virtual ICollection<BtgoldLoanLeadActionHistory> BtgoldLoanLeadActionHistoryAssignFromUser { get; set; }
+        public virtual ICollection<BtgoldLoanLeadActionHistory> BtgoldLoanLeadActionHistoryAssignToUser { get; set; }
         public virtual ICollection<BtgoldLoanLead> BtgoldLoanLeadCustomerUser { get; set; }
         public virtual ICollection<BtgoldLoanLead> BtgoldLoanLeadLeadSourceByuser { get; set; }
         public virtual ICollection<FreshLeadHlplcl> FreshLeadHlplcl { get; set; }
+        public virtual ICollection<GoldLoanFreshLeadActionHistory> GoldLoanFreshLeadActionHistoryAssignFromUser { get; set; }
+        public virtual ICollection<GoldLoanFreshLeadActionHistory> GoldLoanFreshLeadActionHistoryAssignToUser { get; set; }
         public virtual ICollection<GoldLoanFreshLead> GoldLoanFreshLeadCustomerUser { get; set; }
         public virtual ICollection<GoldLoanFreshLead> GoldLoanFreshLeadLeadSourceByUser { get; set; }
         public virtual ICollection<Managers> Managers { get; set; }
