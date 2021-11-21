@@ -201,10 +201,10 @@
             </div>
             <div class="form-group col-md-6">
               <label>Area (Location)</label>
-              <ng-select [items]="areaModel" [searchable]="true" bindLabel="AreaName" bindValue="Id"
+              <ng-select [items]="areaModel"   [searchable]="true" bindLabel="AreaName" bindValue="Id"
                 placeholder="Select area" formControlName="area"
                 [ngClass]="{ 'is-invalid': f3.area.errors && f3.area.touched}" [(ngModel)]="model.PincodeAreaId">
-              </ng-select>
+               </ng-select>
               <div class="invalid-feedback"
                 *ngIf="(registrationFromStepThird.get('area')?.hasError('required') && registrationFromStepThird.get('area')?.touched)">
                 Select area location</div>

@@ -204,7 +204,6 @@ namespace AurigainLoanERP.Services.FreshLead
                                     .Include(x => x.GoldLoanFreshLeadKycDocument).ThenInclude(y => y.KycDocumentType).
                                     Include(a => a.GoldLoanFreshLeadKycDocument).ThenInclude(x => x.PincodeArea).
                                     Include(a => a.GoldLoanFreshLeadKycDocument).ThenInclude(x => x.PincodeArea.District.State)
-                                    //   .Include(x => x.GoldLoanFreshLeadJewelleryDetail).ThenInclude(z=>z.JewelleryTypeId)
                                     .Include(x => x.GoldLoanFreshLeadAppointmentDetail).ThenInclude(p => p.Branch).ThenInclude(p => p.Bank).FirstOrDefaultAsync();
 
                 if (detail != null)
@@ -274,14 +273,6 @@ namespace AurigainLoanERP.Services.FreshLead
                         }).FirstOrDefault();
                     }
 
-
-                    //leadDetail.AppointmentDetail.AppointmentDate = detail.GoldLoanFreshLeadAppointmentDetail.Where(x => x.GlfreshLeadId == detail.Id).FirstOrDefault().AppointmentDate;
-                    //leadDetail.AppointmentDetail.AppointmentTime = detail.GoldLoanFreshLeadAppointmentDetail.Where(x => x.GlfreshLeadId == detail.Id).FirstOrDefault().AppointmentTime.ToString();
-                    //leadDetail.AppointmentDetail.BankName = detail.GoldLoanFreshLeadAppointmentDetail.Where(x => x.GlfreshLeadId == detail.Id).FirstOrDefault().Bank.Name;
-                    //leadDetail.AppointmentDetail.BranchName = detail.GoldLoanFreshLeadAppointmentDetail.Where(x => x.GlfreshLeadId == detail.Id).FirstOrDefault().Bank.BankBranchMaster.Where(y => y.BankId == y.BankId).FirstOrDefault().BranchName;
-                    //leadDetail.AppointmentDetail.IFSC = detail.GoldLoanFreshLeadAppointmentDetail.Where(x => x.GlfreshLeadId == detail.Id).FirstOrDefault().Bank.BankBranchMaster.Where(y => y.BankId == y.BankId).FirstOrDefault().Ifsc;
-                    //leadDetail.AppointmentDetail.Pincode = detail.GoldLoanFreshLeadAppointmentDetail.Where(x => x.GlfreshLeadId == detail.Id).FirstOrDefault().Bank.BankBranchMaster.Where(y => y.BankId == y.BankId).FirstOrDefault().Pincode;
-                    //leadDetail.AppointmentDetail.Id = detail.GoldLoanFreshLeadAppointmentDetail.Where(x => x.GlfreshLeadId == detail.Id).FirstOrDefault().Id;
                     return CreateResponse<GoldLoanFreshLeadViewModel>(leadDetail, ResponseMessage.Success, true, ((int)ApiStatusCode.Ok));
 
                 }
@@ -697,7 +688,7 @@ namespace AurigainLoanERP.Services.FreshLead
                     {
                         AppointmentDate = model.AppointmentDate,
                         AppointmentTime = model.AppointmentTime.ToTimeSpanValue(),
-                        BankId = model.BankId,
+                        BankId =  _db.BankBranchMaster.FirstOrDefault(x=> x.IsActive.Value && !x.IsDelete && x.Id==model.BranchId ).BankId,
                         BranchId = model.BranchId,
                         CreatedDate = DateTime.Now,
                         IsActive = true,
@@ -713,7 +704,7 @@ namespace AurigainLoanERP.Services.FreshLead
                     var detail = await _db.GoldLoanFreshLeadAppointmentDetail.Where(x => x.Id == model.Id).FirstOrDefaultAsync();
                     detail.AppointmentDate = model.AppointmentDate;
                     detail.AppointmentTime = model.AppointmentTime.ToTimeSpanValue();
-                    detail.BankId = model.BankId;
+                    detail.BankId = _db.BankBranchMaster.FirstOrDefault(x => x.IsActive.Value && !x.IsDelete && x.Id == model.BranchId).BankId;
                     detail.BranchId = model.BranchId;
                     await _db.SaveChangesAsync();
                     return true;

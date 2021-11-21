@@ -195,19 +195,19 @@ namespace AurigainLoanERP.Data.Database
                     .WithMany(p => p.BtgoldLoanLeadCustomerUser)
                     .HasForeignKey(d => d.CustomerUserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__BTGoldLoa__Custo__0539C240");
+                    .HasConstraintName("FK__BTGoldLoa__Custo__1C1D2798");
 
                 entity.HasOne(d => d.LeadSourceByuser)
                     .WithMany(p => p.BtgoldLoanLeadLeadSourceByuser)
                     .HasForeignKey(d => d.LeadSourceByuserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__BTGoldLoa__LeadS__7D98A078");
+                    .HasConstraintName("FK__BTGoldLoa__LeadS__1D114BD1");
 
                 entity.HasOne(d => d.Product)
                     .WithMany(p => p.BtgoldLoanLead)
                     .HasForeignKey(d => d.ProductId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__BTGoldLoa__Produ__04459E07");
+                    .HasConstraintName("FK__BTGoldLoa__Produ__1B29035F");
             });
 
             modelBuilder.Entity<BtgoldLoanLeadAddressDetail>(entity =>
@@ -232,7 +232,7 @@ namespace AurigainLoanERP.Data.Database
                     .WithMany(p => p.BtgoldLoanLeadAddressDetail)
                     .HasForeignKey(d => d.LeadId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__BTGoldLoa__LeadI__7E8CC4B1");
+                    .HasConstraintName("FK__BTGoldLoa__LeadI__15702A09");
             });
 
             modelBuilder.Entity<BtgoldLoanLeadAppointmentDetail>(entity =>
@@ -250,7 +250,7 @@ namespace AurigainLoanERP.Data.Database
                     .WithMany(p => p.BtgoldLoanLeadAppointmentDetail)
                     .HasForeignKey(d => d.LeadId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__BTGoldLoa__LeadI__7F80E8EA");
+                    .HasConstraintName("FK__BTGoldLoa__LeadI__16644E42");
             });
 
             modelBuilder.Entity<BtgoldLoanLeadDocumentDetail>(entity =>
@@ -267,7 +267,7 @@ namespace AurigainLoanERP.Data.Database
                     .WithMany(p => p.BtgoldLoanLeadDocumentDetail)
                     .HasForeignKey(d => d.LeadId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__BTGoldLoa__LeadI__00750D23");
+                    .HasConstraintName("FK__BTGoldLoa__LeadI__1758727B");
             });
 
             modelBuilder.Entity<BtgoldLoanLeadExistingLoanDetail>(entity =>
@@ -292,7 +292,7 @@ namespace AurigainLoanERP.Data.Database
                     .WithMany(p => p.BtgoldLoanLeadExistingLoanDetail)
                     .HasForeignKey(d => d.LeadId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__BTGoldLoa__LeadI__0169315C");
+                    .HasConstraintName("FK__BTGoldLoa__LeadI__184C96B4");
             });
 
             modelBuilder.Entity<BtgoldLoanLeadJewelleryDetail>(entity =>
@@ -310,7 +310,7 @@ namespace AurigainLoanERP.Data.Database
                     .WithMany(p => p.BtgoldLoanLeadJewelleryDetail)
                     .HasForeignKey(d => d.LeadId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__BTGoldLoa__LeadI__025D5595");
+                    .HasConstraintName("FK__BTGoldLoa__LeadI__1940BAED");
             });
 
             modelBuilder.Entity<BtgoldLoanLeadKycdetail>(entity =>
@@ -337,7 +337,7 @@ namespace AurigainLoanERP.Data.Database
                     .WithMany(p => p.BtgoldLoanLeadKycdetail)
                     .HasForeignKey(d => d.LeadId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__BTGoldLoa__LeadI__035179CE");
+                    .HasConstraintName("FK__BTGoldLoa__LeadI__1A34DF26");
 
                 entity.HasOne(d => d.PoadocumentType)
                     .WithMany(p => p.BtgoldLoanLeadKycdetailPoadocumentType)

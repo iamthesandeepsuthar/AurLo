@@ -80,7 +80,7 @@ namespace AurigainLoanERP.Services.Customer
                                               Gender = detail.Gender ?? null,
                                               ProfileImageUrl = detail.User.ProfilePath.ToAbsolutePath() ?? null,
                                               IsActive = detail.User.IsActive,
-                                              Password = detail.User.Password ,
+                                              Password = detail.User.Password,
                                               Pincode = detail.PincodeArea.Pincode
                                           }).ToListAsync();
                 if (result != null)
@@ -243,7 +243,7 @@ namespace AurigainLoanERP.Services.Customer
                         State = detail.PincodeArea.District.State.Name,
                         IsActive = detail.IsActive,
                         CreatedOn = detail.CreatedOn,
-                      
+
 
                     };
                     var docs = await _db.UserKyc.Where(x => x.UserId == detail.UserId).Include(x => x.KycdocumentType).ToListAsync();
@@ -280,7 +280,7 @@ namespace AurigainLoanERP.Services.Customer
                 var data = await _db.UserCustomer.Where(x => x.UserId == id).Include(x => x.PincodeArea).Include(x => x.User).FirstOrDefaultAsync();
                 if (data != null)
                 {
-                 
+
                     UserPostModel user = new UserPostModel
                     {
                         Id = data.User.Id,
@@ -297,10 +297,10 @@ namespace AurigainLoanERP.Services.Customer
                         Kycnumber = x.Kycnumber,
                         Id = x.Id
                     }).ToList();
-                                        
+
                     CustomerRegistrationModel customer = new CustomerRegistrationModel
                     {
-                        Id= data.Id,
+                        Id = data.Id,
                         User = user,
                         FullName = data.FullName,
                         Address = data.Address,
@@ -408,32 +408,43 @@ namespace AurigainLoanERP.Services.Customer
                 if (model != null)
                 {
 
+                    var docType = model.Select(x => x.KycdocumentTypeId).ToArray();
+                    var removedDate = await _db.UserKyc.Where(x => x.UserId == userId && !docType.Contains(x.KycdocumentTypeId)).ToListAsync();
+
+                    if (removedDate != null && removedDate.Count > 0)
+                    {
+                        _db.UserKyc.RemoveRange(removedDate);
+                        await _db.SaveChangesAsync();
+
+                    }
+
                     foreach (var item in model)
                     {
-                        if (item.Id == default)
+                        var objModel = await _db.UserKyc.FirstOrDefaultAsync(x => x.UserId == userId && x.KycdocumentTypeId == item.KycdocumentTypeId);
+                        if (objModel != null)
                         {
-                            var objModel = new UserKyc();
-                            objModel.CreatedOn = DateTime.Now;
-                            objModel.UserId = userId;
-                            objModel.KycdocumentTypeId = item.KycdocumentTypeId;
-                            objModel.Kycnumber = !string.IsNullOrEmpty(item.Kycnumber) ? item.Kycnumber : null; //_security.EncryptData(item.Kycnumber)
-                            var result = await _db.UserKyc.AddAsync(objModel);
-
-                        }
-                        else
-                        {
-                            var objModel = await _db.UserKyc.FirstOrDefaultAsync(x => x.Id == item.Id && x.UserId == userId);
                             objModel.ModifiedOn = DateTime.Now;
                             objModel.UserId = userId;
                             objModel.Kycnumber = !string.IsNullOrEmpty(item.Kycnumber) ? item.Kycnumber : null; //_security.EncryptData(item.Kycnumber)
                             objModel.KycdocumentTypeId = item.KycdocumentTypeId;
                         }
+                        else
+                        {
+                            var objNewModel = new UserKyc();
+                            objNewModel.CreatedOn = DateTime.Now;
+                            objNewModel.UserId = userId;
+                            objNewModel.KycdocumentTypeId = item.KycdocumentTypeId;
+                            objNewModel.Kycnumber = !string.IsNullOrEmpty(item.Kycnumber) ? item.Kycnumber : null; //_security.EncryptData(item.Kycnumber)
+                            var result = await _db.UserKyc.AddAsync(objNewModel);
+
+                        }
+
                     }
                     await _db.SaveChangesAsync();
                     return true;
                 }
                 return false;
-              
+
             }
             catch (Exception)
             {

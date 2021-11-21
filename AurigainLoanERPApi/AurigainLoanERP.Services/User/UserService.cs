@@ -1627,7 +1627,7 @@ namespace AurigainLoanERP.Services.User
                     if (isExist == null)
                     {
 
-                        model.RoleId = ((int)UserRoleEnum.Supervisor);
+                        //model.RoleId = ((int)UserRoleEnum.);
                         Random random = new Random();
                         UserMaster user = new UserMaster
                         {
@@ -1701,5 +1701,6 @@ namespace AurigainLoanERP.Services.User
 
 
         #endregion
+
     }
 }

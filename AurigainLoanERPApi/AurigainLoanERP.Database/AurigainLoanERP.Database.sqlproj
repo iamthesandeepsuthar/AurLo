@@ -108,6 +108,8 @@
     <Build Include="BTGoldLoanLeadJewelleryDetail.sql" />
     <Build Include="BTGoldLoanLeadAppointmentDetail.sql" />
     <Build Include="BTGoldLoanLeadDocumentDetail.sql" />
+    <Build Include="BTGoldLoanLeadActionHistory.sql" />
+    <Build Include="GoldLoanFreshLeadActionHistory.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="AurigainLoanERP.Database.refactorlog" />

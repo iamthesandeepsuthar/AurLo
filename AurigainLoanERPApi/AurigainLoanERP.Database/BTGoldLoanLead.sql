@@ -14,6 +14,8 @@
     [Purpose] NVARCHAR(3000) NULL, 
     [LeadSourceBYUserId] BIGINT NOT NULL references UserMaster(Id),
     [CustomerUserId] BIGINT NOT NULL references UserMaster(Id), 
+    [IsInternalLead] BIT NOT NULL DEFAULT 0,
+    [LeadStatus] int null, 
     [IsActive] BIT NOT NULL DEFAULT 1, 
     [IsDelete] BIT NOT NULL DEFAULT 0, 
     [CreatedOn] DATETIME NOT NULL DEFAULT GETDATE(), 
