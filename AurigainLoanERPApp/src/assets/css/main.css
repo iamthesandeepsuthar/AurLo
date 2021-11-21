@@ -4224,6 +4224,37 @@ h4 {
     color: #002767 !important;
 }
 
+.form-control-before-icon svg {
+    position: absolute;
+    top: 8px;
+    left: 10px;
+    height: 28px;
+    width: 28px;
+}
+
+.form-control-before-icon input.form-control {
+    padding-left: 38px;
+}
+
+.verify-otp-card .verify-otp-card-items:first-child {
+    margin-left: 0px;
+}
+
+.verify-otp-card-items {
+    flex: 1;
+    margin: 3px;
+}
+
+.verify-otp-card .verify-otp-card-items:last-child {
+    margin-right: 0px;
+}
+
+.verify-otp-card-items input {
+    font-size: 23px;
+    text-align: center;
+    padding: 8px !important;
+}
+
 
 /* .custom-modal .modal-content .modal-body {
     background: url(https://blog.2checkout.com/wp-content/uploads/2018/11/how-does-the-payment-processing-industry-work-1.png);
