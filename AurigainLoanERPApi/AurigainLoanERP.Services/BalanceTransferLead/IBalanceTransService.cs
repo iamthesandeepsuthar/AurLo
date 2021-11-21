@@ -7,9 +7,10 @@ using System.Threading.Tasks;
 
 namespace AurigainLoanERP.Services.BalanceTransferLead
 {
-   public interface IBalanceTransService
+    public interface IBalanceTransService
     {
         Task<ApiServiceResponseModel<List<BTGoldLoanLeadListModel>>> BTGolddLoanLeadList(IndexModel model);
         Task<ApiServiceResponseModel<string>> AddUpdateAsync(BTGoldLoanLeadPostModel model);
+        Task<ApiServiceResponseModel<BTGoldLoanLeadViewModel>> DetailbyIdAsync(long id);
     }
 }

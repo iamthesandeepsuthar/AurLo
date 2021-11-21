@@ -37,11 +37,20 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
                 return obj;
             }
         }
+
         [HttpPost("[action]")]
         public async Task<ApiServiceResponseModel<List<BTGoldLoanLeadListModel>>> BTGoldLoanLeadList(IndexModel model)
         {
             return await _objBTLead.BTGolddLoanLeadList(model);
         }
 
+ 
+
+        [HttpGet("[action]/{Id}")]
+        public async Task<ApiServiceResponseModel<BTGoldLoanLeadViewModel>> DetailbyIdAsync(long id)
+        {
+            return await _objBTLead.DetailbyIdAsync(id);
     }
+}
+    
 }
