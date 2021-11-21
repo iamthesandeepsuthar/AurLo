@@ -103,3 +103,98 @@ export class BTGoldLoanLeadListModel {
   IsActive!: boolean;
   IsDelete!: boolean;
 }
+ export interface BTGoldLoanLeadViewModel {
+  Id: number;
+  ProductId: number;
+  FullName: string;
+  FatherName: string;
+  Gender: string;
+  DateOfBirth: string;
+  Profession: string;
+  Mobile: string;
+  EmailId: string;
+  CustomerUserId: number;
+  SecondaryMobile: string;
+  Purpose: string;
+  LoanAmount: number;
+  LeadSourceByuserId: number;
+  AddressDetail: AddressDetail;
+  AppointmentDetail: AppointmentDetail;
+  DocumentDetail: DocumentDetail;
+  ExistingLoanDetail: ExistingLoanDetail;
+  JewelleryDetail: JewelleryDetail;
+  KYCDetail: KYCDetail;
+  LeadSourceByuserName: string;
+  ProductName: string;
+  CustomerUserName: string;
+}
+
+export interface KYCDetail {
+  Id: number;
+  PoidocumentTypeId: number;
+  PoidocumentType: string;
+  PoidocumentNumber: string;
+  PoadocumentTypeId: number;
+  PoadocumentNumber: string;
+  PoadocumentType: string;
+}
+
+export interface JewelleryDetail {
+  Id: number;
+  JewelleryTypeId: number;
+  JewelleryType: string;
+  Quantity: number;
+  Weight: number;
+  Karats: number;
+}
+
+export interface ExistingLoanDetail {
+  Id: number;
+  BankName: string;
+  Amount: number;
+  Date: string;
+  JewelleryValuation: number;
+  OutstandingAmount: number;
+  BalanceTransferAmount: number;
+  RequiredAmount: number;
+  Tenure: number;
+}
+
+export interface DocumentDetail {
+  Id: number;
+  CustomerPhoto: string;
+  KycDocumentPoi: string;
+  KycDocumentPoa: string;
+  BlankCheque1: string;
+  BlankCheque2: string;
+  LoanDocument: string;
+  AggrementLastPage: string;
+  PromissoryNote: string;
+  AtmwithdrawalSlip: string;
+  ForeClosureLetter: string;
+}
+
+export interface AppointmentDetail {
+  Id: number;
+  BranchId: number;
+  BranchName: string;
+  BankName: string;
+  AppointmentDate: string;
+  AppointmentTime: string;
+}
+
+export interface AddressDetail {
+  Id: number;
+  Address: string;
+  AeraPincodeId: number;
+  AreaName: string;
+  PinCode: string;
+  State: string;
+  District: string;
+  CorrespondAddress: string;
+  CorrespondAeraPincodeId: number;
+  CorrespondAreaName: string;
+  CorrespondPinCode: string;
+  CorrespondState: string;
+  CorrespondDistrict: string;
+}

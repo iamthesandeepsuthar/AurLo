@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { BaseAPIService } from "../../Helper/base-api.service";
 import { ApiResponse, IndexModel } from "../../Helper/common-model";
-import { BTGoldLoanLeadListModel, BTGoldLoanLeadPostModel } from "../../Model/Leads/btgold-loan-lead-post-model.model";
+import { BTGoldLoanLeadListModel, BTGoldLoanLeadPostModel, BTGoldLoanLeadViewModel } from "../../Model/Leads/btgold-loan-lead-post-model.model";
 
 @Injectable()
 export class BalanceTransferGoldLoanLeadsService {
@@ -11,7 +11,7 @@ export class BalanceTransferGoldLoanLeadsService {
     let url = `${this._baseService.API_Url.BT_Gold_Loan_Lead_List_Api}`;
     return this._baseService.post(url, model);
   }
-  GetById(id: number): Observable<ApiResponse<any>> {
+  GetById(id: number): Observable<ApiResponse<BTGoldLoanLeadViewModel>> {
     let url = `${this._baseService.API_Url.BT_Gold_Loan_Lead__Detail_Api}${id}`;
     return this._baseService.get(url);
   }
