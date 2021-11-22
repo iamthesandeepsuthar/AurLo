@@ -20,4 +20,11 @@ namespace AurigainLoanERP.Shared.Common.Model
         public const string FileUpdated = "File sucessfully updated...!";
 
     }
+
+    public class SMSResponseModel
+    {
+        public string error { get; set; }
+        public string msg_id { get; set; }
+
+    }
 }

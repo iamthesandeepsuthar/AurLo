@@ -16,6 +16,13 @@ namespace AurigainLoanERP.Shared.Common
         public const string SMTP_PASSWORD = "SMTP:Password";
 
 
+        public const string SMS_AuthKey = "SMS:AuthKey";
+        public const string SMS_SanderId = "SMS:SanderId";
+        public const string SMS_EndPoint = "SMS:EndPoint";
+
+        
+
+
         public const string JWT_Key = "Jwt:Key";
         public const string JWT_ISSUER = "Jwt:Issuer";
 
