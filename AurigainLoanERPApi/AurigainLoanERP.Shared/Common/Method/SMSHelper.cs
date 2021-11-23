@@ -3,10 +3,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Net;
-using System.Text;
+using System.Net.Http;
 
 namespace AurigainLoanERP.Shared.Common.Method
 {
@@ -42,9 +41,9 @@ namespace AurigainLoanERP.Shared.Common.Method
 
                 var httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
                 httpWebRequest.ContentType = "application/json";
-                httpWebRequest.Method = "GET";
-
+                httpWebRequest.Method = HttpMethod.Get.ToString(); // "GET"
                 var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+
                 using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
                 {
                     responseData = streamReader.ReadToEnd();
@@ -75,7 +74,7 @@ namespace AurigainLoanERP.Shared.Common.Method
 
                 var httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
                 httpWebRequest.ContentType = "application/json";
-                httpWebRequest.Method = "GET";
+                httpWebRequest.Method = HttpMethod.Get.ToString(); 
 
                 var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
                 using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
