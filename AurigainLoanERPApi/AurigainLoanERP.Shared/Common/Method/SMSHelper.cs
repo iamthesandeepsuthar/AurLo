@@ -15,7 +15,6 @@ namespace AurigainLoanERP.Shared.Common.Method
     public class SMSHelper
     {
         readonly IConfiguration _configuration;
-        private IHostingEnvironment _env;
         private string _authKey, _senderId, _endPoint;
 
         public SMSHelper(IConfiguration configuration, IHostingEnvironment env)
@@ -24,7 +23,7 @@ namespace AurigainLoanERP.Shared.Common.Method
             _authKey = _configuration[Constants.SMS_AuthKey];
             _senderId = _configuration[Constants.SMS_SanderId];
             _endPoint = _configuration[Constants.SMS_EndPoint];
-            _env = env;
+   
         }
         /// <summary>
         /// Send SMS
@@ -39,7 +38,7 @@ namespace AurigainLoanERP.Shared.Common.Method
             try
             {
                 string responseData = string.Empty;
-                string url = string.Concat(_endPoint, "?authkey=", _authKey, "&sender=", _senderId, "&type=", "1", "&route=", "2", "&mobiles=", mobile, "&message=", msg.Trim());
+                string url = string.Concat(_endPoint, "?authkey=", _authKey, "&sender=", _senderId, "&type=", "2", "&route=", "2", "&mobiles=", mobile, "&message=", msg.Trim());
 
                 var httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
                 httpWebRequest.ContentType = "application/json";
@@ -72,7 +71,7 @@ namespace AurigainLoanERP.Shared.Common.Method
             try
             {
                 string responseData = string.Empty;
-                string url = string.Concat(_endPoint, "?authkey=", _authKey, "&sender=", _senderId, "&type=", "1", "&route=", "2", "&mobiles=", string.Join(",", mobile), "&message=", msg);
+                string url = string.Concat(_endPoint, "?authkey=", _authKey, "&sender=", _senderId, "&type=", "2", "&route=", "2", "&mobiles=", string.Join(",", mobile), "&message=", msg);
 
                 var httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
                 httpWebRequest.ContentType = "application/json";
