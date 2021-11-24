@@ -6,9 +6,9 @@ namespace AurigainLoanERP.Shared.ContractModel
 {
     public class BTGoldLoanLeadViewModel : BTGoldLoanLeadPostModel
     {
-        public int LeadSourceByuserName { get; set; }
+        public string LeadSourceByuserName { get; set; }
         public String ProductName { get; set; }
-
+        public string CustomerUserName { get; set; }
         public new BtGoldLoanLeadAddressViewModel AddressDetail { get; set; }
         public new BtGoldLoanLeadAppointmentViewModel AppointmentDetail { get; set; }
         public new BtGoldLoanLeadDocumentViewModel DocumentDetail { get; set; }
@@ -122,24 +122,24 @@ namespace AurigainLoanERP.Shared.ContractModel
     {
         public long Id { get; set; }
         public int? BranchId { get; set; }
-        public string Branch { get; set; }
-        public string Bank { get; set; }
+        public string BranchName { get; set; }
+        public string BankName { get; set; }
         public DateTime? AppointmentDate { get; set; }
         public string AppointmentTime { get; set; }
     }
     public class BtGoldLoanLeadDocumentViewModel
     {
         public long Id { get; set; }
-        public FileModel? CustomerPhoto { get; set; }
-        public FileModel? KycDocumentPoi { get; set; }
-        public FileModel? KycDocumentPoa { get; set; }
-        public FileModel? BlankCheque1 { get; set; }
-        public FileModel? BlankCheque2 { get; set; }
-        public FileModel? LoanDocument { get; set; }
-        public FileModel? AggrementLastPage { get; set; }
-        public FileModel? PromissoryNote { get; set; }
-        public FileModel? AtmwithdrawalSlip { get; set; }
-        public FileModel? ForeClosureLetter { get; set; }
+        public string CustomerPhoto { get; set; }
+        public string KycDocumentPoi { get; set; }
+        public string KycDocumentPoa { get; set; }
+        public string BlankCheque1 { get; set; }
+        public string BlankCheque2 { get; set; }
+        public string LoanDocument { get; set; }
+        public string AggrementLastPage { get; set; }
+        public string PromissoryNote { get; set; }
+        public string AtmwithdrawalSlip { get; set; }
+        public string ForeClosureLetter { get; set; }
     }
     public class BtGoldLoanLeadExistingLoanViewModel
     {
