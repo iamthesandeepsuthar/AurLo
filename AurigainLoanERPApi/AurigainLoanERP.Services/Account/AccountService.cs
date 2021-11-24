@@ -21,7 +21,7 @@ namespace AurigainLoanERP.Services.Account
         private AurigainContext _db;
         private readonly Security _security;
         private readonly EmailHelper _emailHelper;
-        public AccountService(IMapper mapper, AurigainContext db, IConfiguration _configuration, IHostingEnvironment environment)
+        public AccountService(IMapper mapper, AurigainContext db, IConfiguration _configuration, IHostingEnvironment environment) 
         {
             this._mapper = mapper;
             _security = new Security(_configuration);
@@ -29,7 +29,7 @@ namespace AurigainLoanERP.Services.Account
             _emailHelper = new EmailHelper(_configuration,environment);
 
         }
-        public async Task<ApiServiceResponseModel<OtpModel>> GetOtp(OtpRequestModel model)
+        public async Task<ApiServiceResponseModel<OtpModel>> GetOtp(OtpRequestModel model) 
         {
             try
             {
@@ -82,7 +82,7 @@ namespace AurigainLoanERP.Services.Account
             }
 
         }
-        public async Task<ApiServiceResponseModel<string>> ChangePassword(ChangePasswordModel model)
+        public async Task<ApiServiceResponseModel<string>> ChangePassword(ChangePasswordModel model) 
         {
             try
             {
@@ -103,7 +103,7 @@ namespace AurigainLoanERP.Services.Account
                 return CreateResponse<string>(null, ResponseMessage.NotFound, false, ((int)ApiStatusCode.ServerException), ex.Message ?? ex.InnerException.ToString());
             }
         }
-        public async Task<ApiServiceResponseModel<LoginResponseModel>> Login(LoginModel model)
+        public async Task<ApiServiceResponseModel<LoginResponseModel>> Login(LoginModel model) 
         {
             ApiServiceResponseModel<LoginResponseModel> ResponseObject = new Shared.Common.Model.ApiServiceResponseModel<LoginResponseModel>();
             LoginResponseModel response = new LoginResponseModel();
@@ -147,7 +147,7 @@ namespace AurigainLoanERP.Services.Account
                 return CreateResponse<LoginResponseModel>(null, ResponseMessage.NotFound, false, ((int)ApiStatusCode.ServerException), ex.Message ?? ex.InnerException.ToString());
             }
         }
-        public async Task<ApiServiceResponseModel<string>> VerifiedPin(OtpVerifiedModel model)
+        public async Task<ApiServiceResponseModel<string>> VerifiedPin(OtpVerifiedModel model) 
         {
             try
             {
@@ -185,7 +185,7 @@ namespace AurigainLoanERP.Services.Account
                 return CreateResponse<string>(null, ResponseMessage.NotFound, false, ((int)ApiStatusCode.ServerException), ex.Message ?? ex.InnerException.ToString());
             }
         }
-        public async Task<ApiServiceResponseModel<LoginResponseModel>> WebLogin(LoginModel model)
+        public async Task<ApiServiceResponseModel<LoginResponseModel>> WebLogin(LoginModel model) 
         {
             ApiServiceResponseModel<LoginResponseModel> ResponseObject = new Shared.Common.Model.ApiServiceResponseModel<LoginResponseModel>();
             LoginResponseModel response = new LoginResponseModel();
