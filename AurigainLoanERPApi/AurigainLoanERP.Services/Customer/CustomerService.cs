@@ -22,11 +22,14 @@ namespace AurigainLoanERP.Services.Customer
         public readonly IMapper _mapper;
         private AurigainContext _db;
         private readonly EmailHelper _emailHelper;
+        private readonly SMSHelper _smsHelper;
+
         public CustomerService(IMapper mapper, AurigainContext db, Microsoft.Extensions.Configuration.IConfiguration _configuration, IHostingEnvironment environment)
         {
             this._mapper = mapper;
             _db = db;
             _emailHelper = new EmailHelper(_configuration, environment);
+            _smsHelper = new SMSHelper(_configuration);
         }
         public async Task<ApiServiceResponseModel<string>> TestEmail()
         {
@@ -36,6 +39,38 @@ namespace AurigainLoanERP.Services.Customer
             await _emailHelper.SendHTMLBodyMail("sandeep.suthar08@gmail.com", "Registration Notification", EmailPathConstant.RegisterTemplate, replaceValues);
             return CreateResponse<string>("", ResponseMessage.Save, true, ((int)ApiStatusCode.Ok));
         }
+
+        public async Task<ApiServiceResponseModel<SMSStatusResponseModel>> CheckSMSStatus(long smsId)
+        {
+            try
+            {
+                var obj = await _smsHelper.CheckSMSStatud(smsId);
+                return CreateResponse<SMSStatusResponseModel>(obj, ResponseMessage.Save, true, ((int)ApiStatusCode.Ok));
+
+            }
+            catch (Exception)
+            {
+                return CreateResponse<SMSStatusResponseModel>(null, ResponseMessage.Fail, false, ((int)ApiStatusCode.ServerException));
+            }
+
+        }
+
+        public async Task<ApiServiceResponseModel<SentSMSResponseModel>> TestSMS(string msg, string mobile)
+        {
+            try
+            {
+                var obj = await _smsHelper.SendSMS(msg, mobile);
+                return CreateResponse<SentSMSResponseModel>(obj, ResponseMessage.Save, true, ((int)ApiStatusCode.Ok));
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
+
         public async Task<ApiServiceResponseModel<List<CustomerListModel>>> GetListAsync(IndexModel model)
         {
             ApiServiceResponseModel<List<CustomerListModel>> objResponse = new ApiServiceResponseModel<List<CustomerListModel>>();

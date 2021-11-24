@@ -21,10 +21,18 @@ namespace AurigainLoanERP.Shared.Common.Model
 
     }
 
-    public class SMSResponseModel
+    public class SentSMSResponseModel
     {
         public string error { get; set; }
-        public string msg_id { get; set; }
+        public long[] msg_id { get; set; }
 
     }
+
+    public class SMSStatusResponseModel
+    {
+        public string status { get; set; }
+     
+
+    }
+
 }

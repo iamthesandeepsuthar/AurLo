@@ -36,6 +36,24 @@ namespace AurigainLoanERP.Api.Areas
         {
             return await _customer.TestEmail();
         }
+
+
+
+
+        [HttpGet("[action]")]
+        public async Task<ApiServiceResponseModel<SentSMSResponseModel>> testSMS(string msg, string mobile)
+        {
+            return await _customer.TestSMS(msg,mobile);
+
+
+        }
+
+        [HttpGet("[action]/{msgId}")]
+        public async Task<ApiServiceResponseModel<SMSStatusResponseModel>> CheckSMSStatus(long msgId)
+        {
+            return await _customer.CheckSMSStatus(msgId);
+
+        }
         [HttpGet("[action]/{id}")]
         public async Task<ApiServiceResponseModel<object>> UpdateApproveStatus(long id)
         {
