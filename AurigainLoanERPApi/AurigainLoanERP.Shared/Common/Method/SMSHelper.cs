@@ -6,6 +6,7 @@ using System;
 using System.IO;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace AurigainLoanERP.Shared.Common.Method
 {
@@ -16,7 +17,7 @@ namespace AurigainLoanERP.Shared.Common.Method
         readonly IConfiguration _configuration;
         private string _authKey, _senderId, _endPoint;
 
-        public SMSHelper(IConfiguration configuration, IHostingEnvironment env)
+        public SMSHelper(IConfiguration configuration)
         {
             _configuration = configuration;
             _authKey = _configuration[Constants.SMS_AuthKey];
@@ -30,24 +31,24 @@ namespace AurigainLoanERP.Shared.Common.Method
         /// <param name="msg"></param>
         /// <param name="mobile"></param>
         /// <returns></returns>
-        public string SendSMS(string msg, string mobile)
+        public async Task<SentSMSResponseModel> SendSMS(string msg, string mobile)
         {
-            SMSResponseModel smsResponseModel = new SMSResponseModel();
+            SentSMSResponseModel smsResponseModel = new SentSMSResponseModel();
 
             try
             {
                 string responseData = string.Empty;
-                string url = string.Concat(_endPoint, "?authkey=", _authKey, "&sender=", _senderId, "&type=", "2", "&route=", "2", "&mobiles=", mobile, "&message=", msg.Trim());
+                string url = string.Concat(_endPoint, "sendhttp.php?authkey=", _authKey, "&sender=", _senderId, "&type=", "2", "&route=", "2", "&mobiles=", mobile, "&message=", msg.Trim());
 
                 var httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
                 httpWebRequest.ContentType = "application/json";
                 httpWebRequest.Method = HttpMethod.Get.ToString(); // "GET"
-                var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+                var httpResponse = (HttpWebResponse)await httpWebRequest.GetResponseAsync();
 
                 using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
                 {
-                    responseData = streamReader.ReadToEnd();
-                    smsResponseModel = JsonConvert.DeserializeObject<SMSResponseModel>(responseData);
+                    responseData = await streamReader.ReadToEndAsync();
+                    smsResponseModel = JsonConvert.DeserializeObject<SentSMSResponseModel>(responseData);
                 }
             }
             catch (Exception)
@@ -55,7 +56,7 @@ namespace AurigainLoanERP.Shared.Common.Method
 
                 throw;
             }
-            return null;
+            return smsResponseModel;
 
         }
         /// <summary>
@@ -64,23 +65,55 @@ namespace AurigainLoanERP.Shared.Common.Method
         /// <param name="msg"></param>
         /// <param name="mobile"></param>
         /// <returns></returns>
-        public SMSResponseModel SendSMS(string msg, string[] mobile)
+        public async Task<SentSMSResponseModel> SendSMS(string msg, string[] mobile)
         {
-            SMSResponseModel smsResponseModel = new SMSResponseModel();
+            SentSMSResponseModel smsResponseModel = new SentSMSResponseModel();
             try
             {
                 string responseData = string.Empty;
-                string url = string.Concat(_endPoint, "?authkey=", _authKey, "&sender=", _senderId, "&type=", "2", "&route=", "2", "&mobiles=", string.Join(",", mobile), "&message=", msg);
+                string url = string.Concat(_endPoint, "sendhttp.php?authkey=", _authKey, "&sender=", _senderId, "&type=", "2", "&route=", "2", "&mobiles=", string.Join(",", mobile), "&message=", msg);
 
                 var httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
                 httpWebRequest.ContentType = "application/json";
                 httpWebRequest.Method = HttpMethod.Get.ToString(); 
 
-                var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+                var httpResponse = (HttpWebResponse)await httpWebRequest.GetResponseAsync();
                 using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
                 {
-                    responseData = streamReader.ReadToEnd();
-                    smsResponseModel = JsonConvert.DeserializeObject<SMSResponseModel>(responseData);
+                    responseData = await streamReader.ReadToEndAsync();
+                    smsResponseModel = JsonConvert.DeserializeObject<SentSMSResponseModel>(responseData);
+                }
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            return smsResponseModel;
+
+        }
+
+
+
+        public async Task<SMSStatusResponseModel> CheckSMSStatud(long msgId )
+        {
+            SMSStatusResponseModel response = new SMSStatusResponseModel();
+
+            try
+            {
+                string responseData = string.Empty;
+                string url = string.Concat(_endPoint, "reports.php?authkey=", _authKey, "&msg_id=",msgId);
+
+                var httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
+                httpWebRequest.ContentType = "application/json";
+                httpWebRequest.Method = HttpMethod.Get.ToString(); // "GET"
+                var httpResponse = (HttpWebResponse)await httpWebRequest.GetResponseAsync();
+
+                using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+                {
+                    responseData = await streamReader.ReadToEndAsync();
+                    response = JsonConvert.DeserializeObject<SMSStatusResponseModel>(responseData);
                 }
             }
             catch (Exception)
@@ -88,7 +121,7 @@ namespace AurigainLoanERP.Shared.Common.Method
 
                 throw;
             }
-            return null;
+            return response;
 
         }
     }
