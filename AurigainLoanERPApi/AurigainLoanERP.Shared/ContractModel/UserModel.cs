@@ -469,4 +469,48 @@ namespace AurigainLoanERP.Shared.ContractModel
     }
     #endregion
 
+    #region <<User Profile Model>>
+    public class UserProfileModel 
+    {
+        public UserProfileModel() 
+        {
+            Documents = new List<UserProfileDocumentDetail>();
+            AddressDetail = new UserProfileAddressDetail();
+        }
+        public long Id { get; set;}
+        public long UserId { get; set; }
+        public int RoleId { get; set; }
+        public string RoleName { get; set;}
+        public string FullName { get; set;}
+        public string FatherName { get; set;}
+        public string EmailId { get; set;}
+        public string Gender { get; set;}
+        public string MobileNumber { get; set; }
+        public DateTime DateOfBirth { get; set;}
+        public string ProfileImagePath { get; set;}
+        public bool IsApproved { get; set;}
+        public bool IsWhatsApp { get; set;}
+        public List<UserProfileDocumentDetail> Documents { get; set;}
+        public UserProfileAddressDetail AddressDetail { get; set; }
+    }
+    public class UserProfileDocumentDetail 
+    {
+        public int Id { get; set;}
+        public long UserId { get; set;}
+        public int DocumentTypeId { get; set;}
+        public string DocumentNumber { get; set;}
+        public string DocumentTypeName { get; set; }
+    }
+    public class UserProfileAddressDetail 
+    {
+        public int Id { get; set; }
+        public long UserId { get; set;}
+        public string AddressLine1 { get; set;}
+        public string Pincode { get; set; }
+        public string DistrictName { get; set;}
+        public string StateName { get; set;}
+        public string AreaName { get; set;}
+        public long AreaId { get; set;}
+    }
+    #endregion
 }
