@@ -100,6 +100,17 @@ namespace AurigainLoanERP.Shared.Enums
         [StringValue("NonSalaried")]
         NonSalaried =1
         }
+
+        public enum DocumentTypeEnum 
+        {
+            [StringValue("Aadhar Card")]
+            AadharCard = 1,
+            [StringValue("Pan Card")]
+            PanCard = 2,
+            [StringValue("Bank Cheque")]
+            BankCheque = 3,
+
+        }
     }
 
 

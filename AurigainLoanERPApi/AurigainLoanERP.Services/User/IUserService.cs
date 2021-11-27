@@ -90,5 +90,7 @@ namespace AurigainLoanERP.Services.User
         Task<ApiServiceResponseModel<string>> AddUpdateManagerAsync(UserManagerModel model);
         Task<ApiServiceResponseModel<List<UserManagerModel>>> ManagersList(IndexModel model);
         Task<ApiServiceResponseModel<UserManagerModel>> UserManagerDetailAsync(long Id);
+        Task<ApiServiceResponseModel<UserProfileModel>> GetProfile(long Id);
+        Task<ApiServiceResponseModel<string>> UpdateProfile(UserProfileModel model);
     }
 }

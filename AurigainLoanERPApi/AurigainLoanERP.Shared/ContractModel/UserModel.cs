@@ -474,7 +474,7 @@ namespace AurigainLoanERP.Shared.ContractModel
     {
         public UserProfileModel() 
         {
-            Documents = new List<UserProfileDocumentDetail>();
+            Documents = new List<UserProfileKycDetail>();
             AddressDetail = new UserProfileAddressDetail();
         }
         public long Id { get; set;}
@@ -486,16 +486,16 @@ namespace AurigainLoanERP.Shared.ContractModel
         public string EmailId { get; set;}
         public string Gender { get; set;}
         public string MobileNumber { get; set; }
-        public DateTime DateOfBirth { get; set;}
+        public DateTime? DateOfBirth { get; set;}
         public string ProfileImagePath { get; set;}
         public bool IsApproved { get; set;}
         public bool IsWhatsApp { get; set;}
-        public List<UserProfileDocumentDetail> Documents { get; set;}
+        public List<UserProfileKycDetail> Documents { get; set;}
         public UserProfileAddressDetail AddressDetail { get; set; }
     }
-    public class UserProfileDocumentDetail 
+    public class UserProfileKycDetail 
     {
-        public int Id { get; set;}
+        public long Id { get; set;}
         public long UserId { get; set;}
         public int DocumentTypeId { get; set;}
         public string DocumentNumber { get; set;}
@@ -508,9 +508,9 @@ namespace AurigainLoanERP.Shared.ContractModel
         public string AddressLine1 { get; set;}
         public string Pincode { get; set; }
         public string DistrictName { get; set;}
+        public long? DistrictId { get; set; }
         public string StateName { get; set;}
-        public string AreaName { get; set;}
-        public long AreaId { get; set;}
+        public long? StateId { get; set;}      
     }
     #endregion
 }

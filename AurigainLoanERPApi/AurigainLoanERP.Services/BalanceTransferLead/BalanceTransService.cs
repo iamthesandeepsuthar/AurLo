@@ -55,6 +55,7 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                     objData.CustomerUserId = model.CustomerUserId;
                     objData.LoanAmount = model.LoanAmount;
                     objData.ProductId = model.ProductId;
+                    objData.IsInternalLead = BT
                     objData.CreatedBy = null;
                     objData.IsActive = true;
 
@@ -195,7 +196,6 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                 return CreateResponse<List<BTGoldLoanLeadListModel>>(null, ResponseMessage.Fail, false, ((int)ApiStatusCode.ServerException), ex.Message ?? ex.InnerException.ToString());
             }
         }
-
         public async Task<ApiServiceResponseModel<BTGoldLoanLeadViewModel>> DetailbyIdAsync(long id)
         {
             BTGoldLoanLeadViewModel objModel = new BTGoldLoanLeadViewModel();
@@ -346,6 +346,10 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
             {
                 return CreateResponse<BTGoldLoanLeadViewModel>(null, ResponseMessage.Fail, false, ((int)ApiStatusCode.ServerException), ex.Message ?? ex.InnerException.ToString());
             }
+        }
+        public async Task<ApiServiceResponseModel<string>> AddUpdateInternalBTLeadAsync(BTGoldLoanLeadPostModel model)
+        {
+
         }
 
         #region <<Private Method Of Balance Transafer Gold Loan Lead>>

@@ -12,5 +12,6 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
         Task<ApiServiceResponseModel<List<BTGoldLoanLeadListModel>>> BTGolddLoanLeadList(IndexModel model);
         Task<ApiServiceResponseModel<string>> AddUpdateAsync(BTGoldLoanLeadPostModel model);
         Task<ApiServiceResponseModel<BTGoldLoanLeadViewModel>> DetailbyIdAsync(long id);
+        Task<ApiServiceResponseModel<string>> AddUpdateInternalBTLeadAsync(BTGoldLoanLeadPostModel model);
     }
 }

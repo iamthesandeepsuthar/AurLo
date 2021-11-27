@@ -790,14 +790,12 @@ namespace AurigainLoanERP.Services.User
                             objUser.FullName = null;
                             break;
                     }
-
                     objUser.ProfilePath = !string.IsNullOrEmpty(user.ProfilePath) ? objUser.ProfilePath.ToAbsolutePath() : null;
                     return CreateResponse(objUser, ResponseMessage.Success, true, ((int)ApiStatusCode.Ok));
-
                 }
                 else
                 {
-                    return CreateResponse<UserViewModel>(null, ResponseMessage.Update, true, ((int)ApiStatusCode.RecordNotFound));
+                    return CreateResponse<UserViewModel>(null, ResponseMessage.NotFound, true, ((int)ApiStatusCode.RecordNotFound));
 
                 }
 
@@ -807,6 +805,215 @@ namespace AurigainLoanERP.Services.User
 
                 return CreateResponse<UserViewModel>(null, ResponseMessage.Fail, false, ((int)ApiStatusCode.InternalServerError));
 
+            }
+        }
+        public async Task<ApiServiceResponseModel<UserProfileModel>> GetProfile(long Id) 
+        {
+            try
+            {
+                var record = await _db.UserMaster.Where(x => x.Id == Id).Include(x => x.UserAgent).ThenInclude(x=>x.District).ThenInclude(x=>x.State).Include(x => x.UserDoorStepAgent).ThenInclude(x => x.District).ThenInclude(x => x.State).Include(x => x.Managers).ThenInclude(x => x.District).ThenInclude(x => x.State).Include(x=>x.UserRole). FirstOrDefaultAsync();
+                if (record != null)
+                {
+                    UserProfileModel profile = new UserProfileModel();
+                    profile.RoleName = record.UserRole.Name;
+                    profile.RoleId = record.UserRoleId;
+                    profile.UserId = record.Id;
+                    profile.EmailId = record.Email;
+                    profile.IsApproved = record.IsApproved;
+                    profile.IsWhatsApp = record.IsWhatsApp;
+                    profile.MobileNumber = record.Mobile;
+                    profile.ProfileImagePath = !string.IsNullOrEmpty(record.ProfilePath) ? profile.ProfileImagePath.ToAbsolutePath() : null;
+
+                    switch (record.UserRoleId)
+                    {
+                        case (int)UserRoleEnum.Agent:
+                            profile.Id = record.UserAgent.FirstOrDefault().Id;
+                            profile.FullName = record.UserAgent.FirstOrDefault().FullName;
+                            profile.FatherName = record.UserAgent.FirstOrDefault().FatherName;
+                            profile.Gender = record.UserAgent.FirstOrDefault().Gender;
+                            profile.DateOfBirth = record.UserAgent.FirstOrDefault().DateOfBirth;
+                            profile.AddressDetail.Pincode = record.UserAgent.FirstOrDefault().PinCode;
+                            profile.AddressDetail.AddressLine1 = record.UserAgent.FirstOrDefault().Address;
+                            profile.AddressDetail.DistrictName = record.UserAgent.FirstOrDefault().District.Name;
+                            profile.AddressDetail.StateName = record.UserAgent.FirstOrDefault().District.State.Name;
+                            profile.AddressDetail.DistrictId = record.UserAgent.FirstOrDefault().DistrictId;                            
+                            break;
+                        case (int)UserRoleEnum.DoorStepAgent:
+                            profile.Id = record.UserDoorStepAgent.FirstOrDefault().Id;
+                            profile.FullName = record.UserDoorStepAgent.FirstOrDefault().FullName;
+                            profile.FatherName = record.UserDoorStepAgent.FirstOrDefault().FatherName;
+                            profile.Gender = record.UserDoorStepAgent.FirstOrDefault().Gender;
+                            profile.DateOfBirth = record.UserDoorStepAgent.FirstOrDefault().DateOfBirth;
+                            profile.AddressDetail.Pincode = record.UserDoorStepAgent.FirstOrDefault().PinCode;
+                            profile.AddressDetail.AddressLine1 = record.UserDoorStepAgent.FirstOrDefault().Address;
+                            profile.AddressDetail.DistrictName = record.UserDoorStepAgent.FirstOrDefault().District.Name;
+                            profile.AddressDetail.StateName = record.UserDoorStepAgent.FirstOrDefault().District.State.Name;
+                            profile.AddressDetail.DistrictId = record.UserDoorStepAgent.FirstOrDefault().DistrictId;
+                            break;
+                        case (int)UserRoleEnum.ZonalManager:
+                            profile.Id = record.Managers.FirstOrDefault().Id;
+                            profile.FullName = record.Managers.FirstOrDefault().FullName;
+                            profile.FatherName = record.Managers.FirstOrDefault().FatherName;
+                            profile.Gender = record.Managers.FirstOrDefault().Gender;
+                            profile.DateOfBirth = record.Managers.FirstOrDefault().DateOfBirth;
+                            profile.AddressDetail.Pincode = record.Managers.FirstOrDefault().Pincode;
+                            profile.AddressDetail.AddressLine1 = record.Managers.FirstOrDefault().Address;
+                            profile.AddressDetail.DistrictName = record.Managers.FirstOrDefault().District.Name;
+                            profile.AddressDetail.StateName = record.Managers.FirstOrDefault().District.State.Name;
+                            profile.AddressDetail.DistrictId = record.Managers.FirstOrDefault().DistrictId;
+                            break;
+                        case (int)UserRoleEnum.Supervisor:
+                            profile.Id = record.Managers.FirstOrDefault().Id;
+                            profile.FullName = record.Managers.FirstOrDefault().FullName;
+                            profile.FatherName = record.Managers.FirstOrDefault().FatherName;
+                            profile.Gender = record.Managers.FirstOrDefault().Gender;
+                            profile.DateOfBirth = record.Managers.FirstOrDefault().DateOfBirth;
+                            profile.AddressDetail.Pincode = record.Managers.FirstOrDefault().Pincode;
+                            profile.AddressDetail.AddressLine1 = record.Managers.FirstOrDefault().Address;
+                            profile.AddressDetail.DistrictName = record.Managers.FirstOrDefault().District.Name;
+                            profile.AddressDetail.StateName = record.Managers.FirstOrDefault().District.State.Name;
+                            profile.AddressDetail.DistrictId = record.Managers.FirstOrDefault().DistrictId;
+                            break;
+                        //case (int)UserRoleEnum.customer:
+                        //    objUser.FullName = user.UserName;
+                        //    break;
+                        default:
+                            profile.FullName = null;
+                            break;
+                    }
+                    var documents = await _db.UserKyc.Where(x => x.UserId == record.Id).Include(x=>x.KycdocumentType).ToListAsync();
+                    foreach (var doc in documents) 
+                    {
+                        UserProfileKycDetail document = new UserProfileKycDetail
+                        {
+                            Id = doc.Id,
+                            DocumentNumber = doc.Kycnumber,
+                            DocumentTypeId = doc.KycdocumentTypeId,
+                            DocumentTypeName = doc.KycdocumentType.DocumentName,
+                            UserId = doc.UserId
+                        };
+                        profile.Documents.Add(document);
+                    }
+                    return CreateResponse(profile, ResponseMessage.Success, true, ((int)ApiStatusCode.Ok));
+                }
+                else 
+                {
+                    return CreateResponse<UserProfileModel>(null, ResponseMessage.NotFound, false, ((int)ApiStatusCode.RecordNotFound));
+                }
+            }
+            catch (Exception ex) 
+            {
+                return CreateResponse<UserProfileModel>(null, ResponseMessage.Fail, false, ((int)ApiStatusCode.InternalServerError));
+            }
+        }
+        public async Task<ApiServiceResponseModel<string>> UpdateProfile(UserProfileModel model) 
+        {
+            try
+            {
+                var user =await  _db.UserMaster.Where(x => x.Id == model.UserId).FirstOrDefaultAsync();
+                if (user != null) 
+                {
+                    user.IsWhatsApp = model.IsWhatsApp;
+                }
+                switch (model.RoleId)
+                {
+                    case (int)UserRoleEnum.Agent:
+                        var agentRecord = await _db.UserAgent.Where(x=>x.UserId == model.UserId).FirstOrDefaultAsync();
+                        agentRecord.FullName = model.FullName;
+                        agentRecord.FatherName = model.FatherName;
+                        agentRecord.Gender = model.Gender;
+                        agentRecord.PinCode = model.AddressDetail.Pincode;
+                        agentRecord.Address = model.AddressDetail.AddressLine1;
+                        agentRecord.DistrictId = model.AddressDetail.DistrictId;
+                        agentRecord.DateOfBirth = model.DateOfBirth;
+                        foreach (var doc in model.Documents) 
+                        {
+                            var document = _db.UserKyc.Where(x => x.Id == doc.Id).FirstOrDefault();
+                            switch (doc.DocumentTypeId)
+                            {
+                                case (int)DocumentTypeEnum.AadharCard:
+                                    document.Kycnumber = doc.DocumentNumber;
+                                    break;
+                                case (int)DocumentTypeEnum.PanCard:
+                                    document.Kycnumber = doc.DocumentNumber;
+                                    break;
+                                case (int)DocumentTypeEnum.BankCheque:
+                                    document.Kycnumber = doc.DocumentNumber;
+                                    break;
+                                default:
+                                    break;
+                            }                           
+                        }
+                        await _db.SaveChangesAsync();
+                        break;
+                    case (int)UserRoleEnum.Supervisor:
+                        var supervisorRecord = await _db.UserAgent.Where(x => x.UserId == model.UserId).FirstOrDefaultAsync();
+                        supervisorRecord.FullName = model.FullName;
+                        supervisorRecord.FatherName = model.FatherName;
+                        supervisorRecord.Gender = model.Gender;
+                        supervisorRecord.PinCode = model.AddressDetail.Pincode;
+                        supervisorRecord.Address = model.AddressDetail.AddressLine1;
+                        supervisorRecord.DistrictId = model.AddressDetail.DistrictId;
+                        supervisorRecord.DateOfBirth = model.DateOfBirth;
+                        foreach (var doc in model.Documents)
+                        {
+                            var document = _db.UserKyc.Where(x => x.Id == doc.Id).FirstOrDefault();
+                            switch (doc.DocumentTypeId)
+                            {
+                                case (int)DocumentTypeEnum.AadharCard:
+                                    document.Kycnumber = doc.DocumentNumber;
+                                    break;
+                                case (int)DocumentTypeEnum.PanCard:
+                                    document.Kycnumber = doc.DocumentNumber;
+                                    break;
+                                case (int)DocumentTypeEnum.BankCheque:
+                                    document.Kycnumber = doc.DocumentNumber;
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
+                        await _db.SaveChangesAsync();
+                        break;
+                    case (int)UserRoleEnum.DoorStepAgent:
+                        var doorstepAgentRecord = await _db.UserAgent.Where(x => x.UserId == model.UserId).FirstOrDefaultAsync();
+                        doorstepAgentRecord.FullName = model.FullName;
+                        doorstepAgentRecord.FatherName = model.FatherName;
+                        doorstepAgentRecord.Gender = model.Gender;
+                        doorstepAgentRecord.PinCode = model.AddressDetail.Pincode;
+                        doorstepAgentRecord.Address = model.AddressDetail.AddressLine1;
+                        doorstepAgentRecord.DistrictId = model.AddressDetail.DistrictId;
+                        doorstepAgentRecord.DateOfBirth = model.DateOfBirth;
+                        foreach (var doc in model.Documents)
+                        {
+                            var document = _db.UserKyc.Where(x => x.Id == doc.Id).FirstOrDefault();
+                            switch (doc.DocumentTypeId)
+                            {
+                                case (int)DocumentTypeEnum.AadharCard:
+                                    document.Kycnumber = doc.DocumentNumber;
+                                    break;
+                                case (int)DocumentTypeEnum.PanCard:
+                                    document.Kycnumber = doc.DocumentNumber;
+                                    break;
+                                case (int)DocumentTypeEnum.BankCheque:
+                                    document.Kycnumber = doc.DocumentNumber;
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
+                        await _db.SaveChangesAsync();
+                        break;
+                    case (int)UserRoleEnum.ZonalManager:
+                        break;
+                    default:
+                        break;
+                }
+                return CreateResponse<string>(null, ResponseMessage.Success, true, ((int)ApiStatusCode.Ok));
+            }
+            catch (Exception ex)
+            {
+                return CreateResponse<string>(null, ResponseMessage.Fail, false, ((int)ApiStatusCode.InternalServerError));
             }
         }
 

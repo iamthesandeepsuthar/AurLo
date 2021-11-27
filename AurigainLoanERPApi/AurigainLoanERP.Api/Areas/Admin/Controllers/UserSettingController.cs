@@ -53,8 +53,6 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
 
                 return obj;
             }
-
-
         }
 
         [HttpGet("{id}")]
@@ -88,6 +86,28 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
         {
             return await _userSerivce.DeleteDocumentFile(id, documentId);
         }
-
+        [HttpGet("{id}")]
+        public async Task<ApiServiceResponseModel<UserProfileModel>> GetProfile(long id) 
+        {
+            return await _userSerivce.GetProfile(id);
+        }
+        [HttpPost]
+        public async Task<ApiServiceResponseModel<string>> UpdateProfileMobile(UserProfileModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                return await _userSerivce.UpdateProfile(model);
+            }
+            else
+            {
+                ApiServiceResponseModel<string> obj = new ApiServiceResponseModel<string>();
+                obj.Data = null;
+                obj.IsSuccess = false;
+                obj.Message = ResponseMessage.InvalidData;
+                obj.Exception = ModelState.ErrorCount.ToString();
+                obj.StatusCode = ((int)ApiStatusCode.BadRequest);
+                return obj;
+            }
+        }
     }
 }
