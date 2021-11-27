@@ -11,6 +11,7 @@ namespace AurigainLoanERP.Data.Database
     {
         public BtgoldLoanLead()
         {
+            BtgoldLoanLeadActionHistory = new HashSet<BtgoldLoanLeadActionHistory>();
             BtgoldLoanLeadAddressDetail = new HashSet<BtgoldLoanLeadAddressDetail>();
             BtgoldLoanLeadAppointmentDetail = new HashSet<BtgoldLoanLeadAppointmentDetail>();
             BtgoldLoanLeadDocumentDetail = new HashSet<BtgoldLoanLeadDocumentDetail>();
@@ -41,10 +42,12 @@ namespace AurigainLoanERP.Data.Database
         public DateTime? ModifiedOn { get; set; }
         public long? CreatedBy { get; set; }
         public long? ModifiedBy { get; set; }
+        public string LoanAccountNumber { get; set; }
 
         public virtual UserMaster CustomerUser { get; set; }
         public virtual UserMaster LeadSourceByuser { get; set; }
         public virtual Product Product { get; set; }
+        public virtual ICollection<BtgoldLoanLeadActionHistory> BtgoldLoanLeadActionHistory { get; set; }
         public virtual ICollection<BtgoldLoanLeadAddressDetail> BtgoldLoanLeadAddressDetail { get; set; }
         public virtual ICollection<BtgoldLoanLeadAppointmentDetail> BtgoldLoanLeadAppointmentDetail { get; set; }
         public virtual ICollection<BtgoldLoanLeadDocumentDetail> BtgoldLoanLeadDocumentDetail { get; set; }

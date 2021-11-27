@@ -55,10 +55,9 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                     objData.CustomerUserId = model.CustomerUserId;
                     objData.LoanAmount = model.LoanAmount;
                     objData.ProductId = model.ProductId;
-                    objData.IsInternalLead = BT
+                    objData.IsInternalLead = false;
                     objData.CreatedBy = null;
-                    objData.IsActive = true;
-
+                    objData.IsActive = true; 
                     var result = await _db.BtgoldLoanLead.AddAsync(objData);
                     await _db.SaveChangesAsync();
                     model.Id = result.Entity.Id;
@@ -349,7 +348,75 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
         }
         public async Task<ApiServiceResponseModel<string>> AddUpdateInternalBTLeadAsync(BTGoldLoanLeadPostModel model)
         {
+            try
+            {
+                await _db.Database.BeginTransactionAsync();
+                if (model.Id == 0 || model.Id == default)
+                {
+                    var customerUserId = await SaveCustomerBTFreshLead(model);
+                    model.CustomerUserId = customerUserId;
+                    var objData = new BtgoldLoanLead();
+                    objData.FullName = !string.IsNullOrEmpty(model.FullName) ? model.FullName : null;
+                    objData.FatherName = !string.IsNullOrEmpty(model.FatherName) ? model.FatherName : null;
+                    objData.Gender = !string.IsNullOrEmpty(model.Gender) ? model.Gender : null;
+                    objData.DateOfBirth = model.DateOfBirth != null ? model.DateOfBirth : DateTime.MinValue;
+                    objData.Profession = !string.IsNullOrEmpty(model.Profession) ? model.Profession : null;
+                    objData.Mobile = !string.IsNullOrEmpty(model.Mobile) ? model.Mobile : null;
+                    objData.EmailId = !string.IsNullOrEmpty(model.EmailId) ? model.EmailId : null;
+                    objData.SecondaryMobile = !string.IsNullOrEmpty(model.SecondaryMobile) ? model.SecondaryMobile : null;
+                    objData.Purpose = !string.IsNullOrEmpty(model.Purpose) ? model.Purpose : null;
+                    objData.LeadSourceByuserId = model.LeadSourceByuserId;
+                    objData.CreatedOn = DateTime.Now;
+                    objData.CustomerUserId = model.CustomerUserId;
+                    objData.LoanAmount = model.LoanAmount;
+                    objData.ProductId = model.ProductId;
+                    objData.LoanAccountNumber = !string.IsNullOrEmpty(model.LoanAccountNumber)? model.LoanAccountNumber :null;
+                    objData.IsInternalLead = true;
+                    objData.CreatedBy = null;
+                    objData.IsActive = true;
+                    var result = await _db.BtgoldLoanLead.AddAsync(objData);
+                    await _db.SaveChangesAsync();
+                    model.Id = result.Entity.Id;
+                }
+                else
+                {
+                    var objData = await _db.BtgoldLoanLead.FirstOrDefaultAsync(x => x.Id == model.Id && x.IsActive.Value && !x.IsDelete);
+                    objData.FullName = !string.IsNullOrEmpty(model.FullName) ? model.FullName : null;
+                    objData.FatherName = !string.IsNullOrEmpty(model.FatherName) ? model.FatherName : null;
+                    objData.Gender = !string.IsNullOrEmpty(model.Gender) ? model.Gender : null;
+                    objData.DateOfBirth = model.DateOfBirth != null ? model.DateOfBirth : DateTime.MinValue;
+                    objData.Profession = !string.IsNullOrEmpty(model.Profession) ? model.Profession : null;
+                    objData.Mobile = !string.IsNullOrEmpty(model.Mobile) ? model.Mobile : null;
+                    objData.EmailId = !string.IsNullOrEmpty(model.EmailId) ? model.EmailId : null;
+                    objData.SecondaryMobile = !string.IsNullOrEmpty(model.SecondaryMobile) ? model.SecondaryMobile : null;
+                    objData.Purpose = !string.IsNullOrEmpty(model.Purpose) ? model.Purpose : null;
+                    objData.LeadSourceByuserId = model.LeadSourceByuserId;
+                    objData.LoanAccountNumber = !string.IsNullOrEmpty(model.LoanAccountNumber) ? model.LoanAccountNumber : null;
+                    objData.LoanAmount = model.LoanAmount;
+                    objData.ModifiedOn = DateTime.Now;
+                    objData.CreatedBy = null;
+                    await _db.SaveChangesAsync();
+                }
+                if (model.AddressDetail != null)
+                {
+                    await SetAddressDetailAsync(model.AddressDetail, model.Id);
+                }
+                if (model.AppointmentDetail != null)
+                {
+                    await SetAppointmentDetailAsync(model.AppointmentDetail, model.Id);
+                }
 
+                _db.Database.CommitTransaction();
+                return CreateResponse<string>(model.Id.ToString(), model.Id > 0 ? ResponseMessage.Update : ResponseMessage.Save, true, ((int)ApiStatusCode.Ok));
+            }
+            catch (Exception ex)
+            {
+
+                _db.Database.RollbackTransaction();
+
+                return CreateResponse<string>(null, ResponseMessage.Fail, false, ((int)ApiStatusCode.ServerException), ex.Message ?? ex.InnerException.ToString());
+            }
+            
         }
 
         #region <<Private Method Of Balance Transafer Gold Loan Lead>>

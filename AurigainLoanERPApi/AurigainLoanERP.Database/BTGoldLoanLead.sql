@@ -21,5 +21,6 @@
     [CreatedOn] DATETIME NOT NULL DEFAULT GETDATE(), 
     [ModifiedOn] DATETIME NULL, 
     [CreatedBy] BIGINT NULL, 
-    [ModifiedBy] BIGINT NULL,   
+    [ModifiedBy] BIGINT NULL, 
+    [LoanAccountNumber] NVARCHAR(100) NULL,   
 )

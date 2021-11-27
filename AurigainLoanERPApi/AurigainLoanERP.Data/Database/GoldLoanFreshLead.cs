@@ -11,6 +11,7 @@ namespace AurigainLoanERP.Data.Database
     {
         public GoldLoanFreshLead()
         {
+            GoldLoanFreshLeadActionHistory = new HashSet<GoldLoanFreshLeadActionHistory>();
             GoldLoanFreshLeadAppointmentDetail = new HashSet<GoldLoanFreshLeadAppointmentDetail>();
             GoldLoanFreshLeadJewelleryDetail = new HashSet<GoldLoanFreshLeadJewelleryDetail>();
             GoldLoanFreshLeadKycDocument = new HashSet<GoldLoanFreshLeadKycDocument>();
@@ -37,6 +38,7 @@ namespace AurigainLoanERP.Data.Database
         public virtual UserMaster CustomerUser { get; set; }
         public virtual UserMaster LeadSourceByUser { get; set; }
         public virtual Product Product { get; set; }
+        public virtual ICollection<GoldLoanFreshLeadActionHistory> GoldLoanFreshLeadActionHistory { get; set; }
         public virtual ICollection<GoldLoanFreshLeadAppointmentDetail> GoldLoanFreshLeadAppointmentDetail { get; set; }
         public virtual ICollection<GoldLoanFreshLeadJewelleryDetail> GoldLoanFreshLeadJewelleryDetail { get; set; }
         public virtual ICollection<GoldLoanFreshLeadKycDocument> GoldLoanFreshLeadKycDocument { get; set; }
