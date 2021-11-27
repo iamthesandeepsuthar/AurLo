@@ -30,7 +30,7 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
             _fileHelper = new FileHelper(environment);
 
         }
-        public async Task<ApiServiceResponseModel<string>> AddUpdateAsync(BTGoldLoanLeadPostModel model)
+        public async Task<ApiServiceResponseModel<string>> AddUpdateBTGoldLoanExternalLeadAsync(BTGoldLoanLeadPostModel model)
         {
             try
             {
@@ -346,7 +346,7 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                 return CreateResponse<BTGoldLoanLeadViewModel>(null, ResponseMessage.Fail, false, ((int)ApiStatusCode.ServerException), ex.Message ?? ex.InnerException.ToString());
             }
         }
-        public async Task<ApiServiceResponseModel<string>> AddUpdateInternalBTLeadAsync(BTGoldLoanLeadPostModel model)
+        public async Task<ApiServiceResponseModel<string>> AddUpdateBTGoldLoanInternalLeadAsync(BTGoldLoanLeadPostModel model)
         {
             try
             {

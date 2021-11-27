@@ -21,11 +21,11 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
 
         }
         [HttpPost]
-        public async Task<ApiServiceResponseModel<string>> AddUpdateGoldLoanFreshLead(BTGoldLoanLeadPostModel model)
+        public async Task<ApiServiceResponseModel<string>> AddUpdateBTGoldLoanExternalLead(BTGoldLoanLeadPostModel model)
         {
             if (ModelState.IsValid)
             {
-                return await _objBTLead.AddUpdateAsync(model);
+                return await _objBTLead.AddUpdateBTGoldLoanExternalLeadAsync(model);
             }
             else
             {
@@ -39,12 +39,31 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
         }
 
         [HttpPost]
+        public async Task<ApiServiceResponseModel<string>> AddUpdateBTGoldLoanInternalLead(BTGoldLoanLeadPostModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                return await _objBTLead.AddUpdateBTGoldLoanInternalLeadAsync(model);
+            }
+            else
+            {
+                ApiServiceResponseModel<string> obj = new ApiServiceResponseModel<string>();
+                obj.Data = null;
+                obj.IsSuccess = false;
+                obj.Message = ResponseMessage.InvalidData;
+                obj.Exception = ModelState.ErrorCount.ToString();
+                return obj;
+            }
+        }
+
+
+        [HttpPost]
         public async Task<ApiServiceResponseModel<List<BTGoldLoanLeadListModel>>> BTGoldLoanLeadList(IndexModel model)
         {
             return await _objBTLead.BTGolddLoanLeadList(model);
         }
 
-
+         
 
         [HttpGet("{id}")]
         public async Task<ApiServiceResponseModel<BTGoldLoanLeadViewModel>> DetailbyIdAsync(long id)
