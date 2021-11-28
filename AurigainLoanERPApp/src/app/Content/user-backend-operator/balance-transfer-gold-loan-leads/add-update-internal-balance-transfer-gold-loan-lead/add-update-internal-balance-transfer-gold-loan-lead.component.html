@@ -21,7 +21,7 @@
 <!-- Page Header Title end -->
 
 
-<mat-stepper orientation="vertical" [linear]="true" class="mat-custom-steper reg-steper gold-loan-steper">
+<mat-stepper orientation="vertical" [linear]="false" class="mat-custom-steper reg-steper gold-loan-steper">
   <mat-step [stepControl]="leadFromPersonalDetail">
     <form [formGroup]="leadFromPersonalDetail" (ngSubmit)="leadFromPersonalDetail.markAllAsTouched()">
       <ng-template matStepLabel>Personal Details</ng-template>
@@ -211,8 +211,9 @@
         <div class="row">
           <div class="form-group col-md-6">
             <label>Pincode</label>
-            <input type="text" class="form-control" (blur)="getDropDownPinCodeArea(false)" formControlName="Pincode" placeholder="Pincode"
-              [ngClass]="{ 'is-invalid': f2.Pincode.errors && f2.Pincode.touched}" [(ngModel)]="AeraPincode">
+            <input type="text" class="form-control" (blur)="getDropDownPinCodeArea(false)" formControlName="Pincode"
+              placeholder="Pincode" [ngClass]="{ 'is-invalid': f2.Pincode.errors && f2.Pincode.touched}"
+              [(ngModel)]="AeraPincode">
 
             <div class="invalid-feedback"
               *ngIf="(leadFromAddressDetail.get('Pincode')?.hasError('required') && leadFromAddressDetail.get('Pincode')?.touched)">
@@ -239,12 +240,22 @@
               fill address</div>
           </div>
 
+          <div class="form-group col-md-12">
+            <div class="form-radio-check-grp border-0">
+              <div class="n-chk">
+                <label class="new-control new-checkbox checkbox-info">
+                  <input type="checkbox" class="new-control-input" name="custom-radio-10" checked>
+                  <span class="new-control-indicator"></span>Same as Permanent Address
+                </label>
+              </div>
+            </div>
+          </div>
           <div class="form-group col-md-6">
             <label>Correspond Pincode</label>
-            <input type="text" class="form-control" (blur)="getDropDownPinCodeArea(false)"
+            <input type="text" class="form-control" (blur)="getDropDownPinCodeArea(true)"
               placeholder="Correspond Pincode" formControlName="CorrespondPincode"
               [ngClass]="{ 'is-invalid': f2.CorrespondPincode.errors && f2.CorrespondPincode.touched}"
-              [(ngModel)]="AeraPincode">
+              [(ngModel)]="CorrespondAeraPincode">
 
             <div class="invalid-feedback"
               *ngIf="(leadFromAddressDetail.get('CorrespondPincode')?.hasError('required') && leadFromAddressDetail.get('CorrespondPincode')?.touched)">
@@ -274,13 +285,16 @@
 
 
         </div>
-        <div class="step-form-btn-grp mt-3 text-center">
-          <button mat-button matStepperPrevious class="btn btn-outline-danger mr-2"><i
-              class="fas fa-angle-left mr-1"></i>Back</button>
-          <button mat-button matStepperNext type="submit" class="btn btn-primary"> <i class="fas fa-check mr-1"
-              (click)="leadFromAddressDetail.markAllAsTouched()"></i> Next</button>
-        </div>
+
       </div>
+
+      <div class="step-form-btn-grp mt-3 ">
+        <button mat-button matStepperPrevious class="btn btn-outline-danger mr-2"><i
+            class="fas fa-angle-left mr-1"></i>Back</button>
+        <button mat-button matStepperNext type="submit" class="btn btn-primary"> <i class="fas fa-check mr-1"
+            (click)="leadFromAddressDetail.markAllAsTouched()"></i> Next</button>
+      </div>
+
     </form>
   </mat-step>
 
