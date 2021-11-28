@@ -53,7 +53,7 @@ export class RegisterCustomersComponent implements OnInit {
       serve.unsubscribe();
       if (response.IsSuccess) {
         this.model = response.Data as CustomerListModel[];
-        console.log(this.model);
+      
         this.dataSource = new MatTableDataSource<CustomerListModel>(this.model);
         this.totalRecords = response.TotalRecord as number;
         if (!this.indexModel.IsPostBack) {

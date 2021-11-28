@@ -61,7 +61,7 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
     this.GetDropDowns();
 
 
-    if (this._activatedRoute.snapshot.params.id) {
+    if (this._activatedRoute.snapshot?.params?.id) {
       this.leadId = this._activatedRoute.snapshot.params.id;
       this.onGetDetail();
     }
@@ -137,15 +137,15 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
   }
 
   onGetDetail() {
-    let serve = this._balanceTransferService.GetById(this.leadId).subscribe(res => {
-      debugger
-      serve.unsubscribe();
-      if (res.IsSuccess) {
-        let viewData = res.Data as BTGoldLoanLeadViewModel;
+    if (this.leadId > 0) {
+      let serve = this._balanceTransferService.GetById(this.leadId).subscribe(res => {
+        serve.unsubscribe();
+        if (res.IsSuccess) {
+          let viewData = res.Data as BTGoldLoanLeadViewModel;
 
-
-      }
-    })
+        }
+      })
+    }
   }
   //#region  <<DropDown>>
   GetDropDowns() {
@@ -169,8 +169,8 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
       serve.unsubscribe();
       if (res.IsSuccess) {
         let ddls = res?.Data as DropDownModel;
-        this.dropDown.ddlBank = ddls?.ddlBank;
-        this.dropDown.ddlGender = ddls?.ddlGender;
+        this.dropDown.ddlBank = ddls?.ddlBank ?? [];
+        this.dropDown.ddlGender = ddls?.ddlGender ?? [];
       }
     });
   }

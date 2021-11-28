@@ -17,7 +17,6 @@ export class AppComponent {
     this._authService.IsAuthentication.subscribe(x => {
       this.isAuth = x;
     });
-
   }
 
   setTheme(cssClass: string) {
@@ -48,5 +47,7 @@ export class AppComponent {
       this.renderer.addClass(el, 'theme-default');
     }
   }
+
+
 
 }

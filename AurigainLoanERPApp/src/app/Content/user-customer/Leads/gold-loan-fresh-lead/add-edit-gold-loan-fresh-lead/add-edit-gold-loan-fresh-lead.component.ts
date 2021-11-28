@@ -151,22 +151,26 @@ export class AddEditGoldLoanFreshLeadComponent implements OnInit {
   }
 
   onGetDetail() {
-    let serve = this._goldLoanLeadService.GetById(this.leadId).subscribe(res => {
-      debugger
-      serve.unsubscribe();
-      if (res.IsSuccess) {
-        this.model = res.Data as GoldLoanFreshLeadModel;
+    if (this.leadId > 0) {
 
-        if (this.model.KycDocument.KycDocumentTypeId) {
-          this.onChangeDocument(this.model.KycDocument.KycDocumentTypeId);
+
+      let serve = this._goldLoanLeadService.GetById(this.leadId).subscribe(res => {
+
+        serve.unsubscribe();
+        if (res.IsSuccess) {
+          this.model = res.Data as GoldLoanFreshLeadModel;
+
+          if (this.model.KycDocument.KycDocumentTypeId) {
+            this.onChangeDocument(this.model.KycDocument.KycDocumentTypeId);
+          }
+
+
+          if (this.model.KycDocument.Pincode) {
+            this.onChangePinCode();
+          }
         }
-
-
-        if (this.model.KycDocument.Pincode) {
-          this.onChangePinCode();
-        }
-      }
-    })
+      })
+    }
   }
   //#region  <<DropDown>>
   GetDropDowns() {

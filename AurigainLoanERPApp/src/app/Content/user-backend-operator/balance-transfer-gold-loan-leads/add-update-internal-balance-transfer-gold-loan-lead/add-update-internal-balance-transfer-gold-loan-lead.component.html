@@ -21,7 +21,7 @@
 <!-- Page Header Title end -->
 
 
-<mat-stepper orientation="vertical" [linear]="false" class="mat-custom-steper reg-steper gold-loan-steper">
+<mat-stepper orientation="vertical" [linear]="true" class="mat-custom-steper reg-steper gold-loan-steper">
   <mat-step [stepControl]="leadFromPersonalDetail">
     <form [formGroup]="leadFromPersonalDetail" (ngSubmit)="leadFromPersonalDetail.markAllAsTouched()">
       <ng-template matStepLabel>Personal Details</ng-template>
@@ -90,7 +90,8 @@
                 <div class="n-chk d-inline">
                   <label class="new-control new-radio radio-classic-info">
                     <input type="radio" formControlName="Gender" class="new-control-input" value="{{item.Value}}"
-                      name="Gender" [(ngModel)]="model.Gender">
+                      name="Gender" [(ngModel)]="model.Gender"
+                      [ngClass]="{ 'is-invalid': f1.Gender.errors && f1.Gender.touched}">
                     <span class="new-control-indicator"></span>{{item.Text}}
                   </label>
                 </div>
@@ -134,7 +135,7 @@
 
             <div class="invalid-feedback"
               *ngIf="!leadFromPersonalDetail.get('Mobile')?.hasError('required') && ((leadFromPersonalDetail.get('Mobile')?.hasError('maxlength') || leadFromPersonalDetail.get('Mobile')?.hasError('minlength')) && leadFromPersonalDetail.get('Mobile')?.touched) || (leadFromPersonalDetail.get('Mobile')?.hasError('maxlength') || leadFromPersonalDetail.get('Mobile')?.hasError('minlength'))">
-              Mobile length must be 10-12 digit...! </div>
+              Mobile length must be 10 digit...! </div>
 
           </div>
 
@@ -151,7 +152,7 @@
               Enter Alternate Mobile Number! </div>
             <div class="invalid-feedback"
               *ngIf="!leadFromPersonalDetail.get('AlternativeMobile')?.hasError('required') && ((leadFromPersonalDetail.get('AlternativeMobile')?.hasError('maxlength') || leadFromPersonalDetail.get('AlternativeMobile')?.hasError('minlength')) && leadFromPersonalDetail.get('AlternativeMobile')?.touched) || (leadFromPersonalDetail.get('AlternativeMobile')?.hasError('maxlength') || leadFromPersonalDetail.get('AlternativeMobile')?.hasError('minlength'))">
-              Alternate Mobile length must be 10-12 digit...! </div>
+              Alternate Mobile length must be 10 digit...! </div>
 
           </div>
 
