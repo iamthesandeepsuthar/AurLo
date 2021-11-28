@@ -12,6 +12,7 @@ import { DetailOtherLoanLeadComponent } from './other-loan-leads/detail-other-lo
 import { RegisterCustomersComponent } from './register-customers/register-customers.component';
 import { SharedModule } from 'src/app/Shared/Helper/shared/shared.module';
 import { BackendUserProfileComponent } from './backend-user-profile/backend-user-profile.component';
+import { AddUpdateInternalBalanceTransferGoldLoanLeadComponent } from './balance-transfer-gold-loan-leads/add-update-internal-balance-transfer-gold-loan-lead/add-update-internal-balance-transfer-gold-loan-lead.component';
 
 
 
@@ -25,7 +26,8 @@ import { BackendUserProfileComponent } from './backend-user-profile/backend-user
     OtherLoanLeadsComponent,
     DetailOtherLoanLeadComponent,
     RegisterCustomersComponent,
-    BackendUserProfileComponent
+    BackendUserProfileComponent,
+    AddUpdateInternalBalanceTransferGoldLoanLeadComponent
   ],
   imports: [
     CommonModule,

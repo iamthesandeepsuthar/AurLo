@@ -1,8 +1,8 @@
 
 export class UserSettingPostModel {
-    UserId!: number;
-    ProfileBase64!: string;
-    FileName!: string;
+  UserId!: number;
+  ProfileBase64!: string;
+  FileName!: string;
 }
 
 export interface LoginPostModel {
@@ -15,4 +15,6 @@ export interface LoginResponseModel {
   UserId: number;
   RoleId: number;
   Token: string;
+  UserName: string;
+
 }

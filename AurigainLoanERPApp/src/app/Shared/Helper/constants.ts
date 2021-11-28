@@ -175,13 +175,15 @@ export class API_Url {
   public static Gold_Loan_Fresh_Lead__ActiveStatus_Api = `${environment.apiEndPoint}GoldLoanFreshLead/UpdateActiveStatus/`;
   //#endregion
   //#region <<Personal - Car - Home - Loan >>
-   public static Personal_Home_Car_Loan_List_Api = `${environment.apiEndPoint}GoldLoanFreshLead/PersonalHomeCarLoanList`
+  public static Personal_Home_Car_Loan_List_Api = `${environment.apiEndPoint}GoldLoanFreshLead/PersonalHomeCarLoanList`
   //#endregion
 
   //#region  <<Balance Transfer Gold Loan Lead>>
   public static BT_Gold_Loan_Lead_List_Api = `${environment.apiEndPoint}GoldLoanBalanceTransfer/BTGoldLoanLeadList`;
-  public static BT_Gold_Loan_Lead__AddUpdate_Api = `${environment.apiEndPoint}GoldLoanBalanceTransfer/AddUpdateGoldLoanFreshLead`;
+  public static BT_Gold_Loan_Lead__AddUpdateExternalLead_Api = `${environment.apiEndPoint}GoldLoanBalanceTransfer/AddUpdateBTGoldLoanExternalLead`;
   public static BT_Gold_Loan_Lead__Detail_Api = `${environment.apiEndPoint}GoldLoanBalanceTransfer/DetailbyIdAsync/`;
+  public static BT_Gold_Loan_Lead__AddUpdateInternalLead_Api = `${environment.apiEndPoint}GoldLoanBalanceTransfer/AddUpdateBTGoldLoanExternalLead`;
+
   //#endregion
 }
 
@@ -256,11 +258,14 @@ export class Routing_Url {
 
   //#region <<BackEnd Operator URL>>
   public static BackEnd_Customer_List_Url = 'register-customers';
-  public static  BackEnd_Fresh_GoldLoan_List_Url = 'gold-loan-fresh-leads';
-  public static   BackEnd_BT_GoldLoan_List_Url = 'balance-transfer-leads';
-  public static  BackEnd_Profile_Url = 'door-step-agents-list';
+  public static BackEnd_Fresh_GoldLoan_List_Url = 'gold-loan-fresh-leads';
+  public static BackEnd_BT_GoldLoan_List_Url = 'balance-transfer-leads';
+  public static BackEnd_Profile_Url = 'door-step-agents-list';
   public static BackEnd_OtherLoan_Leads_Url = 'other-loan-leads';
   public static BackEnd_Fresh_Lead_Detail_Url = 'detail'
+  public static BackEnd_Fresh_Lead_Add_Update_Internal_Lead_Url = 'internal/add-update'
+
+
   //#endregion
 
   //#region  <<Agent >>
@@ -327,4 +332,5 @@ export class DropDown_key {
   static ddlRelationship = "ddlRelationship";
   static ddlGender = "ddlGender";
   static ddlPaymentMode = "ddlPaymentMode"
+  static ddlBank : "ddlBank"
 }

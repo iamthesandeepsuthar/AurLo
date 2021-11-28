@@ -1,5 +1,13 @@
 
 export class BTGoldLoanLeadPostModel {
+  constructor() {
+    this.AddressDetail = new BtGoldLoanLeadAddressPostModel();
+    this.AppointmentDetail = new BtGoldLoanLeadAppointmentPostModel();
+    this.DocumentDetail = new BtGoldLoanLeadDocumentPostModel();
+    this.ExistingLoanDetail = new BtGoldLoanLeadExistingLoanPostModel();
+    this.JewelleryDetail = new BtGoldLoanLeadJewelleryDetailPostModel();
+    this.KYCDetail = new BtGoldLoanLeadKYCDetailPostModel();
+  }
   Id!: number;
   ProductId!: number;
   FullName!: string;
@@ -13,6 +21,7 @@ export class BTGoldLoanLeadPostModel {
   SecondaryMobile!: string;
   Purpose!: string;
   LoanAmount!: number;
+  LoanAccountNumber!: string;
   LeadSourceByuserId!: number;
   AddressDetail!: BtGoldLoanLeadAddressPostModel;
   AppointmentDetail!: BtGoldLoanLeadAppointmentPostModel;
@@ -91,7 +100,7 @@ export class BTGoldLoanLeadListModel {
   FatherName!: string;
   DateOfBirth!: string;
   Gender!: string;
-  Email!:string;
+  Email!: string;
   PrimaryMobileNumber!: string;
   LeadSourceByUserId!: number;
   LeadSourceByUserName!: string;
@@ -103,7 +112,7 @@ export class BTGoldLoanLeadListModel {
   IsActive!: boolean;
   IsDelete!: boolean;
 }
- export interface BTGoldLoanLeadViewModel {
+export interface BTGoldLoanLeadViewModel {
   Id: number;
   ProductId: number;
   FullName: string;
@@ -117,6 +126,7 @@ export class BTGoldLoanLeadListModel {
   SecondaryMobile: string;
   Purpose: string;
   LoanAmount: number;
+  LoanAccountNumber: string;
   LeadSourceByuserId: number;
   AddressDetail: AddressDetail;
   AppointmentDetail: AppointmentDetail;

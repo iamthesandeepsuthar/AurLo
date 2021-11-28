@@ -42,4 +42,11 @@ export class BankBranchService {
     return this._baseService.get(url);
   }
 
+  GetBranchesbyBankId(bankId: string) : Observable<ApiResponse<DDLBranchModel[]>> {
+    let url = `${this._baseService.API_Url.Branch_Dropdown_List_Api}${bankId}`;
+    return this._baseService.get(url);
+  }
+
+
+
 }

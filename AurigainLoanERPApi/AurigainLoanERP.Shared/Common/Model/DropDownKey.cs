@@ -19,6 +19,9 @@ namespace AurigainLoanERP.Shared.Common.Model
         public const string ddlRelationship = "ddlrelationship";
         public const string ddlGender = "ddlgender";
         public const string ddlPaymentMode = "ddlpaymentmode";
+        public const string ddlBank = "ddlbank";
+
+        
 
     }
 }

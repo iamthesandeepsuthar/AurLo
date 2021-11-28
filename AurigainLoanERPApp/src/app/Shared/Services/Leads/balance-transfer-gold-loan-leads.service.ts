@@ -15,8 +15,8 @@ export class BalanceTransferGoldLoanLeadsService {
     let url = `${this._baseService.API_Url.BT_Gold_Loan_Lead__Detail_Api}${id}`;
     return this._baseService.get(url);
   }
-  AddUpdate(model: BTGoldLoanLeadPostModel): Observable<ApiResponse<string>> {
-    let url = `${this._baseService.API_Url.BT_Gold_Loan_Lead__AddUpdate_Api}`;
+  AddUpdateExternalLead(model: BTGoldLoanLeadPostModel): Observable<ApiResponse<string>> {
+    let url = `${this._baseService.API_Url.BT_Gold_Loan_Lead__AddUpdateExternalLead_Api}`;
     return this._baseService.post(url, model);
   }
   ChangeActiveStatus(id: number, status?: string): Observable<ApiResponse<number>> {
@@ -26,6 +26,11 @@ export class BalanceTransferGoldLoanLeadsService {
   Delete(id: number): Observable<ApiResponse<number>> {
     let url = `${this._baseService.API_Url.Gold_Loan_Fresh_Lead__Delete_Api}${id}`;
     return this._baseService.Delete(url);
+  }
+
+  AddUpdateInternalLead(model: BTGoldLoanLeadPostModel): Observable<ApiResponse<string>> {
+    let url = `${this._baseService.API_Url.BT_Gold_Loan_Lead__AddUpdateInternalLead_Api}`;
+    return this._baseService.post(url, model);
   }
 
 }

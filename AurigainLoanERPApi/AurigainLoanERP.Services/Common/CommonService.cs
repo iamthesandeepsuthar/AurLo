@@ -73,6 +73,13 @@ namespace AurigainLoanERP.Services.Common
                             objData.Add(item, await GetPaymentMode());
                             break;
 
+                        case DropDownKey.ddlBank:
+
+                            objData.Add(item, await GetBanks());
+                            break;
+
+
+
                         default:
                             break;
                     }
@@ -142,7 +149,7 @@ namespace AurigainLoanERP.Services.Common
                      .Select(r => new { Text = r.Name, Value = r.Id })
                      .ToListAsync();
             }
-            catch 
+            catch
             {
 
                 return null;
@@ -157,7 +164,7 @@ namespace AurigainLoanERP.Services.Common
                      .Select(item => new { Text = item.Name, Value = item.Id })
                      .ToListAsync();
             }
-            catch 
+            catch
             {
 
                 return null;
@@ -171,7 +178,7 @@ namespace AurigainLoanERP.Services.Common
                 return await (from data in _db.State where data.IsActive == true && !data.IsDelete select data)
                      .Select(item => new { Text = item.Name, Value = item.Id }).ToListAsync();
             }
-            catch 
+            catch
             {
 
                 return null;
@@ -186,7 +193,7 @@ namespace AurigainLoanERP.Services.Common
                      .Select(r => new { Text = r.Name, Value = r.Id })
                      .ToListAsync();
             }
-            catch 
+            catch
             {
 
                 return null;
@@ -201,7 +208,7 @@ namespace AurigainLoanERP.Services.Common
                      .Select(item => new { Text = item.DocumentName, Value = item.Id })
                      .ToListAsync();
             }
-            catch 
+            catch
             {
 
                 return null;
@@ -233,7 +240,22 @@ namespace AurigainLoanERP.Services.Common
                      .Select(item => new { Text = item.Mode, Value = item.Id })
                      .ToListAsync();
             }
-            catch 
+            catch
+            {
+
+                return null;
+            }
+        }
+
+        private async Task<object> GetBanks()
+        {
+            try
+            {
+                return await (from data in _db.BankMaster where data.IsActive == true && !data.IsDelete select data)
+                     .Select(item => new { Text = item.Name, Value = item.Id })
+                     .ToListAsync();
+            }
+            catch
             {
 
                 return null;
