@@ -182,7 +182,7 @@ export class API_Url {
   public static BT_Gold_Loan_Lead_List_Api = `${environment.apiEndPoint}GoldLoanBalanceTransfer/BTGoldLoanLeadList`;
   public static BT_Gold_Loan_Lead__AddUpdateExternalLead_Api = `${environment.apiEndPoint}GoldLoanBalanceTransfer/AddUpdateBTGoldLoanExternalLead`;
   public static BT_Gold_Loan_Lead__Detail_Api = `${environment.apiEndPoint}GoldLoanBalanceTransfer/DetailbyIdAsync/`;
-  public static BT_Gold_Loan_Lead__AddUpdateInternalLead_Api = `${environment.apiEndPoint}GoldLoanBalanceTransfer/AddUpdateBTGoldLoanExternalLead`;
+  public static BT_Gold_Loan_Lead__AddUpdateInternalLead_Api = `${environment.apiEndPoint}GoldLoanBalanceTransfer/AddUpdateBTGoldLoanInternalLead`;
 
   //#endregion
 }
@@ -332,5 +332,5 @@ export class DropDown_key {
   static ddlRelationship = "ddlRelationship";
   static ddlGender = "ddlGender";
   static ddlPaymentMode = "ddlPaymentMode"
-  static ddlBank : "ddlBank"
+  static ddlBank = "ddlBank"
 }

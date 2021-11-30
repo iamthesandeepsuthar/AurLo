@@ -7,13 +7,13 @@
       <nav class="custom-breadcrum">
         <ol class="breadcrumb justify-content-center justify-content-sm-start">
           <li class="breadcrumb-item"><a routerLink="/dashboard">Home</a></li>
-          <li class="breadcrumb-item"><a routerLink="../../../gold-loan-leads">Balance Transfer Gold Loan</a></li>
+          <li class="breadcrumb-item"><a routerLink="../../../../balance-transfer-leads">Balance Transfer Gold Loan</a></li>
           <li class="breadcrumb-item active" aria-current="page">{{leadId ==0 ? 'Add new lead' : 'Update lead'}}</li>
         </ol>
       </nav>
       <!-- Breadcrumb End -->
     </div>
-    <button class="btn btn-dark btn-sm mt-2 mt-sm-0" routerLink="../../../gold-loan-leads"> <i
+    <button class="btn btn-dark btn-sm mt-2 mt-sm-0" routerLink="../../../../balance-transfer-leads"> <i
         class="fas fa-angle-left mr-1"></i> Back</button>
 
   </div>
@@ -212,7 +212,7 @@
         <div class="row">
           <div class="form-group col-md-6">
             <label>Pincode</label>
-            <input type="text" class="form-control" (blur)="getDropDownPinCodeArea(false)" formControlName="Pincode"
+            <input type="text" class="form-control" (blur)="model.AddressDetail.AeraPincodeId=null;getDropDownPinCodeArea(false,true)" formControlName="Pincode"
               placeholder="Pincode" [ngClass]="{ 'is-invalid': f2.Pincode.errors && f2.Pincode.touched}"
               [(ngModel)]="AeraPincode">
 
@@ -222,10 +222,11 @@
           </div>
           <div class="form-group col-md-6">
             <label>Area (Location)</label>
-            <ng-select [items]="ddlAreaModel" [searchable]="true" bindLabel="AreaName" bindValue="Id"
-              placeholder="Select area" formControlName="Area"
-              [ngClass]="{ 'is-invalid': f2.Area.errors && f2.Area.touched}"
-              [(ngModel)]="model.AddressDetail.AeraPincodeId">
+            <ng-select [searchable]="true" [items]="ddlAreaModel" bindLabel="AreaName" bindValue="Id" placeholder="Select area"
+              formControlName="Area" [ngClass]="{ 'is-invalid': f2.Area.errors && f2.Area.touched}"
+              [(ngModel)]="model.AddressDetail.AeraPincodeId" [appendTo]="'body'">
+
+
             </ng-select>
             <div class="invalid-feedback"
               *ngIf="(leadFromAddressDetail.get('Area')?.hasError('required') && leadFromAddressDetail.get('Area')?.touched)">
@@ -245,7 +246,8 @@
             <div class="form-radio-check-grp border-0">
               <div class="n-chk">
                 <label class="new-control new-checkbox checkbox-info">
-                  <input type="checkbox" class="new-control-input" name="custom-radio-10" checked>
+                  <input type="checkbox" class="new-control-input" [ngModelOptions]="{standalone: true}"
+                    [ngModel]="isSameAddress" name="custom-radio-10" (change)="onSameAddressAssign($event)">
                   <span class="new-control-indicator"></span>Same as Permanent Address
                 </label>
               </div>
@@ -253,7 +255,7 @@
           </div>
           <div class="form-group col-md-6">
             <label>Correspond Pincode</label>
-            <input type="text" class="form-control" (blur)="getDropDownPinCodeArea(true)"
+            <input type="text" class="form-control" (blur)="getDropDownPinCodeArea(true,true)"
               placeholder="Correspond Pincode" formControlName="CorrespondPincode"
               [ngClass]="{ 'is-invalid': f2.CorrespondPincode.errors && f2.CorrespondPincode.touched}"
               [(ngModel)]="CorrespondAeraPincode">
