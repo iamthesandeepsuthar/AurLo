@@ -10,7 +10,6 @@ import { AuthService } from './Shared/Helper/auth.service';
 export class AppComponent {
   title = 'AurigainLoanERPApp';
   @ViewChild('pageBody', { static: false }) appPageBody!: ElementRef;
-
   isAuth: boolean = false;
   constructor(public _authService: AuthService, private renderer: Renderer2, private readonly _route: Router) {
     this._authService.IsAuthenticate();
@@ -47,7 +46,5 @@ export class AppComponent {
       this.renderer.addClass(el, 'theme-default');
     }
   }
-
-
-
+  
 }
