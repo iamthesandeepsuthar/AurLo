@@ -21,6 +21,9 @@ export class DetailBalanceTransferLeadComponent implements OnInit {
       this.LeadId = _activatedRoute.snapshot.params.id;
     }
   }
+  get Model(): BTGoldLoanLeadViewModel {
+    return this.model;
+  }
 
   ngOnInit(): void {
     if (this.LeadId > 0) {
@@ -28,18 +31,14 @@ export class DetailBalanceTransferLeadComponent implements OnInit {
     }
   }
 
-
   GetById(): void {
     let serve = this._freshLeadService.GetById(this.LeadId).subscribe(response => {
       serve.unsubscribe();
       if (response.IsSuccess) {
         this.model = response.Data as BTGoldLoanLeadViewModel;
-
       }
     }, errors => {
 
     });
   }
-
-
 }

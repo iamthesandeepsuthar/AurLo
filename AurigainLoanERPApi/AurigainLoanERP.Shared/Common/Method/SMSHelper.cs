@@ -38,7 +38,7 @@ namespace AurigainLoanERP.Shared.Common.Method
             try
             {
                 string responseData = string.Empty;
-                string url = string.Concat(_endPoint, "sendhttp.php?authkey=", _authKey, "&sender=", _senderId, "&type=", "2", "&route=", "2", "&mobiles=", mobile, "&message=", msg.Trim());
+                string url = string.Concat(_endPoint, "sendhttp.php?authkey=", _authKey, "&sender=", _senderId, "&type=", "1", "&route=", "2", "&mobiles=", mobile, "&message=", msg.Trim());
 
                 var httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
                 httpWebRequest.ContentType = "application/json";

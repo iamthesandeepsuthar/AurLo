@@ -8,11 +8,11 @@ namespace AurigainLoanERP.Shared.ContractModel
 {
    public class OtpModel
     {
-        public long Id { get; set; }
-        public string Mobile { get; set; }
-        public string Otp { get; set; }
-        public long? UserId { get; set; }
-        public bool IsVerify { get; set; }
+        //public long Id { get; set; }
+        //public string Mobile { get; set; }
+        //public string Otp { get; set; }
+        //public long? UserId { get; set; }
+        //public bool IsVerify { get; set; }
         public DateTime SessionStartOn { get; set; }
         public DateTime? ExpireOn { get; set; }
     }
