@@ -5,7 +5,7 @@ import { ToastrService } from "ngx-toastr";
 import { ProductCategoryEnum } from "src/app/Shared/Enum/fixed-value";
 import { AuthService } from "src/app/Shared/Helper/auth.service";
 import { DropDownModel } from "src/app/Shared/Helper/common-model";
-import { DropDown_key, Message } from "src/app/Shared/Helper/constants";
+import { DropDown_key, Message, Routing_Url } from "src/app/Shared/Helper/constants";
 import { BTGoldLoanLeadPostModel, BTGoldLoanLeadViewModel } from "src/app/Shared/Model/Leads/btgold-loan-lead-post-model.model";
 import { DDLBranchModel } from "src/app/Shared/Model/master-model/bank-model.model";
 import { DDLProductModel } from "src/app/Shared/Model/master-model/product-model.model";
@@ -43,6 +43,7 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
   ddlAreaModel!: AvailableAreaModel[];
   ddlCorespondAreaModel!: AvailableAreaModel[];
   UserId = 0;
+  isSameAddress = false;
   get f1() { return this.leadFromPersonalDetail.controls; }
   get f2() { return this.leadFromAddressDetail.controls; }
   get f3() { return this.leadFromAppointmentDetail.controls; }
@@ -65,6 +66,7 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
       this.leadId = this._activatedRoute.snapshot.params.id;
       this.onGetDetail();
     }
+
   }
 
   formInit() {
@@ -113,10 +115,16 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
     if (this.leadFromPersonalDetail.valid && this.leadFromAddressDetail.valid && this.leadFromAppointmentDetail.valid) {
 
       if (this.UserId > 0) {
-        this.model.CustomerUserId = this._auth.GetUserDetail()?.UserId as number;
+        this.model.LeadSourceByuserId = this._auth.GetUserDetail()?.UserId as number;
 
       }
-      this.model.LoanAmount = (this.model.LoanAmount as number ?? null);
+
+      if(this.model.LoanAmount){
+        this.model.LoanAmount =Number(this.model.LoanAmount);
+
+      }else {
+        this.model.LoanAmount =0;
+      }
 
       this._balanceTransferService.AddUpdateInternalLead(this.model).subscribe(res => {
         if (res.IsSuccess) {
@@ -126,7 +134,7 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
 
           this.leadFromAppointmentDetail.reset();
           this.model = new BTGoldLoanLeadPostModel();
-          this._router.navigate(['/user-customer/gold-loan-leads'])
+          this._router.navigate([`${Routing_Url.UserBackendOperatorModule}/${Routing_Url.BackEnd_BT_GoldLoan_List_Url}`]);
 
         } else {
           this.toast.success(Message.SaveFail);
@@ -185,8 +193,18 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
     });
   }
 
-  getDropDownPinCodeArea(isCorrespond: boolean = false) {
+  getDropDownPinCodeArea(isCorrespond: boolean = false, isRemoveValue = false) {
     let pinCode: string = isCorrespond ? this.CorrespondAeraPincode : this.AeraPincode;
+
+    if (isCorrespond) {
+      this.ddlCorespondAreaModel = [];
+      this.model.AddressDetail.CorrespondAeraPincodeId = isRemoveValue ? null : this.model.AddressDetail.CorrespondAeraPincodeId;
+    } else {
+      this.ddlAreaModel = [];
+      this.model.AddressDetail.AeraPincodeId = isRemoveValue ? null : this.model.AddressDetail.AeraPincodeId;
+
+    }
+
     let serve = this._stateDistrictService.GetAreaByPincode(pinCode).subscribe(res => {
       serve.unsubscribe();
       if (res.IsSuccess) {
@@ -197,18 +215,30 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
           this.ddlAreaModel = res?.Data as AvailableAreaModel[];
         }
 
+
+
       }
     })
 
   }
-
-
 
   onChangePinCode(PinCode: any) {
     if (this.model.AddressDetail) {
       this.getDropDownPinCodeArea();
       this.getDropDownBranch();
     }
+  }
+
+  onSameAddressAssign(eve: any) {
+
+    if (eve.target.checked) {
+      this.CorrespondAeraPincode = this.AeraPincode;
+      this.model.AddressDetail.CorrespondAddress = this.model.AddressDetail.Address;
+      this.getDropDownPinCodeArea(true);
+      this.model.AddressDetail.CorrespondAeraPincodeId = this.model.AddressDetail.AeraPincodeId;
+
+    }
+
   }
 
   //#endregion

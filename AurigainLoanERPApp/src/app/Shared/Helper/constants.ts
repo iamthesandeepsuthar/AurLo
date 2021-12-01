@@ -332,5 +332,5 @@ export class DropDown_key {
   static ddlRelationship = "ddlRelationship";
   static ddlGender = "ddlGender";
   static ddlPaymentMode = "ddlPaymentMode"
-  static ddlBank : "ddlBank"
+  static ddlBank = "ddlBank"
 }
