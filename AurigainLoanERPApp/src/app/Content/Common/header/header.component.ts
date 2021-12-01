@@ -1,8 +1,8 @@
-import { LoginResponseModel } from 'src/app/Shared/Model/User-setting-model/user-setting.model';
+import { LoginResponseModel } from '../../../Shared/Model/User-setting-model/user-setting.model';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AuthService } from '../../../Shared/Helper/auth.service';
 import { MatDialog } from '@angular/material/dialog';
-import { ChangePasswordDialogComponent } from '../../../Shared/Helper/shared/Dialogs/change-password-dialog/change-password-dialog.component';
+import { ChangePasswordDialogComponent } from '../../../Shared/Helper/shared/DialogComponent/change-password-dialog/change-password-dialog.component';
 
 @Component({
   selector: 'app-header',

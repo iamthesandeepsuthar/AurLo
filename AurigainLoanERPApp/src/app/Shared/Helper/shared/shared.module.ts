@@ -19,7 +19,9 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { UserSecurityDepositComponent } from './UserRegistration/user-security-deposit/user-security-deposit.component';
 import { MatStepperModule } from '@angular/material/stepper';
 import { UserKYCDocumentDetailComponent } from './UserRegistration/user-kycdocument-detail/user-kycdocument-detail.component';
-import { ChangePasswordDialogComponent } from './Dialogs/change-password-dialog/change-password-dialog.component';
+import { ChangePasswordDialogComponent } from './DialogComponent/change-password-dialog/change-password-dialog.component';
+
+
 const CommonModules = [
   HttpClientModule,
   ReactiveFormsModule,
