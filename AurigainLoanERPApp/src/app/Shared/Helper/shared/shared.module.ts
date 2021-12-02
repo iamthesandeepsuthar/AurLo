@@ -18,7 +18,8 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { UserSecurityDepositComponent } from './UserRegistration/user-security-deposit/user-security-deposit.component';
 import { MatStepperModule } from '@angular/material/stepper';
 import { UserKYCDocumentDetailComponent } from './UserRegistration/user-kycdocument-detail/user-kycdocument-detail.component';
-import { ChangePasswordDialogComponent } from './Popup/change-password-dialog/change-password-dialog.component';
+
+import { ChangePasswordPopupComponent } from './Popup/Popup/change-password-popup/change-password-popup.component';
 
 const CommonModules = [HttpClientModule, ReactiveFormsModule, FormsModule];
 
@@ -48,12 +49,12 @@ const SharedComponent = [
   UserBankDetailSectionComponent,
   UserSecurityDepositComponent,
   FileSelectorComponent,
-  ChangePasswordDialogComponent,
+  ChangePasswordPopupComponent  ,
   UserKYCDocumentDetailComponent
 
 ];
 const SharedEntryComponent = [
-  ChangePasswordDialogComponent,
+  ChangePasswordPopupComponent,
    
 ];
 @NgModule({

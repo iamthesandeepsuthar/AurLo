@@ -2,8 +2,7 @@ import { LoginResponseModel } from '../../../Shared/Model/User-setting-model/use
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AuthService } from '../../../Shared/Helper/auth.service';
 import { MatDialog } from '@angular/material/dialog';
-import { ChangePasswordDialogComponent } from 'src/app/Shared/Helper/shared/Popup/change-password-dialog/change-password-dialog.component';
-
+import { ChangePasswordPopupComponent } from 'src/app/Shared/Helper/shared/Popup/Popup/change-password-popup/change-password-popup.component';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -27,7 +26,7 @@ export class HeaderComponent implements OnInit {
   }
 
   openChangePasswordDialog(): void {
-    const dialogRef = this.dialog.open(ChangePasswordDialogComponent, {
+    const dialogRef = this.dialog.open(ChangePasswordPopupComponent, {
       width: '250px',
 
     });
