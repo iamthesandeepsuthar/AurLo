@@ -1,8 +1,8 @@
-import { PasswordChangeDialogComponent } from './../../../Shared/Helper/shared/Dialogs/password-change-dialog/password-change-dialog.component';
 import { LoginResponseModel } from '../../../Shared/Model/User-setting-model/user-setting.model';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AuthService } from '../../../Shared/Helper/auth.service';
 import { MatDialog } from '@angular/material/dialog';
+import { ChangePasswordDialogComponent } from 'src/app/Shared/Helper/shared/Popup/change-password-dialog/change-password-dialog.component';
 
 @Component({
   selector: 'app-header',
@@ -27,7 +27,7 @@ export class HeaderComponent implements OnInit {
   }
 
   openChangePasswordDialog(): void {
-    const dialogRef = this.dialog.open(PasswordChangeDialogComponent, {
+    const dialogRef = this.dialog.open(ChangePasswordDialogComponent, {
       width: '250px',
 
     });

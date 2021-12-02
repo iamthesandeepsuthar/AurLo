@@ -49,7 +49,7 @@ const SharedComponent = [
   UserSecurityDepositComponent,
   FileSelectorComponent,
   ChangePasswordDialogComponent,
- 
+  UserKYCDocumentDetailComponent
 
 ];
 const SharedEntryComponent = [
