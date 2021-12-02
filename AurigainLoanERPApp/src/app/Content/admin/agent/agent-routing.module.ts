@@ -5,6 +5,7 @@ import { Routing_Url } from 'src/app/Shared/Helper/constants';
 import { DetailAgentComponent } from './list-agent/detail-agent/detail-agent.component';
 import { ListAgentComponent } from './list-agent/list-agent.component';
 import { AddUpdateAgentComponent } from './list-agent/add-update-agent/add-update-agent.component';
+import { AgentAvailabilityComponent } from './agent-availability/agent-availability.component';
 
 const routes: Routes = [
   // { path: '', component: ListAgentComponent, canActivate: [AuthenticationGuard] },
@@ -21,6 +22,9 @@ const routes: Routes = [
   },
   {
     path: `${Routing_Url.AgenDetailUrl}/:id`, component: DetailAgentComponent, canActivate: [AuthenticationGuard]
+  },
+  {
+    path: `${Routing_Url.UserAvailibilityUrl}/:userId`, component: AgentAvailabilityComponent, canActivate: [AuthenticationGuard]
   },
 
 ];

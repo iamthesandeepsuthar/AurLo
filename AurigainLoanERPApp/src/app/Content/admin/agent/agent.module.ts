@@ -5,13 +5,15 @@ import { AgentRoutingModule } from "./agent-routing.module";
 import { AddUpdateAgentComponent } from "./list-agent/add-update-agent/add-update-agent.component";
 import { DetailAgentComponent } from "./list-agent/detail-agent/detail-agent.component";
 import { ListAgentComponent } from "./list-agent/list-agent.component";
+import { AgentAvailabilityComponent } from './agent-availability/agent-availability.component';
 
 
 @NgModule({
   declarations: [
     DetailAgentComponent,
     AddUpdateAgentComponent,
-    ListAgentComponent
+    ListAgentComponent,
+    AgentAvailabilityComponent
   ],
   imports: [
     CommonModule,

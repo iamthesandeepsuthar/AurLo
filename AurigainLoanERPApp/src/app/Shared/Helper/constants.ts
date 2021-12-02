@@ -242,10 +242,14 @@ export class Routing_Url {
   public static District_AddUpdate_Url = '/add-district/';
   //#endregion
 
+  //#region <User>
+  public static UserAvailibilityUrl = 'user-availibility';
+
+  //#endregion
+
   //#region <DoorStepAgent>
   public static DoorStepAgentRegistrationUrl = 'registration';
   public static DoorStepAgenDetailUrl = 'detail';
-  public static DoorStepAgentAvailibilityUrl = 'user-availibility';
   public static DoorStepAgentListUrl = 'door-step-agents-list';
   //#endregion
 
