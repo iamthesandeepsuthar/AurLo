@@ -1,7 +1,6 @@
-
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http'
+import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
@@ -19,19 +18,12 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { UserSecurityDepositComponent } from './UserRegistration/user-security-deposit/user-security-deposit.component';
 import { MatStepperModule } from '@angular/material/stepper';
 import { UserKYCDocumentDetailComponent } from './UserRegistration/user-kycdocument-detail/user-kycdocument-detail.component';
-import { ChangePasswordDialogComponent } from './DialogComponents/change-password-dialog/change-password-dialog.component';
-import { LeadStatusChangeDialogComponent } from './DialogComponents/lead-status-change-dialog/lead-status-change-dialog.component';
 
+import { ChangePasswordPopupComponent } from './Popup/Popup/change-password-popup/change-password-popup.component';
 
-const CommonModules = [
-  HttpClientModule,
-  ReactiveFormsModule,
-  FormsModule,
-
-]
+const CommonModules = [HttpClientModule, ReactiveFormsModule, FormsModule];
 
 const InstalledModule = [
-
   BsDatepickerModule.forRoot(),
   MatDialogModule,
   MatSnackBarModule,
@@ -45,10 +37,10 @@ const InstalledModule = [
     timeOut: 3000,
     closeButton: true,
     autoDismiss: true,
-    maxOpened: 5
+    maxOpened: 5,
   }),
-  MatStepperModule
-]
+  MatStepperModule,
+];
 
 const SharedComponent = [
   UserNomineeDetailSectionComponent,
@@ -57,32 +49,18 @@ const SharedComponent = [
   UserBankDetailSectionComponent,
   UserSecurityDepositComponent,
   FileSelectorComponent,
-  ChangePasswordDialogComponent,
-  LeadStatusChangeDialogComponent,
-  UserKYCDocumentDetailComponent,
+  ChangePasswordPopupComponent  ,
+  UserKYCDocumentDetailComponent
 
 ];
 const SharedEntryComponent = [
-  ChangePasswordDialogComponent,
-  LeadStatusChangeDialogComponent
+  ChangePasswordPopupComponent,
+   
 ];
 @NgModule({
-  declarations: [
-    SharedComponent,
-
-  ],
-  entryComponents: [
-    SharedEntryComponent
-  ],
-  imports: [
-    CommonModule,
-    CommonModules,
-    InstalledModule
-  ],
-  exports: [
-    CommonModules,
-    InstalledModule,
-    SharedComponent
-  ]
+  declarations: [SharedComponent],
+  entryComponents: [SharedEntryComponent],
+  imports: [CommonModule, CommonModules, InstalledModule],
+  exports: [CommonModules, InstalledModule, SharedComponent],
 })
-export class SharedModule { }
+export class SharedModule {}

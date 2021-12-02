@@ -62,7 +62,6 @@ namespace AurigainLoanERP.Shared.Common.Method
             }
         }
 
-
         public string GenerateUniqueId() {
             try
             {

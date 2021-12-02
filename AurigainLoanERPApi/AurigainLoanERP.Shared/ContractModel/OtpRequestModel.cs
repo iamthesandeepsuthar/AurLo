@@ -7,8 +7,7 @@ using System.Threading.Tasks;
 namespace AurigainLoanERP.Shared.ContractModel
 {
     public class OtpRequestModel
-    {
-        public long Id { get; set;}
+    {      
         public string MobileNumber { get; set; }
         public bool IsResendOtp { get; set; }
     }

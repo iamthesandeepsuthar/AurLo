@@ -181,8 +181,8 @@ export class API_Url {
   //#region  <<Balance Transfer Gold Loan Lead>>
   public static BT_Gold_Loan_Lead_List_Api = `${environment.apiEndPoint}GoldLoanBalanceTransfer/BTGoldLoanLeadList`;
   public static BT_Gold_Loan_Lead__AddUpdateExternalLead_Api = `${environment.apiEndPoint}GoldLoanBalanceTransfer/AddUpdateBTGoldLoanExternalLead`;
-  public static BT_Gold_Loan_Lead__Detail_Api = `${environment.apiEndPoint}GoldLoanBalanceTransfer/DetailbyIdAsync/`;
-  public static BT_Gold_Loan_Lead__AddUpdateInternalLead_Api = `${environment.apiEndPoint}GoldLoanBalanceTransfer/AddUpdateBTGoldLoanInternalLead`;
+  public static BT_Gold_Loan_Lead__Detail_Api = `${environment.apiEndPoint}GoldLoanBalanceTransfer/DetailById/`;
+  public static BT_Gold_Loan_Lead__AddUpdateInternalLead_Api = `${environment.apiEndPoint}GoldLoanBalanceTransfer/AddUpdateBTGoldLoanExternalLead`;
 
   //#endregion
 }

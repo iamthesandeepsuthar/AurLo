@@ -41,7 +41,7 @@ namespace AurigainLoanERP.Shared.Enums
             Other = 3,
 
         }
-            
+
         public enum ApiStatusCode
         {
             Ok = 200,
@@ -53,11 +53,11 @@ namespace AurigainLoanERP.Shared.Enums
             ServerException = 405,
             DataBaseTransactionFailed = 406,
             InvaildModel = 407,
-            BadRequest=408,
-            UnApproved=409
-        }
-
-        public enum UserRoleEnum
+            BadRequest = 408,
+            UnApproved = 409,           
+            OtpInvalid = 410,
+            OTPVarificationFailed=411
+        }        public enum UserRoleEnum
         {
             [StringValue("Super Admin")]
             SuperAdmin = 1,

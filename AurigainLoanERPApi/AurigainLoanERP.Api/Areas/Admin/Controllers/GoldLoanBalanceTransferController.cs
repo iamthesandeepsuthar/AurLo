@@ -18,7 +18,6 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
         public GoldLoanBalanceTransferController(IBalanceTransService objBTLead)
         {
             _objBTLead = objBTLead;
-
         }
         [HttpPost]
         public async Task<ApiServiceResponseModel<string>> AddUpdateBTGoldLoanExternalLead(BTGoldLoanLeadPostModel model)
@@ -37,7 +36,6 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
                 return obj;
             }
         }
-
         [HttpPost]
         public async Task<ApiServiceResponseModel<string>> AddUpdateBTGoldLoanInternalLead(BTGoldLoanLeadPostModel model)
         {
@@ -55,21 +53,16 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
                 return obj;
             }
         }
-
-
         [HttpPost]
         public async Task<ApiServiceResponseModel<List<BTGoldLoanLeadListModel>>> BTGoldLoanLeadList(IndexModel model)
         {
             return await _objBTLead.BTGolddLoanLeadList(model);
         }
-
-         
-
         [HttpGet("{id}")]
-        public async Task<ApiServiceResponseModel<BTGoldLoanLeadViewModel>> DetailbyIdAsync(long id)
+        public async Task<ApiServiceResponseModel<BTGoldLoanLeadViewModel>> DetailById(long id)
         {
             return await _objBTLead.DetailbyIdAsync(id);
     }
-}
+    }
     
 }

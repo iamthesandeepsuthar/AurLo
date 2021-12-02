@@ -4,17 +4,41 @@ using System.Text;
 
 namespace AurigainLoanERP.Shared.ContractModel
 {
-    public class BTGoldLoanLeadViewModel : BTGoldLoanLeadPostModel
+    public class BTGoldLoanLeadViewModel
     {
+        public long Id { get; set; }
+        public int ProductId { get; set; }
+        public string ProductCategoryName { get; set;}
+        public string FullName { get; set; }
+        public string FatherName { get; set; }
+        public string Gender { get; set; }
+        public DateTime DateOfBirth { get; set; }
+        public string Profession { get; set; }
+        public string Mobile { get; set; }
+        public string EmailId { get; set; }
+        public long CustomerUserId { get; set; }
+        public string SecondaryMobile { get; set; }
+        public string Purpose { get; set; }
+        public decimal LoanAmount { get; set; }
+        public long LeadSourceByuserId { get; set; }
+        public BTGoldLoanLeadViewModel() {
+            DetailAddress = new BtGoldLoanLeadAddressViewModel();
+            AppointmentDetail = new BtGoldLoanLeadAppointmentViewModel();
+            DocumentDetail = new BtGoldLoanLeadDocumentViewModel();
+            JewelleryDetail = new BtGoldLoanLeadJewelleryDetailViewModel();
+            KYCDetail = new BtGoldLoanLeadKYCDetailViewModel();
+            ExistingLoanDetail = new BtGoldLoanLeadExistingLoanViewModel();
+        }
         public string LeadSourceByuserName { get; set; }
-        public String ProductName { get; set; }
+        public string ProductName { get; set; }
         public string CustomerUserName { get; set; }
-        public new BtGoldLoanLeadAddressViewModel AddressDetail { get; set; }
-        public new BtGoldLoanLeadAppointmentViewModel AppointmentDetail { get; set; }
-        public new BtGoldLoanLeadDocumentViewModel DocumentDetail { get; set; }
-        public new BtGoldLoanLeadExistingLoanViewModel ExistingLoanDetail { get; set; }
-        public new BtGoldLoanLeadJewelleryDetailViewModel JewelleryDetail { get; set; }
-        public new BtGoldLoanLeadKYCDetailViewModel KYCDetail { get; set; }
+        public bool IsInternalLead { get; set;}
+        public  BtGoldLoanLeadAddressViewModel DetailAddress { get; set; }
+        public  BtGoldLoanLeadAppointmentViewModel AppointmentDetail { get; set; }
+        public  BtGoldLoanLeadDocumentViewModel DocumentDetail { get; set; }
+        public  BtGoldLoanLeadExistingLoanViewModel ExistingLoanDetail { get; set; }
+        public  BtGoldLoanLeadJewelleryDetailViewModel JewelleryDetail { get; set; }
+        public  BtGoldLoanLeadKYCDetailViewModel KYCDetail { get; set; }
     }
     public class BTGoldLoanLeadPostModel
     {
@@ -31,7 +55,6 @@ namespace AurigainLoanERP.Shared.ContractModel
         public string SecondaryMobile { get; set; }
         public string Purpose { get; set; }
         public decimal LoanAmount { get; set; }
-
         public string LoanAccountNumber { get; set; }
         public long LeadSourceByuserId { get; set; }
 
@@ -125,6 +148,8 @@ namespace AurigainLoanERP.Shared.ContractModel
         public long Id { get; set; }
         public int? BranchId { get; set; }
         public string BranchName { get; set; }
+        public string Ifsc { get; set; }
+        public string Pincode { get; set;}
         public string BankName { get; set; }
         public DateTime? AppointmentDate { get; set; }
         public string AppointmentTime { get; set; }
@@ -168,7 +193,6 @@ namespace AurigainLoanERP.Shared.ContractModel
     public class BtGoldLoanLeadKYCDetailViewModel
     {
         public long Id { get; set; }
-
         public int PoidocumentTypeId { get; set; }
         public string PoidocumentType { get; set; }
         public string PoidocumentNumber { get; set; }
@@ -200,6 +224,7 @@ namespace AurigainLoanERP.Shared.ContractModel
         public string Email { get; set; }
         public string PrimaryMobileNumber { get; set; }
         public long LeadSourceByUserId { get; set; }
+        public bool IsInternalLead { get; set;}
         public string LeadSourceByUserName { get; set; }
         public double LoanAmountRequired { get; set; }
         public int ProductId { get; set; }
