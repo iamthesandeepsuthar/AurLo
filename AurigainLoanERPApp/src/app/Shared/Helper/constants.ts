@@ -268,6 +268,7 @@ export class Routing_Url {
   public static BackEnd_OtherLoan_Leads_Url = 'other-loan-leads';
   public static BackEnd_Fresh_Lead_Detail_Url = 'detail'
   public static BackEnd_Fresh_Lead_Add_Update_Internal_Lead_Url = 'internal/add-update'
+  public static BT_Gold_Loan_Add_Update_External_Lead_Url = 'external/add-update'
 
 
   //#endregion

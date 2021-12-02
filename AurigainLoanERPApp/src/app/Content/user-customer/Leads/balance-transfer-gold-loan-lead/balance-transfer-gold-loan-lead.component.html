@@ -2,19 +2,19 @@
 <div class="widget-header">
   <div class="row d-block d-sm-flex align-items-center justify-content-between text-center text-sm-left">
     <div>
-      <h1> Agent</h1>
+      <h1> Balance Transfer Gold Loan Lead</h1>
       <!-- Breadcrumb Start -->
       <nav class="custom-breadcrum">
         <ol class="breadcrumb justify-content-center justify-content-sm-start">
-          <li class="breadcrumb-item"><a href="#">Home</a></li>
-          <li class="breadcrumb-item"><a href="javascript:void(0)">Master</a></li>
-          <li class="breadcrumb-item active" aria-current="page"> Agent </li>
+          <li class="breadcrumb-item"><a href="javascript:void(0)">Dashboard</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Balance Transfer Gold Loan Lead</li>
         </ol>
       </nav>
       <!-- Breadcrumb End -->
     </div>
-    <a class="btn btn-dark btn-sm mt-2 mt-sm-0" routerLink="../agent-addupdate/0">
-      <i class="fas fa-plus"></i> Add agent</a>
+    <a class="btn btn-dark btn-sm mt-2 mt-sm-0"
+      [routerLink]="'./'+routing_Url.BT_Gold_Loan_Add_Update_External_Lead_Url+'/0'">
+      <i class="fas fa-plus"></i> Add Lead</a>
   </div>
 </div>
 <!-- Page Header Title end -->
@@ -32,7 +32,7 @@
       <div class="row position-relative">
         <div class="col-12 col-md-4 d-flex justify-content-sm-start justify-content-center">
           <div class="dataTables_length" id="zero-config_length"><label>Results :
-              <select name="zero-config_length" [(ngModel)]="indexModel.PageSize" (change)="getList()"
+              <select name="zero-config_length" [(ngModel)]="indexModel.PageSize" (change)="onPageSizeChange()"
                 aria-controls="zero-config" class="form-control">
                 <option value="101">All</option>
                 <option value="10">10</option>
@@ -51,20 +51,24 @@
               <input type="search" [(ngModel)]="indexModel.Search" (blur)="onSearch()" class="form-control"
                 placeholder="Search..." aria-controls="zero-config"></label></div>
 
-          <div class="ad-filter-btn-grp">
+          <!-- <div class="ad-filter-btn-grp">
             <button data-toggle="collapse" href="#advance-filter1" type="submit" class="ad-filter-btn"> <img
                 src="assets/img/filter.png" data-toggle="tooltip" data-placement="bottom" title="Advance filter">
             </button>
-          </div>
-          <div class="table-view-btn ml-4">
+          </div> -->
+          <!-- <div class="table-view-btn ml-4">
             <button type="button" class="btn-change-view"><i class="fa fa-bars"></i></button>
             <button type="button" class="btn-change-view ml-2 active"><i class="fa fa-th-large"></i></button>
-          </div>
+          </div> -->
 
         </div>
       </div>
 
-    </div> 
+    </div>
+
+
+
+
     <div class="table-responsive table-shadow">
 
       <table class="custom-mat-table" mat-table [dataSource]="dataSource" matSort
@@ -85,7 +89,7 @@
           </td>
         </ng-container>
 
-        <ng-container matColumnDef="IsApproved">
+        <!-- <ng-container matColumnDef="IsApproved">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Approval </th>
           <td mat-cell *matCellDef="let element" class="table-action-btn">
             <a (click)="OnApproveStatus(element.UserId)" title="Update Approval Status">
@@ -94,7 +98,7 @@
             </a>
 
           </td>
-        </ng-container>
+        </ng-container> -->
 
         <ng-container matColumnDef="IsActive">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Status </th>
@@ -111,21 +115,18 @@
           <th width="150" mat-header-cell *matHeaderCellDef> Action </th>
           <td mat-cell *matCellDef="let row" class="table-action-btn">
 
-            <a class="table-action-btn-edit" routerLink="../{{this.routing_Url.AgentRegistrationUrl +'/'+ row.UserId}}"
+            <!-- <a class="table-action-btn-edit" routerLink="../{{this.routing_Url.AgentRegistrationUrl +'/'+ row.UserId}}"
               title="Edit">
               <i class="fas fa-edit"></i>
-            </a>
-            <a class="table-action-btn-view" routerLink="../{{routing_Url.AgenDetailUrl +'/'+ row.UserId}}"
+            </a> -->
+            <a class="table-action-btn-view" routerLink="./{{routing_Url.BackEnd_Fresh_Lead_Detail_Url +'/'+ row.Id}}"
               title="Detail">
               <i class="fas fa-eye"></i>
             </a>
-            <a class="table-action-btn-time" routerLink="../{{routing_Url.UserAvailibilityUrl+'/'+row.UserId}}"
-              title="Door Step Agent availibility">
-              <i class="fas fa-business-time"></i>
-            </a>
-            <a class="table-action-btn-delete" (click)="updateDeleteStatus(row?.UserId)" title="Delete">
+
+            <!-- <a class="table-action-btn-delete" (click)="updateDeleteStatus(row?.UserId)" title="Delete">
               <i class="fas fa-trash-alt"></i>
-            </a>
+            </a> -->
           </td>
         </ng-container>
 
