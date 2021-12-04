@@ -242,10 +242,14 @@ export class Routing_Url {
   public static District_AddUpdate_Url = '/add-district/';
   //#endregion
 
+  //#region <User>
+  public static UserAvailibilityUrl = 'user-availibility';
+
+  //#endregion
+
   //#region <DoorStepAgent>
   public static DoorStepAgentRegistrationUrl = 'registration';
   public static DoorStepAgenDetailUrl = 'detail';
-  public static DoorStepAgentAvailibilityUrl = 'user-availibility';
   public static DoorStepAgentListUrl = 'door-step-agents-list';
   //#endregion
 
@@ -264,6 +268,7 @@ export class Routing_Url {
   public static BackEnd_OtherLoan_Leads_Url = 'other-loan-leads';
   public static BackEnd_Fresh_Lead_Detail_Url = 'detail'
   public static BackEnd_Fresh_Lead_Add_Update_Internal_Lead_Url = 'internal/add-update'
+  public static BT_Gold_Loan_Add_Update_External_Lead_Url = 'external/add-update'
 
 
   //#endregion

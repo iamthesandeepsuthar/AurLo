@@ -19,7 +19,7 @@ import { UserSecurityDepositComponent } from './UserRegistration/user-security-d
 import { MatStepperModule } from '@angular/material/stepper';
 import { UserKYCDocumentDetailComponent } from './UserRegistration/user-kycdocument-detail/user-kycdocument-detail.component';
 
-import { ChangePasswordPopupComponent } from './Popup/Popup/change-password-popup/change-password-popup.component';
+import { ChangePasswordPopupComponent } from './Popup/change-password-popup/change-password-popup.component';
 
 const CommonModules = [HttpClientModule, ReactiveFormsModule, FormsModule];
 
@@ -55,7 +55,7 @@ const SharedComponent = [
 ];
 const SharedEntryComponent = [
   ChangePasswordPopupComponent,
-   
+
 ];
 @NgModule({
   declarations: [SharedComponent],
