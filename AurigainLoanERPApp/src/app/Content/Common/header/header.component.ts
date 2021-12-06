@@ -2,7 +2,7 @@ import { LoginResponseModel } from '../../../Shared/Model/User-setting-model/use
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AuthService } from '../../../Shared/Helper/auth.service';
 import { MatDialog } from '@angular/material/dialog';
-import { ChangePasswordPopupComponent } from 'src/app/Shared/Helper/shared/Popup/Popup/change-password-popup/change-password-popup.component';
+import { ChangePasswordPopupComponent } from 'src/app/Shared/Helper/shared/Popup/change-password-popup/change-password-popup.component';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -31,9 +31,7 @@ export class HeaderComponent implements OnInit {
 
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-
-
+    dialogRef.afterClosed().subscribe(result => { 
     });
   }
 }

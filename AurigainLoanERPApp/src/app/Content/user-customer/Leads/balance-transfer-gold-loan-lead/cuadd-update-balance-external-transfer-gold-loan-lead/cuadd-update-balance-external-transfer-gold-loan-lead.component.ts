@@ -1,32 +1,31 @@
-import { Component, OnInit } from "@angular/core";
-import { FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { Router, ActivatedRoute } from "@angular/router";
-import { ToastrService } from "ngx-toastr";
-import { ProductCategoryEnum } from "src/app/Shared/Enum/fixed-value";
-import { AuthService } from "src/app/Shared/Helper/auth.service";
-import { DropDownModel } from "src/app/Shared/Helper/common-model";
-import { DropDown_key, Message, Routing_Url } from "src/app/Shared/Helper/constants";
-import { BTGoldLoanLeadPostModel, BTGoldLoanLeadViewModel } from "src/app/Shared/Model/Leads/btgold-loan-lead-post-model.model";
-import { DDLBranchModel } from "src/app/Shared/Model/master-model/bank-model.model";
-import { DDLProductModel } from "src/app/Shared/Model/master-model/product-model.model";
-import { AvailableAreaModel } from "src/app/Shared/Model/User-setting-model/user-availibility.model";
-import { CommonService } from "src/app/Shared/Services/common.service";
-import { BalanceTransferGoldLoanLeadsService } from "src/app/Shared/Services/Leads/balance-transfer-gold-loan-leads.service";
-import { BankBranchService } from "src/app/Shared/Services/master-services/bank-branch.service";
-import { JewelleryTypeService } from "src/app/Shared/Services/master-services/jewellery-type.service";
-import { KycDocumentTypeService } from "src/app/Shared/Services/master-services/kyc-document-type.service";
-import { ProductService } from "src/app/Shared/Services/master-services/product.service";
-import { StateDistrictService } from "src/app/Shared/Services/master-services/state-district.service";
-import { UserRoleEnum } from '../../../../Shared/Enum/fixed-value';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { UserRoleEnum, ProductCategoryEnum } from 'src/app/Shared/Enum/fixed-value';
+import { AuthService } from 'src/app/Shared/Helper/auth.service';
+import { DropDownModel } from 'src/app/Shared/Helper/common-model';
+import { DropDown_key, Message, Routing_Url } from 'src/app/Shared/Helper/constants';
+import { BTGoldLoanLeadPostModel, BTGoldLoanLeadViewModel } from 'src/app/Shared/Model/Leads/btgold-loan-lead-post-model.model';
+import { DDLBranchModel } from 'src/app/Shared/Model/master-model/bank-model.model';
+import { DDLProductModel } from 'src/app/Shared/Model/master-model/product-model.model';
+import { AvailableAreaModel } from 'src/app/Shared/Model/User-setting-model/user-availibility.model';
+import { CommonService } from 'src/app/Shared/Services/common.service';
+import { BalanceTransferGoldLoanLeadsService } from 'src/app/Shared/Services/Leads/balance-transfer-gold-loan-leads.service';
+import { BankBranchService } from 'src/app/Shared/Services/master-services/bank-branch.service';
+import { JewelleryTypeService } from 'src/app/Shared/Services/master-services/jewellery-type.service';
+import { KycDocumentTypeService } from 'src/app/Shared/Services/master-services/kyc-document-type.service';
+import { ProductService } from 'src/app/Shared/Services/master-services/product.service';
+import { StateDistrictService } from 'src/app/Shared/Services/master-services/state-district.service';
 
 @Component({
-  selector: 'app-add-update-internal-balance-transfer-gold-loan-lead',
-  templateUrl: './add-update-internal-balance-transfer-gold-loan-lead.component.html',
-  styleUrls: ['./add-update-internal-balance-transfer-gold-loan-lead.component.scss'],
+  selector: 'app-cuadd-update-balance-external-transfer-gold-loan-lead',
+  templateUrl: './cuadd-update-balance-external-transfer-gold-loan-lead.component.html',
+  styleUrls: ['./cuadd-update-balance-external-transfer-gold-loan-lead.component.scss'],
   providers: [ProductService, KycDocumentTypeService, StateDistrictService, BankBranchService, JewelleryTypeService, BalanceTransferGoldLoanLeadsService]
 
 })
-export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements OnInit {
+export class CUAddUpdateBalanceExternalTransferGoldLoanLeadComponent implements OnInit {
 
   leadId: number = 0;
   model = new BTGoldLoanLeadPostModel();
@@ -43,7 +42,7 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
   ddlBranchModel!: DDLBranchModel[];
   ddlAreaModel!: AvailableAreaModel[];
   ddlCorespondAreaModel!: AvailableAreaModel[];
- isSameAddress = false;
+   isSameAddress = false;
   get f1() { return this.leadFromPersonalDetail.controls; }
   get f2() { return this.leadFromAddressDetail.controls; }
   get f3() { return this.leadFromAppointmentDetail.controls; }
@@ -54,7 +53,7 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
     readonly _router: Router, private readonly _bankBranchService: BankBranchService,
     private readonly _activatedRoute: ActivatedRoute, private readonly _auth: AuthService,
     private readonly _balanceTransferService: BalanceTransferGoldLoanLeadsService, private readonly toast: ToastrService) {
-   }
+  }
 
   ngOnInit(): void {
     this.formInit();

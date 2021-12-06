@@ -4255,6 +4255,10 @@ h4 {
     padding: 8px !important;
 }
 
+.cdk-overlay-container {
+    z-index: 99999 !important;
+}
+
 
 /* .custom-modal .modal-content .modal-body {
     background: url(https://blog.2checkout.com/wp-content/uploads/2018/11/how-does-the-payment-processing-industry-work-1.png);

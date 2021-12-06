@@ -1,28 +1,28 @@
-import { Component, OnInit } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { ActivatedRoute, Router } from "@angular/router";
-import { ToastrService } from "ngx-toastr";
-import { UserRoleEnum } from "src/app/Shared/Enum/fixed-value";
-import { UserAvailibilityPostModel, AvailableAreaModel, UserAvailabilityViewModel } from "src/app/Shared/Model/User-setting-model/user-availibility.model";
-import { AlertService } from "src/app/Shared/Services/alert.service";
-import { CommonService } from "src/app/Shared/Services/common.service";
-import { DoorStepAgentService } from "src/app/Shared/Services/door-step-agent-services/door-step-agent.service";
-import { UserSettingService } from '../../../../Shared/Services/user-setting-services/user-setting.service';
-import { UserViewModel } from '../../../../Shared/Model/doorstep-agent-model/door-step-agent.model';
-import { Message } from "src/app/Shared/Helper/constants";
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { UserRoleEnum } from 'src/app/Shared/Enum/fixed-value';
+import { Message, Routing_Url } from 'src/app/Shared/Helper/constants';
+import { UserViewModel } from 'src/app/Shared/Model/doorstep-agent-model/door-step-agent.model';
+import { UserAvailibilityPostModel, AvailableAreaModel, UserAvailabilityViewModel } from 'src/app/Shared/Model/User-setting-model/user-availibility.model';
+import { AlertService } from 'src/app/Shared/Services/alert.service';
+import { CommonService } from 'src/app/Shared/Services/common.service';
+import { UserSettingService } from 'src/app/Shared/Services/user-setting-services/user-setting.service';
 
 @Component({
-  selector: 'app-door-step-agent-availability',
-  templateUrl: './door-step-agent-availability.component.html',
-  styleUrls: ['./door-step-agent-availability.component.scss'],
+  selector: 'app-agent-availability',
+  templateUrl: './agent-availability.component.html',
+  styleUrls: ['./agent-availability.component.scss'],
   providers: [UserSettingService]
 })
-export class DoorStepAgentAvailabilityComponent implements OnInit {
+export class AgentAvailabilityComponent implements OnInit {
+
   userId: number = 0;
   userModel = {} as UserViewModel;
   model = {} as UserAvailibilityPostModel;
   ddlavailibleAreaModel = [] as AvailableAreaModel[];
-  dataModel: UserAvailabilityViewModel[] = []; 
+  dataModel: UserAvailabilityViewModel[] = [];
   userRoleEnum = UserRoleEnum;
   formGroup!: FormGroup;
 
@@ -37,6 +37,8 @@ export class DoorStepAgentAvailabilityComponent implements OnInit {
   get f() { return this.formGroup.controls; }
   get capacityValues() { return Array.from({ length: 10 }, (val, i) => i + 1) }
   PinCode!: string;
+  get routing_Url() { return Routing_Url }
+
   constructor(private readonly _alertService: AlertService, private readonly fb: FormBuilder,
     private readonly _userSettingService: UserSettingService, private _activatedRoute: ActivatedRoute, private _router: Router,
     readonly _commonService: CommonService, private readonly _toast: ToastrService,) {
@@ -224,7 +226,7 @@ export class DoorStepAgentAvailabilityComponent implements OnInit {
   }
 
   GetAvailableArea(id = 0) {
-    let serve = this._userSettingService.GetAvailableAreaForRolebyPinCode(this.PinCode, UserRoleEnum.DoorStepAgent, id).subscribe(res => {
+    let serve = this._userSettingService.GetAvailableAreaForRolebyPinCode(this.PinCode, UserRoleEnum.Agent, id).subscribe(res => {
       serve.unsubscribe();
       if (res.IsSuccess) {
         this.ddlavailibleAreaModel = res.Data as AvailableAreaModel[];
@@ -243,4 +245,3 @@ export class DoorStepAgentAvailabilityComponent implements OnInit {
 
   }
 }
-
