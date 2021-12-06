@@ -137,6 +137,7 @@ export interface DoorStepAgentViewModel {
   QualificationName: string;
   Address: string;
   PinCode: string;
+  AreaPincodeId:number;
   DistrictId: number;
   DistrictName: string;
   StateId: number;

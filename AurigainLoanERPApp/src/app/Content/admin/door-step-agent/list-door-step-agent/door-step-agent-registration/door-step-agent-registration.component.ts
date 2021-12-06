@@ -95,8 +95,7 @@ export class DoorStepAgentRegistrationComponent implements OnInit, AfterContentC
     });
   }
   getAreaByPincode(value: any) {
-    let pincode = value.currentTarget.value;
-    let subscription = this._locationService.GetAreaByPincode(pincode).subscribe(response => {
+    let subscription = this._locationService.GetAreaByPincode(value).subscribe(response => {
       subscription.unsubscribe();
       if (response.IsSuccess) {
         this.areaModel = response.Data as AvailableAreaModel[];
@@ -296,9 +295,11 @@ export class DoorStepAgentRegistrationComponent implements OnInit, AfterContentC
             this.model.DistrictId = data?.DistrictId;
             this.model.StateId = data?.StateId;
             this.model.PinCode = data?.PinCode;
+            this.model.AreaPincodeId = data?.AreaPincodeId;
             this.model.DateOfBirth = data?.DateOfBirth;
             this.previewUrl = data?.User.ProfilePath;
             this.model.SelfFunded = data?.SelfFunded;
+            this.getAreaByPincode(this.model.PinCode);
 
             if (data?.User) {
               this.model.User.Email = data?.User?.Email;

@@ -191,7 +191,7 @@
         <div class="form-group col-md-4">
           <label>Pincode</label>
           <input type="text" [(ngModel)]="model.PinCode" (keypress)="_commonService.NumberOnly($event)" [minlength]="6"
-            [maxLength]="6" formControlName="PinCode"  (blur)="getAreaByPincode($event)" [ngClass]="{ 'is-invalid': f.PinCode.errors && f.PinCode.touched}"
+            [maxLength]="6" formControlName="PinCode"  (blur)="getAreaByPincode($any($event.target).value)" [ngClass]="{ 'is-invalid': f.PinCode.errors && f.PinCode.touched}"
             class="form-control" id="input4" placeholder="pincode">
           <div class="invalid-feedback"
             *ngIf="(formGroup.get('PinCode')?.hasError('required') && formGroup.get('PinCode')?.touched)">
@@ -241,8 +241,8 @@
   (onDocSubmit)="bindDocs($event)" [kycModel]="model.UserKYC"></app-user-kycdocument-detail>
 
 <div class="form-footer-btn-grp mt-3 mb-3 widget-content widget-content p-3 text-center">
-  <button type="submit" class="btn btn-success mr-3" (click)="onFrmSubmit()"> <i class="fas fa-check mr-1"></i> Save
-    application</button>
+  <button type="submit" class="btn btn-success mr-3" (click)="onFrmSubmit()"> <i class="fas fa-check mr-1"></i>{{Id>0?'Update':' Save'}}
+    Application</button>
   <!-- <button type="button" (click)="onFrmReset()" class="btn btn-primary mr-3"> <i class="fas fa-redo-alt mr-1"></i> Reset</button> -->
   <button type="button" class="btn btn-outline-danger" routerLink="/admin/door-step-agent/door-step-agents-list"> <i
       class="fas fa-times mr-1"></i> Cancel</button>

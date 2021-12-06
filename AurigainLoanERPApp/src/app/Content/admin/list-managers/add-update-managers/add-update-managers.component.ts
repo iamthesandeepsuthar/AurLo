@@ -109,8 +109,7 @@ ngOnInit(): void {
     });
   }
   getAreaByPincode(value: any) {
-    let pincode = value.currentTarget.value;
-    let subscription = this._stateService.GetAreaByPincode(pincode).subscribe(response => {
+    let subscription = this._stateService.GetAreaByPincode(value).subscribe(response => {
       subscription.unsubscribe();
       if (response.IsSuccess) {
         this.areaModel = response.Data as AvailableAreaModel[];
@@ -125,9 +124,8 @@ ngOnInit(): void {
   subscription.unsubscribe();
   if (res.IsSuccess) {
   this.model = res.Data as UserManagerModel;
-  debugger;
-  this.getAreaByPincode(this.model.Pincode);
   this.model.AreaPincodeId = this.model.AreaPincodeId;
+  this.getAreaByPincode(this.model.Pincode);
   } else {
   this.toast.warning('Record not found', 'No Record');
   }

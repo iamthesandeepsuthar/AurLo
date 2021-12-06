@@ -67,6 +67,7 @@ export interface AgentViewModel {
   StateId : number ;
   StateName: string;
   PinCode: string;
+  AreaPincodeId: number;
   DateOfBirth: string | null;
   ProfilePictureUrl: string;
   IsActive: boolean | null;

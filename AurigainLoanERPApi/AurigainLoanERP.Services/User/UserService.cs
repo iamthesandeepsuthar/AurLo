@@ -721,7 +721,7 @@ namespace AurigainLoanERP.Services.User
                                       .Include(x => x.User)
                                       .Include(x => x.User.UserRole).FirstOrDefaultAsync();
                 if (detail != null)
-                {                    
+                {
                     UserManagerModel manager = new UserManagerModel
                     {
                         FullName = detail.FullName,
@@ -742,6 +742,7 @@ namespace AurigainLoanERP.Services.User
                         IsApproved = detail.User.IsApproved,
                         IsActive = detail.IsActive,
                         ProfileImageUrl = "",
+                        AreaPincodeId = detail.AreaPincodeId,
                         DistrictName = detail.AreaPincode.District.Name,
                         StateName = detail.AreaPincode.District.State.Name
                     };

@@ -93,12 +93,17 @@ export class AddUpdateAgentComponent implements OnInit,AfterContentChecked {
       }
     });
   }
-  getAreaByPincode(value: any) {
-    let pincode = value.currentTarget.value;
+  getAreaByPincode(pincode?: any,defaultValue=0) {
+    //let pincode = value;
     let subscription = this._locationService.GetAreaByPincode(pincode).subscribe(response => {
       subscription.unsubscribe();
       if (response.IsSuccess) {
         this.areaModel = response.Data as AvailableAreaModel[];
+        if(defaultValue>0){
+          this.model.AreaPincodeId =  defaultValue;
+
+        }
+
       } else {
         this._toast.warning(response.Message as string, 'Server Error');
 
@@ -260,6 +265,8 @@ export class AddUpdateAgentComponent implements OnInit,AfterContentChecked {
             this.model.PinCode = data?.PinCode;
             this.model.DateOfBirth = data?.DateOfBirth;
             this.previewUrl = data?.User.ProfilePath;
+            this.model.AreaPincodeId = data?.AreaPincodeId;
+            this.getAreaByPincode(this.model.PinCode );
 
             if (data?.User) {
               this.model.User.Email = data?.User?.Email;
