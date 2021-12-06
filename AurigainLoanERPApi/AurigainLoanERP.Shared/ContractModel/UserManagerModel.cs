@@ -20,9 +20,10 @@ namespace AurigainLoanERP.Shared.ContractModel
         public string Address { get; set; }
         public long UserId { get; set; }
         public string DistrictName { get; set; }
-        public int StateId { get; set;}
+        public int? StateId { get; set;}
         public string StateName { get; set;}
-        public long DistrictId { get; set; }
+        public long? DistrictId { get; set; }
+        public long?  AreaPincodeId { get; set;}
         public string Pincode { get; set; }
         public bool? IsActive { get; set; }
         public bool IsApproved { get; set; }

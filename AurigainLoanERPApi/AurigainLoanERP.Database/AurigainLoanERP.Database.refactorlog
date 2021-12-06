@@ -126,4 +126,11 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="ForeClosureLetter" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="a147298f-2135-4e3a-833e-bd72a9e48635" ChangeDateTime="12/04/2021 06:52:14">
+    <Property Name="ElementName" Value="[dbo].[UserAgent].[AreaPinocdeId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[UserAgent]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="AreaPincodeId" />
+  </Operation>
 </Operations>

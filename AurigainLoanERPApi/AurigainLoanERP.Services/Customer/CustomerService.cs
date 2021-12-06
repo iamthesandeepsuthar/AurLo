@@ -23,13 +23,16 @@ namespace AurigainLoanERP.Services.Customer
         private AurigainContext _db;
         private readonly EmailHelper _emailHelper;
         private readonly SMSHelper _smsHelper;
+        private readonly Security _security;
 
-        public CustomerService(IMapper mapper, AurigainContext db, Microsoft.Extensions.Configuration.IConfiguration _configuration, IHostingEnvironment environment)
-        {
+        public CustomerService(IMapper mapper, AurigainContext db, 
+                               Microsoft.Extensions.Configuration.IConfiguration _configuration,
+                               IHostingEnvironment environment)  {
             this._mapper = mapper;
             _db = db;
             _emailHelper = new EmailHelper(_configuration, environment);
             _smsHelper = new SMSHelper(_configuration);
+            _security = new Security(_configuration);
         }
         public async Task<ApiServiceResponseModel<string>> TestEmail()
         {
@@ -374,6 +377,8 @@ namespace AurigainLoanERP.Services.Customer
                     var isExist = await _db.UserMaster.Where(x => x.Mobile == model.User.Email && x.Mobile == model.User.Mobile && x.IsDelete == false).FirstOrDefaultAsync();
                     if (isExist == null)
                     {
+
+                        var encrptPassword = _security.Base64Encode("12345");
                         model.User.UserRoleId = ((int)UserRoleEnum.Customer);
                         Random random = new Random();
                         UserMaster user = new UserMaster
@@ -386,7 +391,7 @@ namespace AurigainLoanERP.Services.Customer
                             IsActive = model.IsActive,
                             UserRoleId = model.User.UserRoleId.Value,
                             IsWhatsApp = model.User.IsWhatsApp,
-                            Password = "12345",
+                            Password = encrptPassword,
                             IsApproved = true,
                             IsDelete = false,
                             ProfilePath = null

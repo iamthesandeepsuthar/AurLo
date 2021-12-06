@@ -75,27 +75,6 @@
           <div class="invalid-feedback" *ngIf="(managerFrom.get('UserRole')?.hasError('required') && managerFrom.get('UserRole')?.touched)">select user role </div>
             </div>
             <div class="form-group col-md-4">
-                <label>State</label>
-               <ng-select (ngModelChange)="getDistrict($event)" [(ngModel)]="Model.StateId"  [items]="stateModel" [searchable]="true" bindLabel="Name" bindValue="Id"
-            placeholder="Select State" formControlName="DllState">
-          </ng-select>
-            </div>
-            <div class="form-group col-md-4">
-                <label>District</label>
-                <ng-select [items]="districtModel" [(ngModel)]="Model.DistrictId" [searchable]="true" bindLabel="Name" bindValue="Id"
-                placeholder="select district" formControlName="DllDistrict"
-                [ngClass]="{ 'is-invalid': f.DllDistrict.errors && f.DllDistrict.touched}" >
-              </ng-select>
-              <div class="invalid-feedback" *ngIf="(managerFrom.get('DllDistrict')?.hasError('required') && managerFrom.get('DllDistrict')?.touched)">select district</div>
-            </div>
-            <div class="form-group col-md-4">
-                <label>Pincode</label>
-                <input type="text" class="form-control" minlength="6" [(ngModel)]="Model.Pincode"
-                [ngClass]="{ 'is-invalid': f.Pincode.errors && f.Pincode.touched}"
-                formControlName="Pincode" placeholder="Pincode">
-                <div class="invalid-feedback" *ngIf="(managerFrom.get('Pincode')?.hasError('required') && managerFrom.get('Pincode')?.touched)">enter pincode</div>
-            </div>
-            <div class="form-group col-md-4">
               <label>WhatsApp</label>
               <div class="form-radio-check-grp">
                 <div class="n-chk d-inline">
@@ -142,6 +121,29 @@
               <label>Address</label>
               <textarea rows="1" class="form-control" id="32" formControlName="Address" [(ngModel)]="Model.Address" placeholder="Enter Address "> </textarea>
             </div>
+            <div class="form-group col-md-4">
+              <label>Pincode</label>
+              <input type="text" class="form-control" minlength="6" [(ngModel)]="Model.Pincode"
+              [ngClass]="{ 'is-invalid': f.Pincode.errors && f.Pincode.touched}"
+              formControlName="Pincode" placeholder="Pincode"  (blur)="getAreaByPincode($event)">
+              <div class="invalid-feedback" *ngIf="(managerFrom.get('Pincode')?.hasError('required') && managerFrom.get('Pincode')?.touched)">enter pincode</div>
+          </div>
+            <div class="form-group col-md-8">
+              <label>Area (Location)</label>
+             <ng-select  appendTo="body"[(ngModel)]="model.AreaPincodeId"
+             [items]="areaModel" [searchable]="true" bindLabel="AreaName"
+             bindValue="Id" placeholder="Area Name" formControlName="DllState">
+             </ng-select>
+          </div>
+          <!-- <div class="form-group col-md-4">
+              <label>District</label>
+              <ng-select [items]="districtModel" [(ngModel)]="Model.DistrictId" [searchable]="true" bindLabel="Name" bindValue="Id"
+              placeholder="select district" formControlName="DllDistrict"
+              [ngClass]="{ 'is-invalid': f.DllDistrict.errors && f.DllDistrict.touched}" >
+            </ng-select>
+            <div class="invalid-feedback" *ngIf="(managerFrom.get('DllDistrict')?.hasError('required') && managerFrom.get('DllDistrict')?.touched)">select district</div>
+          </div> -->
+
         </div>
         <div class="form-footer-btn-grp widget-content widget-content p-3 text-center">
             <button type="submit" class="btn btn-success mr-3"> <i class="fas fa-check mr-1"></i> Save User</button>

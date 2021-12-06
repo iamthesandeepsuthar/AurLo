@@ -19,17 +19,20 @@ import { FileInfo } from '../../../../Common/file-selector/file-selector.compone
 import { UserSecurityDepositComponent } from '../../../../../Shared/Helper/shared/UserRegistration/user-security-deposit/user-security-deposit.component';
 import { UserRoleEnum } from '../../../../../Shared/Enum/fixed-value';
 import { UserKYCDocumentDetailComponent } from '../../../../../Shared/Helper/shared/UserRegistration/user-kycdocument-detail/user-kycdocument-detail.component';
+import { StateDistrictService } from "src/app/Shared/Services/master-services/state-district.service";
+import { AvailableAreaModel } from "src/app/Shared/Model/User-setting-model/user-availibility.model";
 
 
 @Component({
   selector: 'app-door-step-agent-registration',
   templateUrl: './door-step-agent-registration.component.html',
   styleUrls: ['./door-step-agent-registration.component.scss'],
-  providers: [DoorStepAgentService, UserSettingService]
+  providers: [DoorStepAgentService, UserSettingService,StateDistrictService]
 })
 export class DoorStepAgentRegistrationComponent implements OnInit, AfterContentChecked {
   Id: number = 0;
   model = new DoorStepAgentPostModel();
+  areaModel!: AvailableAreaModel[];
   profileModel = {} as UserSettingPostModel;
   formGroup!: FormGroup;
   dropDown = new DropDownModel();
@@ -53,7 +56,8 @@ export class DoorStepAgentRegistrationComponent implements OnInit, AfterContentC
 
   constructor(private cdr: ChangeDetectorRef, private readonly _alertService: AlertService, private readonly fb: FormBuilder,
     private readonly _userDoorStepService: DoorStepAgentService, private _activatedRoute: ActivatedRoute, private _router: Router,
-    readonly _commonService: CommonService, private readonly _toast: ToastrService, private readonly _userSettingService: UserSettingService) {
+    readonly _commonService: CommonService, private readonly _toast: ToastrService,
+     private readonly _userSettingService: UserSettingService, private readonly _locationService: StateDistrictService) {
     if (this._activatedRoute.snapshot.params.id) {
       this.Id = this._activatedRoute.snapshot.params.id;
 
@@ -87,6 +91,18 @@ export class DoorStepAgentRegistrationComponent implements OnInit, AfterContentC
         this.dropDown.ddlState = ddls.ddlState;
         this.dropDown.ddlQualification = ddls.ddlQualification;
         this.dropDown.ddlGender = ddls.ddlGender;
+      }
+    });
+  }
+  getAreaByPincode(value: any) {
+    let pincode = value.currentTarget.value;
+    let subscription = this._locationService.GetAreaByPincode(pincode).subscribe(response => {
+      subscription.unsubscribe();
+      if (response.IsSuccess) {
+        this.areaModel = response.Data as AvailableAreaModel[];
+      } else {
+        this._toast.warning(response.Message as string, 'Server Error');
+
       }
     });
   }
@@ -233,7 +249,7 @@ export class DoorStepAgentRegistrationComponent implements OnInit, AfterContentC
       Gender: [undefined, Validators.required],
       Qualification: [undefined, Validators.required],
       Address: [undefined, undefined],
-      District: [undefined, Validators.required],
+     // District: [undefined, Validators.required],
       State: [undefined, Validators.required],
       PinCode: [undefined, Validators.compose([Validators.required, Validators.maxLength(6), Validators.minLength(6)])],
       DateOfBirth: [undefined, Validators.required],

@@ -27,7 +27,7 @@ export class HeaderComponent implements OnInit {
 
   openChangePasswordDialog(): void {
     const dialogRef = this.dialog.open(ChangePasswordPopupComponent, {
-      width: '250px',
+      width: '350px',
 
     });
 

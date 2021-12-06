@@ -121,7 +121,11 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
         public async Task<ApiServiceResponseModel<List<AvailableAreaModel>>> AreaByPincode(string pincode)
         {
             return await _serivce.GetAreaByPincode(pincode);
-        }     
-
+        }
+        [HttpGet("[action]/{pincode}")]
+        public async Task<ApiServiceResponseModel<AddressDetailModel>>AddressDetailByPincode(string pincode)
+        {
+            return await _serivce.GetAddressDetailByPincode(pincode);
+        }
     }
 }

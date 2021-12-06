@@ -37,8 +37,9 @@ namespace AurigainLoanERP.Shared.Common.Method
 
             try
             {
+                string message = string.Format("Dear {0},{1} is the OTP for login into AurLo App.Do not share this for security purposes.Valid for 3 min.", "customer",msg);
                 string responseData = string.Empty;
-                string url = string.Concat(_endPoint, "sendhttp.php?authkey=", _authKey, "&sender=", _senderId, "&type=", "1", "&route=", "2", "&mobiles=", mobile, "&message=", msg.Trim());
+                string url = string.Concat(_endPoint, "sendhttp.php?authkey=", _authKey, "&mobiles=", mobile, "&message=", message, "&sender=", _senderId, "&type=", "1", "&route=", "2");
 
                 var httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
                 httpWebRequest.ContentType = "application/json";
@@ -93,8 +94,6 @@ namespace AurigainLoanERP.Shared.Common.Method
             return smsResponseModel;
 
         }
-
-
 
         public async Task<SMSStatusResponseModel> CheckSMSStatud(long msgId )
         {

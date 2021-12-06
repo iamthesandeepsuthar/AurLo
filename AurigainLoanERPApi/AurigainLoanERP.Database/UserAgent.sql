@@ -17,5 +17,6 @@
     [ModifiedOn] DATETIME NULL, 
     [CreatedBy] BIGINT NULL, 
     [ModifiedBy] BIGINT NULL, 
+    [AreaPincodeId] bigint references PincodeArea(Id) null
  
 )

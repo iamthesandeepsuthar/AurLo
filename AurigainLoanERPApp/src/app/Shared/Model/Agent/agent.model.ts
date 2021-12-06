@@ -41,6 +41,7 @@ export class AgentPostModel {
   StateId!:number;
   DistrictId!: number | null;
   PinCode!: string;
+  AreaPincodeId!: number;
   DateOfBirth!: string | null;
   IsActive!: boolean | null;
   User!: UserPostModel;
@@ -49,8 +50,6 @@ export class AgentPostModel {
   UserKYC: UserKYCPostModel[] = [];
   UserNominee!: UserNomineePostModel;
   ReportingPerson!: UserReportingPersonPostModel;
-
-
 }
 
 

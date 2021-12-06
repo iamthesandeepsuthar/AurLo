@@ -18,22 +18,24 @@ namespace AurigainLoanERP.Api.Controllers
         {
             _security = new Security(_configuration);
             _accountService = accountService;
-
         }
-
         [HttpPost]
         public async Task<ApiServiceResponseModel<LoginResponseModel>> WebLogin(LoginModel model)
         {
             return await _accountService.WebLogin(model);           
-        }
-        
+        }        
         //Post api/Account/GetOTP
         [HttpPost]
         public async Task<ApiServiceResponseModel<OtpModel>> GetOTP(OtpRequestModel model)
         {
             return await _accountService.GetOtp(model);
         }
-
+        //Post api/Account/WebChangePassword
+        [HttpPost]
+        public async Task<ApiServiceResponseModel<string>>WebChangePassword(ChangePasswordModel model)
+        {
+            return await _accountService.WebChangePassword(model);
+        }
         //Post api/Account/ChangeMPIN
         [HttpPost]
         public async Task<ApiServiceResponseModel<string>> ChangeMPIN(ChangePasswordModel model)
@@ -57,6 +59,11 @@ namespace AurigainLoanERP.Api.Controllers
         public async Task<ApiServiceResponseModel<string>> ValidateUserWithMobileNUmber(string mobileNumber) 
         {
             return await _accountService.CheckUserExist(mobileNumber);
+        }
+        [HttpGet("{value}")]
+        public ApiServiceResponseModel<string> GenerateEncrptPassword(string value)
+        {
+            return _accountService.GetEncrptedPassword(value);
         }
     }
 }

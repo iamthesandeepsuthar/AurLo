@@ -23,6 +23,7 @@ namespace AurigainLoanERP.Data.Database
         public DateTime? ModifiedOn { get; set; }
         public long CreatedBy { get; set; }
         public long? ModifiedBy { get; set; }
+        public int? UserRoleLevel { get; set; }
 
         public virtual ICollection<UserMaster> UserMaster { get; set; }
     }

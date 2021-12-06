@@ -428,7 +428,10 @@ namespace AurigainLoanERP.Services.StateAndDistrict
                                   {
                                       Id = record.Id,
                                       PinCode = record.Pincode,
-                                      AreaName = string.Concat(record.AreaName, ", ", record.District.Name, " (", record.District.State.Name, ")")
+                                      AreaName = string.Concat(record.AreaName, ", ", record.District.Name, " (", record.District.State.Name, ")"),
+                                      DistrictId = record.DistrictId,
+                                      StateId = record.District.StateId
+
                                   }).ToListAsync();
 
                 if (area != null)
@@ -444,6 +447,34 @@ namespace AurigainLoanERP.Services.StateAndDistrict
             catch (Exception ex)
             {
                 return CreateResponse<List<AvailableAreaModel>>(null, ResponseMessage.Fail, false, ((int)ApiStatusCode.ServerException), ex.Message ?? ex.InnerException.ToString());
+            }
+        }
+        public async Task<ApiServiceResponseModel<AddressDetailModel>> GetAddressDetailByPincode(string pincode) 
+        {
+            try
+            {
+              var result = await _db.PincodeArea.Where(x => x.Pincode == pincode).Include(x => x.District).Include(x => x.District.State).FirstOrDefaultAsync();
+                if (result != null)
+                {
+                    AddressDetailModel detail = new AddressDetailModel 
+                    {
+                        AreaName = result.AreaName,
+                        DistrictName = result.District.Name,
+                        StateName = result.District.State.Name,
+                        DistrictId = result.DistrictId,
+                        StateId = result.District.StateId,
+                        AreaPincodeId  =  result.Id
+                    };
+                    return CreateResponse(detail, ResponseMessage.Success, true, ((int)ApiStatusCode.Ok));
+                }
+                else 
+                {
+                    return CreateResponse<AddressDetailModel>(null, ResponseMessage.NotFound, false, ((int)ApiStatusCode.RecordNotFound));
+                }
+            }
+            catch (Exception ex) 
+            {
+                return CreateResponse<AddressDetailModel>(null, ResponseMessage.Fail, false, ((int)ApiStatusCode.ServerException), ex.Message ?? ex.InnerException.ToString());
             }
         }
         private async Task<bool> AddUpdateAreas(List<PincodeAreaModel> model, long DistrictId)

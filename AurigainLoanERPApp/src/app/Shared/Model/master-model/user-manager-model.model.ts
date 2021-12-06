@@ -16,6 +16,7 @@ export class UserManagerModel {
         DistrictName!: string;
         StateId!: number;
         StateName!: string;
+        AreaPincodeId!:number;
         AreaName!: string;
         Pincode!: string ;
         IsActive!: boolean ;

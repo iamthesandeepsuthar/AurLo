@@ -690,17 +690,20 @@ namespace AurigainLoanERP.Data.Database
 
                 entity.Property(e => e.Pincode).HasMaxLength(200);
 
+                entity.HasOne(d => d.AreaPincode)
+                    .WithMany(p => p.Managers)
+                    .HasForeignKey(d => d.AreaPincodeId)
+                    .HasConstraintName("FK__Managers__AreaPi__15702A09");
+
                 entity.HasOne(d => d.District)
                     .WithMany(p => p.Managers)
                     .HasForeignKey(d => d.DistrictId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Managers__Distri__3CF40B7E");
+                    .HasConstraintName("FK__Managers__Distri__16644E42");
 
                 entity.HasOne(d => d.State)
                     .WithMany(p => p.Managers)
                     .HasForeignKey(d => d.StateId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Managers__StateI__3DE82FB7");
+                    .HasConstraintName("FK__Managers__StateI__1758727B");
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.Managers)
@@ -858,6 +861,11 @@ namespace AurigainLoanERP.Data.Database
                 entity.Property(e => e.UniqueId)
                     .IsRequired()
                     .HasMaxLength(500);
+
+                entity.HasOne(d => d.AreaPincode)
+                    .WithMany(p => p.UserAgent)
+                    .HasForeignKey(d => d.AreaPincodeId)
+                    .HasConstraintName("FK__UserAgent__AreaP__1293BD5E");
 
                 entity.HasOne(d => d.District)
                     .WithMany(p => p.UserAgent)
@@ -1079,6 +1087,11 @@ namespace AurigainLoanERP.Data.Database
                     .IsRequired()
                     .HasMaxLength(500);
 
+                entity.HasOne(d => d.AreaPincode)
+                    .WithMany(p => p.UserDoorStepAgent)
+                    .HasForeignKey(d => d.AreaPincodeId)
+                    .HasConstraintName("FK__UserDoorS__AreaP__147C05D0");
+
                 entity.HasOne(d => d.District)
                     .WithMany(p => p.UserDoorStepAgent)
                     .HasForeignKey(d => d.DistrictId)
@@ -1144,9 +1157,13 @@ namespace AurigainLoanERP.Data.Database
 
                 entity.Property(e => e.LoggedOutTime).HasColumnType("datetime");
 
-                entity.Property(e => e.Mobile)
-                    .IsRequired()
-                    .HasMaxLength(20);
+                entity.Property(e => e.Mobile).HasMaxLength(20);
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.UserLoginLog)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__UserLogin__UserI__1387E197");
             });
 
             modelBuilder.Entity<UserMaster>(entity =>

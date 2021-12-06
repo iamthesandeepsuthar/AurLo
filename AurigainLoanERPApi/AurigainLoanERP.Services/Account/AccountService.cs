@@ -33,40 +33,44 @@ namespace AurigainLoanERP.Services.Account
         }
         public async Task<ApiServiceResponseModel<OtpModel>> GetOtp(OtpRequestModel model)
         {
+            ApiServiceResponseModel<OtpModel> objModel = new ApiServiceResponseModel<OtpModel>();
             try
             {
                 if (!model.IsResendOtp)
-                {                    
-                        Random random = new Random();
-                        var randomNumber = random.Next(100000, 199999);
-                        var otp_response = await _smsHelper.SendSMS(randomNumber.ToString(), model.MobileNumber);
-                        if (!string.IsNullOrEmpty(otp_response.error)) 
-                        {
-                            return CreateResponse<OtpModel>(null, otp_response.error,false, ((int)ApiStatusCode.OtpInvalid));
-                        }
-                        var encrptOTP = _security.Base64Encode(randomNumber.ToString());
-                        UserOtp otp = new UserOtp();
-                        otp.IsVerify = false;
-                        otp.Otp =encrptOTP;
-                        otp.Mobile = model.MobileNumber;
-                        otp.MessgeId = otp_response.msg_id[0];
-                        otp.SessionStartOn = DateTime.Now;
-                        otp.ExpireOn = DateTime.Now.AddSeconds(180);
-                        await _db.UserOtp.AddAsync(otp);
-                        await _db.SaveChangesAsync();
-                        var response = _mapper.Map<OtpModel>(otp);                           
-                        return CreateResponse<OtpModel>(response, ResponseMessage.Success, true, ((int)ApiStatusCode.Ok));                    
+                {
+                    Random random = new Random();
+                    var randomNumber = random.Next(100000, 199999);
+                    var otp_response = await _smsHelper.SendSMS(randomNumber.ToString(), model.MobileNumber);
+                    if (!string.IsNullOrEmpty(otp_response.error))
+                    {
+                        return CreateResponse<OtpModel>(null, otp_response.error, false, ((int)ApiStatusCode.OtpInvalid));
+                    }
+                    var encrptOTP = _security.Base64Encode(randomNumber.ToString());
+                    UserOtp otp = new UserOtp();
+                    otp.IsVerify = false;
+                    otp.Otp = encrptOTP;
+                    otp.Mobile = model.MobileNumber;
+                    otp.MessgeId = otp_response.msg_id[0];
+                    otp.SessionStartOn = DateTime.Now;
+                    otp.ExpireOn = DateTime.Now.AddSeconds(180);
+                    await _db.UserOtp.AddAsync(otp);
+                    await _db.SaveChangesAsync();
+                    var response = _mapper.Map<OtpModel>(otp);
+                    return CreateResponse<OtpModel>(response, ResponseMessage.Success, true, ((int)ApiStatusCode.Ok));
                 }
                 else
-                {                  
-                        var otp = await _db.UserOtp.Where(x => x.Mobile == model.MobileNumber).FirstOrDefaultAsync();
+                {
+
+                    var otp = await _db.UserOtp.Where(x => x.Mobile == model.MobileNumber).FirstOrDefaultAsync();
+                    if (otp.ExpireOn.Value < DateTime.Now)
+                    {
                         Random random = new Random();
                         var randomNumber = random.Next(100000, 199999);
                         var otp_response = await _smsHelper.SendSMS(randomNumber.ToString(), model.MobileNumber);
                         if (!string.IsNullOrEmpty(otp_response.error))
                         {
                             return CreateResponse<OtpModel>(null, otp_response.error, false, ((int)ApiStatusCode.OtpInvalid));
-                        }                     
+                        }
                         var encrptOTP = _security.Base64Encode(randomNumber.ToString());
                         otp.MessgeId = otp_response.msg_id[0];
                         otp.Otp = encrptOTP;
@@ -74,7 +78,15 @@ namespace AurigainLoanERP.Services.Account
                         otp.ExpireOn = DateTime.Now.AddSeconds(180);
                         await _db.SaveChangesAsync();
                         var response = _mapper.Map<OtpModel>(otp);
-                        return CreateResponse<OtpModel>(response, ResponseMessage.Success, true, ((int)ApiStatusCode.Ok));                   
+                        return CreateResponse<OtpModel>(response, ResponseMessage.Success, true, ((int)ApiStatusCode.Ok));
+                    }
+                    else 
+                    {
+                        objModel.Data = null;
+                        objModel.IsSuccess = false;
+                        objModel.Message = "New otp send after 180 second";
+                        return objModel;
+                    }
                 }
             }
             catch (Exception ex)
@@ -89,19 +101,26 @@ namespace AurigainLoanERP.Services.Account
                 var otp = await _db.UserOtp.Where(x => x.Mobile == model.MobileNumber).FirstOrDefaultAsync();
                 if (otp == null)
                 {
-                    return CreateResponse<string>(null, ResponseMessage.NotFound, true, ((int)ApiStatusCode.RecordNotFound));
+                    return CreateResponse<string>(null, ResponseMessage.NotFound, false, ((int)ApiStatusCode.RecordNotFound));
                 }
                 var encrptOTP = _security.Base64Encode(model.Otp);
-                if (otp.Otp == encrptOTP)
+                if (otp.ExpireOn > DateTime.Now)
                 {
-                    _db.UserOtp.Remove(otp);
-                    _db.SaveChanges();
-                    return CreateResponse<string>(null, "Otp varified successful.", true, ((int)ApiStatusCode.Ok));
+                    if (otp.Otp == encrptOTP)
+                    {
+                        _db.UserOtp.Remove(otp);
+                        _db.SaveChanges();
+                        return CreateResponse<string>(null, "Otp varified successful.", true, ((int)ApiStatusCode.Ok));
+                    }
+                    else
+                    {
+                        return CreateResponse<string>(null, "otp varification failed", false, ((int)ApiStatusCode.OTPVarificationFailed));
+                    }
                 }
-                else {                    
-                    return CreateResponse<string>(null, "otp varification failed", false, ((int)ApiStatusCode.OTPVarificationFailed));
-                }
-               
+                else 
+                {
+                    return CreateResponse<string>(null, "Otp validity expaire, Generate new otp",false, ((int)ApiStatusCode.OTPValidityExpire));
+                }              
             }
             catch (Exception ex)
             {
@@ -112,12 +131,12 @@ namespace AurigainLoanERP.Services.Account
         {
             try
             {
-                var user = await _db.UserMaster.Where(x => x.Mobile == model.MobileNumber).FirstOrDefaultAsync();
+                var user = await _db.UserMaster.Where(x => x.Id == model.UserId).FirstOrDefaultAsync();
                 if (user != null)
                 {
                     user.Mpin = model.Password;
                     await _db.SaveChangesAsync();
-                    return CreateResponse<string>(model.MobileNumber, "pin update successful", true, ((int)ApiStatusCode.Ok));
+                    return CreateResponse<string>(model.UserId.ToString(), "pin update successful", true, ((int)ApiStatusCode.Ok));
                 }
                 else
                 {
@@ -175,7 +194,6 @@ namespace AurigainLoanERP.Services.Account
                 return CreateResponse<LoginResponseModel>(null, ResponseMessage.NotFound, false, ((int)ApiStatusCode.ServerException), ex.Message ?? ex.InnerException.ToString());
             }
         }
-        
         public async Task<ApiServiceResponseModel<string>> CheckUserExist(string mobileNumber)
         {
             try
@@ -202,11 +220,8 @@ namespace AurigainLoanERP.Services.Account
             LoginResponseModel response = new LoginResponseModel();
             try
             {
-                // Dictionary<string, string> replaceValues = new Dictionary<string, string>();
-                // replaceValues.Add("{{UserName}}", "Akash");
-                //await _emailHelper.SendHTMLBodyMail("akash14singhal@gmail.com","test mail html", EmailPathConstant.RegisterTemplate, replaceValues);
-
-                var user = await _db.UserMaster.Where(x => (x.Mobile == model.MobileNumber.Trim() || x.Email == model.MobileNumber.Trim()) && x.Password == model.Password.Trim() && !x.IsDelete).Include(x => x.UserRole).FirstOrDefaultAsync();
+                var encrptPassword = _security.Base64Encode(model.Password.Trim());
+                var user = await _db.UserMaster.Where(x => (x.Mobile == model.MobileNumber.Trim() || x.Email == model.MobileNumber.Trim()) && x.Password == encrptPassword && !x.IsDelete).Include(x => x.UserRole).FirstOrDefaultAsync();
                 if (user != null)
                 {
                     if (!user.IsApproved && !user.IsActive.Value)
@@ -218,7 +233,7 @@ namespace AurigainLoanERP.Services.Account
                         LoggedInTime = DateTime.Now,
                         LoggedOutTime = DateTime.Now.AddDays(30),
                         Mobile = user.Mobile,
-                        UserId = user.Id                                 
+                        UserId = user.Id
                     };
                     await _db.UserLoginLog.AddAsync(log);
 
@@ -238,12 +253,51 @@ namespace AurigainLoanERP.Services.Account
                 {
                     return CreateResponse<LoginResponseModel>(null, "You are not registered with us. Please sign up.", false, ((int)ApiStatusCode.RecordNotFound));
                 }
-
                 return CreateResponse<LoginResponseModel>(response, "Login Successful", true, ((int)ApiStatusCode.Ok));
             }
             catch (Exception ex)
             {
                 return CreateResponse<LoginResponseModel>(null, ResponseMessage.NotFound, false, ((int)ApiStatusCode.ServerException), ex.Message ?? ex.InnerException.ToString());
+            }
+        }
+        public async Task<ApiServiceResponseModel<string>> WebChangePassword(ChangePasswordModel model)
+        {
+            try
+            {
+                var encrptPassword = _security.Base64Encode(model.Password);
+                var user = await _db.UserMaster.Where(x => x.Id == model.UserId).FirstOrDefaultAsync();
+                if (user != null)
+                {
+                    user.Password = encrptPassword;
+                    await _db.SaveChangesAsync();
+                    return CreateResponse<string>(model.UserId.ToString(), "pin update successful", true, ((int)ApiStatusCode.Ok));
+                }
+                else
+                {
+                    return CreateResponse<string>(null, ResponseMessage.NotFound, false, ((int)ApiStatusCode.RecordNotFound));
+                }
+            }
+            catch (Exception ex)
+            {
+                return CreateResponse<string>(null, ResponseMessage.NotFound, false, ((int)ApiStatusCode.ServerException), ex.Message ?? ex.InnerException.ToString());
+            }
+        }
+        public ApiServiceResponseModel<string> GetEncrptedPassword(string value)
+        {
+            ApiServiceResponseModel<string> objModel = new ApiServiceResponseModel<string>();
+            try
+            {
+                var encrptPassword = _security.Base64Encode(value);
+                objModel.Data = encrptPassword;
+                objModel.IsSuccess = true;
+                return objModel;
+            }
+            catch (Exception ex)
+            {
+                objModel.Data = "";
+                objModel.IsSuccess = false;
+                objModel.Message = ex.Message + "-- " + ex.InnerException.Message;
+                return objModel;
             }
         }
     }

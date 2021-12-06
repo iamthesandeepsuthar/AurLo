@@ -13,6 +13,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { UserSettingPostModel } from 'src/app/Shared/Model/User-setting-model/user-setting.model';
 import { UserSettingService } from 'src/app/Shared/Services/user-setting-services/user-setting.service';
+import { AvailableAreaModel } from 'src/app/Shared/Model/User-setting-model/user-availibility.model';
 
 @Component({
   selector: 'app-add-update-managers',
@@ -23,6 +24,7 @@ import { UserSettingService } from 'src/app/Shared/Services/user-setting-service
 export class AddUpdateManagersComponent implements OnInit {
   Id: number = 0;
   model = new UserManagerModel();
+  areaModel!: AvailableAreaModel[];
   managerFrom!: FormGroup;
   roleModel!: DDLUserRole[];
   stateModel!: DDLStateModel[];
@@ -48,7 +50,7 @@ this.Id = this._activatedRoute.snapshot.params.id;
 ngOnInit(): void {
   this.formInit();
   this.getRole();
-  this.getState();
+ // this.getState();
   if (this.Id > 0) {
   this.onGetDetail();
   }
@@ -62,7 +64,7 @@ ngOnInit(): void {
   IsActive: [true],
   Description: [undefined],
   DllState:[undefined , Validators.required],
-  DllDistrict: [undefined, Validators.required],
+  //DllDistrict: [undefined, Validators.required],
   UserRole: [undefined, Validators.required],
   Pincode: [undefined , Validators.required],
   DateOfBirth:[undefined , Validators.required],
@@ -76,6 +78,7 @@ ngOnInit(): void {
     subscription.unsubscribe();
     if(response.IsSuccess) {
      this.roleModel = response.Data as DDLUserRole[];
+     console.log('Role ----------------------->',this.roleModel);
     } else {
       this.toast.warning(response.Message?.toString(), 'Server Error');
       return;
@@ -105,12 +108,26 @@ ngOnInit(): void {
       }
     });
   }
+  getAreaByPincode(value: any) {
+    let pincode = value.currentTarget.value;
+    let subscription = this._stateService.GetAreaByPincode(pincode).subscribe(response => {
+      subscription.unsubscribe();
+      if (response.IsSuccess) {
+        this.areaModel = response.Data as AvailableAreaModel[];
+      } else {
+        this.toast.warning(response.Message as string, 'Server Error');
+
+      }
+    });
+  }
   onGetDetail() {
   let subscription = this._managerService.GetManagerById(this.Id).subscribe(res => {
   subscription.unsubscribe();
   if (res.IsSuccess) {
   this.model = res.Data as UserManagerModel;
-  this.getDistrict(this.model.StateId);
+  debugger;
+  this.getAreaByPincode(this.model.Pincode);
+  this.model.AreaPincodeId = this.model.AreaPincodeId;
   } else {
   this.toast.warning('Record not found', 'No Record');
   }

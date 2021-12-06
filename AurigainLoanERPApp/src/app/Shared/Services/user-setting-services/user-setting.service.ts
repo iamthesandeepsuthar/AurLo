@@ -4,6 +4,7 @@ import { BaseAPIService } from "../../Helper/base-api.service";
 import { ApiResponse, Dictionary } from '../../Helper/common-model';
 import { UserViewModel } from "../../Model/doorstep-agent-model/door-step-agent.model";
 import { AvailableAreaModel, UserAvailabilityViewModel, UserAvailibilityPostModel } from "../../Model/User-setting-model/user-availibility.model";
+import { GetOtpModel, GetOtpResponseModel, OptVerifiedModel, UserChangePassword } from "../../Model/User-setting-model/user-change-password.model";
 import { UserSettingPostModel } from "../../Model/User-setting-model/user-setting.model";
 
 
@@ -51,4 +52,18 @@ export class UserSettingService {
     let url = `${this._baseService.API_Url.DeleteDocumentFileApi}${id}/${documentId}`;
     return this._baseService.Delete(url);
   }
+
+  GetOtp(model: GetOtpModel): Observable<ApiResponse<GetOtpResponseModel>> {
+    let url = `${this._baseService.API_Url.GetOtp_Api}`;
+    return this._baseService.post(url, model);
+  }
+  VerifiedOtpp(model: OptVerifiedModel): Observable<ApiResponse<string>> {
+    let url = `${this._baseService.API_Url.VerifiedOtp_Api}`;
+    return this._baseService.post(url, model);
+  }
+  ChangePassword(model: UserChangePassword): Observable<ApiResponse<string>> {
+    let url = `${this._baseService.API_Url.ChangePassword_Api}`;
+    return this._baseService.post(url, model);
+  }
+
 }

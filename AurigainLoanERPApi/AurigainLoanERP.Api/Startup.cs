@@ -9,6 +9,7 @@ using AurigainLoanERP.Services.FreshLead;
 using AurigainLoanERP.Services.JewellaryType;
 using AurigainLoanERP.Services.KycDocumentType;
 using AurigainLoanERP.Services.PaymentMode;
+using AurigainLoanERP.Services.Performance;
 using AurigainLoanERP.Services.Product;
 using AurigainLoanERP.Services.ProductCategory;
 using AurigainLoanERP.Services.Qualification;
@@ -193,6 +194,7 @@ namespace AurigainLoanERP.Api
             services.AddTransient<IFreshLeadService, FreshLeadService>().Reverse();
             services.AddTransient<ICustomerService, CustomerService>().Reverse();
             services.AddTransient<IBalanceTransService, BalanceTransService>().Reverse();
+            //services.AddTransient<IAgentPerformanceService,AgentPerformanceService>().Reverse();
 
             
         }

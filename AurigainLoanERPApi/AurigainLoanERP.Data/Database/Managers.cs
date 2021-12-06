@@ -16,15 +16,17 @@ namespace AurigainLoanERP.Data.Database
         public string FatherName { get; set; }
         public string Address { get; set; }
         public long UserId { get; set; }
-        public long DistrictId { get; set; }
-        public int StateId { get; set; }
+        public long? DistrictId { get; set; }
+        public int? StateId { get; set; }
         public string Pincode { get; set; }
         public bool? IsActive { get; set; }
         public bool IsDelete { get; set; }
         public DateTime? ModifiedDate { get; set; }
         public long? CreatedBy { get; set; }
         public string Setting { get; set; }
+        public long? AreaPincodeId { get; set; }
 
+        public virtual PincodeArea AreaPincode { get; set; }
         public virtual District District { get; set; }
         public virtual State State { get; set; }
         public virtual UserMaster User { get; set; }

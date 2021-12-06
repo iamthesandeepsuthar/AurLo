@@ -4,6 +4,9 @@ export class API_Url {
 
   //#region <<Login>>
   public static Login_Api = `${environment.apiEndPoint}account/WebLogin`;
+  public static GetOtp_Api = `${environment.apiEndPoint}account/GetOTP`;
+  public static VerifiedOtp_Api = `${environment.apiEndPoint}account/VarifiedMPIN`;
+  public static ChangePassword_Api = `${environment.apiEndPoint}account/WebChangePassword`;
   //#endregion
 
   //#region <<Common >>

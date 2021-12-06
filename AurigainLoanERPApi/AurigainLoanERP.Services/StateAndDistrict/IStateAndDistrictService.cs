@@ -31,6 +31,7 @@ namespace AurigainLoanERP.Services.StateAndDistrict
 
         #region <<Area Pincode>>
         Task<ApiServiceResponseModel<List<AvailableAreaModel>>> GetAreaByPincode(string pinCode);
+        Task<ApiServiceResponseModel<AddressDetailModel>> GetAddressDetailByPincode(string pincode);
 
         #endregion
     }

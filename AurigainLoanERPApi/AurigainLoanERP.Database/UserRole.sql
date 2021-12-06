@@ -8,5 +8,6 @@
 	CreatedOn DATETIME NOT NULL DEFAULT GETDATE(),
 	ModifiedOn DATETIME,
 	CreatedBy BIGINT NOT NULL,
-	ModifiedBy BIGINT
+	ModifiedBy BIGINT, 
+    [UserRoleLevel] INT NULL
 )

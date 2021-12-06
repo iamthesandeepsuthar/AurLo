@@ -167,7 +167,6 @@
         <div class="form-group col-md-8">
           <label>Gender</label>
           <div class="form-radio-check-grp">
-
             <ng-container *ngFor="let item of dropDown!.ddlGender">
               <div class="n-chk d-inline">
                 <label class="new-control new-radio radio-classic-info">
@@ -177,26 +176,6 @@
                 </label>
               </div>
             </ng-container>
-
-            <!-- <div class="n-chk d-inline">
-                        <label class="new-control new-radio radio-classic-info">
-                            <input type="radio" class="new-control-input" name="Gender" [(ngModel)]="model.Gender"
-                                checked>
-                            <span class="new-control-indicator"></span>Male
-                        </label>
-                    </div>
-                    <div class="n-chk d-inline">
-                        <label class="new-control new-radio radio-classic-info">
-                            <input type="radio" class="new-control-input" name="Gender" [(ngModel)]="model.Gender">
-                            <span class="new-control-indicator"></span>Female
-                        </label>
-                    </div>
-                    <div class="n-chk d-inline">
-                        <label class="new-control new-radio radio-classic-info">
-                            <input type="radio" class="new-control-input" name="Gender" [(ngModel)]="model.Gender">
-                            <span class="new-control-indicator"></span>Other
-                        </label>
-                    </div> -->
           </div>
         </div>
         <div class="form-group col-md-12">
@@ -207,32 +186,12 @@
           <div class="invalid-feedback"
             *ngIf="(formGroup.get('Address')?.hasError('required') && formGroup.get('Address')?.touched)">
             Please fill Address...! </div>
-
         </div>
-        <div class="form-group col-md-4">
-          <label>State</label>
 
-          <ng-select [items]="dropDown!.ddlState" bindLabel="Text" bindValue="Value" placeholder="state" appendTo="body"
-            (ngModelChange)="GetFilterDropDown(ddlkeys.ddlDistrict,ddlkeys.ddlState,$event)" [(ngModel)]="model.StateId"
-            formControlName="State">
-          </ng-select>
-
-        </div>
         <div class="form-group col-md-4">
-          <label>District</label>
-          <ng-select [ngClass]="{ 'is-invalid': f.District?.errors && f.District?.touched}"
-            [items]="dropDown!.ddlDistrict" bindLabel="Text" bindValue="Value" placeholder="district" appendTo="body"
-            [(ngModel)]="model.DistrictId" formControlName="District">
-          </ng-select>
-          <div class="invalid-feedback"
-            *ngIf="(formGroup.get('District')?.hasError('required') && formGroup.get('District')?.touched)">
-            Please select District...! </div>
-
-        </div>
-        <div class="form-group col-md-4">
-          <label>Pin Code</label>
+          <label>Pincode</label>
           <input type="text" [(ngModel)]="model.PinCode" (keypress)="_commonService.NumberOnly($event)" [minlength]="6"
-            [maxLength]="6" formControlName="PinCode" [ngClass]="{ 'is-invalid': f.PinCode.errors && f.PinCode.touched}"
+            [maxLength]="6" formControlName="PinCode"  (blur)="getAreaByPincode($event)" [ngClass]="{ 'is-invalid': f.PinCode.errors && f.PinCode.touched}"
             class="form-control" id="input4" placeholder="pincode">
           <div class="invalid-feedback"
             *ngIf="(formGroup.get('PinCode')?.hasError('required') && formGroup.get('PinCode')?.touched)">
@@ -243,8 +202,25 @@
           </div>
         </div>
 
-      </div>
+        <div class="form-group col-md-8">
+          <label>Area (Location)</label>
+          <ng-select  appendTo="body"[(ngModel)]="model.AreaPincodeId"
+          [items]="areaModel" [searchable]="true" bindLabel="AreaName"
+          bindValue="Id" placeholder="Area Name" formControlName="State"> </ng-select>
+        </div>
+        <!-- <div class="form-group col-md-4">
+          <label>District</label>
+          <ng-select [ngClass]="{ 'is-invalid': f.District?.errors && f.District?.touched}"
+            [items]="dropDown!.ddlDistrict" bindLabel="Text" bindValue="Value" placeholder="district" appendTo="body"
+            [(ngModel)]="model.DistrictId" formControlName="District">
+          </ng-select>
+          <div class="invalid-feedback"
+            *ngIf="(formGroup.get('District')?.hasError('required') && formGroup.get('District')?.touched)">
+            Please select District...! </div>
 
+        </div> -->
+
+      </div>
     </div>
   </form>
 </div>

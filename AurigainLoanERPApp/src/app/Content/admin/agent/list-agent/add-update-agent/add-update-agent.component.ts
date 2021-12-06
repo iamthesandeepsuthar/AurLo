@@ -13,10 +13,12 @@ import { UserNomineeDetailSectionComponent } from "src/app/Shared/Helper/shared/
 import { UserSecurityDepositComponent } from "src/app/Shared/Helper/shared/UserRegistration/user-security-deposit/user-security-deposit.component";
 import { AgentPostModel, AgentViewModel } from "src/app/Shared/Model/Agent/agent.model";
 import { UserPostModel, UserKYCPostModel, UserNomineePostModel, UserBankDetailsPostModel, DocumentPostModel, FilePostModel } from "src/app/Shared/Model/doorstep-agent-model/door-step-agent.model";
+import { AvailableAreaModel } from "src/app/Shared/Model/User-setting-model/user-availibility.model";
 import { UserSettingPostModel } from "src/app/Shared/Model/User-setting-model/user-setting.model";
 import { AgentService } from "src/app/Shared/Services/agent-services/agent.service";
 import { AlertService } from "src/app/Shared/Services/alert.service";
 import { CommonService } from "src/app/Shared/Services/common.service";
+import { StateDistrictService } from "src/app/Shared/Services/master-services/state-district.service";
 import { UserSettingService } from "src/app/Shared/Services/user-setting-services/user-setting.service";
 import { UserRoleEnum } from '../../../../../Shared/Enum/fixed-value';
 
@@ -25,12 +27,13 @@ import { UserRoleEnum } from '../../../../../Shared/Enum/fixed-value';
   selector: 'app-add-update-agent',
   templateUrl: './add-update-agent.component.html',
   styleUrls: ['./add-update-agent.component.scss'],
-  providers: [AgentService,UserSettingService]
+  providers: [AgentService,UserSettingService,StateDistrictService]
 })
 export class AddUpdateAgentComponent implements OnInit,AfterContentChecked {
   //#region << Variable >>
   Id: number = 0;
   model = new AgentPostModel();
+  areaModel!: AvailableAreaModel[];
   profileModel = {} as UserSettingPostModel;
   formGroup!: FormGroup;
   dropDown = new DropDownModel();
@@ -56,7 +59,8 @@ export class AddUpdateAgentComponent implements OnInit,AfterContentChecked {
 
   constructor(private cdr: ChangeDetectorRef,private readonly _alertService: AlertService, private readonly fb: FormBuilder,
     private readonly _userAgentService: AgentService, private _activatedRoute: ActivatedRoute, private _router: Router,
-    readonly _commonService: CommonService, private readonly _toast: ToastrService, private readonly _userSettingService: UserSettingService) {
+    readonly _commonService: CommonService, private readonly _toast: ToastrService,
+    private readonly _userSettingService: UserSettingService , private readonly _locationService: StateDistrictService) {
     if (this._activatedRoute.snapshot.params.id) {
       this.Id = this._activatedRoute.snapshot.params.id;
     }
@@ -86,6 +90,18 @@ export class AddUpdateAgentComponent implements OnInit,AfterContentChecked {
         this.dropDown.ddlState = ddls.ddlState;
         this.dropDown.ddlQualification = ddls.ddlQualification;
         this.dropDown.ddlGender = ddls.ddlGender;
+      }
+    });
+  }
+  getAreaByPincode(value: any) {
+    let pincode = value.currentTarget.value;
+    let subscription = this._locationService.GetAreaByPincode(pincode).subscribe(response => {
+      subscription.unsubscribe();
+      if (response.IsSuccess) {
+        this.areaModel = response.Data as AvailableAreaModel[];
+      } else {
+        this._toast.warning(response.Message as string, 'Server Error');
+
       }
     });
   }
@@ -119,16 +135,13 @@ export class AddUpdateAgentComponent implements OnInit,AfterContentChecked {
     let ChildValid: boolean = this.submitChildData();
     if (this.formGroup.valid && ChildValid) {
 
-
       if (!this.model.Id || this.model.Id == 0) {
         this.model.User.IsApproved = false;
         this.model.User.UserRoleId = this.model.User.UserRoleId ? this.model.User.UserRoleId : UserRoleEnum.DoorStepAgent;
         this.model.User.UserName = this.model.User.UserName ? this.model.User.UserName : this.model.User.Email;
 
       }
-
       // this.model.SelfFunded = Boolean(this.model.SelfFunded);
-      debugger;
       let serv = this._userAgentService.AddUpdateDoorStepAgent(this.model).subscribe(res => {
         serv.unsubscribe();
         if (res.IsSuccess) {
@@ -218,7 +231,7 @@ export class AddUpdateAgentComponent implements OnInit,AfterContentChecked {
       Gender: [undefined, Validators.required],
       Qualification: [undefined, Validators.required],
       Address: [undefined, undefined],
-      District: [undefined, Validators.required],
+     // District: [undefined, Validators.required],
       State: [undefined, Validators.required],
       PinCode: [undefined, Validators.compose([Validators.required, Validators.maxLength(6), Validators.minLength(6)])],
       DateOfBirth: [undefined, Validators.required],
@@ -228,7 +241,6 @@ export class AddUpdateAgentComponent implements OnInit,AfterContentChecked {
       IsWhatsApp: [false, Validators.required],
       Mobile: [undefined, Validators.compose([Validators.required, Validators.maxLength(12), Validators.minLength(10)])],
       Email: [false, Validators.compose([Validators.required, Validators.email])],
-
     });
   }
   onGetDetail() {

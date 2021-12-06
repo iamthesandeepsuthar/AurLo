@@ -26,7 +26,9 @@ namespace AurigainLoanERP.Data.Database
         public DateTime? ModifiedOn { get; set; }
         public long? CreatedBy { get; set; }
         public long? ModifiedBy { get; set; }
+        public long? AreaPincodeId { get; set; }
 
+        public virtual PincodeArea AreaPincode { get; set; }
         public virtual District District { get; set; }
         public virtual QualificationMaster Qualification { get; set; }
         public virtual UserMaster User { get; set; }

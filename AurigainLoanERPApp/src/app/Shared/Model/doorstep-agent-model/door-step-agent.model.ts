@@ -18,6 +18,7 @@ export class DoorStepAgentPostModel {
   DistrictId!: number;
   StateId!: number;
   PinCode!: string;
+  AreaPincodeId!:number;
   DateOfBirth!: string;
   SelfFunded: boolean;
   User!: UserPostModel;

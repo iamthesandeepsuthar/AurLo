@@ -163,8 +163,8 @@ namespace AurigainLoanERP.Services.User
                                               Gender = detail.Gender ?? null,
                                               QualificationName = detail.Qualification.Name ?? null,
                                               Address = detail.Address ?? null,
-                                              DistrictName = detail.District != null ? detail.District.Name : null,
-                                              StateName = detail.District != null && detail.District.State != null ? detail.District.State.Name : null,
+                                             // DistrictName = detail.District != null ? detail.District.Name : null,
+                                             // StateName = detail.District != null && detail.District.State != null ? detail.District.State.Name : null,
                                               PinCode = detail.PinCode ?? null,
                                               DateOfBirth = detail.DateOfBirth ?? null,
                                               ProfilePictureUrl = detail.User.ProfilePath.ToAbsolutePath() ?? null,
@@ -202,7 +202,7 @@ namespace AurigainLoanERP.Services.User
             {
 
                 UserAgent objAgent = await _db.UserAgent.Where(x => x.UserId == id)
-                    .Include(x => x.District).Include(x => x.District.State)
+                    .Include(x => x.AreaPincode).ThenInclude(y => y.District).ThenInclude(y=>y.State)
                     .Include(x => x.User).Include(x => x.User.UserRole)
                     .Include(x => x.Qualification)
                     .Include(x => x.User.UserNominee)
@@ -294,9 +294,9 @@ namespace AurigainLoanERP.Services.User
                         }
 
                         objAgentModel.User.UserRoleName = objAgent.User.UserRole.Name;
-                        objAgentModel.DistrictName = objAgent.District.Name;
-                        objAgentModel.StateName = objAgent.District.State.Name;
-                        objAgentModel.StateId = objAgent.District.StateId;
+                        objAgentModel.DistrictName = objAgent.AreaPincode.District.Name;
+                        objAgentModel.StateName = objAgent.AreaPincode.District.State.Name;
+                        objAgentModel.StateId = objAgent.AreaPincode.District.StateId;
                         objAgentModel.QualificationName = objAgent.Qualification.Name;
                     }
                     return CreateResponse(objAgentModel, ResponseMessage.Success, true, ((int)ApiStatusCode.Ok));
@@ -497,7 +497,7 @@ namespace AurigainLoanERP.Services.User
             {
 
                 UserDoorStepAgent objDoorStepAgent = await _db.UserDoorStepAgent.Where(x => x.UserId == id)
-                    .Include(x => x.District).Include(x => x.District.State)
+                    .Include(x => x.AreaPincode).ThenInclude(y =>y.District).ThenInclude(y=>y.State)
                     .Include(x => x.User).Include(x => x.User.UserRole)
                     .Include(x => x.Qualification)
                     .Include(x => x.User.UserNominee)
@@ -592,9 +592,9 @@ namespace AurigainLoanERP.Services.User
 
                         }
 
-                        objDoorStepAgentModel.DistrictName = objDoorStepAgent.District.Name;
-                        objDoorStepAgentModel.StateName = objDoorStepAgent.District.State.Name;
-                        objDoorStepAgentModel.StateId = objDoorStepAgent.District.StateId;
+                        objDoorStepAgentModel.DistrictName = objDoorStepAgent.AreaPincode.District.Name;
+                        objDoorStepAgentModel.StateName = objDoorStepAgent.AreaPincode.District.State.Name;
+                        objDoorStepAgentModel.StateId = objDoorStepAgent.AreaPincode.District.StateId;
                         objDoorStepAgentModel.QualificationName = objDoorStepAgent.Qualification.Name;
                         objDoorStepAgentModel.User.UserRoleName = objDoorStepAgent.User.UserRole.Name;
 
@@ -715,7 +715,11 @@ namespace AurigainLoanERP.Services.User
         {
             try
             {
-                var detail = await _db.Managers.Where(x => x.Id == Id).Include(x => x.District).Include(x => x.State).Include(x => x.User).Include(x => x.User.UserRole).FirstOrDefaultAsync();
+                var detail = await _db.Managers.Where(x => x.Id == Id)
+                                      .Include(x => x.AreaPincode).ThenInclude(y => y.District)
+                                      .ThenInclude(y=>y.State)
+                                      .Include(x => x.User)
+                                      .Include(x => x.User.UserRole).FirstOrDefaultAsync();
                 if (detail != null)
                 {                    
                     UserManagerModel manager = new UserManagerModel
@@ -724,11 +728,11 @@ namespace AurigainLoanERP.Services.User
                         FatherName = detail.FatherName,
                         Gender = detail.Gender,
                         Pincode = detail.Pincode,
-                        DistrictId = detail.DistrictId,
+                        DistrictId = null,
                         DateOfBirth = detail.DateOfBirth,
                         Address = detail.Address,
                         EmailId = detail.User.Email,
-                        StateId = detail.StateId,
+                        StateId = null,
                         RoleId = detail.User.UserRoleId,
                         Mobile = detail.User.Mobile,
                         IsWhatsApp = detail.User.IsWhatsApp,
@@ -738,8 +742,8 @@ namespace AurigainLoanERP.Services.User
                         IsApproved = detail.User.IsApproved,
                         IsActive = detail.IsActive,
                         ProfileImageUrl = "",
-                        DistrictName = detail.District.Name,
-                        StateName = detail.State.Name
+                        DistrictName = detail.AreaPincode.District.Name,
+                        StateName = detail.AreaPincode.District.State.Name
                     };
                     return CreateResponse(manager, ResponseMessage.Success, true, ((int)ApiStatusCode.Ok));
                 }
@@ -1329,9 +1333,11 @@ namespace AurigainLoanERP.Services.User
                 {
                     if (model.Id == null || model.Id < 1)
                     {
+                        var encrptPassword= _security.Base64Encode("12345");
                         var objModel = _mapper.Map<UserMaster>(model);
                         objModel.UserName = model.UserName ?? model.Email;
                         objModel.CreatedOn = DateTime.Now;
+                        objModel.Password = encrptPassword;
                         objModel.Mpin = GenerateUniqueId();//_security.EncryptData(GenerateUniqueId());
                         objModel.IsWhatsApp = model.IsWhatsApp;
                         var result = await _db.UserMaster.AddAsync(objModel);
@@ -1374,7 +1380,6 @@ namespace AurigainLoanERP.Services.User
         {
             try
             {
-
                 if (model.Id == default)
                 {
                     var objModel = new UserAgent();
@@ -1388,6 +1393,7 @@ namespace AurigainLoanERP.Services.User
                     objModel.DateOfBirth = model.DateOfBirth ?? null;
                     objModel.DistrictId = model.DistrictId;
                     objModel.PinCode = model.PinCode;
+                    objModel.AreaPincodeId = model.AreaPincodeId;
                     objModel.IsActive = model.IsActive;
                     objModel.QualificationId = model.QualificationId;
                     var result = await _db.UserAgent.AddAsync(objModel);
@@ -1404,12 +1410,10 @@ namespace AurigainLoanERP.Services.User
                     objModel.DateOfBirth = model.DateOfBirth ?? null;
                     objModel.DistrictId = model.DistrictId;
                     objModel.PinCode = model.PinCode;
+                    objModel.AreaPincodeId = model.AreaPincodeId;
                     objModel.QualificationId = model.QualificationId;
-
-
                     objModel.ModifiedOn = DateTime.Now;
                     await _db.SaveChangesAsync();
-
                 }
                 return true;
             }
@@ -1418,8 +1422,6 @@ namespace AurigainLoanERP.Services.User
 
                 throw;
             };
-
-
         }
         /// <summary>
         /// Save Door Step Agent
@@ -1444,6 +1446,7 @@ namespace AurigainLoanERP.Services.User
                     objModel.DateOfBirth = model.DateOfBirth ?? null;
                     objModel.DistrictId = model.DistrictId;
                     objModel.PinCode = model.PinCode;
+                    objModel.AreaPincodeId = model.AreaPincodeId;
                     objModel.SelfFunded = model.SelfFunded;
                     objModel.IsActive = true;
                     objModel.QualificationId = model.QualificationId;
@@ -1461,6 +1464,7 @@ namespace AurigainLoanERP.Services.User
                     objModel.DateOfBirth = model.DateOfBirth ?? null;
                     objModel.DistrictId = model.DistrictId;
                     objModel.PinCode = model.PinCode;
+                    objModel.AreaPincodeId = model.AreaPincodeId;
                     objModel.QualificationId = model.QualificationId;
                     objModel.SelfFunded = model.SelfFunded;
                     objModel.ModifiedOn = DateTime.Now;
@@ -1833,7 +1837,7 @@ namespace AurigainLoanERP.Services.User
                     var isExist = await _db.UserMaster.Where(x => x.Mobile == model.Mobile && x.IsDelete == false).FirstOrDefaultAsync();
                     if (isExist == null)
                     {
-
+                        var encrptPassword = _security.Base64Encode("12345");
                         //model.RoleId = ((int)UserRoleEnum.);
                         Random random = new Random();
                         UserMaster user = new UserMaster
@@ -1846,7 +1850,7 @@ namespace AurigainLoanERP.Services.User
                             IsActive = model.IsActive,
                             UserRoleId = model.RoleId,
                             IsWhatsApp = model.IsWhatsApp,
-                            Password = "12345",
+                            Password = encrptPassword,
                             IsApproved = true,
                             IsDelete = false,
                             ProfilePath = null
@@ -1861,11 +1865,12 @@ namespace AurigainLoanERP.Services.User
                             DateOfBirth = model.DateOfBirth,
                             UserId = model.UserId,
                             Gender = model.Gender,
-                            DistrictId = model.DistrictId,
-                            StateId = model.StateId,
+                            DistrictId = null,
+                            StateId = null,
                             IsActive = model.IsActive,
                             IsDelete = model.IsDelete,
                             Pincode = model.Pincode,
+                            AreaPincodeId = model.AreaPincodeId,
                             Address = model.Address,
                             Setting = model.Setting,
                             CreatedBy = (int)UserRoleEnum.Admin,
@@ -1888,8 +1893,9 @@ namespace AurigainLoanERP.Services.User
                         manager.FatherName = model.FatherName;
                         manager.Gender = model.Gender;
                         manager.User.Email = model.EmailId;
-                        manager.DistrictId = model.DistrictId;
-                        manager.StateId = model.StateId;
+                        manager.DistrictId = null;
+                        manager.AreaPincodeId = model.AreaPincodeId;
+                        manager.StateId = null;
                         manager.ModifiedDate = DateTime.Now;
                         manager.DateOfBirth = model.DateOfBirth;
                         manager.Address = model.Address;
@@ -1900,7 +1906,7 @@ namespace AurigainLoanERP.Services.User
                 }
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 throw;
             }

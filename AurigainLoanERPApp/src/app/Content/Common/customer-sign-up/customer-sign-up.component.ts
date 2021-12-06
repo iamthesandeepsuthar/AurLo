@@ -61,7 +61,6 @@ export class CustomerSignUpComponent implements OnInit {
     let subscription = this._documentType.GetDDLDocumentType().subscribe(response => {
       subscription.unsubscribe();
       if (response.IsSuccess) {
-        debugger
         this.documentTypeModel = response.Data as DDLDocumentTypeModel[];
       } else {
         this.toast.warning(response.Message as string, 'Server Error');

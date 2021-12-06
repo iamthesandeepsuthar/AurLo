@@ -1,4 +1,5 @@
-﻿using AurigainLoanERP.Services.StateAndDistrict;
+﻿using AurigainLoanERP.Services.Account;
+using AurigainLoanERP.Services.StateAndDistrict;
 using AurigainLoanERP.Services.User;
 using AurigainLoanERP.Shared.Common.Model;
 using AurigainLoanERP.Shared.ContractModel;
@@ -20,11 +21,13 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
     {
         private readonly IUserService _userSerivce;
         private readonly IStateAndDistrictService _areaSerivce;
+        private readonly IAccountService _accountService;
 
-        public UserSettingController(IUserService userService, IStateAndDistrictService areaSerivce)
+        public UserSettingController(IUserService userService, IStateAndDistrictService areaSerivce, IAccountService accountService)
         {
             _userSerivce = userService;
             _areaSerivce = areaSerivce;
+            _accountService = accountService;
         }
 
         [HttpGet("{id}")]
@@ -108,6 +111,11 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
                 obj.StatusCode = ((int)ApiStatusCode.BadRequest);
                 return obj;
             }
+        }
+        [HttpPost]
+        public async Task<ApiServiceResponseModel<string>> WebChangePassword(ChangePasswordModel model) 
+        {
+            return await _accountService.WebChangePassword(model);
         }
     }
 }
