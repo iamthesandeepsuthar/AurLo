@@ -9,7 +9,7 @@ namespace AurigainLoanERP.Shared.Common.Method
     public class BaseService
     {
 
-        public  LoginUserViewModel _loginUserDetail;
+        public LoginUserViewModel _loginUserDetail;
 
         // public IConfiguration _configuration;
         public BaseService()
@@ -40,11 +40,11 @@ namespace AurigainLoanERP.Shared.Common.Method
 
 
             public LoginUserViewModel()
-            { 
+            {
                 UserId = LoginUserModel.UserId ?? null;
-                UserName = LoginUserModel.UserName;
+                UserName = LoginUserModel.UserName ?? null;
                 RoleId = LoginUserModel.RoleId ?? null;
-                RoleName = LoginUserModel.RoleName;
+                RoleName = LoginUserModel.RoleName ?? null;
 
             }
         }

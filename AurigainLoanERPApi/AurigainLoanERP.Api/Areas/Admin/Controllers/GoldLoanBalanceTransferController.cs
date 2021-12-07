@@ -25,6 +25,7 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
+               
                 return await _objBTLead.AddUpdateBTGoldLoanExternalLeadAsync(model);
             }
             else

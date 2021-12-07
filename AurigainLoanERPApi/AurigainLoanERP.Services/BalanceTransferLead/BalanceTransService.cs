@@ -127,7 +127,7 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
             {
                
                 IQueryable<BtgoldLoanLead> result;
-                if (_loginUserDetail.RoleId  == (int)UserRoleEnum.Admin || _loginUserDetail.UserId== (int)(UserRoleEnum.SuperAdmin))
+                if (_loginUserDetail.RoleId  == (int)UserRoleEnum.Admin || _loginUserDetail.RoleId== (int)(UserRoleEnum.SuperAdmin))
                 {
                     result = (from goldLoanLead in _db.BtgoldLoanLead
                               where !goldLoanLead.IsDelete && (string.IsNullOrEmpty(model.Search) || goldLoanLead.FullName.Contains(model.Search) || goldLoanLead.FatherName.Contains(model.Search) || goldLoanLead.Gender.Contains(model.Search) || goldLoanLead.BtgoldLoanLeadAddressDetail.FirstOrDefault().AeraPincode.Pincode.Contains(model.Search)) || goldLoanLead.Product.Name.Contains(model.Search)
