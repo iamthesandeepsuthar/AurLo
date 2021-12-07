@@ -1,4 +1,5 @@
 ﻿using AurigainLoanERP.Services.BalanceTransferLead;
+using AurigainLoanERP.Shared.Common.API;
 using AurigainLoanERP.Shared.Common.Model;
 using AurigainLoanERP.Shared.ContractModel;
 using Microsoft.AspNetCore.Http;
@@ -11,8 +12,8 @@ using System.Threading.Tasks;
 namespace AurigainLoanERP.Api.Areas.Admin.Controllers
 {
     [Route("api/[controller]/[action]")]
-    [ApiController]
-    public class GoldLoanBalanceTransferController : ControllerBase
+   // [ApiController]
+    public class GoldLoanBalanceTransferController : ApiControllerBase
     {
         private readonly IBalanceTransService _objBTLead;
         public GoldLoanBalanceTransferController(IBalanceTransService objBTLead)

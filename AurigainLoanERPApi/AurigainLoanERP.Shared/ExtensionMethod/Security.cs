@@ -12,21 +12,23 @@ using static AurigainLoanERP.Shared.Enums.FixedValueEnums;
 
 namespace AurigainLoanERP.Shared.ExtensionMethod
 {
-    public class Security :BaseService
+    public class Security : BaseService
     {
         IConfiguration _configuration;
-        public Security(IConfiguration configuration) {
+        public Security(IConfiguration configuration)
+        {
             _configuration = configuration;
         }
-      
-        public  string EncryptData(string strValue)
+
+        public string EncryptData(string strValue)
         {
-           try
-            {  byte[] key = { }; //Encryption Key   
-            byte[] IV = { 10, 20, 30, 40, 50, 60, 70, 80 };
-            byte[] inputByteArray;
-            string strKey = _configuration.GetValue<string>("EncryptionKey");
-           
+            try
+            {
+                byte[] key = { }; //Encryption Key   
+                byte[] IV = { 10, 20, 30, 40, 50, 60, 70, 80 };
+                byte[] inputByteArray;
+                string strKey = _configuration.GetValue<string>("EncryptionKey");
+
                 key = Encoding.UTF8.GetBytes(strKey);
                 // DESCryptoServiceProvider is a cryptography class defind in c#.  
                 DESCryptoServiceProvider ObjDES = new DESCryptoServiceProvider();
@@ -38,13 +40,13 @@ namespace AurigainLoanERP.Shared.ExtensionMethod
 
                 return Convert.ToBase64String(Objmst.ToArray());//encrypted string  
             }
-            catch 
+            catch
             {
                 throw;
             }
         }
 
-        public  string DecryptData(string strValue)
+        public string DecryptData(string strValue)
         {
             byte[] key = { };// Key   
             byte[] IV = { 10, 20, 30, 40, 50, 60, 70, 80 };
@@ -64,7 +66,7 @@ namespace AurigainLoanERP.Shared.ExtensionMethod
                 Encoding encoding = Encoding.UTF8;
                 return encoding.GetString(Objmst.ToArray());
             }
-            catch 
+            catch
             {
                 throw;
             }
@@ -80,7 +82,7 @@ namespace AurigainLoanERP.Shared.ExtensionMethod
             var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(plainText);
             return System.Convert.ToBase64String(plainTextBytes);
         }
-        public ApiServiceResponseModel<string> CreateToken(string UserName,string UserType)
+        public ApiServiceResponseModel<string> CreateToken(long UserId, string UserName, string RoleType,int RoleId)
         {
 
             var key = _configuration.GetValue<string>("Jwt:Key");
@@ -89,14 +91,16 @@ namespace AurigainLoanERP.Shared.ExtensionMethod
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
-            var claims = new[] { new Claim(JwtRegisteredClaimNames.Name, UserName),
-                new Claim(JwtRegisteredClaimNames.Typ, UserType), 
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+            var claims = new[]  { new Claim(TokenClaimsConstant.UserId, UserId.ToString()),
+                new Claim(TokenClaimsConstant.UserName, UserName),
+                new Claim(TokenClaimsConstant.RoleName, RoleType),
+                new Claim(TokenClaimsConstant.RoleId, RoleId.ToString()),
+                new Claim(TokenClaimsConstant.GenerateTime, DateTime.Now.ToString("dd-mm-yyyy HH:mm:ss"))
             };
             var token = new JwtSecurityToken(issuer, issuer, claims, expires: DateTime.Now.AddMinutes(120),
                   signingCredentials: credentials);
 
-            return CreateResponse<string>(new JwtSecurityTokenHandler().WriteToken(token), ResponseMessage.Success, true,((int)ApiStatusCode.Ok))  ;
+            return CreateResponse<string>(new JwtSecurityTokenHandler().WriteToken(token), ResponseMessage.Success, true, ((int)ApiStatusCode.Ok));
         }
 
 

@@ -17,6 +17,7 @@ using AurigainLoanERP.Services.StateAndDistrict;
 using AurigainLoanERP.Services.User;
 using AurigainLoanERP.Services.UserRoles;
 using AurigainLoanERP.Shared.Common;
+using AurigainLoanERP.Shared.Common.API;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -33,6 +34,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 
 namespace AurigainLoanERP.Api
@@ -86,6 +88,7 @@ namespace AurigainLoanERP.Api
 
             });
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {
                 options.TokenValidationParameters = new TokenValidationParameters
@@ -106,7 +109,7 @@ namespace AurigainLoanERP.Api
             services.AddMvc().AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = null);
 
             RegisterServices(services);
-
+            services.AddScoped<InterseptionAttribute>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -198,5 +201,7 @@ namespace AurigainLoanERP.Api
 
             
         }
+
+      
     }
 }

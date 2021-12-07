@@ -6,6 +6,7 @@ import { AuthenticationGuard } from './Shared/Helper/authentication.guard';
 import { HtmlComponent } from './Content/html/html.component';
 import { LoginComponent } from './Content/Common/login/login.component';
 import { CustomerSignUpComponent } from './Content/Common/customer-sign-up/customer-sign-up.component';
+import { LeadsModule } from './Content/leads/leads.module';
 
 
 
@@ -15,6 +16,7 @@ const routes: Routes = [
   { path: Routing_Url.AdminModule, loadChildren: () => import('./Content/admin/admin.module').then(m => m.AdminModule) },
   { path: Routing_Url.UserCustomerModule, loadChildren: () => import('./Content/user-customer/user-customer.module').then(m => m.UserCustomerModule) },
   { path: Routing_Url.UserBackendOperatorModule, loadChildren: () => import('./Content/user-backend-operator/user-backend-operator.module').then(m => m.UserBackendOperatorModule) },
+  { path: Routing_Url.Lead_Module, loadChildren: () => import('./Content/leads/leads.module').then(m => m.LeadsModule) },
 
   { path: 'manish', component: HtmlComponent },
   { path: Routing_Url.LoginUrl , component: LoginComponent },

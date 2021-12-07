@@ -7,6 +7,7 @@
       <nav class="custom-breadcrum">
         <ol class="breadcrumb justify-content-center justify-content-sm-start">
           <li class="breadcrumb-item"><a href="javascript:void(0)">Dashboard</a></li>
+          <li class="breadcrumb-item"><a href="javascript:void(0)">Leads</a></li>
           <li class="breadcrumb-item active" aria-current="page">Balance Transfer Gold Loan Lead</li>
         </ol>
       </nav>
@@ -103,10 +104,20 @@
         <ng-container matColumnDef="IsActive">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Status </th>
           <td mat-cell *matCellDef="let element" class="table-action-btn">
-            <a (click)="OnActiveStatus(element.UserId)" title="Update Active Status">
-              <i *ngIf="element.IsActive" class="fas fa-check-circle text-success"></i>
-              <i *ngIf="!element.IsActive" class="fas fa-ban text-danger"></i>
-            </a>
+            <ng-container *ngIf="userRoleEnum.Customer !=  userDetail?.RoleId else NoEdit">
+              <a (click)="OnActiveStatus(element.UserId)" title="Update Active Status">
+                <i *ngIf="element.IsActive" class="fas fa-check-circle text-success"></i>
+                <i *ngIf="!element.IsActive" class="fas fa-ban text-danger"></i>
+              </a>
+            </ng-container>
+            <ng-template #NoEdit>
+              <a title="Active Status">
+                <i *ngIf="element.IsActive" class="fas fa-check-circle text-success"></i>
+                <i *ngIf="!element.IsActive" class="fas fa-ban text-danger"></i>
+              </a>
+            </ng-template>
+
+
 
           </td>
         </ng-container>

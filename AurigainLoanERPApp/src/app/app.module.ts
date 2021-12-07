@@ -21,6 +21,7 @@ import { HtmlComponent } from './Content/html/html.component';
 import { LoginComponent } from './Content/Common/login/login.component';
 import { CustomerSignUpComponent } from './Content/Common/customer-sign-up/customer-sign-up.component';
 import { UserBackendOperatorModule } from './Content/user-backend-operator/user-backend-operator.module';
+import { LeadsModule } from './Content/leads/leads.module';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,7 @@ import { UserBackendOperatorModule } from './Content/user-backend-operator/user-
     LoginComponent,
     CustomerSignUpComponent,
   ],
- 
+
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -45,6 +46,7 @@ import { UserBackendOperatorModule } from './Content/user-backend-operator/user-
     CommonModule,
     DashboardModule,
     BrowserAnimationsModule,
+    LeadsModule
 
   ],
   providers: [BaseAPIService,

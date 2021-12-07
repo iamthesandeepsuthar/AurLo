@@ -19,13 +19,14 @@ import { ProductService } from 'src/app/Shared/Services/master-services/product.
 import { StateDistrictService } from 'src/app/Shared/Services/master-services/state-district.service';
 
 @Component({
-  selector: 'app-cuadd-update-balance-external-transfer-gold-loan-lead',
-  templateUrl: './cuadd-update-balance-external-transfer-gold-loan-lead.component.html',
-  styleUrls: ['./cuadd-update-balance-external-transfer-gold-loan-lead.component.scss'],
+  selector: 'app-add-update-internal-balance-transfer-gold-loan-lead',
+  templateUrl: './add-update-internal-balance-transfer-gold-loan-lead.component.html',
+  styleUrls: ['./add-update-internal-balance-transfer-gold-loan-lead.component.scss'],
   providers: [ProductService, KycDocumentTypeService, StateDistrictService, BankBranchService, JewelleryTypeService, BalanceTransferGoldLoanLeadsService]
 
 })
-export class CUAddUpdateBalanceExternalTransferGoldLoanLeadComponent implements OnInit {
+export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements OnInit {
+
 
   leadId: number = 0;
   model = new BTGoldLoanLeadPostModel();
@@ -42,7 +43,7 @@ export class CUAddUpdateBalanceExternalTransferGoldLoanLeadComponent implements 
   ddlBranchModel!: DDLBranchModel[];
   ddlAreaModel!: AvailableAreaModel[];
   ddlCorespondAreaModel!: AvailableAreaModel[];
-   isSameAddress = false;
+  isSameAddress = false;
   get f1() { return this.leadFromPersonalDetail.controls; }
   get f2() { return this.leadFromAddressDetail.controls; }
   get f3() { return this.leadFromAppointmentDetail.controls; }

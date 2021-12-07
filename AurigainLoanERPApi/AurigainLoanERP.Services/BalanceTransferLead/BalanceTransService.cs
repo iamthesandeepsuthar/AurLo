@@ -34,7 +34,7 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
         {
             try
             {
-
+                
                 await _db.Database.BeginTransactionAsync();
                 if (model.Id == 0 || model.Id == default)
                 {
@@ -125,8 +125,9 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
             ApiServiceResponseModel<List<BTGoldLoanLeadListModel>> objResponse = new ApiServiceResponseModel<List<BTGoldLoanLeadListModel>>();
             try
             {
+               
                 IQueryable<BtgoldLoanLead> result;
-                if (model.UserId == null)
+                if (_loginUserDetail.RoleId  == (int)UserRoleEnum.Admin || _loginUserDetail.UserId== (int)(UserRoleEnum.SuperAdmin))
                 {
                     result = (from goldLoanLead in _db.BtgoldLoanLead
                               where !goldLoanLead.IsDelete && (string.IsNullOrEmpty(model.Search) || goldLoanLead.FullName.Contains(model.Search) || goldLoanLead.FatherName.Contains(model.Search) || goldLoanLead.Gender.Contains(model.Search) || goldLoanLead.BtgoldLoanLeadAddressDetail.FirstOrDefault().AeraPincode.Pincode.Contains(model.Search)) || goldLoanLead.Product.Name.Contains(model.Search)

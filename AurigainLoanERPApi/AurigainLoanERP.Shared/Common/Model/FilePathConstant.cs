@@ -20,6 +20,16 @@ namespace AurigainLoanERP.Shared.Common.Model
         public const string UserApproveTemplate = "\\StaticFiles\\EmailTemplate\\UserApproval.html";
         public const string GoldLoanLeadGenerationTemplate = "\\StaticFiles\\EmailTemplate\\GoldLoanLeadGeneration.html";
 
+    }
+
+    public static class TokenClaimsConstant
+    {
+        public const string GenerateTime = "GenerateTime";
+        public const string UserId = "UserId";
+        public const string UserName = "UserName";
+        public const string RoleName = "RoleName";
+        public const string RoleId = "RoleId";
+        public const string RoleLevel = "RoleLevel";
 
 
     }

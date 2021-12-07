@@ -20,9 +20,9 @@ const routes: Routes = [
   { path: 'register-customers', component: RegisterCustomersComponent, canActivate: [AuthenticationGuard] },
   { path: 'gold-loan-fresh-leads', component: FreshGoldLoanLeadsComponent, canActivate: [AuthenticationGuard] },
   { path: 'gold-loan-fresh-leads/detail/:id', component: DetailFreshGoldLoanLeadComponent, canActivate: [AuthenticationGuard] },
-  { path: `${Routing_Url.BackEnd_BT_GoldLoan_List_Url}`, component: BalanceTransferGoldLoanLeadsComponent, canActivate: [AuthenticationGuard] },
-  { path: `${Routing_Url.BackEnd_BT_GoldLoan_List_Url}/${Routing_Url.BackEnd_Fresh_Lead_Detail_Url}/:id`, component: DetailBalanceTransferLeadComponent, canActivate: [AuthenticationGuard] },
-  { path: `${Routing_Url.BackEnd_BT_GoldLoan_List_Url}/${Routing_Url.BackEnd_Fresh_Lead_Add_Update_Internal_Lead_Url}/:id`, component: AddUpdateInternalBalanceTransferGoldLoanLeadComponent, canActivate: [AuthenticationGuard] },
+  { path: `${Routing_Url.BT_GoldLoan_List_Url}`, component: BalanceTransferGoldLoanLeadsComponent, canActivate: [AuthenticationGuard] },
+  { path: `${Routing_Url.BT_GoldLoan_List_Url}/${Routing_Url.Fresh_Lead_Detail_Url}/:id`, component: DetailBalanceTransferLeadComponent, canActivate: [AuthenticationGuard] },
+  { path: `${Routing_Url.BT_GoldLoan_List_Url}/${Routing_Url.Fresh_Lead_Add_Update_Internal_Lead_Url}/:id`, component: AddUpdateInternalBalanceTransferGoldLoanLeadComponent, canActivate: [AuthenticationGuard] },
   { path: 'other-loan-leads', component: OtherLoanLeadsComponent, canActivate: [AuthenticationGuard] }
 ];
 

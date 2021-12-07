@@ -170,7 +170,7 @@ namespace AurigainLoanERP.Services.Account
                             Mobile = model.MobileNumber
                         };
                         await _db.UserLoginLog.AddAsync(log);
-                        var fresh_token = _security.CreateToken(model.MobileNumber, user.UserRole.Name);
+                        var fresh_token = _security.CreateToken(user.Id, model.MobileNumber, user.UserRole.Name,user.UserRoleId );
                         if (!string.IsNullOrEmpty(fresh_token.Data))
                         {
                             user.Token = fresh_token.Data;
@@ -237,7 +237,7 @@ namespace AurigainLoanERP.Services.Account
                     };
                     await _db.UserLoginLog.AddAsync(log);
 
-                    var fresh_token = _security.CreateToken(model.MobileNumber, user.UserRole.Name);
+                    var fresh_token = _security.CreateToken(user.Id, model.MobileNumber, user.UserRole.Name,user.UserRoleId);
                     if (!string.IsNullOrEmpty(fresh_token.Data))
                     {
                         user.Token = fresh_token.Data;

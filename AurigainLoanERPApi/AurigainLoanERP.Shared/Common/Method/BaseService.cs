@@ -9,7 +9,7 @@ namespace AurigainLoanERP.Shared.Common.Method
     public class BaseService
     {
 
-        public readonly LoginUserViewModel _loginUserDetail;
+        public  LoginUserViewModel _loginUserDetail;
 
         // public IConfiguration _configuration;
         public BaseService()
@@ -18,7 +18,7 @@ namespace AurigainLoanERP.Shared.Common.Method
             //  _configuration = configuration;
         }
 
-        public virtual ApiServiceResponseModel<T> CreateResponse<T>(T objData, string Message, bool IsSuccess,int statusCode ,string exception = null, string validationMessage = null, int? TotalRecord = null) where T : class
+        public virtual ApiServiceResponseModel<T> CreateResponse<T>(T objData, string Message, bool IsSuccess, int statusCode, string exception = null, string validationMessage = null, int? TotalRecord = null) where T : class
         {
             ApiServiceResponseModel<T> objReturn = new ApiServiceResponseModel<T>();
 
@@ -33,39 +33,28 @@ namespace AurigainLoanERP.Shared.Common.Method
 
         public class LoginUserViewModel
         {
-            public int UserId { get; set; }
-            public int RoleTypeId { get; set; }
-            public string RoleType { get; set; }
-            public int BaseRoleTypeId { get; set; }
+            public long? UserId { get; set; }
+            public int? RoleId { get; set; }
+            public string RoleName { get; set; }
 
-            public string BaseRoleType { get; set; }
-            public string Name { get; set; }
+            public string UserName { get; set; }
 
 
             public LoginUserViewModel()
-            {
-
-
-
-                //UserId = currentUser.Claims(c => c.Type == "Name");
-                //UserId = staticClas.UserId;
-                //RoleTypeId = staticClas.RoleTypeId;
-                //RoleType = staticClas.RoleType;
-                //BaseRoleTypeId = staticClas.BaseRoleTypeId;
-
-                //BaseRoleType = staticClas.BaseRoleType;
-                //Name = staticClas.Name;
-
-                //use thi on method for retrive data from jwt
-                // public object currentUser = HttpContext.User;
+            { 
+                UserId = LoginUserModel.UserId ?? null;
+                UserName = LoginUserModel.UserName;
+                RoleId = LoginUserModel.RoleId ?? null;
+                RoleName = LoginUserModel.RoleName;
 
             }
         }
 
-        public string GenerateUniqueId() {
+        public string GenerateUniqueId()
+        {
             try
             {
-                return new Random().Next(100000,999999).ToString();
+                return new Random().Next(100000, 999999).ToString();
             }
             catch (System.Exception)
             {
@@ -74,11 +63,12 @@ namespace AurigainLoanERP.Shared.Common.Method
             }
         }
 
-        public string GetBaseUrl() 
+        public string GetBaseUrl()
         {
             IHttpContextAccessor _httpContext = new HttpContextAccessor();
 
             return string.Concat(_httpContext.HttpContext.Request.IsHttps ? "https://" : "http://", _httpContext.HttpContext.Request.HttpContext.Request.Host.Value);
         }
     }
+
 }

@@ -137,7 +137,7 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
 
           this.leadFromAppointmentDetail.reset();
           this.model = new BTGoldLoanLeadPostModel();
-          this._router.navigate([`${Routing_Url.UserBackendOperatorModule}/${Routing_Url.BackEnd_BT_GoldLoan_List_Url}`]);
+          this._router.navigate([`${Routing_Url.UserBackendOperatorModule}/${Routing_Url.BT_GoldLoan_List_Url}`]);
 
         } else {
           this.toast.success(Message.SaveFail);

@@ -202,7 +202,7 @@ export class Routing_Url {
   public static CustomersModule = 'customer'; //for admin
   public static UserCustomerModule = 'user-customer'; //for login
   public static UserBackendOperatorModule = 'backend-operator'; //for login
-
+  public static Lead_Module = 'leads'; //for login
   //#endregion
 
   //#region <<Login URL>>
@@ -266,11 +266,11 @@ export class Routing_Url {
   //#region <<BackEnd Operator URL>>
   public static BackEnd_Customer_List_Url = 'register-customers';
   public static BackEnd_Fresh_GoldLoan_List_Url = 'gold-loan-fresh-leads';
-  public static BackEnd_BT_GoldLoan_List_Url = 'balance-transfer-leads';
+  public static BT_GoldLoan_List_Url = 'balance-transfer-leads';
   public static BackEnd_Profile_Url = 'door-step-agents-list';
   public static BackEnd_OtherLoan_Leads_Url = 'other-loan-leads';
-  public static BackEnd_Fresh_Lead_Detail_Url = 'detail'
-  public static BackEnd_Fresh_Lead_Add_Update_Internal_Lead_Url = 'internal/add-update'
+  public static Fresh_Lead_Detail_Url = 'detail'
+  public static Fresh_Lead_Add_Update_Internal_Lead_Url = 'internal/add-update'
   public static BT_Gold_Loan_Add_Update_External_Lead_Url = 'external/add-update'
 
 
