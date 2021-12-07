@@ -3,8 +3,8 @@
 
     <div class="main-container" id="container" *ngIf="isAuth; else NotValidUser">
 
-        <div class="overlay"></div>
-        <div class="search-overlay"></div>
+        <div  class="overlay"></div>
+        <div  class="search-overlay"></div>
         <app-header (SetTheme)="setTheme($event)"></app-header>
         <div id="content" class="main-content">
             <!--  START CONTENT AREA  -->
@@ -29,8 +29,5 @@
 </div>
 
 <ng-template #NotValidUser>
-
     <router-outlet></router-outlet>
-
-
 </ng-template>

@@ -60,10 +60,9 @@ export class AuthService {
       if (token != null && Number(sessionTime) > currentSessionTime) {
         this.IsAuthentication.next(true);
       } else {
-
         this.LogOut();
       }
-    }, 5);
+  }, 0);
   }
 
   LogOut() {

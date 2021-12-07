@@ -7,7 +7,9 @@ import { BTGoldLoanLeadListModel, BTGoldLoanLeadPostModel, BTGoldLoanLeadViewMod
 @Injectable()
 export class BalanceTransferGoldLoanLeadsService {
   constructor(private readonly _baseService: BaseAPIService) { }
+
   GetList(model: IndexModel): Observable<ApiResponse<BTGoldLoanLeadListModel[]>> {
+
     let url = `${this._baseService.API_Url.BT_Gold_Loan_Lead_List_Api}`;
     return this._baseService.post(url, model);
   }

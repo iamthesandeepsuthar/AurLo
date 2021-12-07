@@ -47,11 +47,11 @@ export class BalanceTransferGoldLoanLeadsComponent implements OnInit {
     private readonly toast: ToastrService,
     private readonly _userSettingService: UserSettingService,
     private readonly _auth: AuthService) {
-      this.indexModel.UserId = this.userDetail?.UserId as number
-    }
+    this.indexModel.UserId = this.userDetail?.UserId as number
+  }
 
   ngOnInit(): void {
-    this.getList();
+   this.getList();
   }
 
   getList(): void {
@@ -60,10 +60,10 @@ export class BalanceTransferGoldLoanLeadsComponent implements OnInit {
       serve.unsubscribe();
       if (response.IsSuccess) {
         this.model = response.Data as BTGoldLoanLeadListModel[];
-        console.log(this.model);
+
         this.dataSource = new MatTableDataSource<BTGoldLoanLeadListModel>(this.model);
         this.totalRecords = response.TotalRecord as number;
-        
+
         if (!this.indexModel.IsPostBack) {
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
