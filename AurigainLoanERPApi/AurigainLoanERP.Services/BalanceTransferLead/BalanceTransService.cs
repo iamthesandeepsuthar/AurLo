@@ -127,7 +127,7 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
             {
                
                 IQueryable<BtgoldLoanLead> result;
-                if (_loginUserDetail.RoleId  == (int)UserRoleEnum.Admin || _loginUserDetail.RoleId== (int)(UserRoleEnum.SuperAdmin))
+                if (_loginUserDetail.RoleId  == (int)UserRoleEnum.SuperAdmin || _loginUserDetail.RoleId== (int)(UserRoleEnum.Admin)  || _loginUserDetail.RoleId == (int)(UserRoleEnum.WebOperator))
                 {
                     result = (from goldLoanLead in _db.BtgoldLoanLead
                               where !goldLoanLead.IsDelete && (string.IsNullOrEmpty(model.Search) || goldLoanLead.FullName.Contains(model.Search) || goldLoanLead.FatherName.Contains(model.Search) || goldLoanLead.Gender.Contains(model.Search) || goldLoanLead.BtgoldLoanLeadAddressDetail.FirstOrDefault().AeraPincode.Pincode.Contains(model.Search)) || goldLoanLead.Product.Name.Contains(model.Search)
@@ -136,7 +136,7 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                 else
                 {
                     result = (from goldLoanLead in _db.BtgoldLoanLead
-                              where !goldLoanLead.IsDelete && goldLoanLead.CustomerUserId == model.UserId && (string.IsNullOrEmpty(model.Search) || goldLoanLead.FullName.Contains(model.Search) || goldLoanLead.FatherName.Contains(model.Search) || goldLoanLead.Gender.Contains(model.Search) || goldLoanLead.BtgoldLoanLeadAddressDetail.FirstOrDefault().AeraPincode.Pincode.Contains(model.Search)) ||
+                              where !goldLoanLead.IsDelete && (_loginUserDetail.RoleId == (int)UserRoleEnum.Customer ? goldLoanLead.CustomerUserId == _loginUserDetail.UserId :  goldLoanLead.LeadSourceByuserId ==_loginUserDetail.UserId )  && (string.IsNullOrEmpty(model.Search) || goldLoanLead.FullName.Contains(model.Search) || goldLoanLead.FatherName.Contains(model.Search) || goldLoanLead.Gender.Contains(model.Search) || goldLoanLead.BtgoldLoanLeadAddressDetail.FirstOrDefault().AeraPincode.Pincode.Contains(model.Search)) ||
                               goldLoanLead.Product.Name.Contains(model.Search)
                               select goldLoanLead);
                 }
