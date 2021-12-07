@@ -138,6 +138,7 @@ namespace AurigainLoanERP.Shared.ContractModel
         public string DistrictName { get; set; }
         public string StateName { get; set; }
         public string PinCode { get; set; }
+        public long? AreaPincodeId { get; set; }
         public DateTime? DateOfBirth { get; set; }
         public string ProfilePictureUrl { get; set; }
         public bool? IsActive { get; set; }
@@ -247,6 +248,7 @@ namespace AurigainLoanERP.Shared.ContractModel
         public string Address { get; set; }
         public string PinCode { get; set; }
         public int? DistrictId { get; set; }
+        public long? AreaPincodeId { get; set;}
         public string DistrictName { get; set; }
         public string StateName { get; set; }
         public int? StateId { get; set; }

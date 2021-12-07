@@ -125,7 +125,7 @@
               <label>Pincode</label>
               <input type="text" class="form-control" minlength="6" [(ngModel)]="Model.Pincode"
               [ngClass]="{ 'is-invalid': f.Pincode.errors && f.Pincode.touched}"
-              formControlName="Pincode" placeholder="Pincode"  (blur)="getAreaByPincode($event)">
+              formControlName="Pincode" placeholder="Pincode"  (blur)="getAreaByPincode($any($event.target).value)">
               <div class="invalid-feedback" *ngIf="(managerFrom.get('Pincode')?.hasError('required') && managerFrom.get('Pincode')?.touched)">enter pincode</div>
           </div>
             <div class="form-group col-md-8">
@@ -146,7 +146,7 @@
 
         </div>
         <div class="form-footer-btn-grp widget-content widget-content p-3 text-center">
-            <button type="submit" class="btn btn-success mr-3"> <i class="fas fa-check mr-1"></i> Save User</button>
+            <button type="submit" class="btn btn-success mr-3"> <i class="fas fa-check mr-1"></i>{{Id>0 ? 'Update' : 'Save'}}  User</button>
             <button type="button" class="btn btn-outline-danger" routerLink="{{ '../../../' + this.routing_Url.Manager_List_Url}}"> <i class="fas fa-times mr-1"></i> Cancel</button>
         </div>
 
