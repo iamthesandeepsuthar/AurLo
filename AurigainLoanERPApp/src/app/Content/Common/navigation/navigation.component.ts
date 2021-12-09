@@ -17,6 +17,7 @@ export class NavigationComponent implements OnInit {
   IsAdminMenu: boolean = false;
   IsCustomerMenu: boolean = false;
   IsOperatorMenu: boolean = false;
+
   isProd = environment.production;
   loginUserId!: number;
   constructor(private readonly _authService: AuthService) {
@@ -32,13 +33,54 @@ export class NavigationComponent implements OnInit {
 
       this.userModel = this._authService.GetUserDetail() as LoginResponseModel;
       this.loginUserId = this.userModel.UserId;
-      if (this.userModel.RoleId == this.roleEnum.Customer) {
-        this.IsCustomerMenu = true;
-      } else if(this.userModel.RoleId == this.roleEnum.Operator) {
-        this.IsOperatorMenu = true;
-      } else {
-        this.IsAdminMenu = true;
-      }
+
+
+
+      // if (this.userModel.RoleId == this.roleEnum.Customer) {
+      //   this.IsCustomerMenu = true;
+      // } else if(this.userModel.RoleId == this.roleEnum.Operator) {
+      //   this.IsOperatorMenu = true;
+      // } else {
+      //   this.IsAdminMenu = true;
+      // }
+
+
+
+
     });
   }
+
+
+
+  isAccessMenu(menuName: string) {
+
+    if (menuName == "FRESHGOLD") {
+      return true;
+    }
+    else if (menuName == "BTGOLD") {
+      return true;
+    }
+
+    else if (menuName == "OTHERLEADS") {
+      return true;
+    }
+    else if (menuName == "MASTER" && (this.userModel.RoleId == UserRoleEnum.Admin || this.userModel.RoleId == UserRoleEnum.SuperAdmin)) {
+      return true;
+    }
+
+
+    else if (menuName == "DOORSTEPAGENT" && (this.userModel.RoleId == UserRoleEnum.Admin || this.userModel.RoleId == UserRoleEnum.SuperAdmin || this.userModel.RoleId == UserRoleEnum.Operator)) {
+      return true;
+    }
+
+    else if (menuName == "AGENT" && (this.userModel.RoleId == UserRoleEnum.Admin || this.userModel.RoleId == UserRoleEnum.SuperAdmin || this.userModel.RoleId == UserRoleEnum.Operator)) {
+      return true;
+    }
+
+    else {
+      return false;
+    }
+
+  }
+
 }

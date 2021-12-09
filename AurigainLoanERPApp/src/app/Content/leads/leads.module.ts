@@ -7,6 +7,10 @@ import { DetailBalanceTransferLeadComponent } from './balance-transfer-gold-loan
 import { AddUpdateInternalBalanceTransferGoldLoanLeadComponent } from './balance-transfer-gold-loan-leads/add-update-internal-balance-transfer-gold-loan-lead/add-update-internal-balance-transfer-gold-loan-lead.component';
 import { SharedModule } from 'src/app/Shared/Helper/shared/shared.module';
 import { FreshGoldLoanLeadsComponent } from './fresh-gold-loan-leads/fresh-gold-loan-leads.component';
+import { DetailFreshGoldLoanLeadComponent } from './fresh-gold-loan-leads/detail-fresh-gold-loan-lead/detail-fresh-gold-loan-lead.component';
+import { OtherLoanLeadsComponent } from './other-loan-leads/other-loan-leads.component';
+import { DetailOtherLoanLeadComponent } from './other-loan-leads/detail-other-loan-lead/detail-other-loan-lead.component';
+import { AddUpdateFreshGoldLoanLeadComponent } from './fresh-gold-loan-leads/add-update-fresh-gold-loan-lead/add-update-fresh-gold-loan-lead.component';
 
 
 @NgModule({
@@ -15,6 +19,10 @@ import { FreshGoldLoanLeadsComponent } from './fresh-gold-loan-leads/fresh-gold-
     DetailBalanceTransferLeadComponent,
     AddUpdateInternalBalanceTransferGoldLoanLeadComponent,
     FreshGoldLoanLeadsComponent,
+    DetailFreshGoldLoanLeadComponent,
+    OtherLoanLeadsComponent,
+    DetailOtherLoanLeadComponent,
+    AddUpdateFreshGoldLoanLeadComponent,
 
   ],
   imports: [

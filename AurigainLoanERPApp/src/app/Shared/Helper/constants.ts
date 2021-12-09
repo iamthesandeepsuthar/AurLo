@@ -266,15 +266,28 @@ export class Routing_Url {
   //#region <<BackEnd Operator URL>>
   public static BackEnd_Customer_List_Url = 'register-customers';
   public static BackEnd_Fresh_GoldLoan_List_Url = 'gold-loan-fresh-leads';
-  public static BT_GoldLoan_List_Url = 'balance-transfer-leads';
   public static BackEnd_Profile_Url = 'door-step-agents-list';
   public static BackEnd_OtherLoan_Leads_Url = 'other-loan-leads';
-  public static Fresh_Lead_Detail_Url = 'detail'
+
+
   public static Fresh_Lead_Add_Update_Internal_Lead_Url = 'internal/add-update'
   public static BT_Gold_Loan_Add_Update_External_Lead_Url = 'external/add-update'
 
 
   //#endregion
+
+//#region <Leads>
+public static BT_GoldLoan_List_Url = 'balance-transfer-leads';
+public static Fresh_Lead_List_Url = 'fresh-leads';
+public static Other_Loan_Leads_Url = 'other-loan-leads';
+
+
+public static Detail_Lead_Url = 'detail'
+public static Add_Update_Lead_Url = 'add-update';
+public static Add_Update_Internal_Lead_Url = 'internal/add-update'
+public static Add_Update_External_Lead_Url = 'external/add-update'
+
+//endregion
 
   //#region  <<Agent >>
   public static AgentRegistrationUrl = 'agent-addupdate';

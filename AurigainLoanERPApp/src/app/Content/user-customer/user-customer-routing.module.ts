@@ -24,7 +24,7 @@ const routes: Routes = [
   {path:'gold-loan-leads/detail/:id', component: DetailGoldLoanFreshLeadComponent , canActivate:[AuthenticationGuard]},
   {path:'update-profile/:id', component: UpdateCustomerProfileComponent , canActivate:[AuthenticationGuard]},
   { path: `${Routing_Url.BT_GoldLoan_List_Url}`, component: BalanceTransferGoldLoanLeadComponent, canActivate: [AuthenticationGuard] },
-  { path: `${Routing_Url.BT_GoldLoan_List_Url}/${Routing_Url.Fresh_Lead_Detail_Url}/:id`, component: CUDetailBalanceTransferGoldLoanLeadComponent, canActivate: [AuthenticationGuard] },
+  { path: `${Routing_Url.BT_GoldLoan_List_Url}/${Routing_Url.Detail_Lead_Url}/:id`, component: CUDetailBalanceTransferGoldLoanLeadComponent, canActivate: [AuthenticationGuard] },
   { path: `${Routing_Url.BT_GoldLoan_List_Url}/${Routing_Url.BT_Gold_Loan_Add_Update_External_Lead_Url}/:id`, component: CUAddUpdateBalanceExternalTransferGoldLoanLeadComponent, canActivate: [AuthenticationGuard] },
 
 ];

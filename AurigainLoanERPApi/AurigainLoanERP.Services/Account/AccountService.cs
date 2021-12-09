@@ -246,6 +246,7 @@ namespace AurigainLoanERP.Services.Account
                     response.UserId = user.Id;
                     response.Token = fresh_token.Data;
                     response.RoleId = user.UserRoleId;
+                  //  response.RoleLevel= //user.userr
                     response.UserName = user.UserName;
 
                 }

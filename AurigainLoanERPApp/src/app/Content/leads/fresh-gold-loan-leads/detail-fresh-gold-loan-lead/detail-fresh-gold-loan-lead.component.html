@@ -1,0 +1,148 @@
+
+    <!-- Page Header Title start -->
+    <div class="widget-header">
+      <div class="row d-block d-sm-flex align-items-center justify-content-between text-center text-sm-left">
+        <div>
+          <h1>Gold Loan Fresh Lead</h1>
+          <!-- Breadcrumb Start -->
+          <nav class="custom-breadcrum">
+            <ol class="breadcrumb justify-content-center justify-content-sm-start">
+
+              <li class="breadcrumb-item"><a routerLink="/dashboard">Home</a></li>
+              <li class="breadcrumb-item"><a routerLink="../../../fresh-leads">Gold Loan Fresh Lead</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Detail</li>
+            </ol>
+          </nav>
+          <!-- Breadcrumb End -->
+        </div>
+      </div>
+    </div>
+    <!-- Page Header Title end -->
+        <div class="detail-d-2 pb-4">
+
+          <div class="widget-content widget-content p-3 form-grp-w-border">
+              <h2> <img src="assets/img/personal_detail.png">Personal Details</h2>
+              <div class="table-responsive">
+                  <table class="table  table-borderless table-data-info table-font-17 table-v-align-top m-0">
+                      <tbody>
+                          <tr>
+                              <td style="width: 20%;"> <strong> Product Category: </strong> </td>
+                              <td style="width: 30%;">{{model?.ProductCategoryName ?? 'N/A'}}</td>
+                              <td style="width: 20%;"><strong> Product Name: </strong> </td>
+                              <td style="width: 30%;">{{model?.ProductName ?? 'N/A'}}</td>
+                          </tr>
+                          <tr>
+                              <td><strong> Full Name: </strong> </td>
+                              <td>{{model?.FullName ?? 'N/A'}}</td>
+                              <td><strong> Father's Name:</strong> </td>
+                              <td>{{model?.FatherName ?? 'N/A'}}</td>
+                          </tr>
+                          <tr>
+                              <td><strong> Date of Birth: </strong> </td>
+                              <td>{{(model?.DateOfBirth | date) ?? 'N/A'}}</td>
+                              <td><strong> Gender: </strong> </td>
+                              <td>{{model?.Gender ?? 'N/A'}}</td>
+                          </tr>
+                          <tr>
+                              <td><strong> Mobile Number: </strong> </td>
+                              <td>{{model?.PrimaryMobileNumber ?? 'N/A'}}</td>
+                              <td><strong> Alternative  Mobile Number: </strong> </td>
+                              <td>{{model?.SecondaryMobileNumber ?? 'N/A'}}</td>
+                          </tr>
+                          <tr>
+                              <td><strong> Amount Loan: </strong> </td>
+                              <td>₹{{model?.LoanAmountRequired ?? 'N/A'}}</td>
+                              <td><strong> Purpose of Loan: </strong> </td>
+                              <td>{{model?.Purpose ?? 'N/A'}}</td>
+                          </tr>
+                      </tbody>
+                  </table>
+              </div>
+          </div>
+
+          <div class="widget-content widget-content p-3 form-grp-w-border">
+              <h2> <img src="assets/img/document_details.png">Document Details</h2>
+              <div class="table-responsive">
+                  <table class="table  table-borderless table-data-info table-font-17 table-v-align-top m-0">
+                      <tbody>
+                          <tr>
+                              <td style="width: 20%;"> <strong> Document Type: </strong> </td>
+                              <td style="width: 30%;">{{model?.KycDocument?.KycDocumentTypeName ?? 'N/A'}}</td>
+                              <td style="width: 20%;"><strong> Document Number: </strong> </td>
+                              <td style="width: 30%;">{{model?.KycDocument?.DocumentNumber ?? 'N/A'}}</td>
+                          </tr>
+                          <tr>
+                              <td><strong> Address: </strong> </td>
+                              <td>{{model?.KycDocument?.AddressLine1 ?? 'N/A'}}</td>
+                          </tr>
+                          <tr>
+                              <td><strong> Area Name: </strong> </td>
+                              <td>{{model?.KycDocument?.PincodeAreaName ?? 'N/A'}}</td>
+                              <td><strong> District: </strong> </td>
+                              <td>{{model?.KycDocument?.DistrictName ?? 'N/A'}}</td>
+                          </tr>
+                          <tr>
+                              <td><strong> State: </strong> </td>
+                              <td>{{model?.KycDocument?.StateName ?? 'N/A'}}</td>
+                              <td><strong> Pincode: </strong> </td>
+                              <td>{{model?.KycDocument?.Pincode ?? 'N/A'}}</td>
+                          </tr>
+                      </tbody>
+                  </table>
+              </div>
+          </div>
+
+          <div class="widget-content widget-content p-3 form-grp-w-border">
+              <h2> <img src="assets/img/jewellery.png">Jewellery Details</h2>
+              <div class="table-responsive">
+                  <table class="table  table-borderless table-data-info table-font-17 table-v-align-top m-0">
+                      <tbody>
+                          <tr>
+                              <td style="width: 20%;"> <strong> Type of Jewellery: </strong> </td>
+                              <td style="width: 30%;">{{model?.JewelleryDetail?.JewelleryTypeName ?? 'N/A'}}</td>
+                              <td style="width: 20%;"><strong> Quantity: </strong> </td>
+                              <td style="width: 30%;">{{model?.JewelleryDetail?.Quantity ?? 'N/A'}}</td>
+                          </tr>
+                          <tr>
+                              <td><strong> Weight (in grams): </strong> </td>
+                              <td>{{model?.JewelleryDetail?.Weight ?? 'N/A'}}</td>
+                              <td><strong> Karats : </strong> </td>
+                              <td>{{model?.JewelleryDetail?.Karat ?? 'N/A'}}</td>
+                          </tr>
+                          <tr>
+                              <td><strong> Tenure: </strong> </td>
+                              <td>{{model?.JewelleryDetail?.PreferredLoanTenure ?? 'N/A'}}</td>
+                          </tr>
+                      </tbody>
+                  </table>
+              </div>
+          </div>
+
+          <div class="widget-content widget-content p-3 form-grp-w-border">
+              <h2> <img src="assets/img/appointment.png">Appointment Details</h2>
+              <div class="table-responsive">
+                  <table class="table  table-borderless table-data-info table-font-17 table-v-align-top m-0">
+                      <tbody>
+                          <tr>
+                              <td style="width: 20%;"> <strong> Bank Name: </strong> </td>
+                              <td style="width: 30%;">{{model?.AppointmentDetail?.BankName ?? 'N/A'}} | {{model?.AppointmentDetail?.BranchName ?? 'N/A'}}</td>
+                              <td style="width: 20%;"><strong> IFSC Code: </strong> </td>
+                              <td style="width: 30%;">{{model?.AppointmentDetail?.IFSC ?? 'N/A'}}</td>
+                          </tr>
+                          <tr>
+                              <td><strong> Date of Appointment: </strong> </td>
+                              <td>{{(model?.AppointmentDetail?.AppointmentDate| date) ?? 'N/A'}}</td>
+                              <td><strong> Time of Appointment : </strong> </td>
+                              <td>{{model?.AppointmentDetail?.AppointmentTime ?? 'N/A'}}</td>
+                          </tr>
+                          <tr>
+                              <td><strong> Branch name: </strong> </td>
+                              <td>{{model?.AppointmentDetail?.BranchName ?? 'N/A'}}</td>
+                              <td><strong> Pincode: </strong> </td>
+                              <td>{{model?.AppointmentDetail?.Pincode ?? 'N/A'}}</td>
+                          </tr>
+                      </tbody>
+                  </table>
+              </div>
+          </div>
+      </div>

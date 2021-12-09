@@ -1,0 +1,154 @@
+<!-- Page Header Title start -->
+<div class="widget-header">
+  <div class="row d-block d-sm-flex align-items-center justify-content-between text-center text-sm-left">
+      <div>
+          <h1> Personal, Home And Car Loan Fresh Lead</h1>
+          <!-- Breadcrumb Start -->
+          <nav class="custom-breadcrum">
+              <ol class="breadcrumb justify-content-center justify-content-sm-start">
+                  <li class="breadcrumb-item"><a href="javascript:void(0)">Dashboard</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">PL,HL And CL Fresh Lead</li>
+              </ol>
+          </nav>
+          <!-- Breadcrumb End -->
+      </div>
+      <!-- <a class="btn btn-dark btn-sm mt-2 mt-sm-0" routerLink="../agent-addupdate/0">
+    <i class="fas fa-plus"></i> Add agent</a> -->
+  </div>
+</div>
+<!-- Page Header Title end -->
+
+
+<!-- HTML TABLE DIV START -->
+
+
+
+<div class="px-3">
+
+  <div id="zero-config_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
+
+      <div class="dt--top-section mx-0">
+          <div class="row position-relative">
+              <div class="col-12 col-md-4 d-flex justify-content-sm-start justify-content-center">
+                  <div class="dataTables_length" id="zero-config_length"><label>Results :
+            <select name="zero-config_length" [(ngModel)]="indexModel.PageSize" (change)="getList()"
+              aria-controls="zero-config" class="form-control">
+              <option value="101">All</option>
+              <option value="10">10</option>
+              <option value="20">20</option>
+              <option value="50">50</option>
+            </select></label></div>
+              </div>
+              <div class="col-12 col-md-8 d-flex justify-content-sm-end justify-content-center mt-sm-0 mt-3">
+                  <div id="zero-config_filter" class="dataTables_filter"><label>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              class="feather feather-search">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input type="search" [(ngModel)]="indexModel.Search" (blur)="onSearch()" class="form-control"
+              placeholder="Search..." aria-controls="zero-config"></label></div>
+
+                  <!-- <div class="ad-filter-btn-grp">
+          <button data-toggle="collapse" href="#advance-filter1" type="submit" class="ad-filter-btn"> <img
+              src="assets/img/filter.png" data-toggle="tooltip" data-placement="bottom" title="Advance filter">
+          </button>
+        </div> -->
+                  <div class="table-view-btn ml-4">
+                      <button type="button" class="btn-change-view"><i class="fa fa-bars"></i></button>
+                      <button type="button" class="btn-change-view ml-2 active"><i class="fa fa-th-large"></i></button>
+                  </div>
+
+              </div>
+          </div>
+
+      </div>
+
+
+
+
+      <div class="table-responsive table-shadow">
+
+          <table class="custom-mat-table" mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 table table-striped dataTable table-header" style="width: 100%;" role="grid" aria-describedby="zero-config_info" (matSortChange)="sortData($event)">
+
+              <ng-container matColumnDef="index">
+                  <th mat-header-cell *matHeaderCellDef>#</th>
+                  <td mat-cell *matCellDef="let element; let i = index;">
+                      {{(indexModel.Page-1)*indexModel.PageSize +(i+1)}}</td>
+              </ng-container>
+
+              <ng-container [matColumnDef]="column.Value" *ngFor="let column of ViewdisplayedColumns, let in=index">
+
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> {{column.Text}} </th>
+                  <td [ngClass]="{'sorting_1 table-data-name': in==0}" mat-cell *matCellDef="let element"> <span *ngIf="in==0">
+            {{element[column.Value].substring(0,1)}} </span> {{element[column.Value]}}
+                  </td>
+              </ng-container>
+
+              <ng-container matColumnDef="LeadType">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Lead Type </th>
+                  <td mat-cell *matCellDef="let element" class="table-action-btn">
+                      <a>
+                          <i *ngIf="element.LeadType" class="text-info">Salaried </i>
+                          <i *ngIf="!element.LeadType" class="text-warning">Non Salaried</i>
+                      </a>
+
+                  </td>
+              </ng-container>
+
+              <ng-container matColumnDef="IsActive">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Status </th>
+                  <td mat-cell *matCellDef="let element" class="table-action-btn">
+                      <a (click)="OnActiveStatus(element.UserId)" title="Update Active Status">
+                          <i *ngIf="element.IsActive" class="fas fa-check-circle text-success"></i>
+                          <i *ngIf="!element.IsActive" class="fas fa-ban text-danger"></i>
+                      </a>
+
+                  </td>
+              </ng-container>
+
+              <ng-container matColumnDef="Action">
+                  <th width="150" mat-header-cell *matHeaderCellDef> Action </th>
+                  <td mat-cell *matCellDef="let row" class="table-action-btn">
+
+                      <!-- <a class="table-action-btn-edit" routerLink="../{{this.routing_Url.AgentRegistrationUrl +'/'+ row.UserId}}"
+            title="Edit">
+            <i class="fas fa-edit"></i>
+          </a> -->
+                      <a class="table-action-btn-view" routerLink="../{{routing_Url.AgenDetailUrl +'/'+ row.UserId}}" title="Detail">
+                          <i class="fas fa-eye"></i>
+                      </a>
+
+                      <!-- <a class="table-action-btn-delete" (click)="updateDeleteStatus(row?.UserId)" title="Delete">
+            <i class="fas fa-trash-alt"></i>
+          </a> -->
+                  </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+
+      </div>
+      <div class="dt--bottom-section d-sm-flex justify-content-sm-between text-center">
+          <div class="dt--pagination">
+              <div class="dataTables_paginate paging_simple_numbers" id="zero-config_paginate">
+                  <ul class="pagination">
+
+
+                      <mat-paginator #paginator [length]="totalRecords" [pageSize]="indexModel.PageSize" (page)="onPaginateChange($event)" showFirstLastButtons *ngIf="totalRecords!=0">
+                      </mat-paginator>
+                  </ul>
+              </div>
+          </div>
+      </div>
+  </div>
+
+
+
+</div>
+
+
+
+<!-- HTML TABLE DIV END -->

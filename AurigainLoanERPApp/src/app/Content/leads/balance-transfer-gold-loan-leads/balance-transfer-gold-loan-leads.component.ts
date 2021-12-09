@@ -48,6 +48,7 @@ export class BalanceTransferGoldLoanLeadsComponent implements OnInit {
     private readonly _userSettingService: UserSettingService,
     private readonly _auth: AuthService) {
     this.indexModel.UserId = this.userDetail?.UserId as number
+    
   }
 
   ngOnInit(): void {

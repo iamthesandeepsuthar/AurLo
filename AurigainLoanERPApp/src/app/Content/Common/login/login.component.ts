@@ -37,21 +37,21 @@ export class LoginComponent implements OnInit {
           let data = res.Data as LoginResponseModel;
           this._authService.SaveUserToken(data.Token);
           this._authService.SaveUserDetail(data);
-          switch (data.RoleId) {
-            case UserRoleEnum.Customer:
-              this._route.navigate([Routing_Url.UserCustomerModule]);
+          // switch (data.RoleId) {
+          //   case UserRoleEnum.Customer:
+          //     this._route.navigate([Routing_Url.UserCustomerModule]);
 
-              break;
-              case UserRoleEnum.Operator:
-              this._route.navigate([Routing_Url.UserBackendOperatorModule]);
+          //     break;
+          //   case UserRoleEnum.Operator:
+          //     this._route.navigate([Routing_Url.UserBackendOperatorModule]);
 
-              break;
+          //     break;
 
-            default:
-              this._route.navigate(['']);
+          //   default:
+          this._route.navigate(['']);
 
-              break;
-          }
+          //     break;
+          // }
 
           this.toast.success(res.Message?.toString(), 'Login Response');
         } else {
@@ -63,5 +63,5 @@ export class LoginComponent implements OnInit {
       this._route.navigate(['']);
     }
   }
-  
+
 }

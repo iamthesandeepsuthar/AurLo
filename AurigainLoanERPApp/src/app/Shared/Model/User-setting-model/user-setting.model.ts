@@ -14,6 +14,7 @@ export interface LoginPostModel {
 export interface LoginResponseModel {
   UserId: number;
   RoleId: number;
+  RoleLevel: number;
   Token: string;
   UserName: string;
 

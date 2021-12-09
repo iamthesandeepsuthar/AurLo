@@ -5,32 +5,32 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ToastrService } from 'ngx-toastr';
 import { IndexModel } from 'src/app/Shared/Helper/common-model';
 import { Routing_Url, Message } from 'src/app/Shared/Helper/constants';
-import { GoldLoanFreshLeadListModel } from 'src/app/Shared/Model/Leads/gold-loan-fresh-lead.model';
+import { FreshLeadHLPLCLModel } from 'src/app/Shared/Model/Leads/other-loan-leads.model';
 import { CommonService } from 'src/app/Shared/Services/common.service';
-import { GoldLoanLeadsService } from 'src/app/Shared/Services/Leads/gold-loan-leads.service';
+import { PersonalHomeCarLoanService } from 'src/app/Shared/Services/Leads/personal-home-car-loan.service';
 import { UserSettingService } from 'src/app/Shared/Services/user-setting-services/user-setting.service';
 
 @Component({
-  selector: 'app-fresh-gold-loan-leads',
-  templateUrl: './fresh-gold-loan-leads.component.html',
-  styleUrls: ['./fresh-gold-loan-leads.component.scss'],
-  providers: [GoldLoanLeadsService,UserSettingService]
+  selector: 'app-other-loan-leads',
+  templateUrl: './other-loan-leads.component.html',
+  styleUrls: ['./other-loan-leads.component.scss'],
+  providers: [UserSettingService,PersonalHomeCarLoanService]
 })
-export class FreshGoldLoanLeadsComponent implements OnInit {
+export class OtherLoanLeadsComponent implements OnInit {
 
-  model!: GoldLoanFreshLeadListModel[];
+  model!: FreshLeadHLPLCLModel[];
   dataSource: any;
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort!: MatSort;
 
-  displayedColumns: string[] = ['index', 'FullName','FatherName' ,'PrimaryMobileNumber','LoanAmountRequired', 'LeadSourceByUserName','ProductName','Pincode', 'IsActive', 'Action'];
+  displayedColumns: string[] = ['index', 'FullName','FatherName' ,'MobileNumber','LoanAmount', 'LeadSourceByUserName','ProductName','ProductCategoryName','LeadType', 'IsActive', 'Action'];
   ViewdisplayedColumns = [{ Value: 'FullName', Text: 'Full Name' },
-  { Value: 'PrimaryMobileNumber', Text: 'Mobile Number' },
+  { Value: 'MobileNumber', Text: 'Mobile Number' },
   { Value: 'LeadSourceByUserName', Text: 'Lead Source By' },
-  { Value: 'LoanAmountRequired', Text: 'Loan Amount' },
+  { Value: 'LoanAmount', Text: 'Loan Amount' },
   { Value: 'FatherName', Text: 'Father Name' },
   { Value: 'ProductName', Text: 'Product' },
-  { Value:'Pincode', Text: 'Pincode'}];
+  { Value:'ProductCategoryName', Text: 'Pincode'}];
    indexModel = new IndexModel();
   totalRecords: number = 0;
   get routing_Url() { return Routing_Url };
@@ -38,11 +38,12 @@ export class FreshGoldLoanLeadsComponent implements OnInit {
 
   //#endregion
 
-  constructor(private readonly _freshLeadService: GoldLoanLeadsService,
+  constructor(private readonly _freshLeadService:PersonalHomeCarLoanService,
     private readonly _commonService: CommonService,
     private readonly toast: ToastrService,
     private readonly _userSettingService: UserSettingService) { }
-  ngOnInit(): void {
+
+    ngOnInit(): void {
     this.getList();
 
   }
@@ -51,9 +52,9 @@ export class FreshGoldLoanLeadsComponent implements OnInit {
     let serve = this._freshLeadService.GetList(this.indexModel).subscribe(response => {
       serve.unsubscribe();
       if (response.IsSuccess) {
-        this.model = response.Data as GoldLoanFreshLeadListModel[];
+        this.model = response.Data as FreshLeadHLPLCLModel[];
         console.log(this.model);
-        this.dataSource = new MatTableDataSource<GoldLoanFreshLeadListModel>(this.model);
+        this.dataSource = new MatTableDataSource<FreshLeadHLPLCLModel>(this.model);
         this.totalRecords = response.TotalRecord as number;
         if (!this.indexModel.IsPostBack) {
           this.dataSource.paginator = this.paginator;

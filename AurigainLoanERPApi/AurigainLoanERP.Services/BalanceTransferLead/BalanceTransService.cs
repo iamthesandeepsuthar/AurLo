@@ -181,6 +181,7 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                                               IsActive = detail.IsActive.Value,
                                               ProductName = detail.Product.Name,
                                               Pincode = detail.BtgoldLoanLeadAddressDetail.FirstOrDefault().AeraPincode.Pincode,
+                                              ApprovedStage = Convert.ToInt32(detail.BtgoldLoanLeadActionHistory.LastOrDefault().Lead)
                                           }).ToListAsync();
                 if (result != null)
                 {
