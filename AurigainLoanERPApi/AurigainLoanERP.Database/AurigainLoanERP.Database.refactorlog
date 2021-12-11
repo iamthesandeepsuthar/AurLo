@@ -133,4 +133,11 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="AreaPincodeId" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="a2a79101-1035-4b88-b5fe-d5090bc57c43" ChangeDateTime="12/11/2021 17:13:40">
+    <Property Name="ElementName" Value="[dbo].[BTGoldLoanLeadActionHistory].[AssignFromUserId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[BTGoldLoanLeadActionHistory]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="ActionTakenByUserId" />
+  </Operation>
 </Operations>
