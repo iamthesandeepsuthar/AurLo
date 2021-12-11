@@ -18,8 +18,10 @@ export class NavigationComponent implements OnInit {
   IsCustomerMenu: boolean = false;
   IsOperatorMenu: boolean = false;
 
+  isPermissionMenu = environment.IsPermissionMenu;
   isProd = environment.production;
   loginUserId!: number;
+
   constructor(private readonly _authService: AuthService) {
     this.IsAdminMenu = false;
     this.IsCustomerMenu = false;
@@ -34,15 +36,19 @@ export class NavigationComponent implements OnInit {
       this.userModel = this._authService.GetUserDetail() as LoginResponseModel;
       this.loginUserId = this.userModel.UserId;
 
+      if (!this.isPermissionMenu) {
 
+        //comment if Common Menu visible
+        if (this.userModel.RoleId == this.roleEnum.Customer) {
+          this.IsCustomerMenu = true;
+        } else if (this.userModel.RoleId == this.roleEnum.Operator) {
+          this.IsOperatorMenu = true;
+        } else {
+          this.IsAdminMenu = true;
+        }
 
-      // if (this.userModel.RoleId == this.roleEnum.Customer) {
-      //   this.IsCustomerMenu = true;
-      // } else if(this.userModel.RoleId == this.roleEnum.Operator) {
-      //   this.IsOperatorMenu = true;
-      // } else {
-      //   this.IsAdminMenu = true;
-      // }
+      }
+
 
 
 
