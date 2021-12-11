@@ -352,6 +352,7 @@ export class DropDown_key {
   static ddlDocumentType = "ddlDocumentType";
   static ddlRelationship = "ddlRelationship";
   static ddlGender = "ddlGender";
-  static ddlPaymentMode = "ddlPaymentMode"
-  static ddlBank = "ddlBank"
+  static ddlPaymentMode = "ddlPaymentMode";
+  static ddlBank = "ddlBank";
+  static ddlLeadApprovalStatus = "ddlLeadApprovalStatus";
 }

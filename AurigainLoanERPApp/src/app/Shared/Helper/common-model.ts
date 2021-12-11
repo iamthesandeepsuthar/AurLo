@@ -102,6 +102,7 @@ export class DropDownModel {
   ddlGender!: DropDownItem[];
   ddlPaymentMode!: DropDownItem[];
   ddlBank!: DropDownItem[];
+  ddlLeadApprovalStatus !: DropDownItem[];
 }
 
 export class DropDownItem {

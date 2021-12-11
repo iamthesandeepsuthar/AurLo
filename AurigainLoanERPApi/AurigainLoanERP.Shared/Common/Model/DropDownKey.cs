@@ -14,7 +14,7 @@
         public const string ddlGender = "ddlgender";
         public const string ddlPaymentMode = "ddlpaymentmode";
         public const string ddlBank = "ddlbank";
-        public const string ddlLeadApprovalStatus = "ddlLeadApprovalStatus";
+        public const string ddlLeadApprovalStatus = "ddlleadapprovalstatus";
 
 
 
