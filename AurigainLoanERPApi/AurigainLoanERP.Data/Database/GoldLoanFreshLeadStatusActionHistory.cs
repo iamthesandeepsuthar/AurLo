@@ -7,17 +7,16 @@ using System.Collections.Generic;
 
 namespace AurigainLoanERP.Data.Database
 {
-    public partial class BtgoldLoanLeadActionHistory
+    public partial class GoldLoanFreshLeadStatusActionHistory
     {
         public long Id { get; set; }
         public long LeadId { get; set; }
         public int? LeadStatus { get; set; }
         public long? ActionTakenByUserId { get; set; }
-        public long? AssignToUserId { get; set; }
         public DateTime ActionDate { get; set; }
+        public string Remarks { get; set; }
 
         public virtual UserMaster ActionTakenByUser { get; set; }
-        public virtual UserMaster AssignToUser { get; set; }
-        public virtual BtgoldLoanLead Lead { get; set; }
+        public virtual GoldLoanFreshLead Lead { get; set; }
     }
 }

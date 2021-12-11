@@ -14,10 +14,12 @@ namespace AurigainLoanERP.Data.Database
             BtgoldLoanLeadActionHistory = new HashSet<BtgoldLoanLeadActionHistory>();
             BtgoldLoanLeadAddressDetail = new HashSet<BtgoldLoanLeadAddressDetail>();
             BtgoldLoanLeadAppointmentDetail = new HashSet<BtgoldLoanLeadAppointmentDetail>();
+            BtgoldLoanLeadApprovalActionHistory = new HashSet<BtgoldLoanLeadApprovalActionHistory>();
             BtgoldLoanLeadDocumentDetail = new HashSet<BtgoldLoanLeadDocumentDetail>();
             BtgoldLoanLeadExistingLoanDetail = new HashSet<BtgoldLoanLeadExistingLoanDetail>();
             BtgoldLoanLeadJewelleryDetail = new HashSet<BtgoldLoanLeadJewelleryDetail>();
             BtgoldLoanLeadKycdetail = new HashSet<BtgoldLoanLeadKycdetail>();
+            BtgoldLoanLeadStatusActionHistory = new HashSet<BtgoldLoanLeadStatusActionHistory>();
         }
 
         public long Id { get; set; }
@@ -50,9 +52,11 @@ namespace AurigainLoanERP.Data.Database
         public virtual ICollection<BtgoldLoanLeadActionHistory> BtgoldLoanLeadActionHistory { get; set; }
         public virtual ICollection<BtgoldLoanLeadAddressDetail> BtgoldLoanLeadAddressDetail { get; set; }
         public virtual ICollection<BtgoldLoanLeadAppointmentDetail> BtgoldLoanLeadAppointmentDetail { get; set; }
+        public virtual ICollection<BtgoldLoanLeadApprovalActionHistory> BtgoldLoanLeadApprovalActionHistory { get; set; }
         public virtual ICollection<BtgoldLoanLeadDocumentDetail> BtgoldLoanLeadDocumentDetail { get; set; }
         public virtual ICollection<BtgoldLoanLeadExistingLoanDetail> BtgoldLoanLeadExistingLoanDetail { get; set; }
         public virtual ICollection<BtgoldLoanLeadJewelleryDetail> BtgoldLoanLeadJewelleryDetail { get; set; }
         public virtual ICollection<BtgoldLoanLeadKycdetail> BtgoldLoanLeadKycdetail { get; set; }
+        public virtual ICollection<BtgoldLoanLeadStatusActionHistory> BtgoldLoanLeadStatusActionHistory { get; set; }
     }
 }

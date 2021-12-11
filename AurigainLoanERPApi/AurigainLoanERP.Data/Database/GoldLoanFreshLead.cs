@@ -15,6 +15,7 @@ namespace AurigainLoanERP.Data.Database
             GoldLoanFreshLeadAppointmentDetail = new HashSet<GoldLoanFreshLeadAppointmentDetail>();
             GoldLoanFreshLeadJewelleryDetail = new HashSet<GoldLoanFreshLeadJewelleryDetail>();
             GoldLoanFreshLeadKycDocument = new HashSet<GoldLoanFreshLeadKycDocument>();
+            GoldLoanFreshLeadStatusActionHistory = new HashSet<GoldLoanFreshLeadStatusActionHistory>();
         }
 
         public long Id { get; set; }
@@ -42,5 +43,6 @@ namespace AurigainLoanERP.Data.Database
         public virtual ICollection<GoldLoanFreshLeadAppointmentDetail> GoldLoanFreshLeadAppointmentDetail { get; set; }
         public virtual ICollection<GoldLoanFreshLeadJewelleryDetail> GoldLoanFreshLeadJewelleryDetail { get; set; }
         public virtual ICollection<GoldLoanFreshLeadKycDocument> GoldLoanFreshLeadKycDocument { get; set; }
+        public virtual ICollection<GoldLoanFreshLeadStatusActionHistory> GoldLoanFreshLeadStatusActionHistory { get; set; }
     }
 }

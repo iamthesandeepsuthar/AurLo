@@ -126,6 +126,12 @@ namespace AurigainLoanERP.Shared.ContractModel
     }
 
 
+    public class BtGoldLoanLeadApprovalStagePostModel
+    { 
+        public long LeadId { get; set; }
+        public int? ApprovalStatus { get; set; } 
+        public string Remarks { get; set; }
+    }
     public class BtGoldLoanLeadAddressViewModel
     {
         public long Id { get; set; }
@@ -232,7 +238,7 @@ namespace AurigainLoanERP.Shared.ContractModel
         public string Pincode { get; set; }
         public bool IsActive { get; set; }
         public bool IsDelete { get; set; }
-        public int ApprovedStage { get; set; }
+        public int? ApprovedStage { get; set; }
     }
 
 }

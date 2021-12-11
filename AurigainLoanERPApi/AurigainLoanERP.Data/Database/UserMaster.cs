@@ -11,15 +11,18 @@ namespace AurigainLoanERP.Data.Database
     {
         public UserMaster()
         {
-            BtgoldLoanLeadActionHistoryAssignFromUser = new HashSet<BtgoldLoanLeadActionHistory>();
+            BtgoldLoanLeadActionHistoryActionTakenByUser = new HashSet<BtgoldLoanLeadActionHistory>();
             BtgoldLoanLeadActionHistoryAssignToUser = new HashSet<BtgoldLoanLeadActionHistory>();
+            BtgoldLoanLeadApprovalActionHistory = new HashSet<BtgoldLoanLeadApprovalActionHistory>();
             BtgoldLoanLeadCustomerUser = new HashSet<BtgoldLoanLead>();
             BtgoldLoanLeadLeadSourceByuser = new HashSet<BtgoldLoanLead>();
+            BtgoldLoanLeadStatusActionHistory = new HashSet<BtgoldLoanLeadStatusActionHistory>();
             FreshLeadHlplcl = new HashSet<FreshLeadHlplcl>();
             GoldLoanFreshLeadActionHistoryAssignFromUser = new HashSet<GoldLoanFreshLeadActionHistory>();
             GoldLoanFreshLeadActionHistoryAssignToUser = new HashSet<GoldLoanFreshLeadActionHistory>();
             GoldLoanFreshLeadCustomerUser = new HashSet<GoldLoanFreshLead>();
             GoldLoanFreshLeadLeadSourceByUser = new HashSet<GoldLoanFreshLead>();
+            GoldLoanFreshLeadStatusActionHistory = new HashSet<GoldLoanFreshLeadStatusActionHistory>();
             Managers = new HashSet<Managers>();
             UserAgent = new HashSet<UserAgent>();
             UserAvailability = new HashSet<UserAvailability>();
@@ -55,15 +58,18 @@ namespace AurigainLoanERP.Data.Database
         public long? ModifiedBy { get; set; }
 
         public virtual UserRole UserRole { get; set; }
-        public virtual ICollection<BtgoldLoanLeadActionHistory> BtgoldLoanLeadActionHistoryAssignFromUser { get; set; }
+        public virtual ICollection<BtgoldLoanLeadActionHistory> BtgoldLoanLeadActionHistoryActionTakenByUser { get; set; }
         public virtual ICollection<BtgoldLoanLeadActionHistory> BtgoldLoanLeadActionHistoryAssignToUser { get; set; }
+        public virtual ICollection<BtgoldLoanLeadApprovalActionHistory> BtgoldLoanLeadApprovalActionHistory { get; set; }
         public virtual ICollection<BtgoldLoanLead> BtgoldLoanLeadCustomerUser { get; set; }
         public virtual ICollection<BtgoldLoanLead> BtgoldLoanLeadLeadSourceByuser { get; set; }
+        public virtual ICollection<BtgoldLoanLeadStatusActionHistory> BtgoldLoanLeadStatusActionHistory { get; set; }
         public virtual ICollection<FreshLeadHlplcl> FreshLeadHlplcl { get; set; }
         public virtual ICollection<GoldLoanFreshLeadActionHistory> GoldLoanFreshLeadActionHistoryAssignFromUser { get; set; }
         public virtual ICollection<GoldLoanFreshLeadActionHistory> GoldLoanFreshLeadActionHistoryAssignToUser { get; set; }
         public virtual ICollection<GoldLoanFreshLead> GoldLoanFreshLeadCustomerUser { get; set; }
         public virtual ICollection<GoldLoanFreshLead> GoldLoanFreshLeadLeadSourceByUser { get; set; }
+        public virtual ICollection<GoldLoanFreshLeadStatusActionHistory> GoldLoanFreshLeadStatusActionHistory { get; set; }
         public virtual ICollection<Managers> Managers { get; set; }
         public virtual ICollection<UserAgent> UserAgent { get; set; }
         public virtual ICollection<UserAvailability> UserAvailability { get; set; }

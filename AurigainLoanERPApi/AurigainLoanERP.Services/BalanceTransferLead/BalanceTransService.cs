@@ -75,7 +75,7 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                     objData.Purpose = !string.IsNullOrEmpty(model.Purpose) ? model.Purpose : null;
                     objData.LeadSourceByuserId = model.LeadSourceByuserId;
                     objData.ModifiedOn = DateTime.Now;
-                    objData.ModifiedBy = _loginUserDetail.UserId?? null;
+                    objData.ModifiedBy = _loginUserDetail.UserId ?? null;
                     await _db.SaveChangesAsync();
                 }
 
@@ -180,7 +180,7 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                                               IsActive = detail.IsActive.Value,
                                               ProductName = detail.Product.Name,
                                               Pincode = detail.BtgoldLoanLeadAddressDetail.FirstOrDefault().AeraPincode.Pincode,
-                                              ApprovedStage = Convert.ToInt32(detail.BtgoldLoanLeadActionHistory.LastOrDefault().Lead)
+                                              ApprovedStage = detail.BtgoldLoanLeadApprovalActionHistory != null ? Convert.ToInt32(detail.BtgoldLoanLeadApprovalActionHistory.LastOrDefault().ActionTakenByUser.UserRole.UserRoleLevel) : (int?)null
                                           }).ToListAsync();
                 if (result != null)
                 {
@@ -405,6 +405,33 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                 _db.Database.RollbackTransaction();
 
                 return CreateResponse<string>(null, ResponseMessage.Fail, false, ((int)ApiStatusCode.ServerException), ex.Message ?? ex.InnerException.ToString());
+            }
+
+        }
+
+        public async Task<ApiServiceResponseModel<object>> UpdateLeadApprovalStageAsync(BtGoldLoanLeadApprovalStagePostModel model)
+        {
+            try
+            {
+                var objModel = new BtgoldLoanLeadApprovalActionHistory()
+                {
+
+                    LeadId = model.LeadId,
+                    ActionDate = DateTime.Now,
+                    ActionTakenByUserId = _loginUserDetail.UserId,
+                    Remarks = !string.IsNullOrEmpty(model.Remarks) ? model.Remarks : null,
+                    ApprovalStatus = model.ApprovalStatus,
+
+                };
+
+                var result = await _db.BtgoldLoanLeadApprovalActionHistory.AddAsync(objModel);
+                await _db.SaveChangesAsync();
+                return CreateResponse<object>(true,   ResponseMessage.Save, true, ((int)ApiStatusCode.Ok));
+            }
+            catch (Exception)
+            {
+                return CreateResponse<object>(false, ResponseMessage.Fail, false, ((int)ApiStatusCode.ServerException));
+
             }
 
         }
@@ -780,7 +807,7 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                         BalanceTransferAmount = model.BalanceTransferAmount.HasValue ? model.BalanceTransferAmount : null,
                         RequiredAmount = model.RequiredAmount.HasValue ? model.RequiredAmount : null,
                         Tenure = model.Tenure.HasValue ? model.Tenure : null,
-                        
+
 
                     };
 
@@ -827,7 +854,7 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                         Quantity = model.Quantity.HasValue ? model.Quantity : null,
                         Weight = model.Weight.HasValue ? model.Weight : null,
                         Karats = model.Karats.HasValue ? model.Karats : null,
-                        
+
 
                     };
 
@@ -900,6 +927,8 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                 throw;
             }
         }
+
+       
         #endregion
     }
 }

@@ -2,6 +2,7 @@
 using AurigainLoanERP.Shared.Common.API;
 using AurigainLoanERP.Shared.Common.Model;
 using AurigainLoanERP.Shared.ContractModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -10,6 +11,7 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
 {
     [Route("api/[controller]/[action]")]
     // [ApiController]
+    [Authorize]
     public class GoldLoanBalanceTransferController : ApiControllerBase
     {
         private readonly IBalanceTransService _objBTLead;
@@ -62,6 +64,12 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
         {
             return await _objBTLead.DetailbyIdAsync(id);
         }
+        [HttpPost]
+        public async Task<ApiServiceResponseModel<object>> UpdateLeadApprovalStageAsync(BtGoldLoanLeadApprovalStagePostModel model)
+        {
+            return await _objBTLead.UpdateLeadApprovalStageAsync(model);
+        }
+
     }
 
 }

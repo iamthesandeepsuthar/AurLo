@@ -78,7 +78,10 @@ namespace AurigainLoanERP.Services.Common
                             objData.Add(item, await GetBanks());
                             break;
 
+                        case DropDownKey.ddlLeadApprovalStatus:
 
+                            objData.Add(item, GetEnumDropDown<LeadApprovalStatus>());
+                            break;
 
                         default:
                             break;

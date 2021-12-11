@@ -25,10 +25,12 @@ namespace AurigainLoanERP.Data.Database
         public virtual DbSet<BtgoldLoanLeadActionHistory> BtgoldLoanLeadActionHistory { get; set; }
         public virtual DbSet<BtgoldLoanLeadAddressDetail> BtgoldLoanLeadAddressDetail { get; set; }
         public virtual DbSet<BtgoldLoanLeadAppointmentDetail> BtgoldLoanLeadAppointmentDetail { get; set; }
+        public virtual DbSet<BtgoldLoanLeadApprovalActionHistory> BtgoldLoanLeadApprovalActionHistory { get; set; }
         public virtual DbSet<BtgoldLoanLeadDocumentDetail> BtgoldLoanLeadDocumentDetail { get; set; }
         public virtual DbSet<BtgoldLoanLeadExistingLoanDetail> BtgoldLoanLeadExistingLoanDetail { get; set; }
         public virtual DbSet<BtgoldLoanLeadJewelleryDetail> BtgoldLoanLeadJewelleryDetail { get; set; }
         public virtual DbSet<BtgoldLoanLeadKycdetail> BtgoldLoanLeadKycdetail { get; set; }
+        public virtual DbSet<BtgoldLoanLeadStatusActionHistory> BtgoldLoanLeadStatusActionHistory { get; set; }
         public virtual DbSet<District> District { get; set; }
         public virtual DbSet<DocumentType> DocumentType { get; set; }
         public virtual DbSet<FreshLeadHlplcl> FreshLeadHlplcl { get; set; }
@@ -37,6 +39,7 @@ namespace AurigainLoanERP.Data.Database
         public virtual DbSet<GoldLoanFreshLeadAppointmentDetail> GoldLoanFreshLeadAppointmentDetail { get; set; }
         public virtual DbSet<GoldLoanFreshLeadJewelleryDetail> GoldLoanFreshLeadJewelleryDetail { get; set; }
         public virtual DbSet<GoldLoanFreshLeadKycDocument> GoldLoanFreshLeadKycDocument { get; set; }
+        public virtual DbSet<GoldLoanFreshLeadStatusActionHistory> GoldLoanFreshLeadStatusActionHistory { get; set; }
         public virtual DbSet<JewellaryType> JewellaryType { get; set; }
         public virtual DbSet<Managers> Managers { get; set; }
         public virtual DbSet<PaymentMode> PaymentMode { get; set; }
@@ -222,9 +225,9 @@ namespace AurigainLoanERP.Data.Database
                     .HasColumnType("datetime")
                     .HasDefaultValueSql("(getdate())");
 
-                entity.HasOne(d => d.AssignFromUser)
-                    .WithMany(p => p.BtgoldLoanLeadActionHistoryAssignFromUser)
-                    .HasForeignKey(d => d.AssignFromUserId)
+                entity.HasOne(d => d.ActionTakenByUser)
+                    .WithMany(p => p.BtgoldLoanLeadActionHistoryActionTakenByUser)
+                    .HasForeignKey(d => d.ActionTakenByUserId)
                     .HasConstraintName("FK__BTGoldLoa__Assig__2B5F6B28");
 
                 entity.HasOne(d => d.AssignToUser)
@@ -280,6 +283,26 @@ namespace AurigainLoanERP.Data.Database
                     .HasForeignKey(d => d.LeadId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__BTGoldLoa__LeadI__16644E42");
+            });
+
+            modelBuilder.Entity<BtgoldLoanLeadApprovalActionHistory>(entity =>
+            {
+                entity.ToTable("BTGoldLoanLeadApprovalActionHistory");
+
+                entity.Property(e => e.ActionDate)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.ActionTakenByUser)
+                    .WithMany(p => p.BtgoldLoanLeadApprovalActionHistory)
+                    .HasForeignKey(d => d.ActionTakenByUserId)
+                    .HasConstraintName("FK__BTGoldLoa__Actio__546180BB");
+
+                entity.HasOne(d => d.Lead)
+                    .WithMany(p => p.BtgoldLoanLeadApprovalActionHistory)
+                    .HasForeignKey(d => d.LeadId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__BTGoldLoa__LeadI__536D5C82");
             });
 
             modelBuilder.Entity<BtgoldLoanLeadDocumentDetail>(entity =>
@@ -379,6 +402,26 @@ namespace AurigainLoanERP.Data.Database
                     .HasForeignKey(d => d.PoidocumentTypeId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__BTGoldLoa__POIDo__4EDDB18F");
+            });
+
+            modelBuilder.Entity<BtgoldLoanLeadStatusActionHistory>(entity =>
+            {
+                entity.ToTable("BTGoldLoanLeadStatusActionHistory");
+
+                entity.Property(e => e.ActionDate)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.ActionTakenByUser)
+                    .WithMany(p => p.BtgoldLoanLeadStatusActionHistory)
+                    .HasForeignKey(d => d.ActionTakenByUserId)
+                    .HasConstraintName("FK__BTGoldLoa__Actio__5649C92D");
+
+                entity.HasOne(d => d.Lead)
+                    .WithMany(p => p.BtgoldLoanLeadStatusActionHistory)
+                    .HasForeignKey(d => d.LeadId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__BTGoldLoa__LeadI__5555A4F4");
             });
 
             modelBuilder.Entity<District>(entity =>
@@ -643,6 +686,24 @@ namespace AurigainLoanERP.Data.Database
                     .HasForeignKey(d => d.PincodeAreaId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__GoldLoanF__Pinco__53D770D6");
+            });
+
+            modelBuilder.Entity<GoldLoanFreshLeadStatusActionHistory>(entity =>
+            {
+                entity.Property(e => e.ActionDate)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.ActionTakenByUser)
+                    .WithMany(p => p.GoldLoanFreshLeadStatusActionHistory)
+                    .HasForeignKey(d => d.ActionTakenByUserId)
+                    .HasConstraintName("FK__GoldLoanF__Actio__5832119F");
+
+                entity.HasOne(d => d.Lead)
+                    .WithMany(p => p.GoldLoanFreshLeadStatusActionHistory)
+                    .HasForeignKey(d => d.LeadId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__GoldLoanF__LeadI__573DED66");
             });
 
             modelBuilder.Entity<JewellaryType>(entity =>
