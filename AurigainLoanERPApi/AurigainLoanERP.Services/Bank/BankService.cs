@@ -10,7 +10,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using static AurigainLoanERP.Shared.Enums.FixedValueEnums;
 
@@ -66,7 +65,7 @@ namespace AurigainLoanERP.Services.Bank
                     Name = x.Name
                 }).ToListAsync();
 
-                if(banks.Count() > 0)
+                if (banks.Count() > 0)
                 {
                     return CreateResponse<List<DDLBankModel>>(banks, ResponseMessage.Success, true, ((int)ApiStatusCode.Ok));
                 }
@@ -84,15 +83,15 @@ namespace AurigainLoanERP.Services.Bank
         {
             try
             {
-                var result = await _db.BankMaster.Where(x => x.IsDelete == false && x.Id == id).Include(x=>x.BankBranchMaster).FirstOrDefaultAsync();
+                var result = await _db.BankMaster.Where(x => x.IsDelete == false && x.Id == id).Include(x => x.BankBranchMaster).FirstOrDefaultAsync();
                 if (result != null)
                 {
                     var bank = _mapper.Map<BankModel>(result);
-                    foreach (var branch in result.BankBranchMaster) 
+                    foreach (var branch in result.BankBranchMaster)
                     {
-                        BranchModel b = new BranchModel 
+                        BranchModel b = new BranchModel
                         {
-                            Id= branch.Id,
+                            Id = branch.Id,
                             BranchName = branch.BranchName,
                             BranchCode = branch.BranchCode,
                             Ifsc = branch.Ifsc,
@@ -108,7 +107,7 @@ namespace AurigainLoanERP.Services.Bank
                     }
                     return CreateResponse<BankModel>(bank, ResponseMessage.Success, true, ((int)ApiStatusCode.Ok));
                 }
-                else                
+                else
                 {
                     return CreateResponse<BankModel>(null, ResponseMessage.NotFound, true, ((int)ApiStatusCode.RecordNotFound));
                 }
@@ -134,10 +133,10 @@ namespace AurigainLoanERP.Services.Bank
                     var result = await _db.BankMaster.AddAsync(bank);
                     await _db.SaveChangesAsync();
                     model.Id = result.Entity.Id;
-                    foreach (var branch in model.Branches) 
+                    foreach (var branch in model.Branches)
                     {
-                        var isExistBranch =await  _db.BankBranchMaster.Where(x => x.BranchCode == branch.BranchCode && x.Ifsc == branch.Ifsc).FirstOrDefaultAsync();
-                        if(isExistBranch==null) 
+                        var isExistBranch = await _db.BankBranchMaster.Where(x => x.BranchCode == branch.BranchCode && x.Ifsc == branch.Ifsc).FirstOrDefaultAsync();
+                        if (isExistBranch == null)
                         {
                             BankBranchMaster b = new BankBranchMaster
                             {
@@ -153,9 +152,9 @@ namespace AurigainLoanERP.Services.Bank
                                 BranchEmailId = branch.BranchEmailId,
                                 ConfigurationSettingJson = null
                             };
-                           await _db.BankBranchMaster.AddAsync(b);                           
-                        }      
-                        
+                            await _db.BankBranchMaster.AddAsync(b);
+                        }
+
                     }
                     await _db.SaveChangesAsync();
                     return CreateResponse<string>(model.Name, model.Id > 0 ? ResponseMessage.Update : ResponseMessage.Save, true, ((int)ApiStatusCode.Ok));
@@ -169,30 +168,31 @@ namespace AurigainLoanERP.Services.Bank
                     bank.WebsiteUrl = model.WebsiteUrl;
                     bank.IsActive = model.IsActive;
                     bank.ModifiedDate = DateTime.Now;
-                    foreach (var branch in model.Branches) 
+                    foreach (var branch in model.Branches)
                     {
                         if (branch.Id == 0)
                         {
-                            BankBranchMaster b = new BankBranchMaster {
+                            BankBranchMaster b = new BankBranchMaster
+                            {
                                 ContactNumber = branch.ContactNumber,
-                                Address= branch.Address,
-                                Ifsc= branch.Ifsc,
-                                IsActive= branch.IsActive,
-                                BankId= model.Id,
+                                Address = branch.Address,
+                                Ifsc = branch.Ifsc,
+                                IsActive = branch.IsActive,
+                                BankId = model.Id,
                                 BranchCode = branch.BranchCode,
                                 Pincode = branch.Pincode,
-                                BranchEmailId= branch.BranchEmailId,
-                                BranchName= branch.BranchName,
+                                BranchEmailId = branch.BranchEmailId,
+                                BranchName = branch.BranchName,
                                 CreatedDate = DateTime.Now,
                                 ConfigurationSettingJson = null,
                                 IsDelete = false
                             };
-                         await  _db.BankBranchMaster.AddAsync(b);                        
+                            await _db.BankBranchMaster.AddAsync(b);
                         }
-                        else 
+                        else
                         {
-                            var existBranch =await _db.BankBranchMaster.Where(x => x.Id == branch.Id).FirstOrDefaultAsync();
-                            if (existBranch != null) 
+                            var existBranch = await _db.BankBranchMaster.Where(x => x.Id == branch.Id).FirstOrDefaultAsync();
+                            if (existBranch != null)
                             {
                                 existBranch.BranchName = branch.BranchName;
                                 existBranch.BranchCode = branch.BranchCode;
@@ -202,12 +202,12 @@ namespace AurigainLoanERP.Services.Bank
                                 existBranch.Ifsc = branch.Ifsc;
                                 existBranch.Pincode = branch.Pincode;
                                 existBranch.Address = branch.Address;
-                                existBranch.ContactNumber = branch.ContactNumber;                                
-                            }                           
+                                existBranch.ContactNumber = branch.ContactNumber;
+                            }
                         }
                         await _db.SaveChangesAsync();
-                    }                   
-                }                
+                    }
+                }
                 return CreateResponse<string>(model.Name, model.Id > 0 ? ResponseMessage.Update : ResponseMessage.Save, true, ((int)ApiStatusCode.Ok));
             }
             catch (Exception ex)
@@ -257,18 +257,19 @@ namespace AurigainLoanERP.Services.Bank
         {
             try
             {
-                var branches = await  (from  branch in _db.BankBranchMaster join bank in _db.BankMaster on  branch.BankId equals bank.Id
-                                   where pincode.Contains(pincode) 
-                                   select new AvailableBranchModel                            
-                                   {
-                                      Id = branch.Id,
-                                      BranchName = branch.BranchName,
-                                      BankName = bank.Name,
-                                      Ifsc = branch.Ifsc,
-                                      BankId  = branch.BankId 
-                                   }).ToListAsync();
+                var branches = await (from branch in _db.BankBranchMaster
+                                      join bank in _db.BankMaster on branch.BankId equals bank.Id
+                                      where pincode.Contains(pincode)
+                                      select new AvailableBranchModel
+                                      {
+                                          Id = branch.Id,
+                                          BranchName = branch.BranchName,
+                                          BankName = bank.Name,
+                                          Ifsc = branch.Ifsc,
+                                          BankId = branch.BankId
+                                      }).ToListAsync();
 
-                if (branches.Count >0)
+                if (branches.Count > 0)
                 {
                     return CreateResponse(branches, ResponseMessage.Success, true, ((int)ApiStatusCode.Ok));
                 }

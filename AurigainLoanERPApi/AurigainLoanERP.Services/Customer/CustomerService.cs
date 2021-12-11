@@ -2,18 +2,15 @@
 using AurigainLoanERP.Shared.Common.Method;
 using AurigainLoanERP.Shared.Common.Model;
 using AurigainLoanERP.Shared.ContractModel;
+using AurigainLoanERP.Shared.ExtensionMethod;
 using AutoMapper;
-using AutoMapper.Configuration;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using static AurigainLoanERP.Shared.Enums.FixedValueEnums;
-using Microsoft.Extensions.Configuration;
-using AurigainLoanERP.Shared.ExtensionMethod;
 
 namespace AurigainLoanERP.Services.Customer
 {
@@ -25,9 +22,10 @@ namespace AurigainLoanERP.Services.Customer
         private readonly SMSHelper _smsHelper;
         private readonly Security _security;
 
-        public CustomerService(IMapper mapper, AurigainContext db, 
+        public CustomerService(IMapper mapper, AurigainContext db,
                                Microsoft.Extensions.Configuration.IConfiguration _configuration,
-                               IHostingEnvironment environment)  {
+                               IHostingEnvironment environment)
+        {
             this._mapper = mapper;
             _db = db;
             _emailHelper = new EmailHelper(_configuration, environment);
@@ -187,7 +185,7 @@ namespace AurigainLoanERP.Services.Customer
                 _db.Database.CommitTransaction();
                 return CreateResponse(true as object, ResponseMessage.Update, true, ((int)ApiStatusCode.Ok));
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 _db.Database.RollbackTransaction();
                 return CreateResponse(true as object, ResponseMessage.Fail, true, ((int)ApiStatusCode.DataBaseTransactionFailed));

@@ -5,13 +5,12 @@ using AurigainLoanERP.Shared.ContractModel;
 using AurigainLoanERP.Shared.ExtensionMethod;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace AurigainLoanERP.Api.Controllers
 {
     [Route("api/[controller]/[action]")]
-     
+
     public class AccountController : ApiControllerBase
     {
         private readonly Security _security;
@@ -24,10 +23,10 @@ namespace AurigainLoanERP.Api.Controllers
         [HttpPost]
         public async Task<ApiServiceResponseModel<LoginResponseModel>> WebLogin(LoginModel model)
         {
-           
-            return await _accountService.WebLogin(model);           
+
+            return await _accountService.WebLogin(model);
         }
-        
+
         //Post api/Account/GetOTP
         [HttpPost]
         public async Task<ApiServiceResponseModel<OtpModel>> GetOTP(OtpRequestModel model)
@@ -37,7 +36,7 @@ namespace AurigainLoanERP.Api.Controllers
 
         //Post api/Account/WebChangePassword
         [HttpPost]
-        public async Task<ApiServiceResponseModel<string>>WebChangePassword(ChangePasswordModel model)
+        public async Task<ApiServiceResponseModel<string>> WebChangePassword(ChangePasswordModel model)
         {
             return await _accountService.WebChangePassword(model);
         }
@@ -65,7 +64,7 @@ namespace AurigainLoanERP.Api.Controllers
 
         [HttpGet]
         //Get api/Account/ValidateUserWithMobileNUmber
-        public async Task<ApiServiceResponseModel<string>> ValidateUserWithMobileNUmber(string mobileNumber) 
+        public async Task<ApiServiceResponseModel<string>> ValidateUserWithMobileNUmber(string mobileNumber)
         {
             return await _accountService.CheckUserExist(mobileNumber);
         }

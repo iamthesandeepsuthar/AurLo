@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -11,6 +12,7 @@ import { CommonService } from 'src/app/Shared/Services/common.service';
 import { BalanceTransferGoldLoanLeadsService } from 'src/app/Shared/Services/Leads/balance-transfer-gold-loan-leads.service';
 import { UserSettingService } from 'src/app/Shared/Services/user-setting-services/user-setting.service';
 import { AuthService } from '../../../Shared/Helper/auth.service';
+import { LeadApprovalPopupComponent } from '../../../Shared/Helper/shared/Popup/lead-approval-popup/lead-approval-popup.component';
 
 @Component({
   selector: 'app-balance-transfer-gold-loan-leads',
@@ -46,13 +48,14 @@ export class BalanceTransferGoldLoanLeadsComponent implements OnInit {
     private readonly _commonService: CommonService,
     private readonly toast: ToastrService,
     private readonly _userSettingService: UserSettingService,
-    private readonly _auth: AuthService) {
+    private readonly _auth: AuthService,
+    public dialog: MatDialog) {
     this.indexModel.UserId = this.userDetail?.UserId as number
-    
+
   }
 
   ngOnInit(): void {
-   this.getList();
+    this.getList();
   }
 
   getList(): void {
@@ -128,6 +131,7 @@ export class BalanceTransferGoldLoanLeadsComponent implements OnInit {
     });
 
   }
+
   // updateDeleteStatus(id: number) {
 
   //   this._commonService.Question(Message.ConfirmUpdate as string).then(result => {
@@ -172,5 +176,22 @@ export class BalanceTransferGoldLoanLeadsComponent implements OnInit {
 
   // }
 
+  onChangeLeadApproveStage(Id: number) {
+    const dialogRef = this.dialog.open(LeadApprovalPopupComponent, {
+      data: { Id: Id as number, Type: "BTTRANSFER" as string },
+      width: '350px',
+
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.toast.success(Message.SaveSuccess as string, 'Success');
+
+      } else {
+        this.toast.error(Message.SaveFail as string, 'Error');
+
+      }
+    });
+  }
 
 }

@@ -1,5 +1,4 @@
 ﻿using AurigainLoanERP.Shared.Common.Model;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using System;
@@ -23,7 +22,7 @@ namespace AurigainLoanERP.Shared.Common.Method
             _authKey = _configuration[Constants.SMS_AuthKey];
             _senderId = _configuration[Constants.SMS_SanderId];
             _endPoint = _configuration[Constants.SMS_EndPoint];
-   
+
         }
         /// <summary>
         /// Send SMS
@@ -37,7 +36,7 @@ namespace AurigainLoanERP.Shared.Common.Method
 
             try
             {
-                string message = string.Format("Dear {0},{1} is the OTP for login into AurLo App.Do not share this for security purposes.Valid for 3 min.", "customer",msg);
+                string message = string.Format("Dear {0},{1} is the OTP for login into AurLo App.Do not share this for security purposes.Valid for 3 min.", "customer", msg);
                 string responseData = string.Empty;
                 string url = string.Concat(_endPoint, "sendhttp.php?authkey=", _authKey, "&mobiles=", mobile, "&message=", message, "&sender=", _senderId, "&type=", "1", "&route=", "2");
 
@@ -76,7 +75,7 @@ namespace AurigainLoanERP.Shared.Common.Method
 
                 var httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
                 httpWebRequest.ContentType = "application/json";
-                httpWebRequest.Method = HttpMethod.Get.ToString(); 
+                httpWebRequest.Method = HttpMethod.Get.ToString();
 
                 var httpResponse = (HttpWebResponse)await httpWebRequest.GetResponseAsync();
                 using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
@@ -95,14 +94,14 @@ namespace AurigainLoanERP.Shared.Common.Method
 
         }
 
-        public async Task<SMSStatusResponseModel> CheckSMSStatud(long msgId )
+        public async Task<SMSStatusResponseModel> CheckSMSStatud(long msgId)
         {
             SMSStatusResponseModel response = new SMSStatusResponseModel();
 
             try
             {
                 string responseData = string.Empty;
-                string url = string.Concat(_endPoint, "reports.php?authkey=", _authKey, "&msg_id=",msgId);
+                string url = string.Concat(_endPoint, "reports.php?authkey=", _authKey, "&msg_id=", msgId);
 
                 var httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
                 httpWebRequest.ContentType = "application/json";
@@ -125,5 +124,5 @@ namespace AurigainLoanERP.Shared.Common.Method
         }
     }
 
- 
+
 }

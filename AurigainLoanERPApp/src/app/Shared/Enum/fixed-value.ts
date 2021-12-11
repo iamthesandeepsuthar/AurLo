@@ -18,6 +18,7 @@ export enum UserRoleEnum {
   Operator = 8,
 }
 
+
 export enum ProductCategoryEnum {
   GoldLoan = 1,
   PersonalLoan = 2,

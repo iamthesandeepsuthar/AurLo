@@ -24,11 +24,11 @@ namespace AurigainLoanERP.Services.UserRoles
             _db = db;
         }
 
-        public async Task<ApiServiceResponseModel<List<DDLUserRole>>> Roles() 
+        public async Task<ApiServiceResponseModel<List<DDLUserRole>>> Roles()
         {
             try
             {
-                var roles = await _db.UserRole.Where(x=>x.Id>2 && x.Id<5 || x.Id == 8).Select(x => new DDLUserRole
+                var roles = await _db.UserRole.Where(x => x.Id > 2 && x.Id < 5 || x.Id == 8).Select(x => new DDLUserRole
                 {
                     Id = x.Id,
                     Name = x.Name
@@ -101,17 +101,17 @@ namespace AurigainLoanERP.Services.UserRoles
 
                 if (result != null)
                 {
-                    return CreateResponse<List<UserRoleViewModel>>(objResponse.Data, ResponseMessage.Success, true,((int)ApiStatusCode.Ok) ,TotalRecord: result.Count());
+                    return CreateResponse<List<UserRoleViewModel>>(objResponse.Data, ResponseMessage.Success, true, ((int)ApiStatusCode.Ok), TotalRecord: result.Count());
                 }
                 else
                 {
-                    return CreateResponse<List<UserRoleViewModel>>(null, ResponseMessage.NotFound, true,((int)ApiStatusCode.RecordNotFound) ,TotalRecord: 0);
+                    return CreateResponse<List<UserRoleViewModel>>(null, ResponseMessage.NotFound, true, ((int)ApiStatusCode.RecordNotFound), TotalRecord: 0);
                 }
 
             }
             catch (Exception ex)
             {
-                return CreateResponse<List<UserRoleViewModel>>(null, ResponseMessage.Fail, false, ((int)ApiStatusCode.ServerException),ex.Message ?? ex.InnerException.ToString());
+                return CreateResponse<List<UserRoleViewModel>>(null, ResponseMessage.Fail, false, ((int)ApiStatusCode.ServerException), ex.Message ?? ex.InnerException.ToString());
             }
 
         }
@@ -146,14 +146,14 @@ namespace AurigainLoanERP.Services.UserRoles
                 }
                 else
                 {
-                    return CreateResponse<UserRoleViewModel>(null, ResponseMessage.NotFound, true , ((int)ApiStatusCode.RecordNotFound));
+                    return CreateResponse<UserRoleViewModel>(null, ResponseMessage.NotFound, true, ((int)ApiStatusCode.RecordNotFound));
                 }
 
             }
             catch (Exception ex)
             {
 
-                return CreateResponse<UserRoleViewModel>(null, ResponseMessage.NotFound, false, ((int)ApiStatusCode.ServerException) ,ex.Message ?? ex.InnerException.ToString());
+                return CreateResponse<UserRoleViewModel>(null, ResponseMessage.NotFound, false, ((int)ApiStatusCode.ServerException), ex.Message ?? ex.InnerException.ToString());
 
             }
 
@@ -188,11 +188,11 @@ namespace AurigainLoanERP.Services.UserRoles
                     userRole.ModifiedOn = DateTime.Now;
                 }
                 await _db.SaveChangesAsync();
-                return CreateResponse<string>(model.Name, model.Id > 0 ? ResponseMessage.Update : ResponseMessage.Save, true , ((int)ApiStatusCode.Ok));
+                return CreateResponse<string>(model.Name, model.Id > 0 ? ResponseMessage.Update : ResponseMessage.Save, true, ((int)ApiStatusCode.Ok));
             }
             catch (Exception ex)
             {
-                return CreateResponse<string>(null, ResponseMessage.Fail, false,((int)ApiStatusCode.ServerException) ,ex.Message ?? ex.InnerException.ToString());
+                return CreateResponse<string>(null, ResponseMessage.Fail, false, ((int)ApiStatusCode.ServerException), ex.Message ?? ex.InnerException.ToString());
             }
         }
 
@@ -210,7 +210,7 @@ namespace AurigainLoanERP.Services.UserRoles
 
                 if (objRole != null)
                 {
-                    return CreateResponse<object>(true, ResponseMessage.Found, true , ((int)ApiStatusCode.Ok));
+                    return CreateResponse<object>(true, ResponseMessage.Found, true, ((int)ApiStatusCode.Ok));
                 }
                 else
                 {
@@ -258,7 +258,7 @@ namespace AurigainLoanERP.Services.UserRoles
                 objRole.IsDelete = !objRole.IsDelete;
                 objRole.ModifiedOn = DateTime.Now;
                 await _db.SaveChangesAsync();
-                return CreateResponse<object>(true, ResponseMessage.Update, true , ((int)ApiStatusCode.Ok));
+                return CreateResponse<object>(true, ResponseMessage.Update, true, ((int)ApiStatusCode.Ok));
             }
             catch (Exception)
             {

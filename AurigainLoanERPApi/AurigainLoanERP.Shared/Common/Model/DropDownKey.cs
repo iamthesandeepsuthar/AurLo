@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AurigainLoanERP.Shared.Common.Model
+﻿namespace AurigainLoanERP.Shared.Common.Model
 {
     public static class DropDownKey
     {
@@ -21,7 +15,7 @@ namespace AurigainLoanERP.Shared.Common.Model
         public const string ddlPaymentMode = "ddlpaymentmode";
         public const string ddlBank = "ddlbank";
 
-        
+
 
     }
 }

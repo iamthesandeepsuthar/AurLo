@@ -1,11 +1,8 @@
 ﻿using AurigainLoanERP.Services.Customer;
 using AurigainLoanERP.Shared.Common.Model;
 using AurigainLoanERP.Shared.ContractModel;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace AurigainLoanERP.Api.Areas
@@ -26,13 +23,13 @@ namespace AurigainLoanERP.Api.Areas
             return await _customer.AddUpdateAsync(model);
         }
         [HttpPost("[action]")]
-        public async Task<ApiServiceResponseModel<List<CustomerListModel>>> GetList(IndexModel model) 
+        public async Task<ApiServiceResponseModel<List<CustomerListModel>>> GetList(IndexModel model)
         {
             return await _customer.GetListAsync(model);
         }
 
         [HttpGet("[action]")]
-        public async Task<ApiServiceResponseModel<string>> test() 
+        public async Task<ApiServiceResponseModel<string>> test()
         {
             return await _customer.TestEmail();
         }
@@ -43,7 +40,7 @@ namespace AurigainLoanERP.Api.Areas
         [HttpGet("[action]")]
         public async Task<ApiServiceResponseModel<SentSMSResponseModel>> testSMS(string msg, string mobile)
         {
-            return await _customer.TestSMS(msg,mobile);
+            return await _customer.TestSMS(msg, mobile);
 
 
         }
@@ -64,14 +61,14 @@ namespace AurigainLoanERP.Api.Areas
         public async Task<ApiServiceResponseModel<object>> Delete(long id)
         {
             return await _customer.UpdateDeleteStatus(id);
-        }       
+        }
         [HttpGet("[action]/{id}")]
         public async Task<ApiServiceResponseModel<object>> UpdatActiveStatus(long id)
         {
             return await _customer.UpateActiveStatus(id);
         }
         [HttpGet("[action]/{userId}")]  // In parameter pass customer UserId 
-        public async Task<ApiServiceResponseModel<CustomerRegistrationViewModel>> GetCustomerProfile(long userId) 
+        public async Task<ApiServiceResponseModel<CustomerRegistrationViewModel>> GetCustomerProfile(long userId)
         {
             return await _customer.GetCustomerProfile(userId);
         }

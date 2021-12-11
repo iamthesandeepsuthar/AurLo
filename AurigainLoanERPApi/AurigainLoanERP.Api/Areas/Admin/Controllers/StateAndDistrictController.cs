@@ -14,7 +14,7 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
         private readonly IStateAndDistrictService _serivce;
         public StateAndDistrictController(IStateAndDistrictService service)
         {
-            _serivce =service;
+            _serivce = service;
         }
         // GET api/StateAndDistrict/States
         [HttpGet("[action]")]
@@ -123,7 +123,7 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
             return await _serivce.GetAreaByPincode(pincode);
         }
         [HttpGet("[action]/{pincode}")]
-        public async Task<ApiServiceResponseModel<AddressDetailModel>>AddressDetailByPincode(string pincode)
+        public async Task<ApiServiceResponseModel<AddressDetailModel>> AddressDetailByPincode(string pincode)
         {
             return await _serivce.GetAddressDetailByPincode(pincode);
         }

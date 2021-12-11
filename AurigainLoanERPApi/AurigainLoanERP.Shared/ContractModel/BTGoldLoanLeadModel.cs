@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace AurigainLoanERP.Shared.ContractModel
 {
@@ -8,7 +6,7 @@ namespace AurigainLoanERP.Shared.ContractModel
     {
         public long Id { get; set; }
         public int ProductId { get; set; }
-        public string ProductCategoryName { get; set;}
+        public string ProductCategoryName { get; set; }
         public string FullName { get; set; }
         public string FatherName { get; set; }
         public string Gender { get; set; }
@@ -21,7 +19,8 @@ namespace AurigainLoanERP.Shared.ContractModel
         public string Purpose { get; set; }
         public decimal LoanAmount { get; set; }
         public long LeadSourceByuserId { get; set; }
-        public BTGoldLoanLeadViewModel() {
+        public BTGoldLoanLeadViewModel()
+        {
             DetailAddress = new BtGoldLoanLeadAddressViewModel();
             AppointmentDetail = new BtGoldLoanLeadAppointmentViewModel();
             DocumentDetail = new BtGoldLoanLeadDocumentViewModel();
@@ -32,13 +31,13 @@ namespace AurigainLoanERP.Shared.ContractModel
         public string LeadSourceByuserName { get; set; }
         public string ProductName { get; set; }
         public string CustomerUserName { get; set; }
-        public bool IsInternalLead { get; set;}
-        public  BtGoldLoanLeadAddressViewModel DetailAddress { get; set; }
-        public  BtGoldLoanLeadAppointmentViewModel AppointmentDetail { get; set; }
-        public  BtGoldLoanLeadDocumentViewModel DocumentDetail { get; set; }
-        public  BtGoldLoanLeadExistingLoanViewModel ExistingLoanDetail { get; set; }
-        public  BtGoldLoanLeadJewelleryDetailViewModel JewelleryDetail { get; set; }
-        public  BtGoldLoanLeadKYCDetailViewModel KYCDetail { get; set; }
+        public bool IsInternalLead { get; set; }
+        public BtGoldLoanLeadAddressViewModel DetailAddress { get; set; }
+        public BtGoldLoanLeadAppointmentViewModel AppointmentDetail { get; set; }
+        public BtGoldLoanLeadDocumentViewModel DocumentDetail { get; set; }
+        public BtGoldLoanLeadExistingLoanViewModel ExistingLoanDetail { get; set; }
+        public BtGoldLoanLeadJewelleryDetailViewModel JewelleryDetail { get; set; }
+        public BtGoldLoanLeadKYCDetailViewModel KYCDetail { get; set; }
     }
     public class BTGoldLoanLeadPostModel
     {
@@ -149,7 +148,7 @@ namespace AurigainLoanERP.Shared.ContractModel
         public int? BranchId { get; set; }
         public string BranchName { get; set; }
         public string Ifsc { get; set; }
-        public string Pincode { get; set;}
+        public string Pincode { get; set; }
         public string BankName { get; set; }
         public DateTime? AppointmentDate { get; set; }
         public string AppointmentTime { get; set; }
@@ -224,7 +223,7 @@ namespace AurigainLoanERP.Shared.ContractModel
         public string Email { get; set; }
         public string PrimaryMobileNumber { get; set; }
         public long LeadSourceByUserId { get; set; }
-        public bool IsInternalLead { get; set;}
+        public bool IsInternalLead { get; set; }
         public string LeadSourceByUserName { get; set; }
         public double LoanAmountRequired { get; set; }
         public int ProductId { get; set; }

@@ -1,11 +1,4 @@
-﻿
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AurigainLoanERP.Shared.Common.Model
+﻿namespace AurigainLoanERP.Shared.Common.Model
 {
     public class ApiServiceResponseModel<TResult> where TResult : class
     {
@@ -18,7 +11,8 @@ namespace AurigainLoanERP.Shared.Common.Model
         public int? TotalRecord { get; set; }
     }
 
-    public class FilterDropDownPostModel {
+    public class FilterDropDownPostModel
+    {
         public string Key { get; set; }
         public string FileterFromKey { get; set; }
         public int[] Values { get; set; }

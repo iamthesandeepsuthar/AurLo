@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Net.Mail;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace AurigainLoanERP.Shared.Common.Method
@@ -48,7 +47,7 @@ namespace AurigainLoanERP.Shared.Common.Method
             }
             catch
             {
-              
+
             }
 
         }
@@ -69,7 +68,7 @@ namespace AurigainLoanERP.Shared.Common.Method
 
         }
 
-        public string GetHtmlString(string templatePath, Dictionary<string, string> replaceValues=null)
+        public string GetHtmlString(string templatePath, Dictionary<string, string> replaceValues = null)
         {
             try
             {
@@ -88,7 +87,7 @@ namespace AurigainLoanERP.Shared.Common.Method
                 {
                     foreach (var item in replaceValues)
                     {
-                        builder.HtmlBody= builder.HtmlBody.Replace(item.Key, item.Value);
+                        builder.HtmlBody = builder.HtmlBody.Replace(item.Key, item.Value);
                     }
                 }
 

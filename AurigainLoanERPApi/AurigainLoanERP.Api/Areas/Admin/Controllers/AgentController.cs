@@ -1,7 +1,6 @@
 ﻿using AurigainLoanERP.Services.User;
 using AurigainLoanERP.Shared.Common.Model;
 using AurigainLoanERP.Shared.ContractModel;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -10,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace AurigainLoanERP.Api.Areas.Admin.Controllers
 {
-   // [Authorize]
+    // [Authorize]
     [Route("api/[controller]/[action]")]
     [ApiController]
     public class AgentController : ControllerBase
@@ -32,7 +31,7 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
         [HttpGet("{id}")]
         public async Task<ApiServiceResponseModel<AgentViewModel>> GetById(long id)
         {
-            return  await _userSerivce.GetAgentDetailAsync(id);
+            return await _userSerivce.GetAgentDetailAsync(id);
         }
 
         // POST api/<AgentController>
@@ -68,6 +67,6 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
             return await _userSerivce.UpateActiveStatus(id);
         }
 
-      
+
     }
 }

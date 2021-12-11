@@ -20,6 +20,9 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { UserKYCDocumentDetailComponent } from './UserRegistration/user-kycdocument-detail/user-kycdocument-detail.component';
 
 import { ChangePasswordPopupComponent } from './Popup/change-password-popup/change-password-popup.component';
+import { LeadStatusPopupComponent } from './Popup/lead-status-popup/lead-status-popup.component';
+import { LeadApprovalPopupComponent } from './Popup/lead-approval-popup/lead-approval-popup.component';
+import { SecurityDepositPopupComponent } from './Popup/security-deposit-popup/security-deposit-popup.component';
 
 const CommonModules = [HttpClientModule, ReactiveFormsModule, FormsModule];
 
@@ -49,18 +52,20 @@ const SharedComponent = [
   UserBankDetailSectionComponent,
   UserSecurityDepositComponent,
   FileSelectorComponent,
-  ChangePasswordPopupComponent  ,
-  UserKYCDocumentDetailComponent
+  ChangePasswordPopupComponent,
+  UserKYCDocumentDetailComponent,
 
 ];
 const SharedEntryComponent = [
   ChangePasswordPopupComponent,
-
+  LeadStatusPopupComponent,
+  LeadApprovalPopupComponent,
+  SecurityDepositPopupComponent
 ];
 @NgModule({
-  declarations: [SharedComponent],
+  declarations: [SharedComponent,],
   entryComponents: [SharedEntryComponent],
   imports: [CommonModule, CommonModules, InstalledModule],
   exports: [CommonModules, InstalledModule, SharedComponent],
 })
-export class SharedModule {}
+export class SharedModule { }

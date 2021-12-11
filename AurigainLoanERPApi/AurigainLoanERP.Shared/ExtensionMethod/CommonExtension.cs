@@ -1,12 +1,10 @@
 ﻿using AurigainLoanERP.Shared.Attribute;
 using System;
-using System.Collections.Generic;
 using System.Reflection;
-using System.Text;
 
 namespace AurigainLoanERP.Shared.ExtensionMethod
 {
-  public static  class CommonExtension
+    public static class CommonExtension
     {
 
         public static string GetStringValue(this Enum value)

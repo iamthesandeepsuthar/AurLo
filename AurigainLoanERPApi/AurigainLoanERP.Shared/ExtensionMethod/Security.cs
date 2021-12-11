@@ -82,7 +82,7 @@ namespace AurigainLoanERP.Shared.ExtensionMethod
             var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(plainText);
             return System.Convert.ToBase64String(plainTextBytes);
         }
-        public ApiServiceResponseModel<string> CreateToken(long UserId, string UserName, string RoleType,int RoleId)
+        public ApiServiceResponseModel<string> CreateToken(long UserId, string UserName, string RoleType, int RoleId)
         {
 
             var key = _configuration.GetValue<string>("Jwt:Key");

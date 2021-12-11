@@ -12,7 +12,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using static AurigainLoanERP.Shared.Enums.FixedValueEnums;
 
@@ -163,8 +162,8 @@ namespace AurigainLoanERP.Services.User
                                               Gender = detail.Gender ?? null,
                                               QualificationName = detail.Qualification.Name ?? null,
                                               Address = detail.Address ?? null,
-                                             // DistrictName = detail.District != null ? detail.District.Name : null,
-                                             // StateName = detail.District != null && detail.District.State != null ? detail.District.State.Name : null,
+                                              // DistrictName = detail.District != null ? detail.District.Name : null,
+                                              // StateName = detail.District != null && detail.District.State != null ? detail.District.State.Name : null,
                                               PinCode = detail.PinCode ?? null,
                                               DateOfBirth = detail.DateOfBirth ?? null,
                                               ProfilePictureUrl = detail.User.ProfilePath.ToAbsolutePath() ?? null,
@@ -202,7 +201,7 @@ namespace AurigainLoanERP.Services.User
             {
 
                 UserAgent objAgent = await _db.UserAgent.Where(x => x.UserId == id)
-                    .Include(x => x.AreaPincode).ThenInclude(y => y.District).ThenInclude(y=>y.State)
+                    .Include(x => x.AreaPincode).ThenInclude(y => y.District).ThenInclude(y => y.State)
                     .Include(x => x.User).Include(x => x.User.UserRole)
                     .Include(x => x.Qualification)
                     .Include(x => x.User.UserNominee)
@@ -497,7 +496,7 @@ namespace AurigainLoanERP.Services.User
             {
 
                 UserDoorStepAgent objDoorStepAgent = await _db.UserDoorStepAgent.Where(x => x.UserId == id)
-                    .Include(x => x.AreaPincode).ThenInclude(y =>y.District).ThenInclude(y=>y.State)
+                    .Include(x => x.AreaPincode).ThenInclude(y => y.District).ThenInclude(y => y.State)
                     .Include(x => x.User).Include(x => x.User.UserRole)
                     .Include(x => x.Qualification)
                     .Include(x => x.User.UserNominee)
@@ -717,7 +716,7 @@ namespace AurigainLoanERP.Services.User
             {
                 var detail = await _db.Managers.Where(x => x.Id == Id)
                                       .Include(x => x.AreaPincode).ThenInclude(y => y.District)
-                                      .ThenInclude(y=>y.State)
+                                      .ThenInclude(y => y.State)
                                       .Include(x => x.User)
                                       .Include(x => x.User.UserRole).FirstOrDefaultAsync();
                 if (detail != null)
@@ -805,18 +804,18 @@ namespace AurigainLoanERP.Services.User
                 }
 
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
                 return CreateResponse<UserViewModel>(null, ResponseMessage.Fail, false, ((int)ApiStatusCode.InternalServerError));
 
             }
         }
-        public async Task<ApiServiceResponseModel<UserProfileModel>> GetProfile(long Id) 
+        public async Task<ApiServiceResponseModel<UserProfileModel>> GetProfile(long Id)
         {
             try
             {
-                var record = await _db.UserMaster.Where(x => x.Id == Id).Include(x => x.UserAgent).ThenInclude(x=>x.District).ThenInclude(x=>x.State).Include(x => x.UserDoorStepAgent).ThenInclude(x => x.District).ThenInclude(x => x.State).Include(x => x.Managers).ThenInclude(x => x.District).ThenInclude(x => x.State).Include(x=>x.UserRole). FirstOrDefaultAsync();
+                var record = await _db.UserMaster.Where(x => x.Id == Id).Include(x => x.UserAgent).ThenInclude(x => x.District).ThenInclude(x => x.State).Include(x => x.UserDoorStepAgent).ThenInclude(x => x.District).ThenInclude(x => x.State).Include(x => x.Managers).ThenInclude(x => x.District).ThenInclude(x => x.State).Include(x => x.UserRole).FirstOrDefaultAsync();
                 if (record != null)
                 {
                     UserProfileModel profile = new UserProfileModel();
@@ -841,7 +840,7 @@ namespace AurigainLoanERP.Services.User
                             profile.AddressDetail.AddressLine1 = record.UserAgent.FirstOrDefault().Address;
                             profile.AddressDetail.DistrictName = record.UserAgent.FirstOrDefault().District.Name;
                             profile.AddressDetail.StateName = record.UserAgent.FirstOrDefault().District.State.Name;
-                            profile.AddressDetail.DistrictId = record.UserAgent.FirstOrDefault().DistrictId;                            
+                            profile.AddressDetail.DistrictId = record.UserAgent.FirstOrDefault().DistrictId;
                             break;
                         case (int)UserRoleEnum.DoorStepAgent:
                             profile.Id = record.UserDoorStepAgent.FirstOrDefault().Id;
@@ -886,8 +885,8 @@ namespace AurigainLoanERP.Services.User
                             profile.FullName = null;
                             break;
                     }
-                    var documents = await _db.UserKyc.Where(x => x.UserId == record.Id).Include(x=>x.KycdocumentType).ToListAsync();
-                    foreach (var doc in documents) 
+                    var documents = await _db.UserKyc.Where(x => x.UserId == record.Id).Include(x => x.KycdocumentType).ToListAsync();
+                    foreach (var doc in documents)
                     {
                         UserProfileKycDetail document = new UserProfileKycDetail
                         {
@@ -901,29 +900,29 @@ namespace AurigainLoanERP.Services.User
                     }
                     return CreateResponse(profile, ResponseMessage.Success, true, ((int)ApiStatusCode.Ok));
                 }
-                else 
+                else
                 {
                     return CreateResponse<UserProfileModel>(null, ResponseMessage.NotFound, false, ((int)ApiStatusCode.RecordNotFound));
                 }
             }
-            catch (Exception ex) 
+            catch (Exception)
             {
                 return CreateResponse<UserProfileModel>(null, ResponseMessage.Fail, false, ((int)ApiStatusCode.InternalServerError));
             }
         }
-        public async Task<ApiServiceResponseModel<string>> UpdateProfile(UserProfileModel model) 
+        public async Task<ApiServiceResponseModel<string>> UpdateProfile(UserProfileModel model)
         {
             try
             {
-                var user =await  _db.UserMaster.Where(x => x.Id == model.UserId).FirstOrDefaultAsync();
-                if (user != null) 
+                var user = await _db.UserMaster.Where(x => x.Id == model.UserId).FirstOrDefaultAsync();
+                if (user != null)
                 {
                     user.IsWhatsApp = model.IsWhatsApp;
                 }
                 switch (model.RoleId)
                 {
                     case (int)UserRoleEnum.Agent:
-                        var agentRecord = await _db.UserAgent.Where(x=>x.UserId == model.UserId).FirstOrDefaultAsync();
+                        var agentRecord = await _db.UserAgent.Where(x => x.UserId == model.UserId).FirstOrDefaultAsync();
                         agentRecord.FullName = model.FullName;
                         agentRecord.FatherName = model.FatherName;
                         agentRecord.Gender = model.Gender;
@@ -931,7 +930,7 @@ namespace AurigainLoanERP.Services.User
                         agentRecord.Address = model.AddressDetail.AddressLine1;
                         agentRecord.DistrictId = model.AddressDetail.DistrictId;
                         agentRecord.DateOfBirth = model.DateOfBirth;
-                        foreach (var doc in model.Documents) 
+                        foreach (var doc in model.Documents)
                         {
                             var document = _db.UserKyc.Where(x => x.Id == doc.Id).FirstOrDefault();
                             switch (doc.DocumentTypeId)
@@ -947,7 +946,7 @@ namespace AurigainLoanERP.Services.User
                                     break;
                                 default:
                                     break;
-                            }                           
+                            }
                         }
                         await _db.SaveChangesAsync();
                         break;
@@ -1016,7 +1015,7 @@ namespace AurigainLoanERP.Services.User
                 }
                 return CreateResponse<string>(null, ResponseMessage.Success, true, ((int)ApiStatusCode.Ok));
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return CreateResponse<string>(null, ResponseMessage.Fail, false, ((int)ApiStatusCode.InternalServerError));
             }
@@ -1097,7 +1096,7 @@ namespace AurigainLoanERP.Services.User
                 _db.Database.CommitTransaction();
                 return CreateResponse(true as object, ResponseMessage.Update, true, ((int)ApiStatusCode.Ok));
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 _db.Database.RollbackTransaction();
                 return CreateResponse(true as object, ResponseMessage.Fail, true, ((int)ApiStatusCode.DataBaseTransactionFailed));
@@ -1246,7 +1245,7 @@ namespace AurigainLoanERP.Services.User
                     _fileHelper.Delete(Path.Combine(objFileModel.Path, objFileModel.FileName));
                     _db.UserDocumentFiles.Remove(objFileModel);
                     await _db.SaveChangesAsync();
-                } 
+                }
                 _db.Database.CommitTransaction();
                 return CreateResponse(true as object, ResponseMessage.Update, true, ((int)ApiStatusCode.Ok));
             }
@@ -1334,7 +1333,7 @@ namespace AurigainLoanERP.Services.User
                 {
                     if (model.Id == null || model.Id < 1)
                     {
-                        var encrptPassword= _security.Base64Encode("12345");
+                        var encrptPassword = _security.Base64Encode("12345");
                         var objModel = _mapper.Map<UserMaster>(model);
                         objModel.UserName = model.UserName ?? model.Email;
                         objModel.CreatedOn = DateTime.Now;
@@ -1907,7 +1906,7 @@ namespace AurigainLoanERP.Services.User
                 }
                 return true;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }

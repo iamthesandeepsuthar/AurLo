@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AurigainLoanERP.Shared.ContractModel
 {
@@ -54,9 +50,9 @@ namespace AurigainLoanERP.Shared.ContractModel
         public string City { get; set; }
     }
 
-    public class DDLUserRole 
+    public class DDLUserRole
     {
-        public int Id { get; set;}
-        public string Name { get; set;}
+        public int Id { get; set; }
+        public string Name { get; set; }
     }
 }

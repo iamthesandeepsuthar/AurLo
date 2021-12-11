@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using static AurigainLoanERP.Shared.Enums.FixedValueEnums;
@@ -80,7 +79,7 @@ namespace AurigainLoanERP.Services.Account
                         var response = _mapper.Map<OtpModel>(otp);
                         return CreateResponse<OtpModel>(response, ResponseMessage.Success, true, ((int)ApiStatusCode.Ok));
                     }
-                    else 
+                    else
                     {
                         objModel.Data = null;
                         objModel.IsSuccess = false;
@@ -117,10 +116,10 @@ namespace AurigainLoanERP.Services.Account
                         return CreateResponse<string>(null, "otp varification failed", false, ((int)ApiStatusCode.OTPVarificationFailed));
                     }
                 }
-                else 
+                else
                 {
-                    return CreateResponse<string>(null, "Otp validity expaire, Generate new otp",false, ((int)ApiStatusCode.OTPValidityExpire));
-                }              
+                    return CreateResponse<string>(null, "Otp validity expaire, Generate new otp", false, ((int)ApiStatusCode.OTPValidityExpire));
+                }
             }
             catch (Exception ex)
             {
@@ -170,7 +169,7 @@ namespace AurigainLoanERP.Services.Account
                             Mobile = model.MobileNumber
                         };
                         await _db.UserLoginLog.AddAsync(log);
-                        var fresh_token = _security.CreateToken(user.Id, model.MobileNumber, user.UserRole.Name,user.UserRoleId );
+                        var fresh_token = _security.CreateToken(user.Id, model.MobileNumber, user.UserRole.Name, user.UserRoleId);
                         if (!string.IsNullOrEmpty(fresh_token.Data))
                         {
                             user.Token = fresh_token.Data;
@@ -237,7 +236,7 @@ namespace AurigainLoanERP.Services.Account
                     };
                     await _db.UserLoginLog.AddAsync(log);
 
-                    var fresh_token = _security.CreateToken(user.Id, model.MobileNumber, user.UserRole.Name,user.UserRoleId);
+                    var fresh_token = _security.CreateToken(user.Id, model.MobileNumber, user.UserRole.Name, user.UserRoleId);
                     if (!string.IsNullOrEmpty(fresh_token.Data))
                     {
                         user.Token = fresh_token.Data;

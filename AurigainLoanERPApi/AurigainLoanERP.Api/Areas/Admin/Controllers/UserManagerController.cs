@@ -1,11 +1,8 @@
 ﻿using AurigainLoanERP.Services.User;
 using AurigainLoanERP.Shared.Common.Model;
 using AurigainLoanERP.Shared.ContractModel;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using static AurigainLoanERP.Shared.Enums.FixedValueEnums;
 
@@ -21,7 +18,7 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
             _userSerivce = userService;
         }
         [HttpPost("[action]")]
-        public async Task<ApiServiceResponseModel<List<UserManagerModel>>> ManagerList(IndexModel model) 
+        public async Task<ApiServiceResponseModel<List<UserManagerModel>>> ManagerList(IndexModel model)
         {
             return await _userSerivce.ManagersList(model);
         }
@@ -46,7 +43,7 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
         }
 
         [HttpGet("[action]/{Id}")]
-        public async Task<ApiServiceResponseModel<UserManagerModel>> GetById(long Id) 
+        public async Task<ApiServiceResponseModel<UserManagerModel>> GetById(long Id)
         {
             return await _userSerivce.UserManagerDetailAsync(Id);
         }
@@ -58,7 +55,7 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
         }
 
         [HttpDelete("[action]/{Id}")]
-        public async Task<ApiServiceResponseModel<object>> DeleteManager(long id) 
+        public async Task<ApiServiceResponseModel<object>> DeleteManager(long id)
         {
             return await _userSerivce.UpdateDeleteStatus(id);
         }

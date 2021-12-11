@@ -54,7 +54,7 @@ namespace AurigainLoanERP.Services.KycDocumentType
         {
             try
             {
-                var types = await _db.DocumentType.Where(x => x.IsKyc ==(isKYC.HasValue ?  isKYC.Value : x.IsKyc)).Select(x => new DDLDocumentTypeModel
+                var types = await _db.DocumentType.Where(x => x.IsKyc == (isKYC.HasValue ? isKYC.Value : x.IsKyc)).Select(x => new DDLDocumentTypeModel
                 {
                     Id = x.Id,
                     Name = x.DocumentName,

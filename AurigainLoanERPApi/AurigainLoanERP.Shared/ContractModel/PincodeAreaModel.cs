@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace AurigainLoanERP.Shared.ContractModel
 {
@@ -18,19 +16,19 @@ namespace AurigainLoanERP.Shared.ContractModel
     }
     public class AvailableAreaModel
     {
-        public long Id { get;set;}
-        public string AreaName { get;set;}
-        public string PinCode { get;set;}
-        public long DistrictId { get;set;}
-        public long StateId { get;set;}
+        public long Id { get; set; }
+        public string AreaName { get; set; }
+        public string PinCode { get; set; }
+        public long DistrictId { get; set; }
+        public long StateId { get; set; }
     }
     public class AddressDetailModel
     {
-        public string AreaName { get; set;}
-        public string StateName { get; set;}
-        public string DistrictName { get; set;}
-        public long DistrictId { get; set;}
-        public long StateId { get; set;}
-        public long AreaPincodeId { get; set;}
+        public string AreaName { get; set; }
+        public string StateName { get; set; }
+        public string DistrictName { get; set; }
+        public long DistrictId { get; set; }
+        public long StateId { get; set; }
+        public long AreaPincodeId { get; set; }
     }
 }

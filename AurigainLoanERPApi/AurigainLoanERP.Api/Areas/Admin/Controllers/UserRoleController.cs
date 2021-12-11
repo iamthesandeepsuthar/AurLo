@@ -1,7 +1,6 @@
 ﻿using AurigainLoanERP.Services.UserRoles;
 using AurigainLoanERP.Shared.Common.Model;
 using AurigainLoanERP.Shared.ContractModel;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -20,7 +19,7 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public async Task<ApiServiceResponseModel<List<DDLUserRole>>> Roles() 
+        public async Task<ApiServiceResponseModel<List<DDLUserRole>>> Roles()
         {
             return await _userRole.Roles();
         }
@@ -67,7 +66,7 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
         [HttpGet("{name}/{id}")]
         public async Task<ApiServiceResponseModel<object>> CheckRoleExist(string name, int? id = null)
         {
-            return await _userRole.CheckRoleExist(name,id);
+            return await _userRole.CheckRoleExist(name, id);
         }
 
         // GET api/<UserRoleController>/5

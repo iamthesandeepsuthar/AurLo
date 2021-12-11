@@ -11,7 +11,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using static AurigainLoanERP.Shared.Enums.FixedValueEnums;
 
@@ -34,7 +33,7 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
         {
             try
             {
-                
+
                 await _db.Database.BeginTransactionAsync();
                 if (model.Id == 0 || model.Id == default)
                 {
@@ -56,8 +55,8 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                     objData.LoanAmount = model.LoanAmount;
                     objData.ProductId = model.ProductId;
                     objData.IsInternalLead = false;
-                    objData.CreatedBy = null;
-                    objData.IsActive = true; 
+                    objData.CreatedBy = _loginUserDetail.UserId ?? null;
+                    objData.IsActive = true;
                     var result = await _db.BtgoldLoanLead.AddAsync(objData);
                     await _db.SaveChangesAsync();
                     model.Id = result.Entity.Id;
@@ -76,7 +75,7 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                     objData.Purpose = !string.IsNullOrEmpty(model.Purpose) ? model.Purpose : null;
                     objData.LeadSourceByuserId = model.LeadSourceByuserId;
                     objData.ModifiedOn = DateTime.Now;
-                    objData.CreatedBy = null;
+                    objData.ModifiedBy = _loginUserDetail.UserId?? null;
                     await _db.SaveChangesAsync();
                 }
 
@@ -125,9 +124,9 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
             ApiServiceResponseModel<List<BTGoldLoanLeadListModel>> objResponse = new ApiServiceResponseModel<List<BTGoldLoanLeadListModel>>();
             try
             {
-               
+
                 IQueryable<BtgoldLoanLead> result;
-                if (_loginUserDetail.RoleId  == (int)UserRoleEnum.SuperAdmin || _loginUserDetail.RoleId== (int)(UserRoleEnum.Admin)  || _loginUserDetail.RoleId == (int)(UserRoleEnum.WebOperator))
+                if (_loginUserDetail.RoleId == (int)UserRoleEnum.SuperAdmin || _loginUserDetail.RoleId == (int)(UserRoleEnum.Admin) || _loginUserDetail.RoleId == (int)(UserRoleEnum.WebOperator))
                 {
                     result = (from goldLoanLead in _db.BtgoldLoanLead
                               where !goldLoanLead.IsDelete && (string.IsNullOrEmpty(model.Search) || goldLoanLead.FullName.Contains(model.Search) || goldLoanLead.FatherName.Contains(model.Search) || goldLoanLead.Gender.Contains(model.Search) || goldLoanLead.BtgoldLoanLeadAddressDetail.FirstOrDefault().AeraPincode.Pincode.Contains(model.Search)) || goldLoanLead.Product.Name.Contains(model.Search)
@@ -136,7 +135,7 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                 else
                 {
                     result = (from goldLoanLead in _db.BtgoldLoanLead
-                              where !goldLoanLead.IsDelete && (_loginUserDetail.RoleId == (int)UserRoleEnum.Customer ? goldLoanLead.CustomerUserId == _loginUserDetail.UserId :  goldLoanLead.LeadSourceByuserId ==_loginUserDetail.UserId )  && (string.IsNullOrEmpty(model.Search) || goldLoanLead.FullName.Contains(model.Search) || goldLoanLead.FatherName.Contains(model.Search) || goldLoanLead.Gender.Contains(model.Search) || goldLoanLead.BtgoldLoanLeadAddressDetail.FirstOrDefault().AeraPincode.Pincode.Contains(model.Search)) ||
+                              where !goldLoanLead.IsDelete && (_loginUserDetail.RoleId == (int)UserRoleEnum.Customer ? goldLoanLead.CustomerUserId == _loginUserDetail.UserId : goldLoanLead.LeadSourceByuserId == _loginUserDetail.UserId) && (string.IsNullOrEmpty(model.Search) || goldLoanLead.FullName.Contains(model.Search) || goldLoanLead.FatherName.Contains(model.Search) || goldLoanLead.Gender.Contains(model.Search) || goldLoanLead.BtgoldLoanLeadAddressDetail.FirstOrDefault().AeraPincode.Pincode.Contains(model.Search)) ||
                               goldLoanLead.Product.Name.Contains(model.Search)
                               select goldLoanLead);
                 }
@@ -261,8 +260,8 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                             BranchId = x.BranchId ?? null,
                             BranchName = x.Branch.BranchName ?? null,
                             BankName = x.Branch.Bank.Name ?? null,
-                            Ifsc = x.Branch.Ifsc?? null,
-                            Pincode = x.Branch.Pincode?? null,
+                            Ifsc = x.Branch.Ifsc ?? null,
+                            Pincode = x.Branch.Pincode ?? null,
                             AppointmentDate = x.AppointmentDate ?? null,
                             AppointmentTime = x.AppointmentTime.HasValue ? new DateTime(x.AppointmentTime.Value.Ticks).ToString("HH:mm:ss") : null
                         }).FirstOrDefault();
@@ -330,7 +329,7 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                 else
                 {
                     return CreateResponse<BTGoldLoanLeadViewModel>(null, ResponseMessage.NotFound, false, ((int)ApiStatusCode.NotFound));
-                } 
+                }
             }
             catch (Exception ex)
             {
@@ -361,9 +360,9 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                     objData.CustomerUserId = model.CustomerUserId;
                     objData.LoanAmount = model.LoanAmount;
                     objData.ProductId = model.ProductId;
-                    objData.LoanAccountNumber = !string.IsNullOrEmpty(model.LoanAccountNumber)? model.LoanAccountNumber :null;
+                    objData.LoanAccountNumber = !string.IsNullOrEmpty(model.LoanAccountNumber) ? model.LoanAccountNumber : null;
                     objData.IsInternalLead = true;
-                    objData.CreatedBy = null;
+                    objData.CreatedBy = _loginUserDetail.UserId ?? null;
                     objData.IsActive = true;
                     var result = await _db.BtgoldLoanLead.AddAsync(objData);
                     await _db.SaveChangesAsync();
@@ -385,7 +384,7 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                     objData.LoanAccountNumber = !string.IsNullOrEmpty(model.LoanAccountNumber) ? model.LoanAccountNumber : null;
                     objData.LoanAmount = model.LoanAmount;
                     objData.ModifiedOn = DateTime.Now;
-                    objData.CreatedBy = null;
+                    objData.ModifiedBy = _loginUserDetail.UserId ?? null;
                     await _db.SaveChangesAsync();
                 }
                 if (model.AddressDetail != null)
@@ -407,7 +406,7 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
 
                 return CreateResponse<string>(null, ResponseMessage.Fail, false, ((int)ApiStatusCode.ServerException), ex.Message ?? ex.InnerException.ToString());
             }
-            
+
         }
 
         #region <<Private Method Of Balance Transafer Gold Loan Lead>>
@@ -450,7 +449,7 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                     IsDelete = false,
                     PincodeAreaId = model.AddressDetail.AeraPincodeId,
                     Address = model.AddressDetail.Address,
-                    CreatedBy = (int)UserRoleEnum.Admin
+                    CreatedBy = _loginUserDetail.UserId ?? null //(int)UserRoleEnum.Admin
                 };
                 var result = await _db.UserCustomer.AddAsync(customer);
                 await _db.SaveChangesAsync();
@@ -781,6 +780,7 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                         BalanceTransferAmount = model.BalanceTransferAmount.HasValue ? model.BalanceTransferAmount : null,
                         RequiredAmount = model.RequiredAmount.HasValue ? model.RequiredAmount : null,
                         Tenure = model.Tenure.HasValue ? model.Tenure : null,
+                        
 
                     };
 
@@ -826,7 +826,8 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                         JewelleryTypeId = model.JewelleryTypeId.HasValue ? model.JewelleryTypeId : null,
                         Quantity = model.Quantity.HasValue ? model.Quantity : null,
                         Weight = model.Weight.HasValue ? model.Weight : null,
-                        Karats = model.Karats.HasValue ? model.Karats : null
+                        Karats = model.Karats.HasValue ? model.Karats : null,
+                        
 
                     };
 

@@ -9,7 +9,6 @@ using AurigainLoanERP.Services.FreshLead;
 using AurigainLoanERP.Services.JewellaryType;
 using AurigainLoanERP.Services.KycDocumentType;
 using AurigainLoanERP.Services.PaymentMode;
-using AurigainLoanERP.Services.Performance;
 using AurigainLoanERP.Services.Product;
 using AurigainLoanERP.Services.ProductCategory;
 using AurigainLoanERP.Services.Qualification;
@@ -22,7 +21,6 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Rewrite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -34,7 +32,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Security.Claims;
 using System.Text;
 
 namespace AurigainLoanERP.Api
@@ -189,7 +186,7 @@ namespace AurigainLoanERP.Api
             services.AddTransient<IPaymentModeService, PaymentModeService>().Reverse();
             services.AddTransient<IAccountService, AccountService>().Reverse();
             services.AddTransient<IUserService, UserService>().Reverse();
-            services.AddTransient<IJewellaryTypeService, JewellaryTypeService>().Reverse(); 
+            services.AddTransient<IJewellaryTypeService, JewellaryTypeService>().Reverse();
             services.AddTransient<IBankService, BankService>().Reverse();
             services.AddTransient<IBranchService, BranchService>().Reverse();
             services.AddTransient<IProductService, ProductService>().Reverse();
@@ -199,9 +196,9 @@ namespace AurigainLoanERP.Api
             services.AddTransient<IBalanceTransService, BalanceTransService>().Reverse();
             //services.AddTransient<IAgentPerformanceService,AgentPerformanceService>().Reverse();
 
-            
+
         }
 
-      
+
     }
 }

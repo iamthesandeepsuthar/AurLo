@@ -2,17 +2,14 @@
 using AurigainLoanERP.Shared.Common.API;
 using AurigainLoanERP.Shared.Common.Model;
 using AurigainLoanERP.Shared.ContractModel;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace AurigainLoanERP.Api.Areas.Admin.Controllers
 {
     [Route("api/[controller]/[action]")]
-   // [ApiController]
+    // [ApiController]
     public class GoldLoanBalanceTransferController : ApiControllerBase
     {
         private readonly IBalanceTransService _objBTLead;
@@ -25,7 +22,7 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-               
+
                 return await _objBTLead.AddUpdateBTGoldLoanExternalLeadAsync(model);
             }
             else
@@ -64,7 +61,7 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
         public async Task<ApiServiceResponseModel<BTGoldLoanLeadViewModel>> DetailById(long id)
         {
             return await _objBTLead.DetailbyIdAsync(id);
+        }
     }
-    }
-    
+
 }

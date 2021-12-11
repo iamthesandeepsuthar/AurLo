@@ -3,11 +3,9 @@ using HeyRed.Mime;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Hosting.Internal;
 using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.IO;
 using System.Text.RegularExpressions;
-using static Microsoft.AspNetCore.Hosting.Internal.HostingApplication;
 
 namespace AurigainLoanERP.Shared.Common
 {
@@ -151,7 +149,7 @@ namespace AurigainLoanERP.Shared.Common
                 string mime = (base64String.Split(';')[0]).Split(':')[1];
                 ext = MimeTypesMap.GetExtension(mime);
 
-                if (ext =="bin")
+                if (ext == "bin")
                 {
                     ext = mime.Split("/")[1].ToLower();
 

@@ -52,11 +52,11 @@ namespace AurigainLoanERP.Shared.Enums
             DataBaseTransactionFailed = 406,
             InvaildModel = 407,
             BadRequest = 408,
-            UnApproved = 409,           
+            UnApproved = 409,
             OtpInvalid = 410,
-            OTPVarificationFailed=411,
+            OTPVarificationFailed = 411,
             OTPValidityExpire = 412,
-        }    
+        }
         public enum UserRoleEnum
         {
             [StringValue("Super Admin")]
@@ -91,15 +91,16 @@ namespace AurigainLoanERP.Shared.Enums
             Fail = 2,
             [StringValue("Pending")]
             Pending = 3,
-            
+
         }
-        public enum FreshLeadType { 
-        [StringValue("Salaried")]
-        Salaried = 0,
-        [StringValue("NonSalaried")]
-        NonSalaried =1
+        public enum FreshLeadType
+        {
+            [StringValue("Salaried")]
+            Salaried = 0,
+            [StringValue("NonSalaried")]
+            NonSalaried = 1
         }
-        public enum DocumentTypeEnum 
+        public enum DocumentTypeEnum
         {
             [StringValue("Aadhar Card")]
             AadharCard = 1,
@@ -109,25 +110,24 @@ namespace AurigainLoanERP.Shared.Enums
             BankCheque = 3,
 
         }
-        public enum LeadStatus 
+        public enum LeadStatus
         {
-            [StringValue("Completed")]
-            Completed=1,
-            [StringValue("InCompleted")]
-            InCompleted=2,
-            [StringValue("Mismatched")]
-            Mismatched=3,
-            [StringValue("Rejected")]
-            Rejected=4,
             [StringValue("Pending")]
-            Pending=5
+            Pending = 1,
+            [StringValue("Mismatched")]
+            Mismatched = 2,
+            [StringValue("In Completed")]
+            InCompleted = 3,
+            [StringValue("Rejected")]
+            Rejected = 4, [StringValue("Completed")]
+            Completed = 5,
         }
-        public enum LeadApprovalStatus 
+        public enum LeadApprovalStatus
         {
             [StringValue("Approved")]
-            Approved=1,
+            Approved = 1,
             [StringValue("Rejected")]
-            Rejected=2
+            Rejected = 2
         }
     }
 

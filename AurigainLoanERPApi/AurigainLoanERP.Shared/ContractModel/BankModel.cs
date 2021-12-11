@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace AurigainLoanERP.Shared.ContractModel
 {
@@ -55,7 +54,7 @@ namespace AurigainLoanERP.Shared.ContractModel
     {
         public int Id { get; set; }
         public string BranchName { get; set; }
-        public string BankName { get; set;}
+        public string BankName { get; set; }
         public string Ifsc { get; set; }
         public int BankId { get; set; }
     }

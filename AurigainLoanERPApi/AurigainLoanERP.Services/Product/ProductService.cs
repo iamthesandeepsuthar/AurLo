@@ -7,7 +7,6 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using static AurigainLoanERP.Shared.Enums.FixedValueEnums;
 
@@ -27,8 +26,8 @@ namespace AurigainLoanERP.Services.Product
             ApiServiceResponseModel<List<ProductModel>> objResponse = new ApiServiceResponseModel<List<ProductModel>>();
             try
             {
-                var result = (from product in _db.Product 
-                              join category in _db.ProductCategory 
+                var result = (from product in _db.Product
+                              join category in _db.ProductCategory
                               on product.ProductCategoryId equals category.Id
                               join bank in _db.BankMaster on product.BankId equals bank.Id
                               where !product.IsDelete && (string.IsNullOrEmpty(model.Search) || product.Name.Contains(model.Search) || category.Name.Contains(model.Search) || bank.Name.Contains(model.Search))
@@ -38,21 +37,22 @@ namespace AurigainLoanERP.Services.Product
                               orderby (!model.OrderByAsc && model.OrderBy == "Name" ? category.Name : "") descending
                               orderby (model.OrderByAsc && model.OrderBy == "Name" ? bank.Name : "") ascending
                               orderby (!model.OrderByAsc && model.OrderBy == "Name" ? bank.Name : "") descending
-                              select new ProductModel { 
-                              Id = product.Id,
-                              Name = product.Name,
-                              ProductCategoryName = category.Name,
-                              ProductCategoryId = product.ProductCategoryId,
-                              ProcessingFee = product.ProcessingFee,
-                              MinimumAmount = product.MinimumAmount,
-                              MaximumAmount = product.MaximumAmount,
-                              IsActive = product.IsActive,
-                              InterestRate = product.InterestRate,
-                              InterestRateApplied = product.InterestRateApplied,
-                              MaximumTenure = product.MaximumTenure,
-                              MinimumTenure = product.MinimumTenure,
-                              BankId = product.BankId,
-                              BankName = bank.Name
+                              select new ProductModel
+                              {
+                                  Id = product.Id,
+                                  Name = product.Name,
+                                  ProductCategoryName = category.Name,
+                                  ProductCategoryId = product.ProductCategoryId,
+                                  ProcessingFee = product.ProcessingFee,
+                                  MinimumAmount = product.MinimumAmount,
+                                  MaximumAmount = product.MaximumAmount,
+                                  IsActive = product.IsActive,
+                                  InterestRate = product.InterestRate,
+                                  InterestRateApplied = product.InterestRateApplied,
+                                  MaximumTenure = product.MaximumTenure,
+                                  MinimumTenure = product.MinimumTenure,
+                                  BankId = product.BankId,
+                                  BankName = bank.Name
                               });
 
                 var data = await result.Skip(((model.Page == 0 ? 1 : model.Page) - 1) * (model.PageSize != 0 ? model.PageSize : int.MaxValue)).Take(model.PageSize != 0 ? model.PageSize : int.MaxValue).ToListAsync(); ;
@@ -95,12 +95,12 @@ namespace AurigainLoanERP.Services.Product
                 return CreateResponse<List<DDLProductModel>>(null, ResponseMessage.NotFound, false, ((int)ApiStatusCode.ServerException), ex.Message ?? ex.InnerException.ToString());
             }
         }
-        public async Task<ApiServiceResponseModel<List<DDLProductModel>>> ProductsByCategory(int id) 
+        public async Task<ApiServiceResponseModel<List<DDLProductModel>>> ProductsByCategory(int id)
         {
 
             try
             {
-                var product = await _db.Product.Where(x=>x.ProductCategoryId == id).Select(x => new DDLProductModel
+                var product = await _db.Product.Where(x => x.ProductCategoryId == id).Select(x => new DDLProductModel
                 {
                     Id = x.Id,
                     Name = x.Name
@@ -123,7 +123,7 @@ namespace AurigainLoanERP.Services.Product
         {
             try
             {
-                var result = await _db.Product.Where(x => x.IsDelete == false && x.Id == id).Include(x=>x.ProductCategory).Include(x=>x.Bank).FirstOrDefaultAsync();
+                var result = await _db.Product.Where(x => x.IsDelete == false && x.Id == id).Include(x => x.ProductCategory).Include(x => x.Bank).FirstOrDefaultAsync();
                 var finalResponse = _mapper.Map<ProductModel>(result);
                 finalResponse.BankName = result.Bank.Name;
                 finalResponse.ProductCategoryName = result.ProductCategory.Name;
@@ -147,7 +147,7 @@ namespace AurigainLoanERP.Services.Product
             {
                 if (model.Id == 0)
                 {
-                    var isExist = await _db.Product.Where(x => x.Name == model.Name && x.BankId ==model.BankId && x.ProductCategoryId == model.ProductCategoryId).FirstOrDefaultAsync();
+                    var isExist = await _db.Product.Where(x => x.Name == model.Name && x.BankId == model.BankId && x.ProductCategoryId == model.ProductCategoryId).FirstOrDefaultAsync();
                     if (isExist != null)
                     {
                         return CreateResponse<string>("", ResponseMessage.RecordAlreadyExist, false, ((int)ApiStatusCode.AlreadyExist), "", null);
@@ -161,8 +161,8 @@ namespace AurigainLoanERP.Services.Product
                         InterestRateApplied = model.InterestRateApplied,
                         MaximumAmount = model.MaximumAmount,
                         MaximumTenure = model.MaximumTenure,
-                        MinimumAmount= model.MinimumAmount,
-                        IsActive= model.IsActive,
+                        MinimumAmount = model.MinimumAmount,
+                        IsActive = model.IsActive,
                         IsDelete = false,
                         Notes = model.Notes,
                         ProductCategoryId = model.ProductCategoryId,
@@ -170,7 +170,7 @@ namespace AurigainLoanERP.Services.Product
                         MinimumTenure = model.MinimumTenure,
                         CreatedBy = ((int)UserRoleEnum.Admin)
                     };
-                        var result = await _db.Product.AddAsync(product);
+                    var result = await _db.Product.AddAsync(product);
                 }
                 else
                 {
@@ -187,7 +187,7 @@ namespace AurigainLoanERP.Services.Product
                     product.ProcessingFee = model.ProcessingFee;
                     product.ProductCategoryId = model.ProductCategoryId;
                     product.ModifiedDate = DateTime.Now;
-                    product.IsActive = model.IsActive;                  
+                    product.IsActive = model.IsActive;
                 }
                 await _db.SaveChangesAsync();
                 return CreateResponse<string>(model.Name, model.Id > 0 ? ResponseMessage.Update : ResponseMessage.Save, true, ((int)ApiStatusCode.Ok));

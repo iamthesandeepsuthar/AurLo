@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AurigainLoanERP.Shared.ContractModel
 {
@@ -248,7 +245,7 @@ namespace AurigainLoanERP.Shared.ContractModel
         public string Address { get; set; }
         public string PinCode { get; set; }
         public int? DistrictId { get; set; }
-        public long? AreaPincodeId { get; set;}
+        public long? AreaPincodeId { get; set; }
         public string DistrictName { get; set; }
         public string StateName { get; set; }
         public int? StateId { get; set; }
@@ -336,7 +333,7 @@ namespace AurigainLoanERP.Shared.ContractModel
         public long Id { get; set; }
         public string Kycnumber { get; set; }
         public int KycdocumentTypeId { get; set; }
-        
+
     }
     public class UserReportingPersonPostModel
     {
@@ -423,7 +420,7 @@ namespace AurigainLoanERP.Shared.ContractModel
         public int? DistrictId { get; set; }
         public int? StateId { get; set; }
         public string PinCode { get; set; }
-        public long? AreaPincodeId { get; set;}
+        public long? AreaPincodeId { get; set; }
         public DateTime? DateOfBirth { get; set; }
         public bool SelfFunded { get; set; }
 
@@ -474,47 +471,47 @@ namespace AurigainLoanERP.Shared.ContractModel
     #endregion
 
     #region <<User Profile Model>>
-    public class UserProfileModel 
+    public class UserProfileModel
     {
-        public UserProfileModel() 
+        public UserProfileModel()
         {
             Documents = new List<UserProfileKycDetail>();
             AddressDetail = new UserProfileAddressDetail();
         }
-        public long Id { get; set;}
+        public long Id { get; set; }
         public long UserId { get; set; }
         public int RoleId { get; set; }
-        public string RoleName { get; set;}
-        public string FullName { get; set;}
-        public string FatherName { get; set;}
-        public string EmailId { get; set;}
-        public string Gender { get; set;}
+        public string RoleName { get; set; }
+        public string FullName { get; set; }
+        public string FatherName { get; set; }
+        public string EmailId { get; set; }
+        public string Gender { get; set; }
         public string MobileNumber { get; set; }
-        public DateTime? DateOfBirth { get; set;}
-        public string ProfileImagePath { get; set;}
-        public bool IsApproved { get; set;}
-        public bool IsWhatsApp { get; set;}
-        public List<UserProfileKycDetail> Documents { get; set;}
+        public DateTime? DateOfBirth { get; set; }
+        public string ProfileImagePath { get; set; }
+        public bool IsApproved { get; set; }
+        public bool IsWhatsApp { get; set; }
+        public List<UserProfileKycDetail> Documents { get; set; }
         public UserProfileAddressDetail AddressDetail { get; set; }
     }
-    public class UserProfileKycDetail 
+    public class UserProfileKycDetail
     {
-        public long Id { get; set;}
-        public long UserId { get; set;}
-        public int DocumentTypeId { get; set;}
-        public string DocumentNumber { get; set;}
+        public long Id { get; set; }
+        public long UserId { get; set; }
+        public int DocumentTypeId { get; set; }
+        public string DocumentNumber { get; set; }
         public string DocumentTypeName { get; set; }
     }
-    public class UserProfileAddressDetail 
+    public class UserProfileAddressDetail
     {
         public int Id { get; set; }
-        public long UserId { get; set;}
-        public string AddressLine1 { get; set;}
+        public long UserId { get; set; }
+        public string AddressLine1 { get; set; }
         public string Pincode { get; set; }
-        public string DistrictName { get; set;}
+        public string DistrictName { get; set; }
         public long? DistrictId { get; set; }
-        public string StateName { get; set;}
-        public long? StateId { get; set;}      
+        public string StateName { get; set; }
+        public long? StateId { get; set; }
     }
     #endregion
 }

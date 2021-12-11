@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace AurigainLoanERP.Shared.ContractModel
 {
@@ -14,9 +12,9 @@ namespace AurigainLoanERP.Shared.ContractModel
         public DateTime? ModifiedDate { get; set; }
         public string Note { get; set; }
     }
-    public class DllProductCategoryModel 
+    public class DllProductCategoryModel
     {
-        public int Id { get; set;}
-        public string Name { get; set;}
+        public int Id { get; set; }
+        public string Name { get; set; }
     }
 }

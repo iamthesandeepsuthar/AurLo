@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AurigainLoanERP.Shared.Common
+﻿namespace AurigainLoanERP.Shared.Common
 {
     public class Constants
     {
@@ -20,7 +14,7 @@ namespace AurigainLoanERP.Shared.Common
         public const string SMS_SanderId = "SMS:SanderId";
         public const string SMS_EndPoint = "SMS:EndPoint";
 
-        
+
 
 
         public const string JWT_Key = "Jwt:Key";

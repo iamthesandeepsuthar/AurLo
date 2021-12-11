@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AurigainLoanERP.Shared.ContractModel
 {
@@ -19,9 +15,9 @@ namespace AurigainLoanERP.Shared.ContractModel
     /// <summary>
     /// Payment Mode Dropdown Model
     /// </summary>
-    public class DDLPaymentModeModel 
+    public class DDLPaymentModeModel
     {
-        public int Id { get; set;}
+        public int Id { get; set; }
         public string Mode { get; set; }
 
     }

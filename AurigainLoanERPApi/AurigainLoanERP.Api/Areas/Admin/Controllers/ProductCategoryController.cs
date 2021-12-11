@@ -1,11 +1,8 @@
 ﻿using AurigainLoanERP.Services.ProductCategory;
 using AurigainLoanERP.Shared.Common.Model;
 using AurigainLoanERP.Shared.ContractModel;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace AurigainLoanERP.Api.Areas.Admin.Controllers
@@ -47,7 +44,7 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
                 obj.Message = ResponseMessage.InvalidData;
                 obj.Exception = ModelState.ErrorCount.ToString();
                 return obj;
-            }         
+            }
 
         }
 

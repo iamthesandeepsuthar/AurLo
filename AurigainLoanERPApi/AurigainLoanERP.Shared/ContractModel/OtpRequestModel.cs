@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AurigainLoanERP.Shared.ContractModel
+﻿namespace AurigainLoanERP.Shared.ContractModel
 {
     public class OtpRequestModel
-    {      
+    {
         public string MobileNumber { get; set; }
         public bool IsResendOtp { get; set; }
     }

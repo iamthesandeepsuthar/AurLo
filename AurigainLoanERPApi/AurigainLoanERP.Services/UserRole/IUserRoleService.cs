@@ -32,7 +32,7 @@ namespace AurigainLoanERP.Services.UserRoles
         /// <param name="name">Role Name</param>
         /// <param name="id">id required in edit case</param>
         /// <returns></returns>
-        Task<ApiServiceResponseModel<object>> CheckRoleExist(string name ,int? id=null);
+        Task<ApiServiceResponseModel<object>> CheckRoleExist(string name, int? id = null);
         /// <summary>
         /// Record Mark as Active or deactive
         /// </summary>

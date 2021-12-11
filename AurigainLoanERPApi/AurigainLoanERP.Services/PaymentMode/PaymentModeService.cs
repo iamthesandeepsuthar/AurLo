@@ -12,7 +12,7 @@ using static AurigainLoanERP.Shared.Enums.FixedValueEnums;
 
 namespace AurigainLoanERP.Services.PaymentMode
 {
-    public class PaymentModeService:BaseService, IPaymentModeService
+    public class PaymentModeService : BaseService, IPaymentModeService
     {
         public readonly IMapper _mapper;
         private AurigainContext _db;
@@ -37,11 +37,11 @@ namespace AurigainLoanERP.Services.PaymentMode
 
                 if (result != null)
                 {
-                    return CreateResponse<List<PaymentModeModel>>(objResponse.Data, ResponseMessage.Success, true,((int)ApiStatusCode.Ok), TotalRecord: result.Count());
+                    return CreateResponse<List<PaymentModeModel>>(objResponse.Data, ResponseMessage.Success, true, ((int)ApiStatusCode.Ok), TotalRecord: result.Count());
                 }
                 else
                 {
-                    return CreateResponse<List<PaymentModeModel>>(null, ResponseMessage.NotFound, true,((int)ApiStatusCode.RecordNotFound), TotalRecord: 0);
+                    return CreateResponse<List<PaymentModeModel>>(null, ResponseMessage.NotFound, true, ((int)ApiStatusCode.RecordNotFound), TotalRecord: 0);
                 }
 
             }
@@ -65,11 +65,11 @@ namespace AurigainLoanERP.Services.PaymentMode
 
                 if (modes.Count() > 0)
                 {
-                    return CreateResponse<List<DDLPaymentModeModel>>(modes, ResponseMessage.Success, true,((int)ApiStatusCode.Ok));
+                    return CreateResponse<List<DDLPaymentModeModel>>(modes, ResponseMessage.Success, true, ((int)ApiStatusCode.Ok));
                 }
                 else
                 {
-                    return CreateResponse<List<DDLPaymentModeModel>>(null, ResponseMessage.NotFound, true,((int)ApiStatusCode.RecordNotFound));
+                    return CreateResponse<List<DDLPaymentModeModel>>(null, ResponseMessage.NotFound, true, ((int)ApiStatusCode.RecordNotFound));
                 }
 
             }
@@ -91,11 +91,11 @@ namespace AurigainLoanERP.Services.PaymentMode
 
                 if (result != null)
                 {
-                    return CreateResponse<PaymentModeModel>(_mapper.Map<PaymentModeModel>(result), ResponseMessage.Success, true,((int)ApiStatusCode.Ok));
+                    return CreateResponse<PaymentModeModel>(_mapper.Map<PaymentModeModel>(result), ResponseMessage.Success, true, ((int)ApiStatusCode.Ok));
                 }
                 else
                 {
-                    return CreateResponse<PaymentModeModel>(null, ResponseMessage.NotFound, true,((int)ApiStatusCode.RecordNotFound));
+                    return CreateResponse<PaymentModeModel>(null, ResponseMessage.NotFound, true, ((int)ApiStatusCode.RecordNotFound));
                 }
 
             }
@@ -130,7 +130,7 @@ namespace AurigainLoanERP.Services.PaymentMode
                     mode.ModifiedOn = DateTime.Now;
                 }
                 await _db.SaveChangesAsync();
-                return CreateResponse<string>(model.Mode, model.Id > 0 ? ResponseMessage.Update : ResponseMessage.Save, true,((int)ApiStatusCode.Ok));
+                return CreateResponse<string>(model.Mode, model.Id > 0 ? ResponseMessage.Update : ResponseMessage.Save, true, ((int)ApiStatusCode.Ok));
             }
             catch (Exception ex)
             {
@@ -144,11 +144,11 @@ namespace AurigainLoanERP.Services.PaymentMode
         {
             try
             {
-               AurigainLoanERP.Data.Database.PaymentMode objRole = await _db.PaymentMode.FirstOrDefaultAsync(r => r.Id == id);
+                AurigainLoanERP.Data.Database.PaymentMode objRole = await _db.PaymentMode.FirstOrDefaultAsync(r => r.Id == id);
                 objRole.IsDelete = !objRole.IsDelete;
                 objRole.ModifiedOn = DateTime.Now;
                 await _db.SaveChangesAsync();
-                return CreateResponse<object>(true, ResponseMessage.Update, true,((int)ApiStatusCode.Ok));
+                return CreateResponse<object>(true, ResponseMessage.Update, true, ((int)ApiStatusCode.Ok));
             }
             catch (Exception)
             {
@@ -163,7 +163,7 @@ namespace AurigainLoanERP.Services.PaymentMode
                 mode.IsActive = !mode.IsActive;
                 mode.ModifiedOn = DateTime.Now;
                 await _db.SaveChangesAsync();
-                return CreateResponse<object>(true, ResponseMessage.Update, true,((int)ApiStatusCode.Ok));
+                return CreateResponse<object>(true, ResponseMessage.Update, true, ((int)ApiStatusCode.Ok));
             }
             catch (Exception)
             {

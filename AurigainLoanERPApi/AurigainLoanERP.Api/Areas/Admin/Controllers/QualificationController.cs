@@ -47,7 +47,7 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
                 return obj;
             }
             // DELETE api/StateAndDistrict/DeleteState/5
-           
+
         }
 
         // GET api/Qualification/GetQualificationById/5

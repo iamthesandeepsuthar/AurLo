@@ -1,9 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 
 namespace AurigainLoanERP.Shared.ContractModel
 {
@@ -18,7 +13,7 @@ namespace AurigainLoanERP.Shared.ContractModel
         public int RequiredFileCount { get; set; }
         public DateTime CreatedOn { get; set; }
         public DateTime? ModifiedOn { get; set; }
-        public int? DocumentNumberLength { get; set;}
+        public int? DocumentNumberLength { get; set; }
 
     }
     /// <summary>

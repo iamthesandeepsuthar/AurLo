@@ -1,11 +1,8 @@
 ﻿using AurigainLoanERP.Services.FreshLead;
 using AurigainLoanERP.Shared.Common.Model;
 using AurigainLoanERP.Shared.ContractModel;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace AurigainLoanERP.Api.Areas.Admin.Controllers
@@ -39,12 +36,12 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
         }
 
         [HttpPost("[action]")]
-        public async Task<ApiServiceResponseModel<List<GoldLoanFreshLeadListModel>>> GoldLoanFreshLeadList(IndexModel model) 
+        public async Task<ApiServiceResponseModel<List<GoldLoanFreshLeadListModel>>> GoldLoanFreshLeadList(IndexModel model)
         {
             return await _freshLead.GoldLoanFreshLeadListAsync(model);
         }
         [HttpGet("[action]/{id}")]
-        public async Task<ApiServiceResponseModel<GoldLoanFreshLeadViewModel>> GoldLoanFreshLeadDetail(long id) 
+        public async Task<ApiServiceResponseModel<GoldLoanFreshLeadViewModel>> GoldLoanFreshLeadDetail(long id)
         {
             return await _freshLead.FreshGoldLoanLeadDetailAsync(id);
         }
@@ -54,6 +51,6 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
         {
             return await _freshLead.FreshLeadHLPLCLList(model);
 
-        } 
+        }
     }
 }

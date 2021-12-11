@@ -2,9 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
-using System.Security.Claims;
 
 namespace AurigainLoanERP.Shared.Common.API
 {
@@ -22,11 +20,11 @@ namespace AurigainLoanERP.Shared.Common.API
         {
             try
             {
-                var user =  new HttpContextAccessor()?.HttpContext?.User;
-                  
-                if (user != null &&  user.Claims.Count() > 0)
+                var user = new HttpContextAccessor()?.HttpContext?.User;
+
+                if (user != null && user.Claims.Count() > 0)
                 {
-                  
+
                     LoginUserModel.UserId = user.HasClaim(x => x.Type == TokenClaimsConstant.UserId) ? (long?)Convert.ToInt64(user.FindFirst(TokenClaimsConstant.UserId).Value) : null;
 
                     LoginUserModel.UserName = user.HasClaim(x => x.Type == TokenClaimsConstant.UserName) ? user.FindFirst(TokenClaimsConstant.UserName).Value : null;

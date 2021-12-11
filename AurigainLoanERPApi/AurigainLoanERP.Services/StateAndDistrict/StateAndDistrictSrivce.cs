@@ -395,7 +395,7 @@ namespace AurigainLoanERP.Services.StateAndDistrict
             try
             {
                 var area = await (from record in _db.PincodeArea
-                                  where record.Pincode.Contains(pinCode) && !record.UserAvailability.Any(x => (id==0 || x.Id!=id )&& x.User.UserRoleId == roleId && x.IsActive == true && !x.IsDelete)
+                                  where record.Pincode.Contains(pinCode) && !record.UserAvailability.Any(x => (id == 0 || x.Id != id) && x.User.UserRoleId == roleId && x.IsActive == true && !x.IsDelete)
                                   select new AvailableAreaModel
                                   {
                                       Id = record.Id,
@@ -449,30 +449,30 @@ namespace AurigainLoanERP.Services.StateAndDistrict
                 return CreateResponse<List<AvailableAreaModel>>(null, ResponseMessage.Fail, false, ((int)ApiStatusCode.ServerException), ex.Message ?? ex.InnerException.ToString());
             }
         }
-        public async Task<ApiServiceResponseModel<AddressDetailModel>> GetAddressDetailByPincode(string pincode) 
+        public async Task<ApiServiceResponseModel<AddressDetailModel>> GetAddressDetailByPincode(string pincode)
         {
             try
             {
-              var result = await _db.PincodeArea.Where(x => x.Pincode == pincode).Include(x => x.District).Include(x => x.District.State).FirstOrDefaultAsync();
+                var result = await _db.PincodeArea.Where(x => x.Pincode == pincode).Include(x => x.District).Include(x => x.District.State).FirstOrDefaultAsync();
                 if (result != null)
                 {
-                    AddressDetailModel detail = new AddressDetailModel 
+                    AddressDetailModel detail = new AddressDetailModel
                     {
                         AreaName = result.AreaName,
                         DistrictName = result.District.Name,
                         StateName = result.District.State.Name,
                         DistrictId = result.DistrictId,
                         StateId = result.District.StateId,
-                        AreaPincodeId  =  result.Id
+                        AreaPincodeId = result.Id
                     };
                     return CreateResponse(detail, ResponseMessage.Success, true, ((int)ApiStatusCode.Ok));
                 }
-                else 
+                else
                 {
                     return CreateResponse<AddressDetailModel>(null, ResponseMessage.NotFound, false, ((int)ApiStatusCode.RecordNotFound));
                 }
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 return CreateResponse<AddressDetailModel>(null, ResponseMessage.Fail, false, ((int)ApiStatusCode.ServerException), ex.Message ?? ex.InnerException.ToString());
             }

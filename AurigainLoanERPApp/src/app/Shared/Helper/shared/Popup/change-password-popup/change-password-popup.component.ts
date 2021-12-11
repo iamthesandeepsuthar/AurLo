@@ -4,6 +4,7 @@ import { GetOtpModel, GetOtpResponseModel, OptVerifiedModel, UserChangePassword 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/Shared/Helper/auth.service';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-change-password-popup',
@@ -34,7 +35,8 @@ export class ChangePasswordPopupComponent implements OnInit {
   constructor(private readonly fb: FormBuilder,
               private readonly _settingService: UserSettingService,
               private readonly toast: ToastrService ,
-              readonly _authService: AuthService) {
+              readonly _authService: AuthService,
+              public dialogRef: MatDialogRef<ChangePasswordPopupComponent>) {
               this.getOtpModel = new GetOtpModel();
               this.getOtpModel.IsResendOtp = false;
   }
@@ -101,6 +103,9 @@ export class ChangePasswordPopupComponent implements OnInit {
       if(response.IsSuccess) {
       this.toast.success('Password change successful', 'Success');
       this.changePasswordModel = new UserChangePassword();
+
+      this.dialogRef.close();
+
       return;
       } else {
       this.toast.error(response.Message as string , 'Server Error');
@@ -119,4 +124,6 @@ export class ChangePasswordPopupComponent implements OnInit {
     confirmPassword: [undefined]
     });
   }
+
+
 }

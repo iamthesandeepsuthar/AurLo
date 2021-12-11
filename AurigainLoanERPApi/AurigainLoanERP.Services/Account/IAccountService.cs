@@ -6,7 +6,7 @@ namespace AurigainLoanERP.Services.Account
 {
     public interface IAccountService
     {
-        Task<ApiServiceResponseModel<OtpModel>>GetOtp(OtpRequestModel model);
+        Task<ApiServiceResponseModel<OtpModel>> GetOtp(OtpRequestModel model);
         Task<ApiServiceResponseModel<string>> ChangePassword(ChangePasswordModel model);
         Task<ApiServiceResponseModel<LoginResponseModel>> Login(LoginModel model);
         Task<ApiServiceResponseModel<string>> VerifiedPin(OtpVerifiedModel model);

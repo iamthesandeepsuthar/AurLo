@@ -1,9 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace AurigainLoanERP.Api.Areas.Admin.Controllers
 {
@@ -11,7 +6,7 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
     [ApiController]
     public class AgentPerformanceController : ControllerBase
     {
-        public AgentPerformanceController() 
+        public AgentPerformanceController()
         {
         }
     }

@@ -3,11 +3,8 @@ using AurigainLoanERP.Services.StateAndDistrict;
 using AurigainLoanERP.Services.User;
 using AurigainLoanERP.Shared.Common.Model;
 using AurigainLoanERP.Shared.ContractModel;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using static AurigainLoanERP.Shared.Enums.FixedValueEnums;
 
@@ -73,9 +70,9 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
         }
 
         [HttpGet("{pinCode}/{roleId}/{id}")]
-        public async Task<ApiServiceResponseModel<List<AvailableAreaModel>>> GetUserAvailableAreaForRolebyPinCode(string pinCode, int roleId,long id=0)
+        public async Task<ApiServiceResponseModel<List<AvailableAreaModel>>> GetUserAvailableAreaForRolebyPinCode(string pinCode, int roleId, long id = 0)
         {
-            return await _areaSerivce.GetUserAvailableAreaAsync(pinCode, roleId,id);
+            return await _areaSerivce.GetUserAvailableAreaAsync(pinCode, roleId, id);
         }
 
         [HttpGet("{id}")]
@@ -85,12 +82,12 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
         }
 
         [HttpDelete("{id}/{documentId}")]
-        public async Task<ApiServiceResponseModel<object>> DeleteDocumentFile(long id,long documentId)
+        public async Task<ApiServiceResponseModel<object>> DeleteDocumentFile(long id, long documentId)
         {
             return await _userSerivce.DeleteDocumentFile(id, documentId);
         }
         [HttpGet("{id}")]
-        public async Task<ApiServiceResponseModel<UserProfileModel>> GetProfile(long id) 
+        public async Task<ApiServiceResponseModel<UserProfileModel>> GetProfile(long id)
         {
             return await _userSerivce.GetProfile(id);
         }
@@ -113,7 +110,7 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
             }
         }
         [HttpPost]
-        public async Task<ApiServiceResponseModel<string>> WebChangePassword(ChangePasswordModel model) 
+        public async Task<ApiServiceResponseModel<string>> WebChangePassword(ChangePasswordModel model)
         {
             return await _accountService.WebChangePassword(model);
         }

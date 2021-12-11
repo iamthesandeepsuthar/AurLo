@@ -9,7 +9,7 @@ namespace AurigainLoanERP.Services.KycDocumentType
     {
         Task<ApiServiceResponseModel<List<DocumentTypeModel>>> GetAllAsync(IndexModel model);
         Task<ApiServiceResponseModel<DocumentTypeModel>> GetById(int id);
-     
+
         Task<ApiServiceResponseModel<List<DDLDocumentTypeModel>>> GetDocumentType(bool? isKYC = null);
         Task<ApiServiceResponseModel<string>> AddUpdateAsync(DocumentTypeModel model);
         // Task<ApiServiceResponseModel<object>> CheckRoleExist(string name, int? id = null);      

@@ -1,13 +1,8 @@
-﻿using AurigainLoanERP.Shared.Attribute;
-using AurigainLoanERP.Shared.Common;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Hosting.Internal;
+﻿using AurigainLoanERP.Shared.Common;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Reflection;
 using System.Text.RegularExpressions;
-using System.Transactions;
 
 namespace AurigainLoanERP.Shared.ExtensionMethod
 {
@@ -38,7 +33,7 @@ namespace AurigainLoanERP.Shared.ExtensionMethod
                 {
                     HttpRequest request = _httpContext.HttpContext.Request;
 
-                    return string.Concat(request.IsHttps ? "https://" : "http://" , request.HttpContext.Request.Host.Value, filePath.Replace("~", "").Replace(@"\", @"/").Replace(@"//", @"/"));
+                    return string.Concat(request.IsHttps ? "https://" : "http://", request.HttpContext.Request.Host.Value, filePath.Replace("~", "").Replace(@"\", @"/").Replace(@"//", @"/"));
 
                 }
                 return null;
@@ -53,30 +48,30 @@ namespace AurigainLoanERP.Shared.ExtensionMethod
 
         public static bool IsBase64(this string base64String)
         {
-             
+
             try
             {
                 base64String = Regex.Replace(base64String, @"^\s*$\n", string.Empty).TrimEnd();
 
-              
+
                 if (base64String.Split(';').Length > 0)
                 {
                     string[] Fileinfo = base64String.Split(';');
                     base64String = Fileinfo[1].Substring(Fileinfo[1].IndexOf(',') + 1);
                 }
 
-                if (string.IsNullOrEmpty(base64String) ||  base64String.Contains(" ") || base64String.Contains("\t") || base64String.Contains("\r") )
+                if (string.IsNullOrEmpty(base64String) || base64String.Contains(" ") || base64String.Contains("\t") || base64String.Contains("\r"))
                 { return false; }
 
 
                 Convert.FromBase64String(base64String);
                 return true;
             }
-            catch 
+            catch
             {
-                 return false;
+                return false;
             }
-           
+
         }
 
 

@@ -10,7 +10,6 @@ using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using static AurigainLoanERP.Shared.Enums.FixedValueEnums;
 
@@ -260,10 +259,10 @@ namespace AurigainLoanERP.Services.FreshLead
                     {
                         leadDetail.AppointmentDetail = detail.GoldLoanFreshLeadAppointmentDetail.Where(x => x.GlfreshLeadId == detail.Id).Select(x => new GoldLoanFreshLeadAppointmentDetailViewModel
                         {
-                            BankId= x.BankId,
-                            BranchId=x.BranchId,
+                            BankId = x.BankId,
+                            BranchId = x.BranchId,
                             AppointmentDate = x.AppointmentDate,
-                            AppointmentTime = new DateTime(x.AppointmentTime.Value.Ticks).ToString("HH:mm:ss") ,
+                            AppointmentTime = new DateTime(x.AppointmentTime.Value.Ticks).ToString("HH:mm:ss"),
                             BankName = x.Bank.Name,
                             BranchName = x.Branch.BranchName,
                             IFSC = x.Branch.Ifsc,
@@ -688,7 +687,7 @@ namespace AurigainLoanERP.Services.FreshLead
                     {
                         AppointmentDate = model.AppointmentDate,
                         AppointmentTime = model.AppointmentTime.ToTimeSpanValue(),
-                        BankId =  _db.BankBranchMaster.FirstOrDefault(x=> x.IsActive.Value && !x.IsDelete && x.Id==model.BranchId ).BankId,
+                        BankId = _db.BankBranchMaster.FirstOrDefault(x => x.IsActive.Value && !x.IsDelete && x.Id == model.BranchId).BankId,
                         BranchId = model.BranchId,
                         CreatedDate = DateTime.Now,
                         IsActive = true,

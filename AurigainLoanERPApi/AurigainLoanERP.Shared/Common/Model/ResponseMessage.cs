@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AurigainLoanERP.Shared.Common.Model
+﻿namespace AurigainLoanERP.Shared.Common.Model
 {
     public static class ResponseMessage
     {
@@ -14,7 +8,7 @@ namespace AurigainLoanERP.Shared.Common.Model
         public const string Save = "Record Saved...!";
         public const string Update = "Record Updated...!";
         public const string InvalidData = "Invalid Data Pass...!";
-        public const string UserExist = "User already mapped with mobile or email...!";      
+        public const string UserExist = "User already mapped with mobile or email...!";
         public const string Fail = "Faild";
         public const string RecordAlreadyExist = "Record already exist, Please try with other !";
         public const string FileUpdated = "File sucessfully updated...!";
@@ -31,7 +25,7 @@ namespace AurigainLoanERP.Shared.Common.Model
     public class SMSStatusResponseModel
     {
         public string status { get; set; }
-     
+
 
     }
 
