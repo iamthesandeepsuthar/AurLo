@@ -94,7 +94,7 @@ export class FreshGoldLoanLeadsComponent implements OnInit {
   onChangeLeadStatus(Id: number) {
     const dialogRef = this.dialog.open(LeadStatusPopupComponent, {
       data: { Id: Id as number, Type: "FreshGold" as string },
-      width: '600px',
+      width: '500px',
     });
 
     dialogRef.afterClosed().subscribe(result => {

@@ -43,17 +43,20 @@ export class LeadStatusPopupComponent implements OnInit {
       if (res.IsSuccess) {
         let dropdownList = res?.Data as DropDownModel;
         this.dropDown.ddlLeadStatus = dropdownList?.ddlLeadStatus ?? [];
+        console.log(this.dropDown.ddlLeadStatus);
       }
     });
   }
   onSubmit() {
-    this.model.LeadId = this.data.Id;
-    this.model.ActionDate = new Date();
-    debugger;
+    this.formgrp.markAllAsTouched();
+    if (this.formgrp.valid) {
+       debugger;
+       this.model.LeadId = this.data.Id;
+       this.model.ActionDate = new Date();
+       this.model.LeadStatus = Number(this.model.LeadStatus);
    let subscription =  this._freshLead.LeadStatus(this.model).subscribe(response => {
      subscription.unsubscribe();
       if(response.IsSuccess) {
-       debugger;
         this.onClose();
     } else {
      this._toast.error(response.Message  as string , 'Server Error');
@@ -61,6 +64,7 @@ export class LeadStatusPopupComponent implements OnInit {
      return;
     }
     });
+    }
 
   }
   onClose() {
