@@ -22,10 +22,10 @@ export class LeadApprovalPopupComponent implements OnInit {
 
   constructor(private readonly fb: FormBuilder,
     private readonly _commonService: CommonService,
-     private readonly _btLeadService: BalanceTransferGoldLoanLeadsService,
+    private readonly _btLeadService: BalanceTransferGoldLoanLeadsService,
     public dialogRef: MatDialogRef<LeadApprovalPopupComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { Id: number, Type: string }) {
-    this.model.LeadId = data.Id;
+    @Inject(MAT_DIALOG_DATA) public data: any) {
+  //  this.model.LeadId = data.Id;
   }
 
   ngOnInit(): void {
@@ -36,7 +36,7 @@ export class LeadApprovalPopupComponent implements OnInit {
   formInit() {
     this.formgrp = this.fb.group({
       ApprovalStatus: [undefined, Validators.required],
-      Remark: [undefined]
+      Remarks: [undefined]
     });
   }
 

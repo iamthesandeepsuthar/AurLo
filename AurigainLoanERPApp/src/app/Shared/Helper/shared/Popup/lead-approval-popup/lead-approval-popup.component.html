@@ -1,20 +1,21 @@
 <!-- Lead Approval Modal  Start -->
-<div class="modal fade custom-modal" id="Modal-Lead-Approval">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header p-3">
+<div id="Modal-Lead-Approval">
+  <div class="" role="document">
+    <div class="">
+
+      <div class="widget-header">
         <h5 class="modal-title m-0">Lead Approval</h5>
         <button type="button" (click)="onClose()" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body px-4 pt-4 pb-0">
+      <div class="px-4 pt-4 pb-0">
         <form [formGroup]="formgrp" (ngSubmit)="onSubmit()">
           <div class="form-row">
             <div class="form-group col-md-12">
               <label>Status <strong class="text-danger ml-1">*</strong></label>
               <select [(ngModel)]="model.ApprovalStatus" formControlName="ApprovalStatus"
-                [ngClass]="{ 'is-invalid': f.approvalStatus.errors && f.approvalStatus.touched}">
+                [ngClass]="{ 'is-invalid': f.ApprovalStatus.errors && f.ApprovalStatus.touched}">
                 <option *ngFor="let approvalStatus of dropDown!.ddlLeadApprovalStatus" [value]="approvalStatus.Value">
                   {{approvalStatus.Text}}
                 </option>
@@ -36,8 +37,9 @@
           </div>
         </form>
       </div>
-      <div class="modal-footer border-0">
-        <button type="submit" class="btn btn-success"> <i class="fas fa-plus mr-1"></i> Submit</button>
+      <div class=" border-0">
+        <button type="submit" (click)="onSubmit()" class="btn btn-success"> <i class="fas fa-plus mr-1"></i>
+          Submit</button>
         <button type="button" class="btn btn-outline-danger" data-dismiss="modal" aria-label="Close"><i
             class="fas fa-times mr-1"></i> Cancel</button>
       </div>
