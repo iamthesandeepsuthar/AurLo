@@ -7,6 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 import { UserRoleEnum } from 'src/app/Shared/Enum/fixed-value';
 import { IndexModel } from 'src/app/Shared/Helper/common-model';
 import { Routing_Url, Message } from 'src/app/Shared/Helper/constants';
+import { LeadStatusPopupComponent } from 'src/app/Shared/Helper/shared/Popup/lead-status-popup/lead-status-popup.component';
 import { BTGoldLoanLeadListModel } from 'src/app/Shared/Model/Leads/btgold-loan-lead-post-model.model';
 import { CommonService } from 'src/app/Shared/Services/common.service';
 import { BalanceTransferGoldLoanLeadsService } from 'src/app/Shared/Services/Leads/balance-transfer-gold-loan-leads.service';
@@ -63,9 +64,7 @@ export class BalanceTransferGoldLoanLeadsComponent implements OnInit {
     let serve = this._freshLeadService.GetList(this.indexModel).subscribe(response => {
       serve.unsubscribe();
       if (response.IsSuccess) {
-        debugger
         this.model = response.Data as BTGoldLoanLeadListModel[];
-
         this.dataSource = new MatTableDataSource<BTGoldLoanLeadListModel>(this.model);
         this.totalRecords = response.TotalRecord as number;
 
@@ -180,7 +179,7 @@ export class BalanceTransferGoldLoanLeadsComponent implements OnInit {
   onChangeLeadApproveStage(Id: number) {
     const dialogRef = this.dialog.open(LeadApprovalPopupComponent, {
       data: { Id: Id as number, Type: "BTTRANSFER" as string },
-      width: '400px',
+      width: '500px',
 
     });
 
@@ -191,6 +190,20 @@ export class BalanceTransferGoldLoanLeadsComponent implements OnInit {
       } else {
         this.toast.error(Message.SaveFail as string, 'Error');
 
+      }
+    });
+  }
+  onChangeLeadStatus(Id: number) {
+    const dialogRef = this.dialog.open(LeadStatusPopupComponent, {
+      data: { Id: Id as number, Type: "FreshGold" as string },
+      width: '500px',
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.toast.success(Message.SaveSuccess as string, 'Success');
+      } else {
+        this.toast.error(Message.SaveFail as string, 'Error');
       }
     });
   }
