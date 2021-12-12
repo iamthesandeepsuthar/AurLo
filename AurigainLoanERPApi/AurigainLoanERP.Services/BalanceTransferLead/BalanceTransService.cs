@@ -180,8 +180,7 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                                               IsActive = detail.IsActive.Value,
                                               ProductName = detail.Product.Name,
                                               Pincode = detail.BtgoldLoanLeadAddressDetail.FirstOrDefault().AeraPincode.Pincode,
-                                              ApprovedStage = detail.BtgoldLoanLeadApprovalActionHistory.Count > 0 ?
-                                             _db.UserMaster.Where(x=> x.Id ==(detail.BtgoldLoanLeadApprovalActionHistory.FirstOrDefault(x =>  x.ActionTakenByUserId.HasValue).ActionTakenByUserId.Value)).FirstOrDefault().UserRole.UserRoleLevel 
+                                              ApprovedStage = detail.BtgoldLoanLeadApprovalActionHistory.Count > 0 ? _db.BtgoldLoanLeadApprovalActionHistory.LastOrDefault(z => z.LeadId == detail.Id && z.ActionTakenByUserId.HasValue).ActionTakenByUser.UserRole.UserRoleLevel.Value
                                                : (int?)null
 
                                           }).ToListAsync();
