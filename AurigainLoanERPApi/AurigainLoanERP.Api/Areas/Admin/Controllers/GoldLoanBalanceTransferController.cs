@@ -65,7 +65,7 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
             return await _objBTLead.DetailbyIdAsync(id);
         }
         [HttpPost]
-        public async Task<ApiServiceResponseModel<object>> UpdateLeadApprovalStageAsync(BtGoldLoanLeadApprovalStagePostModel model)
+        public async Task<ApiServiceResponseModel<object>> UpdateLeadApprovalStage(BtGoldLoanLeadApprovalStagePostModel model)
         {
             return await _objBTLead.UpdateLeadApprovalStageAsync(model);
         }

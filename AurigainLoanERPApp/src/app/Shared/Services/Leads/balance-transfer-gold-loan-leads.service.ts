@@ -34,8 +34,9 @@ export class BalanceTransferGoldLoanLeadsService {
     return this._baseService.post(url, model);
   }
   UpdateLeadApprovalStatus(model: BtGoldLoanLeadApprovalStagePostModel) : Observable<ApiResponse<any>> {
+    debugger
     let url = `${this._baseService.API_Url.BT_Gold_Loan_Lead_Approval_Status_Api}`;
     return this._baseService.post(url, model);
   }
-  
+
 }

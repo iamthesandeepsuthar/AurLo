@@ -186,7 +186,7 @@ export class API_Url {
   public static BT_Gold_Loan_Lead__AddUpdateExternalLead_Api = `${environment.apiEndPoint}GoldLoanBalanceTransfer/AddUpdateBTGoldLoanExternalLead`;
   public static BT_Gold_Loan_Lead__Detail_Api = `${environment.apiEndPoint}GoldLoanBalanceTransfer/DetailById/`;
   public static BT_Gold_Loan_Lead__AddUpdateInternalLead_Api = `${environment.apiEndPoint}GoldLoanBalanceTransfer/AddUpdateBTGoldLoanExternalLead`;
- public static  BT_Gold_Loan_Lead_Approval_Status_Api =`${environment.apiEndPoint}GoldLoanBalanceTransfer/UpdateLeadApprovalStageAsync`
+ public static  BT_Gold_Loan_Lead_Approval_Status_Api =`${environment.apiEndPoint}GoldLoanBalanceTransfer/UpdateLeadApprovalStage`
   //#endregion
 }
 

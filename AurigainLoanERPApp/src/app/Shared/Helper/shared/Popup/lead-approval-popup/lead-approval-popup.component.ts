@@ -25,7 +25,7 @@ export class LeadApprovalPopupComponent implements OnInit {
     private readonly _btLeadService: BalanceTransferGoldLoanLeadsService,
     public dialogRef: MatDialogRef<LeadApprovalPopupComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) {
-  //  this.model.LeadId = data.Id;
+    this.model.LeadId = data.Id;
   }
 
   ngOnInit(): void {
@@ -50,17 +50,20 @@ export class LeadApprovalPopupComponent implements OnInit {
     });
   }
   onSubmit() {
-    let serve = this._btLeadService.UpdateLeadApprovalStatus(this.model).subscribe(res => {
-      serve.unsubscribe();
-      if (res.IsSuccess) {
-        this.dialogRef.close(true);
-      } else {
-        this.dialogRef.close(false);
-      }
-    }, error => {
+    this.formgrp.markAllAsTouched();
+    if (this.formgrp.valid) {
+      this.model.ApprovalStatus = Number(this.model.ApprovalStatus)
+      let serve = this._btLeadService.UpdateLeadApprovalStatus(this.model).subscribe(res => {
+        serve.unsubscribe();
+        if (res.IsSuccess) {
+          this.dialogRef.close(true);
+        } else {
+          this.dialogRef.close(false);
+        }
+      }, error => {
 
-    });
-
+      });
+    }
   }
 
 

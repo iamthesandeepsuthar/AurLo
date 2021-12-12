@@ -136,7 +136,7 @@
             <!-- && this.userDetail!.RoleLevel < row.ApprovedStage -->
             <a *ngIf="this.userDetail!.RoleId != userRoleEnum.Customer "
             (click)="onChangeLeadApproveStage(row.Id)"  class="table-action-btn-user" title="Approve">
-              <i class="fas fa-trash-alt"></i>
+            <i class="fa fa-suitcase" aria-hidden="true"></i> | {{row?.ApprovedStage}}
             </a>
           </td>
         </ng-container>

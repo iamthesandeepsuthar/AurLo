@@ -63,6 +63,7 @@ export class BalanceTransferGoldLoanLeadsComponent implements OnInit {
     let serve = this._freshLeadService.GetList(this.indexModel).subscribe(response => {
       serve.unsubscribe();
       if (response.IsSuccess) {
+        debugger
         this.model = response.Data as BTGoldLoanLeadListModel[];
 
         this.dataSource = new MatTableDataSource<BTGoldLoanLeadListModel>(this.model);

@@ -80,11 +80,11 @@ namespace AurigainLoanERP.Services.Common
 
                         case DropDownKey.ddlLeadApprovalStatus:
 
-                            objData.Add(item, GetEnumDropDown<LeadApprovalStatus>());
+                            objData.Add(item, GetEnumDropDownWithInt<LeadApprovalStatus>());
                             break;
                         case DropDownKey.ddlLeadStatus:
 
-                            objData.Add(item, GetEnumDropDown<LeadStatus>());
+                            objData.Add(item, GetEnumDropDownWithInt<LeadStatus>());
                             break;
                         default:
                             break;
@@ -237,6 +237,21 @@ namespace AurigainLoanERP.Services.Common
             }
         }
 
+        private object GetEnumDropDownWithInt<T>() where T : Enum
+        {
+            try
+            {
+                return Enum.GetValues(typeof(T)).Cast<T>()
+              .Select(v => new { Value = v, Text = v.GetStringValue() })
+              .ToList();
+
+            }
+            catch
+            {
+
+                return null;
+            }
+        }
 
         private async Task<object> GetPaymentMode()
         {
