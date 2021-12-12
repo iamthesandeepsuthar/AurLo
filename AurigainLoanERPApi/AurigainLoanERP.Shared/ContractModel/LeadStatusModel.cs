@@ -4,7 +4,7 @@ using System.Text;
 
 namespace AurigainLoanERP.Shared.ContractModel
 {
-    class LeadStatusModel
+    public class LeadStatusModel
     {
         public long LeadId { get; set; }
         public long Id { get; set; }

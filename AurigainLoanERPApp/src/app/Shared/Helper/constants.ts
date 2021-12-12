@@ -176,6 +176,7 @@ export class API_Url {
   public static Gold_Loan_Fresh_Lead__Detail_Api = `${environment.apiEndPoint}GoldLoanFreshLead/GoldLoanFreshLeadDetail/`;
   public static Gold_Loan_Fresh_Lead__Delete_Api = `${environment.apiEndPoint}GoldLoanFreshLead/DeleteProduct/`;
   public static Gold_Loan_Fresh_Lead__ActiveStatus_Api = `${environment.apiEndPoint}GoldLoanFreshLead/UpdateActiveStatus/`;
+  public static Lead_Status_Change_Api = `${environment.apiEndPoint}GoldLoanFreshLead/UpdateLeadStatus`;
   //#endregion
   //#region <<Personal - Car - Home - Loan >>
   public static Personal_Home_Car_Loan_List_Api = `${environment.apiEndPoint}GoldLoanFreshLead/PersonalHomeCarLoanList`
@@ -355,4 +356,5 @@ export class DropDown_key {
   static ddlPaymentMode = "ddlPaymentMode";
   static ddlBank = "ddlBank";
   static ddlLeadApprovalStatus = "ddlLeadApprovalStatus";
+  static ddlLeadStatus = "ddlLeadStatus";
 }

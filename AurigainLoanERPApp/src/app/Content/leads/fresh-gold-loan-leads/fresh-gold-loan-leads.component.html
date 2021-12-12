@@ -127,6 +127,9 @@
             <a class="table-action-btn-view" routerLink="./{{routing_Url.Detail_Lead_Url +'/'+ row.Id}}" title="Detail">
               <i class="fas fa-eye"></i>
             </a>
+            <a class="table-action-btn-view"(click)="onChangeLeadStatus(row.Id)">
+              <i class="fas fa-shield-alt"></i>
+            </a>
             <!-- <a class="table-action-btn-delete" (click)="updateDeleteStatus(row?.UserId)" title="Delete">
             <i class="fas fa-trash-alt"></i>
           </a> -->

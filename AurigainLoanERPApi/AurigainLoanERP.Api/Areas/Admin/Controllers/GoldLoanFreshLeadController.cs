@@ -52,5 +52,11 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
             return await _freshLead.FreshLeadHLPLCLList(model);
 
         }
+
+        [HttpPost("[action]")]
+        public async Task<ApiServiceResponseModel<object>> UpdateLeadStatus(LeadStatusModel model) 
+        {
+            return await _freshLead.UpdateLeadStatusAsync(model);
+        }
     }
 }

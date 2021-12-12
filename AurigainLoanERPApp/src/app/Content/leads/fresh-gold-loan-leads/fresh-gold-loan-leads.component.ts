@@ -1,4 +1,6 @@
+import { LeadStatusPopupComponent } from './../../../Shared/Helper/shared/Popup/lead-status-popup/lead-status-popup.component';
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -41,7 +43,8 @@ export class FreshGoldLoanLeadsComponent implements OnInit {
   constructor(private readonly _freshLeadService: GoldLoanLeadsService,
     private readonly _commonService: CommonService,
     private readonly toast: ToastrService,
-    private readonly _userSettingService: UserSettingService) { }
+    private readonly _userSettingService: UserSettingService,
+    public dialog: MatDialog) { }
   ngOnInit(): void {
     this.getList();
 
@@ -82,16 +85,27 @@ export class FreshGoldLoanLeadsComponent implements OnInit {
 
     this.getList();
   }
-
   onPaginateChange(event: any) {
     this.indexModel.Page = event.pageIndex + 1;
     this.indexModel.PageSize = event.pageSize;
     this.indexModel.IsPostBack = true;
     this.getList();
   }
+  onChangeLeadStatus(Id: number) {
+    const dialogRef = this.dialog.open(LeadStatusPopupComponent, {
+      data: { Id: Id as number, Type: "FreshGold" as string },
+      width: '600px',
+    });
 
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.toast.success(Message.SaveSuccess as string, 'Success');
+      } else {
+        this.toast.error(Message.SaveFail as string, 'Error');
+      }
+    });
+  }
   onPageSizeChange() {
-
     this.indexModel.IsPostBack = true;
     this.indexModel.PageSize = Number(this.indexModel.PageSize);
     this.getList();
@@ -161,5 +175,4 @@ export class FreshGoldLoanLeadsComponent implements OnInit {
     });
 
   }
-
 }

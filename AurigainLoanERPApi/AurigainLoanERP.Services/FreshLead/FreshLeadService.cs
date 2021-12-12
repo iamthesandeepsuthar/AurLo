@@ -286,6 +286,29 @@ namespace AurigainLoanERP.Services.FreshLead
                 return CreateResponse<GoldLoanFreshLeadViewModel>(null, ResponseMessage.Fail, false, ((int)ApiStatusCode.ServerException), ex.InnerException == null ? ex.Message : ex.InnerException.Message);
             }
         }
+        public async Task<ApiServiceResponseModel<object>> UpdateLeadStatusAsync(LeadStatusModel model)
+        {
+            try
+            {
+                var objModel = new GoldLoanFreshLeadStatusActionHistory()
+                {
+                    LeadId = model.LeadId,
+                    ActionDate = DateTime.Now,
+                    ActionTakenByUserId = _loginUserDetail.UserId,
+                    Remarks = !string.IsNullOrEmpty(model.Remark) ? model.Remark : null,
+                    LeadStatus = model.LeadStatus,
+                };
+                var result = await _db.GoldLoanFreshLeadStatusActionHistory.AddAsync(objModel);
+                await _db.SaveChangesAsync();
+                return CreateResponse<object>(true, ResponseMessage.Save, true, ((int)ApiStatusCode.Ok));
+            }
+            catch (Exception)
+            {
+                return CreateResponse<object>(false, ResponseMessage.Fail, false, ((int)ApiStatusCode.ServerException));
+
+            }
+
+        }
         #endregion
 
 
