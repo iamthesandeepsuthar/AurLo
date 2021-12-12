@@ -42,17 +42,21 @@
                   </div>
                   <div class="form-group col-md-6">
                     <label>Mobile Number <em class="text-danger">*</em> </label>
-                    <input type="text" class="form-control" maxlength="10" (keypress)="_commonService.NumberOnly($event)" [(ngModel)]="Model.User.Mobile" formControlName="mobile"
-                      [ngClass]="{ 'is-invalid': f1.mobile.errors && f1.mobile.touched}" id="mobileNumber"
-                      placeholder="Mobile number">
+                    <input type="text" class="form-control" maxlength="10"
+                      (keypress)="_commonService.NumberOnly($event)" [(ngModel)]="Model.User.Mobile"
+                      formControlName="mobile" [ngClass]="{ 'is-invalid': f1.mobile.errors && f1.mobile.touched}"
+                      id="mobileNumber" placeholder="Mobile number">
                     <div class="invalid-feedback"
                       *ngIf="(registrationFromStepOne.get('mobile')?.hasError('required') && registrationFromStepOne.get('mobile')?.touched)">
                       mobile number required</div>
                   </div>
-                  <div class="form-group col-md-6">
+                  <div class="form-group col-md-6 date-icon-with-label">
                     <label>Date of birth </label>
-                    <input class="form-control" type="date" placeholder="DD-MM-YYYY" [(ngModel)]="Model.DateOfBirth"
-                      formControlName="dob" [ngClass]="{ 'is-invalid': f1.dob.errors && f1.dob.touched}">
+                    <input class="form-control" #datepicker="bsDatepicker" placeholder="DD-MM-YYYY"
+                      formControlName="dob" [ngClass]="{ 'is-invalid': f1.dob.errors && f1.dob.touched}" bsDatepicker
+                      [(ngModel)]="model.DateOfBirth"
+                      [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', adaptivePosition: true,isAnimated: true, showWeekNumbers: false }">
+                    <i class="fas fa-calendar-alt" (click)="datepicker.toggle()"></i>
                     <div class="invalid-feedback"
                       *ngIf="(registrationFromStepOne.get('dob')?.hasError('required') && registrationFromStepOne.get('dob')?.touched)">
                       select date of birth</div>
@@ -82,15 +86,19 @@
                   </div>
                 </div>
                 <div class="step-form-btn-grp mt-3">
-                  <button mat-button matStepperNext type="button" class="btn btn-primary"
-                    (click)="registrationFromStepOne.markAllAsTouched()"> <i class="fas fa-check mr-1"></i> Save &
-                    Next</button>
+                  <!-- <button mat-button matStepperNext type="button" class="btn btn-primary"
+                    (click)="registrationFromStepOne.markAllAsTouched()">
+                    <i class="fas fa-check mr-1"></i> Save & Next</button> -->
+
+                  <button mat-button type="submit" (click)="onSubmit()" class="btn btn-primary">
+                    <i class="fas fa-check mr-1"></i> Register</button>
+
                 </div>
               </div>
             </ng-template>
           </form>
         </mat-step>
-        <mat-step [stepControl]="registrationFromStepTwo">
+        <mat-step *ngIf="false" [stepControl]="registrationFromStepTwo">
           <form [formGroup]="registrationFromStepTwo" (ngSubmit)="onSubmit()">
 
             <ng-template matStepLabel>Document's Detail</ng-template>
@@ -175,7 +183,7 @@
             </ng-template>
           </form>
         </mat-step>
-        <mat-step [stepControl]="registrationFromStepThird">
+        <mat-step *ngIf="false" [stepControl]="registrationFromStepThird">
           <form [formGroup]="registrationFromStepThird" (ngSubmit)="onSubmit()">
 
             <ng-template matStepLabel>Address Detail </ng-template>

@@ -1,4 +1,3 @@
-
 <!-- Page Header Title start -->
 <div class="widget-header">
   <div class="row d-block d-sm-flex align-items-center justify-content-between text-center text-sm-left">
@@ -9,7 +8,8 @@
         <ol class="breadcrumb justify-content-center justify-content-sm-start">
           <li class="breadcrumb-item"><a routerLink="/dashboard">Home</a></li>
           <li class="breadcrumb-item"><a href="javascript:void(0)">Leads</a></li>
-          <li class="breadcrumb-item"><a routerLink="../../../../balance-transfer-leads">Balance Transfer Gold Loan</a></li>
+          <li class="breadcrumb-item"><a routerLink="../../../../balance-transfer-leads">Balance Transfer Gold Loan</a>
+          </li>
           <li class="breadcrumb-item active" aria-current="page">{{leadId ==0 ? 'Add new lead' : 'Update lead'}}</li>
         </ol>
       </nav>
@@ -214,9 +214,10 @@
         <div class="row">
           <div class="form-group col-md-6">
             <label>Pincode</label>
-            <input type="text" class="form-control" (blur)="model.AddressDetail.AeraPincodeId=null;getDropDownPinCodeArea(false,true)" formControlName="Pincode"
-              placeholder="Pincode" [ngClass]="{ 'is-invalid': f2.Pincode.errors && f2.Pincode.touched}"
-              [(ngModel)]="AeraPincode">
+            <input type="text" class="form-control"
+              (blur)="model.AddressDetail.AeraPincodeId=null;getDropDownPinCodeArea(false,true)"
+              formControlName="Pincode" placeholder="Pincode"
+              [ngClass]="{ 'is-invalid': f2.Pincode.errors && f2.Pincode.touched}" [(ngModel)]="AeraPincode">
 
             <div class="invalid-feedback"
               *ngIf="(leadFromAddressDetail.get('Pincode')?.hasError('required') && leadFromAddressDetail.get('Pincode')?.touched)">
@@ -224,8 +225,9 @@
           </div>
           <div class="form-group col-md-6">
             <label>Area (Location)</label>
-            <ng-select [searchable]="true" [items]="ddlAreaModel" bindLabel="AreaName" bindValue="Id" placeholder="Select area"
-              formControlName="Area" [ngClass]="{ 'is-invalid': f2.Area.errors && f2.Area.touched}"
+            <ng-select [searchable]="true" [items]="ddlAreaModel" bindLabel="AreaName" bindValue="Id"
+              placeholder="Select area" formControlName="Area"
+              [ngClass]="{ 'is-invalid': f2.Area.errors && f2.Area.touched}"
               [(ngModel)]="model.AddressDetail.AeraPincodeId" [appendTo]="'body'">
 
 
@@ -346,12 +348,12 @@
 
           <div class="form-group col-md-4 date-icon-with-label">
             <label>Date of Appointment</label>
-            <input class="form-control" #datepickerYMD="bsDatepicker" placeholder="DD-MM-YYYY"
+            <input class="form-control" #datepickerApp="bsDatepicker" placeholder="DD-MM-YYYY"
               formControlName="DateofAppointment"
               [ngClass]="{ 'is-invalid': f3.DateofAppointment.errors && f3.DateofAppointment.touched}" bsDatepicker
               [(ngModel)]="model.AppointmentDetail.AppointmentDate"
               [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', adaptivePosition: true,isAnimated: true, showWeekNumbers: false }">
-            <i class="fas fa-calendar-alt"></i>
+            <i class="fas fa-calendar-alt" (click)="datepickerApp.toggle()"></i>
             <div class="invalid-feedback"
               *ngIf="(leadFromAppointmentDetail.get('DateofAppointment')?.hasError('required') && leadFromAppointmentDetail.get('DateofAppointment')?.touched)">
               select date of Appointment </div>

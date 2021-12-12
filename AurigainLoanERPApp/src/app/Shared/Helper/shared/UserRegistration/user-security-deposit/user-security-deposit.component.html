@@ -28,11 +28,11 @@
 
       <div class="form-group col-md-4 date-icon-with-label">
         <label>Credit Date</label>
-        <input class="form-control" #datepickerYMD="bsDatepicker" formControlName="CreditDate"
+        <input class="form-control" #datepickerApp="bsDatepicker" formControlName="CreditDate"
           [ngClass]="{ 'is-invalid': f?.CreditDate?.errors && f?.CreditDate?.touched}" bsDatepicker
           [(ngModel)]="userSecurity.CreditDate"
           [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', adaptivePosition: true,isAnimated: true, showWeekNumbers: false }">
-        <i class="fas fa-calendar-alt"></i>
+        <i class="fas fa-calendar-alt" (click)="datepickerApp.toggle()"></i>
         <div class="invalid-feedback"
           *ngIf="(formGroup.get('CreditDate')?.hasError('required') && formGroup.get('CreditDate')?.touched)">
           Please Select Credit Date...! </div>

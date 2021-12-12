@@ -34,7 +34,7 @@ export class NavigationComponent implements OnInit {
     this._authService.IsAuthentication.subscribe(x => {
 
       this.userModel = this._authService.GetUserDetail() as LoginResponseModel;
-      this.loginUserId = this.userModel.UserId;
+      this.loginUserId = this.userModel?.UserId;
 
       if (!this.isPermissionMenu) {
 

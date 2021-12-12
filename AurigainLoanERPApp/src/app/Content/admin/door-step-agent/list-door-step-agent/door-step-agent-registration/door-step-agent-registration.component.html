@@ -56,7 +56,7 @@
           <label>Full Name</label>
           <input type="text" formControlName="FullName" [(ngModel)]="model.FullName" formControlName="FullName"
             [ngClass]="{ 'is-invalid': f.FullName.errors && f.FullName.touched}" class="form-control" id="input1"
-            placeholder="full name">
+            placeholder="Full name">
           <div class="invalid-feedback"
             *ngIf="(formGroup.get('FullName')?.hasError('required') && formGroup.get('FullName')?.touched)">
             Please fill Name...! </div>
@@ -69,7 +69,7 @@
             formControlName="DateOfBirth" [ngClass]="{ 'is-invalid': f.DateOfBirth.errors && f.DateOfBirth.touched}"
             bsDatepicker [(ngModel)]="model.DateOfBirth" [maxDate]="maxDate"
             [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', adaptivePosition: true,isAnimated: true, showWeekNumbers: false }">
-          <i class="fas fa-calendar-alt"></i>
+          <i class="fas fa-calendar-alt" (click)="datepickerYMD.toggle"></i>
           <div class="invalid-feedback"
             *ngIf="(formGroup.get('DateOfBirth')?.hasError('required') && formGroup.get('DateOfBirth')?.touched)">
             Please Select Date...! </div>
@@ -79,7 +79,7 @@
           <label>Father's Name</label>
           <input type="text" [(ngModel)]="model.FatherName" formControlName="FatherName"
             [ngClass]="{ 'is-invalid': f.FatherName.errors && f.FatherName.touched}" class="form-control" id="input3"
-            placeholder="father name">
+            placeholder="Father name">
           <div class="invalid-feedback"
             *ngIf="(formGroup.get('FatherName')?.hasError('required') && formGroup.get('FatherName')?.touched)">
             Please fill Father Name...! </div>
@@ -89,7 +89,7 @@
           <input type="text" [(ngModel)]="model.User.Mobile" (keypress)="_commonService.NumberOnly($event)"
             [minlength]="10" [maxLength]="12" formControlName="Mobile"
             [ngClass]="{ 'is-invalid': f.Mobile.errors && f.Mobile.touched}" class="form-control" id="input4"
-            placeholder="mobile number">
+            placeholder="Mobile number">
           <div class="invalid-feedback"
             *ngIf="(formGroup.get('Mobile')?.hasError('required') && formGroup.get('Mobile')?.touched)">
             Please fill Mobile number...! </div>
@@ -126,7 +126,7 @@
 
           <ng-select formControlName="Qualification" [items]="dropDown!.ddlQualification"
             [ngClass]="{ 'is-invalid': f.Qualification.errors && f.Qualification.touched}" bindLabel="Text"
-            bindValue="Value" placeholder="qualification" appendTo="body" [(ngModel)]="model.QualificationId">
+            bindValue="Value" placeholder="Qualification" appendTo="body" [(ngModel)]="model.QualificationId">
           </ng-select>
           <div class="invalid-feedback"
             *ngIf="(formGroup.get('Qualification')?.hasError('required') && formGroup.get('Qualification')?.touched)">
@@ -136,7 +136,7 @@
         <div class="form-group col-md-4">
           <label>Email ID</label>
           <input type="email" formControlName="Email" [ngClass]="{ 'is-invalid': f.Email.errors && f.Email.touched}"
-            [(ngModel)]="model.User.Email" class="form-control" id="input3" placeholder="email id">
+            [(ngModel)]="model.User.Email" class="form-control" id="input3" placeholder="Email id">
           <div class="invalid-feedback"
             *ngIf="(formGroup.get('Email')?.hasError('required') && formGroup.get('Email')?.touched)">
             Please fill Email...! </div>
@@ -180,7 +180,7 @@
         </div>
         <div class="form-group col-md-12">
           <label>Address</label>
-          <textarea class="form-control" placeholder="enter  here address "
+          <textarea class="form-control" placeholder="Enter here address "
             [ngClass]="{ 'is-invalid': f.Address.errors && f.Address.touched}" [(ngModel)]="model.Address"
             id="exampleFormControlTextarea1" formControlName="Address" rows="3"></textarea>
           <div class="invalid-feedback"
@@ -192,7 +192,7 @@
           <label>Pincode</label>
           <input type="text" [(ngModel)]="model.PinCode" (keypress)="_commonService.NumberOnly($event)" [minlength]="6"
             [maxLength]="6" formControlName="PinCode"  (blur)="getAreaByPincode($any($event.target).value)" [ngClass]="{ 'is-invalid': f.PinCode.errors && f.PinCode.touched}"
-            class="form-control" id="input4" placeholder="pincode">
+            class="form-control" id="input4" placeholder="Pincode">
           <div class="invalid-feedback"
             *ngIf="(formGroup.get('PinCode')?.hasError('required') && formGroup.get('PinCode')?.touched)">
             Please fill Pin Code...! </div>
@@ -211,7 +211,7 @@
         <!-- <div class="form-group col-md-4">
           <label>District</label>
           <ng-select [ngClass]="{ 'is-invalid': f.District?.errors && f.District?.touched}"
-            [items]="dropDown!.ddlDistrict" bindLabel="Text" bindValue="Value" placeholder="district" appendTo="body"
+            [items]="dropDown!.ddlDistrict" bindLabel="Text" bindValue="Value" placeholder="District" appendTo="body"
             [(ngModel)]="model.DistrictId" formControlName="District">
           </ng-select>
           <div class="invalid-feedback"

@@ -52,7 +52,7 @@
             <div class="col-lg-9 col-xl-10 row m-0">
                 <div class="form-group col-md-4">
                     <label>Full Name</label>
-                    <input type="text" formControlName="FullName" [(ngModel)]="model.FullName" formControlName="FullName" [ngClass]="{ 'is-invalid': f.FullName.errors && f.FullName.touched}" class="form-control" id="input1" placeholder="full name">
+                    <input type="text" formControlName="FullName" [(ngModel)]="model.FullName" formControlName="FullName" [ngClass]="{ 'is-invalid': f.FullName.errors && f.FullName.touched}" class="form-control" id="input1" placeholder="Full name">
                     <div class="invalid-feedback" *ngIf="(formGroup.get('FullName')?.hasError('required') && formGroup.get('FullName')?.touched)">
                         enter full name</div>
 
@@ -62,14 +62,14 @@
                     <label>Date of birth</label>
                     <input class="form-control" #datepickerYMD="bsDatepicker" placeholder="DD-MM-YYYY" formControlName="DateOfBirth" [ngClass]="{ 'is-invalid': f.DateOfBirth.errors && f.DateOfBirth.touched}" bsDatepicker [(ngModel)]="model.DateOfBirth" [maxDate]="maxDate"
                         [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', adaptivePosition: true,isAnimated: true, showWeekNumbers: false }">
-                    <i class="fas fa-calendar-alt"></i>
+                    <i class="fas fa-calendar-alt" (click)="datepickerYMD.toggle()"></i>
                     <div class="invalid-feedback" *ngIf="(formGroup.get('DateOfBirth')?.hasError('required') && formGroup.get('DateOfBirth')?.touched)">
                         select date of birth </div>
 
                 </div>
                 <div class="form-group col-md-4">
                     <label>Father's Name</label>
-                    <input type="text" [(ngModel)]="model.FatherName" formControlName="FatherName" [ngClass]="{ 'is-invalid': f.FatherName.errors && f.FatherName.touched}" class="form-control" id="input3" placeholder="father name">
+                    <input type="text" [(ngModel)]="model.FatherName" formControlName="FatherName" [ngClass]="{ 'is-invalid': f.FatherName.errors && f.FatherName.touched}" class="form-control" id="input3" placeholder="Father name">
                     <div class="invalid-feedback" *ngIf="(formGroup.get('FatherName')?.hasError('required') && formGroup.get('FatherName')?.touched)">
                         enter father name</div>
                 </div>
@@ -107,7 +107,7 @@
                 <div class="form-group col-md-4">
                     <label>Qualification</label>
 
-                    <ng-select formControlName="Qualification" [items]="dropDown!.ddlQualification" [ngClass]="{ 'is-invalid': f.Qualification.errors && f.Qualification.touched}" bindLabel="Text" bindValue="Value" placeholder="qualification" appendTo="body" [(ngModel)]="model.QualificationId">
+                    <ng-select formControlName="Qualification" [items]="dropDown!.ddlQualification" [ngClass]="{ 'is-invalid': f.Qualification.errors && f.Qualification.touched}" bindLabel="Text" bindValue="Value" placeholder="Qualification" appendTo="body" [(ngModel)]="model.QualificationId">
                     </ng-select>
                     <div class="invalid-feedback" *ngIf="(formGroup.get('Qualification')?.hasError('required') && formGroup.get('Qualification')?.touched)">
                         Please Select Qualification...! </div>
@@ -115,7 +115,7 @@
 
                 <div class="form-group col-md-4">
                     <label>Personal Email ID</label>
-                    <input type="email" formControlName="Email" [ngClass]="{ 'is-invalid': f.Email.errors && f.Email.touched}" [(ngModel)]="model.User.Email" class="form-control" id="input3" placeholder="email id">
+                    <input type="email" formControlName="Email" [ngClass]="{ 'is-invalid': f.Email.errors && f.Email.touched}" [(ngModel)]="model.User.Email" class="form-control" id="input3" placeholder="Email id">
                     <div class="invalid-feedback" *ngIf="(formGroup.get('Email')?.hasError('required') && formGroup.get('Email')?.touched)">
                         enter email id</div>
                     <div class="invalid-feedback" *ngIf="!formGroup.get('Email')?.hasError('required') && formGroup.get('Email')?.touched && formGroup.get('Email')?.invalid">
