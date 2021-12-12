@@ -407,7 +407,7 @@
               [ngClass]="{ 'is-invalid': f4.DateofAppointment.errors && f4.DateofAppointment.touched}" bsDatepicker
               [(ngModel)]="model.AppointmentDetail.AppointmentDate"
               [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', adaptivePosition: true,isAnimated: true, showWeekNumbers: false }">
-            <i class="fas fa-calendar-alt"></i>
+            <i class="fas fa-calendar-alt" (click)="datepickerYMD.toggle()"></i>
             <div class="invalid-feedback"
               *ngIf="(leadFromAppointmentDetail.get('DateofAppointment')?.hasError('required') && leadFromAppointmentDetail.get('DateofAppointment')?.touched)">
               select date of Appointment </div>

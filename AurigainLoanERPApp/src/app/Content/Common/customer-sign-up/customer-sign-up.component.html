@@ -56,10 +56,7 @@
                       formControlName="dob" [ngClass]="{ 'is-invalid': f1.dob.errors && f1.dob.touched}" bsDatepicker
                       [(ngModel)]="model.DateOfBirth"
                       [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', adaptivePosition: true,isAnimated: true, showWeekNumbers: false }">
-                    <i class="fas fa-calendar-alt"  (click)="datepicker.toggle()" ></i>
-
-                    <!-- <input class="form-control" type="date" placeholder="DD-MM-YYYY" [(ngModel)]="Model.DateOfBirth"
-                      formControlName="dob" [ngClass]="{ 'is-invalid': f1.dob.errors && f1.dob.touched}"> -->
+                    <i class="fas fa-calendar-alt" (click)="datepicker.toggle()"></i>
                     <div class="invalid-feedback"
                       *ngIf="(registrationFromStepOne.get('dob')?.hasError('required') && registrationFromStepOne.get('dob')?.touched)">
                       select date of birth</div>

@@ -74,11 +74,11 @@
 
               <div class="form-group col-md-4 date-icon-with-label">
                 <label>Date of birth</label>
-                <input class="form-control" #datepickerYMD="bsDatepicker" placeholder="DD-MM-YYYY" formControlName="dob"
+                <input class="form-control" #datepickerApp="bsDatepicker" placeholder="DD-MM-YYYY" formControlName="dob"
                   [ngClass]="{ 'is-invalid': f1.dob.errors && f1.dob.touched}" bsDatepicker
                   [(ngModel)]="model.DateOfBirth"
                   [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', adaptivePosition: true,isAnimated: true, showWeekNumbers: false }">
-                <i class="fas fa-calendar-alt"></i>
+                <i class="fas fa-calendar-alt" (click)="datepickerApp.toggle()"></i>
                 <div class="invalid-feedback"
                   *ngIf="(registrationFromStepOne.get('dob')?.hasError('required') && registrationFromStepOne.get('dob')?.touched)">
                   select date of birth</div>
