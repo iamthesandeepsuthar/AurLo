@@ -6,6 +6,7 @@ import { DropDown_key } from '../../../constants';
 import { CommonService } from 'src/app/Shared/Services/common.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { GoldLoanLeadsService } from 'src/app/Shared/Services/Leads/gold-loan-leads.service';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-lead-status-popup',
@@ -16,17 +17,28 @@ import { GoldLoanLeadsService } from 'src/app/Shared/Services/Leads/gold-loan-le
 export class LeadStatusPopupComponent implements OnInit {
   dropDown = new DropDownModel();
   model = new LeadStatusModel();
+  formgrp!: FormGroup;
   get ddlkeys() { return DropDown_key };
-  constructor(private readonly _commonService: CommonService,private readonly _freshLead: GoldLoanLeadsService,private readonly _toast: ToastrService,
-    public dialogRef: MatDialogRef<LeadStatusPopupComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { Id: number, Type: string }) {
+  get f() { return this.formgrp.controls; }
+  constructor(private readonly fb: FormBuilder,
+              private readonly _commonService: CommonService,
+              private readonly _freshLead: GoldLoanLeadsService,
+              private readonly _toast: ToastrService,
+              public dialogRef: MatDialogRef<LeadStatusPopupComponent>,
+             @Inject(MAT_DIALOG_DATA) public data: { Id: number, Type: string }) {
   }
   ngOnInit(): void {
+    this.formInit();
     this.GetDropDown();
-    alert(this.data.Id);
+  }
+  formInit() {
+    this.formgrp = this.fb.group({
+      status: [undefined, Validators.required],
+      Remark: [undefined]
+    });
   }
   GetDropDown() {
-    let serve = this._commonService.GetDropDown([this.ddlkeys.ddlLeadApprovalStatus]).subscribe(res => {
+    let serve = this._commonService.GetDropDown([this.ddlkeys.ddlLeadStatus]).subscribe(res => {
       serve.unsubscribe();
       if (res.IsSuccess) {
         let dropdownList = res?.Data as DropDownModel;
@@ -37,12 +49,15 @@ export class LeadStatusPopupComponent implements OnInit {
   onSubmit() {
     this.model.LeadId = this.data.Id;
     this.model.ActionDate = new Date();
+    debugger;
    let subscription =  this._freshLead.LeadStatus(this.model).subscribe(response => {
      subscription.unsubscribe();
       if(response.IsSuccess) {
-    this.onClose();
+       debugger;
+        this.onClose();
     } else {
      this._toast.error(response.Message  as string , 'Server Error');
+     this.dialogRef.close(false);
      return;
     }
     });
