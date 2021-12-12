@@ -54,7 +54,8 @@ const SharedComponent = [
   FileSelectorComponent,
   ChangePasswordPopupComponent,
   UserKYCDocumentDetailComponent,
-
+  LeadStatusPopupComponent,
+  LeadApprovalPopupComponent,
 ];
 const SharedEntryComponent = [
   ChangePasswordPopupComponent,

@@ -10,17 +10,17 @@ import { DropDown_key } from "../../../constants";
   selector: 'app-lead-approval-popup',
   templateUrl: './lead-approval-popup.component.html',
   styleUrls: ['./lead-approval-popup.component.scss'],
-  providers:[BalanceTransferGoldLoanLeadsService]
+  providers: [BalanceTransferGoldLoanLeadsService]
 })
 export class LeadApprovalPopupComponent implements OnInit {
   dropDown = new DropDownModel();
-  model!: BtGoldLoanLeadApprovalStagePostModel;
+  model = new BtGoldLoanLeadApprovalStagePostModel();
   get ddlkeys() { return DropDown_key };
-  constructor(private readonly _commonService :CommonService,
+  constructor(private readonly _commonService: CommonService,
     public dialogRef: MatDialogRef<LeadApprovalPopupComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { Id: number, Type: string }) {
-      this.model = new BtGoldLoanLeadApprovalStagePostModel();
-     }
+
+  }
 
   ngOnInit(): void {
     this.GetDropDown();
