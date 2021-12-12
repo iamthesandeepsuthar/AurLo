@@ -130,6 +130,4 @@ namespace AurigainLoanERP.Shared.Enums
             Rejected = 2
         }
     }
-
-
 }

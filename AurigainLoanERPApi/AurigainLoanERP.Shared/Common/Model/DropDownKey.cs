@@ -15,6 +15,7 @@
         public const string ddlPaymentMode = "ddlpaymentmode";
         public const string ddlBank = "ddlbank";
         public const string ddlLeadApprovalStatus = "ddlleadapprovalstatus";
+        public const string ddlLeadStatus = "ddlleadstatus";
 
 
 

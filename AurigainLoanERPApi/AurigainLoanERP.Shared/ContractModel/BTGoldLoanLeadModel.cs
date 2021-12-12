@@ -132,6 +132,17 @@ namespace AurigainLoanERP.Shared.ContractModel
         public int? ApprovalStatus { get; set; } 
         public string Remarks { get; set; }
     }
+    public class BtGoldLoanLeadApprovalStageViewModel
+    {
+        public long Id { get; set;}
+        public string LeadApproveByUser { get; set; }
+        public long LeadApproveByUserId { get; set; }
+        public long LeadId { get; set;}
+        public int? ApprovalStatus { get; set; }
+        public string Remarks { get; set; }
+    }
+
+
     public class BtGoldLoanLeadAddressViewModel
     {
         public long Id { get; set; }
@@ -158,6 +169,8 @@ namespace AurigainLoanERP.Shared.ContractModel
         public string BankName { get; set; }
         public DateTime? AppointmentDate { get; set; }
         public string AppointmentTime { get; set; }
+        public DateTime ActionDate { get; set;}
+
     }
     public class BtGoldLoanLeadDocumentViewModel
     {
@@ -206,7 +219,6 @@ namespace AurigainLoanERP.Shared.ContractModel
         public string PoadocumentType { get; set; }
 
     }
-
     public class FileModel
     {
 

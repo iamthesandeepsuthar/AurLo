@@ -69,7 +69,6 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
         {
             return await _objBTLead.UpdateLeadApprovalStageAsync(model);
         }
-
     }
 
 }

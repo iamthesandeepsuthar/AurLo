@@ -214,3 +214,19 @@ export class AddressDetail {
   CorrespondState!: string;
   CorrespondDistrict!: string;
 }
+export class BtGoldLoanLeadApprovalStagePostModel {
+  LeadId!: number;
+  ApprovalStatus!: number | null;
+  Remarks!: string;
+}
+
+export class BtGoldLoanLeadApprovalStageViewModel {
+  Id!: number;
+  LeadApproveByUser!: string;
+  LeadApproveByUserId!: number;
+  LeadId!: number;
+  ApprovalStatus!: number | null;
+  Remarks!: string;
+  ActionDate!: Date;
+}
+

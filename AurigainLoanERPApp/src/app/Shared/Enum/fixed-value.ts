@@ -24,5 +24,4 @@ export enum ProductCategoryEnum {
   PersonalLoan = 2,
   CarLoan = 3,
   HomeLoan = 4,
-
 }

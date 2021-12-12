@@ -220,8 +220,6 @@ namespace AurigainLoanERP.Services.User
                             objAgentModel.User = _mapper.Map<UserViewModel>(objAgent.User ?? null);
                             objAgentModel.User.MPin = null;
                             objAgentModel.User.ProfilePath = !string.IsNullOrEmpty(objAgent.User.ProfilePath) ? objAgent.User.ProfilePath.ToAbsolutePath() : null;
-
-
                         }
 
                         if (objAgent.User.UserBank != null)
@@ -232,11 +230,9 @@ namespace AurigainLoanERP.Services.User
                         if (objAgent.User.UserReportingPersonUser != null)
                         {
                             objAgentModel.ReportingPerson = _mapper.Map<UserReportingPersonViewModel>(objAgent.User.UserReportingPersonUser.FirstOrDefault() ?? null);
-
                         }
                         if (objAgent.User.UserKyc != null)
                         {
-
                             objAgentModel.UserKYC = objAgent.User.UserKyc.Select(x => new UserKycViewModel
                             {
 
@@ -284,14 +280,12 @@ namespace AurigainLoanERP.Services.User
                                 });
 
                             }
-
                         }
                         if (objAgent.User.UserNominee != null)
                         {
                             objAgentModel.UserNominee = _mapper.Map<UserNomineeViewModel>(objAgent.User.UserNominee.FirstOrDefault() ?? null);
 
                         }
-
                         objAgentModel.User.UserRoleName = objAgent.User.UserRole.Name;
                         objAgentModel.DistrictName = objAgent.AreaPincode.District.Name;
                         objAgentModel.StateName = objAgent.AreaPincode.District.State.Name;

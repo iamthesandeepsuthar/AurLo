@@ -179,7 +179,7 @@ export class BalanceTransferGoldLoanLeadsComponent implements OnInit {
   onChangeLeadApproveStage(Id: number) {
     const dialogRef = this.dialog.open(LeadApprovalPopupComponent, {
       data: { Id: Id as number, Type: "BTTRANSFER" as string },
-      width: '350px',
+      width: '400px',
 
     });
 

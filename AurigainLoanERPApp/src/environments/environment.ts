@@ -4,5 +4,5 @@ export const environment = {
   apiEndPoint: "http://localhost:62741/api/",
   // apiEndPoint: "http://api.allaboutitdemo.co.in/api/",
   IsAutoLogin: false,
-  IsPermissionMenu: false
+  IsPermissionMenu: true
 };
