@@ -86,15 +86,19 @@
                   </div>
                 </div>
                 <div class="step-form-btn-grp mt-3">
-                  <button mat-button matStepperNext type="button" class="btn btn-primary"
-                    (click)="registrationFromStepOne.markAllAsTouched()"> <i class="fas fa-check mr-1"></i> Save &
-                    Next</button>
+                  <!-- <button mat-button matStepperNext type="button" class="btn btn-primary"
+                    (click)="registrationFromStepOne.markAllAsTouched()">
+                    <i class="fas fa-check mr-1"></i> Save & Next</button> -->
+
+                  <button mat-button type="submit" (click)="onSubmit()" class="btn btn-primary">
+                    <i class="fas fa-check mr-1"></i> Register</button>
+
                 </div>
               </div>
             </ng-template>
           </form>
         </mat-step>
-        <mat-step [stepControl]="registrationFromStepTwo">
+        <mat-step *ngIf="false" [stepControl]="registrationFromStepTwo">
           <form [formGroup]="registrationFromStepTwo" (ngSubmit)="onSubmit()">
 
             <ng-template matStepLabel>Document's Detail</ng-template>
@@ -179,7 +183,7 @@
             </ng-template>
           </form>
         </mat-step>
-        <mat-step [stepControl]="registrationFromStepThird">
+        <mat-step *ngIf="false" [stepControl]="registrationFromStepThird">
           <form [formGroup]="registrationFromStepThird" (ngSubmit)="onSubmit()">
 
             <ng-template matStepLabel>Address Detail </ng-template>

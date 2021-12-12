@@ -242,7 +242,7 @@
                                 <img src="assets/img/user-default.jpg" alt="">
                             </div>
                             <div class="dropdown-item-name text-center">
-                                {{userLoginModel.UserName ?? ''}}
+                                {{userLoginModel?.UserName ?? ''}}
                             </div>
                             <a class="text-danger pb-0" href="javascript:void(0)" (click)="openChangePasswordDialog()">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-shield-lock" viewBox="0 0 16 16">

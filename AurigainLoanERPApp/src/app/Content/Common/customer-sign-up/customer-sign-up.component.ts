@@ -96,7 +96,7 @@ export class CustomerSignUpComponent implements OnInit {
     this.registrationFromStepThird = this.fb.group({
       pincode: [undefined],
       address: [undefined],
-      area: [undefined, Validators.required],
+      area: [undefined], //Validators.required
     });
 
 
@@ -157,7 +157,7 @@ export class CustomerSignUpComponent implements OnInit {
     //   this.toast.info('Please select kyc document', 'Required');
     //   return;
     // }
-
+debugger
     this.registrationFromStepOne.markAllAsTouched();
     this.registrationFromStepTwo.markAllAsTouched();
     this.registrationFromStepThird.markAllAsTouched();
