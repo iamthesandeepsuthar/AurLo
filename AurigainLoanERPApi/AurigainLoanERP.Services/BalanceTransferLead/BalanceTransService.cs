@@ -125,20 +125,15 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
             try
             {
 
-                IQueryable<BtgoldLoanLead> result;
-                if (_loginUserDetail.RoleId == (int)UserRoleEnum.SuperAdmin || _loginUserDetail.RoleId == (int)(UserRoleEnum.Admin) || _loginUserDetail.RoleId == (int)(UserRoleEnum.WebOperator))
-                {
-                    result = (from goldLoanLead in _db.BtgoldLoanLead
-                              where !goldLoanLead.IsDelete && (string.IsNullOrEmpty(model.Search) || goldLoanLead.FullName.Contains(model.Search) || goldLoanLead.FatherName.Contains(model.Search) || goldLoanLead.Gender.Contains(model.Search) || goldLoanLead.BtgoldLoanLeadAddressDetail.FirstOrDefault().AeraPincode.Pincode.Contains(model.Search)) || goldLoanLead.Product.Name.Contains(model.Search)
-                              select goldLoanLead);
-                }
-                else
-                {
-                    result = (from goldLoanLead in _db.BtgoldLoanLead
-                              where !goldLoanLead.IsDelete && (_loginUserDetail.RoleId == (int)UserRoleEnum.Customer ? goldLoanLead.CustomerUserId == _loginUserDetail.UserId : goldLoanLead.LeadSourceByuserId == _loginUserDetail.UserId) && (string.IsNullOrEmpty(model.Search) || goldLoanLead.FullName.Contains(model.Search) || goldLoanLead.FatherName.Contains(model.Search) || goldLoanLead.Gender.Contains(model.Search) || goldLoanLead.BtgoldLoanLeadAddressDetail.FirstOrDefault().AeraPincode.Pincode.Contains(model.Search)) ||
+                
+                var IsShowAll = _loginUserDetail.RoleId == (int)UserRoleEnum.SuperAdmin || _loginUserDetail.RoleId == (int)(UserRoleEnum.Admin) || _loginUserDetail.RoleId == (int)(UserRoleEnum.WebOperator) ? true : false;
+
+               
+                var result = (from goldLoanLead in _db.BtgoldLoanLead
+                              where !goldLoanLead.IsDelete && (IsShowAll ? true : (_loginUserDetail.RoleId == (int)UserRoleEnum.Customer ? goldLoanLead.CustomerUserId == _loginUserDetail.UserId : goldLoanLead.LeadSourceByuserId == _loginUserDetail.UserId)) && (string.IsNullOrEmpty(model.Search) || goldLoanLead.FullName.Contains(model.Search) || goldLoanLead.FatherName.Contains(model.Search) || goldLoanLead.Gender.Contains(model.Search) || goldLoanLead.BtgoldLoanLeadAddressDetail.FirstOrDefault().AeraPincode.Pincode.Contains(model.Search)) ||
                               goldLoanLead.Product.Name.Contains(model.Search)
                               select goldLoanLead);
-                }
+             
 
                 switch (model.OrderBy)
                 {
@@ -162,7 +157,7 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                         break;
                 }
 
-                var data = result.Skip(((model.Page == 0 ? 1 : model.Page) - 1) * (model.PageSize != 0 ? model.PageSize : int.MaxValue)).Take(model.PageSize != 0 ? model.PageSize : int.MaxValue);
+                var data = result.Skip(((model.Page == 0 ? 1 : model.Page) - 1) * (model.PageSize != 0 ? model.PageSize : int.MaxValue)).Take(model.PageSize != 0 ? model.PageSize : int.MaxValue).Include(x => x.BtgoldLoanLeadApprovalActionHistory).ThenInclude(x=>x.ActionTakenByUser).ThenInclude(x=> x.UserRole);
 
                 objResponse.Data = await (from detail in data
                                           where detail.IsDelete == false
@@ -179,10 +174,10 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                                               Email = detail.EmailId,
                                               IsActive = detail.IsActive.Value,
                                               ProductName = detail.Product.Name,
+                                              IsStatusCompleted = detail.BtgoldLoanLeadStatusActionHistory.Where(x=> x.LeadStatus.Value == ((int)LeadStatus.Completed)).Count() >0 ? true:false,
                                               Pincode = detail.BtgoldLoanLeadAddressDetail.FirstOrDefault().AeraPincode.Pincode,
-                                              ApprovedStage = detail.BtgoldLoanLeadApprovalActionHistory.Count > 0 ? _db.BtgoldLoanLeadApprovalActionHistory.LastOrDefault(z => z.LeadId == detail.Id && z.ActionTakenByUserId.HasValue).ActionTakenByUser.UserRole.UserRoleLevel.Value
-                                               : (int?)null
-
+                                              ApprovedStage = detail.BtgoldLoanLeadApprovalActionHistory.Count > 0 ? 
+                                              detail.BtgoldLoanLeadApprovalActionHistory.OrderByDescending(x=>x.Id).FirstOrDefault(x => x.ActionTakenByUserId.HasValue).ActionTakenByUser.UserRole.UserRoleLevel.Value  : (int?)null 
                                           }).ToListAsync();
                 if (result != null)
                 {
@@ -425,6 +420,30 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                 };
 
                 var result = await _db.BtgoldLoanLeadApprovalActionHistory.AddAsync(objModel);
+                await _db.SaveChangesAsync();
+                return CreateResponse<object>(true, ResponseMessage.Save, true, ((int)ApiStatusCode.Ok));
+            }
+            catch (Exception)
+            {
+                return CreateResponse<object>(false, ResponseMessage.Fail, false, ((int)ApiStatusCode.ServerException));
+
+            }
+
+        }
+
+        public async Task<ApiServiceResponseModel<object>> UpdateLeadStatusAsync(LeadStatusModel model)
+        {
+            try
+            {
+                var objModel = new BtgoldLoanLeadStatusActionHistory()
+                {
+                    LeadId = model.LeadId,
+                    ActionDate = DateTime.Now,
+                    ActionTakenByUserId = _loginUserDetail.UserId,
+                    Remarks = !string.IsNullOrEmpty(model.Remark) ? model.Remark : null,
+                    LeadStatus = model.LeadStatus,
+                };
+                var result = await _db.BtgoldLoanLeadStatusActionHistory.AddAsync(objModel);
                 await _db.SaveChangesAsync();
                 return CreateResponse<object>(true, ResponseMessage.Save, true, ((int)ApiStatusCode.Ok));
             }

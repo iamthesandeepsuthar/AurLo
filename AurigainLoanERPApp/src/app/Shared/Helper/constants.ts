@@ -176,7 +176,7 @@ export class API_Url {
   public static Gold_Loan_Fresh_Lead__Detail_Api = `${environment.apiEndPoint}GoldLoanFreshLead/GoldLoanFreshLeadDetail/`;
   public static Gold_Loan_Fresh_Lead__Delete_Api = `${environment.apiEndPoint}GoldLoanFreshLead/DeleteProduct/`;
   public static Gold_Loan_Fresh_Lead__ActiveStatus_Api = `${environment.apiEndPoint}GoldLoanFreshLead/UpdateActiveStatus/`;
-  public static Lead_Status_Change_Api = `${environment.apiEndPoint}GoldLoanFreshLead/UpdateLeadStatus`;
+  public static Gold_Loan_Fresh_Lead_Status_Change_Api = `${environment.apiEndPoint}GoldLoanFreshLead/UpdateLeadStatus`;
   //#endregion
   //#region <<Personal - Car - Home - Loan >>
   public static Personal_Home_Car_Loan_List_Api = `${environment.apiEndPoint}GoldLoanFreshLead/PersonalHomeCarLoanList`
@@ -188,7 +188,9 @@ export class API_Url {
   public static BT_Gold_Loan_Lead__Detail_Api = `${environment.apiEndPoint}GoldLoanBalanceTransfer/DetailById/`;
   public static BT_Gold_Loan_Lead__AddUpdateInternalLead_Api = `${environment.apiEndPoint}GoldLoanBalanceTransfer/AddUpdateBTGoldLoanExternalLead`;
  public static  BT_Gold_Loan_Lead_Approval_Status_Api =`${environment.apiEndPoint}GoldLoanBalanceTransfer/UpdateLeadApprovalStage`
-  //#endregion
+ public static BT_Gold_Loan_Lead_Status_Change_Api = `${environment.apiEndPoint}GoldLoanBalanceTransfer/UpdateLeadStatus`;
+
+ //#endregion
 }
 
 export class Routing_Url {
