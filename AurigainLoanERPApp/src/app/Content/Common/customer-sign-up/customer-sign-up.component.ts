@@ -153,10 +153,10 @@ export class CustomerSignUpComponent implements OnInit {
     this.registrationFromStepTwo.get("documentNumber")?.updateValueAndValidity();
   }
   onSubmit() {
-    if (this.model.KycDocuments.length < 1) {
-      this.toast.info('Please select kyc document', 'Required');
-      return;
-    }
+    // if (this.model.KycDocuments.length < 1) {
+    //   this.toast.info('Please select kyc document', 'Required');
+    //   return;
+    // }
 
     this.registrationFromStepOne.markAllAsTouched();
     this.registrationFromStepTwo.markAllAsTouched();
