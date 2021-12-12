@@ -1,50 +1,43 @@
-
 <!-- Lead Approval Modal  Start -->
-<div id="Modal-Lead-Approval">
-  <div class="" role="document">
-    <div class="">
+<div id="Modal-Lead-Approval" class="custom-modal">
+    <div class="modal-content">
 
-      <div class="widget-header">
-        <h5 class="modal-title m-0">Lead Status</h5>
-        <button type="button" (click)="onClose()" class="close" data-dismiss="modal" aria-label="Close">
+        <div class="modal-header p-3">
+            <h5 class="modal-title m-0">Lead Status</h5>
+            <button type="button" (click)="onClose()" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-      </div>
-      <div class="px-4 pt-4 pb-0">
-        <form [formGroup]="formgrp" (ngSubmit)="onSubmit()">
-          <div class="form-row">
-            <div class="form-group col-md-12">
-              <label>Status <strong class="text-danger ml-1">*</strong></label>
-              <select [(ngModel)]="model.LeadStatus" formControlName="status"[ngClass]="{ 'is-invalid': f.status.errors && f.status.touched}">
+        </div>
+        <div class="px-3 pt-3 pb-0">
+            <form [formGroup]="formgrp" (ngSubmit)="onSubmit()">
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label>Status <strong class="text-danger ml-1">*</strong></label>
+                        <select class="form-control" [(ngModel)]="model.LeadStatus" formControlName="status" [ngClass]="{ 'is-invalid': f.status.errors && f.status.touched}">
                 <option *ngFor="let data of dropDown!.ddlLeadStatus" [value]="data.Value">
                   {{data.Text}}
                 </option>
               </select>
-              <div class="invalid-feedback"
-                *ngIf="(formgrp.get('status')?.hasError('required') && formgrp.get('status')?.touched)">
-                Please select <strong>Status</strong>...!</div>
-            </div>
+                        <div class="invalid-feedback" *ngIf="(formgrp.get('status')?.hasError('required') && formgrp.get('status')?.touched)">
+                            Please select <strong>Status</strong>...!</div>
+                    </div>
 
-            <div class="form-group col-md-12">
-              <label>Remark</label>
-              <textarea class="form-control" [(ngModel)]="model.Remark" formControlName="Remark"
-                [ngClass]="{ 'is-invalid': f.Remark.errors && f.Remark.touched}" placeholder="Remark"
-                rows="3"></textarea>
-              <div class="invalid-feedback"
-                *ngIf="(formgrp.get('Remark')?.hasError('required') && formgrp.get('Remark')?.touched)">
-                Please Enter <strong>Remark</strong>...!</div>
-            </div>
-          </div>
-        </form>
-      </div>
-      <div class=" border-0">
-        <button type="submit" (click)="onSubmit()" class="btn btn-success"> <i class="fas fa-plus mr-1"></i>
-          Submit</button>
-        <button type="button" class="btn btn-outline-danger" data-dismiss="modal" aria-label="Close"><i
+                    <div class="form-group col-md-12">
+                        <label>Remark</label>
+                        <textarea class="form-control" [(ngModel)]="model.Remark" formControlName="Remark" [ngClass]="{ 'is-invalid': f.Remark.errors && f.Remark.touched}" placeholder="Remark" rows="3"></textarea>
+                        <div class="invalid-feedback" *ngIf="(formgrp.get('Remark')?.hasError('required') && formgrp.get('Remark')?.touched)">
+                            Please Enter <strong>Remark</strong>...!</div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer border-0 pt-0">
+            <button type="submit" (click)="onSubmit()" class="btn btn-success"> <i class="fas fa-check mr-1"></i>
+              Change Status</button>
+            <button type="button" class="btn btn-outline-danger" data-dismiss="modal" aria-label="Close"><i
             class="fas fa-times mr-1"></i> Cancel</button>
-      </div>
+        </div>
+
     </div>
-  </div>
 </div>
 <!-- Lead Approval Modal  End -->
-
