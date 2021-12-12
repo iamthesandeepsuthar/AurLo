@@ -11,6 +11,7 @@ namespace AurigainLoanERP.Services.FreshLead
         Task<ApiServiceResponseModel<string>> SaveGoldLoanFreshLeadAsync(GoldLoanFreshLeadModel model);
         Task<ApiServiceResponseModel<List<GoldLoanFreshLeadListModel>>> GoldLoanFreshLeadListAsync(IndexModel model);
         Task<ApiServiceResponseModel<GoldLoanFreshLeadViewModel>> FreshGoldLoanLeadDetailAsync(long id);
+        Task<ApiServiceResponseModel<object>> UpdateLeadStatusAsync(LeadStatusModel model);
         #endregion
         #region <<Other Lead>>
         Task<ApiServiceResponseModel<string>> SaveFreshLeadHLCLPLAsync(FreshLeadHLPLCLModel model);

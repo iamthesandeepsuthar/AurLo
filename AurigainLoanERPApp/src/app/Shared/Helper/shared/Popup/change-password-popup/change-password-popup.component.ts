@@ -125,5 +125,9 @@ export class ChangePasswordPopupComponent implements OnInit {
     });
   }
 
+  onClose() {
+    this.dialogRef.close(false);
+  }
 
+  
 }
