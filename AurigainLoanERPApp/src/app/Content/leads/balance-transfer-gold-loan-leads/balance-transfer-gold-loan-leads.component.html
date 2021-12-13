@@ -152,6 +152,12 @@
               data-placement="bottom" title="Approval History"> <i class="fa fa-info-circle" aria-hidden="true"></i>
             </a>
 
+            <a  (click)="onOpenStatusHistory(row.Id)"
+            href="javascript:void(0)" class="table-action-btn-lead-approval text-info" data-toggle="tooltip"
+            data-placement="bottom" title="Status History"> <i class="fa fa-info-circle" aria-hidden="true"></i>
+          </a>
+
+
           </td>
         </ng-container>
 
