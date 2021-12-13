@@ -5,7 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ProductCategoryEnum } from 'src/app/Shared/Enum/fixed-value';
 import { AuthService } from 'src/app/Shared/Helper/auth.service';
 import { DropDownModel } from 'src/app/Shared/Helper/common-model';
-import { DropDown_key, Message } from 'src/app/Shared/Helper/constants';
+import { DropDown_key, Message, Routing_Url } from 'src/app/Shared/Helper/constants';
 import { GoldLoanFreshLeadModel } from 'src/app/Shared/Model/Leads/gold-loan-fresh-lead.model';
 import { DDLBranchModel } from 'src/app/Shared/Model/master-model/bank-model.model';
 import { DDLDocumentTypeModel } from 'src/app/Shared/Model/master-model/document-type.model';
@@ -137,12 +137,8 @@ export class AddUpdateFreshGoldLoanLeadComponent implements OnInit {
       this._goldLoanLeadService.AddUpdate(this.model).subscribe(res => {
         if (res.IsSuccess) {
           this.toast.success(Message.SaveSuccess);
-          this.leadFromPersonalDetail.reset();
-          this.leadFromDocumentDetail.reset();
-          this.leadFromJewelleryDetail.reset();
-          this.leadFromAppointmentDetail.reset();
-          this.model = new GoldLoanFreshLeadModel();
-          this._router.navigate(['/user-customer/gold-loan-leads'])
+       
+          this._router.navigate([`${Routing_Url.Lead_Module}/${Routing_Url.Fresh_Lead_List_Url}`]);
 
         } else {
           this.toast.success(Message.SaveFail);

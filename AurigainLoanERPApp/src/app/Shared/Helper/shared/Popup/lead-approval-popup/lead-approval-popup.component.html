@@ -1,43 +1,49 @@
 <!-- Lead Approval Modal  Start -->
 <div id="Modal-Lead-Approval" class="custom-modal">
-    <div class="modal-content">
+  <div class="modal-content">
 
-        <div class="modal-header p-3">
-            <h5 class="modal-title m-0">Lead Approval</h5>
-            <button type="button" (click)="onClose()" class="close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-        </div>
-        <div class="px-3 pt-3 pb-0">
-            <form [formGroup]="formgrp" (ngSubmit)="onSubmit()">
-                <div class="form-row">
-                    <div class="form-group col-md-12">
-                        <label>Status <strong class="text-danger ml-1">*</strong></label>
-                        <select class="form-control" [(ngModel)]="model.ApprovalStatus" formControlName="ApprovalStatus" [ngClass]="{ 'is-invalid': f.ApprovalStatus.errors && f.ApprovalStatus.touched}">
-                <option *ngFor="let approvalStatus of dropDown!.ddlLeadApprovalStatus" [value]="approvalStatus.Value">
-                  {{approvalStatus.Text}}
-                </option>
-              </select>
-                        <div class="invalid-feedback" *ngIf="(formgrp.get('ApprovalStatus')?.hasError('required') && formgrp.get('ApprovalStatus')?.touched)">
-                            Please select <strong>Status</strong>...!</div>
-                    </div>
-
-                    <div class="form-group col-md-12">
-                        <label>Remarks</label>
-                        <textarea class="form-control" [(ngModel)]="model.Remarks" formControlName="Remarks" [ngClass]="{ 'is-invalid': f.Remarks.errors && f.Remarks.touched}" placeholder="Remarks" rows="3"></textarea>
-                        <div class="invalid-feedback" *ngIf="(formgrp.get('Remarks')?.hasError('required') && formgrp.get('ApprovalStatus')?.touched)">
-                            Please Enter <strong>Remarks</strong>...!</div>
-                    </div>
-                </div>
-            </form>
-        </div>
-        <div class="modal-footer border-0 pt-0">
-            <button type="submit" (click)="onSubmit()" class="btn btn-success"> <i class="fas fa-check mr-1"></i>
-          Change Status</button>
-            <button type="button" (click)="onClose()" class="btn btn-outline-danger" aria-label="Close"><i
-            class="fas fa-times mr-1"></i> Cancel</button>
-        </div>
-
+    <div class="modal-header p-3">
+      <h5 class="modal-title m-0">Lead Approval</h5>
+      <button type="button" (click)="onClose()" class="close">
+        <span aria-hidden="true">&times;</span>
+      </button>
     </div>
+    <div class="px-3 pt-3 pb-0">
+      <form [formGroup]="formgrp" (ngSubmit)="onSubmit()">
+        <div class="form-row">
+          <div class="form-group col-md-12">
+            <label>Status <strong class="text-danger ml-1">*</strong></label>
+            <select class="form-control" [(ngModel)]="model.ApprovalStatus" formControlName="ApprovalStatus"
+              [ngClass]="{ 'is-invalid': f.ApprovalStatus.errors && f.ApprovalStatus.touched}">
+              <option value="undefined">--Select Status--</option>
+              <option *ngFor="let approvalStatus of dropDown!.ddlLeadApprovalStatus" [value]="approvalStatus.Value">
+                {{approvalStatus.Text}}
+              </option>
+            </select>
+            <div class="invalid-feedback"
+              *ngIf="(formgrp.get('ApprovalStatus')?.hasError('required') && formgrp.get('ApprovalStatus')?.touched)">
+              Please select <strong>Status</strong>...!</div>
+          </div>
+
+          <div class="form-group col-md-12">
+            <label>Remarks</label>
+            <textarea class="form-control" [(ngModel)]="model.Remarks" formControlName="Remarks"
+              [ngClass]="{ 'is-invalid': f.Remarks.errors && f.Remarks.touched}" placeholder="Remarks"
+              rows="3"></textarea>
+            <div class="invalid-feedback"
+              *ngIf="(formgrp.get('Remarks')?.hasError('required') && formgrp.get('ApprovalStatus')?.touched)">
+              Please Enter <strong>Remarks</strong>...!</div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer border-0 pt-0">
+      <button type="submit" (click)="onSubmit()" class="btn btn-success"> <i class="fas fa-check mr-1"></i>
+        Change Status</button>
+      <button type="button" (click)="onClose()" class="btn btn-outline-danger" aria-label="Close"><i
+          class="fas fa-times mr-1"></i> Cancel</button>
+    </div>
+
+  </div>
 </div>
 <!-- Lead Approval Modal  End -->

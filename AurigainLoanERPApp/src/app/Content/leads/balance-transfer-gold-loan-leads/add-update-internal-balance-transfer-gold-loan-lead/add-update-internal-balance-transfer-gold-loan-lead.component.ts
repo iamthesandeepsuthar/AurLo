@@ -100,10 +100,7 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
       Branch: [undefined, undefined],
       DateofAppointment: [undefined, undefined],
       TimeofAppointment: [undefined, undefined],
-    });
-
-
-
+    }); 
   }
 
   onSubmit() {
@@ -133,12 +130,8 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
       this._balanceTransferService.AddUpdateInternalLead(this.model).subscribe(res => {
         if (res.IsSuccess) {
           this.toast.success(Message.SaveSuccess);
-          this.leadFromPersonalDetail.reset();
-          this.leadFromAddressDetail.reset();
 
-          this.leadFromAppointmentDetail.reset();
-          this.model = new BTGoldLoanLeadPostModel();
-          this._router.navigate([`${Routing_Url.UserBackendOperatorModule}/${Routing_Url.BT_GoldLoan_List_Url}`]);
+          this._router.navigate([`${Routing_Url.Lead_Module}/${Routing_Url.BT_GoldLoan_List_Url}`]);
 
         } else {
           this.toast.success(Message.SaveFail);

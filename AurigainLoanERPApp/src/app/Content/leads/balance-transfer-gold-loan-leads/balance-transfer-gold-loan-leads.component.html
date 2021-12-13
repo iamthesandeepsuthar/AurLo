@@ -13,7 +13,7 @@
       </nav>
       <!-- Breadcrumb End -->
     </div>
-    <a class="btn btn-dark btn-sm mt-2 mt-sm-0"
+    <a class="btn btn-dark btn-sm mt-2 mt-sm-0" *ngIf="this.userDetail!.RoleId != userRoleEnum.Customer"
       [routerLink]="'./'+routing_Url.Fresh_Lead_Add_Update_Internal_Lead_Url+'/0'">
       <i class="fas fa-plus"></i> Add Internal Lead</a>
   </div>
@@ -90,6 +90,17 @@
           </td>
         </ng-container>
 
+             <ng-container matColumnDef="LeadStatus">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>LeadStatus </th>
+          <td mat-cell *matCellDef="let element" class="table-action-btn">
+<div [ngSwitch]="element.LeadStatus">
+  <div *ngSwitchCase="'Completed'" class="badge bg-success">{{element.LeadStatus}}</div>
+  <div *ngSwitchDefault class="text-danger" >{{element.LeadStatus}}</div>
+</div>
+
+          </td>
+        </ng-container>
+
         <!-- <ng-container matColumnDef="IsApproved">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Approval </th>
           <td mat-cell *matCellDef="let element" class="table-action-btn">
@@ -116,11 +127,9 @@
                 <i *ngIf="!element.IsActive" class="fas fa-ban text-danger"></i>
               </a>
             </ng-template>
-
-
-
           </td>
         </ng-container>
+
 
         <ng-container matColumnDef="Action">
           <th width="150" mat-header-cell *matHeaderCellDef> Action </th>

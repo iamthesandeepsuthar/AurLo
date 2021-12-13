@@ -11,12 +11,14 @@ import { GoldLoanFreshLeadListModel } from 'src/app/Shared/Model/Leads/gold-loan
 import { CommonService } from 'src/app/Shared/Services/common.service';
 import { GoldLoanLeadsService } from 'src/app/Shared/Services/Leads/gold-loan-leads.service';
 import { UserSettingService } from 'src/app/Shared/Services/user-setting-services/user-setting.service';
+import { UserRoleEnum } from 'src/app/Shared/Enum/fixed-value';
+import { AuthService } from 'src/app/Shared/Helper/auth.service';
 
 @Component({
   selector: 'app-fresh-gold-loan-leads',
   templateUrl: './fresh-gold-loan-leads.component.html',
   styleUrls: ['./fresh-gold-loan-leads.component.scss'],
-  providers: [GoldLoanLeadsService,UserSettingService]
+  providers: [GoldLoanLeadsService, UserSettingService]
 })
 export class FreshGoldLoanLeadsComponent implements OnInit {
 
@@ -25,18 +27,20 @@ export class FreshGoldLoanLeadsComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort!: MatSort;
 
-  displayedColumns: string[] = ['index', 'FullName','FatherName' ,'PrimaryMobileNumber','LoanAmountRequired','LeadStatus' ,'LeadSourceByUserName','ProductName','Pincode', 'IsActive', 'Action'];
+  displayedColumns: string[] = ['index', 'FullName', 'FatherName', 'PrimaryMobileNumber', 'LoanAmountRequired', 'LeadStatus', 'LeadSourceByUserName', 'ProductName', 'Pincode', 'IsActive', 'Action'];
   ViewdisplayedColumns = [{ Value: 'FullName', Text: 'Full Name' },
   { Value: 'PrimaryMobileNumber', Text: 'Mobile Number' },
   { Value: 'LeadSourceByUserName', Text: 'Lead Source By' },
   { Value: 'LoanAmountRequired', Text: 'Loan Amount' },
-  {Value:'LeadStatus',Text:'Lead Status'},
+  { Value: 'LeadStatus', Text: 'Lead Status' },
   { Value: 'FatherName', Text: 'Father Name' },
   { Value: 'ProductName', Text: 'Product' },
-  { Value:'Pincode', Text: 'Pincode'}];
-   indexModel = new IndexModel();
+  { Value: 'Pincode', Text: 'Pincode' }];
+  indexModel = new IndexModel();
   totalRecords: number = 0;
   get routing_Url() { return Routing_Url };
+  get userDetail() { return this._auth.GetUserDetail() };
+  get userRoleEnum() { return UserRoleEnum };
 
 
   //#endregion
@@ -44,6 +48,7 @@ export class FreshGoldLoanLeadsComponent implements OnInit {
   constructor(private readonly _freshLeadService: GoldLoanLeadsService,
     private readonly _commonService: CommonService,
     private readonly toast: ToastrService,
+    private readonly _auth: AuthService,
     private readonly _userSettingService: UserSettingService,
     public dialog: MatDialog) { }
   ngOnInit(): void {

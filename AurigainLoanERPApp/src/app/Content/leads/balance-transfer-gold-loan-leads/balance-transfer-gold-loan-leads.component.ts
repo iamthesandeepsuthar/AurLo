@@ -31,16 +31,15 @@ export class BalanceTransferGoldLoanLeadsComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort!: MatSort;
   get userDetail() { return this._auth.GetUserDetail() };
-  get routing_Url() { return Routing_Url };
   get userRoleEnum() { return UserRoleEnum };
-
+  get routing_Url() { return Routing_Url };
+  
   displayedColumns: string[] = ['index', 'FullName', 'FatherName', 'PrimaryMobileNumber', 'LoanAmountRequired', 'LeadStatus', 'LeadSourceByUserName', 'ProductName', 'Pincode', 'IsActive', 'Action'];
   ViewdisplayedColumns = [{ Value: 'FullName', Text: 'Full Name' },
   { Value: 'PrimaryMobileNumber', Text: 'Mobile Number' },
   { Value: 'LeadSourceByUserName', Text: 'Lead Source By' },
   { Value: 'LoanAmountRequired', Text: 'Loan Amount' },
-  { Value: 'LeadStatus', Text: 'Lead Status' },
-  { Value: 'FatherName', Text: 'Father Name' },
+   { Value: 'FatherName', Text: 'Father Name' },
   { Value: 'ProductName', Text: 'Product' },
   { Value: 'Pincode', Text: 'Pincode' }];
   indexModel = new IndexModel();
@@ -191,7 +190,7 @@ export class BalanceTransferGoldLoanLeadsComponent implements OnInit {
         this.toast.success(Message.SaveSuccess as string, 'Success');
         this.getList();
       } else {
-        this.toast.error(Message.SaveFail as string, 'Error');
+       // this.toast.error(Message.SaveFail as string, 'Error');
 
       }
     });
@@ -207,7 +206,7 @@ export class BalanceTransferGoldLoanLeadsComponent implements OnInit {
         this.toast.success(Message.SaveSuccess as string, 'Success');
         this.getList();
       } else {
-        this.toast.error(Message.SaveFail as string, 'Error');
+      //  this.toast.error(Message.SaveFail as string, 'Error');
       }
     });
   }
@@ -219,10 +218,7 @@ export class BalanceTransferGoldLoanLeadsComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.toast.success(Message.SaveSuccess as string, 'Success');
-        this.getList();
-      } else {
-        this.toast.error(Message.SaveFail as string, 'Error');
+
       }
     });
   }
@@ -235,10 +231,7 @@ export class BalanceTransferGoldLoanLeadsComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.toast.success(Message.SaveSuccess as string, 'Success');
-        this.getList();
-      } else {
-        this.toast.error(Message.SaveFail as string, 'Error');
+
       }
     });
   }

@@ -218,7 +218,7 @@ export class AddressDetail {
 }
 export class BtGoldLoanLeadApprovalStagePostModel {
   LeadId!: number;
-  ApprovalStatus!: number | null;
+  ApprovalStatus!: number | any;
   Remarks!: string;
 }
 
