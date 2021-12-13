@@ -200,11 +200,11 @@ export class BalanceTransferGoldLoanLeadsComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.toast.success(Message.SaveSuccess as string, 'Success');
-      } else {
-        this.toast.error(Message.SaveFail as string, 'Error');
-      }
+      // if (result) {
+      //   this.toast.success(Message.SaveSuccess as string, 'Success');
+      // } else {
+      //   this.toast.error(Message.SaveFail as string, 'Error');
+      // }
     });
   }
 

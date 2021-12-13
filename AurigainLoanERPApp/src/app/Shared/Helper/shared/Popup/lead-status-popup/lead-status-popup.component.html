@@ -14,7 +14,7 @@
                     <div class="form-group col-md-12">
                         <label>Status <strong class="text-danger ml-1">*</strong></label>
                         <select class="form-control" [(ngModel)]="model.LeadStatus" formControlName="status" [ngClass]="{ 'is-invalid': f.status.errors && f.status.touched}">
-                <option *ngFor="let data of dropDown!.ddlLeadStatus" [value]="data.Value">
+                          <option *ngFor="let data of dropDown!.ddlLeadStatus" [value]="data.Value">
                   {{data.Text}}
                 </option>
               </select>
@@ -34,7 +34,7 @@
         <div class="modal-footer border-0 pt-0">
             <button type="submit" (click)="onSubmit()" class="btn btn-success"> <i class="fas fa-check mr-1"></i>
               Change Status</button>
-            <button type="button" class="btn btn-outline-danger" data-dismiss="modal" aria-label="Close"><i
+            <button type="button" (click)="onClose()" class="btn btn-outline-danger" aria-label="Close"><i
             class="fas fa-times mr-1"></i> Cancel</button>
         </div>
 
