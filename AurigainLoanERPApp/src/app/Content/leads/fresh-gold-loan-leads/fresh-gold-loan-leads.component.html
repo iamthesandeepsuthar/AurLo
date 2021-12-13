@@ -124,7 +124,9 @@
                         <a class="table-action-btn-view" routerLink="./{{routing_Url.Detail_Lead_Url +'/'+ row.Id}}" title="Detail">
                             <i class="fas fa-eye"></i>
                         </a>
-                        <a href="javascript:void(0)" (click)="onChangeLeadStatus(row.Id)" class="table-action-btn-status-changes text-warning" data-toggle="tooltip" data-placement="bottom" title="Chnage Status "><i class="fas fa-sync-alt"></i></a>
+                        <a href="javascript:void(0)" (click)="onChangeLeadStatus(row.Id)" class="table-action-btn-status-changes text-warning" data-toggle="tooltip" data-placement="bottom" title="Chnage Status ">
+                            <img src="assets/img/change-status.png" alt=""/>
+                        </a>
                         <!-- <a class="table-action-btn-delete" (click)="updateDeleteStatus(row?.UserId)" title="Delete">
             <i class="fas fa-trash-alt"></i>
           </a> -->
