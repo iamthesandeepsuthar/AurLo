@@ -402,6 +402,45 @@ namespace AurigainLoanERP.Services.FreshLead
 
             }
         }
+        public async Task<ApiServiceResponseModel<List<LeadStatusActionHistory>>> FreshGoldLoanLeadStatusHistory(long leadId)
+        {
+            List<LeadStatusActionHistory> history = new List<LeadStatusActionHistory>();
+            try
+            {
+                var data = await _db.GoldLoanFreshLeadStatusActionHistory.Where(x => x.LeadId == leadId).Include(x=>x.ActionTakenByUser).ThenInclude(y=>y.UserRole).ToListAsync();
+                if (data.Count > 0)
+                {
+                    foreach (var d in data) 
+                    {
+                        LeadStatusActionHistory lead = new LeadStatusActionHistory
+                        {
+                            ActionDate = d.ActionDate,
+                            LeadId = d.LeadId,
+                            LeadStatus = d.LeadStatus == 1 ? LeadStatus.Pending.GetStringValue():
+                                         d.LeadStatus ==2 ?LeadStatus.Mismatched.GetStringValue():
+                                         d.LeadStatus ==3 ? LeadStatus.InCompleted.GetStringValue():
+                                         d.LeadStatus ==4 ? LeadStatus.Rejected.GetStringValue() :
+                                         d.LeadStatus == 5 ? LeadStatus.Completed.GetStringValue() :
+                                         "New",
+                            ActionTakenBy = d.ActionTakenByUser.UserRole.Name,
+                            ActionTakenByUserId = d.ActionTakenByUserId.Value,
+                            Id = d.Id,
+                            Remark = d.Remarks                                                                               
+                        };
+                        history.Add(lead);
+                    }
+                    return CreateResponse<List<LeadStatusActionHistory>>(history, ResponseMessage.Success, true, ((int)ApiStatusCode.Ok));
+                }
+                else 
+                {
+                    return CreateResponse<List<LeadStatusActionHistory>>(history, ResponseMessage.Success, false, ((int)ApiStatusCode.RecordNotFound));
+                }
+            }
+            catch (Exception ex) 
+            {
+                return CreateResponse<List<LeadStatusActionHistory>>(null, ex.Message,false, ((int)ApiStatusCode.ServerException));
+            }        
+        }
         #endregion
 
 
@@ -516,6 +555,43 @@ namespace AurigainLoanERP.Services.FreshLead
             {
                 _db.Database.RollbackTransaction();
                 return CreateResponse<string>(null, ResponseMessage.Fail, false, ((int)ApiStatusCode.ServerException), ex.InnerException == null ? ex.Message : ex.InnerException.Message);
+            }
+        }
+        public async Task<ApiServiceResponseModel<List<LeadStatusActionHistory>>> OtherLoanLeadStatusHistory(long leadId) 
+        {
+            List<LeadStatusActionHistory> history = new List<LeadStatusActionHistory>();
+            try
+            {
+                var data = await _db.FreshLeadHlplclstatusActionHistory.Where(x => x.LeadId == leadId).Include(x => x.ActionTakenByUser).ThenInclude(y=>y.UserRole).ToListAsync();
+                if (data.Count > 0)
+                {
+                    foreach (var d in data)
+                    {
+                        LeadStatusActionHistory lead = new LeadStatusActionHistory();
+                            lead.ActionDate = d.ActionDate;
+                            lead.LeadId = d.LeadId;
+                            lead.LeadStatus = d.LeadStatus == 1 ? LeadStatus.Pending.GetStringValue() :
+                                         d.LeadStatus == 2 ? LeadStatus.Mismatched.GetStringValue() :
+                                         d.LeadStatus == 3 ? LeadStatus.InCompleted.GetStringValue() :
+                                         d.LeadStatus == 4 ? LeadStatus.Rejected.GetStringValue() :
+                                         d.LeadStatus == 5 ? LeadStatus.Completed.GetStringValue() :
+                                         "New";
+                            lead.ActionTakenBy = d.ActionTakenByUser.UserRole.Name;
+                            lead.ActionTakenByUserId = d.ActionTakenByUserId.Value;
+                            lead.Id = d.Id;
+                            lead.Remark = d.Remarks;    
+                     history.Add(lead);
+                    }
+                    return CreateResponse<List<LeadStatusActionHistory>>(history, ResponseMessage.Success, true, ((int)ApiStatusCode.Ok));
+                }
+                else
+                {
+                    return CreateResponse<List<LeadStatusActionHistory>>(history, ResponseMessage.Success, false, ((int)ApiStatusCode.RecordNotFound));
+                }
+            }
+            catch (Exception ex)
+            {
+                return CreateResponse<List<LeadStatusActionHistory>>(null, ex.Message, false, ((int)ApiStatusCode.ServerException));
             }
         }
 

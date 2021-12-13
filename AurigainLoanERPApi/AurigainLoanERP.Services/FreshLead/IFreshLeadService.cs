@@ -12,11 +12,13 @@ namespace AurigainLoanERP.Services.FreshLead
         Task<ApiServiceResponseModel<List<GoldLoanFreshLeadListModel>>> GoldLoanFreshLeadListAsync(IndexModel model);
         Task<ApiServiceResponseModel<GoldLoanFreshLeadViewModel>> FreshGoldLoanLeadDetailAsync(long id);
         Task<ApiServiceResponseModel<object>> UpdateLeadStatusAsync(LeadStatusModel model);
+        Task<ApiServiceResponseModel<List<LeadStatusActionHistory>>> FreshGoldLoanLeadStatusHistory(long leadId);
         #endregion
         #region <<Other Lead>>
         Task<ApiServiceResponseModel<string>> SaveFreshLeadHLCLPLAsync(FreshLeadHLPLCLModel model);
         Task<ApiServiceResponseModel<List<FreshLeadHLPLCLModel>>> FreshLeadHLPLCLList(IndexModel model);
         Task<ApiServiceResponseModel<object>> UpdateLeadStatusOtherLeadAsync(LeadStatusModel model);
+        Task<ApiServiceResponseModel<List<LeadStatusActionHistory>>> OtherLoanLeadStatusHistory(long leadId);
         #endregion
     }
 }

@@ -2,6 +2,7 @@
 using AurigainLoanERP.Shared.Common.Model;
 using AurigainLoanERP.Shared.ContractModel;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace AurigainLoanERP.Api.Areas.Admin.Controllers
@@ -37,6 +38,11 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
         public async Task<ApiServiceResponseModel<object>> UpdateLeadStatus(LeadStatusModel model)
         {
             return await _freshLead.UpdateLeadStatusOtherLeadAsync(model);
+        }
+        [HttpGet("[action]")]
+        public async Task<ApiServiceResponseModel<List<LeadStatusActionHistory>>> FreshOtherLoanLeadStatusHistory(long leadId) 
+        {
+            return await _freshLead.OtherLoanLeadStatusHistory(leadId);
         }
     }
 }
