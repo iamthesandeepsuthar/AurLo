@@ -112,6 +112,7 @@ export class BTGoldLoanLeadListModel {
   Pincode!: string;
   IsActive!: boolean;
   IsDelete!: boolean;
+  IsStatusCompleted! : boolean;
   ApprovedStage! : number;
 }
 export class BTGoldLoanLeadViewModel {

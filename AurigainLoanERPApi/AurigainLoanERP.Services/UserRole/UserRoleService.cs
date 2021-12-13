@@ -59,8 +59,7 @@ namespace AurigainLoanERP.Services.UserRoles
             try
             {
                 var result = (from role in _db.UserRole
-                              join c2 in _db.UserRole on role.ParentId equals c2.Id
-                               into parentRoleData
+                              join c2 in _db.UserRole on role.ParentId equals c2.Id into parentRoleData
                               from c2 in parentRoleData.DefaultIfEmpty()
                               where !role.IsDelete && (string.IsNullOrEmpty(model.Search) || role.Name.Contains(model.Search) || c2.Name.Contains(model.Search))
                               select new

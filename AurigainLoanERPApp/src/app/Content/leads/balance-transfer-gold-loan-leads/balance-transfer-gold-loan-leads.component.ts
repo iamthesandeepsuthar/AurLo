@@ -186,7 +186,7 @@ export class BalanceTransferGoldLoanLeadsComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.toast.success(Message.SaveSuccess as string, 'Success');
-
+        this.getList();
       } else {
         this.toast.error(Message.SaveFail as string, 'Error');
 
@@ -195,17 +195,19 @@ export class BalanceTransferGoldLoanLeadsComponent implements OnInit {
   }
   onChangeLeadStatus(Id: number) {
     const dialogRef = this.dialog.open(LeadStatusPopupComponent, {
-      data: { Id: Id as number, Type: "FreshGold" as string },
+      data: { Id: Id as number, Type: "BTLEAD" as string },
       width: '500px',
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      // if (result) {
-      //   this.toast.success(Message.SaveSuccess as string, 'Success');
-      // } else {
-      //   this.toast.error(Message.SaveFail as string, 'Error');
-      // }
+      if (result) {
+        this.toast.success(Message.SaveSuccess as string, 'Success');
+        this.getList();
+      } else {
+        this.toast.error(Message.SaveFail as string, 'Error');
+      }
     });
   }
+  onOpenApproveHistory(Id:number){}
 
 }

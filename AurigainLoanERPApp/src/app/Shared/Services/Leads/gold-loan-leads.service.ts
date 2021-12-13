@@ -37,7 +37,7 @@ export class GoldLoanLeadsService {
     return this._baseService.Delete(url);
   }
   LeadStatus(model: LeadStatusModel) : Observable<ApiResponse<any>> {
-    let url = `${this._baseService.API_Url.Lead_Status_Change_Api}`;
+    let url = `${this._baseService.API_Url.Gold_Loan_Fresh_Lead_Status_Change_Api}`;
     return this._baseService.post(url, model);
   }
 }
