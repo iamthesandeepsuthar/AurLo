@@ -83,7 +83,7 @@ namespace AurigainLoanERP.Services.FreshLead
                         result = model.OrderByAsc ? (from orderData in result orderby orderData.Gender ascending select orderData) : (from orderData in result orderby orderData.Gender descending select orderData);
                         break;
                     default:
-                        result = model.OrderByAsc ? (from orderData in result orderby orderData.PrimaryMobileNumber ascending select orderData) : (from orderData in result orderby orderData.PrimaryMobileNumber descending select orderData);
+                        result = model.OrderByAsc ? (from orderData in result orderby orderData.CreatedDate ascending select orderData) : (from orderData in result orderby orderData.CreatedDate descending select orderData);
                         break;
                 }
 

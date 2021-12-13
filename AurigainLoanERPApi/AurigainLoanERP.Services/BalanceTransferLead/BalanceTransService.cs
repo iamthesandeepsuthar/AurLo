@@ -154,7 +154,7 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                         result = model.OrderByAsc ? (from orderData in result orderby orderData.Gender ascending select orderData) : (from orderData in result orderby orderData.Gender descending select orderData);
                         break;
                     default:
-                        result = model.OrderByAsc ? (from orderData in result orderby orderData.Mobile ascending select orderData) : (from orderData in result orderby orderData.Mobile descending select orderData);
+                        result = model.OrderByAsc ? (from orderData in result orderby orderData.CreatedOn ascending select orderData) : (from orderData in result orderby orderData.CreatedOn descending select orderData);
                         break;
                 }
 
