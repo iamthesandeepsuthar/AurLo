@@ -20,7 +20,7 @@ namespace AurigainLoanERP.Shared.ContractModel
         public long LeadId { get; set;}
         public string LeadStatus { get; set;}
         public string ActionTakenBy { get; set;}
-        public long ActionTakenByUserId { get; set; }
+        public long? ActionTakenByUserId { get; set; }
         public DateTime ActionDate { get; set;}
         public string Remark { get; set;}
     }

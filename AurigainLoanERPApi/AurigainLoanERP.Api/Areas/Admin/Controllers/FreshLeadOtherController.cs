@@ -1,6 +1,8 @@
 ﻿using AurigainLoanERP.Services.FreshLead;
+using AurigainLoanERP.Shared.Common.API;
 using AurigainLoanERP.Shared.Common.Model;
 using AurigainLoanERP.Shared.ContractModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -9,7 +11,8 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class FreshLeadOtherController : ControllerBase
+    [Authorize]
+    public class FreshLeadOtherController : ApiControllerBase
     {
         private readonly IFreshLeadService _freshLead;
         public FreshLeadOtherController(IFreshLeadService freshLead)
