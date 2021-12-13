@@ -50,11 +50,13 @@ namespace AurigainLoanERP.Services.Account
                     otp.Otp = encrptOTP;
                     otp.Mobile = model.MobileNumber;
                     otp.MessgeId = otp_response.msg_id[0];
-                    otp.SessionStartOn = DateTime.Now;
-                    otp.ExpireOn = DateTime.Now.AddSeconds(180);
+                    otp.SessionStartOn = DateTime.Now.ToLocalTime();
+                    otp.ExpireOn = DateTime.Now.ToLocalTime().AddSeconds(180);
                     await _db.UserOtp.AddAsync(otp);
                     await _db.SaveChangesAsync();
                     var response = _mapper.Map<OtpModel>(otp);
+                    response.ExpireOn = response.ExpireOn.Value.ToLocalTime();
+                    response.SessionStartOn = response.SessionStartOn.ToLocalTime();
                     return CreateResponse<OtpModel>(response, ResponseMessage.Success, true, ((int)ApiStatusCode.Ok));
                 }
                 else
@@ -73,10 +75,12 @@ namespace AurigainLoanERP.Services.Account
                         var encrptOTP = _security.Base64Encode(randomNumber.ToString());
                         otp.MessgeId = otp_response.msg_id[0];
                         otp.Otp = encrptOTP;
-                        otp.SessionStartOn = DateTime.Now;
-                        otp.ExpireOn = DateTime.Now.AddSeconds(180);
+                        otp.SessionStartOn = DateTime.Now.ToLocalTime();
+                        otp.ExpireOn = DateTime.Now.ToLocalTime().AddSeconds(180);
                         await _db.SaveChangesAsync();
                         var response = _mapper.Map<OtpModel>(otp);
+                        response.ExpireOn = response.ExpireOn.Value.ToLocalTime();
+                        response.SessionStartOn = response.SessionStartOn.ToLocalTime();
                         return CreateResponse<OtpModel>(response, ResponseMessage.Success, true, ((int)ApiStatusCode.Ok));
                     }
                     else
@@ -103,8 +107,8 @@ namespace AurigainLoanERP.Services.Account
                     return CreateResponse<string>(null, ResponseMessage.NotFound, false, ((int)ApiStatusCode.RecordNotFound));
                 }
                 var encrptOTP = _security.Base64Encode(model.Otp);
-                if (otp.ExpireOn > DateTime.Now)
-                {
+                //if (otp.ExpireOn > DateTime.Now.ToLocalTime())
+                //{
                     if (otp.Otp == encrptOTP)
                     {
                         _db.UserOtp.Remove(otp);
@@ -115,11 +119,11 @@ namespace AurigainLoanERP.Services.Account
                     {
                         return CreateResponse<string>(null, "otp varification failed", false, ((int)ApiStatusCode.OTPVarificationFailed));
                     }
-                }
-                else
-                {
-                    return CreateResponse<string>(null, "Otp validity expaire, Generate new otp", false, ((int)ApiStatusCode.OTPValidityExpire));
-                }
+               //}
+             //  else
+             //  {
+             //     return CreateResponse<string>(null, "Otp validity expaire, Generate new otp", false, ((int)ApiStatusCode.OTPValidityExpire));
+             //}
             }
             catch (Exception ex)
             {
@@ -130,12 +134,12 @@ namespace AurigainLoanERP.Services.Account
         {
             try
             {
-                var user = await _db.UserMaster.Where(x => x.Id == model.UserId).FirstOrDefaultAsync();
+                var user = await _db.UserMaster.Where(x => x.Mobile == model.MobileNumber).FirstOrDefaultAsync();
                 if (user != null)
                 {
                     user.Mpin = model.Password;
                     await _db.SaveChangesAsync();
-                    return CreateResponse<string>(model.UserId.ToString(), "pin update successful", true, ((int)ApiStatusCode.Ok));
+                    return CreateResponse<string>(model.MobileNumber.ToString(), "pin update successful", true, ((int)ApiStatusCode.Ok));
                 }
                 else
                 {
@@ -166,7 +170,8 @@ namespace AurigainLoanERP.Services.Account
                         {
                             LoggedInTime = DateTime.Now,
                             LoggedOutTime = DateTime.Now.AddDays(30),
-                            Mobile = model.MobileNumber
+                            Mobile = model.MobileNumber,
+                            UserId = user.Id
                         };
                         await _db.UserLoginLog.AddAsync(log);
                         var fresh_token = _security.CreateToken(user.Id, model.MobileNumber, user.UserRole.Name, user.UserRoleId);
@@ -265,12 +270,12 @@ namespace AurigainLoanERP.Services.Account
             try
             {
                 var encrptPassword = _security.Base64Encode(model.Password);
-                var user = await _db.UserMaster.Where(x => x.Id == model.UserId).FirstOrDefaultAsync();
+                var user = await _db.UserMaster.Where(x => x.Mobile == model.MobileNumber).FirstOrDefaultAsync();
                 if (user != null)
                 {
                     user.Password = encrptPassword;
                     await _db.SaveChangesAsync();
-                    return CreateResponse<string>(model.UserId.ToString(), "pin update successful", true, ((int)ApiStatusCode.Ok));
+                    return CreateResponse<string>(model.MobileNumber.ToString(), "pin update successful", true, ((int)ApiStatusCode.Ok));
                 }
                 else
                 {

@@ -51,6 +51,7 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                     objData.Purpose = !string.IsNullOrEmpty(model.Purpose) ? model.Purpose : null;
                     objData.LeadSourceByuserId = model.LeadSourceByuserId;
                     objData.CreatedOn = DateTime.Now;
+                    objData.LeadStatus = "New";
                     objData.CustomerUserId = model.CustomerUserId;
                     objData.LoanAmount = model.LoanAmount;
                     objData.ProductId = model.ProductId;
@@ -173,6 +174,7 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                                               IsInternalLead = detail.IsInternalLead,
                                               Email = detail.EmailId,
                                               IsActive = detail.IsActive.Value,
+                                              LeadStatus = detail.LeadStatus,
                                               ProductName = detail.Product.Name,
                                               IsStatusCompleted = detail.BtgoldLoanLeadStatusActionHistory.Where(x=> x.LeadStatus.Value == ((int)LeadStatus.Completed)).Count() >0 ? true:false,
                                               Pincode = detail.BtgoldLoanLeadAddressDetail.FirstOrDefault().AeraPincode.Pincode,
@@ -357,6 +359,7 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                     objData.CustomerUserId = model.CustomerUserId;
                     objData.LoanAmount = model.LoanAmount;
                     objData.ProductId = model.ProductId;
+                    objData.LeadStatus = "New";
                     objData.LoanAccountNumber = !string.IsNullOrEmpty(model.LoanAccountNumber) ? model.LoanAccountNumber : null;
                     objData.IsInternalLead = true;
                     objData.CreatedBy = _loginUserDetail.UserId ?? null;
@@ -405,7 +408,6 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
             }
 
         }
-
         public async Task<ApiServiceResponseModel<object>> UpdateLeadApprovalStageAsync(BtGoldLoanLeadApprovalStagePostModel model)
         {
             try
@@ -430,11 +432,11 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
             }
 
         }
-
         public async Task<ApiServiceResponseModel<object>> UpdateLeadStatusAsync(LeadStatusModel model)
         {
             try
             {
+                await _db.Database.BeginTransactionAsync();
                 var objModel = new BtgoldLoanLeadStatusActionHistory()
                 {
                     LeadId = model.LeadId,
@@ -444,11 +446,47 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                     LeadStatus = model.LeadStatus,
                 };
                 var result = await _db.BtgoldLoanLeadStatusActionHistory.AddAsync(objModel);
+                var leadDetail = await _db.BtgoldLoanLead.Where(x => x.Id == model.LeadId).FirstOrDefaultAsync();
+                if (leadDetail != null)
+                {
+                    switch (model.LeadStatus)
+                    {
+                        case 1:
+                            leadDetail.LeadStatus = LeadStatus.Pending.GetStringValue();
+                            break;
+                        case 2:
+                            leadDetail.LeadStatus = LeadStatus.Mismatched.GetStringValue();
+                            break;
+
+                        case 3:
+                            leadDetail.LeadStatus = LeadStatus.InCompleted.GetStringValue();
+                            break;
+                        case 4:
+                            leadDetail.LeadStatus = LeadStatus.Rejected.GetStringValue();
+                            break;
+                        case 5:
+                            leadDetail.LeadStatus = LeadStatus.Completed.GetStringValue();
+                            break;
+
+                        default:
+                            leadDetail.LeadStatus = "New";
+                            break;
+                    }
+
+                    await _db.SaveChangesAsync();
+                    _db.Database.CommitTransaction();
+                }
+                else
+                {
+                    _db.Database.RollbackTransaction();
+                    return CreateResponse<object>(false, ResponseMessage.NotFound, false, ((int)ApiStatusCode.NotFound));
+                }
                 await _db.SaveChangesAsync();
                 return CreateResponse<object>(true, ResponseMessage.Save, true, ((int)ApiStatusCode.Ok));
             }
             catch (Exception)
             {
+                _db.Database.RollbackTransaction();
                 return CreateResponse<object>(false, ResponseMessage.Fail, false, ((int)ApiStatusCode.ServerException));
 
             }

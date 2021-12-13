@@ -15,5 +15,6 @@
     [IsActive] BIT NOT NULL DEFAULT 1, 
     [IsDelete] BIT NOT NULL DEFAULT 0, 
     [CreatedDate] DATETIME NOT NULL DEFAULT getDate(), 
-    [ModifiedDate] DATETIME NULL,    
+    [ModifiedDate] DATETIME NULL, 
+    [LeadStatus] NVARCHAR(100) NULL,    
 )

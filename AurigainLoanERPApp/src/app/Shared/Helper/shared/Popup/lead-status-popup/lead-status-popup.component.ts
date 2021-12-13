@@ -1,3 +1,4 @@
+import { PersonalHomeCarLoanService } from 'src/app/Shared/Services/Leads/personal-home-car-loan.service';
 import { ToastrService } from 'ngx-toastr';
 import { LeadStatusModel } from './../../../../Model/Leads/lead-status-model.model';
 import { Component, Inject, OnInit } from '@angular/core';
@@ -13,7 +14,7 @@ import { BalanceTransferGoldLoanLeadsService } from '../../../../Services/Leads/
   selector: 'app-lead-status-popup',
   templateUrl: './lead-status-popup.component.html',
   styleUrls: ['./lead-status-popup.component.scss'],
-  providers: [GoldLoanLeadsService, BalanceTransferGoldLoanLeadsService]
+  providers: [GoldLoanLeadsService, BalanceTransferGoldLoanLeadsService,PersonalHomeCarLoanService]
 })
 export class LeadStatusPopupComponent implements OnInit {
   dropDown = new DropDownModel();
@@ -26,6 +27,7 @@ export class LeadStatusPopupComponent implements OnInit {
     private readonly _freshLead: GoldLoanLeadsService,
     private readonly _balanceTransfer: BalanceTransferGoldLoanLeadsService,
     private readonly _toast: ToastrService,
+    private readonly _otherLead: PersonalHomeCarLoanService,
     public dialogRef: MatDialogRef<LeadStatusPopupComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { Id: number, Type: string }) {
   }
@@ -52,7 +54,6 @@ export class LeadStatusPopupComponent implements OnInit {
   onSubmit() {
     this.formgrp.markAllAsTouched();
     if (this.formgrp.valid) {
-      debugger;
       this.model.LeadId = this.data.Id;
       this.model.ActionDate = new Date();
       this.model.LeadStatus = Number(this.model.LeadStatus);
@@ -60,13 +61,27 @@ export class LeadStatusPopupComponent implements OnInit {
         this.FreshLeadStatusUpdate();
       } else if (this.data.Type == "BTLEAD") {
         this.BalanceTransferLeadStatusUpdate();
+      } else if(this.data.Type == "OtherLead") {
+       this.FreshLeadOtherStatusUpdate();
       }
     }
-
   }
 
   FreshLeadStatusUpdate() {
     let subscription = this._freshLead.LeadStatus(this.model).subscribe(response => {
+      subscription.unsubscribe();
+      if (response.IsSuccess) {
+        this.onClose();
+      } else {
+        this._toast.error(response.Message as string, 'Server Error');
+        this.dialogRef.close(false);
+        return;
+      }
+    });
+
+  }
+  FreshLeadOtherStatusUpdate() {
+    let subscription = this._otherLead.LeadStatus(this.model).subscribe(response => {
       subscription.unsubscribe();
       if (response.IsSuccess) {
         this.onClose();
@@ -90,8 +105,6 @@ export class LeadStatusPopupComponent implements OnInit {
       }
     });
   }
-
-
   onClose() {
     this.dialogRef.close(true);
   }

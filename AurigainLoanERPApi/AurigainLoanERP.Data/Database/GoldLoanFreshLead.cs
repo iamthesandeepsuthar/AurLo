@@ -35,6 +35,7 @@ namespace AurigainLoanERP.Data.Database
         public DateTime? ModifedDate { get; set; }
         public bool? IsActive { get; set; }
         public bool IsDelete { get; set; }
+        public string LeadStatus { get; set; }
 
         public virtual UserMaster CustomerUser { get; set; }
         public virtual UserMaster LeadSourceByUser { get; set; }

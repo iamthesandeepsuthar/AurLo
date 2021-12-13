@@ -9,6 +9,11 @@ namespace AurigainLoanERP.Data.Database
 {
     public partial class FreshLeadHlplcl
     {
+        public FreshLeadHlplcl()
+        {
+            FreshLeadHlplclstatusActionHistory = new HashSet<FreshLeadHlplclstatusActionHistory>();
+        }
+
         public long Id { get; set; }
         public string FullName { get; set; }
         public string FatherName { get; set; }
@@ -25,8 +30,10 @@ namespace AurigainLoanERP.Data.Database
         public bool IsDelete { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime? ModifiedDate { get; set; }
+        public string LeadStatus { get; set; }
 
         public virtual UserMaster LeadSourceByUser { get; set; }
         public virtual Product Product { get; set; }
+        public virtual ICollection<FreshLeadHlplclstatusActionHistory> FreshLeadHlplclstatusActionHistory { get; set; }
     }
 }

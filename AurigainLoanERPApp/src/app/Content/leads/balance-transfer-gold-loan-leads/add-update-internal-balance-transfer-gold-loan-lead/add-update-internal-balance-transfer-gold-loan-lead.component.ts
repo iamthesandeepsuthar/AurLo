@@ -110,6 +110,7 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
     this.leadFromPersonalDetail.markAllAsTouched();
     this.leadFromAddressDetail.markAllAsTouched();
     this.leadFromAppointmentDetail.markAllAsTouched();
+    this.model.LeadSourceByuserId = this._auth.GetUserDetail()?.UserId as number;
 
     if (this.leadFromPersonalDetail.valid && this.leadFromAddressDetail.valid && this.leadFromAppointmentDetail.valid) {
 

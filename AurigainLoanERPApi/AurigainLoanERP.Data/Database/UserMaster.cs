@@ -18,6 +18,7 @@ namespace AurigainLoanERP.Data.Database
             BtgoldLoanLeadLeadSourceByuser = new HashSet<BtgoldLoanLead>();
             BtgoldLoanLeadStatusActionHistory = new HashSet<BtgoldLoanLeadStatusActionHistory>();
             FreshLeadHlplcl = new HashSet<FreshLeadHlplcl>();
+            FreshLeadHlplclstatusActionHistory = new HashSet<FreshLeadHlplclstatusActionHistory>();
             GoldLoanFreshLeadActionHistoryAssignFromUser = new HashSet<GoldLoanFreshLeadActionHistory>();
             GoldLoanFreshLeadActionHistoryAssignToUser = new HashSet<GoldLoanFreshLeadActionHistory>();
             GoldLoanFreshLeadCustomerUser = new HashSet<GoldLoanFreshLead>();
@@ -65,6 +66,7 @@ namespace AurigainLoanERP.Data.Database
         public virtual ICollection<BtgoldLoanLead> BtgoldLoanLeadLeadSourceByuser { get; set; }
         public virtual ICollection<BtgoldLoanLeadStatusActionHistory> BtgoldLoanLeadStatusActionHistory { get; set; }
         public virtual ICollection<FreshLeadHlplcl> FreshLeadHlplcl { get; set; }
+        public virtual ICollection<FreshLeadHlplclstatusActionHistory> FreshLeadHlplclstatusActionHistory { get; set; }
         public virtual ICollection<GoldLoanFreshLeadActionHistory> GoldLoanFreshLeadActionHistoryAssignFromUser { get; set; }
         public virtual ICollection<GoldLoanFreshLeadActionHistory> GoldLoanFreshLeadActionHistoryAssignToUser { get; set; }
         public virtual ICollection<GoldLoanFreshLead> GoldLoanFreshLeadCustomerUser { get; set; }
