@@ -1,10 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ToastrService } from 'ngx-toastr';
 import { IndexModel } from 'src/app/Shared/Helper/common-model';
 import { Routing_Url, Message } from 'src/app/Shared/Helper/constants';
+import { LeadStatusPopupComponent } from 'src/app/Shared/Helper/shared/Popup/lead-status-popup/lead-status-popup.component';
 import { FreshLeadHLPLCLModel } from 'src/app/Shared/Model/Leads/other-loan-leads.model';
 import { CommonService } from 'src/app/Shared/Services/common.service';
 import { PersonalHomeCarLoanService } from 'src/app/Shared/Services/Leads/personal-home-car-loan.service';
@@ -23,11 +25,12 @@ export class OtherLoanLeadsComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort!: MatSort;
 
-  displayedColumns: string[] = ['index', 'FullName','FatherName' ,'MobileNumber','LoanAmount', 'LeadSourceByUserName','ProductName','ProductCategoryName','LeadType', 'IsActive', 'Action'];
+  displayedColumns: string[] = ['index', 'FullName','FatherName' ,'MobileNumber','LoanAmount', 'LeadStatus', 'LeadSourceByUserName','ProductName','ProductCategoryName','LeadType', 'IsActive', 'Action'];
   ViewdisplayedColumns = [{ Value: 'FullName', Text: 'Full Name' },
   { Value: 'MobileNumber', Text: 'Mobile Number' },
   { Value: 'LeadSourceByUserName', Text: 'Lead Source By' },
   { Value: 'LoanAmount', Text: 'Loan Amount' },
+  {Value:'LeadStatus', Text:'Lead Status'},
   { Value: 'FatherName', Text: 'Father Name' },
   { Value: 'ProductName', Text: 'Product' },
   { Value:'ProductCategoryName', Text: 'Pincode'}];
@@ -41,7 +44,8 @@ export class OtherLoanLeadsComponent implements OnInit {
   constructor(private readonly _freshLeadService:PersonalHomeCarLoanService,
     private readonly _commonService: CommonService,
     private readonly toast: ToastrService,
-    private readonly _userSettingService: UserSettingService) { }
+    private readonly _userSettingService: UserSettingService,
+    public dialog: MatDialog) { }
 
     ngOnInit(): void {
     this.getList();
@@ -118,6 +122,21 @@ export class OtherLoanLeadsComponent implements OnInit {
       }
     });
 
+  }
+  onChangeLeadStatus(Id: number) {
+    const dialogRef = this.dialog.open(LeadStatusPopupComponent, {
+      data: { Id: Id as number, Type: "OtherLead" as string },
+      width: '500px',
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.toast.success(Message.SaveSuccess as string, 'Success');
+        this.getList();
+      } else {
+        this.toast.error(Message.SaveFail as string, 'Error');
+      }
+    });
   }
   updateDeleteStatus(id: number) {
 

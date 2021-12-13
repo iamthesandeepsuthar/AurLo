@@ -250,7 +250,7 @@ namespace AurigainLoanERP.Shared.ContractModel
         public string Pincode { get; set; }
         public bool IsActive { get; set; }
         public bool IsDelete { get; set; }
-
+        public string LeadStatus { get; set;}
         public bool IsStatusCompleted { get; set; }
         public int? ApprovedStage { get; set; }
     }

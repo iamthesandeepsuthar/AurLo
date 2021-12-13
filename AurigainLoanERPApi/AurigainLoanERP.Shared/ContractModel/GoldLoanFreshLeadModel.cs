@@ -84,6 +84,8 @@ namespace AurigainLoanERP.Shared.ContractModel
         public DateTime CreatedDate { get; set; }
         public string Pincode { get; set; }
         public bool IsActive { get; set; }
+
+        public string LeadStatus { get; set;}
     }
 
 

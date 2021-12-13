@@ -114,6 +114,7 @@ export class BTGoldLoanLeadListModel {
   IsDelete!: boolean;
   IsStatusCompleted! : boolean;
   ApprovedStage! : number;
+  LeadStatus!: string;
 }
 export class BTGoldLoanLeadViewModel {
   Id!: number;

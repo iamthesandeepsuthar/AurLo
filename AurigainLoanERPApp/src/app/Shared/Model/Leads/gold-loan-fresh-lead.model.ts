@@ -78,6 +78,7 @@ export class GoldLoanFreshLeadListModel {
   CreatedDate!: string;
   Pincode!: string;
   IsActive!: boolean;
+  LeadStatus!: string;
 }
 
 //#region  <<Gold Loan Fresh Lead View Model>>
