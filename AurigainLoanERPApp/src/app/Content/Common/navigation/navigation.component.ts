@@ -82,7 +82,9 @@ export class NavigationComponent implements OnInit {
     else if (menuName == "AGENT" && (this.userModel.RoleId == UserRoleEnum.Admin || this.userModel.RoleId == UserRoleEnum.SuperAdmin || this.userModel.RoleId == UserRoleEnum.Operator)) {
       return true;
     }
-
+    else if (menuName == "CUSTOMER" && this.userModel.RoleId == UserRoleEnum.Customer) {
+     return true;
+    }
     else {
       return false;
     }
