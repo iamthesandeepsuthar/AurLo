@@ -23,6 +23,7 @@ import { ChangePasswordPopupComponent } from './Popup/change-password-popup/chan
 import { LeadStatusPopupComponent } from './Popup/lead-status-popup/lead-status-popup.component';
 import { LeadApprovalPopupComponent } from './Popup/lead-approval-popup/lead-approval-popup.component';
 import { SecurityDepositPopupComponent } from './Popup/security-deposit-popup/security-deposit-popup.component';
+import { LeadApprovalHistoryPopupComponent } from './Popup/lead-approval-history-popup/lead-approval-history-popup.component';
 
 const CommonModules = [HttpClientModule, ReactiveFormsModule, FormsModule];
 
@@ -56,15 +57,17 @@ const SharedComponent = [
   UserKYCDocumentDetailComponent,
   LeadStatusPopupComponent,
   LeadApprovalPopupComponent,
+  LeadApprovalHistoryPopupComponent
 ];
 const SharedEntryComponent = [
   ChangePasswordPopupComponent,
   LeadStatusPopupComponent,
   LeadApprovalPopupComponent,
-  SecurityDepositPopupComponent
+  SecurityDepositPopupComponent,
+  LeadApprovalHistoryPopupComponent
 ];
 @NgModule({
-  declarations: [SharedComponent,],
+  declarations: [SharedComponent, ],
   entryComponents: [SharedEntryComponent],
   imports: [CommonModule, CommonModules, InstalledModule],
   exports: [CommonModules, InstalledModule, SharedComponent],

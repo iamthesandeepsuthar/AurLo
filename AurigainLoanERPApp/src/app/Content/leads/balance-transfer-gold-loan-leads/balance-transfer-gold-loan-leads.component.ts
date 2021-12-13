@@ -7,6 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 import { UserRoleEnum } from 'src/app/Shared/Enum/fixed-value';
 import { IndexModel } from 'src/app/Shared/Helper/common-model';
 import { Routing_Url, Message } from 'src/app/Shared/Helper/constants';
+import { LeadApprovalHistoryPopupComponent } from 'src/app/Shared/Helper/shared/Popup/lead-approval-history-popup/lead-approval-history-popup.component';
 import { LeadStatusPopupComponent } from 'src/app/Shared/Helper/shared/Popup/lead-status-popup/lead-status-popup.component';
 import { BTGoldLoanLeadListModel } from 'src/app/Shared/Model/Leads/btgold-loan-lead-post-model.model';
 import { CommonService } from 'src/app/Shared/Services/common.service';
@@ -209,6 +210,19 @@ export class BalanceTransferGoldLoanLeadsComponent implements OnInit {
       }
     });
   }
-  onOpenApproveHistory(Id:number){}
+  onOpenApproveHistory(Id:number){
+  const dialogRef = this.dialog.open(LeadApprovalHistoryPopupComponent, {
+    data: { Id: Id as number, Type: "BTLEAD" as string },
+    width: '700px',
+  });
 
+  dialogRef.afterClosed().subscribe(result => {
+    if (result) {
+      this.toast.success(Message.SaveSuccess as string, 'Success');
+      this.getList();
+    } else {
+      this.toast.error(Message.SaveFail as string, 'Error');
+    }
+  });
+}
 }
