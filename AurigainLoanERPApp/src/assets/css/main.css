@@ -3968,6 +3968,7 @@ table.table.table-striped.dataTable.table-header.table-blue tbody tr:nth-of-type
     border-radius: 25px;
     overflow: hidden;
     border: none;
+    /* border: solid 1px #fff; */
 }
 
 .b-h-form {

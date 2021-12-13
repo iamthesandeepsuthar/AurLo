@@ -4,7 +4,7 @@
 
         <div class="modal-header p-3">
             <h5 class="modal-title m-0">Lead Approval</h5>
-            <button type="button" (click)="onClose()" class="close" data-dismiss="modal" aria-label="Close">
+            <button type="button" (click)="onClose()" class="close">
           <span aria-hidden="true">&times;</span>
         </button>
         </div>
@@ -34,7 +34,7 @@
         <div class="modal-footer border-0 pt-0">
             <button type="submit" (click)="onSubmit()" class="btn btn-success"> <i class="fas fa-check mr-1"></i>
           Change Status</button>
-            <button type="button" class="btn btn-outline-danger" data-dismiss="modal" aria-label="Close"><i
+            <button type="button" class="btn btn-outline-danger"  (click)="onClose()"><i
             class="fas fa-times mr-1"></i> Cancel</button>
         </div>
 
