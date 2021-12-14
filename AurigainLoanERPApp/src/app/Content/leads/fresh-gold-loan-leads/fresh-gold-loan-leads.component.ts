@@ -28,12 +28,11 @@ export class FreshGoldLoanLeadsComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort!: MatSort;
 
-  displayedColumns: string[] = ['index', 'FullName', 'FatherName', 'PrimaryMobileNumber', 'LoanAmountRequired', 'LeadStatus', 'LeadSourceByUserName', 'ProductName', 'Pincode', 'IsActive', 'Action'];
+  displayedColumns: string[] = ['index', 'FullName', 'FatherName', 'ProductName', 'Pincode','PrimaryMobileNumber', 'LoanAmountRequired', 'LeadStatus', 'LeadSourceByUserName', 'Action'];
   ViewdisplayedColumns = [{ Value: 'FullName', Text: 'Full Name' },
   { Value: 'PrimaryMobileNumber', Text: 'Mobile Number' },
   { Value: 'LeadSourceByUserName', Text: 'Lead Source By' },
   { Value: 'LoanAmountRequired', Text: 'Loan Amount' },
-  { Value: 'LeadStatus', Text: 'Lead Status' },
   { Value: 'FatherName', Text: 'Father Name' },
   { Value: 'ProductName', Text: 'Product' },
   { Value: 'Pincode', Text: 'Pincode' }];

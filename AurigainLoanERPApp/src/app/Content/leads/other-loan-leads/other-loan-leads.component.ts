@@ -26,15 +26,14 @@ export class OtherLoanLeadsComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort!: MatSort;
 
-  displayedColumns: string[] = ['index', 'FullName','FatherName' ,'MobileNumber','LoanAmount', 'LeadStatus', 'LeadSourceByUserName','ProductName','ProductCategoryName','LeadType', 'IsActive', 'Action'];
+  displayedColumns: string[] = ['index', 'FullName','FatherName' ,'MobileNumber','ProductName','ProductCategoryName','LeadType','LoanAmount', 'LeadStatus', 'LeadSourceByUserName','Action'];
   ViewdisplayedColumns = [{ Value: 'FullName', Text: 'Full Name' },
   { Value: 'MobileNumber', Text: 'Mobile Number' },
   { Value: 'LeadSourceByUserName', Text: 'Lead Source By' },
   { Value: 'LoanAmount', Text: 'Loan Amount' },
-  {Value:'LeadStatus', Text:'Lead Status'},
   { Value: 'FatherName', Text: 'Father Name' },
   { Value: 'ProductName', Text: 'Product' },
-  { Value:'ProductCategoryName', Text: 'Pincode'}];
+  { Value:'ProductCategoryName', Text: 'Category'}];
    indexModel = new IndexModel();
   totalRecords: number = 0;
   get routing_Url() { return Routing_Url };
