@@ -4272,6 +4272,9 @@ h4 {
 .table-action-btn img {
     max-width: 25px;
 }
+tr td:last-child.table-action-btn {
+    min-width: 140px;
+}
 
 /* .custom-modal .modal-content .modal-body {
     background: url(https://blog.2checkout.com/wp-content/uploads/2018/11/how-does-the-payment-processing-industry-work-1.png);

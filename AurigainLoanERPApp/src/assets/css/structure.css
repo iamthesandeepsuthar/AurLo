@@ -124,7 +124,7 @@ code {
     flex-grow: 8;
     margin-top: 95px;
     margin-bottom: 0;
-    margin-left: 228px;
+    padding-left: 228px;
     transition: .600s;
 }
 
@@ -1096,6 +1096,7 @@ code {
 
 .sidebar-closed #content {
     margin-left: 0;
+    padding-left: 0px;
 }
 
 #sidebar .navbar-brand .img-fluid {
@@ -1503,6 +1504,7 @@ li.menu.menu-active>a svg {
   */
     .main-container.sidebar-closed #content {
         margin-left: 0;
+        padding-left: 0px;
     }
     /*
       =============
@@ -1514,6 +1516,7 @@ li.menu.menu-active>a svg {
     }
     #content {
         margin-left: 0;
+        padding-left: 0px;
     }
     #sidebar .theme-brand {
         border-radius: 0;
