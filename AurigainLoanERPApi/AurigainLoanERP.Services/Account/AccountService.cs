@@ -101,29 +101,29 @@ namespace AurigainLoanERP.Services.Account
         {
             try
             {
-                var otp = await _db.UserOtp.Where(x => x.Mobile == model.MobileNumber).FirstOrDefaultAsync();
+                var otp = await _db.UserOtp.Where(x => x.Mobile.Equals(model.MobileNumber)).OrderByDescending(x=>x.Id).FirstOrDefaultAsync();
                 if (otp == null)
                 {
                     return CreateResponse<string>(null, ResponseMessage.NotFound, false, ((int)ApiStatusCode.RecordNotFound));
                 }
                 var encrptOTP = _security.Base64Encode(model.Otp);
-                //if (otp.ExpireOn > DateTime.Now.ToLocalTime())
-                //{
+                if (otp.ExpireOn > DateTime.Now.ToLocalTime())
+                {
                 if (otp.Otp == encrptOTP)
                 {
                     _db.UserOtp.Remove(otp);
                     _db.SaveChanges();
-                    return CreateResponse<string>(null, "Otp varified successful.", true, ((int)ApiStatusCode.Ok));
+                    return CreateResponse<string>("true", "Otp varified successful.", true, ((int)ApiStatusCode.Ok));
                 }
                 else
                 {
-                    return CreateResponse<string>(null, "otp varification failed", false, ((int)ApiStatusCode.OTPVarificationFailed));
+                    return CreateResponse<string>("false", "otp varification failed", false, ((int)ApiStatusCode.OTPVarificationFailed));
                 }
-                //}
-                //  else
-                //  {
-                //     return CreateResponse<string>(null, "Otp validity expaire, Generate new otp", false, ((int)ApiStatusCode.OTPValidityExpire));
-                //}
+                }
+                else
+                {
+                    return CreateResponse<string>("false", "Otp validity expaire, Generate new otp", false, ((int)ApiStatusCode.OTPValidityExpire));
+                }
             }
             catch (Exception ex)
             {
