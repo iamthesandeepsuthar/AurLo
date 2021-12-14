@@ -42,9 +42,9 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
         {
             return await _freshLead.UpdateLeadStatusOtherLeadAsync(model);
         }
-        [HttpGet("[action]")]
+        [HttpGet("[action]/{leadId}")]
         public async Task<ApiServiceResponseModel<List<LeadStatusActionHistory>>> FreshOtherLoanLeadStatusHistory(long leadId) 
-        {
+          {
             return await _freshLead.OtherLoanLeadStatusHistory(leadId);
         }
     }

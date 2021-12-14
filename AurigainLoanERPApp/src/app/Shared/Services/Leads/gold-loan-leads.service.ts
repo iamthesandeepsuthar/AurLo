@@ -5,7 +5,7 @@ import { BaseAPIService } from '../../Helper/base-api.service';
 import { IndexModel, ApiResponse } from '../../Helper/common-model';
 import { GoldLoanFreshLeadListModel, GoldLoanFreshLeadModel } from '../../Model/Leads/gold-loan-fresh-lead.model';
 import { BankModel } from '../../Model/master-model/bank-model.model';
-import { LeadStatusModel } from '../../Model/Leads/lead-status-model.model';
+import { LeadStatusActionHistory, LeadStatusModel } from '../../Model/Leads/lead-status-model.model';
 
 @Injectable()
 export class GoldLoanLeadsService {
@@ -39,5 +39,10 @@ export class GoldLoanLeadsService {
   LeadStatus(model: LeadStatusModel) : Observable<ApiResponse<any>> {
     let url = `${this._baseService.API_Url.Gold_Loan_Fresh_Lead_Status_Change_Api}`;
     return this._baseService.post(url, model);
+  }
+  FreshGoldLoanLeadStatusHistory(leadId: number): Observable<ApiResponse<LeadStatusActionHistory[]>> {
+    let url = `${this._baseService.API_Url.Gold_Loan_Fresh_Lead_Status_History_Api}${leadId}`;
+    debugger;
+    return this._baseService.get(url);
   }
 }

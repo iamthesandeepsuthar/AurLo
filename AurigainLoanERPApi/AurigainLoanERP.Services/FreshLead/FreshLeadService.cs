@@ -408,28 +408,24 @@ namespace AurigainLoanERP.Services.FreshLead
             List<LeadStatusActionHistory> history = new List<LeadStatusActionHistory>();
             try
             {
-                var data = await _db.GoldLoanFreshLeadStatusActionHistory.Where(x => x.LeadId == leadId).Include(x => x.ActionTakenByUser).ThenInclude(y => y.UserRole).ToListAsync();
-                if (data.Count > 0)
+               var data = _db.GoldLoanFreshLeadStatusActionHistory.Where(x => x.LeadId == leadId).Include(x => x.ActionTakenByUser).ThenInclude(y => y.UserRole);
+                if (data !=null)
                 {
-                    foreach (var d in data)
+                    history = await data.Select(d => new LeadStatusActionHistory
                     {
-                        LeadStatusActionHistory lead = new LeadStatusActionHistory
-                        {
-                            ActionDate = d.ActionDate,
-                            LeadId = d.LeadId,
-                            LeadStatus = d.LeadStatus == 1 ? LeadStatus.Pending.GetStringValue() :
-                                         d.LeadStatus == 2 ? LeadStatus.Mismatched.GetStringValue() :
-                                         d.LeadStatus == 3 ? LeadStatus.InCompleted.GetStringValue() :
-                                         d.LeadStatus == 4 ? LeadStatus.Rejected.GetStringValue() :
-                                         d.LeadStatus == 5 ? LeadStatus.Completed.GetStringValue() :
-                                         "New",
-                            ActionTakenBy = d.ActionTakenByUser.UserRole.Name,
-                            ActionTakenByUserId = d.ActionTakenByUserId.Value,
-                            Id = d.Id,
-                            Remark = d.Remarks
-                        };
-                        history.Add(lead);
-                    }
+                        ActionDate = d.ActionDate,
+                        LeadId = d.LeadId,
+                        LeadStatus = d.LeadStatus == 1 ? LeadStatus.Pending.GetStringValue() :
+                                d.LeadStatus == 2 ? LeadStatus.Mismatched.GetStringValue() :
+                                d.LeadStatus == 3 ? LeadStatus.InCompleted.GetStringValue() :
+                                d.LeadStatus == 4 ? LeadStatus.Rejected.GetStringValue() :
+                                d.LeadStatus == 5 ? LeadStatus.Completed.GetStringValue() :
+                                "New",
+                        ActionTakenBy = d.ActionTakenByUserId.HasValue ? $"{d.ActionTakenByUser.UserName} ({d.ActionTakenByUser.UserRole.Name})" : null,
+                        ActionTakenByUserId = d.ActionTakenByUserId ?? (long?)null,
+                        Id = d.Id,
+                        Remark = d.Remarks
+                    }).ToListAsync();
                     return CreateResponse<List<LeadStatusActionHistory>>(history, ResponseMessage.Success, true, ((int)ApiStatusCode.Ok));
                 }
                 else
@@ -563,6 +559,7 @@ namespace AurigainLoanERP.Services.FreshLead
             List<LeadStatusActionHistory> history = new List<LeadStatusActionHistory>();
             try
             {
+
                 var data = _db.FreshLeadHlplclstatusActionHistory.Where(x => x.LeadId == leadId).Include(x => x.ActionTakenByUser).ThenInclude(y => y.UserRole);
                 if (data != null)
                 {

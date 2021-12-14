@@ -136,10 +136,9 @@
                         </a>
                         <a href="javascript:void(0)" *ngIf="this.userDetail!.RoleId != userRoleEnum.Customer" (click)="onChangeLeadStatus(row.Id)" class="table-action-btn-status-changes text-warning" data-toggle="tooltip" data-placement="bottom" title="Change Status"> <img src="assets/img/change-status.png" alt=""/></a>
 
-
                         <!-- <a class="table-action-btn-delete" (click)="updateDeleteStatus(row?.UserId)" title="Delete">
-            <i class="fas fa-trash-alt"></i>
-          </a> -->
+                        <i class="fas fa-trash-alt"></i>     </a> -->
+                        <a class="table-action-btn-delete" (click)="onChangeLeadStatusHistory(row.Id)" title="Lead History"> <i class="fas fa-info-circle"></i> </a>
 
 
 

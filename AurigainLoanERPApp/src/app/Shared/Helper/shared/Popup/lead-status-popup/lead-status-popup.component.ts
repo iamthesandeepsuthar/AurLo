@@ -9,6 +9,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { GoldLoanLeadsService } from 'src/app/Shared/Services/Leads/gold-loan-leads.service';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { BalanceTransferGoldLoanLeadsService } from '../../../../Services/Leads/balance-transfer-gold-loan-leads.service';
+import { AuthService } from '../../../auth.service';
 
 @Component({
   selector: 'app-lead-status-popup',
@@ -24,6 +25,7 @@ export class LeadStatusPopupComponent implements OnInit {
   get f() { return this.formgrp.controls; }
   constructor(private readonly fb: FormBuilder,
     private readonly _commonService: CommonService,
+    readonly _authService: AuthService,
     private readonly _freshLead: GoldLoanLeadsService,
     private readonly _balanceTransfer: BalanceTransferGoldLoanLeadsService,
     private readonly _toast: ToastrService,
@@ -68,6 +70,7 @@ export class LeadStatusPopupComponent implements OnInit {
   }
 
   FreshLeadStatusUpdate() {
+    this.model.ActionTakenByUserId = this._authService.GetUserDetail()?.UserId as number;
     let subscription = this._freshLead.LeadStatus(this.model).subscribe(response => {
       subscription.unsubscribe();
       if (response.IsSuccess) {
@@ -81,6 +84,7 @@ export class LeadStatusPopupComponent implements OnInit {
 
   }
   FreshLeadOtherStatusUpdate() {
+    this.model.ActionTakenByUserId = this._authService.GetUserDetail()?.UserId as number;
     let subscription = this._otherLead.LeadStatus(this.model).subscribe(response => {
       subscription.unsubscribe();
       if (response.IsSuccess) {
@@ -94,6 +98,7 @@ export class LeadStatusPopupComponent implements OnInit {
 
   }
   BalanceTransferLeadStatusUpdate() {
+    this.model.ActionTakenByUserId = this._authService.GetUserDetail()?.UserId as number;
     let subscription = this._balanceTransfer.LeadStatus(this.model).subscribe(response => {
       subscription.unsubscribe();
       if (response.IsSuccess) {

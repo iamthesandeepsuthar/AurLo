@@ -492,6 +492,41 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
             }
 
         }
+        public async Task<ApiServiceResponseModel<List<LeadStatusActionHistory>>> BTGoldLoanLeadStatusHistory(long leadId)
+        {
+            List<LeadStatusActionHistory> history = new List<LeadStatusActionHistory>();
+            try
+            {
+                var data = _db.BtgoldLoanLeadStatusActionHistory.Where(x => x.LeadId == leadId).Include(x => x.ActionTakenByUser).ThenInclude(y => y.UserRole);
+                if (data != null)
+                {
+                    history = await data.Select(d => new LeadStatusActionHistory
+                    {
+                        ActionDate = d.ActionDate,
+                        LeadId = d.LeadId,
+                        LeadStatus = d.LeadStatus == 1 ? LeadStatus.Pending.GetStringValue() :
+                                d.LeadStatus == 2 ? LeadStatus.Mismatched.GetStringValue() :
+                                d.LeadStatus == 3 ? LeadStatus.InCompleted.GetStringValue() :
+                                d.LeadStatus == 4 ? LeadStatus.Rejected.GetStringValue() :
+                                d.LeadStatus == 5 ? LeadStatus.Completed.GetStringValue() :
+                                "New",
+                        ActionTakenBy = d.ActionTakenByUserId.HasValue ? $"{d.ActionTakenByUser.UserName} ({d.ActionTakenByUser.UserRole.Name})" : null,
+                        ActionTakenByUserId = d.ActionTakenByUserId ?? (long?)null,
+                        Id = d.Id,
+                        Remark = d.Remarks
+                    }).ToListAsync();
+                    return CreateResponse<List<LeadStatusActionHistory>>(history, ResponseMessage.Success, true, ((int)ApiStatusCode.Ok));
+                }
+                else
+                {
+                    return CreateResponse<List<LeadStatusActionHistory>>(history, ResponseMessage.Success, false, ((int)ApiStatusCode.RecordNotFound));
+                }
+            }
+            catch (Exception ex)
+            {
+                return CreateResponse<List<LeadStatusActionHistory>>(null, ex.Message, false, ((int)ApiStatusCode.ServerException));
+            }
+        }
 
         #region <<Private Method Of Balance Transafer Gold Loan Lead>>
         private async Task<long> SaveCustomerBTFreshLead(BTGoldLoanLeadPostModel model)

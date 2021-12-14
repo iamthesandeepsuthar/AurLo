@@ -7,6 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 import { IndexModel } from 'src/app/Shared/Helper/common-model';
 import { Routing_Url, Message } from 'src/app/Shared/Helper/constants';
 import { LeadStatusPopupComponent } from 'src/app/Shared/Helper/shared/Popup/lead-status-popup/lead-status-popup.component';
+import { LeadStatuslHistoryPopupComponent } from 'src/app/Shared/Helper/shared/Popup/lead-statusl-history-popup/lead-statusl-history-popup.component';
 import { FreshLeadHLPLCLModel } from 'src/app/Shared/Model/Leads/other-loan-leads.model';
 import { CommonService } from 'src/app/Shared/Services/common.service';
 import { PersonalHomeCarLoanService } from 'src/app/Shared/Services/Leads/personal-home-car-loan.service';
@@ -138,8 +139,19 @@ export class OtherLoanLeadsComponent implements OnInit {
       }
     });
   }
-  updateDeleteStatus(id: number) {
+  onChangeLeadStatusHistory(Id: number) {
+    const dialogRef = this.dialog.open(LeadStatuslHistoryPopupComponent, {
+      data: { Id: Id as number, Type: "OtherLeadHistory" as string ,Heading:'Other Loan Lead History' },
+      width: '600px',
+    });
 
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+      } else {
+      }
+    });
+  }
+  updateDeleteStatus(id: number) {
     this._commonService.Question(Message.ConfirmUpdate as string).then(result => {
       if (result) {
         let serv = this._freshLeadService.Delete(id).subscribe(

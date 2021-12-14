@@ -42,7 +42,6 @@ export class API_Url {
   public static District_Delete_Api = `${environment.apiEndPoint}StateAndDistrict/DeleteDistrict/`;
   public static AreaByPincode_Api = `${environment.apiEndPoint}StateAndDistrict/AreaByPincode/`;
 
-
   //#endregion
 
   //#region <<Qualification>>
@@ -76,14 +75,8 @@ export class API_Url {
   public static DoorstepAgentDeleteApi = `${environment.apiEndPoint}DoorStepAgent/Delete/`;
   public static DoorstepAgentActiveStatusApi = `${environment.apiEndPoint}DoorStepAgent/UpdatActiveStatus/`;
   public static DoorstepAgentDetailApi = `${environment.apiEndPoint}DoorStepAgent/GetById/`;
-
   public static DoorstepAgentDeleteDocumentFileApi = `${environment.apiEndPoint}DoorStepAgent/DeleteDocumentFile/`;
-
-
-
   //#endregion
-
-
 
   //#region << Agent>>
   public static AgentListApi = `${environment.apiEndPoint}Agent/Get`;
@@ -92,7 +85,6 @@ export class API_Url {
   public static AgentActiveStatusApi = `${environment.apiEndPoint}Agent/UpdatActiveStatus/`;
   public static AgentDetailApi = `${environment.apiEndPoint}Agent/GetById/`;
   public static AgentDeleteDocumentFileApi = `${environment.apiEndPoint}DoorStepAgent/DeleteDocumentFile/`;
-
   //#endregion
 
   //#region <<User Setting>>
@@ -177,20 +169,22 @@ export class API_Url {
   public static Gold_Loan_Fresh_Lead__Delete_Api = `${environment.apiEndPoint}GoldLoanFreshLead/DeleteProduct/`;
   public static Gold_Loan_Fresh_Lead__ActiveStatus_Api = `${environment.apiEndPoint}GoldLoanFreshLead/UpdateActiveStatus/`;
   public static Gold_Loan_Fresh_Lead_Status_Change_Api = `${environment.apiEndPoint}GoldLoanFreshLead/UpdateLeadStatus`;
+  public static Gold_Loan_Fresh_Lead_Status_History_Api =`${environment.apiEndPoint}GoldLoanFreshLead/FreshGoldLoanLeadStatusHistory/`;
   //#endregion
   //#region <<Personal - Car - Home - Loan >>
-  public static Personal_Home_Car_Loan_List_Api = `${environment.apiEndPoint}GoldLoanFreshLead/PersonalHomeCarLoanList`
-  public static Personal_Home_Car_Loan_Lead_Status_Change_Api =`${environment.apiEndPoint}FreshLeadOther/UpdateLeadStatus`
+  public static Personal_Home_Car_Loan_List_Api = `${environment.apiEndPoint}GoldLoanFreshLead/PersonalHomeCarLoanList`;
+  public static Personal_Home_Car_Loan_Lead_Status_Change_Api =`${environment.apiEndPoint}FreshLeadOther/UpdateLeadStatus`;
+  public static Personal_Home_Car_Loan_Lead_Status_History_Api =`${environment.apiEndPoint}FreshLeadOther/FreshOtherLoanLeadStatusHistory/`;
   //#endregion
 
   //#region  <<Balance Transfer Gold Loan Lead>>
-  public static BT_Gold_Loan_Lead_List_Api = `${environment.apiEndPoint}GoldLoanBalanceTransfer/BTGoldLoanLeadList`;
-  public static BT_Gold_Loan_Lead__AddUpdateExternalLead_Api = `${environment.apiEndPoint}GoldLoanBalanceTransfer/AddUpdateBTGoldLoanExternalLead`;
-  public static BT_Gold_Loan_Lead__Detail_Api = `${environment.apiEndPoint}GoldLoanBalanceTransfer/DetailById/`;
-  public static BT_Gold_Loan_Lead__AddUpdateInternalLead_Api = `${environment.apiEndPoint}GoldLoanBalanceTransfer/AddUpdateBTGoldLoanInternalLead`;
- public static  BT_Gold_Loan_Lead_Approval_Status_Api =`${environment.apiEndPoint}GoldLoanBalanceTransfer/UpdateLeadApprovalStage`
+ public static BT_Gold_Loan_Lead_List_Api = `${environment.apiEndPoint}GoldLoanBalanceTransfer/BTGoldLoanLeadList`;
+ public static BT_Gold_Loan_Lead__AddUpdateExternalLead_Api = `${environment.apiEndPoint}GoldLoanBalanceTransfer/AddUpdateBTGoldLoanExternalLead`;
+ public static BT_Gold_Loan_Lead__Detail_Api = `${environment.apiEndPoint}GoldLoanBalanceTransfer/DetailById/`;
+ public static BT_Gold_Loan_Lead__AddUpdateInternalLead_Api = `${environment.apiEndPoint}GoldLoanBalanceTransfer/AddUpdateBTGoldLoanInternalLead`;
+ public static BT_Gold_Loan_Lead_Approval_Status_Api =`${environment.apiEndPoint}GoldLoanBalanceTransfer/UpdateLeadApprovalStage`
  public static BT_Gold_Loan_Lead_Status_Change_Api = `${environment.apiEndPoint}GoldLoanBalanceTransfer/UpdateLeadStatus`;
-
+ public static BT_Gold_Loan_Fresh_Lead_Status_History_Api =`${environment.apiEndPoint}GoldLoanBalanceTransfer/BTGoldLoanLeadStatusHistory/`;
  //#endregion
 }
 

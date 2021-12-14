@@ -1,3 +1,4 @@
+import { LeadStatuslHistoryPopupComponent } from 'src/app/Shared/Helper/shared/Popup/lead-statusl-history-popup/lead-statusl-history-popup.component';
 import { LeadStatusPopupComponent } from './../../../Shared/Helper/shared/Popup/lead-status-popup/lead-status-popup.component';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
@@ -16,7 +17,7 @@ import { AuthService } from 'src/app/Shared/Helper/auth.service';
 
 @Component({
   selector: 'app-fresh-gold-loan-leads',
-  templateUrl: './fresh-gold-loan-leads.component.html',
+  templateUrl:'./fresh-gold-loan-leads.component.html',
   styleUrls: ['./fresh-gold-loan-leads.component.scss'],
   providers: [GoldLoanLeadsService, UserSettingService]
 })
@@ -181,5 +182,17 @@ export class FreshGoldLoanLeadsComponent implements OnInit {
       }
     });
 
+  }
+  onChangeLeadStatusHistory(Id: number) {
+    const dialogRef = this.dialog.open(LeadStatuslHistoryPopupComponent, {
+      data: { Id: Id as number, Type: "GoldLoanLeadHistory" as string ,Heading:'Fresh Gold Loan Lead History' },
+      width: '600px',
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+      } else {
+      }
+    });
   }
 }
