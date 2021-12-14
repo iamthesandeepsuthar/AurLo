@@ -8,3 +8,12 @@ export class LeadStatusModel {
   ActionTakenByUserId!: number;
   ActionTakenByUser!: string;
 }
+export class LeadStatusActionHistory {
+  Id!: number;
+  LeadId!: number;
+  LeadStatus!: string;
+  ActionTakenBy!: string;
+  ActionTakenByUserId!: number;
+  ActionDate!: Date;
+  Remark!: string;
+}

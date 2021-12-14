@@ -33,7 +33,7 @@ export class BalanceTransferGoldLoanLeadsComponent implements OnInit {
   get userDetail() { return this._auth.GetUserDetail() };
   get userRoleEnum() { return UserRoleEnum };
   get routing_Url() { return Routing_Url };
-  
+
   displayedColumns: string[] = ['index', 'FullName', 'FatherName', 'PrimaryMobileNumber', 'LoanAmountRequired', 'LeadStatus', 'LeadSourceByUserName', 'ProductName', 'Pincode', 'IsActive', 'Action'];
   ViewdisplayedColumns = [{ Value: 'FullName', Text: 'Full Name' },
   { Value: 'PrimaryMobileNumber', Text: 'Mobile Number' },
@@ -213,7 +213,7 @@ export class BalanceTransferGoldLoanLeadsComponent implements OnInit {
   onOpenApproveHistory(Id: number) {
     const dialogRef = this.dialog.open(LeadApprovalHistoryPopupComponent, {
       data: { Id: Id as number, Type: "BTLEAD" as string },
-      width: '700px',
+      width: '600px',
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -222,11 +222,10 @@ export class BalanceTransferGoldLoanLeadsComponent implements OnInit {
       }
     });
   }
-
   onOpenStatusHistory(Id: number) {
     const dialogRef = this.dialog.open(LeadStatuslHistoryPopupComponent, {
-      data: { Id: Id as number, Type: "BTLEAD" as string },
-      width: '700px',
+      data: { Id: Id as number, Type: "BTLEAD" as string , Heading:"BT Gold Loan Lead History"},
+      width: '600px',
     });
 
     dialogRef.afterClosed().subscribe(result => {

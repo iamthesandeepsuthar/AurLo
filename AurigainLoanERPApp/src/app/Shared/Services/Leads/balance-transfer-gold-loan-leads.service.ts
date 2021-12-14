@@ -3,7 +3,7 @@ import { Observable } from "rxjs";
 import { BaseAPIService } from "../../Helper/base-api.service";
 import { ApiResponse, IndexModel } from "../../Helper/common-model";
 import { BtGoldLoanLeadApprovalStagePostModel, BTGoldLoanLeadListModel, BTGoldLoanLeadPostModel, BTGoldLoanLeadViewModel } from "../../Model/Leads/btgold-loan-lead-post-model.model";
-import { LeadStatusModel } from "../../Model/Leads/lead-status-model.model";
+import { LeadStatusActionHistory, LeadStatusModel } from "../../Model/Leads/lead-status-model.model";
 
 @Injectable()
 export class BalanceTransferGoldLoanLeadsService {
@@ -43,5 +43,9 @@ export class BalanceTransferGoldLoanLeadsService {
   LeadStatus(model: LeadStatusModel) : Observable<ApiResponse<any>> {
     let url = `${this._baseService.API_Url.BT_Gold_Loan_Lead_Status_Change_Api}`;
     return this._baseService.post(url, model);
+  }
+  BTGoldLoanLeadStatusHistory(leadId: number): Observable<ApiResponse<LeadStatusActionHistory[]>> {
+    let url = `${this._baseService.API_Url.BT_Gold_Loan_Fresh_Lead_Status_History_Api}${leadId}`;
+    return this._baseService.get(url);
   }
 }

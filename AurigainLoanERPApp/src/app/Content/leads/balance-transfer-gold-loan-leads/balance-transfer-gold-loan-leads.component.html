@@ -51,27 +51,12 @@
               </svg>
               <input type="search" [(ngModel)]="indexModel.Search" (blur)="onSearch()" class="form-control"
                 placeholder="Search..." aria-controls="zero-config"></label></div>
-
-          <!-- <div class="ad-filter-btn-grp">
-            <button data-toggle="collapse" href="#advance-filter1" type="submit" class="ad-filter-btn"> <img
-                src="assets/img/filter.png" data-toggle="tooltip" data-placement="bottom" title="Advance filter">
-            </button>
-          </div> -->
-          <!-- <div class="table-view-btn ml-4">
-            <button type="button" class="btn-change-view"><i class="fa fa-bars"></i></button>
-            <button type="button" class="btn-change-view ml-2 active"><i class="fa fa-th-large"></i></button>
-          </div> -->
-
         </div>
       </div>
-
     </div>
 
 
-
-
     <div class="table-responsive table-shadow">
-
       <table class="custom-mat-table" mat-table [dataSource]="dataSource" matSort
         class="mat-elevation-z8 table table-striped dataTable table-header" style="width: 100%;" role="grid"
         aria-describedby="zero-config_info" (matSortChange)="sortData($event)">
@@ -83,19 +68,19 @@
         </ng-container>
 
         <ng-container [matColumnDef]="column.Value" *ngFor="let column of ViewdisplayedColumns, let in=index">
-
           <th mat-header-cell *matHeaderCellDef mat-sort-header> {{column.Text}} </th>
           <td [ngClass]="{'sorting_1 table-data-name': in==0}" mat-cell *matCellDef="let element"> <span *ngIf="in==0">
               {{element[column.Value].substring(0,1)}} </span> {{element[column.Value]}}
           </td>
         </ng-container>
 
-             <ng-container matColumnDef="LeadStatus">
+          <ng-container matColumnDef="LeadStatus">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>LeadStatus </th>
           <td mat-cell *matCellDef="let element" class="table-action-btn">
 <div [ngSwitch]="element.LeadStatus">
   <div *ngSwitchCase="'Completed'" class="badge bg-success">{{element.LeadStatus}}</div>
-  <div *ngSwitchDefault class="text-danger" >{{element.LeadStatus}}</div>
+  <div *ngSwitchCase="'Rejected'" class="badge bg-danger">{{element.LeadStatus}}</div>
+  <div *ngSwitchDefault class="badge bg-info" >{{element.LeadStatus}}</div>
 </div>
 
           </td>
@@ -158,12 +143,12 @@
 
             <a *ngIf="row?.IsStatusCompleted && row?.ApprovedStage" (click)="onOpenApproveHistory(row.Id)"
               href="javascript:void(0)" class="table-action-btn-lead-approval text-info" data-toggle="tooltip"
-              data-placement="bottom" title="Approval History"> <i class="fa fa-info-circle" aria-hidden="true"></i>
+              data-placement="bottom" title="Lead Approval History"> <i class="fa fa-info-circle" aria-hidden="true"></i>
             </a>
 
             <a  (click)="onOpenStatusHistory(row.Id)"
             href="javascript:void(0)" class="table-action-btn-lead-approval text-info" data-toggle="tooltip"
-            data-placement="bottom" title="Status History"> <i class="fa fa-info-circle" aria-hidden="true"></i>
+            data-placement="bottom" title="Lead Status History"> <i class="fa fa-info-circle" aria-hidden="true"></i>
           </a>
 
 

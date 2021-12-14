@@ -15,21 +15,21 @@
                         <label>Status <strong class="text-danger ml-1">*</strong></label>
                         <select class="form-control" [(ngModel)]="model.LeadStatus" formControlName="status" [ngClass]="{ 'is-invalid': f.status.errors && f.status.touched}">
                           <option value="undefined">--Select Status--</option>
-            
+
                           <option *ngFor="let data of dropDown!.ddlLeadStatus" [value]="data.Value">
                   {{data.Text}}
                 </option>
               </select>
                         <div class="invalid-feedback" *ngIf="(formgrp.get('status')?.hasError('required') && formgrp.get('status')?.touched)">
                             Please select <strong>Status</strong>...!</div>
-                    </div>
+                        </div>
 
-                    <div class="form-group col-md-12">
+                        <div class="form-group col-md-12">
                         <label>Remark</label>
                         <textarea class="form-control" [(ngModel)]="model.Remark" formControlName="Remark" [ngClass]="{ 'is-invalid': f.Remark.errors && f.Remark.touched}" placeholder="Remark" rows="3"></textarea>
                         <div class="invalid-feedback" *ngIf="(formgrp.get('Remark')?.hasError('required') && formgrp.get('Remark')?.touched)">
                             Please Enter <strong>Remark</strong>...!</div>
-                    </div>
+                        </div>
                 </div>
             </form>
         </div>
@@ -39,7 +39,6 @@
             <button type="button" (click)="onClose()" class="btn btn-outline-danger" aria-label="Close"><i
             class="fas fa-times mr-1"></i> Cancel</button>
         </div>
-
     </div>
 </div>
 <!-- Lead Approval Modal  End -->
