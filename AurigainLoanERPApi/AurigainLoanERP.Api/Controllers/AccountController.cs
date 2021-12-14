@@ -72,7 +72,7 @@ namespace AurigainLoanERP.Api.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        //Get api/Account/ValidateUserWithMobileNUmber
+        //Get api/Account/ValidateUserWithMobileNumber
         public async Task<ApiServiceResponseModel<string>> ValidateUserWithMobileNUmber(string mobileNumber)
         {
             return await _accountService.CheckUserExist(mobileNumber);
