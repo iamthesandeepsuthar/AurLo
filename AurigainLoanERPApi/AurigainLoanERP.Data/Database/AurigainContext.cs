@@ -151,6 +151,8 @@ namespace AurigainLoanERP.Data.Database
             {
                 entity.ToTable("BTGoldLoanLead");
 
+                entity.Property(e => e.ApprovalStatus).HasMaxLength(100);
+
                 entity.Property(e => e.CreatedOn)
                     .HasColumnType("datetime")
                     .HasDefaultValueSql("(getdate())");

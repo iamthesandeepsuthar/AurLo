@@ -89,6 +89,18 @@
           </td>
         </ng-container>
 
+
+        <ng-container matColumnDef="ApprovalStatus">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Approval Status </th>
+          <td mat-cell *matCellDef="let element" class="table-action-btn">
+           <div class="text-center" [ngSwitch]="element.ApprovalStatus">
+            <div *ngSwitchCase="'Approved'" class="badge bg-success">{{element.ApprovalStatus}}</div>
+            <div *ngSwitchCase="'Rejected'" class="badge bg-danger">{{element.ApprovalStatus}}</div>
+            <div *ngSwitchDefault class="badge bg-info" >{{element.ApprovalStatus}}</div>
+           </div>
+          </td>
+        </ng-container>
+
         <!-- <ng-container matColumnDef="IsApproved">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Approval </th>
           <td mat-cell *matCellDef="let element" class="table-action-btn">
@@ -152,7 +164,7 @@
 
             <a  (click)="onOpenStatusHistory(row.Id)"
             href="javascript:void(0)" class="table-action-btn-lead-approval text-info" data-toggle="tooltip"
-            data-placement="bottom" title="Lead Status History"> <img src="assets/img/history.png" alt=""/>
+            data-placement="bottom" title="Lead Status History"> <i class="fas fa-info-circle"></i>
           </a>
 
 

@@ -81,7 +81,13 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
             return await _objBTLead.BTGoldLoanLeadStatusHistory(leadId);
         }
 
- 
+        [HttpGet("{leadId}")]
+        public async Task<ApiServiceResponseModel<List<LeadStatusActionHistory>>> BTGoldLoanApprovalStatusHistory(long leadId)
+        {
+            return await _objBTLead.BTGoldLoanApprovalStatusHistory(leadId);
+        }
+
+
 
     }
 

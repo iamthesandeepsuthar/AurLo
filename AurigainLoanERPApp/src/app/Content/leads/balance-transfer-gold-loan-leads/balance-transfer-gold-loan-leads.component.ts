@@ -34,7 +34,7 @@ export class BalanceTransferGoldLoanLeadsComponent implements OnInit {
   get userRoleEnum() { return UserRoleEnum };
   get routing_Url() { return Routing_Url };
 
-  displayedColumns: string[] = ['index', 'FullName', 'FatherName', 'PrimaryMobileNumber','ProductName', 'Pincode', 'LoanAmountRequired', 'LeadStatus', 'LeadSourceByUserName', 'Action'];
+  displayedColumns: string[] = ['index', 'FullName', 'FatherName', 'PrimaryMobileNumber','ProductName', 'Pincode', 'LoanAmountRequired', 'LeadStatus','ApprovalStatus', 'LeadSourceByUserName', 'Action'];
   ViewdisplayedColumns = [{ Value: 'FullName', Text: 'Full Name' },
   { Value: 'PrimaryMobileNumber', Text: 'Mobile Number' },
   { Value: 'LeadSourceByUserName', Text: 'Lead Source By' },
@@ -190,7 +190,7 @@ export class BalanceTransferGoldLoanLeadsComponent implements OnInit {
         this.toast.success(Message.SaveSuccess as string, 'Success');
         this.getList();
       } else {
-       // this.toast.error(Message.SaveFail as string, 'Error');
+     // this.toast.error(Message.SaveFail as string, 'Error');
 
       }
     });
@@ -212,7 +212,7 @@ export class BalanceTransferGoldLoanLeadsComponent implements OnInit {
   }
   onOpenApproveHistory(Id: number) {
     const dialogRef = this.dialog.open(LeadApprovalHistoryPopupComponent, {
-      data: { Id: Id as number, Type: "BTLEAD" as string },
+      data: { Id: Id as number, Type: "BTLEAD" as string ,Heading:'BT Gold Loan Approval History'},
       width: '600px',
     });
 

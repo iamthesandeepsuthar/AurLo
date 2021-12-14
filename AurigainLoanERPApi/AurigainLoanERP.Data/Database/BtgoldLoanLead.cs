@@ -44,6 +44,7 @@ namespace AurigainLoanERP.Data.Database
         public long? ModifiedBy { get; set; }
         public string LoanAccountNumber { get; set; }
         public string LeadStatus { get; set; }
+        public string ApprovalStatus { get; set; }
 
         public virtual UserMaster CustomerUser { get; set; }
         public virtual UserMaster LeadSourceByuser { get; set; }

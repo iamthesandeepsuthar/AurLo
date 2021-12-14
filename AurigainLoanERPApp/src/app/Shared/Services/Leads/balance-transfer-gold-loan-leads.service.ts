@@ -48,4 +48,8 @@ export class BalanceTransferGoldLoanLeadsService {
     let url = `${this._baseService.API_Url.BT_Gold_Loan_Fresh_Lead_Status_History_Api}${leadId}`;
     return this._baseService.get(url);
   }
+  BTGoldLoanApprovalHistory(leadId: number): Observable<ApiResponse<LeadStatusActionHistory[]>> {
+    let url = `${this._baseService.API_Url.BT_Gold_Loan_Fresh_Approval_Status_History_Api}${leadId}`;
+    return this._baseService.get(url);
+  }
 }

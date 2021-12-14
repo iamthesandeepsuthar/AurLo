@@ -52,6 +52,7 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                     objData.LeadSourceByuserId = model.LeadSourceByuserId;
                     objData.CreatedOn = DateTime.Now;
                     objData.LeadStatus = "New";
+                    objData.ApprovalStatus = "Pending";
                     objData.CustomerUserId = model.CustomerUserId;
                     objData.LoanAmount = model.LoanAmount;
                     objData.ProductId = model.ProductId;
@@ -178,6 +179,7 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                                               ProductName = detail.Product.Name,
                                               IsStatusCompleted = detail.BtgoldLoanLeadStatusActionHistory.Where(x=> x.LeadStatus.Value == ((int)LeadStatus.Completed)).Count() >0 ? true:false,
                                               Pincode = detail.BtgoldLoanLeadAddressDetail.FirstOrDefault().AeraPincode.Pincode,
+                                              ApprovalStatus = detail.ApprovalStatus,
                                               ApprovedStage = detail.BtgoldLoanLeadApprovalActionHistory.Count > 0 ? 
                                               detail.BtgoldLoanLeadApprovalActionHistory.OrderByDescending(x=>x.Id).FirstOrDefault(x => x.ActionTakenByUserId.HasValue).ActionTakenByUser.UserRole.UserRoleLevel.Value  : (int?)null 
                                           }).ToListAsync();
@@ -360,6 +362,7 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                     objData.LoanAmount = model.LoanAmount;
                     objData.ProductId = model.ProductId;
                     objData.LeadStatus = "New";
+                    objData.ApprovalStatus = "Pending";
                     objData.LoanAccountNumber = !string.IsNullOrEmpty(model.LoanAccountNumber) ? model.LoanAccountNumber : null;
                     objData.IsInternalLead = true;
                     objData.CreatedBy = _loginUserDetail.UserId ?? null;
@@ -412,6 +415,7 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
         {
             try
             {
+                await _db.Database.BeginTransactionAsync();
                 var objModel = new BtgoldLoanLeadApprovalActionHistory()
                 {
                     LeadId = model.LeadId,
@@ -422,13 +426,37 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                 };
 
                 var result = await _db.BtgoldLoanLeadApprovalActionHistory.AddAsync(objModel);
-                await _db.SaveChangesAsync();
+                var leadDetail = await _db.BtgoldLoanLead.Where(x => x.Id == model.LeadId).FirstOrDefaultAsync();
+                if (leadDetail != null)
+                {
+                    switch (model.ApprovalStatus)
+                    {
+                        case 1:
+                            leadDetail.ApprovalStatus = LeadApprovalStatus.Approved.GetStringValue();
+                            break;
+                        case 2:
+                            leadDetail.ApprovalStatus = LeadApprovalStatus.Rejected.GetStringValue();
+                            break;                      
+
+                        default:
+                            leadDetail.LeadStatus = "Pending";
+                            break;
+                    }
+
+                    await _db.SaveChangesAsync();
+                    _db.Database.CommitTransaction();
+                }
+                else
+                {
+                    _db.Database.RollbackTransaction();
+                    return CreateResponse<object>(false, ResponseMessage.NotFound, false, ((int)ApiStatusCode.NotFound));
+                }              
                 return CreateResponse<object>(true, ResponseMessage.Save, true, ((int)ApiStatusCode.Ok));
             }
             catch (Exception)
             {
+                _db.Database.RollbackTransaction();
                 return CreateResponse<object>(false, ResponseMessage.Fail, false, ((int)ApiStatusCode.ServerException));
-
             }
 
         }
@@ -482,6 +510,7 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                     return CreateResponse<object>(false, ResponseMessage.NotFound, false, ((int)ApiStatusCode.NotFound));
                 }
                 await _db.SaveChangesAsync();
+                _db.Database.CommitTransaction();
                 return CreateResponse<object>(true, ResponseMessage.Save, true, ((int)ApiStatusCode.Ok));
             }
             catch (Exception)
@@ -510,6 +539,37 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                                 d.LeadStatus == 4 ? LeadStatus.Rejected.GetStringValue() :
                                 d.LeadStatus == 5 ? LeadStatus.Completed.GetStringValue() :
                                 "New",
+                        ActionTakenBy = d.ActionTakenByUserId.HasValue ? $"{d.ActionTakenByUser.UserName} ({d.ActionTakenByUser.UserRole.Name})" : null,
+                        ActionTakenByUserId = d.ActionTakenByUserId ?? (long?)null,
+                        Id = d.Id,
+                        Remark = d.Remarks
+                    }).ToListAsync();
+                    return CreateResponse<List<LeadStatusActionHistory>>(history, ResponseMessage.Success, true, ((int)ApiStatusCode.Ok));
+                }
+                else
+                {
+                    return CreateResponse<List<LeadStatusActionHistory>>(history, ResponseMessage.Success, false, ((int)ApiStatusCode.RecordNotFound));
+                }
+            }
+            catch (Exception ex)
+            {
+                return CreateResponse<List<LeadStatusActionHistory>>(null, ex.Message, false, ((int)ApiStatusCode.ServerException));
+            }
+        }
+        public async Task<ApiServiceResponseModel<List<LeadStatusActionHistory>>> BTGoldLoanApprovalStatusHistory(long leadId) 
+        {
+            List<LeadStatusActionHistory> history = new List<LeadStatusActionHistory>();
+            try
+            {
+                var data = _db.BtgoldLoanLeadApprovalActionHistory.Where(x => x.LeadId == leadId).Include(x => x.ActionTakenByUser).ThenInclude(y => y.UserRole);
+                if (data != null)
+                {
+                    history = await data.Select(d => new LeadStatusActionHistory
+                    {
+                        ActionDate = d.ActionDate,
+                        LeadId = d.LeadId,
+                        LeadStatus = d.ApprovalStatus == 1 ? LeadApprovalStatus.Approved.GetStringValue() :                                         LeadApprovalStatus.Rejected.GetStringValue(),                       
+                                    
                         ActionTakenBy = d.ActionTakenByUserId.HasValue ? $"{d.ActionTakenByUser.UserName} ({d.ActionTakenByUser.UserRole.Name})" : null,
                         ActionTakenByUserId = d.ActionTakenByUserId ?? (long?)null,
                         Id = d.Id,

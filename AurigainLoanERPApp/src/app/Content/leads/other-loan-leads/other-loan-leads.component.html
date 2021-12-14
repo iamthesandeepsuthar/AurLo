@@ -132,7 +132,7 @@
           </a> -->
                       <a class="table-action-btn-view" routerLink="../{{routing_Url.AgenDetailUrl +'/'+ row.UserId}}" title="Detail"> <i class="fas fa-eye"></i> </a>
                       <a href="javascript:void(0)" (click)="onChangeLeadStatus(row.Id)" class="table-action-btn-status-changes text-warning" data-toggle="tooltip" data-placement="bottom" title="Change Status "><img src="assets/img/change-status.png" alt=""/></a>
-                      <a class="table-action-btn-delete" (click)="onChangeLeadStatusHistory(row.Id)" title="Lead History"> <i class="fas fa-info-circle"></i>
+                      <a class="table-action-btn-delete" *ngIf="row.LeadStatus != 'New'" (click)="onChangeLeadStatusHistory(row.Id)" title="Lead History"> <i class="fas fa-info-circle"></i>
           </a>
                   </td>
               </ng-container>

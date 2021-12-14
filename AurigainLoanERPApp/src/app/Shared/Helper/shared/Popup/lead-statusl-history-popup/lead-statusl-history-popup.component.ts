@@ -28,7 +28,7 @@ export class LeadStatuslHistoryPopupComponent implements OnInit {
   ngOnInit( ): void {
     if(this.data.Type == "GoldLoanLeadHistory") {
       this.getFreshGoldLoanLeadStatusHistory();
-    } else if( this.data.Type=="LeadStatusHistory"){
+    } else if( this.data.Type=="OtherLeadHistory"){
       this.getOtherLoanLeadStatusHistory()
     } else if(this.data.Type =="BTLEAD") {
       this.getBTGoldLoanLeadStatusHistory();

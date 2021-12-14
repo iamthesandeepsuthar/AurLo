@@ -22,5 +22,6 @@
     [CreatedBy] BIGINT NULL, 
     [ModifiedBy] BIGINT NULL, 
     [LoanAccountNumber] NVARCHAR(100) NULL, 
-    [LeadStatus] NVARCHAR(100) NULL,   
+    [LeadStatus] NVARCHAR(100) NULL, 
+    [ApprovalStatus] NVARCHAR(100) NULL,   
 )
