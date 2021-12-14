@@ -56,6 +56,7 @@ namespace AurigainLoanERP.Services.User
                     if (model.User != null)
                     {
                         model.User.UserRoleId = (int)UserRoleEnum.Agent;
+                        model.User.UserName = model.FullName;
                         userId = await SaveUserAsync(model.User);
                     }
 
@@ -414,6 +415,7 @@ namespace AurigainLoanERP.Services.User
                     if (model.User != null)
                     {
                         model.User.UserRoleId = (int)UserRoleEnum.DoorStepAgent;
+                        model.User.UserName = model.FullName;
                         userId = await SaveUserAsync(model.User);
 
                     }
@@ -1329,7 +1331,7 @@ namespace AurigainLoanERP.Services.User
                     {
                         var encrptPassword = _security.Base64Encode("12345");
                         var objModel = _mapper.Map<UserMaster>(model);
-                        objModel.UserName = model.UserName ?? model.Email;
+                        objModel.UserName = model.UserName?? model.Email;
                         objModel.CreatedOn = DateTime.Now;
                         objModel.Password = encrptPassword;
                         objModel.Mpin = GenerateUniqueId();//_security.EncryptData(GenerateUniqueId());

@@ -183,8 +183,9 @@ namespace AurigainLoanERP.Services.Account
                         response.UserId = user.Id;
                         response.Token = fresh_token.Data;
                         response.RoleId = user.UserRoleId;
+                        response.RoleLevel = user.UserRole.UserRoleLevel;
                         response.UserName = user.UserName;
-
+                        response.RoleName = user.UserRole.Name;
                     }
                     else
                     {
@@ -252,7 +253,7 @@ namespace AurigainLoanERP.Services.Account
                     response.RoleId = user.UserRoleId;
                     response.RoleLevel = user.UserRole.UserRoleLevel;
                     response.UserName = user.UserName;
-
+                    response.RoleName = user.UserRole.Name;
                 }
                 else
                 {

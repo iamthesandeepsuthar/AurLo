@@ -20,12 +20,14 @@ namespace AurigainLoanERP.Services.FreshLead
         public readonly IMapper _mapper;
         private AurigainContext _db;
         private readonly EmailHelper _emailHelper;
+        private readonly Security _security;
 
         public FreshLeadService(IMapper mapper, AurigainContext db, IConfiguration _configuration, IHostingEnvironment environment)
         {
             this._mapper = mapper;
             _db = db;
             _emailHelper = new EmailHelper(_configuration, environment);
+            _security = new Security(_configuration);
 
         }
         #region  <<Gold Loan Fresh Lead>>
@@ -656,6 +658,7 @@ namespace AurigainLoanERP.Services.FreshLead
                 {
                     return isExist.Id;
                 }
+                var encrptPassword = _security.Base64Encode("12345");
                 Random random = new Random();
                 UserMaster user = new UserMaster
                 {
@@ -665,7 +668,7 @@ namespace AurigainLoanERP.Services.FreshLead
                     IsApproved = false,
                     IsWhatsApp = true,
                     CreatedOn = DateTime.Now,
-                    Password = "12345",
+                    Password = encrptPassword,
                     UserName = model.FullName,
                     Mpin = random.Next(100000, 199999).ToString(),
                     UserRoleId = ((int)UserRoleEnum.Customer),

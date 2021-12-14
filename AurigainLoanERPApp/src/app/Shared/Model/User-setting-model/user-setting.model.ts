@@ -15,6 +15,7 @@ export interface LoginResponseModel {
   UserId: number;
   RoleId: number;
   RoleLevel: number;
+  RoleName: string;
   Token: string;
   UserName: string;
 

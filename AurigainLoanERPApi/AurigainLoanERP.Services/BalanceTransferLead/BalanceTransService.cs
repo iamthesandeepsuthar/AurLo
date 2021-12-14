@@ -7,6 +7,7 @@ using AurigainLoanERP.Shared.ExtensionMethod;
 using AutoMapper;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -20,13 +21,14 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
     {
         public readonly IMapper _mapper;
         private readonly FileHelper _fileHelper;
-
+        private readonly Security _security;
         private AurigainContext _db;
-        public BalanceTransService(IMapper mapper, AurigainContext db, IHostingEnvironment environment)
+        public BalanceTransService(IMapper mapper, AurigainContext db, IHostingEnvironment environment, IConfiguration _configuration)
         {
             this._mapper = mapper;
             _db = db;
             _fileHelper = new FileHelper(environment);
+            _security = new Security(_configuration);
 
         }
         public async Task<ApiServiceResponseModel<string>> AddUpdateBTGoldLoanExternalLeadAsync(BTGoldLoanLeadPostModel model)
@@ -587,7 +589,6 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                 return CreateResponse<List<LeadStatusActionHistory>>(null, ex.Message, false, ((int)ApiStatusCode.ServerException));
             }
         }
-
         #region <<Private Method Of Balance Transafer Gold Loan Lead>>
         private async Task<long> SaveCustomerBTFreshLead(BTGoldLoanLeadPostModel model)
         {
@@ -598,6 +599,7 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                 {
                     return isExist.Id;
                 }
+                var encrptPassword = _security.Base64Encode("12345");
                 Random random = new Random();
                 UserMaster user = new UserMaster
                 {
@@ -607,7 +609,7 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                     IsApproved = false,
                     IsWhatsApp = true,
                     CreatedOn = DateTime.Now,
-                    Password = "12345",
+                    Password = encrptPassword,
                     UserName = model.FullName,
                     Mpin = random.Next(100000, 199999).ToString(),
                     UserRoleId = ((int)UserRoleEnum.Customer),
@@ -1079,8 +1081,6 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                 throw;
             }
         }
-
-
         #endregion
     }
 }
