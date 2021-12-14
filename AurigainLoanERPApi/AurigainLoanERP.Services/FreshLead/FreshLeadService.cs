@@ -18,7 +18,7 @@ namespace AurigainLoanERP.Services.FreshLead
     public class FreshLeadService : BaseService, IFreshLeadService
     {
         public readonly IMapper _mapper;
-        private AurigainContext _db;
+        private readonly AurigainContext _db;
         private readonly EmailHelper _emailHelper;
         private readonly Security _security;
 
@@ -38,31 +38,101 @@ namespace AurigainLoanERP.Services.FreshLead
             try
             {
                 IQueryable<GoldLoanFreshLead> result;
-                if (model.UserId == null)
+
+                //filte Conditions
+                switch (_loginUserDetail.RoleId)
                 {
-                    result = (from goldLoanLead in _db.GoldLoanFreshLead
-                              where !goldLoanLead.IsDelete &&
-                              (string.IsNullOrEmpty(model.Search)
-                              || goldLoanLead.FullName.Contains(model.Search)
-                              || goldLoanLead.PrimaryMobileNumber.Contains(model.Search)
-                              || goldLoanLead.FatherName.Contains(model.Search)
-                              || goldLoanLead.LeadSourceByUser.UserName.Contains(model.Search)
-                              || goldLoanLead.GoldLoanFreshLeadKycDocument.FirstOrDefault().PincodeArea.Pincode.Contains(model.Search))
-                              || goldLoanLead.Product.Name.Contains(model.Search)
-                              select goldLoanLead);
-                }
-                else
-                {
-                    result = (from goldLoanLead in _db.GoldLoanFreshLead
-                              where !goldLoanLead.IsDelete && goldLoanLead.CustomerUserId == model.UserId
-                              && (string.IsNullOrEmpty(model.Search) ||
+
+                    case (int)UserRoleEnum.SuperAdmin:
+                    case (int)(UserRoleEnum.Admin):
+                    case (int)(UserRoleEnum.WebOperator):
+
+                        result = (from goldLoanLead in _db.GoldLoanFreshLead
+                                  where !goldLoanLead.IsDelete
+                                  && (string.IsNullOrEmpty(model.Search) || goldLoanLead.FullName.Contains(model.Search) || goldLoanLead.FatherName.Contains(model.Search) || goldLoanLead.Gender.Contains(model.Search) || goldLoanLead.GoldLoanFreshLeadKycDocument.FirstOrDefault().PincodeArea.Pincode.Contains(model.Search)) ||
+                                  goldLoanLead.Product.Name.Contains(model.Search)
+                                  select goldLoanLead);
+                        break;
+
+                    case (int)(UserRoleEnum.Supervisor):
+
+                        List<long> employees = _db.UserReportingPerson.Where(x => x.ReportingUserId == _loginUserDetail.UserId).Select(x => x.UserId).ToList();
+
+                        result = (from goldLoanLead in _db.GoldLoanFreshLead
+                                  where !goldLoanLead.IsDelete && (goldLoanLead.CreatedBy == _loginUserDetail.UserId || employees.Contains(goldLoanLead.LeadSourceByUserId))
+                                  && (string.IsNullOrEmpty(model.Search) || goldLoanLead.FullName.Contains(model.Search) || goldLoanLead.FatherName.Contains(model.Search) || goldLoanLead.Gender.Contains(model.Search) || goldLoanLead.GoldLoanFreshLeadKycDocument.FirstOrDefault().PincodeArea.Pincode.Contains(model.Search)) ||
+                                  goldLoanLead.Product.Name.Contains(model.Search)
+                                  select goldLoanLead);
+
+                        break;
+
+                    case (int)(UserRoleEnum.Agent):
+                    case (int)(UserRoleEnum.DoorStepAgent):
+
+                        result = (from goldLoanLead in _db.GoldLoanFreshLead
+                                  where !goldLoanLead.IsDelete &&
+                                   (goldLoanLead.CreatedBy == _loginUserDetail.UserId || goldLoanLead.LeadSourceByUserId == _loginUserDetail.UserId) && (string.IsNullOrEmpty(model.Search) ||
                               goldLoanLead.FullName.Contains(model.Search) || goldLoanLead.PrimaryMobileNumber.Contains(model.Search) ||
                               goldLoanLead.FatherName.Contains(model.Search) ||
                               goldLoanLead.LeadSourceByUser.UserName.Contains(model.Search) ||
                               goldLoanLead.GoldLoanFreshLeadKycDocument.FirstOrDefault().PincodeArea.Pincode.Contains(model.Search)) ||
                               goldLoanLead.Product.Name.Contains(model.Search)
-                              select goldLoanLead);
-                }
+                                  select goldLoanLead);
+
+                        break;
+
+                    case (int)(UserRoleEnum.Customer):
+
+                        result = (from goldLoanLead in _db.GoldLoanFreshLead
+                                  where !goldLoanLead.IsDelete && (goldLoanLead.CreatedBy == _loginUserDetail.UserId || goldLoanLead.CustomerUserId == _loginUserDetail.UserId) && (string.IsNullOrEmpty(model.Search) ||
+                              goldLoanLead.FullName.Contains(model.Search) || goldLoanLead.PrimaryMobileNumber.Contains(model.Search) ||
+                              goldLoanLead.FatherName.Contains(model.Search) ||
+                              goldLoanLead.LeadSourceByUser.UserName.Contains(model.Search) ||
+                              goldLoanLead.GoldLoanFreshLeadKycDocument.FirstOrDefault().PincodeArea.Pincode.Contains(model.Search)) ||
+                              goldLoanLead.Product.Name.Contains(model.Search)
+                                  select goldLoanLead);
+
+                        break;
+                    default:
+
+                        result = (from goldLoanLead in _db.GoldLoanFreshLead
+                                  where !goldLoanLead.IsDelete && goldLoanLead.CreatedBy == _loginUserDetail.UserId
+                                  && (string.IsNullOrEmpty(model.Search) || goldLoanLead.FullName.Contains(model.Search) || goldLoanLead.PrimaryMobileNumber.Contains(model.Search) ||
+                              goldLoanLead.FatherName.Contains(model.Search) ||
+                              goldLoanLead.LeadSourceByUser.UserName.Contains(model.Search) ||
+                              goldLoanLead.GoldLoanFreshLeadKycDocument.FirstOrDefault().PincodeArea.Pincode.Contains(model.Search)) ||
+                              goldLoanLead.Product.Name.Contains(model.Search)
+                                  select goldLoanLead);
+
+                        break;
+                } 
+
+
+                //if (model.UserId == null)
+                //{
+                //    result = (from goldLoanLead in _db.GoldLoanFreshLead
+                //              where !goldLoanLead.IsDelete &&
+                //              (string.IsNullOrEmpty(model.Search)
+                //              || goldLoanLead.FullName.Contains(model.Search)
+                //              || goldLoanLead.PrimaryMobileNumber.Contains(model.Search)
+                //              || goldLoanLead.FatherName.Contains(model.Search)
+                //              || goldLoanLead.LeadSourceByUser.UserName.Contains(model.Search)
+                //              || goldLoanLead.GoldLoanFreshLeadKycDocument.FirstOrDefault().PincodeArea.Pincode.Contains(model.Search))
+                //              || goldLoanLead.Product.Name.Contains(model.Search)
+                //              select goldLoanLead);
+                //}
+                //else
+                //{
+                //    result = (from goldLoanLead in _db.GoldLoanFreshLead
+                //              where !goldLoanLead.IsDelete && goldLoanLead.CustomerUserId == model.UserId
+                //              && (string.IsNullOrEmpty(model.Search) ||
+                //              goldLoanLead.FullName.Contains(model.Search) || goldLoanLead.PrimaryMobileNumber.Contains(model.Search) ||
+                //              goldLoanLead.FatherName.Contains(model.Search) ||
+                //              goldLoanLead.LeadSourceByUser.UserName.Contains(model.Search) ||
+                //              goldLoanLead.GoldLoanFreshLeadKycDocument.FirstOrDefault().PincodeArea.Pincode.Contains(model.Search)) ||
+                //              goldLoanLead.Product.Name.Contains(model.Search)
+                //              select goldLoanLead);
+                //}
 
                 switch (model.OrderBy)
                 {
@@ -410,8 +480,8 @@ namespace AurigainLoanERP.Services.FreshLead
             List<LeadStatusActionHistory> history = new List<LeadStatusActionHistory>();
             try
             {
-               var data = _db.GoldLoanFreshLeadStatusActionHistory.Where(x => x.LeadId == leadId).Include(x => x.ActionTakenByUser).ThenInclude(y => y.UserRole);
-                if (data !=null)
+                var data = _db.GoldLoanFreshLeadStatusActionHistory.Where(x => x.LeadId == leadId).Include(x => x.ActionTakenByUser).ThenInclude(y => y.UserRole);
+                if (data != null)
                 {
                     history = await data.Select(d => new LeadStatusActionHistory
                     {
@@ -424,7 +494,7 @@ namespace AurigainLoanERP.Services.FreshLead
                                 d.LeadStatus == 5 ? LeadStatus.Completed.GetStringValue() :
                                 "New",
                         ActionTakenBy = d.ActionTakenByUserId.HasValue ? $"{d.ActionTakenByUser.UserName} ({d.ActionTakenByUser.UserRole.Name})" : null,
-                        ActionTakenByUserId = d.ActionTakenByUserId ?? (long?)null,
+                        ActionTakenByUserId = d.ActionTakenByUserId ?? null,
                         Id = d.Id,
                         Remark = d.Remarks
                     }).ToListAsync();
@@ -450,21 +520,87 @@ namespace AurigainLoanERP.Services.FreshLead
             try
             {
                 IQueryable<FreshLeadHlplcl> result;
-                if (model.UserId == null)
+
+
+                switch (_loginUserDetail.RoleId)
                 {
-                    result = (from Lead in _db.FreshLeadHlplcl
-                              join product in _db.Product on Lead.ProductId equals product.Id
-                              join ProductCategory in _db.ProductCategory on product.ProductCategoryId equals ProductCategory.Id
-                              join leadScoureUser in _db.UserMaster on Lead.LeadSourceByUserId equals leadScoureUser.Id
-                              where !Lead.IsDelete && (string.IsNullOrEmpty(model.Search) || Lead.LeadType == (FreshLeadType.Salaried.GetStringValue().Equals(model.Search) || FreshLeadType.NonSalaried.GetStringValue().Equals(model.Search) ? (FreshLeadType.Salaried.GetStringValue().Equals(model.Search) ? false : true) : Lead.LeadType) || Lead.FullName.Contains(model.Search) || Lead.FatherName.Contains(model.Search) || product.Name.Contains(model.Search) || ProductCategory.Name.Contains(model.Search))
-                              select Lead);
+
+                    case (int)UserRoleEnum.SuperAdmin:
+                    case (int)(UserRoleEnum.Admin):
+                    case (int)(UserRoleEnum.WebOperator):
+
+                        result = (from Lead in _db.FreshLeadHlplcl
+                                  join product in _db.Product on Lead.ProductId equals product.Id
+                                  join ProductCategory in _db.ProductCategory on product.ProductCategoryId equals ProductCategory.Id
+                                  join leadScoureUser in _db.UserMaster on Lead.LeadSourceByUserId equals leadScoureUser.Id
+                                  where !Lead.IsDelete  && (string.IsNullOrEmpty(model.Search) || Lead.LeadType == (FreshLeadType.Salaried.GetStringValue().Equals(model.Search) || FreshLeadType.NonSalaried.GetStringValue().Equals(model.Search) ? (FreshLeadType.Salaried.GetStringValue().Equals(model.Search) ? false : true) : Lead.LeadType) || Lead.FullName.Contains(model.Search) || Lead.FatherName.Contains(model.Search) || product.Name.Contains(model.Search) || ProductCategory.Name.Contains(model.Search))
+                                  select Lead);
+                        break;
+
+                    case (int)(UserRoleEnum.Supervisor):
+
+                        List<long> employees = _db.UserReportingPerson.Where(x => x.ReportingUserId == _loginUserDetail.UserId).Select(x => x.UserId).ToList();
+
+                        result = (from Lead in _db.FreshLeadHlplcl
+                                  join product in _db.Product on Lead.ProductId equals product.Id
+                                  join ProductCategory in _db.ProductCategory on product.ProductCategoryId equals ProductCategory.Id
+                                  join leadScoureUser in _db.UserMaster on Lead.LeadSourceByUserId equals leadScoureUser.Id
+                                  where !Lead.IsDelete &&( Lead.CreatedBy ==_loginUserDetail.UserId || employees.Contains(Lead.LeadSourceByUserId)) && (string.IsNullOrEmpty(model.Search) || Lead.LeadType == (FreshLeadType.Salaried.GetStringValue().Equals(model.Search) || FreshLeadType.NonSalaried.GetStringValue().Equals(model.Search) ? (FreshLeadType.Salaried.GetStringValue().Equals(model.Search) ? false : true) : Lead.LeadType) || Lead.FullName.Contains(model.Search) || Lead.FatherName.Contains(model.Search) || product.Name.Contains(model.Search) || ProductCategory.Name.Contains(model.Search))
+                                  select Lead);
+
+                        break;
+
+                    case (int)(UserRoleEnum.Agent):
+                    case (int)(UserRoleEnum.DoorStepAgent):
+
+                        result = (from Lead in _db.FreshLeadHlplcl
+                                  join product in _db.Product on Lead.ProductId equals product.Id
+                                  join ProductCategory in _db.ProductCategory on product.ProductCategoryId equals ProductCategory.Id
+                                  join leadScoureUser in _db.UserMaster on Lead.LeadSourceByUserId equals leadScoureUser.Id
+                                  where !Lead.IsDelete && (Lead.CreatedBy == _loginUserDetail.UserId ||Lead.LeadSourceByUserId == _loginUserDetail.UserId) &&   (string.IsNullOrEmpty(model.Search) || Lead.LeadType == (FreshLeadType.Salaried.GetStringValue().Equals(model.Search) || FreshLeadType.NonSalaried.GetStringValue().Equals(model.Search) ? (FreshLeadType.Salaried.GetStringValue().Equals(model.Search) ? false : true) : Lead.LeadType) || Lead.FullName.Contains(model.Search) || Lead.FatherName.Contains(model.Search) || product.Name.Contains(model.Search) || ProductCategory.Name.Contains(model.Search))
+                                  select Lead);
+
+                        break;
+
+                    case (int)(UserRoleEnum.Customer):
+                        //Need to map customer with new column  customerUserId (same process will be appliy of BT and fresh gold loan)
+                        result = (from Lead in _db.FreshLeadHlplcl
+                                  join product in _db.Product on Lead.ProductId equals product.Id
+                                  join ProductCategory in _db.ProductCategory on product.ProductCategoryId equals ProductCategory.Id
+                                  join leadScoureUser in _db.UserMaster on Lead.LeadSourceByUserId equals leadScoureUser.Id
+                                  where !Lead.IsDelete &&
+                                  (Lead.CreatedBy == _loginUserDetail.UserId ) &&
+                                  (string.IsNullOrEmpty(model.Search) || Lead.LeadType == (FreshLeadType.Salaried.GetStringValue().Equals(model.Search) || FreshLeadType.NonSalaried.GetStringValue().Equals(model.Search) ? (FreshLeadType.Salaried.GetStringValue().Equals(model.Search) ? false : true) : Lead.LeadType) || Lead.FullName.Contains(model.Search) || Lead.FatherName.Contains(model.Search) || product.Name.Contains(model.Search) || ProductCategory.Name.Contains(model.Search))
+                                  select Lead);
+
+                        break;
+                    default:
+
+                        result = (from Lead in _db.FreshLeadHlplcl
+                                  join product in _db.Product on Lead.ProductId equals product.Id
+                                  join ProductCategory in _db.ProductCategory on product.ProductCategoryId equals ProductCategory.Id
+                                  join leadScoureUser in _db.UserMaster on Lead.LeadSourceByUserId equals leadScoureUser.Id
+                                  where    !Lead.IsDelete && (string.IsNullOrEmpty(model.Search) || Lead.LeadType == (FreshLeadType.Salaried.GetStringValue().Equals(model.Search) || FreshLeadType.NonSalaried.GetStringValue().Equals(model.Search) ? (FreshLeadType.Salaried.GetStringValue().Equals(model.Search) ? false : true) : Lead.LeadType) || Lead.FullName.Contains(model.Search) || Lead.FatherName.Contains(model.Search) || product.Name.Contains(model.Search) || ProductCategory.Name.Contains(model.Search))
+                                  select Lead);
+
+                        break;
                 }
-                else
-                {
-                    result = (from Lead in _db.FreshLeadHlplcl
-                              where !Lead.IsDelete && (string.IsNullOrEmpty(model.Search) || Lead.FullName.Contains(model.Search) || Lead.FatherName.Contains(model.Search))
-                              select Lead);
-                }
+
+                //if (model.UserId == null)
+                //{ 
+                //    result = (from Lead in _db.FreshLeadHlplcl
+                //              join product in _db.Product on Lead.ProductId equals product.Id
+                //              join ProductCategory in _db.ProductCategory on product.ProductCategoryId equals ProductCategory.Id
+                //              join leadScoureUser in _db.UserMaster on Lead.LeadSourceByUserId equals leadScoureUser.Id
+                //              where !Lead.IsDelete && (string.IsNullOrEmpty(model.Search) || Lead.LeadType == (FreshLeadType.Salaried.GetStringValue().Equals(model.Search) || FreshLeadType.NonSalaried.GetStringValue().Equals(model.Search) ? (FreshLeadType.Salaried.GetStringValue().Equals(model.Search) ? false : true) : Lead.LeadType) || Lead.FullName.Contains(model.Search) || Lead.FatherName.Contains(model.Search) || product.Name.Contains(model.Search) || ProductCategory.Name.Contains(model.Search))
+                //              select Lead);
+                //}
+                //else
+                //{
+                //    result = (from Lead in _db.FreshLeadHlplcl
+                //              where !Lead.IsDelete && (string.IsNullOrEmpty(model.Search) || Lead.FullName.Contains(model.Search) || Lead.FatherName.Contains(model.Search))
+                //              select Lead);
+                //}
 
                 switch (model.OrderBy)
                 {
@@ -576,13 +712,13 @@ namespace AurigainLoanERP.Services.FreshLead
                                  d.LeadStatus == 4 ? LeadStatus.Rejected.GetStringValue() :
                                  d.LeadStatus == 5 ? LeadStatus.Completed.GetStringValue() :
                                  "New",
-                        ActionTakenBy = d.ActionTakenByUserId.HasValue? $"{d.ActionTakenByUser.UserName} ({d.ActionTakenByUser.UserRole.Name})" :null,
-                        ActionTakenByUserId = d.ActionTakenByUserId ?? (long?)null,
+                        ActionTakenBy = d.ActionTakenByUserId.HasValue ? $"{d.ActionTakenByUser.UserName} ({d.ActionTakenByUser.UserRole.Name})" : null,
+                        ActionTakenByUserId = d.ActionTakenByUserId ?? null,
                         Id = d.Id,
                         Remark = d.Remarks
 
                     }).ToListAsync();
- 
+
                     return CreateResponse<List<LeadStatusActionHistory>>(history, ResponseMessage.Success, true, ((int)ApiStatusCode.Ok));
                 }
                 else

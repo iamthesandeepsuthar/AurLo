@@ -18,6 +18,8 @@
     [IsActive] BIT NOT NULL DEFAULT 1, 
     [IsDelete] BIT NOT NULL DEFAULT 0, 
     [LeadStatus] NVARCHAR(100) NULL, 
+     [CreatedBy] BIGINT NULL references UserMaster(Id), 
+    [ModifiedBy] BIGINT NULL references UserMaster(Id), 
     
     
 )

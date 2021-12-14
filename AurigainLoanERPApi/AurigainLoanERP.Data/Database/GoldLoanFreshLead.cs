@@ -36,9 +36,13 @@ namespace AurigainLoanERP.Data.Database
         public bool? IsActive { get; set; }
         public bool IsDelete { get; set; }
         public string LeadStatus { get; set; }
+        public long? CreatedBy { get; set; }
+        public long? ModifiedBy { get; set; }
 
+        public virtual UserMaster CreatedByNavigation { get; set; }
         public virtual UserMaster CustomerUser { get; set; }
         public virtual UserMaster LeadSourceByUser { get; set; }
+        public virtual UserMaster ModifiedByNavigation { get; set; }
         public virtual Product Product { get; set; }
         public virtual ICollection<GoldLoanFreshLeadActionHistory> GoldLoanFreshLeadActionHistory { get; set; }
         public virtual ICollection<GoldLoanFreshLeadAppointmentDetail> GoldLoanFreshLeadAppointmentDetail { get; set; }

@@ -15,7 +15,7 @@ namespace AurigainLoanERP.Services.KycDocumentType
     public class DocumentTypeService : BaseService, IDocumentTypeService
     {
         public readonly IMapper _mapper;
-        private AurigainContext _db;
+        private readonly AurigainContext _db;
         public DocumentTypeService(IMapper mapper, AurigainContext db)
         {
             this._mapper = mapper;

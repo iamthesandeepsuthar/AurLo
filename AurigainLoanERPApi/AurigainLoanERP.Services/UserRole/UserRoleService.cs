@@ -17,7 +17,7 @@ namespace AurigainLoanERP.Services.UserRoles
 
 
         public readonly IMapper _mapper;
-        private AurigainContext _db;
+        private readonly AurigainContext _db;
         public UserRoleService(IMapper mapper, AurigainContext db)
         {
             this._mapper = mapper;

@@ -3,6 +3,7 @@ using AurigainLoanERP.Shared.Common.API;
 using AurigainLoanERP.Shared.Common.Model;
 using AurigainLoanERP.Shared.ContractModel;
 using AurigainLoanERP.Shared.ExtensionMethod;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System.Threading.Tasks;
@@ -20,7 +21,9 @@ namespace AurigainLoanERP.Api.Controllers
             _security = new Security(_configuration);
             _accountService = accountService;
         }
+        
         [HttpPost]
+        [AllowAnonymous]
         public async Task<ApiServiceResponseModel<LoginResponseModel>> WebLogin(LoginModel model)
         {
 
@@ -29,6 +32,7 @@ namespace AurigainLoanERP.Api.Controllers
 
         //Post api/Account/GetOTP
         [HttpPost]
+        [AllowAnonymous]
         public async Task<ApiServiceResponseModel<OtpModel>> GetOTP(OtpRequestModel model)
         {
             return await _accountService.GetOtp(model);
@@ -36,6 +40,7 @@ namespace AurigainLoanERP.Api.Controllers
 
         //Post api/Account/WebChangePassword
         [HttpPost]
+        [AllowAnonymous]
         public async Task<ApiServiceResponseModel<string>> WebChangePassword(ChangePasswordModel model)
         {
             return await _accountService.WebChangePassword(model);
@@ -43,6 +48,7 @@ namespace AurigainLoanERP.Api.Controllers
 
         //Post api/Account/ChangeMPIN
         [HttpPost]
+        [AllowAnonymous]
         public async Task<ApiServiceResponseModel<string>> ChangeMPIN(ChangePasswordModel model)
         {
             return await _accountService.ChangePassword(model);
@@ -50,6 +56,7 @@ namespace AurigainLoanERP.Api.Controllers
 
         //Post api/Account/Login
         [HttpPost]
+        [AllowAnonymous]
         public async Task<ApiServiceResponseModel<LoginResponseModel>> Login(LoginModel model)
         {
             return await _accountService.Login(model);
@@ -57,12 +64,14 @@ namespace AurigainLoanERP.Api.Controllers
 
         //Post api/Account/VarifiedMPIN
         [HttpPost]
+        [AllowAnonymous]
         public async Task<ApiServiceResponseModel<string>> VarifiedMPIN(OtpVerifiedModel model)
         {
             return await _accountService.VerifiedPin(model);
         }
 
         [HttpGet]
+        [AllowAnonymous]
         //Get api/Account/ValidateUserWithMobileNUmber
         public async Task<ApiServiceResponseModel<string>> ValidateUserWithMobileNUmber(string mobileNumber)
         {
@@ -70,6 +79,7 @@ namespace AurigainLoanERP.Api.Controllers
         }
 
         [HttpGet("{value}")]
+        [AllowAnonymous]
         public ApiServiceResponseModel<string> GenerateEncrptPassword(string value)
         {
             return _accountService.GetEncrptedPassword(value);

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { ProductCategoryEnum } from 'src/app/Shared/Enum/fixed-value';
+import { ProductCategoryEnum, UserRoleEnum } from 'src/app/Shared/Enum/fixed-value';
 import { AuthService } from 'src/app/Shared/Helper/auth.service';
 import { DropDownModel } from 'src/app/Shared/Helper/common-model';
 import { DropDown_key, Message, Routing_Url } from 'src/app/Shared/Helper/constants';
@@ -44,6 +44,8 @@ export class AddUpdateFreshGoldLoanLeadComponent implements OnInit {
   ddlJewellaryType!: DDLJewellaryType[];
   ddlKarats = [{ Name: "18 Karats", Id: 18 }, { Name: "20  Karats", Id: 20 }, { Name: "22  Karats", Id: 22 }, { Name: "24  Karats", Id: 24 }];
   UserId = 0;
+  get userDetail() { return this._auth.GetUserDetail() };
+
   // PinCode: string | any;
 
   get f1() { return this.leadFromPersonalDetail.controls; }
@@ -123,8 +125,12 @@ export class AddUpdateFreshGoldLoanLeadComponent implements OnInit {
       if (this.model.Id == undefined || this.model.Id == 0) {
         this.model.IsActive = true;
       }
-      if (this.UserId > 0) {
-        this.model.CustomerUserId = this._auth.GetUserDetail()?.UserId as number;
+      if (this.userDetail?.RoleId == UserRoleEnum.Operator || this.userDetail?.RoleId == UserRoleEnum.Agent || this.userDetail?.RoleId == UserRoleEnum.DoorStepAgent) {
+        this.model.LeadSourceByUserId = this.userDetail.UserId as number;
+
+      }
+      else if (this.userDetail?.RoleId == UserRoleEnum.Customer) {
+        this.model.CustomerUserId = this.userDetail.UserId as number;
 
       }
 
@@ -137,7 +143,7 @@ export class AddUpdateFreshGoldLoanLeadComponent implements OnInit {
       this._goldLoanLeadService.AddUpdate(this.model).subscribe(res => {
         if (res.IsSuccess) {
           this.toast.success(Message.SaveSuccess);
-       
+
           this._router.navigate([`${Routing_Url.Lead_Module}/${Routing_Url.Fresh_Lead_List_Url}`]);
 
         } else {

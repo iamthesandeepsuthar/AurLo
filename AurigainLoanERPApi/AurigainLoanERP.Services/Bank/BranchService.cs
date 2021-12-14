@@ -15,7 +15,7 @@ namespace AurigainLoanERP.Services.Bank
     public class BranchService : BaseService, IBranchService
     {
         public readonly IMapper _mapper;
-        private AurigainContext _db;
+        private readonly AurigainContext _db;
         public BranchService(IMapper mapper, AurigainContext db)
         {
             this._mapper = mapper;

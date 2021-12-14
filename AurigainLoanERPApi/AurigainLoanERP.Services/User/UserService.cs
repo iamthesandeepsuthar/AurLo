@@ -20,7 +20,7 @@ namespace AurigainLoanERP.Services.User
     public class UserService : BaseService, IUserService
     {
         public readonly IMapper _mapper;
-        private AurigainContext _db;
+        private readonly AurigainContext _db;
         private readonly Security _security;
         private readonly FileHelper _fileHelper;
         private readonly EmailHelper _emailHelper;
@@ -1331,7 +1331,7 @@ namespace AurigainLoanERP.Services.User
                     {
                         var encrptPassword = _security.Base64Encode("12345");
                         var objModel = _mapper.Map<UserMaster>(model);
-                        objModel.UserName = model.UserName?? model.Email;
+                        objModel.UserName = model.UserName ?? model.Email;
                         objModel.CreatedOn = DateTime.Now;
                         objModel.Password = encrptPassword;
                         objModel.Mpin = GenerateUniqueId();//_security.EncryptData(GenerateUniqueId());

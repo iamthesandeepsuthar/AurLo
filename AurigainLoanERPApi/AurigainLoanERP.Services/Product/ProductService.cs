@@ -15,7 +15,7 @@ namespace AurigainLoanERP.Services.Product
     public class ProductService : BaseService, IProductService
     {
         public readonly IMapper _mapper;
-        private AurigainContext _db;
+        private readonly AurigainContext _db;
         public ProductService(IMapper mapper, AurigainContext db)
         {
             this._mapper = mapper;

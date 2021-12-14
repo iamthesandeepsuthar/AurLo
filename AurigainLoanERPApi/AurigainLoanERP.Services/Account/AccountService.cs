@@ -17,7 +17,7 @@ namespace AurigainLoanERP.Services.Account
     public class AccountService : BaseService, IAccountService
     {
         public readonly IMapper _mapper;
-        private AurigainContext _db;
+        private readonly AurigainContext _db;
         private readonly Security _security;
         private readonly EmailHelper _emailHelper;
         private readonly SMSHelper _smsHelper;
@@ -109,21 +109,21 @@ namespace AurigainLoanERP.Services.Account
                 var encrptOTP = _security.Base64Encode(model.Otp);
                 //if (otp.ExpireOn > DateTime.Now.ToLocalTime())
                 //{
-                    if (otp.Otp == encrptOTP)
-                    {
-                        _db.UserOtp.Remove(otp);
-                        _db.SaveChanges();
-                        return CreateResponse<string>(null, "Otp varified successful.", true, ((int)ApiStatusCode.Ok));
-                    }
-                    else
-                    {
-                        return CreateResponse<string>(null, "otp varification failed", false, ((int)ApiStatusCode.OTPVarificationFailed));
-                    }
-               //}
-             //  else
-             //  {
-             //     return CreateResponse<string>(null, "Otp validity expaire, Generate new otp", false, ((int)ApiStatusCode.OTPValidityExpire));
-             //}
+                if (otp.Otp == encrptOTP)
+                {
+                    _db.UserOtp.Remove(otp);
+                    _db.SaveChanges();
+                    return CreateResponse<string>(null, "Otp varified successful.", true, ((int)ApiStatusCode.Ok));
+                }
+                else
+                {
+                    return CreateResponse<string>(null, "otp varification failed", false, ((int)ApiStatusCode.OTPVarificationFailed));
+                }
+                //}
+                //  else
+                //  {
+                //     return CreateResponse<string>(null, "Otp validity expaire, Generate new otp", false, ((int)ApiStatusCode.OTPValidityExpire));
+                //}
             }
             catch (Exception ex)
             {
