@@ -1,3 +1,4 @@
+import { SecurityDepositPopupComponent } from './../../../../Shared/Helper/shared/Popup/security-deposit-popup/security-deposit-popup.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { Component, OnInit, ViewChild } from "@angular/core";
@@ -165,6 +166,19 @@ export class ListDoorStepAgentComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
+      } else {
+      }
+    });
+  }
+  onChangeAddSecurityDeposit(Id: number){
+    const dialogRef = this.dialog.open(SecurityDepositPopupComponent, {
+      data: { Id: Id as number, Type: "Security" as string ,Heading:'Doorstep Agent Security Deposit' },
+      width: 'full',
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.toast.success('Record Saved Successful','Success');
       } else {
       }
     });

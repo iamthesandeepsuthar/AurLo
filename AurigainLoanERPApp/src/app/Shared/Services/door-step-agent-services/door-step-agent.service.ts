@@ -1,4 +1,4 @@
-import { DoorStepAgentListModel } from './../../Model/doorstep-agent-model/door-step-agent.model';
+import { DoorStepAgentListModel, UserSecurityDepositPostModel } from './../../Model/doorstep-agent-model/door-step-agent.model';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { BaseAPIService } from '../../Helper/base-api.service';
@@ -27,7 +27,6 @@ export class DoorStepAgentService {
     let url = `${this._baseService.API_Url.DoorstepAgentAddUpdateApi}`;
     return this._baseService.post(url, model);
   }
-
   ChangeActiveStatus(id: number, status?: string): Observable<ApiResponse<string>> {
     let url = `${this._baseService.API_Url.DoorstepAgentActiveStatusApi}${id}`;
     return this._baseService.get(url);
@@ -36,8 +35,8 @@ export class DoorStepAgentService {
     let url = `${this._baseService.API_Url.DoorstepAgentDeleteApi}${id}`;
     return this._baseService.Delete(url);
   }
-
-
-
-
+  AddUpdateAgentSecurityDeposit(model: UserSecurityDepositPostModel): Observable<ApiResponse<any>> {
+    let url = `${this._baseService.API_Url.Agent_Security_Deposit_Add_Update_Api}`;
+    return this._baseService.post(url, model);
+  }
 }

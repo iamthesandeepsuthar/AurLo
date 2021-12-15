@@ -202,7 +202,8 @@ namespace AurigainLoanERP.Shared.ContractModel
         public string UniqueId { get; set; }
         public string Gender { get; set; }
         public string QualificationName { get; set; }
-
+        public long ReportingPersonUserId { get; set;}
+        public string ReportingPersonName { get; set;}
         public string Address { get; set; }
         public string DistrictName { get; set; }
         public string StateName { get; set; }
@@ -216,7 +217,6 @@ namespace AurigainLoanERP.Shared.ContractModel
         public DateTime? ModifiedOn { get; set; }
         public long? CreatedBy { get; set; }
         public long? ModifiedBy { get; set; }
-
     }
 
     public class DoorStepAgentViewModel

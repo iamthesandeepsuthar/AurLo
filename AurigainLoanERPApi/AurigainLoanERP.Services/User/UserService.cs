@@ -325,7 +325,7 @@ namespace AurigainLoanERP.Services.User
             try
             {
                 var result = (from agent in _db.UserDoorStepAgent
-                                  //join user in _db.UserMaster on agent.UserId equals user.Id
+                              join reporting in _db.UserReportingPerson on agent.UserId equals reporting.UserId
                                   //join role in _db.UserRole on user.UserRoleId equals role.Id
                               where !agent.IsDelete && agent.User.UserRoleId == (int)UserRoleEnum.DoorStepAgent && (string.IsNullOrEmpty(model.Search) || agent.FullName.Contains(model.Search) || agent.User.Email.Contains(model.Search) || agent.User.UserName.Contains(model.Search))
                               select agent);
@@ -379,8 +379,9 @@ namespace AurigainLoanERP.Services.User
                                               IsDelete = detail.IsDelete,
                                               CreatedOn = detail.CreatedOn,
                                               CreatedBy = detail.CreatedBy
+                                              //ReportingPersonName = detail.ReportingPerson.ReportingUser.UserName ?? "",
+                                              //ReportingPersonUserId = detail.ReportingPerson.ReportingUserId
                                           }).ToListAsync();
-
 
                 if (result != null)
                 {
@@ -390,10 +391,9 @@ namespace AurigainLoanERP.Services.User
                 {
                     return CreateResponse<List<DoorStepAgentListModel>>(null, ResponseMessage.NotFound, true, ((int)ApiStatusCode.RecordNotFound), TotalRecord: 0);
                 }
-
             }
             catch (Exception ex)
-            {
+            {                
                 return CreateResponse<List<DoorStepAgentListModel>>(null, ResponseMessage.Fail, false, ((int)ApiStatusCode.ServerException), ex.Message ?? ex.InnerException.ToString());
             }
         }
@@ -1062,7 +1062,7 @@ namespace AurigainLoanERP.Services.User
             //List<ReportingUser> Users = new List<ReportingUser>();
             try
             {
-                var data = await _db.Managers.Where(x => x.User.UserRoleId == ((int)UserRoleEnum.Supervisor) && x.IsDelete == false && x.IsActive == true).Select(x=> new ReportingUser { 
+                var data = await _db.Managers.Where(x => x.User.UserRoleId == ((int)UserRoleEnum.Supervisor) && x.User.IsDelete == false && x.User.IsActive == true).Select(x=> new ReportingUser { 
                 Name = x.FullName,
                 UserId = x.UserId,
                 RoleId = x.User.UserRoleId,
@@ -1101,6 +1101,27 @@ namespace AurigainLoanERP.Services.User
                 return CreateResponse<object>(false, ex.Message, false, ((int)ApiStatusCode.ServerException));
             }
            
+
+        }
+        public async Task<ApiServiceResponseModel<object>> SaveDoorstepAgentSecurityDepositAsync(UserSecurityDepositPostModel model)
+        {
+            try
+            {
+                var result = await SaveUserSecurityDepositAsync(model,model.UserId);
+                if (result)
+                {
+                    return CreateResponse<object>(true, ResponseMessage.Success, true, ((int)ApiStatusCode.Ok));
+                }
+                else
+                {
+                    return CreateResponse<object>(false, ResponseMessage.NotFound, false, ((int)ApiStatusCode.RecordNotFound));
+                }
+            }
+            catch (Exception ex)
+            {
+                return CreateResponse<object>(false, ex.Message, false, ((int)ApiStatusCode.ServerException));
+            }
+
 
         }
         public async Task<ApiServiceResponseModel<object>> UpdateDeleteStatus(long id)
@@ -1631,13 +1652,21 @@ namespace AurigainLoanERP.Services.User
             {
                 if (model.Id == default || model.Id == 0)
                 {
-                    var objModel = _mapper.Map<UserReportingPerson>(model);
-                    objModel.CreatedOn = DateTime.Now;
-                    objModel.UserId = userId;
-                    objModel.ReportingUserId = model.ReportingUserId;
-                    var result = await _db.UserReportingPerson.AddAsync(objModel);
+                    var isExist = await _db.UserReportingPerson.Where(x => x.UserId == model.UserId.Value).FirstOrDefaultAsync();
+                    if (isExist != null)
+                    {
+                        isExist.ReportingUserId = model.ReportingUserId;
+                        isExist.ModifiedOn = DateTime.Now;
+                    }
+                    else 
+                    {
+                        var objModel = _mapper.Map<UserReportingPerson>(model);
+                        objModel.CreatedOn = DateTime.Now;
+                        objModel.UserId = userId;
+                        objModel.ReportingUserId = model.ReportingUserId;
+                        var result = await _db.UserReportingPerson.AddAsync(objModel);
+                    }                    
                     await _db.SaveChangesAsync();
-
                 }
                 else
                 {
@@ -1649,7 +1678,6 @@ namespace AurigainLoanERP.Services.User
                     await _db.SaveChangesAsync();
 
                 }
-
                 return true;
             }
             catch (Exception)
@@ -1816,28 +1844,40 @@ namespace AurigainLoanERP.Services.User
 
                 if (model.Id == default)
                 {
-                    var objModel = new UserSecurityDepositDetails();
-                    objModel.CreatedOn = DateTime.Now;
-                    objModel.UserId = userId;
-                    objModel.PaymentModeId = model.PaymentModeId;
-                    objModel.TransactionStatus = (int)TransactionStatusEnum.None;
-                    objModel.Amount = model.Amount;
-                    objModel.CreditDate = model.CreditDate;
-                    objModel.ReferanceNumber = !string.IsNullOrEmpty(model.ReferanceNumber) ? model.ReferanceNumber : null;
-                    objModel.AccountNumber = !string.IsNullOrEmpty(model.AccountNumber) ? model.AccountNumber : null;
-                    objModel.BankName = !string.IsNullOrEmpty(model.BankName) ? model.BankName : null;
-                    objModel.IsActive = model.IsActive;
-                    var result = await _db.UserSecurityDepositDetails.AddAsync(objModel);
-                    await _db.SaveChangesAsync();
-
-                    var user = await _db.UserDoorStepAgent.FirstOrDefaultAsync(x => x.UserId == userId);
-                    if (true)
+                    var isExist = await _db.UserSecurityDepositDetails.Where(x => x.UserId == model.UserId).FirstOrDefaultAsync();
+                    if (isExist != null)
                     {
-                        user.SecurityDepositId = result.Entity.Id;
-                        await _db.SaveChangesAsync();
+                        isExist.ModifiedDate = DateTime.Now;
+                        isExist.PaymentModeId = model.PaymentModeId;
+                        isExist.TransactionStatus = isExist.TransactionStatus.HasValue ? isExist.TransactionStatus : (int)TransactionStatusEnum.None;
+                        isExist.Amount = model.Amount;
+                        isExist.CreditDate = model.CreditDate.ToLocalTime();
+                        isExist.ReferanceNumber = !string.IsNullOrEmpty(model.ReferanceNumber) ? model.ReferanceNumber : null;
+                        isExist.AccountNumber = !string.IsNullOrEmpty(model.AccountNumber) ? model.AccountNumber : null;
+                        isExist.BankName = !string.IsNullOrEmpty(model.BankName) ? model.BankName : null;
                     }
-
-
+                    else 
+                    {
+                        var objModel = new UserSecurityDepositDetails();
+                        objModel.CreatedOn = DateTime.Now;
+                        objModel.UserId = userId;
+                        objModel.PaymentModeId = model.PaymentModeId;
+                        objModel.TransactionStatus = (int)TransactionStatusEnum.None;
+                        objModel.Amount = model.Amount;
+                        objModel.CreditDate = model.CreditDate;
+                        objModel.ReferanceNumber = !string.IsNullOrEmpty(model.ReferanceNumber) ? model.ReferanceNumber : null;
+                        objModel.AccountNumber = !string.IsNullOrEmpty(model.AccountNumber) ? model.AccountNumber : null;
+                        objModel.BankName = !string.IsNullOrEmpty(model.BankName) ? model.BankName : null;
+                        objModel.IsActive = model.IsActive;
+                        var result = await _db.UserSecurityDepositDetails.AddAsync(objModel);
+                        await _db.SaveChangesAsync();
+                        var user = await _db.UserDoorStepAgent.FirstOrDefaultAsync(x => x.UserId == userId);
+                        if (true)
+                        {
+                            user.SecurityDepositId = result.Entity.Id;
+                            await _db.SaveChangesAsync();
+                        }
+                    }                 
                 }
                 else
                 {
@@ -1853,7 +1893,6 @@ namespace AurigainLoanERP.Services.User
                     await _db.SaveChangesAsync();
 
                 }
-
                 return true;
             }
             catch (Exception)
@@ -1861,7 +1900,6 @@ namespace AurigainLoanERP.Services.User
                 throw;
 
             }
-
         }
         /// <summary>
         /// Save user manager

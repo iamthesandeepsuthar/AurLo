@@ -12,8 +12,8 @@ import { DropDown_key } from '../../../constants';
 })
 export class UserSecurityDepositComponent implements OnInit {
 
-  @Input() userSecurity = new UserSecurityDepositPostModel();
-  @Output() onSubmit = new EventEmitter<UserSecurityDepositPostModel>();
+  userSecurity = new UserSecurityDepositPostModel();
+  // @Output() onSubmit = new EventEmitter<UserSecurityDepositPostModel>();
   formGroup = new FormGroup({});
   dropDown = new DropDownModel();
   get ddlkeys() { return DropDown_key };
@@ -25,19 +25,14 @@ export class UserSecurityDepositComponent implements OnInit {
     this.formInit();
     this.GetDropDown();
   }
-
-
   onFrmSubmit() {
     this.formGroup.markAllAsTouched();
     if (this.formGroup.valid) {
-      this.userSecurity.Amount = this.userSecurity.Amount ? Number(this.userSecurity.Amount) : 0;
-      this.onSubmit.emit(this.userSecurity);
+      // this.userSecurity.Amount = this.userSecurity.Amount ? Number(this.userSecurity.Amount) : 0;
+      // this.onSubmit.emit(this.userSecurity);
     }
   }
-
-
   GetDropDown() {
-
     this._commonService.GetDropDown([DropDown_key.ddlPaymentMode]).subscribe(res => {
       if (res.IsSuccess) {
         let ddls = res.Data as DropDownModel;
@@ -47,7 +42,6 @@ export class UserSecurityDepositComponent implements OnInit {
       }
     });
   }
-
 
   formInit() {
     this.formGroup = this.fb.group({
@@ -59,6 +53,4 @@ export class UserSecurityDepositComponent implements OnInit {
       ReferanceNumber: [undefined, Validators.required],
     });
   }
-
-
 }

@@ -41,6 +41,7 @@ export class UserSecurityDepositPostModel {
   ReferanceNumber!: string;
   AccountNumber!: string;
   BankName!: string;
+  UserId!:number;
 }
 
 export class DocumentPostModel {

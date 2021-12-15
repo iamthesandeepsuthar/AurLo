@@ -61,7 +61,8 @@ const SharedComponent = [
   LeadApprovalPopupComponent,
   LeadApprovalHistoryPopupComponent,
   LeadStatuslHistoryPopupComponent,
-  ReportingPersonPopupComponent
+  ReportingPersonPopupComponent,
+  SecurityDepositPopupComponent,
 ];
 const SharedEntryComponent = [
   ChangePasswordPopupComponent,

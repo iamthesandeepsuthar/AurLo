@@ -69,6 +69,24 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
             return await _userSerivce.DeleteDocumentFile(id, documentId);
         }
 
+        [HttpPost]
+        public async Task<ApiServiceResponseModel<object>> AgentSecurityDepositAppUpdate(UserSecurityDepositPostModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                return await _userSerivce.SaveDoorstepAgentSecurityDepositAsync(model);
 
+            }
+            else
+            {
+                ApiServiceResponseModel<object> obj = new ApiServiceResponseModel<object>();
+                obj.Data = false;
+                obj.IsSuccess = false;
+                obj.Message = ResponseMessage.InvalidData;
+                obj.Exception = ModelState.ErrorCount.ToString();
+                obj.StatusCode = (int)ApiStatusCode.InvaildModel;
+                return obj;
+            }
+        }
     }
 }

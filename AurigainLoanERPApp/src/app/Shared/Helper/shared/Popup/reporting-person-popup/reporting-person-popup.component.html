@@ -13,7 +13,7 @@
                   <div class="form-group col-md-12">
                       <label>Reporting Person <strong class="text-danger ml-1">*</strong></label>
                       <select class="form-control" [(ngModel)]="model.ReportingUserId" formControlName="reportingUser" [ngClass]="{ 'is-invalid': f.reportingUser.errors && f.reportingUser.touched}">
-                        <option value="undefined">--Select Reporting Person--</option>
+                        <option value="undefined">Select Reporting Person</option>
                         <option *ngFor="let data of reportingUsers" [value]="data.UserId">
                 {{data.Name}}
               </option>

@@ -180,7 +180,8 @@
                     <ng-container matColumnDef="Action">
                         <th width="150" mat-header-cell *matHeaderCellDef> Action </th>
                         <td mat-cell *matCellDef="let row" class="table-action-btn">
-                          <a class="table-action-btn-edit"  (click)="onChangeAddReportingPerson(row.UserId)" title="Add Reporting Person"><i class="fas fa-user-plus"></i></a>
+                          <a class="table-action-btn-edit"  (click)="onChangeAddReportingPerson(row.UserId)" data-toggle="tooltip" data-placement="top" title="Add Reporting Person"><i class="fas fa-user-plus"></i></a>
+                          <a class="table-action-btn-edit"  (click)="onChangeAddSecurityDeposit(row.UserId)" title="Security Deposit Amount"><i class="fas fa-hand-holding-usd"></i></a>
                             <a class="table-action-btn-edit" routerLink="../{{routing_Url.DoorStepAgentRegistrationUrl+'/'+row.UserId}}" title="Edit">
                                 <i class="fas fa-edit"></i>
                             </a>

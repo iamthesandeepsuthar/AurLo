@@ -76,6 +76,7 @@ export class API_Url {
   public static DoorstepAgentActiveStatusApi = `${environment.apiEndPoint}DoorStepAgent/UpdatActiveStatus/`;
   public static DoorstepAgentDetailApi = `${environment.apiEndPoint}DoorStepAgent/GetById/`;
   public static DoorstepAgentDeleteDocumentFileApi = `${environment.apiEndPoint}DoorStepAgent/DeleteDocumentFile/`;
+  public static Agent_Security_Deposit_Add_Update_Api = `${environment.apiEndPoint}DoorStepAgent/AgentSecurityDepositAppUpdate`;
   //#endregion
 
   //#region << Agent>>

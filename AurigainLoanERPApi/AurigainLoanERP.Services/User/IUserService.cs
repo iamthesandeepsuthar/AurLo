@@ -94,5 +94,6 @@ namespace AurigainLoanERP.Services.User
         Task<ApiServiceResponseModel<string>> UpdateProfile(UserProfileModel model);
         Task<ApiServiceResponseModel<List<ReportingUser>>> ReportingUsersAsync();
         Task<ApiServiceResponseModel<object>> AssignReportingPersonAsync(UserReportingPersonPostModel model);
+        Task<ApiServiceResponseModel<object>> SaveDoorstepAgentSecurityDepositAsync(UserSecurityDepositPostModel model);
     }
 }
