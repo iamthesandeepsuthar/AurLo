@@ -67,7 +67,6 @@ export class FilePostModel {
 }
 
 export class UserReportingPersonPostModel {
-
   Id!: number;
   UserId!: number;
   ReportingUserId!: number;

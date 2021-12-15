@@ -1057,7 +1057,52 @@ namespace AurigainLoanERP.Services.User
                 return CreateResponse(true as object, ResponseMessage.Fail, true, ((int)ApiStatusCode.ServerException), ex.Message);
             }
         }
+        public async Task<ApiServiceResponseModel<List<ReportingUser>>>ReportingUsersAsync()
+        {
+            //List<ReportingUser> Users = new List<ReportingUser>();
+            try
+            {
+                var data = await _db.Managers.Where(x => x.User.UserRoleId == ((int)UserRoleEnum.Supervisor)).Select(x=> new ReportingUser { 
+                Name = x.FullName,
+                UserId = x.UserId,
+                RoleId = x.User.UserRoleId,
+                RoleName = x.User.UserRole.Name
+                }).ToListAsync();
+                if (data.Count > 0)
+                {
+                    return CreateResponse(data, ResponseMessage.Success, true, ((int)ApiStatusCode.Ok));
+                }
+                else 
+                {
+                    return CreateResponse<List<ReportingUser>>(null, ResponseMessage.NotFound, false, ((int)ApiStatusCode.NotFound));
+                }
+            }
+            catch(Exception ex) 
+            {
+                return CreateResponse<List<ReportingUser>>(null, ex.Message, false, ((int)ApiStatusCode.ServerException));
+            }
+        }
+        public async Task<ApiServiceResponseModel<object>> AssignReportingPersonAsync(UserReportingPersonPostModel model) 
+        {
+            try
+            {
+                var result =await  SaveUserReportingPersonAsync(model, model.UserId.Value);
+                if (result)
+                {
+                    return CreateResponse<object>(true, ResponseMessage.Success, true, ((int)ApiStatusCode.Ok));
+                }
+                else 
+                {
+                    return CreateResponse<object>(false, ResponseMessage.NotFound, false, ((int)ApiStatusCode.RecordNotFound));
+                }
+            }
+            catch (Exception ex) 
+            {
+                return CreateResponse<object>(false, ex.Message, false, ((int)ApiStatusCode.ServerException));
+            }
+           
 
+        }
         public async Task<ApiServiceResponseModel<object>> UpdateDeleteStatus(long id)
         {
             try

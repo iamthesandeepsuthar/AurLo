@@ -127,9 +127,7 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
         {
             ApiServiceResponseModel<List<BTGoldLoanLeadListModel>> objResponse = new ApiServiceResponseModel<List<BTGoldLoanLeadListModel>>();
             try
-            {
-
-                
+            {                
                 var IsShowAll = _loginUserDetail.RoleId == (int)UserRoleEnum.SuperAdmin || _loginUserDetail.RoleId == (int)(UserRoleEnum.Admin) || _loginUserDetail.RoleId == (int)(UserRoleEnum.WebOperator) ? true : false;
 
                

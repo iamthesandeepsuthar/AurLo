@@ -27,3 +27,11 @@ export class UserManagerModel {
         Mpin!:string;
         RoleName!: string;
 }
+
+export class ReportingUser {
+  UserId!: number;
+  Name!: string;
+  RoleId!: number;
+  RoleName!: string;
+}
+

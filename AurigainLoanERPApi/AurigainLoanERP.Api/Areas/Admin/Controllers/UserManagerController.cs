@@ -59,5 +59,28 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
         {
             return await _userSerivce.UpdateDeleteStatus(id);
         }
+        [HttpGet("[action]")]
+        public async Task<ApiServiceResponseModel<List<ReportingUser>>> GetReportingPersons()
+        {
+            return await _userSerivce.ReportingUsersAsync();
+        }
+        [HttpPost("[action]")]
+        public async Task<ApiServiceResponseModel<object>> AssignReportingPerson(UserReportingPersonPostModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                return await _userSerivce.AssignReportingPersonAsync(model);
+            }
+            else
+            {
+                ApiServiceResponseModel<object> obj = new ApiServiceResponseModel<object>();
+                obj.Data = false;
+                obj.IsSuccess = false;
+                obj.Message = ResponseMessage.InvalidData;
+                obj.Exception = ModelState.ErrorCount.ToString();
+                obj.StatusCode = (int)ApiStatusCode.InvaildModel;
+                return obj;
+            }
+        }
     }
 }

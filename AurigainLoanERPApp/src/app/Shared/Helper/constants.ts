@@ -106,6 +106,8 @@ export class API_Url {
   public static Manager_Delete_Api = `${environment.apiEndPoint}UserManager/DeleteManager/`;
   public static Manager_ActiveStatus_Api = `${environment.apiEndPoint}UserManager/UpdateActiveStatus/`;
   public static Manager_Detail_Api = `${environment.apiEndPoint}UserManager/GetById/`;
+  public static Reporting_Persons_List_Api =`${environment.apiEndPoint}UserManager/GetReportingPersons`;
+  public static Assign_Reporting_Person_Api = `${environment.apiEndPoint}UserManager/AssignReportingPerson`;
   //#endregion
   //#region  << Jewellery >>
   public static Jewellery_List_Api = `${environment.apiEndPoint}JewellaryType/GetList`;

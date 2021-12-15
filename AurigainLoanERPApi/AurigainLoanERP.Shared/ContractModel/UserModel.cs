@@ -513,5 +513,13 @@ namespace AurigainLoanERP.Shared.ContractModel
         public string StateName { get; set; }
         public long? StateId { get; set; }
     }
+
+    public class ReportingUser 
+    {
+        public long UserId { get; set;}
+        public string Name { get; set;}
+        public int RoleId { get; set;}
+        public string RoleName { get; set;}
+    }
     #endregion
 }
