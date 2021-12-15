@@ -1,3 +1,4 @@
+import { MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { MatPaginator } from "@angular/material/paginator";
@@ -9,6 +10,7 @@ import { DoorStepAgentListModel, DoorStepAgentViewModel } from "src/app/Shared/M
 import { CommonService } from "src/app/Shared/Services/common.service";
 import { DoorStepAgentService } from "src/app/Shared/Services/door-step-agent-services/door-step-agent.service";
 import { UserSettingService } from 'src/app/Shared/Services/user-setting-services/user-setting.service';
+import { ReportingPersonPopupComponent } from 'src/app/Shared/Helper/shared/Popup/reporting-person-popup/reporting-person-popup.component';
 
 @Component({
   selector: 'app-list-door-step-agent',
@@ -40,7 +42,8 @@ export class ListDoorStepAgentComponent implements OnInit {
   constructor(private readonly _service: DoorStepAgentService,
     private readonly _commonService: CommonService,
     private readonly toast: ToastrService,
-    private readonly _userSettingService: UserSettingService) { }
+    private readonly _userSettingService: UserSettingService,
+    public dialog: MatDialog) { }
   ngOnInit(): void {
     this.getList();
   }
@@ -154,7 +157,18 @@ export class ListDoorStepAgentComponent implements OnInit {
     });
 
   }
+  onChangeAddReportingPerson(Id: number){
+    const dialogRef = this.dialog.open(ReportingPersonPopupComponent, {
+      data: { Id: Id as number, Type: "DoorStepAgent" as string ,Heading:'Reporting Person' },
+      width: '400px',
+    });
 
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+      } else {
+      }
+    });
+  }
   //#endregion
 
 }

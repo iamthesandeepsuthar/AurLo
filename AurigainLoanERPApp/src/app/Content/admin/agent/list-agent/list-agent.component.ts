@@ -1,3 +1,4 @@
+import { MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
@@ -9,6 +10,7 @@ import { AgentListModel } from 'src/app/Shared/Model/Agent/agent.model';
 import { AgentService } from 'src/app/Shared/Services/agent-services/agent.service';
 import { CommonService } from 'src/app/Shared/Services/common.service';
 import { UserSettingService } from '../../../../Shared/Services/user-setting-services/user-setting.service';
+import { ReportingPersonPopupComponent } from 'src/app/Shared/Helper/shared/Popup/reporting-person-popup/reporting-person-popup.component';
 
 @Component({
   selector: 'app-list-agent',
@@ -42,7 +44,8 @@ export class ListAgentComponent implements OnInit {
   constructor(private readonly _service: AgentService,
     private readonly _commonService: CommonService,
     private readonly toast: ToastrService,
-    private readonly _userSettingService: UserSettingService) { }
+    private readonly _userSettingService: UserSettingService,
+    public dialog: MatDialog) { }
   ngOnInit(): void {
     this.getList();
 
@@ -161,8 +164,17 @@ export class ListAgentComponent implements OnInit {
     });
 
   }
+  onChangeAddReportingPerson(Id: number){
+    const dialogRef = this.dialog.open(ReportingPersonPopupComponent, {
+      data: { Id: Id as number, Type: "Agent" as string ,Heading:'Reporting Person' },
+      width: '400px',
+    });
 
-
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+      } else {
+      }
+    });
+  }
   //#endregion
-
 }

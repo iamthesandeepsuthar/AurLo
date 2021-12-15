@@ -1062,7 +1062,7 @@ namespace AurigainLoanERP.Services.User
             //List<ReportingUser> Users = new List<ReportingUser>();
             try
             {
-                var data = await _db.Managers.Where(x => x.User.UserRoleId == ((int)UserRoleEnum.Supervisor)).Select(x=> new ReportingUser { 
+                var data = await _db.Managers.Where(x => x.User.UserRoleId == ((int)UserRoleEnum.Supervisor) && x.IsDelete == false && x.IsActive == true).Select(x=> new ReportingUser { 
                 Name = x.FullName,
                 UserId = x.UserId,
                 RoleId = x.User.UserRoleId,
