@@ -146,10 +146,10 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
 
                         result = (from goldLoanLead in _db.BtgoldLoanLead join 
                                   btGoldLeadStatus in _db.BtgoldLoanLeadStatusActionHistory on goldLoanLead.Id equals btGoldLeadStatus.LeadId 
-                                 into btStatus from   btGoldLeadStatus in btStatus.OrderByDescending(x=>x.Id).DefaultIfEmpty()
+                                 into btStatus from   btGoldLeadStatus in btStatus.DefaultIfEmpty()
                                   where !goldLoanLead.IsDelete
                                   && (string.IsNullOrEmpty(model.Search) || goldLoanLead.FullName.Contains(model.Search) || goldLoanLead.FatherName.Contains(model.Search) || goldLoanLead.Gender.Contains(model.Search) || goldLoanLead.BtgoldLoanLeadAddressDetail.FirstOrDefault().AeraPincode.Pincode.Contains(model.Search)) ||
-                                  goldLoanLead.Product.Name.Contains(model.Search) && (statusId.Count == 0 ? true : statusId.Contains(btStatus.FirstOrDefault().LeadStatus.Value))
+                                  goldLoanLead.Product.Name.Contains(model.Search) && (statusId.Count == 0 ? true : statusId.Contains(btStatus.OrderByDescending(x=>x.Id).Max().LeadStatus.Value))
                                   select goldLoanLead);
                         break;
 
