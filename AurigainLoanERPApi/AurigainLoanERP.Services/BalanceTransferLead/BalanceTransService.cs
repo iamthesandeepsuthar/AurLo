@@ -125,6 +125,7 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
         }
         public async Task<ApiServiceResponseModel<List<BTGoldLoanLeadListModel>>> BTGolddLoanLeadList(IndexModel model)
         {
+
             ApiServiceResponseModel<List<BTGoldLoanLeadListModel>> objResponse = new ApiServiceResponseModel<List<BTGoldLoanLeadListModel>>();
             try
             {
@@ -133,7 +134,8 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
 
 
                 IQueryable<BtgoldLoanLead> result;
-
+                List<int> statusId = new List<int>() { 1,2,3};
+                
                 //filte Conditions
                 switch (_loginUserDetail.RoleId)
                 {
@@ -142,10 +144,12 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                     case (int)(UserRoleEnum.Admin):
                     case (int)(UserRoleEnum.WebOperator):
 
-                        result = (from goldLoanLead in _db.BtgoldLoanLead
+                        result = (from goldLoanLead in _db.BtgoldLoanLead join 
+                                  btGoldLeadStatus in _db.BtgoldLoanLeadStatusActionHistory on goldLoanLead.Id equals btGoldLeadStatus.LeadId 
+                                 into btStatus from   btGoldLeadStatus in btStatus.OrderByDescending(x=>x.Id).DefaultIfEmpty()
                                   where !goldLoanLead.IsDelete
                                   && (string.IsNullOrEmpty(model.Search) || goldLoanLead.FullName.Contains(model.Search) || goldLoanLead.FatherName.Contains(model.Search) || goldLoanLead.Gender.Contains(model.Search) || goldLoanLead.BtgoldLoanLeadAddressDetail.FirstOrDefault().AeraPincode.Pincode.Contains(model.Search)) ||
-                                  goldLoanLead.Product.Name.Contains(model.Search)
+                                  goldLoanLead.Product.Name.Contains(model.Search) && (statusId.Count == 0 ? true : statusId.Contains(btStatus.FirstOrDefault().LeadStatus.Value))
                                   select goldLoanLead);
                         break;
 

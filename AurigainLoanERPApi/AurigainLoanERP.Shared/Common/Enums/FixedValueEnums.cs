@@ -119,7 +119,8 @@ namespace AurigainLoanERP.Shared.Enums
             [StringValue("In Completed")]
             InCompleted = 3,
             [StringValue("Rejected")]
-            Rejected = 4, [StringValue("Completed")]
+            Rejected = 4,
+            [StringValue("Completed")]
             Completed = 5,
         }
         public enum LeadApprovalStatus

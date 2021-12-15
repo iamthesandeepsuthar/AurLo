@@ -35,6 +35,5 @@ namespace AurigainLoanERP.Data.Database
         public virtual QualificationMaster Qualification { get; set; }
         public virtual UserSecurityDepositDetails SecurityDeposit { get; set; }
         public virtual UserMaster User { get; set; }
-        public virtual UserReportingPerson ReportingPerson {get;set;}
     }
 }

@@ -354,7 +354,7 @@ namespace AurigainLoanERP.Services.User
                         break;
                 }
 
-                var data = result.Skip(((model.Page == 0 ? 1 : model.Page) - 1) * (model.PageSize != 0 ? model.PageSize : int.MaxValue)).Take(model.PageSize != 0 ? model.PageSize : int.MaxValue).Include(x => x.ReportingPerson).ThenInclude(c => c.ReportingUser);
+                var data = result.Skip(((model.Page == 0 ? 1 : model.Page) - 1) * (model.PageSize != 0 ? model.PageSize : int.MaxValue)).Take(model.PageSize != 0 ? model.PageSize : int.MaxValue).Include(x => x.User).ThenInclude(y=>y.UserReportingPersonUser);
 
 
                 objResponse.Data = await (from detail in data
@@ -382,8 +382,8 @@ namespace AurigainLoanERP.Services.User
                                               IsDelete = detail.IsDelete,
                                               CreatedOn = detail.CreatedOn,
                                               CreatedBy = detail.CreatedBy,
-                                              ReportingPersonName = detail.ReportingPerson != null ? detail.ReportingPerson.ReportingUser.UserName : null,
-                                              ReportingPersonUserId = detail.ReportingPerson != null ? detail.ReportingPerson.ReportingUserId : (long?)null
+                                              ReportingPersonName = detail.User.UserReportingPersonUser != null ?       detail.User.UserReportingPersonUser.FirstOrDefault().ReportingUser.UserName: "N/A",
+                                              ReportingPersonUserId = detail.User.UserReportingPersonUser != null ? detail.User.UserReportingPersonUser.FirstOrDefault().ReportingUserId : (long?)null
                                           }).ToListAsync();
 
                 if (result != null)
