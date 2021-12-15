@@ -10,8 +10,6 @@ using System.Threading.Tasks;
 namespace AurigainLoanERP.Api.Areas.Admin.Controllers
 {
     [Route("api/[controller]")]
-    [ApiController]
-    [Authorize]
     public class FreshLeadOtherController : ApiControllerBase
     {
         private readonly IFreshLeadService _freshLead;
@@ -43,8 +41,8 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
             return await _freshLead.UpdateLeadStatusOtherLeadAsync(model);
         }
         [HttpGet("[action]/{leadId}")]
-        public async Task<ApiServiceResponseModel<List<LeadStatusActionHistory>>> FreshOtherLoanLeadStatusHistory(long leadId) 
-          {
+        public async Task<ApiServiceResponseModel<List<LeadStatusActionHistory>>> FreshOtherLoanLeadStatusHistory(long leadId)
+        {
             return await _freshLead.OtherLoanLeadStatusHistory(leadId);
         }
     }

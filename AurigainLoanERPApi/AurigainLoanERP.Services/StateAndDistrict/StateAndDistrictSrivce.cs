@@ -15,7 +15,7 @@ namespace AurigainLoanERP.Services.StateAndDistrict
     public class StateAndDistrictSrivce : BaseService, IStateAndDistrictService
     {
         public readonly IMapper _mapper;
-        private AurigainContext _db;
+        private readonly AurigainContext _db;
         public StateAndDistrictSrivce(IMapper mapper, AurigainContext db)
         {
             this._mapper = mapper;

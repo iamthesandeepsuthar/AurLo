@@ -15,7 +15,7 @@ namespace AurigainLoanERP.Services.JewellaryType
     public class JewellaryTypeService : BaseService, IJewellaryTypeService
     {
         public readonly IMapper _mapper;
-        private AurigainContext _db;
+        private readonly AurigainContext _db;
         public JewellaryTypeService(IMapper mapper, AurigainContext db)
         {
             this._mapper = mapper;

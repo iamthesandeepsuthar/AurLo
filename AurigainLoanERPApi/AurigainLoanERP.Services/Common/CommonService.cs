@@ -15,7 +15,7 @@ namespace AurigainLoanERP.Services.Common
     public class CommonService : BaseService, ICommonService
     {
         public readonly IMapper _mapper;
-        private AurigainContext _db;
+        private readonly AurigainContext _db;
         public CommonService(IMapper mapper, AurigainContext db)
         {
             this._mapper = mapper;

@@ -22,7 +22,7 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
         public readonly IMapper _mapper;
         private readonly FileHelper _fileHelper;
         private readonly Security _security;
-        private AurigainContext _db;
+        private readonly AurigainContext _db;
         public BalanceTransService(IMapper mapper, AurigainContext db, IHostingEnvironment environment, IConfiguration _configuration)
         {
             this._mapper = mapper;
@@ -127,15 +127,86 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
         {
             ApiServiceResponseModel<List<BTGoldLoanLeadListModel>> objResponse = new ApiServiceResponseModel<List<BTGoldLoanLeadListModel>>();
             try
-            {                
-                var IsShowAll = _loginUserDetail.RoleId == (int)UserRoleEnum.SuperAdmin || _loginUserDetail.RoleId == (int)(UserRoleEnum.Admin) || _loginUserDetail.RoleId == (int)(UserRoleEnum.WebOperator) ? true : false;
+            {
 
-               
-                var result = (from goldLoanLead in _db.BtgoldLoanLead
-                              where !goldLoanLead.IsDelete && (IsShowAll ? true : (_loginUserDetail.RoleId == (int)UserRoleEnum.Customer ? goldLoanLead.CustomerUserId == _loginUserDetail.UserId : goldLoanLead.LeadSourceByuserId == _loginUserDetail.UserId)) && (string.IsNullOrEmpty(model.Search) || goldLoanLead.FullName.Contains(model.Search) || goldLoanLead.FatherName.Contains(model.Search) || goldLoanLead.Gender.Contains(model.Search) || goldLoanLead.BtgoldLoanLeadAddressDetail.FirstOrDefault().AeraPincode.Pincode.Contains(model.Search)) ||
-                              goldLoanLead.Product.Name.Contains(model.Search)
-                              select goldLoanLead);
-             
+
+
+
+                IQueryable<BtgoldLoanLead> result;
+
+                //filte Conditions
+                switch (_loginUserDetail.RoleId)
+                {
+
+                    case (int)UserRoleEnum.SuperAdmin:
+                    case (int)(UserRoleEnum.Admin):
+                    case (int)(UserRoleEnum.WebOperator):
+
+                        result = (from goldLoanLead in _db.BtgoldLoanLead
+                                  where !goldLoanLead.IsDelete
+                                  && (string.IsNullOrEmpty(model.Search) || goldLoanLead.FullName.Contains(model.Search) || goldLoanLead.FatherName.Contains(model.Search) || goldLoanLead.Gender.Contains(model.Search) || goldLoanLead.BtgoldLoanLeadAddressDetail.FirstOrDefault().AeraPincode.Pincode.Contains(model.Search)) ||
+                                  goldLoanLead.Product.Name.Contains(model.Search)
+                                  select goldLoanLead);
+                        break;
+
+                    case (int)(UserRoleEnum.Supervisor):
+
+                        List<long> employees = _db.UserReportingPerson.Where(x => x.ReportingUserId == _loginUserDetail.UserId).Select(x => x.UserId).ToList();
+
+                        result = (from goldLoanLead in _db.BtgoldLoanLead
+                                  where !goldLoanLead.IsDelete && (goldLoanLead.CreatedBy == _loginUserDetail.UserId || employees.Contains(goldLoanLead.LeadSourceByuserId))
+                                  && (string.IsNullOrEmpty(model.Search) || goldLoanLead.FullName.Contains(model.Search) || goldLoanLead.FatherName.Contains(model.Search) || goldLoanLead.Gender.Contains(model.Search) || goldLoanLead.BtgoldLoanLeadAddressDetail.FirstOrDefault().AeraPincode.Pincode.Contains(model.Search)) ||
+                                  goldLoanLead.Product.Name.Contains(model.Search)
+                                  select goldLoanLead);
+
+                        break;
+
+                    case (int)(UserRoleEnum.Agent):
+                    case (int)(UserRoleEnum.DoorStepAgent):
+
+                        result = (from goldLoanLead in _db.BtgoldLoanLead
+                                  where !goldLoanLead.IsDelete &&
+                                   (goldLoanLead.CreatedBy == _loginUserDetail.UserId || goldLoanLead.LeadSourceByuserId == _loginUserDetail.UserId)
+                                  && (string.IsNullOrEmpty(model.Search) || goldLoanLead.FullName.Contains(model.Search) || goldLoanLead.FatherName.Contains(model.Search) || goldLoanLead.Gender.Contains(model.Search) || goldLoanLead.BtgoldLoanLeadAddressDetail.FirstOrDefault().AeraPincode.Pincode.Contains(model.Search)) ||
+                                  goldLoanLead.Product.Name.Contains(model.Search)
+                                  select goldLoanLead);
+
+                        break;
+
+                    case (int)(UserRoleEnum.Customer):
+
+                        result = (from goldLoanLead in _db.BtgoldLoanLead
+                                  where !goldLoanLead.IsDelete && (goldLoanLead.CreatedBy == _loginUserDetail.UserId || goldLoanLead.CustomerUserId == _loginUserDetail.UserId)
+                                  && (string.IsNullOrEmpty(model.Search) || goldLoanLead.FullName.Contains(model.Search) || goldLoanLead.FatherName.Contains(model.Search) || goldLoanLead.Gender.Contains(model.Search) || goldLoanLead.BtgoldLoanLeadAddressDetail.FirstOrDefault().AeraPincode.Pincode.Contains(model.Search)) ||
+                                  goldLoanLead.Product.Name.Contains(model.Search)
+                                  select goldLoanLead);
+
+                        break;
+
+
+
+
+
+                    default:
+
+                        result = (from goldLoanLead in _db.BtgoldLoanLead
+                                  where !goldLoanLead.IsDelete && goldLoanLead.CreatedBy == _loginUserDetail.UserId
+                                  && (string.IsNullOrEmpty(model.Search) || goldLoanLead.FullName.Contains(model.Search) || goldLoanLead.FatherName.Contains(model.Search) || goldLoanLead.Gender.Contains(model.Search) || goldLoanLead.BtgoldLoanLeadAddressDetail.FirstOrDefault().AeraPincode.Pincode.Contains(model.Search)) ||
+                                  goldLoanLead.Product.Name.Contains(model.Search)
+                                  select goldLoanLead);
+
+                        break;
+                }
+
+
+                //result = (from goldLoanLead in _db.BtgoldLoanLead
+                //          where !goldLoanLead.IsDelete &&
+                //          (IsShowAll ? true : (goldLoanLead.CreatedBy == _loginUserDetail.UserId || (_loginUserDetail.RoleId == (int)UserRoleEnum.Customer ? goldLoanLead.CustomerUserId == _loginUserDetail.UserId : goldLoanLead.LeadSourceByuserId == _loginUserDetail.UserId)))
+
+                //          && (string.IsNullOrEmpty(model.Search) || goldLoanLead.FullName.Contains(model.Search) || goldLoanLead.FatherName.Contains(model.Search) || goldLoanLead.Gender.Contains(model.Search) || goldLoanLead.BtgoldLoanLeadAddressDetail.FirstOrDefault().AeraPincode.Pincode.Contains(model.Search)) ||
+                //          goldLoanLead.Product.Name.Contains(model.Search)
+                //          select goldLoanLead);
+
 
                 switch (model.OrderBy)
                 {
@@ -159,7 +230,7 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                         break;
                 }
 
-                var data = result.Skip(((model.Page == 0 ? 1 : model.Page) - 1) * (model.PageSize != 0 ? model.PageSize : int.MaxValue)).Take(model.PageSize != 0 ? model.PageSize : int.MaxValue).Include(x => x.BtgoldLoanLeadApprovalActionHistory).ThenInclude(x=>x.ActionTakenByUser).ThenInclude(x=> x.UserRole);
+                var data = result.Skip(((model.Page == 0 ? 1 : model.Page) - 1) * (model.PageSize != 0 ? model.PageSize : int.MaxValue)).Take(model.PageSize != 0 ? model.PageSize : int.MaxValue).Include(x => x.BtgoldLoanLeadApprovalActionHistory).ThenInclude(x => x.ActionTakenByUser).ThenInclude(x => x.UserRole);
 
                 objResponse.Data = await (from detail in data
                                           where detail.IsDelete == false
@@ -177,11 +248,11 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                                               IsActive = detail.IsActive.Value,
                                               LeadStatus = detail.LeadStatus,
                                               ProductName = detail.Product.Name,
-                                              IsStatusCompleted = detail.BtgoldLoanLeadStatusActionHistory.Where(x=> x.LeadStatus.Value == ((int)LeadStatus.Completed)).Count() >0 ? true:false,
+                                              IsStatusCompleted = detail.BtgoldLoanLeadStatusActionHistory.Where(x => x.LeadStatus.Value == ((int)LeadStatus.Completed)).Count() > 0 ? true : false,
                                               Pincode = detail.BtgoldLoanLeadAddressDetail.FirstOrDefault().AeraPincode.Pincode,
                                               ApprovalStatus = detail.ApprovalStatus,
-                                              ApprovedStage = detail.BtgoldLoanLeadApprovalActionHistory.Count > 0 ? 
-                                              detail.BtgoldLoanLeadApprovalActionHistory.OrderByDescending(x=>x.Id).FirstOrDefault(x => x.ActionTakenByUserId.HasValue).ActionTakenByUser.UserRole.UserRoleLevel.Value  : (int?)null 
+                                              ApprovedStage = detail.BtgoldLoanLeadApprovalActionHistory.Count > 0 ?
+                                              detail.BtgoldLoanLeadApprovalActionHistory.OrderByDescending(x => x.Id).FirstOrDefault(x => x.ActionTakenByUserId.HasValue).ActionTakenByUser.UserRole.UserRoleLevel.Value : (int?)null
                                           }).ToListAsync();
                 if (result != null)
                 {
@@ -436,7 +507,7 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                             break;
                         case 2:
                             leadDetail.ApprovalStatus = LeadApprovalStatus.Rejected.GetStringValue();
-                            break;                      
+                            break;
 
                         default:
                             leadDetail.LeadStatus = "Pending";
@@ -450,7 +521,7 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                 {
                     _db.Database.RollbackTransaction();
                     return CreateResponse<object>(false, ResponseMessage.NotFound, false, ((int)ApiStatusCode.NotFound));
-                }              
+                }
                 return CreateResponse<object>(true, ResponseMessage.Save, true, ((int)ApiStatusCode.Ok));
             }
             catch (Exception)
@@ -540,7 +611,7 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                                 d.LeadStatus == 5 ? LeadStatus.Completed.GetStringValue() :
                                 "New",
                         ActionTakenBy = d.ActionTakenByUserId.HasValue ? $"{d.ActionTakenByUser.UserName} ({d.ActionTakenByUser.UserRole.Name})" : null,
-                        ActionTakenByUserId = d.ActionTakenByUserId ?? (long?)null,
+                        ActionTakenByUserId = d.ActionTakenByUserId ?? null,
                         Id = d.Id,
                         Remark = d.Remarks
                     }).ToListAsync();
@@ -556,7 +627,7 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                 return CreateResponse<List<LeadStatusActionHistory>>(null, ex.Message, false, ((int)ApiStatusCode.ServerException));
             }
         }
-        public async Task<ApiServiceResponseModel<List<LeadStatusActionHistory>>> BTGoldLoanApprovalStatusHistory(long leadId) 
+        public async Task<ApiServiceResponseModel<List<LeadStatusActionHistory>>> BTGoldLoanApprovalStatusHistory(long leadId)
         {
             List<LeadStatusActionHistory> history = new List<LeadStatusActionHistory>();
             try
@@ -568,10 +639,10 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                     {
                         ActionDate = d.ActionDate,
                         LeadId = d.LeadId,
-                        LeadStatus = d.ApprovalStatus == 1 ? LeadApprovalStatus.Approved.GetStringValue() :                                         LeadApprovalStatus.Rejected.GetStringValue(),                       
-                                    
+                        LeadStatus = d.ApprovalStatus == 1 ? LeadApprovalStatus.Approved.GetStringValue() : LeadApprovalStatus.Rejected.GetStringValue(),
+
                         ActionTakenBy = d.ActionTakenByUserId.HasValue ? $"{d.ActionTakenByUser.UserName} ({d.ActionTakenByUser.UserRole.Name})" : null,
-                        ActionTakenByUserId = d.ActionTakenByUserId ?? (long?)null,
+                        ActionTakenByUserId = d.ActionTakenByUserId ?? null,
                         Id = d.Id,
                         Remark = d.Remarks
                     }).ToListAsync();

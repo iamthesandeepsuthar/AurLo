@@ -1,6 +1,8 @@
 ﻿using AurigainLoanERP.Services.FreshLead;
+using AurigainLoanERP.Shared.Common.API;
 using AurigainLoanERP.Shared.Common.Model;
 using AurigainLoanERP.Shared.ContractModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -8,8 +10,8 @@ using System.Threading.Tasks;
 namespace AurigainLoanERP.Api.Areas.Admin.Controllers
 {
     [Route("api/[controller]")]
-    [ApiController]
-    public class GoldLoanFreshLeadController : ControllerBase
+    
+    public class GoldLoanFreshLeadController : ApiControllerBase
     {
         private readonly IFreshLeadService _freshLead;
         public GoldLoanFreshLeadController(IFreshLeadService freshLead)

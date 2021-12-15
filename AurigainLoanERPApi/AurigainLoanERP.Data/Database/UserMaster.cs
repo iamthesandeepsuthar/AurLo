@@ -14,15 +14,21 @@ namespace AurigainLoanERP.Data.Database
             BtgoldLoanLeadActionHistoryActionTakenByUser = new HashSet<BtgoldLoanLeadActionHistory>();
             BtgoldLoanLeadActionHistoryAssignToUser = new HashSet<BtgoldLoanLeadActionHistory>();
             BtgoldLoanLeadApprovalActionHistory = new HashSet<BtgoldLoanLeadApprovalActionHistory>();
+            BtgoldLoanLeadCreatedByNavigation = new HashSet<BtgoldLoanLead>();
             BtgoldLoanLeadCustomerUser = new HashSet<BtgoldLoanLead>();
             BtgoldLoanLeadLeadSourceByuser = new HashSet<BtgoldLoanLead>();
+            BtgoldLoanLeadModifiedByNavigation = new HashSet<BtgoldLoanLead>();
             BtgoldLoanLeadStatusActionHistory = new HashSet<BtgoldLoanLeadStatusActionHistory>();
-            FreshLeadHlplcl = new HashSet<FreshLeadHlplcl>();
+            FreshLeadHlplclCreatedByNavigation = new HashSet<FreshLeadHlplcl>();
+            FreshLeadHlplclLeadSourceByUser = new HashSet<FreshLeadHlplcl>();
+            FreshLeadHlplclModifiedByNavigation = new HashSet<FreshLeadHlplcl>();
             FreshLeadHlplclstatusActionHistory = new HashSet<FreshLeadHlplclstatusActionHistory>();
             GoldLoanFreshLeadActionHistoryAssignFromUser = new HashSet<GoldLoanFreshLeadActionHistory>();
             GoldLoanFreshLeadActionHistoryAssignToUser = new HashSet<GoldLoanFreshLeadActionHistory>();
+            GoldLoanFreshLeadCreatedByNavigation = new HashSet<GoldLoanFreshLead>();
             GoldLoanFreshLeadCustomerUser = new HashSet<GoldLoanFreshLead>();
             GoldLoanFreshLeadLeadSourceByUser = new HashSet<GoldLoanFreshLead>();
+            GoldLoanFreshLeadModifiedByNavigation = new HashSet<GoldLoanFreshLead>();
             GoldLoanFreshLeadStatusActionHistory = new HashSet<GoldLoanFreshLeadStatusActionHistory>();
             Managers = new HashSet<Managers>();
             UserAgent = new HashSet<UserAgent>();
@@ -62,15 +68,21 @@ namespace AurigainLoanERP.Data.Database
         public virtual ICollection<BtgoldLoanLeadActionHistory> BtgoldLoanLeadActionHistoryActionTakenByUser { get; set; }
         public virtual ICollection<BtgoldLoanLeadActionHistory> BtgoldLoanLeadActionHistoryAssignToUser { get; set; }
         public virtual ICollection<BtgoldLoanLeadApprovalActionHistory> BtgoldLoanLeadApprovalActionHistory { get; set; }
+        public virtual ICollection<BtgoldLoanLead> BtgoldLoanLeadCreatedByNavigation { get; set; }
         public virtual ICollection<BtgoldLoanLead> BtgoldLoanLeadCustomerUser { get; set; }
         public virtual ICollection<BtgoldLoanLead> BtgoldLoanLeadLeadSourceByuser { get; set; }
+        public virtual ICollection<BtgoldLoanLead> BtgoldLoanLeadModifiedByNavigation { get; set; }
         public virtual ICollection<BtgoldLoanLeadStatusActionHistory> BtgoldLoanLeadStatusActionHistory { get; set; }
-        public virtual ICollection<FreshLeadHlplcl> FreshLeadHlplcl { get; set; }
+        public virtual ICollection<FreshLeadHlplcl> FreshLeadHlplclCreatedByNavigation { get; set; }
+        public virtual ICollection<FreshLeadHlplcl> FreshLeadHlplclLeadSourceByUser { get; set; }
+        public virtual ICollection<FreshLeadHlplcl> FreshLeadHlplclModifiedByNavigation { get; set; }
         public virtual ICollection<FreshLeadHlplclstatusActionHistory> FreshLeadHlplclstatusActionHistory { get; set; }
         public virtual ICollection<GoldLoanFreshLeadActionHistory> GoldLoanFreshLeadActionHistoryAssignFromUser { get; set; }
         public virtual ICollection<GoldLoanFreshLeadActionHistory> GoldLoanFreshLeadActionHistoryAssignToUser { get; set; }
+        public virtual ICollection<GoldLoanFreshLead> GoldLoanFreshLeadCreatedByNavigation { get; set; }
         public virtual ICollection<GoldLoanFreshLead> GoldLoanFreshLeadCustomerUser { get; set; }
         public virtual ICollection<GoldLoanFreshLead> GoldLoanFreshLeadLeadSourceByUser { get; set; }
+        public virtual ICollection<GoldLoanFreshLead> GoldLoanFreshLeadModifiedByNavigation { get; set; }
         public virtual ICollection<GoldLoanFreshLeadStatusActionHistory> GoldLoanFreshLeadStatusActionHistory { get; set; }
         public virtual ICollection<Managers> Managers { get; set; }
         public virtual ICollection<UserAgent> UserAgent { get; set; }

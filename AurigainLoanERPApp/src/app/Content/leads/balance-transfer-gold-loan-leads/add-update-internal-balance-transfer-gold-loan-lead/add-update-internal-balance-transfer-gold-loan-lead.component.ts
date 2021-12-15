@@ -100,7 +100,7 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
       Branch: [undefined, undefined],
       DateofAppointment: [undefined, undefined],
       TimeofAppointment: [undefined, undefined],
-    }); 
+    });
   }
 
   onSubmit() {
@@ -111,7 +111,7 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
 
     if (this.leadFromPersonalDetail.valid && this.leadFromAddressDetail.valid && this.leadFromAppointmentDetail.valid) {
 
-      if (this.userDetail?.RoleId == UserRoleEnum.Operator) {
+      if (this.userDetail?.RoleId == UserRoleEnum.Operator || this.userDetail?.RoleId == UserRoleEnum.Agent || this.userDetail?.RoleId == UserRoleEnum.DoorStepAgent) {
         this.model.LeadSourceByuserId = this.userDetail.UserId as number;
 
       }

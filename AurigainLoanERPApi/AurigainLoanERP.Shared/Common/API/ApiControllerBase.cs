@@ -1,4 +1,5 @@
 ﻿using AurigainLoanERP.Shared.Common.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -8,6 +9,7 @@ namespace AurigainLoanERP.Shared.Common.API
 {
     [ApiController]
     [ServiceFilter(typeof(InterseptionAttribute))]
+    [Authorize]
     public abstract class ApiControllerBase : ControllerBase
     {
         public ApiControllerBase()

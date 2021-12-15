@@ -10,8 +10,6 @@ using System.Threading.Tasks;
 namespace AurigainLoanERP.Api.Areas.Admin.Controllers
 {
     [Route("api/[controller]/[action]")]
-    // [ApiController]
-    [Authorize]
     public class GoldLoanBalanceTransferController : ApiControllerBase
     {
         private readonly IBalanceTransService _objBTLead;

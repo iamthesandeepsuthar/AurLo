@@ -16,5 +16,7 @@
     [IsDelete] BIT NOT NULL DEFAULT 0, 
     [CreatedDate] DATETIME NOT NULL DEFAULT getDate(), 
     [ModifiedDate] DATETIME NULL, 
-    [LeadStatus] NVARCHAR(100) NULL,    
+    [LeadStatus] NVARCHAR(100) NULL,   
+     [CreatedBy] BIGINT NULL references UserMaster(Id), 
+    [ModifiedBy] BIGINT NULL references UserMaster(Id), 
 )

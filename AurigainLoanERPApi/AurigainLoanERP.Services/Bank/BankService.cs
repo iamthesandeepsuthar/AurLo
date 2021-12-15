@@ -20,7 +20,7 @@ namespace AurigainLoanERP.Services.Bank
         public readonly IMapper _mapper;
         private readonly FileHelper _fileHelper;
 
-        private AurigainContext _db;
+        private readonly AurigainContext _db;
         public BankService(IMapper mapper, AurigainContext db, IHostingEnvironment environment)
         {
             this._mapper = mapper;

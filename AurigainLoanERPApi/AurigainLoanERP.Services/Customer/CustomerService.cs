@@ -17,7 +17,7 @@ namespace AurigainLoanERP.Services.Customer
     public class CustomerService : BaseService, ICustomerService
     {
         public readonly IMapper _mapper;
-        private AurigainContext _db;
+        private readonly AurigainContext _db;
         private readonly EmailHelper _emailHelper;
         private readonly SMSHelper _smsHelper;
         private readonly Security _security;

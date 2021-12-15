@@ -15,7 +15,7 @@ namespace AurigainLoanERP.Services.PaymentMode
     public class PaymentModeService : BaseService, IPaymentModeService
     {
         public readonly IMapper _mapper;
-        private AurigainContext _db;
+        private readonly AurigainContext _db;
         public PaymentModeService(IMapper mapper, AurigainContext db)
         {
             this._mapper = mapper;

@@ -46,8 +46,10 @@ namespace AurigainLoanERP.Data.Database
         public string LeadStatus { get; set; }
         public string ApprovalStatus { get; set; }
 
+        public virtual UserMaster CreatedByNavigation { get; set; }
         public virtual UserMaster CustomerUser { get; set; }
         public virtual UserMaster LeadSourceByuser { get; set; }
+        public virtual UserMaster ModifiedByNavigation { get; set; }
         public virtual Product Product { get; set; }
         public virtual ICollection<BtgoldLoanLeadAddressDetail> BtgoldLoanLeadAddressDetail { get; set; }
         public virtual ICollection<BtgoldLoanLeadAppointmentDetail> BtgoldLoanLeadAppointmentDetail { get; set; }
