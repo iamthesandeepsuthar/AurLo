@@ -202,7 +202,7 @@ namespace AurigainLoanERP.Shared.ContractModel
         public string UniqueId { get; set; }
         public string Gender { get; set; }
         public string QualificationName { get; set; }
-        public long ReportingPersonUserId { get; set;}
+        public long? ReportingPersonUserId { get; set;}
         public string ReportingPersonName { get; set;}
         public string Address { get; set; }
         public string DistrictName { get; set; }

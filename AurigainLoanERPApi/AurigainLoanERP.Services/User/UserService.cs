@@ -325,10 +325,11 @@ namespace AurigainLoanERP.Services.User
             try
             {
                 var result = (from agent in _db.UserDoorStepAgent
-                              join reporting in _db.UserReportingPerson on agent.UserId equals reporting.UserId
+                                  //  join reporting in _db.UserReportingPerson on agent.UserId equals reporting.UserId
                                   //join role in _db.UserRole on user.UserRoleId equals role.Id
                               where !agent.IsDelete && agent.User.UserRoleId == (int)UserRoleEnum.DoorStepAgent && (string.IsNullOrEmpty(model.Search) || agent.FullName.Contains(model.Search) || agent.User.Email.Contains(model.Search) || agent.User.UserName.Contains(model.Search))
                               select agent);
+
                 switch (model.OrderBy)
                 {
                     case "FullName":
@@ -353,7 +354,9 @@ namespace AurigainLoanERP.Services.User
                         break;
                 }
 
-                var data = result.Skip(((model.Page == 0 ? 1 : model.Page) - 1) * (model.PageSize != 0 ? model.PageSize : int.MaxValue)).Take(model.PageSize != 0 ? model.PageSize : int.MaxValue);
+                var data = result.Skip(((model.Page == 0 ? 1 : model.Page) - 1) * (model.PageSize != 0 ? model.PageSize : int.MaxValue)).Take(model.PageSize != 0 ? model.PageSize : int.MaxValue).Include(x => x.ReportingPerson).ThenInclude(c => c.ReportingUser);
+
+
                 objResponse.Data = await (from detail in data
                                           select new DoorStepAgentListModel
                                           {
@@ -378,9 +381,9 @@ namespace AurigainLoanERP.Services.User
                                               IsActive = detail.User.IsActive,
                                               IsDelete = detail.IsDelete,
                                               CreatedOn = detail.CreatedOn,
-                                              CreatedBy = detail.CreatedBy
-                                              //ReportingPersonName = detail.ReportingPerson.ReportingUser.UserName ?? "",
-                                              //ReportingPersonUserId = detail.ReportingPerson.ReportingUserId
+                                              CreatedBy = detail.CreatedBy,
+                                              ReportingPersonName = detail.ReportingPerson != null ? detail.ReportingPerson.ReportingUser.UserName : null,
+                                              ReportingPersonUserId = detail.ReportingPerson != null ? detail.ReportingPerson.ReportingUserId : (long?)null
                                           }).ToListAsync();
 
                 if (result != null)
@@ -393,7 +396,7 @@ namespace AurigainLoanERP.Services.User
                 }
             }
             catch (Exception ex)
-            {                
+            {
                 return CreateResponse<List<DoorStepAgentListModel>>(null, ResponseMessage.Fail, false, ((int)ApiStatusCode.ServerException), ex.Message ?? ex.InnerException.ToString());
             }
         }
@@ -1057,57 +1060,58 @@ namespace AurigainLoanERP.Services.User
                 return CreateResponse(true as object, ResponseMessage.Fail, true, ((int)ApiStatusCode.ServerException), ex.Message);
             }
         }
-        public async Task<ApiServiceResponseModel<List<ReportingUser>>>ReportingUsersAsync()
+        public async Task<ApiServiceResponseModel<List<ReportingUser>>> ReportingUsersAsync()
         {
             //List<ReportingUser> Users = new List<ReportingUser>();
             try
             {
-                var data = await _db.Managers.Where(x => x.User.UserRoleId == ((int)UserRoleEnum.Supervisor) && x.User.IsDelete == false && x.User.IsActive == true).Select(x=> new ReportingUser { 
-                Name = x.FullName,
-                UserId = x.UserId,
-                RoleId = x.User.UserRoleId,
-                RoleName = x.User.UserRole.Name
+                var data = await _db.Managers.Where(x => x.User.UserRoleId == ((int)UserRoleEnum.Supervisor) && x.User.IsDelete == false && x.User.IsActive == true).Select(x => new ReportingUser
+                {
+                    Name = x.FullName,
+                    UserId = x.UserId,
+                    RoleId = x.User.UserRoleId,
+                    RoleName = x.User.UserRole.Name
                 }).ToListAsync();
                 if (data.Count > 0)
                 {
                     return CreateResponse(data, ResponseMessage.Success, true, ((int)ApiStatusCode.Ok));
                 }
-                else 
+                else
                 {
                     return CreateResponse<List<ReportingUser>>(null, ResponseMessage.NotFound, false, ((int)ApiStatusCode.NotFound));
                 }
             }
-            catch(Exception ex) 
+            catch (Exception ex)
             {
                 return CreateResponse<List<ReportingUser>>(null, ex.Message, false, ((int)ApiStatusCode.ServerException));
             }
         }
-        public async Task<ApiServiceResponseModel<object>> AssignReportingPersonAsync(UserReportingPersonPostModel model) 
+        public async Task<ApiServiceResponseModel<object>> AssignReportingPersonAsync(UserReportingPersonPostModel model)
         {
             try
             {
-                var result =await  SaveUserReportingPersonAsync(model, model.UserId.Value);
+                var result = await SaveUserReportingPersonAsync(model, model.UserId.Value);
                 if (result)
                 {
                     return CreateResponse<object>(true, ResponseMessage.Success, true, ((int)ApiStatusCode.Ok));
                 }
-                else 
+                else
                 {
                     return CreateResponse<object>(false, ResponseMessage.NotFound, false, ((int)ApiStatusCode.RecordNotFound));
                 }
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 return CreateResponse<object>(false, ex.Message, false, ((int)ApiStatusCode.ServerException));
             }
-           
+
 
         }
         public async Task<ApiServiceResponseModel<object>> SaveDoorstepAgentSecurityDepositAsync(UserSecurityDepositPostModel model)
         {
             try
             {
-                var result = await SaveUserSecurityDepositAsync(model,model.UserId);
+                var result = await SaveUserSecurityDepositAsync(model, model.UserId);
                 if (result)
                 {
                     return CreateResponse<object>(true, ResponseMessage.Success, true, ((int)ApiStatusCode.Ok));
@@ -1658,14 +1662,14 @@ namespace AurigainLoanERP.Services.User
                         isExist.ReportingUserId = model.ReportingUserId;
                         isExist.ModifiedOn = DateTime.Now;
                     }
-                    else 
+                    else
                     {
                         var objModel = _mapper.Map<UserReportingPerson>(model);
                         objModel.CreatedOn = DateTime.Now;
                         objModel.UserId = userId;
                         objModel.ReportingUserId = model.ReportingUserId;
                         var result = await _db.UserReportingPerson.AddAsync(objModel);
-                    }                    
+                    }
                     await _db.SaveChangesAsync();
                 }
                 else
@@ -1856,7 +1860,7 @@ namespace AurigainLoanERP.Services.User
                         isExist.AccountNumber = !string.IsNullOrEmpty(model.AccountNumber) ? model.AccountNumber : null;
                         isExist.BankName = !string.IsNullOrEmpty(model.BankName) ? model.BankName : null;
                     }
-                    else 
+                    else
                     {
                         var objModel = new UserSecurityDepositDetails();
                         objModel.CreatedOn = DateTime.Now;
@@ -1877,7 +1881,7 @@ namespace AurigainLoanERP.Services.User
                             user.SecurityDepositId = result.Entity.Id;
                             await _db.SaveChangesAsync();
                         }
-                    }                 
+                    }
                 }
                 else
                 {
