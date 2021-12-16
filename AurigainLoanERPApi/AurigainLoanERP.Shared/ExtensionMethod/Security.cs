@@ -82,6 +82,16 @@ namespace AurigainLoanERP.Shared.ExtensionMethod
             var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(plainText);
             return System.Convert.ToBase64String(plainTextBytes);
         }
+        public string GenerateLoanCaseNumber() 
+        {
+            string result ;
+            string prefix = "AUR";          
+            var month = DateTime.Now.Month;
+            var second = DateTime.Now.Second;
+            Random random = new Random();
+            result = prefix +"/"+ month.ToString()+"/"+second+"/"+ random.Next(10000, 199999).ToString();
+            return result;
+        }
         public ApiServiceResponseModel<string> CreateToken(long UserId, string UserName, string RoleType, int RoleId)
         {
 

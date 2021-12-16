@@ -186,6 +186,8 @@ namespace AurigainLoanERP.Data.Database
 
                 entity.Property(e => e.LoanAmount).HasColumnType("decimal(18, 0)");
 
+                entity.Property(e => e.LoanCaseNumber).HasMaxLength(50);
+
                 entity.Property(e => e.Mobile)
                     .IsRequired()
                     .HasMaxLength(20)

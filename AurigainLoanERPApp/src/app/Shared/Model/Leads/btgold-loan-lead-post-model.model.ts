@@ -116,6 +116,7 @@ export class BTGoldLoanLeadListModel {
   ApprovedStage! : number;
   LeadStatus!: string;
   ApprovalStatus!:string;
+  LoanCaseNumber!:string;
 }
 export class BTGoldLoanLeadViewModel {
   Id!: number;

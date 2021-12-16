@@ -292,7 +292,7 @@ namespace AurigainLoanERP.Services.Account
         {
             ApiServiceResponseModel<string> objModel = new ApiServiceResponseModel<string>();
             try
-            {
+            {             
                 var encrptPassword = _security.Base64Encode(value);
                 objModel.Data = encrptPassword;
                 objModel.IsSuccess = true;

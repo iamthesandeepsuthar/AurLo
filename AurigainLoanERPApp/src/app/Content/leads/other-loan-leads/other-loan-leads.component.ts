@@ -49,9 +49,7 @@ export class OtherLoanLeadsComponent implements OnInit {
 
     ngOnInit(): void {
     this.getList();
-
-  }
-
+   }
   getList(): void {
     let serve = this._freshLeadService.GetList(this.indexModel).subscribe(response => {
       serve.unsubscribe();
@@ -73,7 +71,6 @@ export class OtherLoanLeadsComponent implements OnInit {
         this.toast.error(error.Message as string, 'Error');
       });
   }
-
   sortData(event: any): void {
 
     this.indexModel.OrderBy = event.active;
@@ -87,14 +84,12 @@ export class OtherLoanLeadsComponent implements OnInit {
 
     this.getList();
   }
-
   onPaginateChange(event: any) {
     this.indexModel.Page = event.pageIndex + 1;
     this.indexModel.PageSize = event.pageSize;
     this.indexModel.IsPostBack = true;
     this.getList();
   }
-
   onPageSizeChange() {
 
     this.indexModel.IsPostBack = true;
@@ -125,7 +120,7 @@ export class OtherLoanLeadsComponent implements OnInit {
   }
   onChangeLeadStatus(Id: number) {
     const dialogRef = this.dialog.open(LeadStatusPopupComponent, {
-      data: { Id: Id as number, Type: "OtherLead" as string },
+      data: { Id: Id as number, Type: "OtherLead" as string ,Heading:'Other Loan Lead Status Change'},
       width: '500px',
     });
 
@@ -192,5 +187,4 @@ export class OtherLoanLeadsComponent implements OnInit {
     });
 
   }
-
 }

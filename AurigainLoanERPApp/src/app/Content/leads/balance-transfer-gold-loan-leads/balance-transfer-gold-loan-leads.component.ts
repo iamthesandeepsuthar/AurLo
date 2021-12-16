@@ -34,8 +34,9 @@ export class BalanceTransferGoldLoanLeadsComponent implements OnInit {
   get userRoleEnum() { return UserRoleEnum };
   get routing_Url() { return Routing_Url };
 
-  displayedColumns: string[] = ['index', 'FullName', 'FatherName', 'PrimaryMobileNumber','ProductName', 'Pincode', 'LoanAmountRequired', 'LeadStatus','ApprovalStatus', 'LeadSourceByUserName', 'Action'];
+  displayedColumns: string[] = ['index','LoanCaseNumber', 'FullName', 'FatherName', 'PrimaryMobileNumber','ProductName', 'Pincode', 'LoanAmountRequired', 'LeadStatus','ApprovalStatus', 'LeadSourceByUserName', 'Action'];
   ViewdisplayedColumns = [{ Value: 'FullName', Text: 'Full Name' },
+  {Value:'LoanCaseNumber',Text:'Loan Case'},
   { Value: 'PrimaryMobileNumber', Text: 'Mobile Number' },
   { Value: 'LeadSourceByUserName', Text: 'Lead Source By' },
   { Value: 'LoanAmountRequired', Text: 'Loan Amount' },
@@ -197,7 +198,7 @@ export class BalanceTransferGoldLoanLeadsComponent implements OnInit {
   }
   onChangeLeadStatus(Id: number) {
     const dialogRef = this.dialog.open(LeadStatusPopupComponent, {
-      data: { Id: Id as number, Type: "BTLEAD" as string },
+      data: { Id: Id as number, Type: "BTLEAD" as string ,Heading:'BT Gold Loan Lead Status Change' },
       width: '500px',
     });
 

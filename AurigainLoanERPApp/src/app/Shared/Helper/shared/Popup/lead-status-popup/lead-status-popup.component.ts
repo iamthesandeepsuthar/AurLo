@@ -31,7 +31,7 @@ export class LeadStatusPopupComponent implements OnInit {
     private readonly _toast: ToastrService,
     private readonly _otherLead: PersonalHomeCarLoanService,
     public dialogRef: MatDialogRef<LeadStatusPopupComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { Id: number, Type: string }) {
+    @Inject(MAT_DIALOG_DATA) public data: { Id: number, Type: string,Heading: string }) {
   }
   ngOnInit(): void {
     this.formInit();
@@ -49,7 +49,6 @@ export class LeadStatusPopupComponent implements OnInit {
       if (res.IsSuccess) {
         let dropdownList = res?.Data as DropDownModel;
         this.dropDown.ddlLeadStatus = dropdownList?.ddlLeadStatus ?? [];
-        console.log(this.dropDown.ddlLeadStatus);
       }
     });
   }
@@ -88,7 +87,7 @@ export class LeadStatusPopupComponent implements OnInit {
     let subscription = this._otherLead.LeadStatus(this.model).subscribe(response => {
       subscription.unsubscribe();
       if (response.IsSuccess) {
-        this.onClose();
+        this.dialogRef.close(false);
       } else {
         this._toast.error(response.Message as string, 'Server Error');
         this.dialogRef.close(false);
@@ -102,7 +101,7 @@ export class LeadStatusPopupComponent implements OnInit {
     let subscription = this._balanceTransfer.LeadStatus(this.model).subscribe(response => {
       subscription.unsubscribe();
       if (response.IsSuccess) {
-        this.onClose();
+        this.dialogRef.close(false);
       } else {
         this._toast.error(response.Message as string, 'Server Error');
         this.dialogRef.close(false);
