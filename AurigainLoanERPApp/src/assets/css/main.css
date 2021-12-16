@@ -4219,6 +4219,7 @@ h4 {
     white-space: normal;
     line-height: 22px;
     margin: 10px 0px 5px 0px;
+    text-transform: capitalize;
 }
 
 .dropdown-item-sign-out {
@@ -4276,6 +4277,27 @@ tr td:last-child.table-action-btn {
     min-width: 140px;
 }
 
+.table-action-dropdown ul.dropdown-menu a {
+    font-size: 14px;
+    padding: 6px 8px;
+    width: 100%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 165px;
+    overflow: hidden;
+    display: block;
+    border-bottom: solid 1px #f1f1f1;
+    margin: 0px;
+}
+.table-action-dropdown ul.dropdown-menu {
+    padding: 0px !important;
+    max-height: 134px;
+    overflow-x: auto;
+}
+.table-action-dropdown {
+    min-width: auto !important;
+    width: 50px;
+}
 /* .custom-modal .modal-content .modal-body {
     background: url(https://blog.2checkout.com/wp-content/uploads/2018/11/how-does-the-payment-processing-industry-work-1.png);
     background-repeat: no-repeat;
