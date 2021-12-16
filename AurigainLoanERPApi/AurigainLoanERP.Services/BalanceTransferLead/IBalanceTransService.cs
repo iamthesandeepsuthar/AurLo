@@ -15,5 +15,6 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
         Task<ApiServiceResponseModel<object>> UpdateLeadStatusAsync(LeadStatusModel model);
         Task<ApiServiceResponseModel<List<LeadStatusActionHistory>>> BTGoldLoanLeadStatusHistory(long leadId);
         Task<ApiServiceResponseModel<List<LeadStatusActionHistory>>> BTGoldLoanApprovalStatusHistory(long leadId);
+        Task<ApiServiceResponseModel<List<BTGoldLoanBalanceReturnLeadListModel>>> BTGoldLoanBalanceReturnLeadList(IndexModel model);
     }
 }

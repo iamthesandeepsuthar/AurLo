@@ -11,6 +11,7 @@ namespace AurigainLoanERP.Data.Database
     {
         public BtgoldLoanLead()
         {
+            BalanceTransferLoanReturn = new HashSet<BalanceTransferLoanReturn>();
             BtgoldLoanLeadAddressDetail = new HashSet<BtgoldLoanLeadAddressDetail>();
             BtgoldLoanLeadAppointmentDetail = new HashSet<BtgoldLoanLeadAppointmentDetail>();
             BtgoldLoanLeadApprovalActionHistory = new HashSet<BtgoldLoanLeadApprovalActionHistory>();
@@ -52,6 +53,7 @@ namespace AurigainLoanERP.Data.Database
         public virtual UserMaster LeadSourceByuser { get; set; }
         public virtual UserMaster ModifiedByNavigation { get; set; }
         public virtual Product Product { get; set; }
+        public virtual ICollection<BalanceTransferLoanReturn> BalanceTransferLoanReturn { get; set; }
         public virtual ICollection<BtgoldLoanLeadAddressDetail> BtgoldLoanLeadAddressDetail { get; set; }
         public virtual ICollection<BtgoldLoanLeadAppointmentDetail> BtgoldLoanLeadAppointmentDetail { get; set; }
         public virtual ICollection<BtgoldLoanLeadApprovalActionHistory> BtgoldLoanLeadApprovalActionHistory { get; set; }

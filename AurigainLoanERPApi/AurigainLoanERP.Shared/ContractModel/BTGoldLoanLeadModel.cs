@@ -256,5 +256,19 @@ namespace AurigainLoanERP.Shared.ContractModel
         public int? ApprovedStage { get; set; }
         public string LoanCaseNumber { get; set; }
     }
-
+    public class BTGoldLoanBalanceReturnLeadListModel {
+        public long Id { get; set;}
+        public string FullName { get; set; }
+        public string PrimaryMobileNumber { get; set;}
+        public string LeadSourceByUserName { get; set;}
+        public bool IsInternalLead { get; set;}
+        public string Pincode { get; set;}
+        public string ApprovalStatus { get; set;}
+        public bool IsStatusCompleted { get; set;}
+        public string LeadStatus { get; set; }
+        public string LoanCaseNumber { get; set;}
+        public double LoanAmountRequired { get; set;}
+        public string LeadType { get; set;}
+        public string ProductName { get; set;}
+    }
 }

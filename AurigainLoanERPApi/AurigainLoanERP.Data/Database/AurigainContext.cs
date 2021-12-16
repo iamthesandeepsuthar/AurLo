@@ -19,6 +19,8 @@ namespace AurigainLoanERP.Data.Database
         {
         }
 
+        public virtual DbSet<BalanceTransferLoanReturn> BalanceTransferLoanReturn { get; set; }
+        public virtual DbSet<BalanceTransferReturnBankChequeDetail> BalanceTransferReturnBankChequeDetail { get; set; }
         public virtual DbSet<BankBranchMaster> BankBranchMaster { get; set; }
         public virtual DbSet<BankMaster> BankMaster { get; set; }
         public virtual DbSet<BtgoldLoanLead> BtgoldLoanLead { get; set; }
@@ -76,6 +78,52 @@ namespace AurigainLoanERP.Data.Database
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<BalanceTransferLoanReturn>(entity =>
+            {
+                entity.Property(e => e.AmountPaidToExistingBank).HasDefaultValueSql("((0))");
+
+                entity.Property(e => e.AmountReturn).HasColumnType("decimal(18, 0)");
+
+                entity.Property(e => e.BankName).HasMaxLength(500);
+
+                entity.Property(e => e.CustomerName).HasMaxLength(500);
+
+                entity.Property(e => e.GoldReceived).HasDefaultValueSql("((0))");
+
+                entity.Property(e => e.GoldSubmittedToBank).HasDefaultValueSql("((0))");
+
+                entity.Property(e => e.LoanAccountNumber).HasMaxLength(50);
+
+                entity.Property(e => e.LoanDisbursement).HasDefaultValueSql("((0))");
+
+                entity.Property(e => e.PaymentAmount).HasColumnType("decimal(18, 0)");
+
+                entity.Property(e => e.Remarks).HasMaxLength(1000);
+
+                entity.Property(e => e.UtrNumber).HasMaxLength(50);
+
+                entity.HasOne(d => d.Lead)
+                    .WithMany(p => p.BalanceTransferLoanReturn)
+                    .HasForeignKey(d => d.LeadId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__BalanceTr__LeadI__5555A4F4");
+            });
+
+            modelBuilder.Entity<BalanceTransferReturnBankChequeDetail>(entity =>
+            {
+                entity.Property(e => e.BtreturnId).HasColumnName("BTReturnId");
+
+                entity.Property(e => e.ChequeNumber)
+                    .IsRequired()
+                    .HasMaxLength(10);
+
+                entity.HasOne(d => d.Btreturn)
+                    .WithMany(p => p.BalanceTransferReturnBankChequeDetail)
+                    .HasForeignKey(d => d.BtreturnId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__BalanceTr__BTRet__5649C92D");
+            });
+
             modelBuilder.Entity<BankBranchMaster>(entity =>
             {
                 entity.Property(e => e.Address).HasMaxLength(2000);

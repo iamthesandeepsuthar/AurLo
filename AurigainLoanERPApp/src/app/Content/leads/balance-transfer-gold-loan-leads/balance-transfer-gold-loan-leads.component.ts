@@ -63,7 +63,6 @@ export class BalanceTransferGoldLoanLeadsComponent implements OnInit {
   }
 
   getList(): void {
-
     let serve = this._freshLeadService.GetList(this.indexModel).subscribe(response => {
       serve.unsubscribe();
       if (response.IsSuccess) {
@@ -98,14 +97,12 @@ export class BalanceTransferGoldLoanLeadsComponent implements OnInit {
 
     this.getList();
   }
-
   onPaginateChange(event: any) {
     this.indexModel.Page = event.pageIndex + 1;
     this.indexModel.PageSize = event.pageSize;
     this.indexModel.IsPostBack = true;
     this.getList();
   }
-
   onPageSizeChange() {
 
     this.indexModel.IsPostBack = true;
@@ -134,51 +131,6 @@ export class BalanceTransferGoldLoanLeadsComponent implements OnInit {
     });
 
   }
-
-  // updateDeleteStatus(id: number) {
-
-  //   this._commonService.Question(Message.ConfirmUpdate as string).then(result => {
-  //     if (result) {
-  //       let serv = this._freshLeadService.Delete(id).subscribe(
-  //         data => {
-  //           serv.unsubscribe();
-  //           if (data.IsSuccess) {
-  //             this.toast.success(data.Message as string, 'Removed');
-  //             this.getList();
-  //           } else {
-  //             this.toast.warning(data.Message as string, 'Server Error');
-  //           }
-  //         },
-  //         error => {
-  //           this.toast.error(error.message as string, 'Error');
-  //         }
-  //       );
-  //     }
-  //   });
-  // }
-  // OnApproveStatus(Id: number) {
-  //   this._commonService.Question(Message.ConfirmUpdate as string).then(isTrue => {
-
-  //     if (isTrue) {
-  //       let serv = this._userSettingService.UpdateApproveStatus(Id).subscribe(
-  //         data => {
-  //           serv.unsubscribe();
-  //           if (data.IsSuccess) {
-  //             this.toast.success(data.Message as string, 'Access Permission');
-  //             this.getList();
-  //           } else {
-  //             this.toast.warning(data.Message as string, 'Server Error');
-  //           }
-  //         },
-  //         error => {
-  //           this.toast.error(error.Message as string, 'Error');
-  //         }
-  //       );
-  //     }
-  //   });
-
-  // }
-
   onChangeLeadApproveStage(Id: number) {
     const dialogRef = this.dialog.open(LeadApprovalPopupComponent, {
       data: { Id: Id as number, Type: "BTTRANSFER" as string },
@@ -235,4 +187,47 @@ export class BalanceTransferGoldLoanLeadsComponent implements OnInit {
       }
     });
   }
+  // updateDeleteStatus(id: number) {
+
+  //   this._commonService.Question(Message.ConfirmUpdate as string).then(result => {
+  //     if (result) {
+  //       let serv = this._freshLeadService.Delete(id).subscribe(
+  //         data => {
+  //           serv.unsubscribe();
+  //           if (data.IsSuccess) {
+  //             this.toast.success(data.Message as string, 'Removed');
+  //             this.getList();
+  //           } else {
+  //             this.toast.warning(data.Message as string, 'Server Error');
+  //           }
+  //         },
+  //         error => {
+  //           this.toast.error(error.message as string, 'Error');
+  //         }
+  //       );
+  //     }
+  //   });
+  // }
+  // OnApproveStatus(Id: number) {
+  //   this._commonService.Question(Message.ConfirmUpdate as string).then(isTrue => {
+
+  //     if (isTrue) {
+  //       let serv = this._userSettingService.UpdateApproveStatus(Id).subscribe(
+  //         data => {
+  //           serv.unsubscribe();
+  //           if (data.IsSuccess) {
+  //             this.toast.success(data.Message as string, 'Access Permission');
+  //             this.getList();
+  //           } else {
+  //             this.toast.warning(data.Message as string, 'Server Error');
+  //           }
+  //         },
+  //         error => {
+  //           this.toast.error(error.Message as string, 'Error');
+  //         }
+  //       );
+  //     }
+  //   });
+
+  // }
 }

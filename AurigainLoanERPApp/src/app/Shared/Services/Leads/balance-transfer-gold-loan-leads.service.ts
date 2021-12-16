@@ -35,7 +35,7 @@ export class BalanceTransferGoldLoanLeadsService {
     return this._baseService.post(url, model);
   }
   UpdateLeadApprovalStatus(model: BtGoldLoanLeadApprovalStagePostModel) : Observable<ApiResponse<any>> {
-    debugger
+
     let url = `${this._baseService.API_Url.BT_Gold_Loan_Lead_Approval_Status_Api}`;
     return this._baseService.post(url, model);
   }
@@ -51,5 +51,10 @@ export class BalanceTransferGoldLoanLeadsService {
   BTGoldLoanApprovalHistory(leadId: number): Observable<ApiResponse<LeadStatusActionHistory[]>> {
     let url = `${this._baseService.API_Url.BT_Gold_Loan_Fresh_Approval_Status_History_Api}${leadId}`;
     return this._baseService.get(url);
+  }
+  GetListBalanceReturn(model: IndexModel): Observable<ApiResponse<BTGoldLoanLeadListModel[]>> {
+
+    let url = `${this._baseService.API_Url.BT_Gold_Loan_Lead_Balance_return_List_Api}`;
+    return this._baseService.post(url, model);
   }
 }

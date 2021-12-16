@@ -86,7 +86,7 @@ export class IndexModel {
   constructor() {
     this.PageSize = 10;
     this.IsPostBack = false;
-    this.OrderByAsc = true;
+    this.OrderByAsc = false;
     this.Page = 1;
   }
 }
