@@ -246,7 +246,7 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
             try
             {
                 var detail = await _db.BtgoldLoanLead.Where(x => x.Id == id && !x.IsDelete && x.IsActive == true)
-                    .Include(x => x.LeadSourceByuser).Include(x => x.CustomerUser)
+                    .Include(x => x.LeadSourceByuser).ThenInclude(x => x.BtgoldLoanLeadLeadSourceByuser)
                     .Include(x => x.Product).ThenInclude(x => x.ProductCategory)
                     .Include(x => x.BtgoldLoanLeadAddressDetail).ThenInclude(x => x.AeraPincode).ThenInclude(x => x.District).ThenInclude(x => x.State)
                     .Include(x => x.BtgoldLoanLeadAppointmentDetail).ThenInclude(x => x.Branch).ThenInclude(x => x.Bank)
@@ -270,10 +270,11 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                     objModel.IsInternalLead = detail.IsInternalLead;
                     objModel.EmailId = detail.EmailId ?? null;
                     objModel.CustomerUserId = detail.CustomerUserId;
-                    objModel.CustomerUserName = detail.CustomerUser.UserName ?? null;
+                   // objModel.CustomerUserName = detail.CustomerUser.UserName ?? null;
                     objModel.SecondaryMobile = detail.SecondaryMobile ?? null;
                     objModel.Purpose = detail.Purpose ?? null;
                     objModel.LoanAmount = detail.LoanAmount;
+                    objModel.LoanCaseNumber = detail.LoanCaseNumber !=null ? detail.LoanCaseNumber:"N/A" ;
                     objModel.LeadSourceByuserId = detail.LeadSourceByuserId;
                     objModel.LeadSourceByuserName = detail.LeadSourceByuser.UserName ?? null;
                     if (detail.BtgoldLoanLeadAddressDetail != null)
@@ -738,6 +739,75 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                 return CreateResponse<List<BTGoldLoanBalanceReturnLeadListModel>>(null, ResponseMessage.Fail, false, ((int)ApiStatusCode.ServerException), ex.Message ?? ex.InnerException.ToString());
             }
 
+        }
+        public async Task<ApiServiceResponseModel<BTGoldLoanLeadViewModel>> BTGoldLoanDetailByLeadId(long id) 
+        {
+            BTGoldLoanLeadViewModel objModel = new BTGoldLoanLeadViewModel();
+            try
+            {
+                var detail = await _db.BtgoldLoanLead.Where(x => x.Id == id && x.IsDelete == false && x.IsActive == true)
+                    .Include(x => x.LeadSourceByuser).ThenInclude(x=>x.BtgoldLoanLeadLeadSourceByuser)
+                    .Include(x => x.Product).ThenInclude(x => x.ProductCategory)
+                   .Include(x => x.BtgoldLoanLeadAddressDetail).ThenInclude(x => x.AeraPincode).ThenInclude(x => x.District).ThenInclude(x => x.State)          
+                    .Include(x => x.BtgoldLoanLeadExistingLoanDetail)
+                    .Include(x => x.BtgoldLoanLeadJewelleryDetail).ThenInclude(x => x.JewelleryType)                 
+                    .FirstOrDefaultAsync();
+                if (detail != null)
+                {
+                    objModel.Id = detail.Id;
+                    objModel.ProductCategoryName = detail.Product.ProductCategory.Name;
+                    objModel.ProductId = detail.ProductId;
+                    objModel.ProductName = detail.Product.Name ?? null;
+                    objModel.FullName = detail.FullName ?? null;                 
+                    objModel.Mobile = detail.Mobile ?? null;
+                    objModel.IsInternalLead = detail.IsInternalLead;                
+                    objModel.CustomerUserId = detail.CustomerUserId;              
+                    objModel.LoanAmount = detail.LoanAmount;
+                    objModel.LoanCaseNumber = detail.LoanCaseNumber != null ? detail.LoanCaseNumber : "N/A";
+                    objModel.LeadSourceByuserId = detail.LeadSourceByuserId;
+                    objModel.LeadSourceByuserName = detail.LeadSourceByuser.UserName ?? null;
+                    objModel.DetailAddress = null;
+                    objModel.DocumentDetail = null;
+                    objModel.AppointmentDetail = null;
+                    objModel.KYCDetail = null;
+                    if (detail.BtgoldLoanLeadExistingLoanDetail != null)
+                    {
+                        objModel.ExistingLoanDetail = detail.BtgoldLoanLeadExistingLoanDetail.Select(x => new BtGoldLoanLeadExistingLoanViewModel
+                        {
+                            Id = x.Id,
+                            BankName = x.BankName ?? null,
+                            Amount = x.Amount ?? null,
+                            Date = x.Date ?? null,
+                            JewelleryValuation = x.JewelleryValuation ?? null,
+                            OutstandingAmount = x.OutstandingAmount ?? null,
+                            BalanceTransferAmount = x.BalanceTransferAmount ?? null,
+                            RequiredAmount = x.RequiredAmount ?? null,
+                            Tenure = x.Tenure ?? null
+                        }).FirstOrDefault();
+                    }
+                    if (detail.BtgoldLoanLeadJewelleryDetail != null)
+                    {
+                        objModel.JewelleryDetail = detail.BtgoldLoanLeadJewelleryDetail.Select(x => new BtGoldLoanLeadJewelleryDetailViewModel
+                        {
+                            Id = x.Id,
+                            JewelleryTypeId = x.JewelleryTypeId ?? null,
+                            JewelleryType = x.JewelleryType.Name ?? null,
+                            Quantity = x.Quantity ?? null,
+                            Weight = x.Weight ?? null,
+                            Karats = x.Karats ?? null,
+                        }).FirstOrDefault();
+                    }                    
+                    return CreateResponse(objModel, ResponseMessage.Success, true, ((int)ApiStatusCode.Ok));
+                }
+                else
+                {
+                    return CreateResponse<BTGoldLoanLeadViewModel>(null, ResponseMessage.NotFound, false, ((int)ApiStatusCode.NotFound));
+                }
+            }
+            catch (Exception ex)
+            {
+                return CreateResponse<BTGoldLoanLeadViewModel>(null, ResponseMessage.Fail, false, ((int)ApiStatusCode.ServerException), ex.Message ?? ex.InnerException.ToString());
+            }
         }
         #region <<Private Method Of Balance Transafer Gold Loan Lead>>
         private async Task<long> SaveCustomerBTFreshLead(BTGoldLoanLeadPostModel model)
