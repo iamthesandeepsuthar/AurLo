@@ -28,27 +28,24 @@ export class ListAgentComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort!: MatSort;
 
-  displayedColumns: string[] = ['index', 'FullName', 'Gender', 'Mpin', 'IsActive', 'IsApproved', 'Action'];
+  displayedColumns: string[] = ['index', 'FullName','Email', 'Gender', 'Mpin', 'IsActive', 'IsApproved','ReportingPersonName', 'Action'];
   ViewdisplayedColumns = [{ Value: 'FullName', Text: 'Full Name' },
   { Value: 'Gender', Text: 'Gender' },
-  { Value: 'Mpin', Text: 'MPIN' },
+  { Value: 'Mpin', Text: 'M-PIN' },
   { Value: 'Email', Text: 'Email' },
   { Value: 'Mobile', Text: 'Mobile' }];
   indexModel = new IndexModel();
   totalRecords: number = 0;
   get routing_Url() { return Routing_Url };
-
-
   //#endregion
-
   constructor(private readonly _service: AgentService,
     private readonly _commonService: CommonService,
     private readonly toast: ToastrService,
     private readonly _userSettingService: UserSettingService,
     public dialog: MatDialog) { }
+
   ngOnInit(): void {
     this.getList();
-
   }
 
   getList(): void {
@@ -56,6 +53,7 @@ export class ListAgentComponent implements OnInit {
       serve.unsubscribe();
       if (response.IsSuccess) {
         this.model = response.Data as AgentListModel[];
+        console.log('----agent----',this.model);
         this.dataSource = new MatTableDataSource<AgentListModel>(this.model);
         this.totalRecords = response.TotalRecord as number;
         if (!this.indexModel.IsPostBack) {
@@ -172,6 +170,8 @@ export class ListAgentComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
+        this.toast.success('Record save successful','Success');
+        this.getList();
       } else {
       }
     });

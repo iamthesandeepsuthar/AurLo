@@ -30,12 +30,12 @@ export class ListDoorStepAgentComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort!: MatSort;
   id!: number;
-  displayedColumns: string[] = ['index', 'FullName', 'Gender', 'IsApproved', 'ReportingPersonName','IsActive', 'Action'];
+  displayedColumns: string[] = ['index', 'FullName','Email', 'Gender','Mpin', 'IsApproved', 'ReportingPersonName','IsActive', 'Action'];
   ViewdisplayedColumns = [{ Value: 'FullName', Text: 'Full Name' },
   { Value: 'Gender', Text: 'Gender' },
   { Value: 'Email', Text: 'Email' },
-  { Value: 'Mobile', Text: 'Mobile' },
-  { Value: 'ReportingPersonName', Text: 'Reporting Person'}];
+  { Value: 'Mpin', Text: 'M-PIN' },
+  { Value: 'Mobile', Text: 'Mobile' }];
   indexModel = new IndexModel();
   totalRecords: number = 0;
   isTableView: boolean = true;
@@ -50,11 +50,11 @@ export class ListDoorStepAgentComponent implements OnInit {
     this.getList();
   }
   getList(): void {
-
     let serve = this._service.GetDoorStepAgentList(this.indexModel).subscribe(response => {
       serve.unsubscribe();
       if (response.IsSuccess) {
         this.model = response.Data as DoorStepAgentListModel[];
+        console.log('----doorstep-----------',this.model);
         this.dataSource = new MatTableDataSource<DoorStepAgentListModel>(this.model);
         this.totalRecords = response.TotalRecord as number;
         if (!this.indexModel.IsPostBack) {
@@ -167,6 +167,8 @@ export class ListDoorStepAgentComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
+        this.toast.success('Record saved successful','Success');
+        this.getList();
       } else {
       }
     });

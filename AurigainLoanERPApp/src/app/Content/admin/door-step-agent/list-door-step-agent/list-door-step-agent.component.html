@@ -154,6 +154,12 @@
                 {{element[column.Value].substring(0,1)}} </span> {{element[column.Value]}}
                         </td>
                     </ng-container>
+                    <ng-container matColumnDef="ReportingPersonName">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header>Reporting Person </th>
+                      <td mat-cell *matCellDef="let element" class="table-action-btn">
+                       {{element.ReportingPersonName != null ? element.ReportingPersonName : 'N/A'}}
+                      </td>
+                    </ng-container>
                     <ng-container matColumnDef="IsApproved">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header>Approval </th>
                         <td mat-cell *matCellDef="let element" class="table-action-btn">

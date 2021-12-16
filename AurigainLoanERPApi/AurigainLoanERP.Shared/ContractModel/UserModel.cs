@@ -169,7 +169,6 @@ namespace AurigainLoanERP.Shared.ContractModel
         public string UniqueId { get; set; }
         public string Gender { get; set; }
         public string QualificationName { get; set; }
-
         public string Address { get; set; }
         public string DistrictName { get; set; }
         public string StateName { get; set; }
@@ -178,13 +177,14 @@ namespace AurigainLoanERP.Shared.ContractModel
         public DateTime? DateOfBirth { get; set; }
         public string ProfilePictureUrl { get; set; }
         public bool IsApproved { get; set; }
-
         public bool? IsActive { get; set; }
         public bool IsDelete { get; set; }
         public DateTime CreatedOn { get; set; }
         public DateTime? ModifiedOn { get; set; }
         public long? CreatedBy { get; set; }
         public long? ModifiedBy { get; set; }
+        public string ReportingPersonName { get; set; }
+        public long? ReportingPersonUserId { get; set;}
 
     }
 
@@ -208,6 +208,7 @@ namespace AurigainLoanERP.Shared.ContractModel
         public string DistrictName { get; set; }
         public string StateName { get; set; }
         public string PinCode { get; set; }
+        public string Mpin { get; set; }
         public DateTime? DateOfBirth { get; set; }
         public string ProfilePictureUrl { get; set; }
         public bool IsApproved { get; set; }
