@@ -311,4 +311,5 @@ export interface DoorStepAgentListModel {
   CreatedBy: number;
   ModifiedBy: number;
   ReportingPersonName:string;
+  ReportingPersonUserId:number;
 }

@@ -118,9 +118,8 @@ namespace AurigainLoanERP.Services.User
             ApiServiceResponseModel<List<AgentListViewModel>> objResponse = new ApiServiceResponseModel<List<AgentListViewModel>>();
             try
             {
-                var result = (from agent in _db.UserAgent
-                                  //join user in _db.UserMaster on agent.UserId equals user.Id
-                                  //join role in _db.UserRole on user.UserRoleId equals role.Id
+                //var totalRecord = _db.UserAgent.Where(x => x.User.IsDelete == false).Include(x => x.User).ToList();
+                var result = (from agent in _db.UserAgent                                
                               where !agent.User.IsDelete && agent.User.UserRoleId == (int)UserRoleEnum.Agent && (string.IsNullOrEmpty(model.Search) || agent.FullName.Contains(model.Search) || agent.User.Email.Contains(model.Search) || agent.User.UserName.Contains(model.Search))
                               select agent);
                 switch (model.OrderBy)
@@ -147,7 +146,7 @@ namespace AurigainLoanERP.Services.User
                         break;
                 }
 
-                var data = result.Skip(((model.Page == 0 ? 1 : model.Page) - 1) * (model.PageSize != 0 ? model.PageSize : int.MaxValue)).Take(model.PageSize != 0 ? model.PageSize : int.MaxValue);
+                var data = result.Skip(((model.Page == 0 ? 1 : model.Page) - 1) * (model.PageSize != 0 ? model.PageSize : int.MaxValue)).Take(model.PageSize != 0 ? model.PageSize : int.MaxValue).Include(x => x.User).ThenInclude(y => y.UserReportingPersonUser); ;
 
                 objResponse.Data = await (from detail in data
                                           where detail.IsDelete == false
@@ -162,9 +161,7 @@ namespace AurigainLoanERP.Services.User
                                               UniqueId = detail.UniqueId ?? null,
                                               Gender = detail.Gender ?? null,
                                               QualificationName = detail.Qualification.Name ?? null,
-                                              Address = detail.Address ?? null,
-                                              // DistrictName = detail.District != null ? detail.District.Name : null,
-                                              // StateName = detail.District != null && detail.District.State != null ? detail.District.State.Name : null,
+                                              Address = detail.Address ?? null,                                              
                                               PinCode = detail.PinCode ?? null,
                                               DateOfBirth = detail.DateOfBirth ?? null,
                                               ProfilePictureUrl = detail.User.ProfilePath.ToAbsolutePath() ?? null,
@@ -173,7 +170,9 @@ namespace AurigainLoanERP.Services.User
                                               Mpin = detail.User.Mpin,
                                               IsDelete = detail.IsDelete,
                                               CreatedOn = detail.CreatedOn,
-                                              CreatedBy = detail.CreatedBy
+                                              CreatedBy = detail.CreatedBy,
+                                              ReportingPersonName = detail.User.UserReportingPersonUser != null ? detail.User.UserReportingPersonUser.FirstOrDefault().ReportingUser.UserName : "N/A",
+                                              ReportingPersonUserId = detail.User.UserReportingPersonUser != null ? detail.User.UserReportingPersonUser.FirstOrDefault().ReportingUserId : (long?)null
                                           }).ToListAsync();
                 if (result != null)
                 {
@@ -324,9 +323,7 @@ namespace AurigainLoanERP.Services.User
             ApiServiceResponseModel<List<DoorStepAgentListModel>> objResponse = new ApiServiceResponseModel<List<DoorStepAgentListModel>>();
             try
             {
-                var result = (from agent in _db.UserDoorStepAgent
-                                  //  join reporting in _db.UserReportingPerson on agent.UserId equals reporting.UserId
-                                  //join role in _db.UserRole on user.UserRoleId equals role.Id
+                var result = (from agent in _db.UserDoorStepAgent                                  
                               where !agent.IsDelete && agent.User.UserRoleId == (int)UserRoleEnum.DoorStepAgent && (string.IsNullOrEmpty(model.Search) || agent.FullName.Contains(model.Search) || agent.User.Email.Contains(model.Search) || agent.User.UserName.Contains(model.Search))
                               select agent);
 
@@ -382,6 +379,7 @@ namespace AurigainLoanERP.Services.User
                                               IsDelete = detail.IsDelete,
                                               CreatedOn = detail.CreatedOn,
                                               CreatedBy = detail.CreatedBy,
+                                              Mpin = detail.User.Mpin,
                                               ReportingPersonName = detail.User.UserReportingPersonUser != null ?       detail.User.UserReportingPersonUser.FirstOrDefault().ReportingUser.UserName: "N/A",
                                               ReportingPersonUserId = detail.User.UserReportingPersonUser != null ? detail.User.UserReportingPersonUser.FirstOrDefault().ReportingUserId : (long?)null
                                           }).ToListAsync();

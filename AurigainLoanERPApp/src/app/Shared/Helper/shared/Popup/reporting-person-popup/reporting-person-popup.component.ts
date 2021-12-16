@@ -53,9 +53,7 @@ export class ReportingPersonPopupComponent implements OnInit {
     this.formgrp.markAllAsTouched();
     if (this.formgrp.valid) {
       this.model.UserId = this.data.Id;
-      alert(this.model.ReportingUserId);
       this.model.ReportingUserId =Number(this.model.ReportingUserId);
-      alert(this.model.ReportingUserId);
       let subscription = this._userManagerService.AssignReportingPerson(this.model).subscribe(response => {
         subscription.unsubscribe();
         if (response.IsSuccess) {

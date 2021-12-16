@@ -28,6 +28,8 @@ export interface AgentListModel {
   ModifiedOn: string;
   CreatedBy: number;
   ModifiedBy: number;
+  ReportingPersonName:string;
+  ReportingPersonUserId:number;
 }
 
 
