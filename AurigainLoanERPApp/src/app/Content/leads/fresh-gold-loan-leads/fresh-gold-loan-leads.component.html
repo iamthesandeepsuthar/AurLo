@@ -86,18 +86,18 @@
                     </td>
                 </ng-container>
                 <ng-container matColumnDef="LeadStatus">
-                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Lead Status </th>
-                  <td mat-cell *matCellDef="let element" class="table-action-btn">
-        <div class="text-center" [ngSwitch]="element.LeadStatus">
-          <div *ngSwitchCase="'Completed'" class="badge bg-success">{{element.LeadStatus}}</div>
-          <div *ngSwitchCase="'Rejected'" class="badge bg-danger">{{element.LeadStatus}}</div>
-          <div *ngSwitchCase="'Mismatched'" class="badge bg-warning" >{{element.LeadStatus}}</div>
-          <div *ngSwitchCase="'In Completed'" class="badge bg-secondary" >{{element.LeadStatus}}</div>
-          <div *ngSwitchCase="'Pending'" class="badge bg-dark" >{{element.LeadStatus}}</div>
-          <div *ngSwitchDefault class="badge bg-info" >{{element.LeadStatus}}</div>
-        </div>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Lead Status </th>
+                    <td mat-cell *matCellDef="let element" class="table-action-btn">
+                        <div class="text-center" [ngSwitch]="element.LeadStatus">
+                            <div *ngSwitchCase="'Completed'" class="badge bg-success">{{element.LeadStatus}}</div>
+                            <div *ngSwitchCase="'Rejected'" class="badge bg-danger">{{element.LeadStatus}}</div>
+                            <div *ngSwitchCase="'Mismatched'" class="badge bg-warning">{{element.LeadStatus}}</div>
+                            <div *ngSwitchCase="'In Completed'" class="badge bg-secondary">{{element.LeadStatus}}</div>
+                            <div *ngSwitchCase="'Pending'" class="badge bg-dark">{{element.LeadStatus}}</div>
+                            <div *ngSwitchDefault class="badge bg-info">{{element.LeadStatus}}</div>
+                        </div>
 
-                  </td>
+                    </td>
                 </ng-container>
 
                 <!-- <ng-container matColumnDef="IsApproved">
@@ -133,26 +133,40 @@
                 </ng-container> -->
 
                 <ng-container matColumnDef="Action">
-                    <th width="150" mat-header-cell *matHeaderCellDef> Action </th>
-                    <td mat-cell *matCellDef="let row" class="table-action-btn">
+                    <th width="50" mat-header-cell *matHeaderCellDef> Action </th>
+                    <td mat-cell *matCellDef="let row" class="table-action-btn table-action-dropdown">
 
+                        <div class="dropdown">
+                            <button class="" type="button" data-toggle="dropdown"><i class="fas fa-ellipsis-v"></i></button>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a class="table-action-btn-edit" *ngIf="this.userDetail!.RoleId != userRoleEnum.Customer" routerLink="./{{this.routing_Url.Add_Update_Lead_Url +'/'+ row.Id}}" title="Edit">
+                                        <i class="fas fa-edit"></i> Edit
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="table-action-btn-view" routerLink="./{{routing_Url.Detail_Lead_Url +'/'+ row.Id}}" title="Detail">
+                                        <i class="fas fa-eye"></i> Detail
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)" *ngIf="this.userDetail!.RoleId != userRoleEnum.Customer" (click)="onChangeLeadStatus(row.Id)" class="table-action-btn-status-changes text-warning" data-toggle="tooltip" data-placement="bottom"
+                                        title="Change Status"> <img src="assets/img/change-status.png" alt="" /> Change Status</a>
+                                </li>
+                                <li>
+                                    <a class="table-action-btn-delete" *ngIf="row.LeadStatus != 'New'" (click)="onChangeLeadStatusHistory(row.Id)" title="Lead History"> <i class="fas fa-info-circle"></i> Lead History </a>
+                                </li>
+                            </ul>
+                        </div>
 
                         <!-- <a class="table-action-btn-view" routerLink="../{{routing_Url.AgenDetailUrl +'/'+ row.UserId}}" title="Detail">
                           <i class="fas fa-eye"></i>
                           </a> -->
 
-                        <a class="table-action-btn-edit" *ngIf="this.userDetail!.RoleId != userRoleEnum.Customer"   routerLink="./{{this.routing_Url.Add_Update_Lead_Url +'/'+ row.Id}}" title="Edit">
-                            <i class="fas fa-edit"></i>
-                        </a>
 
-                        <a class="table-action-btn-view" routerLink="./{{routing_Url.Detail_Lead_Url +'/'+ row.Id}}" title="Detail">
-                            <i class="fas fa-eye"></i>
-                        </a>
-                        <a href="javascript:void(0)"  *ngIf="this.userDetail!.RoleId != userRoleEnum.Customer" (click)="onChangeLeadStatus(row.Id)" class="table-action-btn-status-changes text-warning" data-toggle="tooltip" data-placement="bottom" title="Change Status"> <img src="assets/img/change-status.png" alt=""/></a>
 
                         <!-- <a class="table-action-btn-delete" (click)="updateDeleteStatus(row?.UserId)" title="Delete">
                         <i class="fas fa-trash-alt"></i>     </a> -->
-                        <a class="table-action-btn-delete" *ngIf="row.LeadStatus != 'New'" (click)="onChangeLeadStatusHistory(row.Id)" title="Lead History"> <i class="fas fa-info-circle"></i> </a>
 
 
 
