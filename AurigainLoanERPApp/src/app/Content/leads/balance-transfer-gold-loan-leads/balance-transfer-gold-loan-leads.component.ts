@@ -34,7 +34,7 @@ export class BalanceTransferGoldLoanLeadsComponent implements OnInit {
   get userRoleEnum() { return UserRoleEnum };
   get routing_Url() { return Routing_Url };
 
-  displayedColumns: string[] = ['index','LoanCaseNumber', 'FullName', 'FatherName', 'PrimaryMobileNumber','ProductName', 'Pincode', 'LoanAmountRequired', 'LeadStatus','ApprovalStatus', 'LeadSourceByUserName', 'Action'];
+  displayedColumns: string[] = ['index','LoanCaseNumber', 'FullName', 'FatherName','IsInternalLead', 'PrimaryMobileNumber','ProductName', 'Pincode', 'LoanAmountRequired','LeadSourceByUserName', 'LeadStatus','ApprovalStatus', 'Action'];
   ViewdisplayedColumns = [{ Value: 'FullName', Text: 'Full Name' },
   {Value:'LoanCaseNumber',Text:'Loan Case'},
   { Value: 'PrimaryMobileNumber', Text: 'Mobile Number' },

@@ -18,6 +18,7 @@ namespace AurigainLoanERP.Shared.ContractModel
         public string SecondaryMobile { get; set; }
         public string Purpose { get; set; }
         public decimal LoanAmount { get; set; }
+        public string LoanCaseNumber { get; set;}
         public long LeadSourceByuserId { get; set; }
         public BTGoldLoanLeadViewModel()
         {

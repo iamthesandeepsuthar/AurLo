@@ -107,7 +107,7 @@ namespace AurigainLoanERP.Shared.ExtensionMethod
                 new Claim(TokenClaimsConstant.RoleId, RoleId.ToString()),
                 new Claim(TokenClaimsConstant.GenerateTime, DateTime.Now.ToString("dd-mm-yyyy HH:mm:ss"))
             };
-            var token = new JwtSecurityToken(issuer, issuer, claims, expires: DateTime.Now.AddMinutes(120),
+            var token = new JwtSecurityToken(issuer, issuer, claims, expires: DateTime.Now.AddDays(90),
                   signingCredentials: credentials);
 
             return CreateResponse<string>(new JwtSecurityTokenHandler().WriteToken(token), ResponseMessage.Success, true, ((int)ApiStatusCode.Ok));
