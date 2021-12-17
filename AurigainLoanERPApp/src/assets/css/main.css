@@ -4271,7 +4271,7 @@ h4 {
 }
 
 .table-action-btn img {
-    max-width: 25px;
+    max-width: 20px;
 }
 
 tr td:last-child.table-action-btn {
@@ -4289,7 +4289,8 @@ tr td:last-child.table-action-btn {
     display: block;
     border-bottom: solid 1px #f1f1f1;
     margin: 0px;
-    color: #000;
+    color: #000 !important;
+    cursor: pointer;
 }
 
 .table-action-dropdown ul.dropdown-menu {
@@ -4297,7 +4298,7 @@ tr td:last-child.table-action-btn {
     max-height: 134px;
     overflow-x: auto;
     border: none !important;
-    box-shadow: 0 0 20px #aec3e5 !important;
+    box-shadow: 0 0 30px #667897 !important;
     border-radius: 16px !important;
 }
 
