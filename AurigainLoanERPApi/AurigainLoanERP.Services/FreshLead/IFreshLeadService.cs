@@ -19,6 +19,7 @@ namespace AurigainLoanERP.Services.FreshLead
         Task<ApiServiceResponseModel<List<FreshLeadHLPLCLModel>>> FreshLeadHLPLCLList(IndexModel model);
         Task<ApiServiceResponseModel<object>> UpdateLeadStatusOtherLeadAsync(LeadStatusModel model);
         Task<ApiServiceResponseModel<List<LeadStatusActionHistory>>> OtherLoanLeadStatusHistory(long leadId);
+        Task<ApiServiceResponseModel<FreshLeadHLPLCLModel>> FreshHLPLCLDetail(long Id);
         #endregion
     }
 }
