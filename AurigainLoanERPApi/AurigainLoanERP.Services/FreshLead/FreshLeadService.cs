@@ -728,6 +728,49 @@ namespace AurigainLoanERP.Services.FreshLead
                 return CreateResponse<List<LeadStatusActionHistory>>(null, ex.Message, false, ((int)ApiStatusCode.ServerException));
             }
         }
+        public async Task<ApiServiceResponseModel<FreshLeadHLPLCLModel>> FreshHLPLCLDetail(long Id) 
+        {
+            try
+            {
+                FreshLeadHLPLCLModel lead = new FreshLeadHLPLCLModel();
+                var data = await _db.FreshLeadHlplcl.Where(x => x.Id == Id && x.IsDelete == false).
+                           Include(x=>x.Product).ThenInclude(y=>y.ProductCategory).
+                           Include(x => x.CustomerUser).Include(x => x.LeadSourceByUser).
+                           Include(x => x.AeraPincode).ThenInclude(z=>z.District).ThenInclude(s=>s.State).
+                           FirstOrDefaultAsync();
+                if (data != null)
+                {
+                    lead.AnnualIncome = data.AnnualIncome;
+                    lead.AreaPincodeId = data.AeraPincodeId!= null ? data.AeraPincodeId : null;
+                    lead.FullName = data.FullName;
+                    lead.FatherName = data.FatherName;
+                    lead.MobileNumber = data.MobileNumber;
+                    lead.EmailId = data.EmailId;
+                    lead.LeadType = data.LeadType;
+                    lead.LeadStatus = data.LeadStatus;
+                    lead.LoanAmount = data.LoanAmount;
+                    lead.LeadSourceByUserId = data.LeadSourceByUserId;
+                    lead.CustomerUserId = data.CustomerUserId == null ? null :data.CustomerUserId ;
+                    lead.CreatedDate = data.CreatedDate;
+                    lead.EmployeeType = data.EmployeeType;
+                    lead.NoOfItr = data.NoOfItr;
+                    lead.ProductCategoryName = data.Product.ProductCategory.Name;
+                    lead.ProductName = data.Product.Name;
+                    lead.LeadSourceByUserName = data.LeadSourceByUser.UserName;
+                    lead.Pincode = data.Pincode;
+                    lead.AreaLocation = data.AeraPincode.AreaName + "| " + data.AeraPincode.District.Name + "| " + data.AeraPincode.District.State.Name;
+                    return CreateResponse<FreshLeadHLPLCLModel>(lead, ResponseMessage.Success,true, ((int)ApiStatusCode.Ok));
+                }
+                else 
+                {
+                    return CreateResponse<FreshLeadHLPLCLModel>(null, ResponseMessage.NotFound,false,((int)ApiStatusCode.Ok));
+                }
+            }
+            catch (Exception ex) 
+            {
+                return CreateResponse<FreshLeadHLPLCLModel>(null, ResponseMessage.Fail, false, ((int)ApiStatusCode.ServerException), ex.InnerException == null ? ex.Message : ex.InnerException.Message);
+            }
+        }
         #endregion
         #region  <<Private Method Of Fresh Gold Loan Lead>>
         private async Task<long> SaveCustomerHLPLCL(FreshLeadHLPLCLModel model)

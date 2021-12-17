@@ -25,7 +25,6 @@ export class DetailFreshGoldLoanLeadComponent implements OnInit {
                   this.Id = this._activatedRoute.snapshot.params.id;
                 }
                }
-
   ngOnInit(): void {
     this.GetGoldLoanFreshLead();
   }
@@ -34,12 +33,10 @@ export class DetailFreshGoldLoanLeadComponent implements OnInit {
     subscription.unsubscribe();
     if(response.IsSuccess) {
     this.model = response.Data as GoldLoanFreshLeadViewModel;
-    console.log(this.model);
     } else {
     this.toast.warning('Record Not Found','Server Error');
     return;
     }
     });
   }
-
 }

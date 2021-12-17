@@ -178,6 +178,7 @@ export class API_Url {
   public static Personal_Home_Car_Loan_List_Api = `${environment.apiEndPoint}GoldLoanFreshLead/PersonalHomeCarLoanList`;
   public static Personal_Home_Car_Loan_Lead_Status_Change_Api =`${environment.apiEndPoint}FreshLeadOther/UpdateLeadStatus`;
   public static Personal_Home_Car_Loan_Lead_Status_History_Api =`${environment.apiEndPoint}FreshLeadOther/FreshOtherLoanLeadStatusHistory/`;
+  public static Personal_Home_Car_Loan_Lead_Detail_Api = `${environment.apiEndPoint}FreshLeadOther/FreshOtherLoanLeadDetail/`;
   //#endregion
 
   //#region  <<Balance Transfer Gold Loan Lead>>

@@ -21,4 +21,7 @@ export class FreshLeadHLPLCLModel {
   IsDelete!: boolean;
   CreatedDate!: string;
   ModifiedDate!: string | null;
+  Pincode !:string;
+  AreaPincodeId !: number;
+  AreaLocation!:string;
 }
