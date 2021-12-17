@@ -21,7 +21,6 @@ namespace AurigainLoanERP.Services.FreshLead
         private readonly AurigainContext _db;
         private readonly EmailHelper _emailHelper;
         private readonly Security _security;
-
         public FreshLeadService(IMapper mapper, AurigainContext db, IConfiguration _configuration, IHostingEnvironment environment)
         {
             this._mapper = mapper;
@@ -511,8 +510,6 @@ namespace AurigainLoanERP.Services.FreshLead
             }
         }
         #endregion
-
-
         #region <<Personal Loan , Home Loan , Vehicel Loan Fresh Lead>>
         public async Task<ApiServiceResponseModel<List<FreshLeadHLPLCLModel>>> FreshLeadHLPLCLList(IndexModel model)
         {
@@ -667,8 +664,8 @@ namespace AurigainLoanERP.Services.FreshLead
                 if (model != null)
                 {
                     await _db.Database.BeginTransactionAsync();
-                    //  var customerUserId = await SaveCustomerHLPLCL(model);
-                    // model.CustomerUserId = customerUserId;
+                    var customerUserId = await SaveCustomerHLPLCL(model);
+                    model.CustomerUserId = customerUserId;
                     var result = await SavePLHLCLFreshLead(model);
                     if (result.status)
                     {
@@ -731,9 +728,7 @@ namespace AurigainLoanERP.Services.FreshLead
                 return CreateResponse<List<LeadStatusActionHistory>>(null, ex.Message, false, ((int)ApiStatusCode.ServerException));
             }
         }
-
         #endregion
-
         #region  <<Private Method Of Fresh Gold Loan Lead>>
         private async Task<long> SaveCustomerHLPLCL(FreshLeadHLPLCLModel model)
         {
@@ -744,6 +739,7 @@ namespace AurigainLoanERP.Services.FreshLead
                 {
                     return isExist.Id;
                 }
+                var encrptPassword = _security.Base64Encode("12345");
                 Random random = new Random();
                 UserMaster user = new UserMaster
                 {
@@ -753,7 +749,7 @@ namespace AurigainLoanERP.Services.FreshLead
                     IsApproved = false,
                     IsWhatsApp = true,
                     CreatedOn = DateTime.Now,
-                    Password = "12345",
+                    Password = encrptPassword,
                     UserName = model.FullName,
                     Mpin = random.Next(100000, 199999).ToString(),
                     UserRoleId = ((int)UserRoleEnum.Customer),
@@ -909,7 +905,7 @@ namespace AurigainLoanERP.Services.FreshLead
                             FullName = model.FullName,
                             FatherName = model.FatherName,
                             LeadSourceByUserId = model.LeadSourceByUserId,
-                            //  CustomerUserId = model.CustomerUserId,
+                            CustomerUserId = model.CustomerUserId,
                             ProductId = model.ProductId,
                             LeadType = model.LeadType,
                             AnnualIncome = model.AnnualIncome,
@@ -919,7 +915,9 @@ namespace AurigainLoanERP.Services.FreshLead
                             MobileNumber = model.MobileNumber,
                             LoanAmount = model.LoanAmount,
                             ModifiedDate = null,
-                            LeadStatus = "New"
+                            LeadStatus = "New",
+                            Pincode = model.Pincode,
+                            AeraPincodeId = model.AreaPincodeId
                         };
                         await _db.FreshLeadHlplcl.AddAsync(lead);
                         await _db.SaveChangesAsync();
@@ -952,6 +950,8 @@ namespace AurigainLoanERP.Services.FreshLead
                         lead.EmailId = model.EmailId;
                         lead.EmployeeType = model.EmployeeType;
                         lead.IsActive = model.IsActive;
+                        lead.Pincode = model.Pincode;
+                        lead.AeraPincodeId = model.AreaPincodeId;
                         await _db.SaveChangesAsync();
                         returnObject.status = true;
                         returnObject.Msg = "Update Record";

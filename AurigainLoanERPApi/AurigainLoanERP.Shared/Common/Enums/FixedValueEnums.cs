@@ -130,5 +130,16 @@ namespace AurigainLoanERP.Shared.Enums
             [StringValue("Rejected")]
             Rejected = 2
         }
+        public enum PaymentMethod 
+        {
+            [StringValue("RTGS")]
+            RTGS = 1,
+            [StringValue("NEFT")]
+            NEFT = 2,
+            [StringValue("IMPS")]
+            IMPS = 3,
+            [StringValue("CHEQUE")]
+            CHEQUE = 4            
+        }
     }
 }

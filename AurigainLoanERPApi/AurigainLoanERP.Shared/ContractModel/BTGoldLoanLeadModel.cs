@@ -125,8 +125,6 @@ namespace AurigainLoanERP.Shared.ContractModel
         public int PoadocumentTypeId { get; set; }
         public string PoadocumentNumber { get; set; }
     }
-
-
     public class BtGoldLoanLeadApprovalStagePostModel
     { 
         public long LeadId { get; set; }
@@ -142,8 +140,6 @@ namespace AurigainLoanERP.Shared.ContractModel
         public int? ApprovalStatus { get; set; }
         public string Remarks { get; set; }
     }
-
-
     public class BtGoldLoanLeadAddressViewModel
     {
         public long Id { get; set; }
@@ -271,5 +267,12 @@ namespace AurigainLoanERP.Shared.ContractModel
         public double LoanAmountRequired { get; set;}
         public string LeadType { get; set;}
         public string ProductName { get; set;}
+    }   
+    public class BalanceTransferReturnBankChequeDetail 
+    {
+        public long Id { get; set;}
+        public string ChequeNumber { get; set;}
+        public string ChequeImageUrl { get; set;}
+        public FilePostModel File { get; set;}
     }
 }

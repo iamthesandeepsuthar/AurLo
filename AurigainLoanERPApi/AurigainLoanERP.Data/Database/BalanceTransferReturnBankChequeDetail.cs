@@ -10,7 +10,7 @@ namespace AurigainLoanERP.Data.Database
     public partial class BalanceTransferReturnBankChequeDetail
     {
         public long Id { get; set; }
-        public long BtreturnId { get; set; }
+        public long? BtreturnId { get; set; }
         public string ChequeNumber { get; set; }
         public string ChequeImage { get; set; }
 

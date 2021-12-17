@@ -122,6 +122,7 @@ export class BTGoldLoanLeadViewModel {
   Id!: number;
   ProductId!: number;
   ProductCategoryName!:string;
+  LoanCaseNumber!:string;
   FullName!: string;
   FatherName!: string;
   Gender!: string;

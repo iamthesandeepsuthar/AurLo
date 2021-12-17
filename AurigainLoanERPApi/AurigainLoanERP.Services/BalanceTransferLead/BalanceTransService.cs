@@ -740,9 +740,9 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
             }
 
         }
-        public async Task<ApiServiceResponseModel<BTGoldLoanLeadViewModel>> BTGoldLoanDetailByLeadId(long id) 
+        public async Task<ApiServiceResponseModel<BalanceTransferReturnViewModel>> BTGoldLoanDetailByLeadId(long id) 
         {
-            BTGoldLoanLeadViewModel objModel = new BTGoldLoanLeadViewModel();
+            BalanceTransferReturnViewModel objModel = new BalanceTransferReturnViewModel();
             try
             {
                 var detail = await _db.BtgoldLoanLead.Where(x => x.Id == id && x.IsDelete == false && x.IsActive == true)
@@ -760,16 +760,12 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                     objModel.ProductName = detail.Product.Name ?? null;
                     objModel.FullName = detail.FullName ?? null;                 
                     objModel.Mobile = detail.Mobile ?? null;
-                    objModel.IsInternalLead = detail.IsInternalLead;                
-                    objModel.CustomerUserId = detail.CustomerUserId;              
+                    objModel.IsInternalLead = detail.IsInternalLead;              
+                                
                     objModel.LoanAmount = detail.LoanAmount;
                     objModel.LoanCaseNumber = detail.LoanCaseNumber != null ? detail.LoanCaseNumber : "N/A";
                     objModel.LeadSourceByuserId = detail.LeadSourceByuserId;
-                    objModel.LeadSourceByuserName = detail.LeadSourceByuser.UserName ?? null;
-                    objModel.DetailAddress = null;
-                    objModel.DocumentDetail = null;
-                    objModel.AppointmentDetail = null;
-                    objModel.KYCDetail = null;
+                    objModel.LeadSourceByuserName = detail.LeadSourceByuser.UserName ?? null;                   
                     if (detail.BtgoldLoanLeadExistingLoanDetail != null)
                     {
                         objModel.ExistingLoanDetail = detail.BtgoldLoanLeadExistingLoanDetail.Select(x => new BtGoldLoanLeadExistingLoanViewModel
@@ -796,17 +792,103 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                             Weight = x.Weight ?? null,
                             Karats = x.Karats ?? null,
                         }).FirstOrDefault();
-                    }                    
+                    }
+                    var balanceTrasferReturn =await _db.BalanceTransferLoanReturn.Where(x => x.LeadId == id).FirstOrDefaultAsync();
+                    if (balanceTrasferReturn != null)
+                    {
+                        objModel.BalanceTransferReturn.Id = balanceTrasferReturn.Id;
+                        objModel.BalanceTransferReturn.GoldReceived = balanceTrasferReturn.GoldReceived;
+                        objModel.BalanceTransferReturn.GoldSubmittedToBank = balanceTrasferReturn.GoldSubmittedToBank;
+                        objModel.BalanceTransferReturn.LeadId = balanceTrasferReturn.LeadId;
+                        objModel.BalanceTransferReturn.AmountPainToExistingBank = balanceTrasferReturn.AmountPaidToExistingBank;
+                    }
+                    else 
+                    {
+                        BalanceTranferReturnViewModel objData = new BalanceTranferReturnViewModel
+                        {
+                            GoldSubmittedToBank = false,
+                            AmountPainToExistingBank = false,
+                            GoldReceived = false,
+                            LeadId = objModel.Id
+                        };
+                        objModel.BalanceTransferReturn = objData; 
+                    }
                     return CreateResponse(objModel, ResponseMessage.Success, true, ((int)ApiStatusCode.Ok));
                 }
                 else
                 {
-                    return CreateResponse<BTGoldLoanLeadViewModel>(null, ResponseMessage.NotFound, false, ((int)ApiStatusCode.NotFound));
+                    return CreateResponse<BalanceTransferReturnViewModel>(null, ResponseMessage.NotFound, false, ((int)ApiStatusCode.NotFound));
                 }
             }
             catch (Exception ex)
             {
-                return CreateResponse<BTGoldLoanLeadViewModel>(null, ResponseMessage.Fail, false, ((int)ApiStatusCode.ServerException), ex.Message ?? ex.InnerException.ToString());
+                return CreateResponse<BalanceTransferReturnViewModel>(null, ResponseMessage.Fail, false, ((int)ApiStatusCode.ServerException), ex.Message ?? ex.InnerException.ToString());
+            }
+        }
+        public async Task<ApiServiceResponseModel<object>> AddUpdateBTGoldLoanLeadBalanceReturn(BalanceTranferReturnPostModel model) 
+        {
+            try
+            {
+                if (model.Id == 0 || model.Id == default)
+                {
+                    BalanceTransferLoanReturn returnData = new BalanceTransferLoanReturn
+                    {
+                        LeadId = model.LeadId,
+                        GoldReceived = model.GoldReceived,
+                        GoldSubmittedToBank = model.GoldSubmittedToBank,
+                        AmountPaidToExistingBank = model.AmountPainToExistingBank
+                    };
+                    await _db.BalanceTransferLoanReturn.AddAsync(returnData);
+                    await _db.SaveChangesAsync();
+                    return CreateResponse<object>(true, ResponseMessage.Success, true, ((int)ApiStatusCode.Ok));
+                }
+                else 
+                {
+                    var isExisting = await _db.BalanceTransferLoanReturn.Where(x => x.Id == model.Id && x.LeadId == model.LeadId).FirstOrDefaultAsync();
+                    if (isExisting != null) 
+                    {
+                        isExisting.LeadId = model.LeadId;
+                        isExisting.Remarks = model.Remarks;
+                        if (model.LoanDisbursment == false)
+                        {
+                         isExisting.LoanAccountNumber = null;
+                        } else 
+                        {
+                         isExisting.LoanAccountNumber = model.LoanAccountNumber;
+                        }                        
+                        isExisting.LoanDisbursement = model.LoanDisbursment;
+                        isExisting.GoldReceived = model.GoldReceived;
+                        isExisting.AmountPaidToExistingBank = model.AmountPainToExistingBank;
+                        isExisting.BankName = model.BankName;
+                        isExisting.PaymentMethod = model.PaymentMethod;
+                        isExisting.UtrNumber = model.UtrNumber;
+                        isExisting.GoldSubmittedToBank = model.GoldSubmittedToBank;
+                        isExisting.CustomerName = model.CustomerName;
+                        isExisting.FinalPaymentDate = model.FinalPaymentDate;
+                        if (model.PaymentMethod == ((int)PaymentMethod.CHEQUE))
+                        {
+                            isExisting.UtrNumber = null;
+                            Data.Database.BalanceTransferReturnBankChequeDetail chequeDetail = new Data.Database.BalanceTransferReturnBankChequeDetail
+                            {
+                                BtreturnId = isExisting.Id,
+                                ChequeNumber = model.ChequeDetail.ChequeNumber,
+                                ChequeImage = ""
+                            };
+                            await _db.BalanceTransferReturnBankChequeDetail.AddAsync(chequeDetail);
+                            await _db.SaveChangesAsync();
+                        }
+                        else
+                        {
+                            isExisting.UtrNumber = model.UtrNumber;
+                        }
+                        await _db.SaveChangesAsync();
+                    }                
+                    return CreateResponse<object>(true, ResponseMessage.Update, true, ((int)ApiStatusCode.Ok));
+                }
+            }
+            catch (Exception ex)
+            {
+                return CreateResponse<object>(null, ResponseMessage.Fail, false, ((int)ApiStatusCode.ServerException), ex.Message ?? ex.InnerException.ToString());
             }
         }
         #region <<Private Method Of Balance Transafer Gold Loan Lead>>

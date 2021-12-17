@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/Shared/Helper/auth.service';
 import { MatDialogRef } from '@angular/material/dialog';
+import { CommonService } from 'src/app/Shared/Services/common.service';
 
 @Component({
   selector: 'app-change-password-popup',
@@ -32,7 +33,7 @@ export class ChangePasswordPopupComponent implements OnInit {
   IsGetOtp: boolean = true;
   IsVerified:boolean = false;
   IsConfirmPassword: boolean = false;
-  constructor(private readonly fb: FormBuilder,
+  constructor(private readonly fb: FormBuilder, readonly _commonService: CommonService,
               private readonly _settingService: UserSettingService,
               private readonly toast: ToastrService ,
               readonly _authService: AuthService,
@@ -129,5 +130,5 @@ export class ChangePasswordPopupComponent implements OnInit {
     this.dialogRef.close(false);
   }
 
-  
+
 }

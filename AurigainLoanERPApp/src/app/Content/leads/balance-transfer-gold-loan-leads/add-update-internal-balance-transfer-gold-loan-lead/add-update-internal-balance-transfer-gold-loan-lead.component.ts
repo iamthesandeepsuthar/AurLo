@@ -50,24 +50,22 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
   get userDetail() { return this._auth.GetUserDetail() };
 
   constructor(private readonly fb: FormBuilder, readonly _commonService: CommonService,
-    private readonly _productService: ProductService, private readonly _stateDistrictService: StateDistrictService,
-    readonly _router: Router, private readonly _bankBranchService: BankBranchService,
-    private readonly _activatedRoute: ActivatedRoute, private readonly _auth: AuthService,
-    private readonly _balanceTransferService: BalanceTransferGoldLoanLeadsService, private readonly toast: ToastrService) {
+              private readonly _productService: ProductService,
+              private readonly _stateDistrictService: StateDistrictService,
+              readonly _router: Router, private readonly _bankBranchService: BankBranchService,
+              private readonly _activatedRoute: ActivatedRoute, private readonly _auth: AuthService,
+              private readonly _balanceTransferService: BalanceTransferGoldLoanLeadsService,
+              private readonly toast: ToastrService) {
   }
 
   ngOnInit(): void {
     this.formInit();
     this.GetDropDowns();
-
-
     if (this._activatedRoute.snapshot?.params?.id) {
       this.leadId = this._activatedRoute.snapshot.params.id;
       this.onGetDetail();
     }
-
   }
-
   formInit() {
     this.leadFromPersonalDetail = this.fb.group({
       Product: [undefined, Validators.required],
@@ -102,7 +100,6 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
       TimeofAppointment: [undefined, undefined],
     });
   }
-
   onSubmit() {
     this.leadFromPersonalDetail.markAllAsTouched();
     this.leadFromAddressDetail.markAllAsTouched();
@@ -140,13 +137,13 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
       });
     }
   }
-
   onGetDetail() {
     if (this.leadId > 0) {
       let serve = this._balanceTransferService.GetById(this.leadId).subscribe(res => {
         serve.unsubscribe();
         if (res.IsSuccess) {
           let viewData = res.Data as BTGoldLoanLeadViewModel;
+          console.log(viewData);
 
         }
       })
@@ -158,7 +155,6 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
     this.GetDropDown();
     this.getDDLProducts();
   }
-
   getDDLProducts() {
     let serve = this._productService.GetProductbyCategory(ProductCategoryEnum.GoldLoan).subscribe(res => {
       serve.unsubscribe();
@@ -167,8 +163,6 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
       }
     });
   }
-
-
   GetDropDown() {
     let serve = this._commonService.GetDropDown([DropDown_key.ddlGender, DropDown_key.ddlBank]).subscribe(res => {
       serve.unsubscribe();
@@ -179,7 +173,6 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
       }
     });
   }
-
   getDropDownBranch() {
     this.ddlBranchModel = [];
     let serve = this._bankBranchService.GetBranchesbyBankId(this.BankId.toString()).subscribe(res => {
@@ -189,7 +182,6 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
       }
     });
   }
-
   getDropDownPinCodeArea(isCorrespond: boolean = false, isRemoveValue = false) {
     let pinCode: string = isCorrespond ? this.CorrespondAeraPincode : this.AeraPincode;
 
@@ -218,14 +210,12 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
     })
 
   }
-
   onChangePinCode(PinCode: any) {
     if (this.model.AddressDetail) {
       this.getDropDownPinCodeArea();
       this.getDropDownBranch();
     }
   }
-
   onSameAddressAssign(eve: any) {
 
     if (eve.target.checked) {
@@ -237,7 +227,5 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
     }
 
   }
-
   //#endregion
-
 }

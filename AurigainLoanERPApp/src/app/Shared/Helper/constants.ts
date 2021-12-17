@@ -283,6 +283,7 @@ export class Routing_Url {
 public static BT_GoldLoan_List_Url = 'balance-transfer-leads';
 public static Fresh_Lead_List_Url = 'fresh-leads';
 public static Other_Loan_Leads_Url = 'other-loan-leads';
+public static Other_Loan_Lead_Detail='detail'
 
 
 public static Detail_Lead_Url = 'detail'

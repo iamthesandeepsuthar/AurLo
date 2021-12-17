@@ -23,7 +23,7 @@ const routes: Routes = [
   { path: `${Routing_Url.Fresh_Lead_List_Url}/${Routing_Url.Add_Update_Lead_Url}/:id`, component: AddUpdateFreshGoldLoanLeadComponent, canActivate: [AuthenticationGuard] },
 
   { path: `${Routing_Url.Other_Loan_Leads_Url}`, component: OtherLoanLeadsComponent, canActivate: [AuthenticationGuard] },
-  { path: `${Routing_Url.Other_Loan_Leads_Url}/${Routing_Url.Detail_Lead_Url}/:id`, component: DetailOtherLoanLeadComponent, canActivate: [AuthenticationGuard] },
+  { path: `${Routing_Url.Other_Loan_Leads_Url}/${Routing_Url.Other_Loan_Lead_Detail}/:id`, component: DetailOtherLoanLeadComponent, canActivate: [AuthenticationGuard] },
   { path: `${Routing_Url.Other_Loan_Leads_Url}/${Routing_Url.Add_Update_Lead_Url}/:id`, component: AddUpdateInternalBalanceTransferGoldLoanLeadComponent, canActivate: [AuthenticationGuard] },
 
 ];

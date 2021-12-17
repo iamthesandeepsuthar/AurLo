@@ -88,6 +88,8 @@ namespace AurigainLoanERP.Data.Database
 
                 entity.Property(e => e.CustomerName).HasMaxLength(500);
 
+                entity.Property(e => e.FinalPaymentDate).HasColumnType("datetime");
+
                 entity.Property(e => e.GoldReceived).HasDefaultValueSql("((0))");
 
                 entity.Property(e => e.GoldSubmittedToBank).HasDefaultValueSql("((0))");
@@ -95,8 +97,6 @@ namespace AurigainLoanERP.Data.Database
                 entity.Property(e => e.LoanAccountNumber).HasMaxLength(50);
 
                 entity.Property(e => e.LoanDisbursement).HasDefaultValueSql("((0))");
-
-                entity.Property(e => e.PaymentAmount).HasColumnType("decimal(18, 0)");
 
                 entity.Property(e => e.Remarks).HasMaxLength(1000);
 
@@ -120,8 +120,7 @@ namespace AurigainLoanERP.Data.Database
                 entity.HasOne(d => d.Btreturn)
                     .WithMany(p => p.BalanceTransferReturnBankChequeDetail)
                     .HasForeignKey(d => d.BtreturnId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__BalanceTr__BTRet__5649C92D");
+                    .HasConstraintName("FK__BalanceTr__BTRet__573DED66");
             });
 
             modelBuilder.Entity<BankBranchMaster>(entity =>
@@ -561,27 +560,39 @@ namespace AurigainLoanERP.Data.Database
 
                 entity.Property(e => e.NoOfItr).HasColumnName("NoOfITR");
 
+                entity.Property(e => e.Pincode).HasMaxLength(20);
+
+                entity.HasOne(d => d.AeraPincode)
+                    .WithMany(p => p.FreshLeadHlplcl)
+                    .HasForeignKey(d => d.AeraPincodeId)
+                    .HasConstraintName("FK__FreshLead__AeraP__6C390A4C");
+
                 entity.HasOne(d => d.CreatedByNavigation)
                     .WithMany(p => p.FreshLeadHlplclCreatedByNavigation)
                     .HasForeignKey(d => d.CreatedBy)
-                    .HasConstraintName("FK__FreshLead__Creat__49E3F248");
+                    .HasConstraintName("FK__FreshLead__Creat__68687968");
+
+                entity.HasOne(d => d.CustomerUser)
+                    .WithMany(p => p.FreshLeadHlplclCustomerUser)
+                    .HasForeignKey(d => d.CustomerUserId)
+                    .HasConstraintName("FK__FreshLead__Custo__6D2D2E85");
 
                 entity.HasOne(d => d.LeadSourceByUser)
                     .WithMany(p => p.FreshLeadHlplclLeadSourceByUser)
                     .HasForeignKey(d => d.LeadSourceByUserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__FreshLead__LeadS__67A95F59");
+                    .HasConstraintName("FK__FreshLead__LeadS__6A50C1DA");
 
                 entity.HasOne(d => d.ModifiedByNavigation)
                     .WithMany(p => p.FreshLeadHlplclModifiedByNavigation)
                     .HasForeignKey(d => d.ModifiedBy)
-                    .HasConstraintName("FK__FreshLead__Modif__4AD81681");
+                    .HasConstraintName("FK__FreshLead__Modif__695C9DA1");
 
                 entity.HasOne(d => d.Product)
                     .WithMany(p => p.FreshLeadHlplcl)
                     .HasForeignKey(d => d.ProductId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__FreshLead__Produ__689D8392");
+                    .HasConstraintName("FK__FreshLead__Produ__6B44E613");
             });
 
             modelBuilder.Entity<FreshLeadHlplclstatusActionHistory>(entity =>
@@ -601,7 +612,7 @@ namespace AurigainLoanERP.Data.Database
                     .WithMany(p => p.FreshLeadHlplclstatusActionHistory)
                     .HasForeignKey(d => d.LeadId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__FreshLead__LeadI__46136164");
+                    .HasConstraintName("FK__FreshLead__LeadI__6774552F");
             });
 
             modelBuilder.Entity<GoldLoanFreshLead>(entity =>
