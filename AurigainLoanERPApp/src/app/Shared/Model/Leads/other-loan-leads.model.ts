@@ -10,7 +10,7 @@ export class FreshLeadHLPLCLModel {
   LeadType!: boolean;
   AnnualIncome!: number | null;
   LeadSourceByUserId!: number;
-  LeadSourceUserName!: string;
+  LeadSourceByUserName!: string;
   CustomerUserId!: number;
   ProductId!: number;
   ProductName!:string;
@@ -24,4 +24,5 @@ export class FreshLeadHLPLCLModel {
   Pincode !:string;
   AreaPincodeId !: number;
   AreaLocation!:string;
+  LeadStatus!:string;
 }
