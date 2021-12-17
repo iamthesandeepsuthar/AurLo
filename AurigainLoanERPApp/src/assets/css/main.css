@@ -4288,16 +4288,42 @@ tr td:last-child.table-action-btn {
     display: block;
     border-bottom: solid 1px #f1f1f1;
     margin: 0px;
+    color: #000;
 }
 .table-action-dropdown ul.dropdown-menu {
     padding: 0px !important;
     max-height: 134px;
     overflow-x: auto;
+    border: none !important;
+    box-shadow: 0 0 20px #aec3e5 !important;
+    border-radius: 16px !important;
 }
 .table-action-dropdown {
     min-width: auto !important;
     width: 50px;
 }
+.table-action-dropdown ul.dropdown-menu li:nth-child(1) a {
+    background: #e9f9f6 !important;
+}
+.table-action-dropdown ul.dropdown-menu li:nth-child(2) a {
+    background: #fff7df;
+}
+.table-action-dropdown ul.dropdown-menu li:nth-child(3) a {
+    background: #f5f0ff;
+}
+.table-action-dropdown ul.dropdown-menu li:nth-child(4) a {
+    background: #ffeced;
+}
+.table-action-dropdown ul.dropdown-menu li:nth-child(5) a {
+    background: #e2eaf1;
+}
+.table-action-dropdown ul.dropdown-menu li:nth-child(6) a {
+    background: #d7dcff;
+}
+.table-action-dropdown ul.dropdown-menu a:hover {
+    background: #fff !important;
+}
+
 /* .custom-modal .modal-content .modal-body {
     background: url(https://blog.2checkout.com/wp-content/uploads/2018/11/how-does-the-payment-processing-industry-work-1.png);
     background-repeat: no-repeat;
