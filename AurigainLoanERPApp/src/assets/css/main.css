@@ -4299,8 +4299,8 @@ tr td:last-child.table-action-btn {
     border-radius: 16px !important;
 }
 .table-action-dropdown {
-    min-width: auto !important;
-    width: 50px;
+    min-width: 30px !important;
+    width: 30px;
 }
 .table-action-dropdown ul.dropdown-menu li:nth-child(1) a {
     background: #e9f9f6 !important;
