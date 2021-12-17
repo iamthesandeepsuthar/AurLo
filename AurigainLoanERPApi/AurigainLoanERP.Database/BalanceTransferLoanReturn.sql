@@ -12,6 +12,7 @@
 	PaymentMethod int ,
 	UtrNumber nvarchar(50),
 	Remarks nvarchar(1000),
-	AmountReturn decimal,
-	PaymentAmount decimal
+	AmountReturn decimal, 
+    [FinalPaymentDate] DATETIME NULL,
+	
 	)

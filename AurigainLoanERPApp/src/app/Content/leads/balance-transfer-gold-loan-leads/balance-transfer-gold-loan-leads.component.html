@@ -145,8 +145,7 @@
           <th width="150" mat-header-cell *matHeaderCellDef> Action </th>
           <td mat-cell *matCellDef="let row" class="table-action-btn">
 
-            <a class="table-action-btn-edit" routerLink="../{{this.routing_Url.AgentRegistrationUrl +'/'+ row.UserId}}"
-              title="Edit">
+            <a class="table-action-btn-edit" *ngIf="row.IsInternalLead" routerLink="./{{routing_Url.Fresh_Lead_Add_Update_Internal_Lead_Url+'/'+ row.Id}}" title="Edit">
               <i class="fas fa-edit"></i>
             </a>
             <a class="table-action-btn-view" routerLink="./{{routing_Url.Detail_Lead_Url +'/'+ row.Id}}" title="Detail">

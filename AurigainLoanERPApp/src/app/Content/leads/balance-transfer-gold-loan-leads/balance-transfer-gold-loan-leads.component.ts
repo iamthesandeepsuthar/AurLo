@@ -61,7 +61,6 @@ export class BalanceTransferGoldLoanLeadsComponent implements OnInit {
   ngOnInit(): void {
     this.getList();
   }
-
   getList(): void {
     let serve = this._freshLeadService.GetList(this.indexModel).subscribe(response => {
       serve.unsubscribe();
@@ -83,7 +82,6 @@ export class BalanceTransferGoldLoanLeadsComponent implements OnInit {
         this.toast.error(error.Message as string, 'Error');
       });
   }
-
   sortData(event: any): void {
 
     this.indexModel.OrderBy = event.active;

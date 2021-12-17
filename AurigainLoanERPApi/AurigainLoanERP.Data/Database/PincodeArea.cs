@@ -13,6 +13,7 @@ namespace AurigainLoanERP.Data.Database
         {
             BtgoldLoanLeadAddressDetailAeraPincode = new HashSet<BtgoldLoanLeadAddressDetail>();
             BtgoldLoanLeadAddressDetailCorrespondAeraPincode = new HashSet<BtgoldLoanLeadAddressDetail>();
+            FreshLeadHlplcl = new HashSet<FreshLeadHlplcl>();
             GoldLoanFreshLeadKycDocument = new HashSet<GoldLoanFreshLeadKycDocument>();
             Managers = new HashSet<Managers>();
             UserAgent = new HashSet<UserAgent>();
@@ -33,6 +34,7 @@ namespace AurigainLoanERP.Data.Database
         public virtual District District { get; set; }
         public virtual ICollection<BtgoldLoanLeadAddressDetail> BtgoldLoanLeadAddressDetailAeraPincode { get; set; }
         public virtual ICollection<BtgoldLoanLeadAddressDetail> BtgoldLoanLeadAddressDetailCorrespondAeraPincode { get; set; }
+        public virtual ICollection<FreshLeadHlplcl> FreshLeadHlplcl { get; set; }
         public virtual ICollection<GoldLoanFreshLeadKycDocument> GoldLoanFreshLeadKycDocument { get; set; }
         public virtual ICollection<Managers> Managers { get; set; }
         public virtual ICollection<UserAgent> UserAgent { get; set; }

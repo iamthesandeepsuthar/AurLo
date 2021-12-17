@@ -20,6 +20,7 @@ namespace AurigainLoanERP.Data.Database
             BtgoldLoanLeadModifiedByNavigation = new HashSet<BtgoldLoanLead>();
             BtgoldLoanLeadStatusActionHistory = new HashSet<BtgoldLoanLeadStatusActionHistory>();
             FreshLeadHlplclCreatedByNavigation = new HashSet<FreshLeadHlplcl>();
+            FreshLeadHlplclCustomerUser = new HashSet<FreshLeadHlplcl>();
             FreshLeadHlplclLeadSourceByUser = new HashSet<FreshLeadHlplcl>();
             FreshLeadHlplclModifiedByNavigation = new HashSet<FreshLeadHlplcl>();
             FreshLeadHlplclstatusActionHistory = new HashSet<FreshLeadHlplclstatusActionHistory>();
@@ -74,6 +75,7 @@ namespace AurigainLoanERP.Data.Database
         public virtual ICollection<BtgoldLoanLead> BtgoldLoanLeadModifiedByNavigation { get; set; }
         public virtual ICollection<BtgoldLoanLeadStatusActionHistory> BtgoldLoanLeadStatusActionHistory { get; set; }
         public virtual ICollection<FreshLeadHlplcl> FreshLeadHlplclCreatedByNavigation { get; set; }
+        public virtual ICollection<FreshLeadHlplcl> FreshLeadHlplclCustomerUser { get; set; }
         public virtual ICollection<FreshLeadHlplcl> FreshLeadHlplclLeadSourceByUser { get; set; }
         public virtual ICollection<FreshLeadHlplcl> FreshLeadHlplclModifiedByNavigation { get; set; }
         public virtual ICollection<FreshLeadHlplclstatusActionHistory> FreshLeadHlplclstatusActionHistory { get; set; }

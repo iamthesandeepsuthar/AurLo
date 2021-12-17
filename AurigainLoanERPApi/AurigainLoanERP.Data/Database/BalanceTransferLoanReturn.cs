@@ -27,7 +27,7 @@ namespace AurigainLoanERP.Data.Database
         public string UtrNumber { get; set; }
         public string Remarks { get; set; }
         public decimal? AmountReturn { get; set; }
-        public decimal? PaymentAmount { get; set; }
+        public DateTime? FinalPaymentDate { get; set; }
 
         public virtual BtgoldLoanLead Lead { get; set; }
         public virtual ICollection<BalanceTransferReturnBankChequeDetail> BalanceTransferReturnBankChequeDetail { get; set; }

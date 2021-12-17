@@ -23,18 +23,23 @@ namespace AurigainLoanERP.Data.Database
         public double LoanAmount { get; set; }
         public double? AnnualIncome { get; set; }
         public long LeadSourceByUserId { get; set; }
+        public long? CustomerUserId { get; set; }
         public int ProductId { get; set; }
         public string EmployeeType { get; set; }
         public int? NoOfItr { get; set; }
+        public string LeadStatus { get; set; }
+        public string Pincode { get; set; }
+        public long? AeraPincodeId { get; set; }
+        public long? CreatedBy { get; set; }
+        public long? ModifiedBy { get; set; }
         public bool? IsActive { get; set; }
         public bool IsDelete { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime? ModifiedDate { get; set; }
-        public string LeadStatus { get; set; }
-        public long? CreatedBy { get; set; }
-        public long? ModifiedBy { get; set; }
 
+        public virtual PincodeArea AeraPincode { get; set; }
         public virtual UserMaster CreatedByNavigation { get; set; }
+        public virtual UserMaster CustomerUser { get; set; }
         public virtual UserMaster LeadSourceByUser { get; set; }
         public virtual UserMaster ModifiedByNavigation { get; set; }
         public virtual Product Product { get; set; }

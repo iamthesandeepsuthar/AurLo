@@ -17,6 +17,7 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
         {
             _objBTLead = objBTLead;
         }
+        //[AllowAnonymous]
         [HttpPost]
         public async Task<ApiServiceResponseModel<string>> AddUpdateBTGoldLoanExternalLead(BTGoldLoanLeadPostModel model)
         {
@@ -84,17 +85,40 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
         {
             return await _objBTLead.BTGoldLoanApprovalStatusHistory(leadId);
         }
-
+        //[AllowAnonymous]
         [HttpPost]
         public async Task<ApiServiceResponseModel<List<BTGoldLoanBalanceReturnLeadListModel>>> BTGoldLoanBalanceReturnLeadList(IndexModel model)
         {
             return await _objBTLead.BTGoldLoanBalanceReturnLeadList(model);
         }
         [HttpGet("{id}")]
-        [AllowAnonymous]
-        public async Task<ApiServiceResponseModel<BTGoldLoanLeadViewModel>> BTGoldLoanLeadDetailForBalanceReturn(long id)
+        //[AllowAnonymous]
+        public async Task<ApiServiceResponseModel<BalanceTransferReturnViewModel>> BTGoldLoanLeadDetailForBalanceReturn(long id)
         {
             return await _objBTLead.BTGoldLoanDetailByLeadId(id);
+        }
+       /// <summary>
+        /// Save Balance Transfer Return 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns>
+        /// Success or Fail In Boolean Flag
+        /// </returns>
+        [HttpPost]
+        public async Task<ApiServiceResponseModel<object>> AddUpdateBTGoldLoanLeadBalanceRetrun(BalanceTranferReturnPostModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                return await _objBTLead.AddUpdateBTGoldLoanLeadBalanceReturn(model);            }
+            else
+            {
+                ApiServiceResponseModel<object> obj = new ApiServiceResponseModel<object>();
+                obj.Data = false;
+                obj.IsSuccess = false;
+                obj.Message = ResponseMessage.InvalidData;
+                obj.Exception = ModelState.ErrorCount.ToString();
+                return obj;
+            }
         }
 
     }
