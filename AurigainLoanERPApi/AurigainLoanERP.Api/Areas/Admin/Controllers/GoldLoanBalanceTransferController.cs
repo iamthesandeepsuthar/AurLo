@@ -17,7 +17,7 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
         {
             _objBTLead = objBTLead;
         }
-        //[AllowAnonymous]
+       // [AllowAnonymous]
         [HttpPost]
         public async Task<ApiServiceResponseModel<string>> AddUpdateBTGoldLoanExternalLead(BTGoldLoanLeadPostModel model)
         {
@@ -105,11 +105,13 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
         /// Success or Fail In Boolean Flag
         /// </returns>
         [HttpPost]
+        //[AllowAnonymous]
         public async Task<ApiServiceResponseModel<object>> AddUpdateBTGoldLoanLeadBalanceRetrun(BalanceTranferReturnPostModel model)
         {
             if (ModelState.IsValid)
             {
-                return await _objBTLead.AddUpdateBTGoldLoanLeadBalanceReturn(model);            }
+                return await _objBTLead.AddUpdateBTGoldLoanLeadBalanceReturn(model);    
+            }
             else
             {
                 ApiServiceResponseModel<object> obj = new ApiServiceResponseModel<object>();

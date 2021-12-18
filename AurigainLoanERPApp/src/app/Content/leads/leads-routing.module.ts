@@ -1,3 +1,4 @@
+import { BalanceTransferReturnComponent } from './balance-transfer-return/balance-transfer-return.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthenticationGuard } from 'src/app/Shared/Helper/authentication.guard';
@@ -25,6 +26,8 @@ const routes: Routes = [
   { path: `${Routing_Url.Other_Loan_Leads_Url}`, component: OtherLoanLeadsComponent, canActivate: [AuthenticationGuard] },
   { path: `${Routing_Url.Other_Loan_Leads_Url}/${Routing_Url.Other_Loan_Lead_Detail}/:id`, component: DetailOtherLoanLeadComponent, canActivate: [AuthenticationGuard] },
   { path: `${Routing_Url.Other_Loan_Leads_Url}/${Routing_Url.Add_Update_Lead_Url}/:id`, component: AddUpdateInternalBalanceTransferGoldLoanLeadComponent, canActivate: [AuthenticationGuard] },
+
+  {path: `${Routing_Url.BT_GoldLoan_BalanceReturn_Url}/:id`, component:BalanceTransferReturnComponent , canActivate:[AuthenticationGuard]}
 
 ];
 

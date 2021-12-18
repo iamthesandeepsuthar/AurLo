@@ -829,7 +829,8 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
         {
             try
             {
-                if (model.Id == 0 || model.Id == default)
+                await _db.Database.BeginTransactionAsync();
+                if (model.BtReturnId == 0 || model.BtReturnId == default)
                 {
                     BalanceTransferLoanReturn returnData = new BalanceTransferLoanReturn
                     {
@@ -840,11 +841,12 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                     };
                     await _db.BalanceTransferLoanReturn.AddAsync(returnData);
                     await _db.SaveChangesAsync();
+                    _db.Database.CommitTransaction();
                     return CreateResponse<object>(true, ResponseMessage.Success, true, ((int)ApiStatusCode.Ok));
                 }
                 else 
                 {
-                    var isExisting = await _db.BalanceTransferLoanReturn.Where(x => x.Id == model.Id && x.LeadId == model.LeadId).FirstOrDefaultAsync();
+                    var isExisting = await _db.BalanceTransferLoanReturn.Where(x => x.Id == model.BtReturnId && x.LeadId == model.LeadId).FirstOrDefaultAsync();
                     if (isExisting != null) 
                     {
                         isExisting.LeadId = model.LeadId;
@@ -864,30 +866,42 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                         isExisting.UtrNumber = model.UtrNumber;
                         isExisting.GoldSubmittedToBank = model.GoldSubmittedToBank;
                         isExisting.CustomerName = model.CustomerName;
-                        isExisting.FinalPaymentDate = model.FinalPaymentDate;
+
+                        if (string.IsNullOrEmpty(model.FinalPaymentDate))
+                        {
+                            isExisting.FinalPaymentDate = null;
+                        }
+                        else 
+                        {
+                            isExisting.FinalPaymentDate = Convert.ToDateTime(model.FinalPaymentDate);
+                        }
+                       
                         if (model.PaymentMethod == ((int)PaymentMethod.CHEQUE))
                         {
+                            string fileSavePath = string.Concat(FilePathConstant.BTGoldLeadReturnCheques, "",model.LeadId, "\\");
                             isExisting.UtrNumber = null;
                             Data.Database.BalanceTransferReturnBankChequeDetail chequeDetail = new Data.Database.BalanceTransferReturnBankChequeDetail
                             {
                                 BtreturnId = isExisting.Id,
                                 ChequeNumber = model.ChequeDetail.ChequeNumber,
-                                ChequeImage = ""
+                                ChequeImage = model.ChequeDetail.ChequeImageUrl != null ? Path.Combine(fileSavePath, _fileHelper.Save(model.ChequeDetail.File.File, fileSavePath, model.ChequeDetail.File.FileName)) : null,
                             };
                             await _db.BalanceTransferReturnBankChequeDetail.AddAsync(chequeDetail);
-                            await _db.SaveChangesAsync();
+                            await _db.SaveChangesAsync();                            
                         }
                         else
                         {
                             isExisting.UtrNumber = model.UtrNumber;
-                        }
+                        }                       
                         await _db.SaveChangesAsync();
+                        _db.Database.CommitTransaction();
                     }                
                     return CreateResponse<object>(true, ResponseMessage.Update, true, ((int)ApiStatusCode.Ok));
                 }
             }
             catch (Exception ex)
             {
+                _db.Database.RollbackTransaction();
                 return CreateResponse<object>(null, ResponseMessage.Fail, false, ((int)ApiStatusCode.ServerException), ex.Message ?? ex.InnerException.ToString());
             }
         }

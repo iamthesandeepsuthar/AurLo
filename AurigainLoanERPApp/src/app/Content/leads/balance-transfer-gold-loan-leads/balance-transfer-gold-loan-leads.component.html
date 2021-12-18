@@ -166,6 +166,12 @@
                                         <img src="assets/img/lead-approval.png" alt="" /> Lead Approval
                                     </a>
                                 </li>
+                                <li>
+                                  <a routerLink="../{{routing_Url.BT_GoldLoan_BalanceReturn_Url +'/'+ row.Id}}"  *ngIf="!row?.IsStatusCompleted && this.userDetail!.RoleId != userRoleEnum.Customer  && (  !row?.ApprovedStage || row?.ApprovedStage > this.userDetail!.RoleLevel)" class="table-action-btn-lead-approval text-info"
+                                      data-toggle="tooltip" data-placement="bottom" title="Balance Return">
+                                      <i class="fas fa-exchange-alt mr-1"></i>Balance Return
+                                  </a>
+                              </li>
 
                                 <li>
                                     <a *ngIf="row?.IsStatusCompleted && row?.ApprovedStage" (click)="onOpenApproveHistory(row.Id)" href="javascript:void(0)" class="table-action-btn-lead-approval text-info" data-toggle="tooltip" data-placement="bottom" title="Lead Approval History"> <img src="assets/img/history.png" alt="" /> Lead Approval History
