@@ -83,9 +83,10 @@ export class BtGoldLoanLeadJewelleryDetailPostModel {
 export class BtGoldLoanLeadKYCDetailPostModel {
   Id!: number;
   PoidocumentTypeId!: number;
-  PoidocumentNumber!: string;
+  PoidocumentNumber!: string | null;
   PoadocumentTypeId!: number;
-  PoadocumentNumber!: string;
+  PoadocumentNumber!: string|null;
+  PANNumber !: string|null;
 }
 
 export class FileModel {

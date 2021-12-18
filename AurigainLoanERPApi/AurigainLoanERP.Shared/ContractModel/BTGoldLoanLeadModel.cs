@@ -124,6 +124,7 @@ namespace AurigainLoanERP.Shared.ContractModel
         public string PoidocumentNumber { get; set; }
         public int PoadocumentTypeId { get; set; }
         public string PoadocumentNumber { get; set; }
+        public string PANNumber { get; set; }
     }
     public class BtGoldLoanLeadApprovalStagePostModel
     { 

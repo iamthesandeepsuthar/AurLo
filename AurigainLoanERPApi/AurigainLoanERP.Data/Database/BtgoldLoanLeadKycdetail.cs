@@ -15,6 +15,7 @@ namespace AurigainLoanERP.Data.Database
         public string PoidocumentNumber { get; set; }
         public int PoadocumentTypeId { get; set; }
         public string PoadocumentNumber { get; set; }
+        public string Pannumber { get; set; }
 
         public virtual BtgoldLoanLead Lead { get; set; }
         public virtual DocumentType PoadocumentType { get; set; }
