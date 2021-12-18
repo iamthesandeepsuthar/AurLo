@@ -3573,7 +3573,7 @@ table tbody tr:nth-of-type(odd) .table-data-name span {
     background-repeat: no-repeat;
     background-position: center center;
     flex: 0 0 75px;
-    background-color: #ebebeb;
+    background-color: #fff;
     overflow: hidden;
     display: flex;
     align-items: center;
