@@ -3097,7 +3097,7 @@ td.table-action-btn button {
     margin: 40px 20px 20px 20px;
     border-radius: 20px;
     position: relative;
-    box-shadow: 1px 2px 12px 0 rgb(31 45 61 / 10%);
+    box-shadow: 0 0 20px 2px #c9d8f1;
 }
 
 .form-grp-w-border h2 {
@@ -4340,6 +4340,11 @@ tr td:last-child.table-action-btn {
 
 .swal2-container.swal2-center>.swal2-popup {
     border-radius: 40px;
+}
+
+bs-datepicker-container,
+bs-daterangepicker-container {
+    z-index: 99999999 !important;
 }
 
 
