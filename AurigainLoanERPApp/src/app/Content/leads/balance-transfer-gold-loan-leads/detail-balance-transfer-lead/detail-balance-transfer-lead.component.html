@@ -79,44 +79,7 @@
 
     </div>
 
-    <<<<<<< HEAD <div class="widget-content widget-content p-3 form-grp-w-border">
-        <h2> <img src="assets/img/document_details.png">Existing Loan Detail</h2>
-        <div class="table-responsive">
-            <table class="table  table-borderless table-data-info table-font-17 table-v-align-top m-0">
-                <tbody>
-                    <tr>
-                        <td style="width: 20%;"> <strong>Bank Name: </strong> </td>
-                        <td style="width: 30%;">{{Model?.ExistingLoanDetail?.BankName}}</td>
-                        <td style="width: 20%;"><strong>Amount: </strong> </td>
-                        <td style="width: 30%;">{{Model?.ExistingLoanDetail?.Amount}}</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Date: </strong> </td>
-                        <td>{{Model?.ExistingLoanDetail?.Date | date}}</td>
-                        <td><strong>Tenure: </strong> </td>
-                        <td>{{Model?.ExistingLoanDetail?.Tenure}}</td>
-                    </tr>
-                    <tr>
-                        <td><strong> Jewellery Valuation: </strong> </td>
-                        <td>{{Model?.ExistingLoanDetail?.JewelleryValuation}}</td>
-                        <td><strong>Outstanding Amount: </strong> </td>
-                        <td>{{Model?.ExistingLoanDetail?.OutstandingAmount }}</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Balance Transfer Amount: </strong> </td>
-                        <td>{{Model?.ExistingLoanDetail?.BalanceTransferAmount }}</td>
-                        <td><strong>Required Amount: </strong> </td>
-                        <td>{{Model?.ExistingLoanDetail?.RequiredAmount }}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-</div>
-
-<div class="widget-content widget-content p-3 form-grp-w-border">
-    <h2> <img src="assets/img/jewellery.png">Jewellery Details</h2>
-    =======
-    <div class="widget-content widget-content p-3 form-grp-w-border" *ngIf="Model?.ExistingLoanDetail != null">
+    <div class="widget-content widget-content p-3 form-grp-w-border">
         <h2> <img src="assets/img/document_details.png">Existing Loan Detail</h2>
         <div class="table-responsive">
             <table class="table  table-borderless table-data-info table-font-17 table-v-align-top m-0">
@@ -150,125 +113,197 @@
         </div>
     </div>
 
-    <div class="widget-content widget-content p-3 form-grp-w-border" *ngIf="Model?.JewelleryDetail != null">
+    <div class="widget-content widget-content p-3 form-grp-w-border">
         <h2> <img src="assets/img/jewellery.png">Jewellery Details</h2>
-        >>>>>>> 1add7323f0e3687503256966c29fe74788b812c4
 
-        <div class="table-responsive">
-            <table class="table  table-borderless table-data-info table-font-17 table-v-align-top m-0">
-                <tbody>
-                    <tr>
-                        <td style="width: 20%;"> <strong> Type of Jewellery: </strong> </td>
-                        <td style="width: 30%;">{{Model?.JewelleryDetail?.JewelleryType}}</td>
-                        <td style="width: 20%;"><strong> Quantity: </strong> </td>
-                        <td style="width: 30%;">{{Model?.JewelleryDetail?.Quantity}}</td>
-                    </tr>
-                    <tr>
-                        <td><strong> Weight (in grams): </strong> </td>
-                        <td>{{Model?.JewelleryDetail?.Weight}}</td>
-                        <td><strong> Karats : </strong> </td>
-                        <td>{{Model?.JewelleryDetail?.Karats}}</td>
-                    </tr>
-
-                </tbody>
-            </table>
-        </div>
-
-
-    </div>
-
-    <div class="widget-content widget-content p-3 form-grp-w-border">
-        <h2> <img src="assets/img/appointment.png">Appointment Details</h2>
-        <div class="table-responsive">
-            <table class="table  table-borderless table-data-info table-font-17 table-v-align-top m-0">
-                <tbody>
-                    <tr>
-                        <td style="width: 20%;"> <strong> Bank Name: </strong> </td>
-                        <td style="width: 30%;">{{Model?.AppointmentDetail?.BankName}}</td>
-                        <td style="width: 20%;"><strong> IFSC Code: </strong> </td>
-                        <td style="width: 30%;">{{Model?.AppointmentDetail?.Ifsc}}</td>
-                    </tr>
-
-                    <tr>
-                        <td><strong> Date of Appointment: </strong> </td>
-                        <td>{{Model.AppointmentDetail?.AppointmentDate | date}}</td>
-                        <td><strong> Time of Appointment : </strong> </td>
-                        <td>{{Model?.AppointmentDetail?.AppointmentTime | date:'h:mm a z'}}</td>
-                    </tr>
-
-                    <tr>
-
-                        <td><strong> Branch name: </strong> </td>
-                        <td>{{Model?.AppointmentDetail?.BranchName}}</td>
-                        <td><strong> Pincode: </strong> </td>
-                        <td>{{Model?.AppointmentDetail?.Pincode}}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-    <div class="widget-content widget-content p-3 form-grp-w-border">
-        <h2> <img src="assets/img/address.png">Address Details</h2>
-        <div class="mb-3">
-            <h4 class="mb-3 text-danger">Permanent Address</h4>
+        <div class="widget-content widget-content p-3 form-grp-w-border" *ngIf="Model?.ExistingLoanDetail != null">
+            <h2> <img src="assets/img/document_details.png">Existing Loan Detail</h2>
             <div class="table-responsive">
                 <table class="table  table-borderless table-data-info table-font-17 table-v-align-top m-0">
                     <tbody>
                         <tr>
-                            <td style="width: 20%;"> <strong> Address line: </strong> </td>
-                            <td style="width: 30%;" colspan="3">{{Model?.DetailAddress?.Address}}</td>
-                        </tr>
-
-                        <tr>
-                            <td style="width: 20%;"> <strong> Area name: </strong> </td>
-                            <td style="width: 30%;">{{Model?.DetailAddress?.AreaName}}</td>
-                            <td style="width: 20%;"><strong> District: </strong> </td>
-                            <td style="width: 30%;">{{Model?.DetailAddress?.District}}</td>
-                        </tr>
-
-                        <tr>
-                            <td><strong> State: </strong> </td>
-                            <td>{{Model?.DetailAddress?.State}}</td>
-                            <td><strong> Pincode : </strong> </td>
-                            <td>{{Model?.DetailAddress?.PinCode}}</td>
-                        </tr>
-
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <div class="mb-0">
-            <h4 class="mb-3 text-danger">Correspondence Address</h4>
-            <div class="table-responsive">
-                <table class="table  table-borderless table-data-info table-font-17 table-v-align-top m-0">
-                    <tbody>
-                        <tr>
-                            <td style="width: 20%;"> <strong> Address line: </strong> </td>
-                            <td style="width: 30%;" colspan="3">{{Model?.DetailAddress?.CorrespondAddress}}</td>
+                            <td style="width: 20%;"> <strong>Bank Name: </strong> </td>
+                            <td style="width: 30%;">{{Model?.ExistingLoanDetail?.BankName}}</td>
+                            <td style="width: 20%;"><strong>Amount: </strong> </td>
+                            <td style="width: 30%;">{{Model?.ExistingLoanDetail?.Amount}}</td>
                         </tr>
                         <tr>
-                            <td style="width: 20%;"> <strong> Area name: </strong> </td>
-                            <td style="width: 30%;">{{Model?.DetailAddress?.CorrespondAreaName}}</td>
-                            <td style="width: 20%;"><strong> District: </strong> </td>
-                            <td style="width: 30%;">{{Model?.DetailAddress?.CorrespondDistrict}}</td>
+                            <td><strong>Date: </strong> </td>
+                            <td>{{Model?.ExistingLoanDetail?.Date | date}}</td>
+                            <td><strong>Tenure: </strong> </td>
+                            <td>{{Model?.ExistingLoanDetail?.Tenure}}</td>
                         </tr>
                         <tr>
-                            <td><strong> State: </strong> </td>
-                            <td>{{Model?.DetailAddress?.CorrespondState}}</td>
-                            <td><strong> Pincode : </strong> </td>
-                            <td>{{Model?.DetailAddress?.CorrespondPinCode}}</td>
+                            <td><strong> Jewellery Valuation: </strong> </td>
+                            <td>{{Model?.ExistingLoanDetail?.JewelleryValuation}}</td>
+                            <td><strong>Outstanding Amount: </strong> </td>
+                            <td>{{Model?.ExistingLoanDetail?.OutstandingAmount }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Balance Transfer Amount: </strong> </td>
+                            <td>{{Model?.ExistingLoanDetail?.BalanceTransferAmount }}</td>
+                            <td><strong>Required Amount: </strong> </td>
+                            <td>{{Model?.ExistingLoanDetail?.RequiredAmount }}</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
 
+        <div class="widget-content widget-content p-3 form-grp-w-border" *ngIf="Model?.JewelleryDetail != null">
+            <h2> <img src="assets/img/jewellery.png">Jewellery Details</h2>
 
+
+            <div class="table-responsive">
+                <table class="table  table-borderless table-data-info table-font-17 table-v-align-top m-0">
+                    <tbody>
+                        <tr>
+                            <td style="width: 20%;"> <strong> Type of Jewellery: </strong> </td>
+                            <td style="width: 30%;">{{Model?.JewelleryDetail?.JewelleryType}}</td>
+                            <td style="width: 20%;"><strong> Quantity: </strong> </td>
+                            <td style="width: 30%;">{{Model?.JewelleryDetail?.Quantity}}</td>
+                        </tr>
+                        <tr>
+                            <td><strong> Weight (in grams): </strong> </td>
+                            <td>{{Model?.JewelleryDetail?.Weight}}</td>
+                            <td><strong> Karats : </strong> </td>
+                            <td>{{Model?.JewelleryDetail?.Karats}}</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+
+        </div>
+
+        <div class="widget-content widget-content p-3 form-grp-w-border">
+            <h2> <img src="assets/img/appointment.png">Appointment Details</h2>
+            <div class="table-responsive">
+                <table class="table  table-borderless table-data-info table-font-17 table-v-align-top m-0">
+                    <tbody>
+                        <tr>
+                            <td style="width: 20%;"> <strong> Bank Name: </strong> </td>
+                            <td style="width: 30%;">{{Model?.AppointmentDetail?.BankName}}</td>
+                            <td style="width: 20%;"><strong> IFSC Code: </strong> </td>
+                            <td style="width: 30%;">{{Model?.AppointmentDetail?.Ifsc}}</td>
+                        </tr>
+
+                        <tr>
+                            <td><strong> Date of Appointment: </strong> </td>
+                            <td>{{Model.AppointmentDetail?.AppointmentDate | date}}</td>
+                            <td><strong> Time of Appointment : </strong> </td>
+                            <td>{{Model?.AppointmentDetail?.AppointmentTime | date:'h:mm a z'}}</td>
+                        </tr>
+
+                        <tr>
+
+                            <td><strong> Branch name: </strong> </td>
+                            <td>{{Model?.AppointmentDetail?.BranchName}}</td>
+                            <td><strong> Pincode: </strong> </td>
+                            <td>{{Model?.AppointmentDetail?.Pincode}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="widget-content widget-content p-3 form-grp-w-border">
+            <h2> <img src="assets/img/address.png">Address Details</h2>
+            <div class="mb-3">
+                <h4 class="mb-3 text-danger">Permanent Address</h4>
+                <div class="table-responsive">
+                    <table class="table  table-borderless table-data-info table-font-17 table-v-align-top m-0">
+                        <tbody>
+                            <tr>
+                                <td style="width: 20%;"> <strong> Address line: </strong> </td>
+                                <td style="width: 30%;" colspan="3">{{Model?.DetailAddress?.Address}}</td>
+                            </tr>
+
+                            <tr>
+                                <td style="width: 20%;"> <strong> Area name: </strong> </td>
+                                <td style="width: 30%;">{{Model?.DetailAddress?.AreaName}}</td>
+                                <td style="width: 20%;"><strong> District: </strong> </td>
+                                <td style="width: 30%;">{{Model?.DetailAddress?.District}}</td>
+                            </tr>
+
+                            <tr>
+                                <td><strong> State: </strong> </td>
+                                <td>{{Model?.DetailAddress?.State}}</td>
+                                <td><strong> Pincode : </strong> </td>
+                                <td>{{Model?.DetailAddress?.PinCode}}</td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="mb-0">
+                <h4 class="mb-3 text-danger">Correspondence Address</h4>
+                <div class="table-responsive">
+                    <table class="table  table-borderless table-data-info table-font-17 table-v-align-top m-0">
+                        <tbody>
+                            <tr>
+                                <td style="width: 20%;"> <strong> Address line: </strong> </td>
+                                <td style="width: 30%;" colspan="3">{{Model?.DetailAddress?.CorrespondAddress}}</td>
+                            </tr>
+                            <tr>
+                                <td style="width: 20%;"> <strong> Area name: </strong> </td>
+                                <td style="width: 30%;">{{Model?.DetailAddress?.CorrespondAreaName}}</td>
+                                <td style="width: 20%;"><strong> District: </strong> </td>
+                                <td style="width: 30%;">{{Model?.DetailAddress?.CorrespondDistrict}}</td>
+                            </tr>
+                            <tr>
+                                <td><strong> State: </strong> </td>
+                                <td>{{Model?.DetailAddress?.CorrespondState}}</td>
+                                <td><strong> Pincode : </strong> </td>
+                                <td>{{Model?.DetailAddress?.CorrespondPinCode}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+
+        </div>
+
+
+        <div class="widget-content widget-content p-3 form-grp-w-border">
+            <h2> <img src="assets/img/document_details.png">KYC Document Details</h2>
+            <div class="mb-3">
+                <h4 class="mb-3 text-danger">Proof of identity</h4>
+                <div class="table-responsive">
+                    <table class="table  table-borderless table-data-info table-font-17 table-v-align-top m-0">
+                        <tbody>
+                            <tr>
+                                <td style="width: 20%;"> <strong> Document Name: </strong> </td>
+                                <td style="width: 30%;">{{Model?.KYCDetail?.PoidocumentType}}</td>
+                                <td style="width: 20%;"><strong> Document number: </strong> </td>
+                                <td style="width: 30%;">{{Model?.KYCDetail?.PoidocumentNumber}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="mb-0">
+                <h4 class="mb-3 text-danger">Proof of address</h4>
+                <div class="table-responsive">
+                    <table class="table  table-borderless table-data-info table-font-17 table-v-align-top m-0">
+                        <tbody>
+                            <tr>
+                                <td style="width: 20%;"> <strong> Document Name: </strong> </td>
+                                <td style="width: 30%;">{{Model?.KYCDetail?.PoadocumentType}}</td>
+                                <td style="width: 20%;"><strong> Document number: </strong> </td>
+                                <td style="width: 30%;">{{Model?.KYCDetail?.PoadocumentNumber}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
 
-
-    <<<<<<< HEAD <div class="widget-content widget-content p-3 form-grp-w-border">
+    <div class="widget-content widget-content p-3 form-grp-w-border" *ngIf="Model?.KYCDetail != null">
         <h2> <img src="assets/img/document_details.png">KYC Document Details</h2>
         <div class="mb-3">
             <h4 class="mb-3 text-danger">Proof of identity</h4>
@@ -300,41 +335,5 @@
                 </table>
             </div>
         </div>
-</div>
-</div>
-=======
-<div class="widget-content widget-content p-3 form-grp-w-border" *ngIf="Model?.KYCDetail != null">
-    <h2> <img src="assets/img/document_details.png">KYC Document Details</h2>
-    <div class="mb-3">
-        <h4 class="mb-3 text-danger">Proof of identity</h4>
-        <div class="table-responsive">
-            <table class="table  table-borderless table-data-info table-font-17 table-v-align-top m-0">
-                <tbody>
-                    <tr>
-                        <td style="width: 20%;"> <strong> Document Name: </strong> </td>
-                        <td style="width: 30%;">{{Model?.KYCDetail?.PoidocumentType}}</td>
-                        <td style="width: 20%;"><strong> Document number: </strong> </td>
-                        <td style="width: 30%;">{{Model?.KYCDetail?.PoidocumentNumber}}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <div class="mb-0">
-        <h4 class="mb-3 text-danger">Proof of address</h4>
-        <div class="table-responsive">
-            <table class="table  table-borderless table-data-info table-font-17 table-v-align-top m-0">
-                <tbody>
-                    <tr>
-                        <td style="width: 20%;"> <strong> Document Name: </strong> </td>
-                        <td style="width: 30%;">{{Model?.KYCDetail?.PoadocumentType}}</td>
-                        <td style="width: 20%;"><strong> Document number: </strong> </td>
-                        <td style="width: 30%;">{{Model?.KYCDetail?.PoadocumentNumber}}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
     </div>
 </div>
-</div>
->>>>>>> 1add7323f0e3687503256966c29fe74788b812c4
