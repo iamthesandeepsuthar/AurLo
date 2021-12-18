@@ -10,6 +10,7 @@ namespace AurigainLoanERP.Shared.ContractModel
         {            
             JewelleryDetail = new BtGoldLoanLeadJewelleryDetailViewModel();           
             ExistingLoanDetail = new BtGoldLoanLeadExistingLoanViewModel();
+            BalanceTransferReturn = new BalanceTranferReturnViewModel();
         }
         public long Id { get; set; }
         public int ProductId { get; set; }
@@ -38,7 +39,7 @@ namespace AurigainLoanERP.Shared.ContractModel
     }
     public class BalanceTranferReturnPostModel 
     {
-        public long Id { get; set;}
+        public long BtReturnId { get; set;}
         public long LeadId { get; set;}
         public bool? AmountPainToExistingBank { get; set; }
         public bool? GoldReceived { get; set; }
@@ -51,7 +52,7 @@ namespace AurigainLoanERP.Shared.ContractModel
         public string Remarks { get; set; }
         public string UtrNumber { get; set; }
         public decimal? AmountReturn { get; set; }
-        public DateTime FinalPaymentDate { get; set;}
+        public string FinalPaymentDate { get; set;}
         public BalanceTransferReturnBankChequeDetail ChequeDetail { get; set; }
     }
 }

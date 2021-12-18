@@ -37,6 +37,7 @@ export class DetailOtherLoanLeadComponent implements OnInit {
       subscription.unsubscribe();
       if(response.IsSuccess) {
         this.model = response.Data as FreshLeadHLPLCLModel;
+        console.log(this.model);
       } else {
         this._toast.error(response.Message as string , 'No Record Found');
         return;

@@ -6,6 +6,7 @@
         public const string UserDocsFile = "\\Content\\UserFiles\\UserDocs\\";
         public const string BankLogoFile = "\\Content\\BankFiles\\Logo\\";
         public const string BTGoldLeadsDocsFile = "\\Content\\UserFiles\\LeadsDocs\\BTGoldLoan\\";
+        public const string BTGoldLeadReturnCheques = "\\Content\\UserFiles\\LeadDocs\\BTGoldReturnDoc\\";
         public const string FreshGoldLeadsDocsFile = "\\Content\\UserFiles\\LeadsDocs\\FreshGoldLoan\\";
 
     }

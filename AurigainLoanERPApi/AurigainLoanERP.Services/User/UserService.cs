@@ -1402,7 +1402,7 @@ namespace AurigainLoanERP.Services.User
                         objModel.UserName = model.UserName ?? model.Email;
                         objModel.CreatedOn = DateTime.Now;
                         objModel.Password = encrptPassword;
-                        objModel.Mpin = GenerateUniqueId();//_security.EncryptData(GenerateUniqueId());
+                        objModel.Mpin = GenerateUniqueId();
                         objModel.IsWhatsApp = model.IsWhatsApp;
                         var result = await _db.UserMaster.AddAsync(objModel);
                         await _db.SaveChangesAsync();

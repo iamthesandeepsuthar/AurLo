@@ -11,6 +11,7 @@ import { DetailFreshGoldLoanLeadComponent } from './fresh-gold-loan-leads/detail
 import { OtherLoanLeadsComponent } from './other-loan-leads/other-loan-leads.component';
 import { DetailOtherLoanLeadComponent } from './other-loan-leads/detail-other-loan-lead/detail-other-loan-lead.component';
 import { AddUpdateFreshGoldLoanLeadComponent } from './fresh-gold-loan-leads/add-update-fresh-gold-loan-lead/add-update-fresh-gold-loan-lead.component';
+import { BalanceTransferReturnComponent } from './balance-transfer-return/balance-transfer-return.component';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import { AddUpdateFreshGoldLoanLeadComponent } from './fresh-gold-loan-leads/add
     OtherLoanLeadsComponent,
     DetailOtherLoanLeadComponent,
     AddUpdateFreshGoldLoanLeadComponent,
+    BalanceTransferReturnComponent,
 
   ],
   imports: [
