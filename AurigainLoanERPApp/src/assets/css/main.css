@@ -3573,8 +3573,11 @@ table tbody tr:nth-of-type(odd) .table-data-name span {
     background-repeat: no-repeat;
     background-position: center center;
     flex: 0 0 75px;
-    background-color: #fff;
+    background-color: #ebebeb;
     overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .small-media-items-img img {
@@ -4333,6 +4336,10 @@ tr td:last-child.table-action-btn {
 
 .table-action-dropdown ul.dropdown-menu a:hover {
     background: #fff !important;
+}
+
+.swal2-container.swal2-center>.swal2-popup {
+    border-radius: 40px;
 }
 
 
