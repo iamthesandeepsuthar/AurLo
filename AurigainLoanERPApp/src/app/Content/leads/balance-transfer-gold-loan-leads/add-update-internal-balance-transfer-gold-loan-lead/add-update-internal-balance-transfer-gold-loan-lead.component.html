@@ -372,7 +372,7 @@
 
 
   <mat-step [stepControl]="leadFormAppointmentDetail">
-    <form [formGroup]="leadFormAppointmentDetail" (ngSubmit)="onSubmit()">
+    <form [formGroup]="leadFormAppointmentDetail" (ngSubmit)="leadFormAppointmentDetail.markAllAsTouched()">
       <ng-template matStepLabel>Appointment Details</ng-template>
       <div class="step-grp-content">
         <div class="custom_stepers-body-items-form row">
@@ -444,7 +444,9 @@
       <div class="step-form-btn-grp mt-3">
         <button class="btn btn-outline-danger mr-3" mat-button matStepperPrevious><i
             class="fas fa-angle-left mr-1"></i>Back</button>
-        <button class="btn btn-success" mat-button type="submit"><i class="fas fa-check mr-1"></i> Submit</button>
+        <button class="btn btn-primary" mat-button matStepperNext><i class="fas fa-check mr-1"></i> Next</button>
+
+
       </div>
     </form>
   </mat-step>
@@ -556,7 +558,7 @@
   </mat-step>
 
   <mat-step [stepControl]="leadFormExistingLoanDetail">
-    <form [formGroup]="leadFormExistingLoanDetail" (ngSubmit)="leadFormExistingLoanDetail.markAllAsTouched()">
+    <form [formGroup]="leadFormExistingLoanDetail" (ngSubmit)="onSubmit()">
       <ng-template matStepLabel>Exisiting loan Details</ng-template>
       <div class="step-grp-content">
         <div class="custom_stepers-body-items-form row">
@@ -659,7 +661,7 @@
       <div class="step-form-btn-grp mt-3">
         <button class="btn btn-outline-danger mr-3" mat-button matStepperPrevious><i
             class="fas fa-angle-left mr-1"></i>Back</button>
-        <button class="btn btn-primary" mat-button matStepperNext><i class="fas fa-check mr-1"></i> Next</button>
+            <button class="btn btn-success" mat-button type="submit"><i class="fas fa-check mr-1"></i> Submit</button>
       </div>
     </form>
   </mat-step>
