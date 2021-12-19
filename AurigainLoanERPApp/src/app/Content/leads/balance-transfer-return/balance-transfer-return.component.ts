@@ -73,7 +73,8 @@ export class BalanceTransferReturnComponent implements OnInit {
       PaymentMethod:[undefined, Validators.required],
       ReturnAmount:[undefined,Validators.required],
       FinalPaymentDate:[undefined],
-      UtrNo:[undefined]
+      UtrNo:[undefined],
+      Remark:[undefined]
     });
   }
   CheckDisbursementStatus(value: any) {
@@ -88,7 +89,7 @@ export class BalanceTransferReturnComponent implements OnInit {
    this.model.AmountPainToExistingBank = this.detailModel.BalanceTransferReturn.AmountPainToExistingBank;
    this.model.GoldSubmittedToBank = this.detailModel.BalanceTransferReturn.GoldSubmittedToBank;
    this.model.LeadId = this.detailModel.Id;
-   this.model.BtReturnId = this.detailModel.BalanceTransferReturn.Id;
+   this.model.BtReturnId = Number(this.detailModel.BalanceTransferReturn.Id);
    let subscription = this._btLeadService.AddUpdateBTBalanceReturn(this.model).subscribe(response =>{
    subscription.unsubscribe();
    if(response.IsSuccess){
@@ -124,7 +125,12 @@ export class BalanceTransferReturnComponent implements OnInit {
   FinalSubmit(){
     this.formBalanceReturn.markAllAsTouched();
     if(this.formBalanceReturn.valid){
-     if(this.checkLoanAmount()) {
+     let  returnAmountValue = this.checkLoanAmount();
+     if( returnAmountValue) {
+       this.model.BtReturnId = Number(this.detailModel.BalanceTransferReturn.Id);
+       this.model.LoanDisbursment = Boolean(this.model.LoanDisbursment);
+       this.model.AmountReturn = Number(this.model.AmountReturn);
+       this.model.PaymentMethod = Number(this.model.PaymentMethod);
       this.model.GoldReceived = this.DetailModel.BalanceTransferReturn.GoldReceived;
       this.model.AmountPainToExistingBank = this.detailModel.BalanceTransferReturn.AmountPainToExistingBank;
       this.model.GoldSubmittedToBank = this.detailModel.BalanceTransferReturn.GoldSubmittedToBank;
@@ -140,6 +146,30 @@ export class BalanceTransferReturnComponent implements OnInit {
           return;
         }
         });
+     } else if(this.model.FinalPaymentDate != undefined) {
+      this.model.BtReturnId = Number(this.detailModel.BalanceTransferReturn.Id);
+      this.model.LoanDisbursment = Boolean(this.model.LoanDisbursment);
+      this.model.AmountReturn = Number(this.model.AmountReturn);
+      this.model.PaymentMethod = Number(this.model.PaymentMethod);
+      this.model.GoldReceived = this.DetailModel.BalanceTransferReturn.GoldReceived;
+      this.model.AmountPainToExistingBank = this.detailModel.BalanceTransferReturn.AmountPainToExistingBank;
+      this.model.GoldSubmittedToBank = this.detailModel.BalanceTransferReturn.GoldSubmittedToBank;
+      this.model.LeadId = this.detailModel.Id;
+      this.model.BtReturnId = this.detailModel.BalanceTransferReturn.Id;
+      let subscription = this._btLeadService.AddUpdateBTBalanceReturn(this.model).subscribe(response =>{
+        subscription.unsubscribe();
+        if(response.IsSuccess){
+        this._toast.success(response.Message as string, 'Success');
+        return;
+        } else {
+          this._toast.error(response.Message as string , 'Server Error');
+          return;
+        }
+        });
+
+     } else {
+       this._toast.warning('Please select final payment date', 'Required');
+       return;
      }
   }
   }
