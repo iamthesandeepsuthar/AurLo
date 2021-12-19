@@ -168,7 +168,8 @@
                                     </a>
                                 </li>
                                 <li>
-                                  <a routerLink="../{{routing_Url.BT_GoldLoan_BalanceReturn_Url +'/'+ row.Id}}"  *ngIf="!row?.IsStatusCompleted && this.userDetail!.RoleId != userRoleEnum.Customer  && (  !row?.ApprovedStage || row?.ApprovedStage > this.userDetail!.RoleLevel)" class="table-action-btn-lead-approval text-info"
+                                  <!-- && (  !row?.ApprovedStage || row?.ApprovedStage > this.userDetail!.RoleLevel) -->
+                                  <a routerLink="../{{routing_Url.BT_GoldLoan_BalanceReturn_Url +'/'+ row.Id}}"  *ngIf="(row?.LeadStatusId != leadStatusEnum.Completed || row?.LeadStatusId != leadStatusEnum.Rejected || row?.LeadStatus !='New') && this.userDetail!.RoleId != userRoleEnum.Customer" class="table-action-btn-lead-approval text-info"
                                       data-toggle="tooltip" data-placement="bottom" title="Balance Return">
                                       <i class="fas fa-exchange-alt mr-1"></i>Balance Return
                                   </a>

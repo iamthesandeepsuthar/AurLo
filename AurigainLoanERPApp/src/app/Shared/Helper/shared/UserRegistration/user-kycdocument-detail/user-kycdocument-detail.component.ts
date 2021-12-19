@@ -62,7 +62,6 @@ export class UserKYCDocumentDetailComponent implements OnInit, OnChanges {
         this.docTypeModel = this.docTypeModel?.sort(function (a, b) { return a.Id - b.Id });
 
         this.docTypeModel!.forEach(x => {
-          debugger
           let existingKYCItem = this.kycModel.findIndex(xi => xi.KycdocumentTypeId == x.Id);
           let existingDocItem = this.documentModel.findIndex(xi => xi.DocumentTypeId == x.Id);
 

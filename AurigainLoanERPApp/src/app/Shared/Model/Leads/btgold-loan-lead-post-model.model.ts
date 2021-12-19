@@ -118,6 +118,7 @@ export class BTGoldLoanLeadListModel {
   LeadStatus!: string;
   ApprovalStatus!:string;
   LoanCaseNumber!:string;
+  LeadStatusId!:number;
 }
 export class BTGoldLoanLeadViewModel {
   Id!: number;

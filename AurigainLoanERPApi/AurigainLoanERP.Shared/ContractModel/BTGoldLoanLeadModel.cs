@@ -254,6 +254,7 @@ namespace AurigainLoanERP.Shared.ContractModel
         public bool IsStatusCompleted { get; set; }
         public int? ApprovedStage { get; set; }
         public string LoanCaseNumber { get; set; }
+        public int LeadStatusId { get; set;}
     }
     public class BTGoldLoanBalanceReturnLeadListModel {
         public long Id { get; set;}

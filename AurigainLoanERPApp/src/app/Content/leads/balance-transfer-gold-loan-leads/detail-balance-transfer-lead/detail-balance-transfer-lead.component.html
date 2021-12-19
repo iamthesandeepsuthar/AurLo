@@ -193,6 +193,7 @@
                             <td><strong> Date of Appointment: </strong> </td>
                             <td>{{Model.AppointmentDetail?.AppointmentDate | date}}</td>
                             <td><strong> Time of Appointment : </strong> </td>
+                            {{Model?.AppointmentDetail?.AppointmentTime}}
                             <td>{{Model?.AppointmentDetail?.AppointmentTime | date:'h:mm a z'}}</td>
                         </tr>
 

@@ -32,3 +32,10 @@ export enum PaymentMethod {
   IMPS=3,
   CHEQUE=4,
 }
+export enum LeadStatusEnum {
+  Pending = 1,
+  Mismatched = 2,
+  InCompleted = 3,
+  Rejected = 4,
+  Completed = 5
+}

@@ -1,3 +1,4 @@
+import { LeadStatusEnum } from './../../../Shared/Enum/fixed-value';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
@@ -32,6 +33,7 @@ export class BalanceTransferGoldLoanLeadsComponent implements OnInit {
   @ViewChild(MatSort, { static: true }) sort!: MatSort;
   get userDetail() { return this._auth.GetUserDetail() };
   get userRoleEnum() { return UserRoleEnum };
+  get leadStatusEnum() { return LeadStatusEnum};
   get routing_Url() { return Routing_Url };
 
   displayedColumns: string[] = ['index','LoanCaseNumber', 'FullName', 'FatherName','IsInternalLead', 'PrimaryMobileNumber','ProductName', 'Pincode', 'LoanAmountRequired','LeadSourceByUserName', 'LeadStatus','ApprovalStatus', 'Action'];
@@ -66,6 +68,7 @@ export class BalanceTransferGoldLoanLeadsComponent implements OnInit {
       serve.unsubscribe();
       if (response.IsSuccess) {
         this.model = response.Data as BTGoldLoanLeadListModel[];
+        console.log('data------------',this.model);
         this.dataSource = new MatTableDataSource<BTGoldLoanLeadListModel>(this.model);
         this.totalRecords = response.TotalRecord as number;
 

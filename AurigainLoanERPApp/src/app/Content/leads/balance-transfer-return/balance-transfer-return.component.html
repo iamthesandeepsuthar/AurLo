@@ -38,7 +38,7 @@
                         <td><strong>Mobile Number: </strong> </td>
                         <td>{{DetailModel.Mobile}}</td>
                         <td><strong> Lender: </strong> </td>
-                        <td>{{DetailModel!.ExistingLoanDetail.BankName}}</td>
+                        <td>{{DetailModel!.ExistingLoanDetail!.BankName}}</td>
                     </tr>
                 </tbody>
             </table>
@@ -150,7 +150,12 @@
                     </div>
                     <div *ngIf="!this.IsChequeDetail" class="form-group col-md-4">
                         <label>UTR Number</label>
-                        <input type="text" [(ngModel)]="Model.UtrNumber" formControlName="UtrNo" name="UtrNo" class="form-control" id="input1" placeholder="UTR Number"> </div>
+                        <input type="text"  [(ngModel)]="Model.UtrNumber" formControlName="UtrNo" name="UtrNo" class="form-control" id="input1" placeholder="UTR Number">
+                     </div>
+                     <div  class="form-group col-md-12">
+                      <label>Remarks</label>
+                      <input type="text" [(ngModel)]="Model.Remarks" formControlName="Remark" name="Remark" class="form-control" id="input1" placeholder="Remarks">
+                   </div>
                 </div>
                 <div class="form-footer-btn-grp widget-content widget-content p-3 text-center">
                     <button type="submit" class="btn btn-success mr-3"> <i class="fas fa-check mr-1"></i>Final Submit </button>

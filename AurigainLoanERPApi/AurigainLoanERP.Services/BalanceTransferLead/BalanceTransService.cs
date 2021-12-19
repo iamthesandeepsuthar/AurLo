@@ -223,7 +223,8 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                                               ApprovalStatus = detail.ApprovalStatus,
                                               ApprovedStage = detail.BtgoldLoanLeadApprovalActionHistory.Count > 0 ?
                                               detail.BtgoldLoanLeadApprovalActionHistory.OrderByDescending(x => x.Id).FirstOrDefault(x => x.ActionTakenByUserId.HasValue).ActionTakenByUser.UserRole.UserRoleLevel.Value : (int?)null,
-                                              LoanCaseNumber = detail.LoanCaseNumber !=null? detail.LoanCaseNumber:"N/A" 
+                                              LoanCaseNumber = detail.LoanCaseNumber != null ? detail.LoanCaseNumber : "N/A",
+                                              LeadStatusId = detail.BtgoldLoanLeadStatusActionHistory.Where(x => x.LeadId == detail.Id).OrderByDescending(x => x.Id).FirstOrDefault().LeadStatus.Value
                                           }).ToListAsync();
                 if (result != null)
                 {
