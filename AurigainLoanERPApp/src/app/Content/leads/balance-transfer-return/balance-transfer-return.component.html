@@ -23,10 +23,10 @@
             <table class="table  table-borderless table-data-info table-font-17 table-v-align-top m-0">
                 <tbody>
                     <tr>
-                        <td><strong> Loan Case No.: </strong> </td>
-                        <td>{{DetailModel.LoanCaseNumber}}</td>
-                        <td><strong> Full Name : </strong> </td>
-                        <td>{{DetailModel.FullName}}</td>
+                        <td style="width: 20%;"><strong> Loan Case No.: </strong> </td>
+                        <td style="width: 30%;">{{DetailModel.LoanCaseNumber}}</td>
+                        <td style="width: 20%;"><strong> Full Name : </strong> </td>
+                        <td style="width: 30%;">{{DetailModel.FullName}}</td>
                     </tr>
                     <tr>
                         <td><strong> Loan Amount: </strong> </td>
@@ -50,15 +50,15 @@
             <table class="table  table-borderless table-data-info table-font-17 table-v-align-top m-0">
                 <tbody>
                     <tr>
-                        <td><strong> Type Jewellery : </strong> </td>
-                        <td>{{DetailModel!.JewelleryDetail!.JewelleryType}}</td>
-                        <td><strong> Quantity : </strong> </td>
-                        <td>{{DetailModel!.JewelleryDetail!.Quantity}}</td>
+                        <td style="width: 20%;"><strong> <i class="fas fa-gem mr-1"></i> Type Jewellery : </strong> </td>
+                        <td style="width: 30%;">{{DetailModel!.JewelleryDetail!.JewelleryType}}</td>
+                        <td style="width: 20%;"><strong> <i class="fas fa-list-ol mr-1"></i> Quantity : </strong> </td>
+                        <td style="width: 30%;">{{DetailModel!.JewelleryDetail!.Quantity}}</td>
                     </tr>
                     <tr>
-                        <td><strong> Weight : </strong> </td>
+                        <td><strong> <i class="fas fa-weight mr-1"></i> Weight : </strong> </td>
                         <td>{{DetailModel!.JewelleryDetail!.Weight}} </td>
-                        <td><strong> Karat : </strong> </td>
+                        <td><strong> <i class="fas fa-cube mr-1"></i> Karat : </strong> </td>
                         <td>{{DetailModel!.JewelleryDetail!.Karats}}</td>
                     </tr>
                 </tbody>
@@ -68,13 +68,13 @@
     <div class="widget-content widget-content p-3 form-grp-w-border">
         <h2> <img src="assets/img/loan.png">Loan Status</h2>
         <div class="d-flex flex-wrap">
-            <div>
+            <div class="mr-4">
                 <div class="n-chk">
                     <label class="new-control new-checkbox checkbox-info">
 						<input type="checkbox" [(ngModel)]="DetailModel!.BalanceTransferReturn!.AmountPainToExistingBank"class="new-control-input" name="custom-radio-10"> <span class="new-control-indicator"></span>Amount Paid To Existing Bank </label>
                 </div>
             </div>
-            <div>
+            <div class="mr-4">
                 <div class="n-chk">
                     <label class="new-control new-checkbox checkbox-info">
 						<input type="checkbox" class="new-control-input" [(ngModel)]="DetailModel!.BalanceTransferReturn!.GoldReceived" name="custom-radio-10" checked> <span class="new-control-indicator"></span>Gold Received </label>
