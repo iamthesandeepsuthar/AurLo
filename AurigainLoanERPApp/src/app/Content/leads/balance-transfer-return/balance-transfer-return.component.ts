@@ -26,6 +26,7 @@ export class BalanceTransferReturnComponent implements OnInit {
   IsLoanAccountNumber:boolean = false;
   IsChequeDetail:boolean = false;
   formBalanceReturn!: FormGroup;
+  get f() { return this.formBalanceReturn.controls; }
   @ViewChild('HideAddUpdateModel') HideAddUpdateModel!: ElementRef;
   get DetailModel(): BalanceTransferReturnViewModel {
     return this.detailModel;
@@ -99,13 +100,14 @@ export class BalanceTransferReturnComponent implements OnInit {
    }
    });
   }
-  checkLoanAmount() {
+  checkLoanAmount() : boolean {
     if(this.model.AmountReturn != this.detailModel.LoanAmount) {
       this.IsFinalPaymentDate = true;
       this._toast.warning('Please select final payment date','Required');
-      return;
+      return false;
     } {
       this.IsFinalPaymentDate = false;
+      return true;
     }
   }
   checkPaymentMethod(paymentMethod: number| null){
@@ -116,18 +118,29 @@ export class BalanceTransferReturnComponent implements OnInit {
      this.IsChequeDetail = false;
    }
   }
-  FinalSubmit(){
-    this.checkLoanAmount();
-  this.formBalanceReturn.markAllAsTouched();
-  if(this.formBalanceReturn.valid){
-    this.model.GoldReceived = this.DetailModel.BalanceTransferReturn.GoldReceived;
-    this.model.AmountPainToExistingBank = this.detailModel.BalanceTransferReturn.AmountPainToExistingBank;
-    this.model.GoldSubmittedToBank = this.detailModel.BalanceTransferReturn.GoldSubmittedToBank;
-    this.model.LeadId = this.detailModel.Id;
-    this.model.BtReturnId = this.detailModel.BalanceTransferReturn.Id;
-  }
-  }
   SetChequeDetail() {
     this.HideAddUpdateModel.nativeElement.click();
+  }
+  FinalSubmit(){
+    this.formBalanceReturn.markAllAsTouched();
+    if(this.formBalanceReturn.valid){
+     if(this.checkLoanAmount()) {
+      this.model.GoldReceived = this.DetailModel.BalanceTransferReturn.GoldReceived;
+      this.model.AmountPainToExistingBank = this.detailModel.BalanceTransferReturn.AmountPainToExistingBank;
+      this.model.GoldSubmittedToBank = this.detailModel.BalanceTransferReturn.GoldSubmittedToBank;
+      this.model.LeadId = this.detailModel.Id;
+      this.model.BtReturnId = this.detailModel.BalanceTransferReturn.Id;
+      let subscription = this._btLeadService.AddUpdateBTBalanceReturn(this.model).subscribe(response =>{
+        subscription.unsubscribe();
+        if(response.IsSuccess){
+        this._toast.success(response.Message as string, 'Success');
+        return;
+        } else {
+          this._toast.error(response.Message as string , 'Server Error');
+          return;
+        }
+        });
+     }
+  }
   }
 }

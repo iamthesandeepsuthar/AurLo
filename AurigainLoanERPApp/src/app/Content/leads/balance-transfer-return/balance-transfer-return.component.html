@@ -110,29 +110,39 @@
                 <div class="form-row">
                     <div class="form-group col-md-4" *ngIf="IsLoanAccountNumber">
                         <label>Loan A/C No.</label>
-
                         <input type="text" class="form-control" name="LoanAccountNumber" formControlName="LoanAccountNumber" [(ngModel)]="Model.LoanAccountNumber" id="input1" placeholder="Loan A/C No."> </div>
-                    <div class="form-group col-md-4">
+                        <div class="form-group col-md-4">
                         <label>Bank Name</label>
-                        <input type="text" class="form-control" name="BankName" formControlName="BankName" [(ngModel)]="Model.BankName" id="input1" placeholder="Bank Name"> </div>
+                        <input type="text" [ngClass]="{ 'is-invalid': f.BankName.errors && f.BankName.touched}"  class="form-control" name="BankName" formControlName="BankName" [(ngModel)]="Model.BankName" id="input1" placeholder="Bank Name">
+                        <div class="invalid-feedback"
+                        *ngIf="(formBalanceReturn.get('BankName')?.hasError('required') && formBalanceReturn.get('BankName')?.touched)">Bank Name Required.</div>
+                      </div>
                     <div class="form-group col-md-4">
                         <label>Customer Name</label>
-                        <input type="text" class="form-control" name="CustomerName" formControlName="CustomerName" [(ngModel)]="Model.CustomerName" id="input1" placeholder="Customer Name"> </div>
+                        <input type="text" class="form-control"[ngClass]="{ 'is-invalid': f.CustomerName.errors && f.CustomerName.touched}" name="CustomerName" formControlName="CustomerName" [(ngModel)]="Model.CustomerName" id="input1" placeholder="Customer Name">
+                        <div class="invalid-feedback"
+                        *ngIf="(formBalanceReturn.get('CustomerName')?.hasError('required') && formBalanceReturn.get('CustomerName')?.touched)">Customer Name Required</div>
+                      </div>
                     <div class="form-group col-md-4">
                         <label>Amount Returned</label>
-                        <input type="text" (keypress)="_commonService.NumberOnly($event)" class="form-control" [(ngModel)]="Model.AmountReturn" formControlName="ReturnAmount" name="ReturnAmount" id="input1" placeholder="Amount Returned"> </div>
+                        <input type="text" [ngClass]="{ 'is-invalid': f.ReturnAmount.errors && f.ReturnAmount.touched}" (keypress)="_commonService.NumberOnly($event)" class="form-control" [(ngModel)]="Model.AmountReturn" formControlName="ReturnAmount" name="ReturnAmount" id="input1" placeholder="Amount Returned">
+                        <div class="invalid-feedback"
+                        *ngIf="(formBalanceReturn.get('ReturnAmount')?.hasError('required') && formBalanceReturn.get('ReturnAmount')?.touched)">Return Amount Required
+                        </div>
+                    </div>
                     <div *ngIf="this.IsFinalPaymentDate" class="form-group col-md-4 date-icon-with-label">
                         <label>Final Payment Date</label>
-                        <input type="date" class="form-control" formControlName="FinalPaymentDate" [(ngModel)]="Model.FinalPaymentDate" name="FinalPaymentDate" id="input1" placeholder="DD/MM/YYYY"> <i class="fas fa-calendar-alt"></i> </div>
+                        <input type="date" class="form-control" formControlName="FinalPaymentDate" [(ngModel)]="Model.FinalPaymentDate" name="FinalPaymentDate" id="input1" placeholder="DD/MM/YYYY"></div>
                     <div class="form-group col-md-4">
                         <label>Payment Method</label>
-                        <select (change)="checkPaymentMethod(Model.PaymentMethod)" class="form-control" name="PaymentMethod" formControlName="PaymentMethod" [(ngModel)]="Model.PaymentMethod">
+                        <select [ngClass]="{ 'is-invalid': f.PaymentMethod.errors && f.PaymentMethod.touched}"  (change)="checkPaymentMethod(Model.PaymentMethod)" class="form-control" name="PaymentMethod" formControlName="PaymentMethod" [(ngModel)]="Model.PaymentMethod">
                       <option value=undefined>Select Payment Method</option>
                       <option value=1>RTGS</option>
 					          	<option value=2>NEFT</option>
 						          <option value=3>IMPS</option>
                       <option value=4>CHEQUE</option>
 					          </select>
+                    <div class="invalid-feedback"*ngIf="(formBalanceReturn.get('PaymentMethod')?.hasError('required') && formBalanceReturn.get('PaymentMethod')?.touched)">Please Select Payment Method </div>
                     </div>
                     <div *ngIf="this.IsChequeDetail" class="form-group col-md-4">
                         <label></label>
