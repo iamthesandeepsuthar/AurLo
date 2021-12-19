@@ -164,6 +164,8 @@ namespace AurigainLoanERP.Shared.ContractModel
         public string BranchName { get; set; }
         public string Ifsc { get; set; }
         public string Pincode { get; set; }
+        public int? BankId { get; set; }
+
         public string BankName { get; set; }
         public DateTime? AppointmentDate { get; set; }
         public string AppointmentTime { get; set; }

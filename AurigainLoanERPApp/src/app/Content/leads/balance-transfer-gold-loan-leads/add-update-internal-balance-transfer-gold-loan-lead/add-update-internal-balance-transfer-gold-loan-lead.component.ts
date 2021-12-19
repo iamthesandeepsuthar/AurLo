@@ -205,27 +205,28 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
         this.model.ExistingLoanDetail.Amount = 0;
       }
 
-      if(this.model.ExistingLoanDetail.JewelleryValuation)
-      {
-        this.model.ExistingLoanDetail.JewelleryValuation=Number(this.model.ExistingLoanDetail.JewelleryValuation);
+      if (this.model.ExistingLoanDetail.JewelleryValuation) {
+        this.model.ExistingLoanDetail.JewelleryValuation = Number(this.model.ExistingLoanDetail.JewelleryValuation);
       }
-      if(this.model.ExistingLoanDetail.OutstandingAmount)
-      {
-        this.model.ExistingLoanDetail.OutstandingAmount=Number(this.model.ExistingLoanDetail.OutstandingAmount);
+      if (this.model.ExistingLoanDetail.OutstandingAmount) {
+        this.model.ExistingLoanDetail.OutstandingAmount = Number(this.model.ExistingLoanDetail.OutstandingAmount);
       }
-      if(this.model.ExistingLoanDetail.BalanceTransferAmount)
-      {
-        this.model.ExistingLoanDetail.BalanceTransferAmount=Number(this.model.ExistingLoanDetail.BalanceTransferAmount);
+      if (this.model.ExistingLoanDetail.BalanceTransferAmount) {
+        this.model.ExistingLoanDetail.BalanceTransferAmount = Number(this.model.ExistingLoanDetail.BalanceTransferAmount);
       }
-      if(this.model.ExistingLoanDetail.RequiredAmount)
-      {
-        this.model.ExistingLoanDetail.RequiredAmount=Number(this.model.ExistingLoanDetail.RequiredAmount);
+      if (this.model.ExistingLoanDetail.RequiredAmount) {
+        this.model.ExistingLoanDetail.RequiredAmount = Number(this.model.ExistingLoanDetail.RequiredAmount);
       }
-      if(this.model.ExistingLoanDetail.Tenure)
-      {
-        this.model.ExistingLoanDetail.Tenure=Number(this.model.ExistingLoanDetail.Tenure);
+      if (this.model.ExistingLoanDetail.Tenure) {
+        this.model.ExistingLoanDetail.Tenure = Number(this.model.ExistingLoanDetail.Tenure);
+      }
+      if (this.model.JewelleryDetail.Quantity) {
+        this.model.JewelleryDetail.Quantity = Number(this.model.JewelleryDetail.Quantity);
       }
 
+      if (this.model.JewelleryDetail.Weight) {
+        this.model.JewelleryDetail.Weight = Number(this.model.JewelleryDetail.Weight);
+      }
       this._balanceTransferService.AddUpdateInternalLead(this.model).subscribe(res => {
         if (res.IsSuccess) {
           this.toast.success(Message.SaveSuccess);
@@ -246,8 +247,72 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
         serve.unsubscribe();
         if (res.IsSuccess) {
           let viewData = res.Data as BTGoldLoanLeadViewModel;
-          console.log(viewData);
+          this.model.Id = viewData.Id;
+          this.model.ProductId = viewData.ProductId;
+          this.model.FullName = viewData.FullName;
+          this.model.FatherName = viewData.FatherName;
+          this.model.Gender = viewData.Gender;
+          this.model.DateOfBirth = viewData.DateOfBirth;
+          this.model.Profession = viewData.Profession;
+          this.model.Mobile = viewData.Mobile;
+          this.model.EmailId = viewData.EmailId;
+          this.model.CustomerUserId = viewData.CustomerUserId;
+          this.model.SecondaryMobile = viewData.SecondaryMobile;
+          this.model.Purpose = viewData.Purpose;
+          this.model.LoanAmount = viewData.LoanAmount;
+          this.model.LoanAccountNumber = viewData.LoanAccountNumber;
+          this.model.LeadSourceByuserId = viewData.LeadSourceByuserId;
 
+          if (viewData.DetailAddress) {
+            this.AeraPincode = viewData.DetailAddress.PinCode;
+            this.getDropDownPinCodeArea(false, true);
+            this.model.AddressDetail.Id = viewData.DetailAddress.Id;
+            this.model.AddressDetail.Address = viewData.DetailAddress.Address;
+            this.model.AddressDetail.AeraPincodeId = viewData.DetailAddress.AeraPincodeId;
+
+            this.CorrespondAeraPincode = viewData.DetailAddress.CorrespondPinCode;
+            this.getDropDownPinCodeArea(true,true);
+            this.model.AddressDetail.CorrespondAddress = viewData.DetailAddress.CorrespondAddress;
+            this.model.AddressDetail.CorrespondAeraPincodeId = viewData.DetailAddress.CorrespondAeraPincodeId;
+          }
+          if (viewData.AppointmentDetail) {
+            this.BankId=  viewData.AppointmentDetail.BankId;
+            this.getDropDownBranch();
+
+            this.model.AppointmentDetail.Id = viewData.AppointmentDetail.Id;
+            this.model.AppointmentDetail.BranchId = viewData.AppointmentDetail.BranchId;
+            this.model.AppointmentDetail.AppointmentDate = viewData.AppointmentDetail.AppointmentDate;
+            this.model.AppointmentDetail.AppointmentTime = viewData.AppointmentDetail.AppointmentTime;
+          }
+
+          if (viewData.ExistingLoanDetail) {
+            this.model.ExistingLoanDetail.Id = viewData.ExistingLoanDetail.Id;
+            this.model.ExistingLoanDetail.BankName = viewData.ExistingLoanDetail.BankName;
+            this.model.ExistingLoanDetail.Amount = viewData.ExistingLoanDetail.Amount;
+            this.model.ExistingLoanDetail.Date = viewData.ExistingLoanDetail.Date;
+            this.model.ExistingLoanDetail.JewelleryValuation = viewData.ExistingLoanDetail.JewelleryValuation;
+            this.model.ExistingLoanDetail.OutstandingAmount = viewData.ExistingLoanDetail.OutstandingAmount;
+            this.model.ExistingLoanDetail.BalanceTransferAmount = viewData.ExistingLoanDetail.BalanceTransferAmount;
+            this.model.ExistingLoanDetail.RequiredAmount = viewData.ExistingLoanDetail.RequiredAmount;
+            this.model.ExistingLoanDetail.Tenure = viewData.ExistingLoanDetail.Tenure;
+          }
+          if (viewData.JewelleryDetail) {
+            this.model.JewelleryDetail.Id = viewData.JewelleryDetail.Id;
+            this.model.JewelleryDetail.JewelleryTypeId = viewData.JewelleryDetail.JewelleryTypeId;
+            this.model.JewelleryDetail.Quantity = viewData.JewelleryDetail.Quantity;
+            this.model.JewelleryDetail.Weight = viewData.JewelleryDetail.Weight;
+            this.model.JewelleryDetail.Karats = viewData.JewelleryDetail.Karats;
+
+          }
+
+          if (viewData.KYCDetail) {
+            this.model.KYCDetail.Id = viewData.KYCDetail.Id;
+            this.model.KYCDetail.PoidocumentTypeId = viewData.KYCDetail.PoidocumentTypeId;
+            this.model.KYCDetail.PoidocumentNumber = viewData.KYCDetail.PoidocumentNumber;
+            this.model.KYCDetail.PoadocumentTypeId = viewData.KYCDetail.PoadocumentTypeId;
+            this.model.KYCDetail.PoadocumentNumber = viewData.KYCDetail.PoadocumentNumber;
+            this.model.KYCDetail.PANNumber = viewData.KYCDetail.PANNumber;
+          }
         }
       })
     }

@@ -20,7 +20,7 @@ export class BTGoldLoanLeadPostModel {
   CustomerUserId!: number;
   SecondaryMobile!: string;
   Purpose!: string;
-  LoanAmount!: number |null;
+  LoanAmount!: number | null;
   LoanAccountNumber!: string;
   LeadSourceByuserId!: number;
   AddressDetail!: BtGoldLoanLeadAddressPostModel;
@@ -85,8 +85,8 @@ export class BtGoldLoanLeadKYCDetailPostModel {
   PoidocumentTypeId!: number;
   PoidocumentNumber!: string | null;
   PoadocumentTypeId!: number;
-  PoadocumentNumber!: string|null;
-  PANNumber !: string|null;
+  PoadocumentNumber!: string | null;
+  PANNumber !: string | null;
 }
 
 export class FileModel {
@@ -106,25 +106,25 @@ export class BTGoldLoanLeadListModel {
   LeadSourceByUserId!: number;
   LeadSourceByUserName!: string;
   LoanAmountRequired!: number;
-  IsInternalLead!:boolean;
+  IsInternalLead!: boolean;
   ProductId!: number;
   ProductName!: string;
   CreatedDate!: string;
   Pincode!: string;
   IsActive!: boolean;
   IsDelete!: boolean;
-  IsStatusCompleted! : boolean;
-  ApprovedStage! : number;
+  IsStatusCompleted!: boolean;
+  ApprovedStage!: number;
   LeadStatus!: string;
-  ApprovalStatus!:string;
-  LoanCaseNumber!:string;
-  LeadStatusId!:number;
+  ApprovalStatus!: string;
+  LoanCaseNumber!: string;
+  LeadStatusId!: number;
 }
 export class BTGoldLoanLeadViewModel {
   Id!: number;
   ProductId!: number;
-  ProductCategoryName!:string;
-  LoanCaseNumber!:string;
+  ProductCategoryName!: string;
+  LoanCaseNumber!: string;
   FullName!: string;
   FatherName!: string;
   Gender!: string;
@@ -158,6 +158,7 @@ export class KYCDetail {
   PoadocumentTypeId!: number;
   PoadocumentNumber!: string;
   PoadocumentType!: string;
+  PANNumber!: string;
 }
 
 export class JewelleryDetail {
@@ -199,6 +200,7 @@ export class AppointmentDetail {
   Id!: number;
   BranchId!: number;
   BranchName!: string;
+  BankId!: number;
   BankName!: string;
   Ifsc!: string;
   Pincode!: string;
