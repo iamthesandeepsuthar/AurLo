@@ -364,7 +364,8 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                             PoidocumentNumber = x.PoidocumentNumber ?? null,
                             PoadocumentTypeId = x.PoadocumentTypeId,
                             PoadocumentNumber = x.PoadocumentNumber ?? null,
-                            PoadocumentType = x.PoadocumentType.DocumentName ?? null
+                            PoadocumentType = x.PoadocumentType.DocumentName ?? null,
+                            PANNumber = x.Pannumber?? null
 
                         }).FirstOrDefault();
                     }

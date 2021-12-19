@@ -319,18 +319,18 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
     }
   }
 
-  onChangePOIDocument(value: number) {
+  onChangePOIDocument(value: any) {
 
-    let doc = this.ddlDocumentTypeModel?.find(x => x.Id == value);
+    let doc = this.ddlDocumentTypeModel?.find(x => x.Id == value.Id);
     this.f7.PoidocumentNumber.setValidators(Validators.compose([Validators.minLength(doc?.DocumentNumberLength as number), Validators.maxLength(doc?.DocumentNumberLength as number)]));
     this.f7.PoidocumentNumber.updateValueAndValidity();
 
     this.docPOIMaxChar = doc?.DocumentNumberLength ?? 0;
   }
 
-  onChangePOADocument(value: number) {
-
-    let doc = this.ddlDocumentTypeModel?.find(x => x.Id == value);
+  onChangePOADocument(value: any) {
+debugger
+    let doc = this.ddlDocumentTypeModel?.find(x => x.Id == value.Id);
     this.f7.PoadocumentNumber.setValidators(Validators.compose([Validators.minLength(doc?.DocumentNumberLength as number), Validators.maxLength(doc?.DocumentNumberLength as number)]));
     this.f7.PoadocumentNumber.updateValueAndValidity();
     this.docPOAMaxChar = doc?.DocumentNumberLength ?? 0

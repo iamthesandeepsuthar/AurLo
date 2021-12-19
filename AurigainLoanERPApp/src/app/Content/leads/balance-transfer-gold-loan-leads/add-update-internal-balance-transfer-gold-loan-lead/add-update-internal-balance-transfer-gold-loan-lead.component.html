@@ -377,7 +377,7 @@
       <div class="step-grp-content">
         <div class="custom_stepers-body-items-form row">
           <div class="form-group col-md-4">
-            <label>Document Type</label>
+            <label>Document Type (POI)</label>
 
 
             <ng-select [items]="ddlDocumentTypeModel"
@@ -412,19 +412,20 @@
 
 
           <div class="form-group col-md-4">
-            <label>Document Type</label>
+            <label>Document Type (POA)</label>
 
 
             <ng-select [items]="ddlDocumentTypeModel"
-              (change)="this.model.KYCDetail.PoadocumentNumber=null;onChangePOADocument($event)" [searchable]="true"
+              (change)="onChangePOADocument($event);this.model.KYCDetail.PoadocumentNumber=null;" [searchable]="true"
               bindLabel="Name" bindValue="Id" placeholder="Select Document Type" formControlName="PoadocumentType"
               [ngClass]="{ 'is-invalid': f7.PoadocumentType?.errors && f7.PoadocumentType?.touched}"
               [(ngModel)]="model.KYCDetail.PoadocumentTypeId">
             </ng-select>
+
             <div class="invalid-feedback"
               *ngIf="(leadFormKYCDetail.get('PoadocumentType')?.hasError('required')
               && leadFormKYCDetail.get('PoadocumentType')?.touched)">
-              select Document Type! </div>
+              select Document For Proof of address...! </div>
 
           </div>
           <div class="form-group col-md-4">
