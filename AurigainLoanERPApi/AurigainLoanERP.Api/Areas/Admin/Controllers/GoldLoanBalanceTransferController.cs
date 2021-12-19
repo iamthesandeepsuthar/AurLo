@@ -105,7 +105,7 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
         /// Success or Fail In Boolean Flag
         /// </returns>
         [HttpPost]
-        //[AllowAnonymous]
+        [AllowAnonymous]
         public async Task<ApiServiceResponseModel<object>> AddUpdateBTGoldLoanLeadBalanceRetrun(BalanceTranferReturnPostModel model)
         {
             if (ModelState.IsValid)

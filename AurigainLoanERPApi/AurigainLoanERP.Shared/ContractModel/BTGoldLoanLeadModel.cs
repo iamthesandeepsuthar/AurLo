@@ -274,7 +274,6 @@ namespace AurigainLoanERP.Shared.ContractModel
     {
         public long Id { get; set;}
         public string ChequeNumber { get; set;}
-        public string ChequeImageUrl { get; set;}
-        public FilePostModel File { get; set;}
+        public FilePostModel ChequeImageUrl { get; set;}        
     }
 }

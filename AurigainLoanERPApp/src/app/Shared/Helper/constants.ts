@@ -191,7 +191,7 @@ export class API_Url {
  public static BT_Gold_Loan_Fresh_Lead_Status_History_Api =`${environment.apiEndPoint}GoldLoanBalanceTransfer/BTGoldLoanLeadStatusHistory/`;
  public static BT_Gold_Loan_Fresh_Approval_Status_History_Api = `${environment.apiEndPoint}GoldLoanBalanceTransfer/BTGoldLoanApprovalStatusHistory/`;
  public static BT_Gold_Loan_Lead_Balance_return_List_Api = `${environment.apiEndPoint}GoldLoanBalanceTransfer/BTGoldLoanBalanceReturnLeadList`;
- public static BT_Gold_Loan_Lead_Balance_Return_Detail_Api=`${environment.apiEndPoint}GoldLoanBalanceTransfer/BTGoldLoanLeadDetailForBalanceReturn`;
+ public static BT_Gold_Loan_Lead_Balance_Return_Detail_Api=`${environment.apiEndPoint}GoldLoanBalanceTransfer/BTGoldLoanLeadDetailForBalanceReturn/`;
  public static BT_Gold_Loan_Lead_Add_Update_Balance_Return_Api=`${environment.apiEndPoint}GoldLoanBalanceTransfer/AddUpdateBTGoldLoanLeadBalanceRetrun`;
  //#endregion
 }
