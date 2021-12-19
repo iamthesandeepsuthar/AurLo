@@ -43,7 +43,7 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
   leadFormAddressDetail!: FormGroup;
   leadFormAppointmentDetail!: FormGroup;
   leadFormJewelleryDetail!: FormGroup;
- // leadFormDocumentDetail!: FormGroup;
+  // leadFormDocumentDetail!: FormGroup;
   leadFormExistingLoanDetail!: FormGroup;
   leadFormKYCDetail!: FormGroup;
 
@@ -53,7 +53,9 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
   ddlBranchModel!: DDLBranchModel[];
   ddlAreaModel!: AvailableAreaModel[];
   ddlCorespondAreaModel!: AvailableAreaModel[];
-  ddlDocumentTypeModel!: DDLDocumentTypeModel[];
+  ddlDocumentType!: DDLDocumentTypeModel[];
+  ddlDocumentTypePOI!: DDLDocumentTypeModel[];
+  ddlDocumentTypePOA!: DDLDocumentTypeModel[];
   isSameAddress = false;
   ddlJewellaryType!: DDLJewellaryType[];
   ddlKarats = [{ Name: "18 Karats", Id: 18 }, { Name: "20  Karats", Id: 20 }, { Name: "22  Karats", Id: 22 }, { Name: "24  Karats", Id: 24 }];
@@ -144,14 +146,14 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
 
     this.leadFormExistingLoanDetail = this.fb.group({
 
-      BankName :  [undefined],
-      Amount :  [undefined],
-      Date :  [undefined],
-      JewelleryValuation :  [undefined],
-      OutstandingAmount :  [undefined],
-      BalanceTransferAmount :  [undefined],
-      RequiredAmount :  [undefined],
-      Tenure :  [undefined],
+      BankName: [undefined],
+      Amount: [undefined],
+      Date: [undefined],
+      JewelleryValuation: [undefined],
+      OutstandingAmount: [undefined],
+      BalanceTransferAmount: [undefined],
+      RequiredAmount: [undefined],
+      Tenure: [undefined],
 
     });
 
@@ -163,7 +165,9 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
 
 
   }
+
   onSubmit() {
+    debugger
     this.leadFormPersonalDetail.markAllAsTouched();
     this.leadFormAddressDetail.markAllAsTouched();
     this.leadFormAppointmentDetail.markAllAsTouched();
@@ -173,7 +177,7 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
     this.leadFormExistingLoanDetail.markAllAsTouched();
 
     this.model.LeadSourceByuserId = this._auth.GetUserDetail()?.UserId as number;
- //&& this.leadFormDocumentDetail.valid
+    //&& this.leadFormDocumentDetail.valid
     if (this.leadFormPersonalDetail.valid && this.leadFormAddressDetail.valid && this.leadFormAppointmentDetail.valid
       && this.leadFormJewelleryDetail.valid && this.leadFormKYCDetail.valid
       && this.leadFormExistingLoanDetail.valid) {
@@ -192,6 +196,34 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
 
       } else {
         this.model.LoanAmount = 0;
+      }
+
+      if (this.model.ExistingLoanDetail.Amount) {
+        this.model.ExistingLoanDetail.Amount = Number(this.model.ExistingLoanDetail.Amount);
+
+      } else {
+        this.model.ExistingLoanDetail.Amount = 0;
+      }
+
+      if(this.model.ExistingLoanDetail.JewelleryValuation)
+      {
+        this.model.ExistingLoanDetail.JewelleryValuation=Number(this.model.ExistingLoanDetail.JewelleryValuation);
+      }
+      if(this.model.ExistingLoanDetail.OutstandingAmount)
+      {
+        this.model.ExistingLoanDetail.OutstandingAmount=Number(this.model.ExistingLoanDetail.OutstandingAmount);
+      }
+      if(this.model.ExistingLoanDetail.BalanceTransferAmount)
+      {
+        this.model.ExistingLoanDetail.BalanceTransferAmount=Number(this.model.ExistingLoanDetail.BalanceTransferAmount);
+      }
+      if(this.model.ExistingLoanDetail.RequiredAmount)
+      {
+        this.model.ExistingLoanDetail.RequiredAmount=Number(this.model.ExistingLoanDetail.RequiredAmount);
+      }
+      if(this.model.ExistingLoanDetail.Tenure)
+      {
+        this.model.ExistingLoanDetail.Tenure=Number(this.model.ExistingLoanDetail.Tenure);
       }
 
       this._balanceTransferService.AddUpdateInternalLead(this.model).subscribe(res => {
@@ -316,14 +348,35 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
     let serve = this._kycDocumentTypeService.GetDDLDocumentType().subscribe(res => {
       serve.unsubscribe();
       if (res.IsSuccess) {
-        this.ddlDocumentTypeModel = res?.Data as DDLDocumentTypeModel[];
+        this.ddlDocumentType = res?.Data as DDLDocumentTypeModel[];
+        this.ddlDocumentTypePOI = res?.Data as DDLDocumentTypeModel[];
+        this.ddlDocumentTypePOA = res?.Data as DDLDocumentTypeModel[];
+
+
+        this.ddlDocumentTypePOI = this.ddlDocumentTypePOI?.filter(x => this.model?.KYCDetail?.PoadocumentTypeId ? x.Id != this.model?.KYCDetail?.PoadocumentTypeId : true);
+        this.ddlDocumentTypePOA = this.ddlDocumentTypePOA?.filter(x => this.model?.KYCDetail?.PoidocumentTypeId ? x.Id != this.model?.KYCDetail?.PoidocumentTypeId : true);
+
+
       }
     });
   }
 
-  onCheckDocumentNumber(eve: any, typeId: number) {
+  onCheckDocumentNumberPOI(eve: any, typeId: number) {
 
-    let dataItem = this.ddlDocumentTypeModel?.find(x => x.Id == typeId) as DDLDocumentTypeModel;
+    let dataItem = this.ddlDocumentTypePOI?.find(x => x.Id == typeId) as DDLDocumentTypeModel;
+
+    if (dataItem.IsNumeric) {
+      return this._commonService.NumberOnly(eve);
+
+    } else {
+      return this._commonService.AlphaNumericOnly(eve);
+
+    }
+  }
+
+  onCheckDocumentNumberPOA(eve: any, typeId: number) {
+
+    let dataItem = this.ddlDocumentTypePOA?.find(x => x.Id == typeId) as DDLDocumentTypeModel;
 
     if (dataItem.IsNumeric) {
       return this._commonService.NumberOnly(eve);
@@ -336,19 +389,24 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
 
   onChangePOIDocument(value: any) {
 
-    let doc = this.ddlDocumentTypeModel?.find(x => x.Id == value.Id);
+    let doc = this.ddlDocumentTypePOI?.find(x => x.Id == value.Id);
     this.f7.PoidocumentNumber.setValidators(Validators.compose([Validators.minLength(doc?.DocumentNumberLength as number), Validators.maxLength(doc?.DocumentNumberLength as number)]));
     this.f7.PoidocumentNumber.updateValueAndValidity();
 
     this.docPOIMaxChar = doc?.DocumentNumberLength ?? this.docPOIMaxChar;
+
+    this.ddlDocumentTypePOA = this.ddlDocumentType?.filter(x => this.model?.KYCDetail?.PoidocumentTypeId ? x.Id != this.model?.KYCDetail?.PoidocumentTypeId : true);
+
   }
 
   onChangePOADocument(value: any) {
 
-    let doc = this.ddlDocumentTypeModel?.find(x => x.Id == value.Id);
+    let doc = this.ddlDocumentTypePOA?.find(x => x.Id == value.Id);
     this.f7.PoadocumentNumber.setValidators(Validators.compose([Validators.minLength(doc?.DocumentNumberLength as number), Validators.maxLength(doc?.DocumentNumberLength as number)]));
     this.f7.PoadocumentNumber.updateValueAndValidity();
     this.docPOAMaxChar = doc?.DocumentNumberLength ?? this.docPOAMaxChar;
+    this.ddlDocumentTypePOI = this.ddlDocumentType?.filter(x => this.model?.KYCDetail?.PoadocumentTypeId ? x.Id != this.model?.KYCDetail?.PoadocumentTypeId : true);
+
   }
 
 
