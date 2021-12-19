@@ -49,6 +49,7 @@ export class ListAgentComponent implements OnInit {
   }
 
   getList(): void {
+    debugger;
     let serve = this._service.GetAgentList(this.indexModel).subscribe(response => {
       serve.unsubscribe();
       if (response.IsSuccess) {
@@ -94,7 +95,9 @@ export class ListAgentComponent implements OnInit {
   onPageSizeChange() {
 
     this.indexModel.IsPostBack = true;
+    debugger;
     this.indexModel.PageSize = Number(this.indexModel.PageSize);
+
     this.getList();
   }
   OnActiveStatus(Id: number) {

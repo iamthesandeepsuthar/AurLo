@@ -863,6 +863,7 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                         isExisting.AmountPaidToExistingBank = model.AmountPainToExistingBank;
                         isExisting.BankName = model.BankName;
                         isExisting.PaymentMethod = model.PaymentMethod;
+                        isExisting.AmountReturn = model.AmountReturn;
                         isExisting.UtrNumber = model.UtrNumber;
                         isExisting.GoldSubmittedToBank = model.GoldSubmittedToBank;
                         isExisting.CustomerName = model.CustomerName;
@@ -884,7 +885,7 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                             {
                                 BtreturnId = isExisting.Id,
                                 ChequeNumber = model.ChequeDetail.ChequeNumber,
-                                ChequeImage = model.ChequeDetail.ChequeImageUrl != null ? Path.Combine(fileSavePath, _fileHelper.Save(model.ChequeDetail.File.File, fileSavePath, model.ChequeDetail.File.FileName)) : null,
+                                ChequeImage = model.ChequeDetail.ChequeImageUrl != null ? Path.Combine(fileSavePath, _fileHelper.Save(model.ChequeDetail.ChequeImageUrl.File, fileSavePath, model.ChequeDetail.ChequeImageUrl.FileName)) : null,
                             };
                             await _db.BalanceTransferReturnBankChequeDetail.AddAsync(chequeDetail);
                             await _db.SaveChangesAsync();                            

@@ -25,3 +25,10 @@ export enum ProductCategoryEnum {
   CarLoan = 3,
   HomeLoan = 4,
 }
+
+export enum PaymentMethod {
+  NEFT=2,
+  RTGS=1,
+  IMPS=3,
+  CHEQUE=4,
+}

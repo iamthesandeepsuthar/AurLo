@@ -15,11 +15,10 @@ export class BalanceTransferReturnPostModel {
   FinalPaymentDate!: string;
   ChequeDetail!: BalanceTransferReturnBankChequeDetail;
 }
-export interface BalanceTransferReturnBankChequeDetail {
-  Id: number;
-  ChequeNumber: string;
-  ChequeImageUrl: string;
-  File: FilePostModel;
+export class BalanceTransferReturnBankChequeDetail {
+  Id!: number;
+  ChequeNumber!: string;
+  ChequeImageUrl!: FilePostModel;
 }
 export class FilePostModel {
   Id!:number;
@@ -29,7 +28,10 @@ export class FilePostModel {
   IsEditMode!:boolean;
 }
 // Lead Detail Model
-export class BalanceTransferReturnViewModel {
+export class  BalanceTransferReturnViewModel {
+  constructor() {
+    this.BalanceTransferReturn = new BalanceTranferReturnViewModel();
+  }
   Id!: number;
   ProductId!: number;
   ProductCategoryName!: string;
@@ -46,6 +48,11 @@ export class BalanceTransferReturnViewModel {
   BalanceTransferReturn!: BalanceTranferReturnViewModel;
 }
 export class BalanceTranferReturnViewModel {
+  constructor() {
+    this.AmountPainToExistingBank = false;
+    this.GoldReceived = false;
+    this.GoldSubmittedToBank = false;
+  }
   Id!: number;
   LeadId!: number;
   AmountPainToExistingBank!: boolean | null;

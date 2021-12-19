@@ -201,7 +201,7 @@ namespace AurigainLoanERP.Services.User
             {
 
                 UserAgent objAgent = await _db.UserAgent.Where(x => x.UserId == id)
-                    .Include(x => x.AreaPincode).ThenInclude(y => y.District).ThenInclude(y => y.State)
+                    .Include(x => x.AreaPincode).ThenInclude(y => y.District).ThenInclude(z => z.State)
                     .Include(x => x.User).Include(x => x.User.UserRole)
                     .Include(x => x.Qualification)
                     .Include(x => x.User.UserNominee)
