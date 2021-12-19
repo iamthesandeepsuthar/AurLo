@@ -65,7 +65,7 @@ export class UserKYCDocumentDetailComponent implements OnInit, OnChanges {
           let existingKYCItem = this.kycModel.findIndex(xi => xi.KycdocumentTypeId == x.Id);
           let existingDocItem = this.documentModel.findIndex(xi => xi.DocumentTypeId == x.Id);
 
-
+          // Add newly Item in Document
           if (this.kycModel!.length != this.docTypeModel!.length && existingKYCItem < 0) {
             let item = {} as UserKYCPostModel;
             item.KycdocumentTypeId = x.Id;
@@ -78,10 +78,12 @@ export class UserKYCDocumentDetailComponent implements OnInit, OnChanges {
             item.Files = [];
             this.documentModel.push(item);
           }
+
           this.addDocsItemControl(x.DocumentNumberLength);
 
 
-        })
+        });
+
       }
     });
   }

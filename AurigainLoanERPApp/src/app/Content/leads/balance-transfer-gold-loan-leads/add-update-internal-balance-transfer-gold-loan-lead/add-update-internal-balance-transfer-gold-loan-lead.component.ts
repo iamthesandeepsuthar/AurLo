@@ -43,7 +43,7 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
   leadFormAddressDetail!: FormGroup;
   leadFormAppointmentDetail!: FormGroup;
   leadFormJewelleryDetail!: FormGroup;
-  leadFormDocumentDetail!: FormGroup;
+ // leadFormDocumentDetail!: FormGroup;
   leadFormExistingLoanDetail!: FormGroup;
   leadFormKYCDetail!: FormGroup;
 
@@ -64,7 +64,7 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
   get f2() { return this.leadFormAddressDetail.controls; }
   get f3() { return this.leadFormAppointmentDetail.controls; }
   get f4() { return this.leadFormJewelleryDetail.controls; }
-  get f5() { return this.leadFormDocumentDetail.controls; }
+  //get f5() { return this.leadFormDocumentDetail.controls; }
   get f6() { return this.leadFormExistingLoanDetail.controls; }
   get f7() { return this.leadFormKYCDetail.controls; }
 
@@ -142,6 +142,19 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
     });
 
 
+    this.leadFormExistingLoanDetail = this.fb.group({
+
+      BankName :  [undefined],
+      Amount :  [undefined],
+      Date :  [undefined],
+      JewelleryValuation :  [undefined],
+      OutstandingAmount :  [undefined],
+      BalanceTransferAmount :  [undefined],
+      RequiredAmount :  [undefined],
+      Tenure :  [undefined],
+
+    });
+
     //jwelarry --done
     //kyc/
     //existitng loan
@@ -156,12 +169,13 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
     this.leadFormAppointmentDetail.markAllAsTouched();
     this.leadFormJewelleryDetail.markAllAsTouched()
     this.leadFormKYCDetail.markAllAsTouched()
-    this.leadFormDocumentDetail.markAllAsTouched();
-    this.leadFormExistingLoanDetail.markAllAsTouched()
-    this.model.LeadSourceByuserId = this._auth.GetUserDetail()?.UserId as number;
+    //this.leadFormDocumentDetail.markAllAsTouched();
+    this.leadFormExistingLoanDetail.markAllAsTouched();
 
+    this.model.LeadSourceByuserId = this._auth.GetUserDetail()?.UserId as number;
+ //&& this.leadFormDocumentDetail.valid
     if (this.leadFormPersonalDetail.valid && this.leadFormAddressDetail.valid && this.leadFormAppointmentDetail.valid
-      && this.leadFormJewelleryDetail.valid && this.leadFormKYCDetail.valid && this.leadFormDocumentDetail.valid
+      && this.leadFormJewelleryDetail.valid && this.leadFormKYCDetail.valid
       && this.leadFormExistingLoanDetail.valid) {
 
       if (this.userDetail?.RoleId == UserRoleEnum.Operator || this.userDetail?.RoleId == UserRoleEnum.Agent || this.userDetail?.RoleId == UserRoleEnum.DoorStepAgent) {
@@ -192,6 +206,7 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
         }
       });
     }
+
   }
   onGetDetail() {
     if (this.leadId > 0) {
@@ -307,7 +322,7 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
   }
 
   onCheckDocumentNumber(eve: any, typeId: number) {
-    debugger
+
     let dataItem = this.ddlDocumentTypeModel?.find(x => x.Id == typeId) as DDLDocumentTypeModel;
 
     if (dataItem.IsNumeric) {
@@ -325,15 +340,15 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
     this.f7.PoidocumentNumber.setValidators(Validators.compose([Validators.minLength(doc?.DocumentNumberLength as number), Validators.maxLength(doc?.DocumentNumberLength as number)]));
     this.f7.PoidocumentNumber.updateValueAndValidity();
 
-    this.docPOIMaxChar = doc?.DocumentNumberLength ?? 0;
+    this.docPOIMaxChar = doc?.DocumentNumberLength ?? this.docPOIMaxChar;
   }
 
   onChangePOADocument(value: any) {
-debugger
+
     let doc = this.ddlDocumentTypeModel?.find(x => x.Id == value.Id);
     this.f7.PoadocumentNumber.setValidators(Validators.compose([Validators.minLength(doc?.DocumentNumberLength as number), Validators.maxLength(doc?.DocumentNumberLength as number)]));
     this.f7.PoadocumentNumber.updateValueAndValidity();
-    this.docPOAMaxChar = doc?.DocumentNumberLength ?? 0
+    this.docPOAMaxChar = doc?.DocumentNumberLength ?? this.docPOAMaxChar;
   }
 
 
