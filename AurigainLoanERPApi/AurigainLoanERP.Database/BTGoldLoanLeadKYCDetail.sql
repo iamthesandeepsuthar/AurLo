@@ -5,6 +5,7 @@
 	[POIDocumentTypeId] INT NOT NULL references DocumentType(Id), 
     [POIDocumentNumber] VARCHAR(50) NOT NULL,
 	[POADocumentTypeId] INT NOT NULL references DocumentType(Id), 
-    [POADocumentNumber] VARCHAR(50) NOT NULL,
+    [POADocumentNumber] VARCHAR(50) NOT NULL, 
+    [PANNumber] VARCHAR(50) NULL,
 
 )

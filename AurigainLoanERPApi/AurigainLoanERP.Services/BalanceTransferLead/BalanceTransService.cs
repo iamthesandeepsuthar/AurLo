@@ -364,7 +364,8 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                             PoidocumentNumber = x.PoidocumentNumber ?? null,
                             PoadocumentTypeId = x.PoadocumentTypeId,
                             PoadocumentNumber = x.PoadocumentNumber ?? null,
-                            PoadocumentType = x.PoadocumentType.DocumentName ?? null
+                            PoadocumentType = x.PoadocumentType.DocumentName ?? null,
+                            PANNumber = x.Pannumber?? null
 
                         }).FirstOrDefault();
                     }
@@ -442,6 +443,27 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                 if (model.AppointmentDetail != null)
                 {
                     await SetAppointmentDetailAsync(model.AppointmentDetail, model.Id);
+                }
+
+                if (model.DocumentDetail != null)
+                {
+                    await SetDocumentDetail(model.DocumentDetail, model.Id);
+
+                }
+                if (model.KYCDetail != null)
+                {
+                    await SetKYCDetail(model.KYCDetail, model.Id);
+
+                }
+                if (model.ExistingLoanDetail != null)
+                {
+                    await SetExistingLoanDetail(model.ExistingLoanDetail, model.Id);
+
+                }
+                if (model.JewelleryDetail != null)
+                {
+                    await SetJewelleryDetail(model.JewelleryDetail, model.Id);
+
                 }
 
                 _db.Database.CommitTransaction();
@@ -1368,7 +1390,8 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                         PoidocumentTypeId = model.PoidocumentTypeId,
                         PoadocumentTypeId = model.PoadocumentTypeId,
                         PoidocumentNumber = !string.IsNullOrEmpty(model.PoidocumentNumber) ? model.PoidocumentNumber : null,
-                        PoadocumentNumber = !string.IsNullOrEmpty(model.PoadocumentNumber) ? model.PoadocumentNumber : null
+                        PoadocumentNumber = !string.IsNullOrEmpty(model.PoadocumentNumber) ? model.PoadocumentNumber : null,
+                        Pannumber=!string.IsNullOrEmpty(model.PANNumber) ? model.PANNumber : null,
 
                     };
 
@@ -1386,6 +1409,8 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                         objModel.PoadocumentTypeId = model.PoadocumentTypeId;
                         objModel.PoidocumentNumber = !string.IsNullOrEmpty(model.PoidocumentNumber) ? model.PoidocumentNumber : null;
                         objModel.PoadocumentNumber = !string.IsNullOrEmpty(model.PoadocumentNumber) ? model.PoadocumentNumber : null;
+                        objModel.Pannumber = !string.IsNullOrEmpty(model.PANNumber) ? model.PANNumber : null;
+
                         await _db.SaveChangesAsync();
                     }
                 }

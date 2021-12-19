@@ -8,6 +8,8 @@ import { DropDownModel } from 'src/app/Shared/Helper/common-model';
 import { DropDown_key, Message, Routing_Url } from 'src/app/Shared/Helper/constants';
 import { BTGoldLoanLeadPostModel, BTGoldLoanLeadViewModel } from 'src/app/Shared/Model/Leads/btgold-loan-lead-post-model.model';
 import { DDLBranchModel } from 'src/app/Shared/Model/master-model/bank-model.model';
+import { DDLDocumentTypeModel } from 'src/app/Shared/Model/master-model/document-type.model';
+import { DDLJewellaryType } from 'src/app/Shared/Model/master-model/jewellary-type-model.model';
 import { DDLProductModel } from 'src/app/Shared/Model/master-model/product-model.model';
 import { AvailableAreaModel } from 'src/app/Shared/Model/User-setting-model/user-availibility.model';
 import { CommonService } from 'src/app/Shared/Services/common.service';
@@ -22,7 +24,10 @@ import { StateDistrictService } from 'src/app/Shared/Services/master-services/st
   selector: 'app-add-update-internal-balance-transfer-gold-loan-lead',
   templateUrl: './add-update-internal-balance-transfer-gold-loan-lead.component.html',
   styleUrls: ['./add-update-internal-balance-transfer-gold-loan-lead.component.scss'],
-  providers: [ProductService, KycDocumentTypeService, StateDistrictService, BankBranchService, JewelleryTypeService, BalanceTransferGoldLoanLeadsService]
+  providers: [ProductService, KycDocumentTypeService,
+    StateDistrictService, BankBranchService,
+    JewelleryTypeService,
+    BalanceTransferGoldLoanLeadsService]
 
 })
 export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements OnInit {
@@ -34,28 +39,46 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
   AeraPincode!: string | any;
   CorrespondAeraPincode!: string | any;
   BankId!: number;
-  leadFromPersonalDetail!: FormGroup;
-  leadFromAddressDetail!: FormGroup;
-  leadFromAppointmentDetail!: FormGroup;
+  leadFormPersonalDetail!: FormGroup;
+  leadFormAddressDetail!: FormGroup;
+  leadFormAppointmentDetail!: FormGroup;
+  leadFormJewelleryDetail!: FormGroup;
+  leadFormDocumentDetail!: FormGroup;
+  leadFormExistingLoanDetail!: FormGroup;
+  leadFormKYCDetail!: FormGroup;
+
   dropDown = new DropDownModel();
   get ddlkeys() { return DropDown_key };
   ddlProductModel!: DDLProductModel[];
   ddlBranchModel!: DDLBranchModel[];
   ddlAreaModel!: AvailableAreaModel[];
   ddlCorespondAreaModel!: AvailableAreaModel[];
+  ddlDocumentTypeModel!: DDLDocumentTypeModel[];
   isSameAddress = false;
-  get f1() { return this.leadFromPersonalDetail.controls; }
-  get f2() { return this.leadFromAddressDetail.controls; }
-  get f3() { return this.leadFromAppointmentDetail.controls; }
+  ddlJewellaryType!: DDLJewellaryType[];
+  ddlKarats = [{ Name: "18 Karats", Id: 18 }, { Name: "20  Karats", Id: 20 }, { Name: "22  Karats", Id: 22 }, { Name: "24  Karats", Id: 24 }];
+  docPOIMaxChar: number = 0;
+  docPOAMaxChar: number = 0;
+
+  get f1() { return this.leadFormPersonalDetail.controls; }
+  get f2() { return this.leadFormAddressDetail.controls; }
+  get f3() { return this.leadFormAppointmentDetail.controls; }
+  get f4() { return this.leadFormJewelleryDetail.controls; }
+  get f5() { return this.leadFormDocumentDetail.controls; }
+  get f6() { return this.leadFormExistingLoanDetail.controls; }
+  get f7() { return this.leadFormKYCDetail.controls; }
+
   get userDetail() { return this._auth.GetUserDetail() };
 
   constructor(private readonly fb: FormBuilder, readonly _commonService: CommonService,
-              private readonly _productService: ProductService,
-              private readonly _stateDistrictService: StateDistrictService,
-              readonly _router: Router, private readonly _bankBranchService: BankBranchService,
-              private readonly _activatedRoute: ActivatedRoute, private readonly _auth: AuthService,
-              private readonly _balanceTransferService: BalanceTransferGoldLoanLeadsService,
-              private readonly toast: ToastrService) {
+    private readonly _productService: ProductService,
+    private readonly _stateDistrictService: StateDistrictService,
+    readonly _router: Router, private readonly _bankBranchService: BankBranchService,
+    private readonly _activatedRoute: ActivatedRoute, private readonly _auth: AuthService,
+    private readonly _balanceTransferService: BalanceTransferGoldLoanLeadsService,
+    private readonly _jewelleryTypeService: JewelleryTypeService,
+    private readonly _kycDocumentTypeService: KycDocumentTypeService,
+    private readonly toast: ToastrService) {
   }
 
   ngOnInit(): void {
@@ -67,7 +90,7 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
     }
   }
   formInit() {
-    this.leadFromPersonalDetail = this.fb.group({
+    this.leadFormPersonalDetail = this.fb.group({
       Product: [undefined, Validators.required],
       Email: [undefined, Validators.compose([Validators.required, Validators.email])],
       FullName: [undefined, Validators.required],
@@ -81,7 +104,7 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
       Purpose: [undefined, Validators.required]
     });
 
-    this.leadFromAddressDetail = this.fb.group({
+    this.leadFormAddressDetail = this.fb.group({
 
       Pincode: [undefined, Validators.compose([Validators.minLength(6), Validators.maxLength(6)])],
       Area: [undefined],
@@ -92,21 +115,54 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
 
     });
 
+    this.leadFormJewelleryDetail = this.fb.group({
+      JewelleryType: [undefined, undefined],
+      Quantity: [undefined, undefined],
+      Weight: [undefined, undefined],
+      Karats: [undefined, undefined],
 
-    this.leadFromAppointmentDetail = this.fb.group({
+    });
+
+
+    this.leadFormAppointmentDetail = this.fb.group({
       Bank: [undefined, undefined],
       Branch: [undefined, undefined],
       DateofAppointment: [undefined, undefined],
       TimeofAppointment: [undefined, undefined],
     });
+
+
+    this.leadFormKYCDetail = this.fb.group({
+      PoidocumentType: [undefined],
+      PoidocumentNumber: [undefined],
+      PoadocumentType: [undefined],
+      PoadocumentNumber: [undefined],
+      PanNumber: [undefined, Validators.compose([Validators.minLength(10), Validators.maxLength(10)])],
+
+    });
+
+
+    //jwelarry --done
+    //kyc/
+    //existitng loan
+
+    // document upload
+
+
   }
   onSubmit() {
-    this.leadFromPersonalDetail.markAllAsTouched();
-    this.leadFromAddressDetail.markAllAsTouched();
-    this.leadFromAppointmentDetail.markAllAsTouched();
+    this.leadFormPersonalDetail.markAllAsTouched();
+    this.leadFormAddressDetail.markAllAsTouched();
+    this.leadFormAppointmentDetail.markAllAsTouched();
+    this.leadFormJewelleryDetail.markAllAsTouched()
+    this.leadFormKYCDetail.markAllAsTouched()
+    this.leadFormDocumentDetail.markAllAsTouched();
+    this.leadFormExistingLoanDetail.markAllAsTouched()
     this.model.LeadSourceByuserId = this._auth.GetUserDetail()?.UserId as number;
 
-    if (this.leadFromPersonalDetail.valid && this.leadFromAddressDetail.valid && this.leadFromAppointmentDetail.valid) {
+    if (this.leadFormPersonalDetail.valid && this.leadFormAddressDetail.valid && this.leadFormAppointmentDetail.valid
+      && this.leadFormJewelleryDetail.valid && this.leadFormKYCDetail.valid && this.leadFormDocumentDetail.valid
+      && this.leadFormExistingLoanDetail.valid) {
 
       if (this.userDetail?.RoleId == UserRoleEnum.Operator || this.userDetail?.RoleId == UserRoleEnum.Agent || this.userDetail?.RoleId == UserRoleEnum.DoorStepAgent) {
         this.model.LeadSourceByuserId = this.userDetail.UserId as number;
@@ -149,11 +205,14 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
       })
     }
   }
+
   //#region  <<DropDown>>
   GetDropDowns() {
 
     this.GetDropDown();
     this.getDDLProducts();
+    this.GetDDLJewelleryType();
+    this.getDDLDocumentType();
   }
   getDDLProducts() {
     let serve = this._productService.GetProductbyCategory(ProductCategoryEnum.GoldLoan).subscribe(res => {
@@ -182,6 +241,16 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
       }
     });
   }
+  GetDDLJewelleryType() {
+    let serve = this._jewelleryTypeService.GetDDLJewelleryType().subscribe(res => {
+      serve.unsubscribe();
+      if (res.IsSuccess) {
+        this.ddlJewellaryType = res.Data as DDLJewellaryType[];
+      }
+    });
+
+  }
+
   getDropDownPinCodeArea(isCorrespond: boolean = false, isRemoveValue = false) {
     let pinCode: string = isCorrespond ? this.CorrespondAeraPincode : this.AeraPincode;
 
@@ -227,5 +296,49 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
     }
 
   }
+
+  getDDLDocumentType() {
+    let serve = this._kycDocumentTypeService.GetDDLDocumentType().subscribe(res => {
+      serve.unsubscribe();
+      if (res.IsSuccess) {
+        this.ddlDocumentTypeModel = res?.Data as DDLDocumentTypeModel[];
+      }
+    });
+  }
+
+  onCheckDocumentNumber(eve: any, typeId: number) {
+    debugger
+    let dataItem = this.ddlDocumentTypeModel?.find(x => x.Id == typeId) as DDLDocumentTypeModel;
+
+    if (dataItem.IsNumeric) {
+      return this._commonService.NumberOnly(eve);
+
+    } else {
+      return this._commonService.AlphaNumericOnly(eve);
+
+    }
+  }
+
+  onChangePOIDocument(value: any) {
+
+    let doc = this.ddlDocumentTypeModel?.find(x => x.Id == value.Id);
+    this.f7.PoidocumentNumber.setValidators(Validators.compose([Validators.minLength(doc?.DocumentNumberLength as number), Validators.maxLength(doc?.DocumentNumberLength as number)]));
+    this.f7.PoidocumentNumber.updateValueAndValidity();
+
+    this.docPOIMaxChar = doc?.DocumentNumberLength ?? 0;
+  }
+
+  onChangePOADocument(value: any) {
+debugger
+    let doc = this.ddlDocumentTypeModel?.find(x => x.Id == value.Id);
+    this.f7.PoadocumentNumber.setValidators(Validators.compose([Validators.minLength(doc?.DocumentNumberLength as number), Validators.maxLength(doc?.DocumentNumberLength as number)]));
+    this.f7.PoadocumentNumber.updateValueAndValidity();
+    this.docPOAMaxChar = doc?.DocumentNumberLength ?? 0
+  }
+
+
+
+
   //#endregion
+
 }
