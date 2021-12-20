@@ -372,7 +372,7 @@
 
 
   <mat-step [stepControl]="leadFormAppointmentDetail">
-    <form [formGroup]="leadFormAppointmentDetail" (ngSubmit)="onSubmit()">
+    <form [formGroup]="leadFormAppointmentDetail" (ngSubmit)="leadFormAppointmentDetail.markAllAsTouched()">
       <ng-template matStepLabel>Appointment Details</ng-template>
       <div class="step-grp-content">
         <div class="custom_stepers-body-items-form row">
@@ -444,7 +444,9 @@
       <div class="step-form-btn-grp mt-3">
         <button class="btn btn-outline-danger mr-3" mat-button matStepperPrevious><i
             class="fas fa-angle-left mr-1"></i>Back</button>
-        <button class="btn btn-success" mat-button type="submit"><i class="fas fa-check mr-1"></i> Submit</button>
+        <button class="btn btn-primary" mat-button matStepperNext><i class="fas fa-check mr-1"></i> Next</button>
+
+
       </div>
     </form>
   </mat-step>
@@ -456,11 +458,11 @@
       <div class="step-grp-content">
         <div class="custom_stepers-body-items-form row">
           <div class="form-group col-md-4">
-            <label>Document Type (POI)</label>
+            <label>Document Type (Identity)</label>
 
 
-            <ng-select [items]="ddlDocumentTypeModel"
-              (change)="this.model.KYCDetail.PoidocumentNumber=null;onChangePOIDocument($event)" [searchable]="true"
+            <ng-select [items]="ddlDocumentTypePOI"
+              (change)="this.model.KYCDetail.PoidocumentNumber=null;onChangePOIDocument($event)" (clear)="onChangePOIDocument($event)" [searchable]="true" [clearable]="true"
               bindLabel="Name" bindValue="Id" placeholder="Select Document Type" formControlName="PoidocumentType"
               [ngClass]="{ 'is-invalid': f7.PoidocumentType?.errors && f7.PoidocumentType?.touched}"
               [(ngModel)]="model.KYCDetail.PoidocumentTypeId">
@@ -471,11 +473,11 @@
 
           </div>
           <div class="form-group col-md-4">
-            <label>Document Number : </label>
+            <label>Document Number (Identity): </label>
             <input type="text" class="form-control" id="input9" placeholder="Document Number"
               [(ngModel)]="model.KYCDetail.PoidocumentNumber" formControlName="PoidocumentNumber"
               [ngClass]="{ 'is-invalid': f7.PoidocumentNumber?.errors && f7.DocumentNumber?.touched}"
-              (keypress)="onCheckDocumentNumber($event,model.KYCDetail.PoidocumentTypeId)" [maxlength]="docPOIMaxChar">
+              (keypress)="onCheckDocumentNumberPOI($event,model.KYCDetail.PoidocumentTypeId)" [maxlength]="docPOIMaxChar">
             <div class="invalid-feedback"
               *ngIf="(leadFormKYCDetail.get('PoidocumentNumber')?.hasError('required') && leadFormKYCDetail.get('PoidocumentNumber')?.touched)">
               Enter Document Number! </div>
@@ -490,11 +492,11 @@
 
 
           <div class="form-group col-md-4">
-            <label>Document Type (POA)</label>
+            <label>Document Type (Address)</label>
 
 
-            <ng-select [items]="ddlDocumentTypeModel"
-              (change)="onChangePOADocument($event);this.model.KYCDetail.PoadocumentNumber=null;" [searchable]="true"
+            <ng-select [items]="ddlDocumentTypePOA"
+              (change)="onChangePOADocument($event);this.model.KYCDetail.PoadocumentNumber=null;" [searchable]="true" (clear)="onChangePOADocument($event)" [clearable]="true"
               bindLabel="Name" bindValue="Id" placeholder="Select Document Type" formControlName="PoadocumentType"
               [ngClass]="{ 'is-invalid': f7.PoadocumentType?.errors && f7.PoadocumentType?.touched}"
               [(ngModel)]="model.KYCDetail.PoadocumentTypeId">
@@ -506,11 +508,11 @@
 
           </div>
           <div class="form-group col-md-4">
-            <label>Document Number : </label>
+            <label>Document Number (Address): </label>
             <input type="text" class="form-control" id="input9" placeholder="Document Number"
               [(ngModel)]="model.KYCDetail.PoadocumentNumber" formControlName="PoadocumentNumber"
               [ngClass]="{ 'is-invalid': f7.PoadocumentNumber?.errors && f7.DocumentNumber?.touched}"
-              (keypress)="onCheckDocumentNumber($event,model.KYCDetail.PoadocumentTypeId)" [maxlength]="docPOAMaxChar">
+              (keypress)="onCheckDocumentNumberPOA($event,model.KYCDetail.PoadocumentTypeId)" [maxlength]="docPOAMaxChar">
             <div class="invalid-feedback"
               *ngIf="(leadFormKYCDetail.get('PoadocumentNumber')?.hasError('required') && leadFormKYCDetail.get('PoadocumentNumber')?.touched)">
               Enter Document Number! </div>
@@ -556,7 +558,7 @@
   </mat-step>
 
   <mat-step [stepControl]="leadFormExistingLoanDetail">
-    <form [formGroup]="leadFormExistingLoanDetail" (ngSubmit)="leadFormExistingLoanDetail.markAllAsTouched()">
+    <form [formGroup]="leadFormExistingLoanDetail" (ngSubmit)="onSubmit()">
       <ng-template matStepLabel>Exisiting loan Details</ng-template>
       <div class="step-grp-content">
         <div class="custom_stepers-body-items-form row">
@@ -586,7 +588,7 @@
             <label>Date </label>
             <input class="form-control" #datepickerApp="bsDatepicker" placeholder="DD-MM-YYYY" formControlName="Date"
               [ngClass]="{ 'is-invalid': f6.Date.errors && f6.Date.touched}" bsDatepicker
-              [(ngModel)]="model.AppointmentDetail.AppointmentDate"
+              [(ngModel)]="model.ExistingLoanDetail.Date"
               [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', adaptivePosition: true,isAnimated: true, showWeekNumbers: false }">
             <i class="fas fa-calendar-alt" (click)="datepickerApp.toggle()"></i>
             <div class="invalid-feedback"
@@ -659,7 +661,7 @@
       <div class="step-form-btn-grp mt-3">
         <button class="btn btn-outline-danger mr-3" mat-button matStepperPrevious><i
             class="fas fa-angle-left mr-1"></i>Back</button>
-        <button class="btn btn-primary" mat-button matStepperNext><i class="fas fa-check mr-1"></i> Next</button>
+            <button class="btn btn-success" mat-button type="submit"><i class="fas fa-check mr-1"></i> Submit</button>
       </div>
     </form>
   </mat-step>
