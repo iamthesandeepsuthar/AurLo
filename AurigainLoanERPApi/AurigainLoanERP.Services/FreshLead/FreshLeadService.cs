@@ -756,6 +756,74 @@ namespace AurigainLoanERP.Services.FreshLead
                 return CreateResponse<FreshLeadHLPLCLModel>(null, ResponseMessage.Fail, false, ((int)ApiStatusCode.ServerException), ex.InnerException == null ? ex.Message : ex.InnerException.Message);
             }
         }
+        public async Task<ApiServiceResponseModel<GoldLoanFreshLeadAppointmentDetailViewModel>> GetAppointmentDetailByLeadId(long Id)
+        {
+            try
+            {
+                var data = await _db.GoldLoanFreshLeadAppointmentDetail.Where(x => x.GlfreshLeadId == Id).Include(x => x.Branch).ThenInclude(y => y.Bank).FirstOrDefaultAsync();
+                if (data != null)
+                {
+                    GoldLoanFreshLeadAppointmentDetailViewModel appointment = new GoldLoanFreshLeadAppointmentDetailViewModel
+                    {
+                        Id = data.Id,
+                        BranchId = data.Branch.Id,
+                        BranchName = data.Branch.BranchName ?? null,
+                        BankName = data.Branch.Bank.Name ?? null,
+                        IFSC = data.Branch.Ifsc ?? null,
+                        Pincode = data.Branch.Pincode ?? null,
+                        AppointmentDate = data.AppointmentDate ?? null,
+                        AppointmentTime = data.AppointmentTime.HasValue ? new DateTime(data.AppointmentTime.Value.Ticks).ToString("HH:mm:ss") : null
+                    };
+                    return CreateResponse(appointment, ResponseMessage.Success, true, ((int)ApiStatusCode.Ok));
+                }
+                else
+                {
+                    return CreateResponse<GoldLoanFreshLeadAppointmentDetailViewModel>(null, ResponseMessage.NotFound, false, ((int)ApiStatusCode.NotFound));
+
+                }
+            }
+            catch (Exception ex)
+            {
+                return CreateResponse<GoldLoanFreshLeadAppointmentDetailViewModel>(null, ResponseMessage.Fail, false, ((int)ApiStatusCode.ServerException), ex.Message ?? ex.InnerException.ToString());
+            }
+        }
+        public async Task<ApiServiceResponseModel<object>> SaveAppointment(GoldLoanFreshLeadAppointmentDetailModel model) 
+        {
+            try
+            {
+                var data = await _db.GoldLoanFreshLeadAppointmentDetail.Where(x => x.GlfreshLeadId == model.LeadId).FirstOrDefaultAsync();
+                if (data == null)
+                {
+                    GoldLoanFreshLeadAppointmentDetail appointment = new GoldLoanFreshLeadAppointmentDetail
+                    {
+                        AppointmentDate = model.AppointmentDate,
+                        AppointmentTime = model.AppointmentTime.ToTimeSpanValue(),
+                        BankId = _db.BankBranchMaster.FirstOrDefault(x => x.IsActive.Value && !x.IsDelete && x.Id == model.BranchId).BankId,
+                        BranchId = model.BranchId,
+                        CreatedDate = DateTime.Now,
+                        IsActive = true,
+                        IsDelete = false,
+                        GlfreshLeadId =model.LeadId
+                    };
+                    await _db.GoldLoanFreshLeadAppointmentDetail.AddAsync(appointment);
+                    await _db.SaveChangesAsync();
+                    return CreateResponse<object>(true, ResponseMessage.Save, true, ((int)ApiStatusCode.Ok));
+                }
+                else 
+                {
+                    data.AppointmentDate = model.AppointmentDate;
+                    data.AppointmentTime = model.AppointmentTime.ToTimeSpanValue();
+                    data.BankId = _db.BankBranchMaster.FirstOrDefault(x => x.IsActive.Value && !x.IsDelete && x.Id == model.BranchId).BankId;
+                    data.BranchId = model.BranchId;
+                    await _db.SaveChangesAsync();
+                    return CreateResponse<object>(true, ResponseMessage.Update, true, ((int)ApiStatusCode.Ok));
+                }                                   
+            }
+            catch (Exception ex) 
+            {
+                return CreateResponse<object>(null, ResponseMessage.Fail, false, ((int)ApiStatusCode.ServerException), ex.Message ?? ex.InnerException.ToString());
+            }
+        }
         #endregion
         #region  <<Private Method Of Fresh Gold Loan Lead>>
         private async Task<long> SaveCustomerHLPLCL(FreshLeadHLPLCLModel model)
@@ -1062,11 +1130,19 @@ namespace AurigainLoanERP.Services.FreshLead
                 else
                 {
                     var detail = await _db.GoldLoanFreshLeadAppointmentDetail.Where(x => x.Id == model.Id).FirstOrDefaultAsync();
-                    detail.AppointmentDate = model.AppointmentDate;
-                    detail.AppointmentTime = model.AppointmentTime.ToTimeSpanValue();
-                    detail.BankId = _db.BankBranchMaster.FirstOrDefault(x => x.IsActive.Value && !x.IsDelete && x.Id == model.BranchId).BankId;
-                    detail.BranchId = model.BranchId;
-                    await _db.SaveChangesAsync();
+                    if (detail != null)
+                    {
+                        detail.AppointmentDate = model.AppointmentDate;
+                        detail.AppointmentTime = model.AppointmentTime.ToTimeSpanValue();
+                        detail.BankId = _db.BankBranchMaster.FirstOrDefault(x => x.IsActive.Value && !x.IsDelete && x.Id == model.BranchId).BankId;
+                        detail.BranchId = model.BranchId;
+                        await _db.SaveChangesAsync();
+                    }
+                    else 
+                    {
+                        return false;
+                    }
+                  
                     return true;
                 }
             }

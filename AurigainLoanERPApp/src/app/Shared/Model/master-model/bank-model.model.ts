@@ -43,4 +43,5 @@ export class DDLBranchModel {
   Id!: number;
   BranchName!: string;
   Ifsc!: string;
+  BankId!:number;
 }

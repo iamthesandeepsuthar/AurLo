@@ -1,4 +1,4 @@
-import { GoldLoanFreshLeadViewModel } from './../../Model/Leads/gold-loan-fresh-lead.model';
+import { GoldLoanFreshLeadViewModel, GoldLoanFreshLeadAppointmentDetailModel } from './../../Model/Leads/gold-loan-fresh-lead.model';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { BaseAPIService } from '../../Helper/base-api.service';
@@ -42,7 +42,14 @@ export class GoldLoanLeadsService {
   }
   FreshGoldLoanLeadStatusHistory(leadId: number): Observable<ApiResponse<LeadStatusActionHistory[]>> {
     let url = `${this._baseService.API_Url.Gold_Loan_Fresh_Lead_Status_History_Api}${leadId}`;
-    debugger;
     return this._baseService.get(url);
+  }
+  GetAppointmentByLeadId(id: number): Observable<ApiResponse<GoldLoanFreshLeadAppointmentDetailModel>> {
+    let url = `${this._baseService.API_Url.Gold_loan_Fresh_lead_Appointment_Detail_Api}${id}`;
+    return this._baseService.get(url);
+  }
+  SaveAppointment(model: GoldLoanFreshLeadAppointmentDetailModel): Observable<ApiResponse<string>> {
+    let url = `${this._baseService.API_Url.Gold_loan_Fresh_lead_Add_Update_Appointment_Api}`;
+    return this._baseService.post(url, model);
   }
 }

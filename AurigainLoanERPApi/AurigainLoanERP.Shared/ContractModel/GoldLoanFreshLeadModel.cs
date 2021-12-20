@@ -40,6 +40,7 @@ namespace AurigainLoanERP.Shared.ContractModel
         public long GlfreshLeadId { get; set; }
         public bool? IsActive { get; set; }
         public DateTime CreatedDate { get; set; }
+        public long LeadId { get; set;}
     }
     public class GoldLoanFreshLeadJewelleryDetailModel
     {
@@ -146,7 +147,7 @@ namespace AurigainLoanERP.Shared.ContractModel
         public string IFSC { get; set; }
         public string Pincode { get; set; }
         public DateTime? AppointmentDate { get; set; }
-        public string AppointmentTime { get; set; }
+        public string AppointmentTime { get; set; }        
     }
     public class GoldLoanFreshLeadJewelleryDetailViewModel
     {

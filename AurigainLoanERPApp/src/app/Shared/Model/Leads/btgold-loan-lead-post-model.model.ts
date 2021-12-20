@@ -41,9 +41,10 @@ export class BtGoldLoanLeadAddressPostModel {
 
 export class BtGoldLoanLeadAppointmentPostModel {
   Id!: number;
-  BranchId!: number | null;
+  BranchId!: number;
   AppointmentDate!: string | null;
   AppointmentTime!: string;
+  LeadId!:number;
 }
 
 export class BtGoldLoanLeadDocumentPostModel {

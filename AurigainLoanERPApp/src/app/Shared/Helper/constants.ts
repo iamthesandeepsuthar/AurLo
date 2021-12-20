@@ -173,6 +173,8 @@ export class API_Url {
   public static Gold_Loan_Fresh_Lead__ActiveStatus_Api = `${environment.apiEndPoint}GoldLoanFreshLead/UpdateActiveStatus/`;
   public static Gold_Loan_Fresh_Lead_Status_Change_Api = `${environment.apiEndPoint}GoldLoanFreshLead/UpdateLeadStatus`;
   public static Gold_Loan_Fresh_Lead_Status_History_Api =`${environment.apiEndPoint}GoldLoanFreshLead/FreshGoldLoanLeadStatusHistory/`;
+  public static Gold_loan_Fresh_lead_Appointment_Detail_Api=`${environment.apiEndPoint}GoldLoanFreshLead/AppointmentDetailById/`;
+  public static Gold_loan_Fresh_lead_Add_Update_Appointment_Api=`${environment.apiEndPoint}GoldLoanFreshLead/SaveAppointment`;
   //#endregion
   //#region <<Personal - Car - Home - Loan >>
   public static Personal_Home_Car_Loan_List_Api = `${environment.apiEndPoint}GoldLoanFreshLead/PersonalHomeCarLoanList`;
@@ -193,6 +195,8 @@ export class API_Url {
  public static BT_Gold_Loan_Lead_Balance_return_List_Api = `${environment.apiEndPoint}GoldLoanBalanceTransfer/BTGoldLoanBalanceReturnLeadList`;
  public static BT_Gold_Loan_Lead_Balance_Return_Detail_Api=`${environment.apiEndPoint}GoldLoanBalanceTransfer/BTGoldLoanLeadDetailForBalanceReturn/`;
  public static BT_Gold_Loan_Lead_Add_Update_Balance_Return_Api=`${environment.apiEndPoint}GoldLoanBalanceTransfer/AddUpdateBTGoldLoanLeadBalanceRetrun`;
+ public static BT_Gold_Loan_Lead_Appointment_Detail_Api=`${environment.apiEndPoint}GoldLoanBalanceTransfer/AppointmentDetailById/`;
+ public static BT_Gold_Loan_Lead_Add_Update_Appointment_Api=`${environment.apiEndPoint}GoldLoanBalanceTransfer/SaveAppointment`;
  //#endregion
 }
 

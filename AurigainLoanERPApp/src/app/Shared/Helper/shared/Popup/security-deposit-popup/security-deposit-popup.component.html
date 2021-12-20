@@ -15,7 +15,8 @@
           <select class="form-control" formControlName="PaymentMode"[ngClass]="{ 'is-invalid': f?.PaymentMode?.errors && f?.PaymentMode?.touched}" [(ngModel)]="userSecurity.PaymentModeId">
             <option value="undefined">Select Mode</option>
             <option *ngFor="let data of dropDown!.ddlPaymentMode" [value]="data.Value"> {{data.Text}}
-          </select>
+            </option>
+            </select>
           <div class="invalid-feedback"
             *ngIf="(formGroup?.get('PaymentMode')?.hasError('required') && formGroup?.get('PaymentMode')?.touched)">
             Please Select Payment Mode...! </div>

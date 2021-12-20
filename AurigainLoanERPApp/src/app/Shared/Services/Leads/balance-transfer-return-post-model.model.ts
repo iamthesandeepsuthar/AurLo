@@ -1,4 +1,7 @@
 export class BalanceTransferReturnPostModel {
+  constructor() {
+  this.ChequeDetail = new BalanceTransferReturnBankChequeDetail();
+  }
   BtReturnId!: number;
   LeadId!: number;
   AmountPainToExistingBank!: boolean | null;
@@ -16,9 +19,12 @@ export class BalanceTransferReturnPostModel {
   ChequeDetail!: BalanceTransferReturnBankChequeDetail;
 }
 export class BalanceTransferReturnBankChequeDetail {
+  constructor() {
+    this.ChequeImageUrl = new FilePostModel();
+  }
   Id!: number;
   ChequeNumber!: string;
-  ChequeImageUrl!: FilePostModel;
+  ChequeImageUrl!: FilePostModel | null;
 }
 export class FilePostModel {
   Id!:number;

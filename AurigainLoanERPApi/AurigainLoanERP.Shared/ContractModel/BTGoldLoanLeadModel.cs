@@ -77,9 +77,10 @@ namespace AurigainLoanERP.Shared.ContractModel
     public class BtGoldLoanLeadAppointmentPostModel
     {
         public long Id { get; set; }
-        public int? BranchId { get; set; }
+        public int BranchId { get; set; }
         public DateTime? AppointmentDate { get; set; }
         public string AppointmentTime { get; set; }
+        public long LeadId { get; set; }
     }
     public class BtGoldLoanLeadDocumentPostModel
     {

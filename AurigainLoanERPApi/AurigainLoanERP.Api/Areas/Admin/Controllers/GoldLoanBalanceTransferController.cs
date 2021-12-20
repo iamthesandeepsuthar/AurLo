@@ -105,7 +105,7 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
         /// Success or Fail In Boolean Flag
         /// </returns>
         [HttpPost]
-        [AllowAnonymous]
+      //  [AllowAnonymous]
         public async Task<ApiServiceResponseModel<object>> AddUpdateBTGoldLoanLeadBalanceRetrun(BalanceTranferReturnPostModel model)
         {
             if (ModelState.IsValid)
@@ -123,6 +123,17 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
             }
         }
 
+        [HttpGet("{id}")]
+        //[AllowAnonymous]
+        public async Task<ApiServiceResponseModel<BtGoldLoanLeadAppointmentViewModel>> AppointmentDetailById(long id)
+        {
+            return await _objBTLead.GetAppointmentDetail(id);
+        }
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<ApiServiceResponseModel<object>> SaveAppointment(BtGoldLoanLeadAppointmentPostModel model)
+        {
+            return await _objBTLead.SaveAppointment(model);
+        }
     }
-
 }

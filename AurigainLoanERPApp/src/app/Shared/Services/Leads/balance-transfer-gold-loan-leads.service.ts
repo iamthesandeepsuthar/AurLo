@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { BaseAPIService } from "../../Helper/base-api.service";
 import { ApiResponse, IndexModel } from "../../Helper/common-model";
-import { BtGoldLoanLeadApprovalStagePostModel, BTGoldLoanLeadListModel, BTGoldLoanLeadPostModel, BTGoldLoanLeadViewModel } from "../../Model/Leads/btgold-loan-lead-post-model.model";
+import { AppointmentDetail, BtGoldLoanLeadAppointmentPostModel, BtGoldLoanLeadApprovalStagePostModel, BTGoldLoanLeadListModel, BTGoldLoanLeadPostModel, BTGoldLoanLeadViewModel } from "../../Model/Leads/btgold-loan-lead-post-model.model";
 import { LeadStatusActionHistory, LeadStatusModel } from "../../Model/Leads/lead-status-model.model";
 import { BalanceTransferReturnPostModel, BalanceTransferReturnViewModel } from "./balance-transfer-return-post-model.model";
 
@@ -66,6 +66,14 @@ export class BalanceTransferGoldLoanLeadsService {
   }
   AddUpdateBTBalanceReturn(model: BalanceTransferReturnPostModel): Observable<ApiResponse<string>> {
     let url = `${this._baseService.API_Url.BT_Gold_Loan_Lead_Add_Update_Balance_Return_Api}`;
+    return this._baseService.post(url, model);
+  }
+  GetBTAppointmentByLeadId(id: number): Observable<ApiResponse<AppointmentDetail>> {
+    let url = `${this._baseService.API_Url.BT_Gold_Loan_Lead_Appointment_Detail_Api}${id}`;
+    return this._baseService.get(url);
+  }
+  SaveAppointment(model: BtGoldLoanLeadAppointmentPostModel): Observable<ApiResponse<any>> {
+    let url = `${this._baseService.API_Url.BT_Gold_Loan_Lead_Add_Update_Appointment_Api}`;
     return this._baseService.post(url, model);
   }
 

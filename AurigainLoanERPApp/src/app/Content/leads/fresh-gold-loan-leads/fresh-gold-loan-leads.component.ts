@@ -1,3 +1,4 @@
+import { AppointmentBookingPopupComponent } from './../../../Shared/Helper/shared/Popup/appointment-booking-popup/appointment-booking-popup.component';
 import { LeadStatuslHistoryPopupComponent } from 'src/app/Shared/Helper/shared/Popup/lead-statusl-history-popup/lead-statusl-history-popup.component';
 import { LeadStatusPopupComponent } from './../../../Shared/Helper/shared/Popup/lead-status-popup/lead-status-popup.component';
 import { Component, OnInit, ViewChild } from '@angular/core';
@@ -186,6 +187,18 @@ export class FreshGoldLoanLeadsComponent implements OnInit {
     const dialogRef = this.dialog.open(LeadStatuslHistoryPopupComponent, {
       data: { Id: Id as number, Type: "GoldLoanLeadHistory" as string ,Heading:'Fresh Gold Loan Lead History' },
       width: '600px',
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+      } else {
+      }
+    });
+  }
+  onChangeAppointmentBooking(Id: number) {
+    const dialogRef = this.dialog.open(AppointmentBookingPopupComponent, {
+      data: { Id: Id as number, Type: "FreshGoldAppointmentBooking" as string ,Heading:'Appointment Booking' },
+      width: '1000px',
     });
 
     dialogRef.afterClosed().subscribe(result => {

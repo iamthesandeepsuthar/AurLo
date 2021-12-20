@@ -110,7 +110,7 @@
                 <div class="form-row">
                     <div class="form-group col-md-4" *ngIf="IsLoanAccountNumber">
                         <label>Loan A/C No.</label>
-                        <input type="text" class="form-control" name="LoanAccountNumber" formControlName="LoanAccountNumber" [(ngModel)]="Model.LoanAccountNumber" id="input1" placeholder="Loan A/C No."> </div>
+                        <input type="text" class="form-control"  (keypress)="_commonService.NumberOnly($event)"  name="LoanAccountNumber" formControlName="LoanAccountNumber" [(ngModel)]="Model.LoanAccountNumber" id="input1" placeholder="Loan A/C No."> </div>
                         <div class="form-group col-md-4">
                         <label>Bank Name</label>
                         <input type="text" [ngClass]="{ 'is-invalid': f.BankName.errors && f.BankName.touched}"  class="form-control" name="BankName" formControlName="BankName" [(ngModel)]="Model.BankName" id="input1" placeholder="Bank Name">
@@ -163,36 +163,37 @@
                 </div>
             </div>
         </div>
+        <div class="modal fade custom-modal" id="add-cheque-detail">
+          <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <h5 class="modal-title">Add Cheque Detail</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+                  </div>
+                  <div class="modal-body px-4 pt-4 pb-0">
+                      <div class="form-row">
+                          <div class="form-group col-md-12">
+                              <label>Cheque Number</label>
+                              <input type="number"  (keypress)="_commonService.NumberOnly($event)"  [(ngModel)]="chequeDetail.ChequeNumber" formControlName="ChequeNumber" class="form-control" placeholder="Cheque Number" />
+                          </div>
+
+                          <div class="form-group col-md-12">
+                              <label>Upload Cheque Image</label>
+                              <input type="file" class="form-control" />
+                          </div>
+                      </div>
+                  </div>
+                  <div class="modal-footer border-0">
+                      <button type="button" (click)="SetChequeDetail()" class="btn btn-success">
+                    <i class="fas fa-check"></i>Submit</button>
+                      <button type="button" class="btn btn-outline-danger" data-dismiss="modal" aria-label="Close"><i class="fas fa-times mr-1"></i>Close</button>
+                  </div>
+              </div>
+          </div>
+      </div>
     </form>
 
 </div>
-<div class="modal fade custom-modal" id="add-cheque-detail">
-    <div class="modal-dialog modal-dialog-centered modal-md" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Add Cheque Detail</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-            </div>
-            <div class="modal-body px-4 pt-4 pb-0">
-                <div class="form-row">
-                    <div class="form-group col-md-12">
-                        <label>Cheque Number</label>
-                        <input type="number" [(ngModel)]="ChequeDetail.ChequeNumber" class="form-control" placeholder="Cheque Number" />
-                    </div>
 
-                    <div class="form-group col-md-12">
-                        <label>Upload Cheque Image</label>
-                        <input type="file" class="form-control" />
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer border-0">
-                <button type="button" (click)="SetChequeDetail()" class="btn btn-success">
-              <i class="fas fa-check"></i>Submit</button>
-                <button type="button" class="btn btn-outline-danger" data-dismiss="modal" aria-label="Close"><i class="fas fa-times mr-1"></i>Close</button>
-            </div>
-        </div>
-    </div>
-</div>

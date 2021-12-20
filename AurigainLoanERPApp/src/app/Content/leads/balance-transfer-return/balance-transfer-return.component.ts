@@ -58,6 +58,7 @@ export class BalanceTransferReturnComponent implements OnInit {
      if(response.IsSuccess)
      {
        this.detailModel = response.Data as BalanceTransferReturnViewModel;
+       this.detailModel.BalanceTransferReturn.Id = Number(this.detailModel.BalanceTransferReturn.Id );
      } else {
        this._toast.error(response.Message as string , 'Server Error');
        return;
@@ -74,7 +75,8 @@ export class BalanceTransferReturnComponent implements OnInit {
       ReturnAmount:[undefined,Validators.required],
       FinalPaymentDate:[undefined],
       UtrNo:[undefined],
-      Remark:[undefined]
+      Remark:[undefined],
+      ChequeNumber:[undefined]
     });
   }
   CheckDisbursementStatus(value: any) {
@@ -88,7 +90,7 @@ export class BalanceTransferReturnComponent implements OnInit {
    this.model.GoldReceived = this.DetailModel.BalanceTransferReturn.GoldReceived;
    this.model.AmountPainToExistingBank = this.detailModel.BalanceTransferReturn.AmountPainToExistingBank;
    this.model.GoldSubmittedToBank = this.detailModel.BalanceTransferReturn.GoldSubmittedToBank;
-   this.model.LeadId = this.detailModel.Id;
+   this.model.LeadId = Number(this.detailModel.Id);
    this.model.BtReturnId = Number(this.detailModel.BalanceTransferReturn.Id);
    let subscription = this._btLeadService.AddUpdateBTBalanceReturn(this.model).subscribe(response =>{
    subscription.unsubscribe();
@@ -119,7 +121,13 @@ export class BalanceTransferReturnComponent implements OnInit {
      this.IsChequeDetail = false;
    }
   }
+  // aa() {
+  //   this.chequeDetail = new BalanceTransferReturnBankChequeDetail();
+  // }
   SetChequeDetail() {
+    this.chequeDetail.ChequeNumber = this.chequeDetail.ChequeNumber.toString();
+    this.chequeDetail.ChequeImageUrl = null;
+    this.model.ChequeDetail = this.chequeDetail;
     this.HideAddUpdateModel.nativeElement.click();
   }
   FinalSubmit(){

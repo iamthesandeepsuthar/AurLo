@@ -929,6 +929,71 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                 return CreateResponse<object>(null, ResponseMessage.Fail, false, ((int)ApiStatusCode.ServerException), ex.Message ?? ex.InnerException.ToString());
             }
         }
+
+        public async Task<ApiServiceResponseModel<BtGoldLoanLeadAppointmentViewModel>> GetAppointmentDetail(long leadId) 
+        {
+            try
+            {
+                var data = await _db.BtgoldLoanLeadAppointmentDetail.Where(x=>x.LeadId == leadId).Include(x=>x.Branch).ThenInclude(y=>y.Bank).FirstOrDefaultAsync();
+                if (data != null)
+                {
+                    BtGoldLoanLeadAppointmentViewModel appointment = new BtGoldLoanLeadAppointmentViewModel
+                    {
+                        Id = data.Id,
+                        BranchId = data.BranchId ?? null,
+                        BranchName = data.Branch.BranchName ?? null,
+                        BankName = data.Branch.Bank.Name ?? null,
+                        Ifsc = data.Branch.Ifsc ?? null,
+                        Pincode = data.Branch.Pincode ?? null,
+                        AppointmentDate = data.AppointmentDate ?? null,
+                        AppointmentTime = data.AppointmentTime.HasValue ? new DateTime(data.AppointmentTime.Value.Ticks).ToString("HH:mm:ss") : null
+                    };
+                    return CreateResponse(appointment, ResponseMessage.Success, true, ((int)ApiStatusCode.Ok));
+                }
+                else 
+                {
+                    return CreateResponse<BtGoldLoanLeadAppointmentViewModel>(null, ResponseMessage.NotFound, false, ((int)ApiStatusCode.NotFound));
+
+                }
+            }
+            catch (Exception ex) 
+            {
+                return CreateResponse<BtGoldLoanLeadAppointmentViewModel>(null, ResponseMessage.Fail, false, ((int)ApiStatusCode.ServerException), ex.Message ?? ex.InnerException.ToString());
+            }
+        }
+
+        public async Task<ApiServiceResponseModel<object>> SaveAppointment(BtGoldLoanLeadAppointmentPostModel model) 
+        {
+            try
+            {
+                var data = await _db.BtgoldLoanLeadAppointmentDetail.Where(x => x.LeadId == model.LeadId).FirstOrDefaultAsync();
+                if (data == null)
+                {
+                    BtgoldLoanLeadAppointmentDetail appointment = new BtgoldLoanLeadAppointmentDetail
+                    {
+                        AppointmentDate = model.AppointmentDate,
+                        AppointmentTime = model.AppointmentTime.ToTimeSpanValue(),                        
+                        BranchId = model.BranchId,
+                        LeadId = model.LeadId
+                    };
+                    await _db.BtgoldLoanLeadAppointmentDetail.AddAsync(appointment);
+                    await _db.SaveChangesAsync();
+                    return CreateResponse<object>(true, ResponseMessage.Save, true, ((int)ApiStatusCode.Ok));
+                }
+                else
+                {
+                    data.AppointmentDate = model.AppointmentDate;
+                    data.AppointmentTime = model.AppointmentTime.ToTimeSpanValue();                    
+                    data.BranchId = model.BranchId;
+                    await _db.SaveChangesAsync();
+                    return CreateResponse<object>(true, ResponseMessage.Update, true, ((int)ApiStatusCode.Ok));
+                }
+            }
+            catch (Exception ex)
+            {
+                return CreateResponse<object>(null, ResponseMessage.Fail, false, ((int)ApiStatusCode.ServerException), ex.Message ?? ex.InnerException.ToString());
+            }
+        }
         #region <<Private Method Of Balance Transafer Gold Loan Lead>>
         private async Task<long> SaveCustomerBTFreshLead(BTGoldLoanLeadPostModel model)
         {
@@ -1034,15 +1099,13 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                     {
 
                         LeadId = LeadId,
-                        BranchId = model.BranchId.HasValue ? model.BranchId : null,
+                        BranchId = model.BranchId,
                         AppointmentDate = model.AppointmentDate.HasValue ? model.AppointmentDate : null,
                         AppointmentTime = model.AppointmentTime.ToTimeSpanValue()
-
                     };
-
                     var result = await _db.BtgoldLoanLeadAppointmentDetail.AddAsync(objModel);
                     await _db.SaveChangesAsync();
-
+                    return true;
                 }
                 else
                 {
@@ -1050,20 +1113,22 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                     if (objModel != null)
                     {
                         objModel.LeadId = LeadId;
-                        objModel.BranchId = model.BranchId.HasValue ? model.BranchId : null;
+                        objModel.BranchId = model.BranchId;
                         objModel.AppointmentDate = model.AppointmentDate.HasValue ? model.AppointmentDate : null;
                         objModel.AppointmentTime = model.AppointmentTime.ToTimeSpanValue();
                         await _db.SaveChangesAsync();
+                        return true;
                     }
-                }
-
-                return true;
+                    else 
+                    {
+                        return false;
+                    }
+                }             
 
             }
             catch
             {
                 throw;
-
             }
         }
         private async Task<bool> SetDocumentDetail(BtGoldLoanLeadDocumentPostModel model, long LeadId)

@@ -17,6 +17,7 @@ import { BalanceTransferGoldLoanLeadsService } from 'src/app/Shared/Services/Lea
 import { UserSettingService } from 'src/app/Shared/Services/user-setting-services/user-setting.service';
 import { AuthService } from '../../../Shared/Helper/auth.service';
 import { LeadApprovalPopupComponent } from '../../../Shared/Helper/shared/Popup/lead-approval-popup/lead-approval-popup.component';
+import { AppointmentBookingPopupComponent } from 'src/app/Shared/Helper/shared/Popup/appointment-booking-popup/appointment-booking-popup.component';
 
 @Component({
   selector: 'app-balance-transfer-gold-loan-leads',
@@ -68,7 +69,6 @@ export class BalanceTransferGoldLoanLeadsComponent implements OnInit {
       serve.unsubscribe();
       if (response.IsSuccess) {
         this.model = response.Data as BTGoldLoanLeadListModel[];
-        console.log('data------------',this.model);
         this.dataSource = new MatTableDataSource<BTGoldLoanLeadListModel>(this.model);
         this.totalRecords = response.TotalRecord as number;
 
@@ -185,6 +185,18 @@ export class BalanceTransferGoldLoanLeadsComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
 
+      }
+    });
+  }
+  onChangeAppointmentBooking(Id: number) {
+    const dialogRef = this.dialog.open(AppointmentBookingPopupComponent, {
+      data: { Id: Id as number, Type: "BTAppointmentBooking" as string ,Heading:'Appointment Booking' },
+      width: '1000px',
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+      } else {
       }
     });
   }

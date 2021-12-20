@@ -34,6 +34,8 @@ export class GoldLoanFreshLeadAppointmentDetailModel {
   GlfreshLeadId!: number;
   IsActive!: boolean | null;
   CreatedDate!: string;
+  Pincode!:string;
+  LeadId!:number;
 }
 
 export class GoldLoanFreshLeadJewelleryDetailModel {

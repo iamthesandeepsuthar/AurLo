@@ -95,7 +95,6 @@ export class ListAgentComponent implements OnInit {
   onPageSizeChange() {
 
     this.indexModel.IsPostBack = true;
-    debugger;
     this.indexModel.PageSize = Number(this.indexModel.PageSize);
 
     this.getList();

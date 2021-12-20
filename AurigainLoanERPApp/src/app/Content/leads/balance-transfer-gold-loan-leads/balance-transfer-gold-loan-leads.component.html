@@ -156,6 +156,10 @@
                                       <i class="fas fa-edit"></i> Edit
                                   </a>
                                </li>
+
+                               <li>
+                                <a class="table-action-btn-delete" (click)="onChangeAppointmentBooking(row.Id)" title="Appointment Booking"> <i class="fas fa-info-circle"></i> Appointment Booking </a>
+                            </li>
                                 <li>
                                     <a *ngIf="!row?.IsStatusCompleted" href="javascript:void(0)" (click)="onChangeLeadStatus(row.Id)" class="table-action-btn-status-changes text-warning" data-toggle="tooltip" data-placement="bottom" title="Change Status ">
                                         <img src="assets/img/change-status.png" alt="" /> Change Status

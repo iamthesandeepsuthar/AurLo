@@ -20,6 +20,8 @@ namespace AurigainLoanERP.Services.FreshLead
         Task<ApiServiceResponseModel<object>> UpdateLeadStatusOtherLeadAsync(LeadStatusModel model);
         Task<ApiServiceResponseModel<List<LeadStatusActionHistory>>> OtherLoanLeadStatusHistory(long leadId);
         Task<ApiServiceResponseModel<FreshLeadHLPLCLModel>> FreshHLPLCLDetail(long Id);
+        Task<ApiServiceResponseModel<GoldLoanFreshLeadAppointmentDetailViewModel>> GetAppointmentDetailByLeadId(long Id);
+        Task<ApiServiceResponseModel<object>> SaveAppointment(GoldLoanFreshLeadAppointmentDetailModel model);
         #endregion
     }
 }

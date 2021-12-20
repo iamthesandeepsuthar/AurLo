@@ -40,12 +40,13 @@ namespace AurigainLoanERP.Shared.ContractModel
     }
     public class DDLBankModel
     {
-        public int Id { get; set; }
+        public int Id { get; set; }       
         public string Name { get; set; }
     }
     public class DDLBranchModel
     {
         public int Id { get; set; }
+        public int BankId {  get; set; }
         public string BranchName { get; set; }
         public string Ifsc { get; set; }
 

@@ -16,6 +16,7 @@
         public const string RegisterTemplate = "\\StaticFiles\\EmailTemplate\\Registration.html";
         public const string UserApproveTemplate = "\\StaticFiles\\EmailTemplate\\UserApproval.html";
         public const string GoldLoanLeadGenerationTemplate = "\\StaticFiles\\EmailTemplate\\GoldLoanLeadGeneration.html";
+        public const string BTGoldLoanLeadGenerationTemplate = "\\StaticFiles\\EmailTemplate\\BTGoldLoanLeadGeneration.html";
 
     }
 

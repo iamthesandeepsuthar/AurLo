@@ -149,6 +149,7 @@ namespace AurigainLoanERP.Services.Bank
                 {
                     Id = x.Id,
                     BranchName = x.BranchName,
+                    BankId  = x.BankId,
                     Ifsc = x.Ifsc
                 }).ToListAsync();
 

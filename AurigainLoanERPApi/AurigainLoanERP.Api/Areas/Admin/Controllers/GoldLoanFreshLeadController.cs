@@ -65,5 +65,17 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
         {
             return await _freshLead.FreshGoldLoanLeadStatusHistory(leadId);
         }
+        [HttpGet("[action]/{id}")]
+        //[AllowAnonymous]
+        public async Task<ApiServiceResponseModel<GoldLoanFreshLeadAppointmentDetailViewModel>> AppointmentDetailById(long id)
+        {
+            return await _freshLead.GetAppointmentDetailByLeadId(id);
+        }
+        [HttpPost("[action]")]
+        public async Task<ApiServiceResponseModel<object>> SaveAppointment(GoldLoanFreshLeadAppointmentDetailModel model)
+        {
+            return await _freshLead.SaveAppointment(model);
+        }
+
     }
 }
