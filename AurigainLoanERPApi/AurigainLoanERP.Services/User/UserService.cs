@@ -146,7 +146,7 @@ namespace AurigainLoanERP.Services.User
                         break;
                 }
 
-                var data = result.Skip(((model.Page == 0 ? 1 : model.Page) - 1) * (model.PageSize != 0 ? model.PageSize : int.MaxValue)).Take(model.PageSize != 0 ? model.PageSize : int.MaxValue).Include(x => x.User).ThenInclude(y => y.UserReportingPersonUser); ;
+                var data = result.Skip(((model.Page == 0 ? 1 : model.Page) - 1) * (model.PageSize != 0 ? model.PageSize : int.MaxValue)).Take(model.PageSize != 0 ? model.PageSize : int.MaxValue).Include(x => x.User).ThenInclude(y => y.UserReportingPersonUser);
 
                 objResponse.Data = await (from detail in data
                                           where detail.IsDelete == false
@@ -713,35 +713,34 @@ namespace AurigainLoanERP.Services.User
             {
                 var detail = await _db.Managers.Where(x => x.Id == Id)
                                       .Include(x => x.AreaPincode).ThenInclude(y => y.District)
-                                      .ThenInclude(y => y.State)
-                                      .Include(x => x.User)
-                                      .Include(x => x.User.UserRole).FirstOrDefaultAsync();
+                                      .ThenInclude(z => z.State)
+                                      .Include(x => x.User).ThenInclude(p => p.UserRole).FirstOrDefaultAsync();
                 if (detail != null)
                 {
-                    UserManagerModel manager = new UserManagerModel
-                    {
-                        FullName = detail.FullName,
-                        FatherName = detail.FatherName,
-                        Gender = detail.Gender,
-                        Pincode = detail.Pincode,
-                        DistrictId = null,
-                        DateOfBirth = detail.DateOfBirth,
-                        Address = detail.Address,
-                        EmailId = detail.User.Email,
-                        StateId = null,
-                        RoleId = detail.User.UserRoleId,
-                        Mobile = detail.User.Mobile,
-                        IsWhatsApp = detail.User.IsWhatsApp,
-                        RoleName = detail.User.UserRole.Name,
-                        Id = detail.Id,
-                        UserId = detail.UserId,
-                        IsApproved = detail.User.IsApproved,
-                        IsActive = detail.IsActive,
-                        ProfileImageUrl = "",
-                        AreaPincodeId = detail.AreaPincodeId,
-                        DistrictName = detail.AreaPincode.District.Name,
-                        StateName = detail.AreaPincode.District.State.Name
-                    };
+                    UserManagerModel manager = new UserManagerModel();
+
+                    manager.FullName = detail.FullName;
+                    manager.FatherName = detail.FatherName;
+                    manager.Gender = detail.Gender;
+                    manager.Pincode = detail.Pincode;
+                    manager.DistrictId = null;
+                    manager.DateOfBirth = detail.DateOfBirth;
+                    manager.Address = detail.Address;
+                    manager.EmailId = detail.User.Email;
+                    manager.StateId = null;
+                    manager.RoleId = detail.User.UserRoleId;
+                    manager.Mobile = detail.User.Mobile;
+                    manager.IsWhatsApp = detail.User.IsWhatsApp;
+                    manager.RoleName = detail.User.UserRole.Name;
+                    manager.Id = detail.Id;
+                    manager.UserId = detail.UserId;
+                    manager.IsApproved = detail.User.IsApproved;
+                    manager.IsActive = detail.IsActive;
+                    manager.ProfileImageUrl = "";
+                    manager.AreaPincodeId = detail.AreaPincodeId;
+                    manager.DistrictName = detail.AreaPincode.District.Name;
+                    manager.StateName = detail.AreaPincode.District.State.Name;
+                   
                     return CreateResponse(manager, ResponseMessage.Success, true, ((int)ApiStatusCode.Ok));
                 }
                 else
@@ -1320,7 +1319,6 @@ namespace AurigainLoanERP.Services.User
 
             }
         }
-
         /// <summary>
         /// Get User Availibilty by User Id
         /// </summary>
@@ -1375,10 +1373,7 @@ namespace AurigainLoanERP.Services.User
 
             }
         }
-
-
         #endregion
-
         #region << Private Method>>
 
         /// <summary>
@@ -1454,6 +1449,7 @@ namespace AurigainLoanERP.Services.User
                     objModel.UniqueId = GenerateUniqueId();
                     objModel.Gender = !string.IsNullOrEmpty(model.Gender) ? model.Gender : null;
                     objModel.Address = !string.IsNullOrEmpty(model.Address) ? model.Address : null;
+                    objModel.AddressLine2 = !string.IsNullOrEmpty(model.AddressLine2) ? model.AddressLine2 : null;
                     objModel.DateOfBirth = model.DateOfBirth ?? null;
                     objModel.DistrictId = model.DistrictId;
                     objModel.PinCode = model.PinCode;
@@ -1471,6 +1467,7 @@ namespace AurigainLoanERP.Services.User
                     objModel.FatherName = !string.IsNullOrEmpty(model.FatherName) ? model.FatherName : null;
                     objModel.Gender = !string.IsNullOrEmpty(model.Gender) ? model.Gender : null;
                     objModel.Address = !string.IsNullOrEmpty(model.Address) ? model.Address : null;
+                    objModel.AddressLine2 = !string.IsNullOrEmpty(model.AddressLine2) ? model.AddressLine2 : null;
                     objModel.DateOfBirth = model.DateOfBirth ?? null;
                     objModel.DistrictId = model.DistrictId;
                     objModel.PinCode = model.PinCode;
@@ -1507,6 +1504,7 @@ namespace AurigainLoanERP.Services.User
                     objModel.UniqueId = GenerateUniqueId();
                     objModel.Gender = !string.IsNullOrEmpty(model.Gender) ? model.Gender : null;
                     objModel.Address = !string.IsNullOrEmpty(model.Address) ? model.Address : null;
+                    objModel.AddressLine2 = !string.IsNullOrEmpty(model.AddressLine2) ? model.AddressLine2 : null;
                     objModel.DateOfBirth = model.DateOfBirth ?? null;
                     objModel.DistrictId = model.DistrictId;
                     objModel.PinCode = model.PinCode;
@@ -1525,6 +1523,7 @@ namespace AurigainLoanERP.Services.User
                     objModel.FatherName = !string.IsNullOrEmpty(model.FatherName) ? model.FatherName : null;
                     objModel.Gender = !string.IsNullOrEmpty(model.Gender) ? model.Gender : null;
                     objModel.Address = !string.IsNullOrEmpty(model.Address) ? model.Address : null;
+                    objModel.AddressLine2 = !string.IsNullOrEmpty(model.AddressLine2) ? model.AddressLine2 : null;
                     objModel.DateOfBirth = model.DateOfBirth ?? null;
                     objModel.DistrictId = model.DistrictId;
                     objModel.PinCode = model.PinCode;
@@ -1953,6 +1952,7 @@ namespace AurigainLoanERP.Services.User
                             Pincode = model.Pincode,
                             AreaPincodeId = model.AreaPincodeId,
                             Address = model.Address,
+                            AddressLine2 = model.AddressLine2,
                             Setting = model.Setting,
                             CreatedBy = (int)UserRoleEnum.Admin,
                             ModifiedDate = DateTime.Now
@@ -1980,6 +1980,7 @@ namespace AurigainLoanERP.Services.User
                         manager.ModifiedDate = DateTime.Now;
                         manager.DateOfBirth = model.DateOfBirth;
                         manager.Address = model.Address;
+                        manager.AddressLine2 = model.AddressLine2;
                         manager.Pincode = model.Pincode;
                         manager.User.UserRoleId = model.RoleId;
                     }
@@ -1992,7 +1993,6 @@ namespace AurigainLoanERP.Services.User
                 throw;
             }
         }
-
 
         #endregion
 

@@ -87,9 +87,19 @@ namespace AurigainLoanERP.Shared.ExtensionMethod
             string result ;
             string prefix = "AUR";          
             var month = DateTime.Now.Month;
-            var second = DateTime.Now.Second;
+            var year = DateTime.Now.ToString("yy");            
             Random random = new Random();
-            result = prefix +"/"+ month.ToString()+"/"+second+"/"+ random.Next(10000, 199999).ToString();
+            result = prefix +"/"+ month.ToString()+"/"+year+"/"+ random.Next(10000, 199999).ToString();
+            return result;
+        }
+        public string EmployeeUniqueId() 
+        {
+            string result;
+            string prefix = "AUR";
+            var month = DateTime.Now.Month;
+            var year = DateTime.Now.ToString("yy");
+            Random random = new Random();
+            result = prefix + "/" + month.ToString() + "/" + year + "/" + random.Next(10000, 199999).ToString();
             return result;
         }
         public ApiServiceResponseModel<string> CreateToken(long UserId, string UserName, string RoleType, int RoleId)
@@ -112,7 +122,6 @@ namespace AurigainLoanERP.Shared.ExtensionMethod
 
             return CreateResponse<string>(new JwtSecurityTokenHandler().WriteToken(token), ResponseMessage.Success, true, ((int)ApiStatusCode.Ok));
         }
-
 
     }
 }

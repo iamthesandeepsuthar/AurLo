@@ -428,12 +428,11 @@ namespace AurigainLoanERP.Services.StateAndDistrict
                                   {
                                       Id = record.Id,
                                       PinCode = record.Pincode,
-                                      AreaName = string.Concat(record.AreaName, ", ", record.District.Name, " (", record.District.State.Name, ")"),
+                                      AreaName = record.AreaName,
+                                      AddressLine2 = string.Format("{0}, {1}", record.District.Name, record.District.State.Name),
                                       DistrictId = record.DistrictId,
                                       StateId = record.District.StateId
-
                                   }).ToListAsync();
-
                 if (area != null)
                 {
                     return CreateResponse(area, ResponseMessage.Success, true, ((int)ApiStatusCode.Ok));
@@ -442,7 +441,6 @@ namespace AurigainLoanERP.Services.StateAndDistrict
                 {
                     return CreateResponse<List<AvailableAreaModel>>(null, ResponseMessage.NotFound, true, ((int)ApiStatusCode.RecordNotFound));
                 }
-
             }
             catch (Exception ex)
             {
@@ -525,7 +523,6 @@ namespace AurigainLoanERP.Services.StateAndDistrict
 
             }
         }
-
         #endregion
     }
 }

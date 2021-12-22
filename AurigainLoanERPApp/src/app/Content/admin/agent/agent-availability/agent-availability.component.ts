@@ -47,7 +47,7 @@ export class AgentAvailabilityComponent implements OnInit {
 
   ngOnInit(): void {
     this.formInit();
-    if (this.userId) {
+    if (this.userId>0) {
       this.getUserDetail();
     }
 
@@ -91,19 +91,14 @@ export class AgentAvailabilityComponent implements OnInit {
     let serv = this._userSettingService.GetUserAvailibilityList(this.userId).subscribe(res => {
       serv.unsubscribe();
       if (res.IsSuccess) {
-        debugger
         this.dataModel = res?.Data as UserAvailabilityViewModel[];
-
       }
     });
   }
 
   setFieldValidation(startTimeFC: string, endTimeFC: string, setRequired: any) {
-
     let startTimeField = this.formGroup.get(startTimeFC);
     let endTimeField = this.formGroup.get(endTimeFC);
-
-
     if (this.DayOffMonday) {
       this.model.MondayST = null;
       this.model.MondayET = null;

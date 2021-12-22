@@ -19,6 +19,7 @@ namespace AurigainLoanERP.Shared.ContractModel
 
         public string PinCode { get; set; }
         public string Address { get; set; }
+        public string AddressLine2 { get; set;}
         public DateTime? DateOfBirth { get; set; }
         public bool? IsActive { get; set; }
         public bool IsDelete { get; set; }

@@ -9,6 +9,7 @@
 	[Gender] NVARCHAR(50) NOT NULL, 
     [QualificationId] INT NOT NULL references QualificationMaster(Id), 
     [Address] NVARCHAR(MAX) NULL, 
+     [AddressLine2] NVARCHAR(1000) NULL, 
     [PinCode] NVARCHAR(50) NULL, 
     [DistrictId] bigint NULL references District(Id),
     [DateOfBirth] DateTime,

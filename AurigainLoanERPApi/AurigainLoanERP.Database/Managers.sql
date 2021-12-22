@@ -6,6 +6,7 @@
     [Gender] NVARCHAR(50) NOT NULL, 
     [FatherName] NVARCHAR(500) NULL, 
     [Address] NVARCHAR(2000) NULL, 
+     [AddressLine2] NVARCHAR(1000) NULL, 
     [UserId] BIGINT NOT NULL references UserMaster(Id), 
     [DistrictId] BIGINT NULL  references District(Id), 
     [StateId] int NULL references State(Id),

@@ -29,25 +29,19 @@ export class AddUpdateUserRoleComponent implements OnInit {
   constructor(private readonly fb: FormBuilder, private readonly _userRole: UserRoleService,
     private _activatedRoute: ActivatedRoute, private _router: Router,
     private readonly _commonService: CommonService, private readonly _toast: ToastrService) {
-
     if (this._activatedRoute.snapshot.params.id) {
       this.Id = this._activatedRoute.snapshot.params.id;
     }
-
-
   }
-
   ngOnInit(): void {
     this.GetDropDown();
     this.formInit();
-
-
-
-    if (this.Id > 0) {
+   console.log(this.dropDown.ddlUserRole);
+    if (this.Id > 0)
+    {
       this.onGetDetail();
     }
   }
-
   formInit() {
     this.userRoleForm = this.fb.group({
       Name: [undefined, Validators.required],
@@ -70,7 +64,6 @@ export class AddUpdateUserRoleComponent implements OnInit {
     this.f.ParentRole.updateValueAndValidity();
 
   }
-
   onSubmit() {
     this.userRoleForm.markAllAsTouched();
     if (this.userRoleForm.valid) {
@@ -85,7 +78,6 @@ export class AddUpdateUserRoleComponent implements OnInit {
       });
     }
   }
-
   onGetDetail() {
     this._userRole.GetRole(this.Id).subscribe(res => {
       if (res.IsSuccess) {
@@ -102,14 +94,11 @@ export class AddUpdateUserRoleComponent implements OnInit {
       }
     });
   }
-
   GetDropDown() {
     this._commonService.GetDropDown([DropDown_key.ddlUserRole]).subscribe(res => {
       if (res.IsSuccess) {
         this.dropDown = res.Data;
       }
-
     });
   }
-
 }

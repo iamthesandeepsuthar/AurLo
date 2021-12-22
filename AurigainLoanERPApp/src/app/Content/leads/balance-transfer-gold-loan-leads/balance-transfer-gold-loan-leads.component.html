@@ -152,13 +152,13 @@
                                     </a>
                                 </li>
                                 <li>
-                                  <a class="table-action-btn-edit" *ngIf="row.IsInternalLead" routerLink="./{{routing_Url.Fresh_Lead_Add_Update_Internal_Lead_Url+'/'+ row.Id}}" title="Edit">
+                                  <a class="table-action-btn-edit"  routerLink="./{{routing_Url.Fresh_Lead_Add_Update_Internal_Lead_Url+'/'+ row.Id}}" title="Edit">
                                       <i class="fas fa-edit"></i> Edit
                                   </a>
                                </li>
 
                                <li>
-                                <a class="table-action-btn-delete" (click)="onChangeAppointmentBooking(row.Id)" title="Appointment Booking"> <i class="fas fa-info-circle"></i> Appointment Booking </a>
+                                <a class="table-action-btn-delete" (click)="onChangeAppointmentBooking(row.Id)" title="Appointment Booking"> <i class="fas fa-calendar-check"></i> Appointment Booking </a>
                             </li>
                                 <li>
                                     <a *ngIf="!row?.IsStatusCompleted" href="javascript:void(0)" (click)="onChangeLeadStatus(row.Id)" class="table-action-btn-status-changes text-warning" data-toggle="tooltip" data-placement="bottom" title="Change Status ">

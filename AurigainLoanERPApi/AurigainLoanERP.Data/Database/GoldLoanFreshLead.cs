@@ -38,6 +38,7 @@ namespace AurigainLoanERP.Data.Database
         public string LeadStatus { get; set; }
         public long? CreatedBy { get; set; }
         public long? ModifiedBy { get; set; }
+        public string LoanCaseNumber { get; set; }
 
         public virtual UserMaster CreatedByNavigation { get; set; }
         public virtual UserMaster CustomerUser { get; set; }

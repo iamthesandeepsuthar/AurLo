@@ -12,9 +12,11 @@ namespace AurigainLoanERP.Data.Database
         public long Id { get; set; }
         public long LeadId { get; set; }
         public string Address { get; set; }
+        public string AddressLine2 { get; set; }
         public long? AeraPincodeId { get; set; }
         public string CorrespondAddress { get; set; }
         public long? CorrespondAeraPincodeId { get; set; }
+        public string CorrespondAddressLine2 { get; set; }
 
         public virtual PincodeArea AeraPincode { get; set; }
         public virtual PincodeArea CorrespondAeraPincode { get; set; }

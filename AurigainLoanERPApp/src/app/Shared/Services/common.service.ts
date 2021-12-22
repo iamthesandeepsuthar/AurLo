@@ -13,22 +13,18 @@ export class CommonService extends AlertService {
   constructor(private readonly _baseService: BaseAPIService) {
     super();
   }
-
   GetDropDown(key: string[]): Observable<ApiResponse<any>> {
 
     return this._baseService.post(this._baseService.API_Url.DropDown_Api, key);
   }
-
   GetFilterDropDown(model: FilterDropDownPostModel): Observable<ApiResponse<any>> {
 
     return this._baseService.post(this._baseService.API_Url.FilterDropDown_Api, model);
   }
-
   GetMultipleFilterDropDown(model: FilterDropDownPostModel[]): Observable<ApiResponse<any>> {
 
     return this._baseService.post(this._baseService.API_Url.MultipleFilterDropDown_Api, model);
   }
-
   NumberOnly(event: any, isCommaOrDash: boolean = false): boolean {
 
     const charCode = event.which ? event.which : event.keyCode;
@@ -42,11 +38,9 @@ export class CommonService extends AlertService {
     }
     return true;
   }
-
   MaskString(strValue: string, lastShowDigit: number) {
     return strValue.replace(/\d(?=\d{`${lastShowDigit}`})/g, "X");
   }
-
   checkDecimalNumberOnly(event: any): boolean {
 
     var charCode = (event.which) ? event.which : event.keyCode;
@@ -67,7 +61,6 @@ export class CommonService extends AlertService {
     }
     return true;
   }
-
   AlphaNumericOnly(e: any) {
     var keyCode = e.keyCode || e.which;
     var regex = /^[A-Za-z0-9]+$/;
@@ -77,7 +70,6 @@ export class CommonService extends AlertService {
     }
     return isValid;
   }
-
   AlphabetOnly(e: any) {
     var keyCode = e.keyCode || e.which;
     var regex = /^[a-zA-Z& ]*$/;;
@@ -87,5 +79,15 @@ export class CommonService extends AlertService {
     }
     return isValid;
   }
+  ValidateAge(dob: any): boolean {
+    var today = new Date();
+    var birthDate = new Date(dob);
+    if(today>birthDate) {
+    return true;
+    } else {
+      return false;
+    }
+  }
+  
 
 }

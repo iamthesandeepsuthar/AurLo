@@ -114,6 +114,7 @@
     <Build Include="FreshLeadHLPLCLStatusActionHistory.sql" />
     <Build Include="BalanceTransferLoanReturn.sql" />
     <Build Include="BalanceTransferReturnBankChequeDetail.sql" />
+    <Build Include="Purpose.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="AurigainLoanERP.Database.refactorlog" />

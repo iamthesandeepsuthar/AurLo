@@ -130,7 +130,7 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
             return await _objBTLead.GetAppointmentDetail(id);
         }
         [HttpPost]
-        [AllowAnonymous]
+       // [AllowAnonymous]
         public async Task<ApiServiceResponseModel<object>> SaveAppointment(BtGoldLoanLeadAppointmentPostModel model)
         {
             return await _objBTLead.SaveAppointment(model);

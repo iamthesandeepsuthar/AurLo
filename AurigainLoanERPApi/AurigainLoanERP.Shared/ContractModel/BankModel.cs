@@ -59,7 +59,6 @@ namespace AurigainLoanERP.Shared.ContractModel
         public string Ifsc { get; set; }
         public int BankId { get; set; }
     }
-
     public class BankLogoPostModel
     {
         public long Id { get; set; }

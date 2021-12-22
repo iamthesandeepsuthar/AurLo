@@ -21,6 +21,7 @@ namespace AurigainLoanERP.Shared.ContractModel
         public string PinCode { get; set; }
         public long DistrictId { get; set; }
         public long StateId { get; set; }
+        public string AddressLine2 { get; set; }
     }
     public class AddressDetailModel
     {

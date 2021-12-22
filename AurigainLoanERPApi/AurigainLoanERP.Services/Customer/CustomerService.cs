@@ -408,6 +408,7 @@ namespace AurigainLoanERP.Services.Customer
                             IsDelete = model.IsDelete,
                             PincodeAreaId = model.PincodeAreaId,
                             Address = model.Address,
+                            AddressLine2 = model.AddressLine2,
                             CreatedBy = (int)UserRoleEnum.Admin
                         };
                         var res = await _db.UserCustomer.AddAsync(customer);
@@ -429,6 +430,7 @@ namespace AurigainLoanERP.Services.Customer
                         customer.User.Email = model.User.Email;
                         customer.DateOfBirth = model.DateOfBirth;
                         customer.Address = model.Address;
+                        customer.AddressLine2 = model.AddressLine2;
                         customer.PincodeAreaId = model.PincodeAreaId;
                         customer.User.UserRoleId = model.User.UserRoleId.Value;
                     }

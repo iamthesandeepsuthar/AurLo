@@ -18,6 +18,7 @@ namespace AurigainLoanERP.Data.Database
         public string Gender { get; set; }
         public int QualificationId { get; set; }
         public string Address { get; set; }
+        public string AddressLine2 { get; set; }
         public string PinCode { get; set; }
         public long? DistrictId { get; set; }
         public DateTime? DateOfBirth { get; set; }
