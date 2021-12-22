@@ -30,8 +30,7 @@
           [ngClass]="{ 'is-invalid': f.Name.errors && f.Name.touched}" class="form-control" id="input1"
           placeholder="Jewellery type">
         <div class="invalid-feedback"
-          *ngIf="(typeFrom.get('Name')?.hasError('required') && typeFrom.get('Name')?.touched)">Please enter product
-          category name.</div>
+          *ngIf="(typeFrom.get('Name')?.hasError('required') && typeFrom.get('Name')?.touched)">Please enter jewellery type.</div>
       </div>
 
       <div class="form-group col-md-12">

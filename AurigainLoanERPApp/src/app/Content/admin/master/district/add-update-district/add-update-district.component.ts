@@ -78,21 +78,19 @@ export class AddUpdateDistrictComponent implements OnInit {
   formInit() {
     this.districtForm = this.fb.group({
       Name: [undefined, Validators.required],
-      DllState: [undefined, null],
+      DllState: [undefined, Validators.required],
       Pin: [undefined, undefined],
       IsActive: [undefined, undefined],
       areaName: [undefined, undefined],
     });
   }
   onSubmit() {
-
-    if (this.pincodeAreaModel.AreaName != undefined && this.pincodeAreaModel.Pincode != undefined) {
-      this.toast.warning('Please submit Pincode and Area first...!', 'Warning');
-      return;
-    }
+    // if (this.pincodeAreaModel.AreaName != undefined && this.pincodeAreaModel.Pincode != undefined) {
+    //   this.toast.warning('Please submit Pincode and Area first...!', 'Warning');
+    //   return;
+    // }
 
     this.districtForm.markAllAsTouched();
-
     if (this.districtForm.valid) {
 
       let subscription = this._districtService.AddUpdateDistrict(this.model).subscribe((response) => {

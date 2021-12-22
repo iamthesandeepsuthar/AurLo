@@ -137,8 +137,9 @@ export class AddUpdateAgentComponent implements OnInit,AfterContentChecked {
   }
   onFrmSubmit() {
     this.formGroup.markAllAsTouched();
+    let ageValidate = this._commonService.ValidateAge(this.model.DateOfBirth);
     let ChildValid: boolean = this.submitChildData();
-    if (this.formGroup.valid && ChildValid) {
+    if (this.formGroup.valid && ChildValid ) {
 
       if (!this.model.Id || this.model.Id == 0) {
         this.model.User.IsApproved = false;

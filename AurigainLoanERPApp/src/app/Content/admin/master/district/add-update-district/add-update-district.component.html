@@ -39,28 +39,17 @@
             <div class="form-group col-md-4">
                 <label>State</label>
                 <div>
-                    <ng-select [items]="State_DropDown" [searchable]="true" bindLabel="Name" bindValue="Id" placeholder="Select State" formControlName="DllState" [(ngModel)]="model.StateId">
+                    <ng-select [items]="State_DropDown"  [ngClass]="{ 'is-invalid': f.DllState.errors && f.DllState.touched }"  [searchable]="true" bindLabel="Name" bindValue="Id" placeholder="Select State" formControlName="DllState" [(ngModel)]="model.StateId">
                     </ng-select>
+                    <div class="invalid-feedback" *ngIf="districtForm.get('DllState')?.hasError('required') && districtForm.get('DllState')?.touched"> Please select state </div>
                 </div>
 
-                <div class="invalid-feedback" *ngIf="
-        districtForm.get('DllState')?.hasError('required') && districtForm.get('DllState')?.touched">
-                    Please select state
-                </div>
             </div>
             <div class="form-group col-md-3">
                 <label>District Name</label>
                 <input type="text" formControlName="Name" [(ngModel)]="model.Name" [ngClass]="{ 'is-invalid': f.Name.errors && f.Name.touched }" class="form-control" id="input1" placeholder="Name" />
-                <div class="invalid-feedback" *ngIf="
-            districtForm.get('Name')?.hasError('required') && districtForm.get('Name')?.touched ">
-                    Please enter district name.
-                </div>
+                <div class="invalid-feedback" *ngIf="districtForm.get('Name')?.hasError('required') && districtForm.get('Name')?.touched "> Please enter district name.</div>
             </div>
-            <!-- <div class="form-group col-md-12">
-            <label>Pincode</label>
-            <input type="text" formControlName="Pin" minlength="6" maxlength="6" [(ngModel)]="model.Pincode" [ngClass]="{ 'is-invalid': f.Pin.errors && f.Pin.touched}" class="form-control" id="input2" placeholder=" Enter pincode">
-            <div class="invalid-feedback" *ngIf="(districtForm.get('Pin')?.hasError('required') && districtForm.get('Pin')?.touched)">Please enter district pincode. </div>
-        </div> -->
 
             <div class="form-group col-md-3">
                 <label>Active</label>
@@ -68,16 +57,13 @@
                     <div class="n-chk d-inline">
                         <label class="new-control new-checkbox checkbox-info">
               <input type="checkbox" formControlName="IsActive" class="new-control-input" [(ngModel)]="model.IsActive">
-              <span class="new-control-indicator"></span>Active Status
-            </label>
+              <span class="new-control-indicator"></span>Active Status  </label>
                     </div>
                 </div>
             </div>
             <div class="col-md-2">
                 <label>&nbsp;</label>
-                <button type="button" #HideAddUpdateModel data-toggle="modal" href="#add-dis-area" (click)="this.isArea = true" class="btn btn-primary w-100 b-h-form ">
-          <i class="fas fa-plus"> </i> Add Area
-        </button>
+                <button type="button" #HideAddUpdateModel data-toggle="modal" href="#add-dis-area" (click)="this.isArea = true" class="btn btn-primary w-100 b-h-form ">  <i class="fas fa-plus"> </i> Add Area </button>
             </div>
         </div>
 
