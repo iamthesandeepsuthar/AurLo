@@ -1,3 +1,6 @@
+import { DetailPurposeComponent } from './purpose-list/detail-purpose/detail-purpose.component';
+import { AddUpdatePurposeComponent } from './purpose-list/add-update-purpose/add-update-purpose.component';
+import { PurposeListComponent } from './purpose-list/purpose-list.component';
 import { AddUpdateProductComponent } from './products/add-update-product/add-update-product.component';
 import { DetailBankComponent } from './banks/detail-bank/detail-bank.component';
 import { AddUpdateBankComponent } from './banks/add-update-bank/add-update-bank.component';
@@ -125,6 +128,15 @@ const routes: Routes = [
   {
     path: "products/detail-product/:id",component: DetailProductComponent, canActivate:[AuthenticationGuard]
   },
+  {
+    path:'purpose',component:PurposeListComponent,canActivate:[AuthenticationGuard]
+  },
+  {
+    path:'purpose/add-update/:id',component:AddUpdatePurposeComponent,canActivate:[AuthenticationGuard]
+  },
+  {
+    path:'purpose/detail/:id',component:DetailPurposeComponent,canActivate:[AuthenticationGuard]
+  }
 ];
 
 @NgModule({

@@ -33,7 +33,9 @@ namespace AurigainLoanERP.Services.Purpose
                 objResponse.Data =await (from detail in data
                                          where detail.IsDelete == false
                                          select new PurposeModel { 
-                                          Name = detail.Name}).ToListAsync();
+                                          Name = detail.Name,
+                                          Id= detail.Id,
+                                         IsActive = detail.IsActive.Value}).ToListAsync();
 
 
                 if (result != null)
@@ -91,6 +93,7 @@ namespace AurigainLoanERP.Services.Purpose
                 if (result != null)
                 {
                     PurposeModel purpose = new PurposeModel();
+                    purpose.Id = result.Id;
                     purpose.Name = result.Name;
                     purpose.IsActive = result.IsActive.Value;
                    

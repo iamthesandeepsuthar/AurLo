@@ -251,6 +251,9 @@ export class Routing_Url {
   public static PaymentMode_List_Url = '/payment-modes';
   public static PaymentMode_Detail_Url = '/detail-payment-mode/';
   public static PaymentMode_AddUpdate_Url = '/add-payment-mode/';
+  public static Purpose_List_Url='/purpose';
+  public static Purpose_Add_Update_List='/add-update/';
+  public static Purpose_Detail_Url='/detail/';
   //#endregion
 
   //#region <State >

@@ -1,1 +1,69 @@
-<p>add-update-purpose works!</p>
+<!-- Page Header Title start -->
+<div class="widget-header">
+  <div class="row d-block d-sm-flex align-items-center justify-content-between text-center text-sm-left">
+      <div>
+          <h1>{{Id==0 ?'Add Purpose':'Update Purpose'}}</h1>
+          <!-- Breadcrumb Start -->
+          <nav class="custom-breadcrum">
+              <ol class="breadcrumb justify-content-center justify-content-sm-start">
+                  <li class="breadcrumb-item"><a href="#">Home</a></li>
+                  <li class="breadcrumb-item"><a href="javascript:void(0)">Master</a></li>
+                  <li class="breadcrumb-item"><a
+                          routerLink="{{'/' + this.routing_Url.MasterModule + this.routing_Url.Purpose_List_Url}}">
+                          Purpose </a></li>
+                  <li class="breadcrumb-item active" aria-current="page">{{Id==0 ?'Add':'Update'}}
+                  </li>
+
+              </ol>
+          </nav>
+          <!-- Breadcrumb End -->
+      </div>
+  </div>
+</div>
+<!-- Page Header Title end -->
+<!-- HTML FORM DIV START -->
+<div class="widget-content widget-content py-5 px-3 sm-form-center">
+  <form [formGroup]="purposeForm" (ngSubmit)="onSubmit()">
+      <div class="form-row">
+          <div class="form-group col-md-12">
+              <label>Purpose</label>
+              <input type="text" formControlName="Name" [(ngModel)]="Model.Name"
+                  [ngClass]="{ 'is-invalid': f.Name.errors && f.Name.touched}" class="form-control" id="input1"
+                  placeholder="Purpose">
+              <div class="invalid-feedback"
+                  *ngIf="(purposeForm.get('Name')?.hasError('required') && purposeForm.get('Name')?.touched)">Please
+                 enter purpose. </div>
+          </div>
+
+          <div class="form-group col-md-12">
+              <label>Active</label>
+              <div class="form-radio-check-grp">
+                  <div class="n-chk d-inline">
+                      <label class="new-control new-checkbox checkbox-info">
+                          <input type="checkbox" formControlName="IsActive" class="new-control-input"
+                              [(ngModel)]="Model.IsActive">
+                          <span class="new-control-indicator"></span>Active Status
+                      </label>
+
+                  </div>
+              </div>
+          </div>
+
+
+      </div>
+
+      <div class="sm-form-footer-btn-grp mt-2 row">
+          <div class="col-6">
+              <button type="submit" class="btn btn-primary w-100"> <i class="fas fa-check mr-1"></i> Submit</button>
+          </div>
+          <div class="col-6">
+              <button type="button" routerLink="{{'../../../'  + this.routing_Url.Purpose_List_Url}}"
+                  class="btn btn-outline-danger w-100"> <i class="fas fa-times mr-1"></i> Cancel</button>
+          </div>
+      </div>
+
+
+  </form>
+</div>
+<!-- HTML FORM DIV END -->
+
