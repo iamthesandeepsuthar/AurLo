@@ -681,6 +681,7 @@ namespace AurigainLoanERP.Services.User
                                               Mobile = detail.User != null ? detail.User.Mobile : null,
                                               RoleName = detail.User != null && detail.User.UserRole != null ? detail.User.UserRole.Name : null,
                                               Gender = detail.Gender ?? null,
+                                              UniqueId = detail.UniqueId ?? "N/A",
                                               Address = detail.Address ?? null,
                                               Pincode = detail.Pincode ?? null,
                                               DateOfBirth = detail.DateOfBirth ?? null,
@@ -1446,7 +1447,7 @@ namespace AurigainLoanERP.Services.User
                     objModel.UserId = userId;
                     objModel.FullName = !string.IsNullOrEmpty(model.FullName) ? model.FullName : null;
                     objModel.FatherName = !string.IsNullOrEmpty(model.FatherName) ? model.FatherName : null;
-                    objModel.UniqueId = GenerateUniqueId();
+                    objModel.UniqueId = "AUR"+GenerateUniqueId();
                     objModel.Gender = !string.IsNullOrEmpty(model.Gender) ? model.Gender : null;
                     objModel.Address = !string.IsNullOrEmpty(model.Address) ? model.Address : null;
                     objModel.AddressLine2 = !string.IsNullOrEmpty(model.AddressLine2) ? model.AddressLine2 : null;
@@ -1501,7 +1502,7 @@ namespace AurigainLoanERP.Services.User
                     objModel.UserId = userId;
                     objModel.FullName = !string.IsNullOrEmpty(model.FullName) ? model.FullName : null;
                     objModel.FatherName = !string.IsNullOrEmpty(model.FatherName) ? model.FatherName : null;
-                    objModel.UniqueId = GenerateUniqueId();
+                    objModel.UniqueId = "AUR" + GenerateUniqueId();
                     objModel.Gender = !string.IsNullOrEmpty(model.Gender) ? model.Gender : null;
                     objModel.Address = !string.IsNullOrEmpty(model.Address) ? model.Address : null;
                     objModel.AddressLine2 = !string.IsNullOrEmpty(model.AddressLine2) ? model.AddressLine2 : null;
@@ -1946,6 +1947,7 @@ namespace AurigainLoanERP.Services.User
                             UserId = model.UserId,
                             Gender = model.Gender,
                             DistrictId = null,
+                            UniqueId = "AUR" + GenerateUniqueId(),
                             StateId = null,
                             IsActive = model.IsActive,
                             IsDelete = model.IsDelete,

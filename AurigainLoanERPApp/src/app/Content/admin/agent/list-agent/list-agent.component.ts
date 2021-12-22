@@ -28,10 +28,11 @@ export class ListAgentComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort!: MatSort;
 
-  displayedColumns: string[] = ['index', 'FullName','Email', 'Gender', 'Mpin', 'IsActive', 'IsApproved','ReportingPersonName', 'Action'];
+  displayedColumns: string[] = ['index','UniqueId', 'FullName','Email', 'Gender', 'ReportingPersonName','Mpin', 'IsActive', 'IsApproved', 'Action'];
   ViewdisplayedColumns = [{ Value: 'FullName', Text: 'Full Name' },
   { Value: 'Gender', Text: 'Gender' },
   { Value: 'Mpin', Text: 'M-PIN' },
+  {Value:'UniqueId',Text:'Employee Id'},
   { Value: 'Email', Text: 'Email' },
   { Value: 'Mobile', Text: 'Mobile' }];
   indexModel = new IndexModel();
@@ -54,7 +55,7 @@ export class ListAgentComponent implements OnInit {
       serve.unsubscribe();
       if (response.IsSuccess) {
         this.model = response.Data as AgentListModel[];
-        console.log('----agent----',this.model);
+
         this.dataSource = new MatTableDataSource<AgentListModel>(this.model);
         this.totalRecords = response.TotalRecord as number;
         if (!this.indexModel.IsPostBack) {

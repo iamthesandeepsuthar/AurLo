@@ -9,6 +9,7 @@ namespace AurigainLoanERP.Shared.ContractModel
         public DateTime? DateOfBirth { get; set; }
         public string Gender { get; set; }
         public string Mobile { get; set; }
+        public string UniqueId { get; set;}
         public int RoleId { get; set; }
         public string ProfileImageUrl { get; set; }
         public string RoleName { get; set; }

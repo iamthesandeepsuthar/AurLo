@@ -24,9 +24,11 @@ export class ListManagersComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort!: MatSort;
   id!: number;
-  displayedColumns: string[] = ['index', 'FullName','Mobile','Mpin','RoleName','IsApproved', 'IsActive', 'Action'];
+  displayedColumns: string[] = ['index','UniqueId', 'FullName','EmailId','Mobile','Mpin','RoleName','IsApproved', 'IsActive', 'Action'];
   ViewdisplayedColumns = [{ Value: 'FullName', Text: 'Name' },
                           { Value:'RoleName', Text:'Role'},
+                          {Value:'EmailId',Text:'Email'},
+                          {Value:'UniqueId',Text:'Employee Id'},
                           {Value: 'Mobile', Text: 'Mobile Number'},
                           { Value: 'Mpin' , Text: 'MPin'}];
   indexModel = new IndexModel();

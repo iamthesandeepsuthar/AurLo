@@ -30,9 +30,10 @@ export class ListDoorStepAgentComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort!: MatSort;
   id!: number;
-  displayedColumns: string[] = ['index', 'FullName','Email', 'Gender','Mpin', 'IsApproved', 'ReportingPersonName','IsActive', 'Action'];
+  displayedColumns: string[] = ['index','UniqueId', 'FullName','Email', 'Gender','Mpin', 'ReportingPersonName','IsActive', 'IsApproved', 'Action'];
   ViewdisplayedColumns = [{ Value: 'FullName', Text: 'Full Name' },
   { Value: 'Gender', Text: 'Gender' },
+  {Value:'UniqueId',Text:'Employee Id'},
   { Value: 'Email', Text: 'Email' },
   { Value: 'Mpin', Text: 'M-PIN' },
   { Value: 'Mobile', Text: 'Mobile' }];

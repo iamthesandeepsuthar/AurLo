@@ -4,6 +4,7 @@ export class UserManagerModel {
         DateOfBirth!: Date;
         Gender!: string ;
         FatherName!: string ;
+        UniqueId!:string;
         RoleId!: number;
         EmailId!: string ;
         Mobile!: string;

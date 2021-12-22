@@ -2,6 +2,7 @@
 (
 	[Id] Bigint NOT NULL PRIMARY KEY Identity, 
     [FullName] NVARCHAR(1000) NOT NULL, 
+     [UniqueId] nvarchar(500) null,
     [DateOfBirth] datetime Null,
     [Gender] NVARCHAR(50) NOT NULL, 
     [FatherName] NVARCHAR(500) NULL, 
@@ -16,5 +17,5 @@
     [ModifiedDate] DATETIME NULL, 
     [CreatedBy] BIGINT NULL, 
     [Setting] NVARCHAR(MAX) NULL, 
-    [AreaPincodeId] BIGINT NULL References PincodeArea(Id)
+    [AreaPincodeId] BIGINT NULL References PincodeArea(Id)   
 )

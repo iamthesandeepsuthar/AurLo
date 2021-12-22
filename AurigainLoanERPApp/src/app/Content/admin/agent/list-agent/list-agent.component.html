@@ -51,15 +51,15 @@
               <input type="search" [(ngModel)]="indexModel.Search" (blur)="onSearch()" class="form-control"
                 placeholder="Search..." aria-controls="zero-config"></label></div>
 
-                    <div class="ad-filter-btn-grp">
+                    <!-- <div class="ad-filter-btn-grp">
                         <button data-toggle="collapse" href="#advance-filter1" type="submit" class="ad-filter-btn"> <img
                 src="assets/img/filter.png" data-toggle="tooltip" data-placement="bottom" title="Advance filter">
             </button>
-                    </div>
-                    <div class="table-view-btn ml-4">
+                    </div> -->
+                    <!-- <div class="table-view-btn ml-4">
                         <button type="button" class="btn-change-view"><i class="fa fa-bars"></i></button>
                         <button type="button" class="btn-change-view ml-2 active"><i class="fa fa-th-large"></i></button>
-                    </div>
+                    </div> -->
 
                 </div>
             </div>
@@ -93,8 +93,8 @@
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>Approval </th>
                     <td mat-cell *matCellDef="let element" class="table-action-btn">
                         <a (click)="OnApproveStatus(element.UserId)" title="Update Approval Status">
-                            <i *ngIf="element.IsApproved" class="fas fa-user-check text-success"></i>
-                            <i *ngIf="!element.IsApproved" class="fas fa-user-times text-danger"></i>
+                            <i *ngIf="element.IsApproved" class="fas fa-user-check text-success pr-2">Approved</i>
+                            <i *ngIf="!element.IsApproved" class="fas fa-user-times text-danger pl-2">Dis-Approved</i>
                         </a>
                     </td>
                 </ng-container>
@@ -103,8 +103,8 @@
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>Status </th>
                     <td mat-cell *matCellDef="let element" class="table-action-btn">
                         <a (click)="OnActiveStatus(element.UserId)" title="Update Active Status">
-                            <i *ngIf="element.IsActive" class="fas fa-check-circle text-success"></i>
-                            <i *ngIf="!element.IsActive" class="fas fa-ban text-danger"></i>
+                            <i *ngIf="element.IsActive" class="fas fa-check-circle text-success"> Active</i>
+                            <i *ngIf="!element.IsActive" class="fas fa-ban text-danger">De-Active</i>
                         </a>
 
                     </td>

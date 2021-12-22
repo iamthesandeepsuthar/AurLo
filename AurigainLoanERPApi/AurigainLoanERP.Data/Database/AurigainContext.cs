@@ -879,26 +879,28 @@ namespace AurigainLoanERP.Data.Database
 
                 entity.Property(e => e.Pincode).HasMaxLength(200);
 
+                entity.Property(e => e.UniqueId).HasMaxLength(500);
+
                 entity.HasOne(d => d.AreaPincode)
                     .WithMany(p => p.Managers)
                     .HasForeignKey(d => d.AreaPincodeId)
-                    .HasConstraintName("FK__Managers__AreaPi__17236851");
+                    .HasConstraintName("FK__Managers__AreaPi__2942188C");
 
                 entity.HasOne(d => d.District)
                     .WithMany(p => p.Managers)
                     .HasForeignKey(d => d.DistrictId)
-                    .HasConstraintName("FK__Managers__Distri__18178C8A");
+                    .HasConstraintName("FK__Managers__Distri__2A363CC5");
 
                 entity.HasOne(d => d.State)
                     .WithMany(p => p.Managers)
                     .HasForeignKey(d => d.StateId)
-                    .HasConstraintName("FK__Managers__StateI__190BB0C3");
+                    .HasConstraintName("FK__Managers__StateI__2B2A60FE");
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.Managers)
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Managers__UserId__19FFD4FC");
+                    .HasConstraintName("FK__Managers__UserId__2C1E8537");
             });
 
             modelBuilder.Entity<PaymentMode>(entity =>
