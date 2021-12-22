@@ -51,6 +51,14 @@ export class API_Url {
   public static Qualification_Active_Status_Api = `${environment.apiEndPoint}Qualification/ChangeActiveStatus/`;
   public static Qualification_Delete_Api = `${environment.apiEndPoint}Qualification/DeleteQualification/`;
   //#endregion
+    //#region <<Purpose>>
+    public static Purpose_List_Api = `${environment.apiEndPoint}Purpose/GetList`;
+    public static Purpose_Detail_Api = `${environment.apiEndPoint}Purpose/GetById/`;
+    public static Purpose_Add_Update_Api = `${environment.apiEndPoint}Purpose/AddUpdate`;
+    public static Purpose_Active_Status_Api = `${environment.apiEndPoint}Purpose/ChangeActiveStatus/`;
+    public static Purpose_Delete_Api = `${environment.apiEndPoint}Purpose/DeletePurpose/`;
+    public static Purpose_Dropdown_Api = `${environment.apiEndPoint}Purpose/PurposeList`;
+    //#endregion
 
   //#region <<Payment Mode>>
   public static PaymentMode_List_Api = `${environment.apiEndPoint}PaymentMode/GetList`;

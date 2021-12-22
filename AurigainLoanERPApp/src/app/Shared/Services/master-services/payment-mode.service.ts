@@ -29,9 +29,4 @@ export class PaymentModeService {
     let url = `${this._baseService.API_Url.PaymentMode_Delete_Api}${id}/${status}`;
     return this._baseService.Delete(url);
   }
-
-  // CheckRoleExist(name :string,id?: number): Observable<ApiResponse<PaymentModeModel[]>> {
-  //   let url = `${this._baseService.API_Url.UserRoleCheckRoleExist_Api}${name}/${id}`;
-  //   return this._baseService.get(url);
-  // }
 }
