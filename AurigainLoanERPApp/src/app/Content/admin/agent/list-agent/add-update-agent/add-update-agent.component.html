@@ -149,12 +149,12 @@
               </div>
                 <div class="form-group col-md-8">
                     <label>Area (Location)</label>
-                    <ng-select [items]="areaModel" [searchable]="true" (change)="getAddressLine2($any($event.target).value)" bindLabel="AreaName" bindValue="Id" placeholder="Area Name" appendTo="body"  [(ngModel)]="model.AreaPincodeId" formControlName="State">
+                    <ng-select [items]="areaModel" [searchable]="true" (change)="getAddressLine2($event)" bindLabel="AreaName" bindValue="Id" placeholder="Area Name" appendTo="body"  [(ngModel)]="model.AreaPincodeId" formControlName="State">
                     </ng-select>
                 </div>
                 <div class="form-group col-md-12">
                   <label>Address Line1</label>
-                  <textarea class="form-control" [ngClass]="{ 'is-invalid': f.Address.errors && f.Address.touched}" placeholder="Address Line1" [(ngModel)]="model.Address" id="exampleFormControlTextarea1" formControlName="Address" rows="1"></textarea>
+                  <textarea class="form-control" [ngClass]="{ 'is-invalid': f.Address.errors && f.Address.touched}" placeholder="Address Line1" [(ngModel)]="model.Address" id="exampleFormControlTextarea1" formControlName="Address" rows="3"></textarea>
                   <div class="invalid-feedback" *ngIf="(formGroup.get('Address')?.hasError('required') && formGroup.get('Address')?.touched)">
                       Please enter address</div>
 
