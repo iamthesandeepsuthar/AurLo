@@ -116,7 +116,6 @@ export class AddUpdateAgentComponent implements OnInit, AfterContentChecked {
     });
   }
   getAddressLine2(area?:any){
-    debugger;
   this.model.AddressLine2 = area?.AddressLine2;
   }
   GetFilterDropDown(key: string, FilterFrom: string, Values: any) {
