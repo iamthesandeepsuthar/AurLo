@@ -32,7 +32,11 @@ export class AddUpdateManagersComponent implements OnInit {
   get routing_Url() { return Routing_Url }
   get f() { return this.managerFrom.controls; }
   get Model(): UserManagerModel{  return this.model; }
-
+  get DobMaxDate() {
+    var date = new Date();
+    date.setFullYear(date.getFullYear() - 18);
+    return date
+  };
   fileData!: File;
   previewUrl: any = null;
   constructor(private readonly fb: FormBuilder,

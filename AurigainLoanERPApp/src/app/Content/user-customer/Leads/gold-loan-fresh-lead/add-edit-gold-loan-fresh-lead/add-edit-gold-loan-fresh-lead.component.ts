@@ -28,7 +28,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class AddEditGoldLoanFreshLeadComponent implements OnInit {
   leadId: number = 0;
   model = new GoldLoanFreshLeadModel();
-  maxDate = new Date();
+  get DobMaxDate() {
+    var date = new Date();
+    date.setFullYear(date.getFullYear() - 18);
+    return date
+  };
   leadFromPersonalDetail!: FormGroup;
   leadFromDocumentDetail!: FormGroup;
   leadFromJewelleryDetail!: FormGroup;

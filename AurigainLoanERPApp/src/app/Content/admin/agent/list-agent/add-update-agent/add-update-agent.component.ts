@@ -27,9 +27,9 @@ import { UserRoleEnum } from '../../../../../Shared/Enum/fixed-value';
   selector: 'app-add-update-agent',
   templateUrl: './add-update-agent.component.html',
   styleUrls: ['./add-update-agent.component.scss'],
-  providers: [AgentService,UserSettingService,StateDistrictService]
+  providers: [AgentService, UserSettingService, StateDistrictService]
 })
-export class AddUpdateAgentComponent implements OnInit,AfterContentChecked {
+export class AddUpdateAgentComponent implements OnInit, AfterContentChecked {
   //#region << Variable >>
   Id: number = 0;
   model = new AgentPostModel();
@@ -42,7 +42,11 @@ export class AddUpdateAgentComponent implements OnInit,AfterContentChecked {
   get f() { return this.formGroup.controls; }
   get routing_Url() { return Routing_Url }
   get minDate() { return new Date() };
-  get maxDate() { return new Date() };
+  get DobMaxDate() {
+    var date = new Date();
+    date.setFullYear(date.getFullYear() - 18);
+    return date
+  };
 
 
   fileData!: File;
@@ -57,10 +61,10 @@ export class AddUpdateAgentComponent implements OnInit,AfterContentChecked {
 
   //#endregion
 
-  constructor(private cdr: ChangeDetectorRef,private readonly _alertService: AlertService, private readonly fb: FormBuilder,
+  constructor(private cdr: ChangeDetectorRef, private readonly _alertService: AlertService, private readonly fb: FormBuilder,
     private readonly _userAgentService: AgentService, private _activatedRoute: ActivatedRoute, private _router: Router,
     readonly _commonService: CommonService, private readonly _toast: ToastrService,
-    private readonly _userSettingService: UserSettingService , private readonly _locationService: StateDistrictService) {
+    private readonly _userSettingService: UserSettingService, private readonly _locationService: StateDistrictService) {
     if (this._activatedRoute.snapshot.params.id) {
       this.Id = this._activatedRoute.snapshot.params.id;
     }
@@ -76,7 +80,7 @@ export class AddUpdateAgentComponent implements OnInit,AfterContentChecked {
     this.formInit();
     this.GetDropDown();
     if (this.Id > 0) {
-       this.onGetDetail();
+      this.onGetDetail();
     }
   }
   ngAfterContentChecked() {
@@ -93,14 +97,14 @@ export class AddUpdateAgentComponent implements OnInit,AfterContentChecked {
       }
     });
   }
-  getAreaByPincode(pincode?: any,defaultValue=0) {
+  getAreaByPincode(pincode?: any, defaultValue = 0) {
     //let pincode = value;
     let subscription = this._locationService.GetAreaByPincode(pincode).subscribe(response => {
       subscription.unsubscribe();
       if (response.IsSuccess) {
         this.areaModel = response.Data as AvailableAreaModel[];
-        if(defaultValue>0){
-          this.model.AreaPincodeId =  defaultValue;
+        if (defaultValue > 0) {
+          this.model.AreaPincodeId = defaultValue;
 
         }
 
@@ -110,11 +114,11 @@ export class AddUpdateAgentComponent implements OnInit,AfterContentChecked {
       }
     });
   }
-  getAddressLine2(areaId?:any){
-  debugger;
-  alert(areaId);
-  const addressLine2 = this.areaModel.find(x=>x.Id == areaId)?.AddressLine2;
-  this.model.AddressLine2!= addressLine2;
+  getAddressLine2(areaId?: any) {
+    debugger;
+    alert(areaId);
+    const addressLine2 = this.areaModel.find(x => x.Id == areaId)?.AddressLine2;
+    this.model.AddressLine2 != addressLine2;
   }
   GetFilterDropDown(key: string, FilterFrom: string, Values: any) {
 
@@ -145,7 +149,7 @@ export class AddUpdateAgentComponent implements OnInit,AfterContentChecked {
     this.formGroup.markAllAsTouched();
     let ageValidate = this._commonService.ValidateAge(this.model.DateOfBirth);
     let ChildValid: boolean = this.submitChildData();
-    if (this.formGroup.valid && ChildValid ) {
+    if (this.formGroup.valid && ChildValid) {
 
       if (!this.model.Id || this.model.Id == 0) {
         this.model.User.IsApproved = false;
@@ -239,11 +243,11 @@ export class AddUpdateAgentComponent implements OnInit,AfterContentChecked {
   formInit() {
     this.formGroup = this.fb.group({
       FullName: [undefined, Validators.required],
-      FatherName: [undefined,Validators.required],
+      FatherName: [undefined, Validators.required],
       Gender: [undefined, Validators.required],
       Qualification: [undefined, Validators.required],
       Address: [undefined, undefined],
-      AddressLine2:[undefined],
+      AddressLine2: [undefined],
       State: [undefined, Validators.required],
       PinCode: [undefined, Validators.compose([Validators.required, Validators.maxLength(6), Validators.minLength(6)])],
       DateOfBirth: [undefined, Validators.required],
@@ -273,7 +277,7 @@ export class AddUpdateAgentComponent implements OnInit,AfterContentChecked {
             this.model.DateOfBirth = data?.DateOfBirth;
             this.previewUrl = data?.User.ProfilePath;
             this.model.AreaPincodeId = data?.AreaPincodeId;
-            this.getAreaByPincode(this.model.PinCode );
+            this.getAreaByPincode(this.model.PinCode);
 
             if (data?.User) {
               this.model.User.Email = data?.User?.Email;

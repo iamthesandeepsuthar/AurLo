@@ -48,7 +48,7 @@
                 <label>Date of birth</label>
                 <input class="form-control" #datepickerYMD="bsDatepicker" placeholder="dd/mm/yyyy"
                 formControlName="DateOfBirth" bsDatepicker [(ngModel)]="model.DateOfBirth"
-                [ngClass]="{ 'is-invalid': f.DateOfBirth.errors && f.DateOfBirth.touched}"
+                [ngClass]="{ 'is-invalid': f.DateOfBirth.errors && f.DateOfBirth.touched}" [maxDate]="DobMaxDate"
                 [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', adaptivePosition: true,isAnimated: true, showWeekNumbers: false }">
                 <div class="invalid-feedback" *ngIf="(managerFrom.get('DateOfBirth')?.hasError('required') && managerFrom.get('DateOfBirth')?.touched)">select date of birth</div>
             </div>

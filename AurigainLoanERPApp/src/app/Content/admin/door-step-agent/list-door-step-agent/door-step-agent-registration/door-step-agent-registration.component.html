@@ -67,7 +67,7 @@
           <label>Date of Birth</label>
           <input class="form-control" #datepickerYMD="bsDatepicker" placeholder="dd/mm/yyyy"
             formControlName="DateOfBirth" [ngClass]="{ 'is-invalid': f.DateOfBirth.errors && f.DateOfBirth.touched}"
-            bsDatepicker [(ngModel)]="model.DateOfBirth" [maxDate]="maxDate"
+            bsDatepicker [(ngModel)]="model.DateOfBirth" [maxDate]="DobMaxDate"
             [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', adaptivePosition: true,isAnimated: true, showWeekNumbers: false }">
           <i class="fas fa-calendar-alt" (click)="datepickerYMD.toggle"></i>
           <div class="invalid-feedback"

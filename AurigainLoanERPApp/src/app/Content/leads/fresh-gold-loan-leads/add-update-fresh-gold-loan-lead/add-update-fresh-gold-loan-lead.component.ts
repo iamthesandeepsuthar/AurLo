@@ -32,7 +32,11 @@ import { StateDistrictService } from 'src/app/Shared/Services/master-services/st
 export class AddUpdateFreshGoldLoanLeadComponent implements OnInit {
   leadId: number = 0;
   model = new GoldLoanFreshLeadModel();
-  maxDate = new Date();
+  get DobMaxDate() {
+    var date = new Date();
+    date.setFullYear(date.getFullYear() - 18);
+    return date
+  };
   leadFromPersonalDetail!: FormGroup;
   leadFromDocumentDetail!: FormGroup;
   leadFromJewelleryDetail!: FormGroup;

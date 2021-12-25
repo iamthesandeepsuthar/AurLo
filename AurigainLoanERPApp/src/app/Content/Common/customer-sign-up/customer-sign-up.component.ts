@@ -40,7 +40,11 @@ export class CustomerSignUpComponent implements OnInit {
   get f3() { return this.registrationFromStepThird.controls; }
 
   get routing_Url() { return Routing_Url }
-
+  get DobMaxDate() {
+    var date = new Date();
+    date.setFullYear(date.getFullYear() - 18);
+    return date
+  };
   constructor(private readonly fb: FormBuilder, private readonly _customerService: CustomerService,
     private readonly _documentType: KycDocumentTypeService,
     private readonly _stateService: StateDistrictService,
