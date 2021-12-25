@@ -178,16 +178,6 @@
             </ng-container>
           </div>
         </div>
-        <div class="form-group col-md-12">
-          <label>Address</label>
-          <textarea class="form-control" placeholder="Enter here address "
-            [ngClass]="{ 'is-invalid': f.Address.errors && f.Address.touched}" [(ngModel)]="model.Address"
-            id="exampleFormControlTextarea1" formControlName="Address" rows="3"></textarea>
-          <div class="invalid-feedback"
-            *ngIf="(formGroup.get('Address')?.hasError('required') && formGroup.get('Address')?.touched)">
-            Please fill Address...! </div>
-        </div>
-
         <div class="form-group col-md-4">
           <label>Pincode</label>
           <input type="text" [(ngModel)]="model.PinCode" (keypress)="_commonService.NumberOnly($event)" [minlength]="6"
@@ -195,31 +185,31 @@
             class="form-control" id="input4" placeholder="Pincode">
           <div class="invalid-feedback"
             *ngIf="(formGroup.get('PinCode')?.hasError('required') && formGroup.get('PinCode')?.touched)">
-            Please fill Pin Code...! </div>
+            Please fill Pin Code </div>
           <div class="invalid-feedback"
             *ngIf="!formGroup.get('PinCode')?.hasError('required') && ((formGroup.get('PinCode')?.hasError('maxlength') || formGroup.get('PinCode')?.hasError('minlength')) && formGroup.get('PinCode')?.touched) || (formGroup.get('PinCode')?.hasError('maxlength') || formGroup.get('PinCode')?.hasError('minlength'))">
             Pin Code length must be 6 digit...!
           </div>
         </div>
-
         <div class="form-group col-md-8">
           <label>Area (Location)</label>
           <ng-select  appendTo="body"[(ngModel)]="model.AreaPincodeId"
-          [items]="areaModel" [searchable]="true" bindLabel="AreaName"
+          [items]="areaModel" [searchable]="true" bindLabel="AreaName"  (change)="getAddressLine2($event)"
           bindValue="Id" placeholder="Area Name" formControlName="State"> </ng-select>
         </div>
-        <!-- <div class="form-group col-md-4">
-          <label>District</label>
-          <ng-select [ngClass]="{ 'is-invalid': f.District?.errors && f.District?.touched}"
-            [items]="dropDown!.ddlDistrict" bindLabel="Text" bindValue="Value" placeholder="District" appendTo="body"
-            [(ngModel)]="model.DistrictId" formControlName="District">
-          </ng-select>
+        <div class="form-group col-md-12">
+          <label>Address Line1 </label>
+          <textarea class="form-control" placeholder="Address Line1"
+            [ngClass]="{ 'is-invalid': f.Address.errors && f.Address.touched}" [(ngModel)]="model.Address"
+            id="exampleFormControlTextarea1" formControlName="Address" rows="3"></textarea>
           <div class="invalid-feedback"
-            *ngIf="(formGroup.get('District')?.hasError('required') && formGroup.get('District')?.touched)">
-            Please select District...! </div>
-
-        </div> -->
-
+            *ngIf="(formGroup.get('Address')?.hasError('required') && formGroup.get('Address')?.touched)">
+            Please fill address</div>
+        </div>
+        <div class="form-group col-md-12">
+          <label>Address Line2 </label>
+          <input type="text" readonly class="form-control" placeholder="Address Line2" [(ngModel)]="model.AddressLine2" id="exampleFormControlTextarea2" formControlName="AddressLine2">
+        </div>
       </div>
     </div>
   </form>
@@ -229,14 +219,6 @@
 </app-user-nominee-detail-section>
 <app-user-bank-detail-section [bankModel]="model.BankDetails" (onSubmit)="model.BankDetails=$event">
 </app-user-bank-detail-section>
-<!-- <app-user-kycdetail-section [kycModel]="model.UserKYC" (onSubmit)="model.UserKYC=$event">
-</app-user-kycdetail-section> -->
-<!-- <app-user-security-deposit [userSecurity]="model.SecurityDeposit" (onSubmit)="model.SecurityDeposit=$event">
-</app-user-security-deposit> -->
-<!--
-<app-user-document-detail-section [documentModel]="model.Documents" (onSubmit)="bindDocs($event)">
-</app-user-document-detail-section> -->
-
 <app-user-kycdocument-detail [documentModel]="model.Documents" (onKYCSubmit)="model.UserKYC=$event"
   (onDocSubmit)="bindDocs($event)" [kycModel]="model.UserKYC"></app-user-kycdocument-detail>
 

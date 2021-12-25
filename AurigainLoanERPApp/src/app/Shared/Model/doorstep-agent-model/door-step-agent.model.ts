@@ -4,9 +4,7 @@ export class DoorStepAgentPostModel {
     this.BankDetails = new UserBankDetailsPostModel();
     this.UserKYC = [];
     this.UserNominee = new UserNomineePostModel();
-    //  this.ReportingPerson = new UserReportingPersonPostModel();
     this.Documents = [];
-    //  this.SecurityDeposit = new UserSecurityDepositPostModel();
     this.SelfFunded = false;
   }
   Id!: number;
@@ -15,6 +13,7 @@ export class DoorStepAgentPostModel {
   Gender!: string;
   QualificationId!: number;
   Address!: string;
+  AddressLine2!:string;
   DistrictId!: number;
   StateId!: number;
   PinCode!: string;
