@@ -110,6 +110,11 @@ export class AddUpdateAgentComponent implements OnInit,AfterContentChecked {
       }
     });
   }
+  getAddressLine2(areaId?:any){
+   debugger;
+  alert(areaId);
+  this.model.AddressLine2 = areaId;
+  }
   GetFilterDropDown(key: string, FilterFrom: string, Values: any) {
 
     if (Values) {
@@ -237,7 +242,7 @@ export class AddUpdateAgentComponent implements OnInit,AfterContentChecked {
       Gender: [undefined, Validators.required],
       Qualification: [undefined, Validators.required],
       Address: [undefined, undefined],
-     // District: [undefined, Validators.required],
+      AddressLine2:[undefined],
       State: [undefined, Validators.required],
       PinCode: [undefined, Validators.compose([Validators.required, Validators.maxLength(6), Validators.minLength(6)])],
       DateOfBirth: [undefined, Validators.required],

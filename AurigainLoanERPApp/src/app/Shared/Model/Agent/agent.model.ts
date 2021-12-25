@@ -40,6 +40,7 @@ export class AgentPostModel {
   Gender!: string;
   QualificationId!: number;
   Address!: string;
+  AddressLine2!:string;
   StateId!:number;
   DistrictId!: number | null;
   PinCode!: string;
