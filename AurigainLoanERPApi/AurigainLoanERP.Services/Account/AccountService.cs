@@ -329,6 +329,27 @@ namespace AurigainLoanERP.Services.Account
                 return CreateResponse<string>(null, ResponseMessage.NotFound, false, ((int)ApiStatusCode.ServerException), ex.Message ?? ex.InnerException.ToString());
             }
         }
+        public async Task<ApiServiceResponseModel<object>> LogoutUser(long id)
+        {
+            try
+            {
+                var isExist = await _db.UserMaster.Where(x => x.Id == id).FirstOrDefaultAsync();
+                if (isExist != null)
+                {
+                    isExist.Token = "";
+                    await _db.SaveChangesAsync();
+                    return CreateResponse<object>(true, ResponseMessage.Success, true, ((int)ApiStatusCode.Ok));
+                }
+                else 
+                {
+                    return CreateResponse<object>(false, ResponseMessage.NotFound, false, ((int)ApiStatusCode.NotFound));
+                }
+            }
+            catch (Exception ex) 
+            {
+                return CreateResponse<object>(false, ex.Message ?? ex.InnerException.ToString(), false, ((int)ApiStatusCode.ServerException));
+            }
+        }
         public ApiServiceResponseModel<string> GetEncrptedPassword(string value)
         {
             ApiServiceResponseModel<string> objModel = new ApiServiceResponseModel<string>();

@@ -21,7 +21,7 @@ namespace AurigainLoanERP.Api.Controllers
             _security = new Security(_configuration);
             _accountService = accountService;
         }
-        
+
         [HttpPost]
         [AllowAnonymous]
         public async Task<ApiServiceResponseModel<LoginResponseModel>> WebLogin(LoginModel model)
@@ -64,7 +64,7 @@ namespace AurigainLoanERP.Api.Controllers
 
         //Post api/Account/VarifiedMPIN
         [HttpPost]
-       // [AllowAnonymous]
+        // [AllowAnonymous]
         public async Task<ApiServiceResponseModel<string>> VarifiedMPIN(OtpVerifiedModel model)
         {
             return await _accountService.VerifiedPin(model);
@@ -90,6 +90,13 @@ namespace AurigainLoanERP.Api.Controllers
         public ApiServiceResponseModel<string> GenerateEncrptPassword(string value)
         {
             return _accountService.GetEncrptedPassword(value);
+        }
+        //Get api/Account/Logout
+        [HttpGet("{id}")]
+        public async Task<ApiServiceResponseModel<object>> Logout(long id) 
+        {
+            return await _accountService.LogoutUser(id);
+
         }
     }
 }
