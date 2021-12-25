@@ -4351,6 +4351,11 @@ bs-daterangepicker-container {
     font-style: normal;
 }
 
+.sub-submenu .dropdown-toggle {
+    display: flex !important;
+    justify-content: space-between !important;
+}
+
 
 /* .status-w-text {
     font-size: 14px;
