@@ -1353,11 +1353,10 @@ li.menu.menu-active>a svg {
 
 #sidebar ul.menu-categories ul.submenu>li ul.sub-submenu>li a {
     position: relative;
-    padding: 10px 12px 10px 48px;
-    padding-left: 13px;
-    margin-left: 47px;
-    font-size: 12px;
-    color: #515365;
+    padding: 4px 10px;
+    margin-left: 25px;
+    font-size: 14px;
+    color: #ffffff;
 }
 
 #sidebar ul.menu-categories ul.submenu>li ul.sub-submenu>li.active a {
@@ -1365,7 +1364,13 @@ li.menu.menu-active>a svg {
 }
 
 #sidebar ul.menu-categories ul.submenu>li ul.sub-submenu>li a:hover {
-    color: #4361ee;
+    color: #ffffff;
+    font-weight: 900;
+    opacity: 0.6;
+}
+
+#sidebar ul.menu-categories ul.submenu>li ul.sub-submenu>li a.active {
+    opacity: 0.5;
 }
 
 #sidebar ul.menu-categories ul.submenu>li ul.sub-submenu>li a:before {

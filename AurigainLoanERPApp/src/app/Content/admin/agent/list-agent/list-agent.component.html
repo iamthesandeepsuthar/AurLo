@@ -85,7 +85,7 @@
                 <ng-container matColumnDef="ReportingPersonName">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>Reporting Person </th>
                     <td mat-cell *matCellDef="let element" class="table-action-btn" [ngClass]="element.ReportingPersonName != null  ? 'text-dark' : 'text-danger' ">
-                      <strong>  {{element.ReportingPersonName != null ? element.ReportingPersonName : 'N/A'}}</strong>
+                        <strong>  {{element.ReportingPersonName != null ? element.ReportingPersonName : 'N/A'}}</strong>
                     </td>
                 </ng-container>
 
@@ -93,8 +93,8 @@
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>Approval </th>
                     <td mat-cell *matCellDef="let element" class="table-action-btn">
                         <a (click)="OnApproveStatus(element.UserId)" title="Update Approval Status">
-                            <i *ngIf="element.IsApproved" class="fas fa-user-check text-success pr-2">Approved</i>
-                            <i *ngIf="!element.IsApproved" class="fas fa-user-times text-danger pl-2">Dis-Approved</i>
+                            <span *ngIf="element.IsApproved" class="status-w-text badge bg-success"> <i class="fas fa-user-check"></i> Approved </span>
+                            <span *ngIf="!element.IsApproved" class="status-w-text badge bg-danger"> <i class="fas fa-user-times"></i> Dis-Approved </span>
                         </a>
                     </td>
                 </ng-container>
@@ -103,8 +103,8 @@
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>Status </th>
                     <td mat-cell *matCellDef="let element" class="table-action-btn">
                         <a (click)="OnActiveStatus(element.UserId)" title="Update Active Status">
-                            <i *ngIf="element.IsActive" class="fas fa-check-circle text-success"> Active</i>
-                            <i *ngIf="!element.IsActive" class="fas fa-ban text-danger">De-Active</i>
+                            <span *ngIf="element.IsActive" class="status-w-text badge bg-success"> <i class="fas fa-check-circle"></i> Active </span>
+                            <span *ngIf="!element.IsActive" class="status-w-text badge bg-danger"> <i class="fas fa-ban"></i> De-Active </span>
                         </a>
 
                     </td>
