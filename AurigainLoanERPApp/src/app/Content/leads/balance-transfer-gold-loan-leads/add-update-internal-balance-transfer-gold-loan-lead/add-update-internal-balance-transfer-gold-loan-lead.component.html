@@ -166,7 +166,7 @@
 
             <div class="invalid-feedback"
               *ngIf="(leadFormPersonalDetail.get('Amount')?.hasError('required') && leadFormPersonalDetail.get('Amount')?.touched)">
-              Enter Amount! </div>
+              Enter Amount </div>
 
           </div>
           <div class="form-group col-md-4">
@@ -178,24 +178,20 @@
 
             <div class="invalid-feedback"
               *ngIf="(leadFormPersonalDetail.get('AccountNumber')?.hasError('required') && leadFormPersonalDetail.get('AccountNumber')?.touched)">
-              Enter Loan Account Number! </div>
+              Enter Loan Account Number</div>
 
           </div>
 
-
-
-          <div class="form-group col-md-12">
+          <div class="form-group col-md-8">
             <label>Purpose of Loan<em class="text-danger">*</em></label>
-            <textarea type="text" class="form-control" id="input8" placeholder="Purpose" [(ngModel)]="model.Purpose"
-              formControlName="Purpose" [ngClass]="{ 'is-invalid': f1.Purpose.errors && f1.Purpose.touched}"
-              maxlength="1000">
-            </textarea>
+            <ng-select [items]="ddlPurpose" [searchable]="true" bindLabel="Name" bindValue="Id"
+            placeholder="Select Purpose" formControlName="Purpose"
+            [ngClass]="{ 'is-invalid': f1.Purpose.errors && f1.Purpose.touched}" [(ngModel)]="model.PurposeId">
+          </ng-select>
             <div class="invalid-feedback"
               *ngIf="(leadFormPersonalDetail.get('Purpose')?.hasError('required') && leadFormPersonalDetail.get('Purpose')?.touched)">
-              Enter Purpose! </div>
-
+              Select  Purpose </div>
           </div>
-
         </div>
       </div>
 

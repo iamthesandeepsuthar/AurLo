@@ -54,6 +54,7 @@ namespace AurigainLoanERP.Shared.ContractModel
         public long CustomerUserId { get; set; }
         public string SecondaryMobile { get; set; }
         public string Purpose { get; set; }
+        public int? PurposeId { get; set;}
         public decimal LoanAmount { get; set; }
         public string LoanAccountNumber { get; set; }
         public long LeadSourceByuserId { get; set; }

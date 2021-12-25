@@ -15,6 +15,7 @@ export class GoldLoanFreshLeadModel {
   SecondaryMobileNumber!: string;
   LoanAmountRequired!: number | null;
   Purpose!: string;
+  PurposeId!:number;
   LeadSourceByUserId!: number;
   ProductId!: number;
   CreatedDate!: string;

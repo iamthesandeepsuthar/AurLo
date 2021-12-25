@@ -20,6 +20,7 @@ export class BTGoldLoanLeadPostModel {
   CustomerUserId!: number;
   SecondaryMobile!: string;
   Purpose!: string;
+  PurposeId!: number;
   LoanAmount!: number | null;
   LoanAccountNumber!: string;
   LeadSourceByuserId!: number;

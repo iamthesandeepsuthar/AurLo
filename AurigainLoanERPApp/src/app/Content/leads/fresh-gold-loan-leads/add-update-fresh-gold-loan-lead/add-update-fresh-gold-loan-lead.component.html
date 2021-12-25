@@ -109,7 +109,7 @@
 
               <div class="invalid-feedback"
                 *ngIf="(leadFromPersonalDetail.get('Gender')?.hasError('required') && leadFromPersonalDetail.get('Gender')?.touched)">
-                Select Gender! </div>
+                Select Gender </div>
 
             </div>
 
@@ -129,7 +129,7 @@
 
             <div class="invalid-feedback" *ngIf="!leadFromPersonalDetail.get('Email')?.hasError('required') && leadFromPersonalDetail.get('Email')?.touched
               && leadFromPersonalDetail.get('Email')?.invalid">
-              Please fill Correct Email...! </div>
+              Please fill Correct Email </div>
 
           </div>
           <div class="form-group col-md-4">
@@ -145,7 +145,7 @@
 
             <div class="invalid-feedback"
               *ngIf="!leadFromPersonalDetail.get('Mobile')?.hasError('required') && ((leadFromPersonalDetail.get('Mobile')?.hasError('maxlength') || leadFromPersonalDetail.get('Mobile')?.hasError('minlength')) && leadFromPersonalDetail.get('Mobile')?.touched) || (leadFromPersonalDetail.get('Mobile')?.hasError('maxlength') || leadFromPersonalDetail.get('Mobile')?.hasError('minlength'))">
-              Mobile length must be 10 digit...! </div>
+              Mobile length must be 10 digit </div>
 
           </div>
 
@@ -159,10 +159,10 @@
 
             <div class="invalid-feedback"
               *ngIf="(leadFromPersonalDetail.get('AlternativeMobile')?.hasError('required') && leadFromPersonalDetail.get('AlternativeMobile')?.touched)">
-              Enter Alternate Mobile Number! </div>
+              Enter Alternate Mobile Number </div>
             <div class="invalid-feedback"
               *ngIf="!leadFromPersonalDetail.get('AlternativeMobile')?.hasError('required') && ((leadFromPersonalDetail.get('AlternativeMobile')?.hasError('maxlength') || leadFromPersonalDetail.get('AlternativeMobile')?.hasError('minlength')) && leadFromPersonalDetail.get('AlternativeMobile')?.touched) || (leadFromPersonalDetail.get('AlternativeMobile')?.hasError('maxlength') || leadFromPersonalDetail.get('AlternativeMobile')?.hasError('minlength'))">
-              Alternate Mobile length must be 10 digit...! </div>
+              Alternate Mobile length must be 10 digit </div>
 
           </div>
 
@@ -175,19 +175,19 @@
 
             <div class="invalid-feedback"
               *ngIf="(leadFromPersonalDetail.get('Amount')?.hasError('required') && leadFromPersonalDetail.get('Amount')?.touched)">
-              Enter Amount! </div>
+              Enter Amount</div>
 
           </div>
 
           <div class="form-group col-md-12">
             <label>Purpose of Loan</label>
-            <textarea type="text" class="form-control" id="input8" placeholder="Purpose" [(ngModel)]="model.Purpose"
-              formControlName="Purpose" [ngClass]="{ 'is-invalid': f1.Purpose.errors && f1.Purpose.touched}"
-              maxlength="1000">
-            </textarea>
+            <ng-select [items]="ddlPurpose" [searchable]="true" bindLabel="Name" bindValue="Id"
+            placeholder="Select Purpose" formControlName="Purpose"
+            [ngClass]="{ 'is-invalid': f1.Purpose.errors && f1.Purpose.touched}" [(ngModel)]="model.PurposeId">
+          </ng-select>
             <div class="invalid-feedback"
               *ngIf="(leadFromPersonalDetail.get('Purpose')?.hasError('required') && leadFromPersonalDetail.get('Purpose')?.touched)">
-              Enter Purpose! </div>
+              Enter Purpose </div>
 
           </div>
 
@@ -390,14 +390,7 @@
               select Branch! </div>
 
           </div>
-          <!-- <div class="form-group col-md-4">
-          <label>Bank Name</label>
-          <input type="text" class="form-control" id="input1" placeholder="Enter name">
-        </div>
-        <div class="form-group col-md-4">
-          <label>IFSC Code</label>
-          <input type="text" class="form-control" id="input1" placeholder="HDFC0098">
-        </div> -->
+
           <div class="form-group col-md-4 date-icon-with-label">
             <label>Date of Appointment</label>
             <input class="form-control" #datepickerYMD="bsDatepicker" placeholder="DD-MM-YYYY"
@@ -408,8 +401,7 @@
             <i class="fas fa-calendar-alt" (click)="datepickerYMD.toggle()"></i>
             <div class="invalid-feedback"
               *ngIf="(leadFromAppointmentDetail.get('DateofAppointment')?.hasError('required') && leadFromAppointmentDetail.get('DateofAppointment')?.touched)">
-              select date of Appointment </div>
-
+              Select date of appointment </div>
 
           </div>
 
@@ -422,16 +414,9 @@
               class="form-control" placeholder="Time picker">
             <div class="invalid-feedback"
               *ngIf="(leadFromAppointmentDetail.get('TimeofAppointment')?.hasError('required') && leadFromAppointmentDetail.get('TimeofAppointment')?.touched)">
-              select Time of Appointment </div>
+              Select time of appointment </div>
           </div>
-          <!-- <div class="form-group col-md-4">
-          <label> Branch name</label>
-          <input type="text" class="form-control" id="input1" placeholder="Enter Branch name">
-        </div>
-        <div class="form-group col-md-4">
-          <label> Pincode</label>
-          <input type="text" class="form-control" id="input1" placeholder="209859">
-        </div> -->
+
         </div>
       </div>
       <div class="step-form-btn-grp mt-3">

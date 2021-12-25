@@ -1,3 +1,4 @@
+import { PurposeService } from './../../../../Shared/Services/master-services/purpose.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -11,6 +12,7 @@ import { DDLBranchModel } from 'src/app/Shared/Model/master-model/bank-model.mod
 import { DDLDocumentTypeModel } from 'src/app/Shared/Model/master-model/document-type.model';
 import { DDLJewellaryType } from 'src/app/Shared/Model/master-model/jewellary-type-model.model';
 import { DDLProductModel } from 'src/app/Shared/Model/master-model/product-model.model';
+import { ddlPurposeModel } from 'src/app/Shared/Model/master-model/purpose-model.model';
 import { AvailableAreaModel } from 'src/app/Shared/Model/User-setting-model/user-availibility.model';
 import { CommonService } from 'src/app/Shared/Services/common.service';
 import { GoldLoanLeadsService } from 'src/app/Shared/Services/Leads/gold-loan-leads.service';
@@ -24,7 +26,7 @@ import { StateDistrictService } from 'src/app/Shared/Services/master-services/st
   selector: 'app-add-update-fresh-gold-loan-lead',
   templateUrl: './add-update-fresh-gold-loan-lead.component.html',
   styleUrls: ['./add-update-fresh-gold-loan-lead.component.scss'],
-  providers: [ProductService, KycDocumentTypeService, StateDistrictService, BankBranchService, JewelleryTypeService, GoldLoanLeadsService]
+  providers: [ProductService, KycDocumentTypeService, StateDistrictService, BankBranchService, JewelleryTypeService, GoldLoanLeadsService,PurposeService]
 
 })
 export class AddUpdateFreshGoldLoanLeadComponent implements OnInit {
@@ -42,6 +44,7 @@ export class AddUpdateFreshGoldLoanLeadComponent implements OnInit {
   ddlBranchModel!: DDLBranchModel[];
   ddlAreaModel!: AvailableAreaModel[];
   ddlJewellaryType!: DDLJewellaryType[];
+  ddlPurpose!:ddlPurposeModel[];
   ddlKarats = [{ Name: "18 Karats", Id: 18 }, { Name: "20  Karats", Id: 20 }, { Name: "22  Karats", Id: 22 }, { Name: "24  Karats", Id: 24 }];
   UserId = 0;
   get userDetail() { return this._auth.GetUserDetail() };
@@ -60,7 +63,8 @@ export class AddUpdateFreshGoldLoanLeadComponent implements OnInit {
     private readonly _stateDistrictService: StateDistrictService, readonly _router: Router,
     private readonly _bankBranchService: BankBranchService, private readonly _activatedRoute: ActivatedRoute,
     private readonly _jewelleryTypeService: JewelleryTypeService, private readonly _auth: AuthService,
-    private readonly _goldLoanLeadService: GoldLoanLeadsService, private readonly toast: ToastrService) {
+    private readonly _goldLoanLeadService: GoldLoanLeadsService, private readonly toast: ToastrService,
+    private readonly _purposeService: PurposeService) {
     this.UserId = this._auth.GetUserDetail()?.UserId as number;
   }
 
@@ -182,8 +186,20 @@ export class AddUpdateFreshGoldLoanLeadComponent implements OnInit {
     this.GetDropDownGender();
     this.getDDLProducts();
     this.GetDDLJewelleryType();
+    this.getPurpose();
   }
-
+  getPurpose(){
+    let subscription = this._purposeService.GetDDLPurpose().subscribe(res => {
+      subscription.unsubscribe();
+      if(res.IsSuccess) {
+         this.ddlPurpose = res.Data as ddlPurposeModel[];
+      } else {
+        this.toast.warning('Purpose list not available','No record found');
+        this.ddlPurpose = [];
+        return;
+      }
+    });
+  }
   getDDLProducts() {
     let serve = this._productService.GetProductbyCategory(ProductCategoryEnum.GoldLoan).subscribe(res => {
       serve.unsubscribe();

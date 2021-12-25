@@ -54,6 +54,7 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                     objData.EmailId = !string.IsNullOrEmpty(model.EmailId) ? model.EmailId : null;
                     objData.SecondaryMobile = !string.IsNullOrEmpty(model.SecondaryMobile) ? model.SecondaryMobile : null;
                     objData.Purpose = !string.IsNullOrEmpty(model.Purpose) ? model.Purpose : null;
+                    objData.PurposeId = model.PurposeId;
                     objData.LeadSourceByuserId = model.LeadSourceByuserId;
                     objData.CreatedOn = DateTime.Now;
                     objData.LeadStatus = "New";
@@ -80,6 +81,7 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                     objData.EmailId = !string.IsNullOrEmpty(model.EmailId) ? model.EmailId : null;
                     objData.SecondaryMobile = !string.IsNullOrEmpty(model.SecondaryMobile) ? model.SecondaryMobile : null;
                     objData.Purpose = !string.IsNullOrEmpty(model.Purpose) ? model.Purpose : null;
+                    objData.PurposeId = model.PurposeId;
                     objData.LeadSourceByuserId = model.LeadSourceByuserId;
                     objData.ModifiedOn = DateTime.Now;
                     objData.ModifiedBy = _loginUserDetail.UserId ?? null;
@@ -403,6 +405,7 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                     objData.EmailId = !string.IsNullOrEmpty(model.EmailId) ? model.EmailId : null;
                     objData.SecondaryMobile = !string.IsNullOrEmpty(model.SecondaryMobile) ? model.SecondaryMobile : null;
                     objData.Purpose = !string.IsNullOrEmpty(model.Purpose) ? model.Purpose : null;
+                    objData.PurposeId = model.PurposeId;
                     objData.LeadSourceByuserId = model.LeadSourceByuserId;
                     objData.CreatedOn = DateTime.Now;
                     objData.CustomerUserId = model.CustomerUserId;
@@ -431,6 +434,7 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                     objData.EmailId = !string.IsNullOrEmpty(model.EmailId) ? model.EmailId : null;
                     objData.SecondaryMobile = !string.IsNullOrEmpty(model.SecondaryMobile) ? model.SecondaryMobile : null;
                     objData.Purpose = !string.IsNullOrEmpty(model.Purpose) ? model.Purpose : null;
+                    objData.PurposeId = model.PurposeId;
                     objData.LeadSourceByuserId = model.LeadSourceByuserId;
                     objData.LoanAccountNumber = !string.IsNullOrEmpty(model.LoanAccountNumber) ? model.LoanAccountNumber : null;
                     objData.LoanAmount = model.LoanAmount;

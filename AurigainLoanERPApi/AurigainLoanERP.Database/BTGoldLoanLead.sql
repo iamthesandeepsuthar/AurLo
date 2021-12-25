@@ -24,5 +24,6 @@
     [LoanAccountNumber] NVARCHAR(100) NULL, 
     [LeadStatus] NVARCHAR(100) NULL, 
     [ApprovalStatus] NVARCHAR(100) NULL, 
-    [LoanCaseNumber] NVARCHAR(50) NULL,   
+    [LoanCaseNumber] NVARCHAR(50) NULL, 
+    [PurposeId] INT NULL,   
 )

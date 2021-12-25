@@ -945,6 +945,7 @@ namespace AurigainLoanERP.Services.FreshLead
                         FatherName = model.FatherName,
                         LeadSourceByUserId = model.LeadSourceByUserId,
                         Purpose = model.Purpose,
+                        PurposeId = model.PurposeId,
                         ProductId = model.ProductId,
                         SecondaryMobileNumber = model.SecondaryMobileNumber,
                         PrimaryMobileNumber = model.PrimaryMobileNumber,
@@ -968,6 +969,7 @@ namespace AurigainLoanERP.Services.FreshLead
                         lead.DateOfBirth = model.DateOfBirth;
                         lead.Gender = model.Gender;
                         lead.Purpose = model.Purpose;
+                        lead.PurposeId = model.PurposeId;
                         lead.ModifedDate = DateTime.Now;
                         lead.SecondaryMobileNumber = model.SecondaryMobileNumber;
                         lead.LeadSourceByUserId = model.LeadSourceByUserId;

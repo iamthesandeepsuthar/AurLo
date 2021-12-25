@@ -21,6 +21,7 @@
      [CreatedBy] BIGINT NULL references UserMaster(Id), 
     [ModifiedBy] BIGINT NULL references UserMaster(Id), 
     [LoanCaseNumber] NVARCHAR(50) NULL, 
+    [PurposeId] INT NULL, 
     
     
 )

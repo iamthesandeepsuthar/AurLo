@@ -1,3 +1,4 @@
+import { PurposeService } from 'src/app/Shared/Services/master-services/purpose.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -19,6 +20,7 @@ import { JewelleryTypeService } from 'src/app/Shared/Services/master-services/je
 import { KycDocumentTypeService } from 'src/app/Shared/Services/master-services/kyc-document-type.service';
 import { ProductService } from 'src/app/Shared/Services/master-services/product.service';
 import { StateDistrictService } from 'src/app/Shared/Services/master-services/state-district.service';
+import { ddlPurposeModel } from 'src/app/Shared/Model/master-model/purpose-model.model';
 
 @Component({
   selector: 'app-add-update-internal-balance-transfer-gold-loan-lead',
@@ -27,7 +29,7 @@ import { StateDistrictService } from 'src/app/Shared/Services/master-services/st
   providers: [ProductService, KycDocumentTypeService,
     StateDistrictService, BankBranchService,
     JewelleryTypeService,
-    BalanceTransferGoldLoanLeadsService]
+    BalanceTransferGoldLoanLeadsService,PurposeService]
 
 })
 export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements OnInit {
@@ -56,6 +58,7 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
   ddlDocumentType!: DDLDocumentTypeModel[];
   ddlDocumentTypePOI!: DDLDocumentTypeModel[];
   ddlDocumentTypePOA!: DDLDocumentTypeModel[];
+  ddlPurpose!:ddlPurposeModel[];
   isSameAddress = false;
   ddlJewellaryType!: DDLJewellaryType[];
   ddlKarats = [{ Name: "18 Karats", Id: 18 }, { Name: "20  Karats", Id: 20 }, { Name: "22  Karats", Id: 22 }, { Name: "24  Karats", Id: 24 }];
@@ -80,7 +83,8 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
     private readonly _balanceTransferService: BalanceTransferGoldLoanLeadsService,
     private readonly _jewelleryTypeService: JewelleryTypeService,
     private readonly _kycDocumentTypeService: KycDocumentTypeService,
-    private readonly toast: ToastrService) {
+    private readonly toast: ToastrService,
+    private readonly _purposeService: PurposeService) {
   }
 
   ngOnInit(): void {
@@ -165,9 +169,7 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
 
 
   }
-
   onSubmit() {
-    debugger
     this.leadFormPersonalDetail.markAllAsTouched();
     this.leadFormAddressDetail.markAllAsTouched();
     this.leadFormAppointmentDetail.markAllAsTouched();
@@ -317,7 +319,6 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
       })
     }
   }
-
   //#region  <<DropDown>>
   GetDropDowns() {
 
@@ -325,6 +326,7 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
     this.getDDLProducts();
     this.GetDDLJewelleryType();
     this.getDDLDocumentType();
+    this.getPurpose();
   }
   getDDLProducts() {
     let serve = this._productService.GetProductbyCategory(ProductCategoryEnum.GoldLoan).subscribe(res => {
@@ -361,6 +363,18 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
       }
     });
 
+  }
+  getPurpose(){
+    let subscription = this._purposeService.GetDDLPurpose().subscribe(res => {
+      subscription.unsubscribe();
+      if(res.IsSuccess) {
+         this.ddlPurpose = res.Data as ddlPurposeModel[];
+      } else {
+        this.toast.warning('Purpose list not available','No record found');
+        this.ddlPurpose = [];
+        return;
+      }
+    });
   }
 
   getDropDownPinCodeArea(isCorrespond: boolean = false, isRemoveValue = false) {
