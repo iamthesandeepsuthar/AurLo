@@ -23,6 +23,8 @@ namespace AurigainLoanERP.Data.Database
         public bool? IsActive { get; set; }
         public bool IsNumeric { get; set; }
         public bool IsKyc { get; set; }
+        public bool IsFreshLeadKyc { get; set; }
+        public bool IsBtleadKyc { get; set; }
         public int RequiredFileCount { get; set; }
         public int? DocumentNumberLength { get; set; }
         public bool IsDelete { get; set; }

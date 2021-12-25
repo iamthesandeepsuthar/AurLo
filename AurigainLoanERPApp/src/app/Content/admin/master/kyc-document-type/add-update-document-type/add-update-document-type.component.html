@@ -32,17 +32,17 @@
           placeholder="Name">
         <div class="invalid-feedback"
           *ngIf="(documentTypeForm.get('Name')?.hasError('required') && documentTypeForm.get('Name')?.touched)">Please
-          enter document type name. </div>
+          enter name for document type. </div>
       </div>
 
       <div class="form-group col-md-12">
-        <label>Document Type Number Lenght</label>
+        <label>Document Number digit</label>
         <input type="number" formControlName="DocumentNumberLength" [(ngModel)]="Model.DocumentNumberLength"
           [ngClass]="{ 'is-invalid': f.DocumentNumberLength.errors && f.DocumentNumberLength.touched}"
           class="form-control" id="input1" placeholder="document length">
         <div class="invalid-feedback"
           *ngIf="(documentTypeForm.get('DocumentNumberLength')?.hasError('required') && documentTypeForm.get('DocumentNumberLength')?.touched)">
-          Please enter document number length </div>
+          Please enter document number digit </div>
       </div>
 
       <div class="form-group col-md-12">
@@ -59,17 +59,40 @@
       </div>
 
       <div class="form-group col-md-12">
-        <label>Applicable for KYC</label>
+        <label> Applicable for User Registration KYC</label>
         <div class="form-radio-check-grp">
           <div class="n-chk d-inline">
             <label class="new-control new-checkbox checkbox-info">
               <input type="checkbox" formControlName="IsKyc" class="new-control-input" [(ngModel)]="Model.IsKyc">
-              <span class="new-control-indicator"></span>Is Applicable for KYC
+              <span class="new-control-indicator"></span> Applicable for User Registration KYC
             </label>
           </div>
         </div>
       </div>
 
+      <div class="form-group col-md-12">
+        <label> Applicable for Fresh Lead Gold Loan KYC</label>
+        <div class="form-radio-check-grp">
+          <div class="n-chk d-inline">
+            <label class="new-control new-checkbox checkbox-info">
+              <input type="checkbox" formControlName="IsFreshLeadKyc" class="new-control-input" [(ngModel)]="Model.IsFreshLeadKyc">
+              <span class="new-control-indicator"></span> Applicable for Fresh Lead Gold Loan KYC
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group col-md-12">
+        <label> Applicable for Balance Transfer KYC</label>
+        <div class="form-radio-check-grp">
+          <div class="n-chk d-inline">
+            <label class="new-control new-checkbox checkbox-info">
+              <input type="checkbox" formControlName="IsBtleadKyc" class="new-control-input" [(ngModel)]="Model.IsBtleadKyc">
+              <span class="new-control-indicator"></span> Applicable for Balance Transfer KYC
+            </label>
+          </div>
+        </div>
+      </div>
       <div class="form-group col-md-12">
         <label>Attachment File Count</label>
         <input type="number" max="5" maxlength="1" formControlName="RequiredFileCount"

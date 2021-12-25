@@ -37,7 +37,7 @@ namespace AurigainLoanERP.Services.KycDocumentType
 
                 if (result != null)
                 {
-                    return CreateResponse<List<DocumentTypeModel>>(objResponse.Data, ResponseMessage.Success, true, ((int)ApiStatusCode.Ok), TotalRecord: result.Count());
+                    return CreateResponse(objResponse.Data, ResponseMessage.Success, true, ((int)ApiStatusCode.Ok), TotalRecord: result.Count());
                 }
                 else
                 {
@@ -133,6 +133,9 @@ namespace AurigainLoanERP.Services.KycDocumentType
                     type.IsNumeric = model.IsNumeric;
                     type.DocumentNumberLength = model.DocumentNumberLength;
                     type.IsKyc = model.IsKyc;
+                    type.IsFreshLeadKyc = model.IsFreshLeadKyc;
+                    type.IsBtleadKyc = model.IsBtleadKyc;
+
                     type.RequiredFileCount = model.RequiredFileCount;
                     type.ModifiedOn = DateTime.Now;
 

@@ -8,6 +8,9 @@ export class DocumentTypeModel {
   IsNumeric!: boolean;
   ModifiedOn!: Date | null;
   IsKyc!: boolean;
+  IsFreshLeadKyc!: boolean;
+  IsBtleadKyc!: boolean;
+
   RequiredFileCount!: number;
 }
 

@@ -1,63 +1,68 @@
 <!-- Page Header Title start -->
 <div class="widget-header">
-    <div class="row d-block d-sm-flex align-items-center justify-content-between text-center text-sm-left">
-        <div>
-            <h1>{{Id==0 ?'Add User Role':'Update User Role'}}</h1>
-            <!-- Breadcrumb Start -->
-            <nav class="custom-breadcrum">
-                <ol class="breadcrumb justify-content-center justify-content-sm-start">
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item"><a href="javascript:void(0)">Master</a></li>
-                    <li class="breadcrumb-item"><a  routerLink="{{ '../../../' + this.routing_Url.UserRoleListUrl}}">
-                            User Role
-                            Master </a></li>
-                    <li class="breadcrumb-item active" aria-current="page">{{Id==0 ?'Add User Role':'Update User Role'}}
-                    </li>
+  <div class="row d-block d-sm-flex align-items-center justify-content-between text-center text-sm-left">
+    <div>
+      <h1>{{Id==0 ?'Add User Role':'Update User Role'}}</h1>
+      <!-- Breadcrumb Start -->
+      <nav class="custom-breadcrum">
+        <ol class="breadcrumb justify-content-center justify-content-sm-start">
+          <li class="breadcrumb-item"><a href="#">Home</a></li>
+          <li class="breadcrumb-item"><a href="javascript:void(0)">Master</a></li>
+          <li class="breadcrumb-item"><a routerLink="{{ '../../../' + this.routing_Url.UserRoleListUrl}}">
+              User Role
+              Master </a></li>
+          <li class="breadcrumb-item active" aria-current="page">{{Id==0 ?'Add User Role':'Update User Role'}}
+          </li>
 
-                </ol>
-            </nav>
-            <!-- Breadcrumb End -->
-        </div>
+        </ol>
+      </nav>
+      <!-- Breadcrumb End -->
     </div>
+  </div>
 </div>
 <!-- Page Header Title end -->
 
 <!-- HTML FORM DIV START -->
 <div class="widget-content widget-content py-5 px-3 sm-form-center">
-    <form [formGroup]="userRoleForm" (ngSubmit)="onSubmit()">
-        <div class="form-row">
-            <div class="form-group col-md-12">
-                <label>Name</label>
-                <input type="text" formControlName="Name" [(ngModel)]="model.Name" [ngClass]="{ 'is-invalid': f.Name.errors && f.Name.touched}" class="form-control" id="input1" placeholder="Name">
-                <div class="invalid-feedback" *ngIf="(userRoleForm.get('Name')?.hasError('required') && userRoleForm.get('Name')?.touched)">Please Enter Role Name...! </div>
+  <form [formGroup]="userRoleForm" (ngSubmit)="onSubmit()">
+    <div class="form-row">
+      <div class="form-group col-md-12">
+        <label>Name</label>
+        <input type="text" formControlName="Name" [(ngModel)]="model.Name"
+          [ngClass]="{ 'is-invalid': f.Name.errors && f.Name.touched}" class="form-control" id="input1"
+          placeholder="Name">
+        <div class="invalid-feedback"
+          *ngIf="(userRoleForm.get('Name')?.hasError('required') && userRoleForm.get('Name')?.touched)">Please Enter
+          Role Name...! </div>
 
-            </div>
+      </div>
 
-            <div class="form-group col-md-12">
-                <label>Link With Parent?</label>
-                <div class="form-radio-check-grp">
-                    <div class="n-chk d-inline">
-                        <label class="new-control new-checkbox checkbox-info">
-                            <input type="checkbox" (change)="UpdateValidation()" formControlName="HasParent"
-                                class="new-control-input" [(ngModel)]="showParent">
-                            <span class="new-control-indicator"></span>Parent Role
-                        </label>
-                    </div>
-                </div>
-            </div>
-
-
-
-            <div class="form-group col-md-12" *ngIf="showParent">
-                <label>Parent Role</label>
-                <div [ngClass]='{ "is-invalid": f.ParentRole.errors && f.ParentRole.touched}'>
+      <div class="form-group col-md-12">
+        <label>Link With Parent?</label>
+        <div class="form-radio-check-grp">
+          <div class="n-chk d-inline">
+            <label class="new-control new-checkbox checkbox-info">
+              <input type="checkbox" (change)="UpdateValidation()" formControlName="HasParent" class="new-control-input"
+                [(ngModel)]="showParent">
+              <span class="new-control-indicator"></span>Parent Role
+            </label>
+          </div>
+        </div>
+      </div>
 
 
-                    <ng-select #ParentRole [items]="dropDown!.ddlUserRole" bindLabel="Text" bindValue="Value" placeholder="Parent Role" formControlName="ParentRole" [(ngModel)]="model.ParentId">
-                    </ng-select>
-                </div>
 
-                <!-- <select class="form-control" [ngClass]="{ 'is-invalid': f.ParentRole.errors && f.ParentRole.touched}"
+      <div class="form-group col-md-12" *ngIf="showParent">
+        <label>Parent Role</label>
+        <div [ngClass]='{ "is-invalid": f.ParentRole.errors && f.ParentRole.touched}'>
+
+
+          <ng-select #ParentRole [items]="dropDown!.ddlUserRole" bindLabel="Text" bindValue="Value"
+            placeholder="Parent Role" formControlName="ParentRole" [(ngModel)]="model.ParentId">
+          </ng-select>
+        </div>
+
+        <!-- <select class="form-control" [ngClass]="{ 'is-invalid': f.ParentRole.errors && f.ParentRole.touched}"
                     id="input1" placeholder="Parent Role" formControlName="ParentRole"
                     [(ngModel)]="model.ParentId">
                     <option value="undefined">Select</option>
@@ -66,38 +71,39 @@
 
                     </ng-container>
                 </select> -->
-                <div class="invalid-feedback" *ngIf="(userRoleForm.get('ParentRole')?.hasError('required') && userRoleForm.get('ParentRole')?.touched)">
-                    Please Select Parent Role...! </div>
-            </div>
+        <div class="invalid-feedback"
+          *ngIf="(userRoleForm.get('ParentRole')?.hasError('required') && userRoleForm.get('ParentRole')?.touched)">
+          Please Select Parent Role...! </div>
+      </div>
 
 
 
-            <div class="form-group col-md-12">
-                <label>Active</label>
-                <div class="form-radio-check-grp">
-                    <div class="n-chk d-inline">
-                        <label class="new-control new-checkbox checkbox-info">
-                            <input type="checkbox" formControlName="IsActive" class="new-control-input"
-                                [(ngModel)]="model.IsActive">
-                            <span class="new-control-indicator"></span>Active Status
-                        </label>
-                    </div>
-                </div>
-            </div>
-
-
+      <div class="form-group col-md-12">
+        <label>Active</label>
+        <div class="form-radio-check-grp">
+          <div class="n-chk d-inline">
+            <label class="new-control new-checkbox checkbox-info">
+              <input type="checkbox" formControlName="IsActive" class="new-control-input" [(ngModel)]="model.IsActive">
+              <span class="new-control-indicator"></span>Active Status
+            </label>
+          </div>
         </div>
-
-        <div class="sm-form-footer-btn-grp mt-2 row">
-            <div class="col-6">
-                <button type="submit" class="btn btn-primary w-100"> <i class="fas fa-check mr-1"></i> Submit</button>
-            </div>
-            <div class="col-6">
-                <button type="button" routerLink="{{'../../../'  + this.routing_Url.UserRoleListUrl}}" class="btn btn-outline-danger w-100"> <i class="fas fa-times mr-1"></i> Cancel</button>
-            </div>
-        </div>
+      </div>
 
 
-    </form>
+    </div>
+
+    <div class="sm-form-footer-btn-grp mt-2 row">
+      <div class="col-6">
+        <button type="submit" class="btn btn-primary w-100"> <i class="fas fa-check mr-1"></i> Submit</button>
+      </div>
+      <div class="col-6">
+        <button type="button" routerLink="{{'../../../'  + this.routing_Url.UserRoleListUrl}}"
+          class="btn btn-outline-danger w-100"> <i class="fas fa-times mr-1"></i> Cancel</button>
+      </div>
+    </div>
+
+
+  </form>
 </div>
 <!-- HTML FORM DIV END -->

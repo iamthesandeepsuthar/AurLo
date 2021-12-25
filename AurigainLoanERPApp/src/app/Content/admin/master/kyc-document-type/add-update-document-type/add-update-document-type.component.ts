@@ -34,7 +34,6 @@ export class AddUpdateDocumentTypeComponent implements OnInit {
   ngOnInit(): void {
     this.formInit();
     if (this.Id > 0) {
-
       this.onGetDetail();
     }
   }
@@ -45,6 +44,9 @@ export class AddUpdateDocumentTypeComponent implements OnInit {
       IsNumeric: [false],
       DocumentNumberLength: [undefined, Validators.required],
       IsKyc: [false],
+      IsFreshLeadKyc: [false],
+      IsBtleadKyc: [false],
+
       RequiredFileCount: [undefined, Validators.required]
     });
   }
