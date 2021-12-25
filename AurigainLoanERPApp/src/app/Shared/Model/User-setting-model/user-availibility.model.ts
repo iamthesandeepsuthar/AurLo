@@ -26,6 +26,7 @@ export interface AvailableAreaModel {
   Id: number;
   AreaName: string;
   PinCode: string;
+  AddressLine2:string;
 }
 export interface UserAvailabilityViewModel {
   Id: number;

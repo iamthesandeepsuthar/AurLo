@@ -111,9 +111,10 @@ export class AddUpdateAgentComponent implements OnInit,AfterContentChecked {
     });
   }
   getAddressLine2(areaId?:any){
-   debugger;
+  debugger;
   alert(areaId);
-  this.model.AddressLine2 = areaId;
+  const addressLine2 = this.areaModel.find(x=>x.Id == areaId)?.AddressLine2;
+  this.model.AddressLine2!= addressLine2;
   }
   GetFilterDropDown(key: string, FilterFrom: string, Values: any) {
 
