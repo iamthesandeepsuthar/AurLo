@@ -136,13 +136,7 @@
 
                     </div>
                 </div>
-                <div class="form-group col-md-12">
-                    <label>Address</label>
-                    <textarea class="form-control" [ngClass]="{ 'is-invalid': f.Address.errors && f.Address.touched}" placeholder="Address here" [(ngModel)]="model.Address" id="exampleFormControlTextarea1" formControlName="Address" rows="1"></textarea>
-                    <div class="invalid-feedback" *ngIf="(formGroup.get('Address')?.hasError('required') && formGroup.get('Address')?.touched)">
-                        Please enter address</div>
 
-                </div>
                 <div class="form-group col-md-4">
                   <label>Pin Code</label>
                   <input type="text" [(ngModel)]="model.PinCode" (blur)="getAreaByPincode($any($event.target).value)" (keypress)="_commonService.NumberOnly($event)" [minlength]="6" [maxLength]="6" formControlName="PinCode" [ngClass]="{ 'is-invalid': f.PinCode.errors && f.PinCode.touched}" class="form-control" id="input4"
@@ -158,6 +152,17 @@
                     <ng-select [items]="areaModel" [searchable]="true" bindLabel="AreaName" bindValue="Id" placeholder="Area Name" appendTo="body"  [(ngModel)]="model.AreaPincodeId" formControlName="State">
                     </ng-select>
                 </div>
+                <div class="form-group col-md-12">
+                  <label>Address Line1</label>
+                  <textarea class="form-control" [ngClass]="{ 'is-invalid': f.Address.errors && f.Address.touched}" placeholder="Address Line1" [(ngModel)]="model.Address" id="exampleFormControlTextarea1" formControlName="Address" rows="1"></textarea>
+                  <div class="invalid-feedback" *ngIf="(formGroup.get('Address')?.hasError('required') && formGroup.get('Address')?.touched)">
+                      Please enter address</div>
+
+                 </div>
+                 <div class="form-group col-md-12">
+                  <label>Address Line2</label>
+                  <textarea class="form-control" placeholder="Address Line2" [(ngModel)]="model.Address" id="exampleFormControlTextarea1" formControlName="Address"></textarea>
+                 </div>
             </div>
 
         </div>

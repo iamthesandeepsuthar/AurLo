@@ -51,7 +51,7 @@
 
             <div class="invalid-feedback"
               *ngIf="(leadFromPersonalDetail.get('FullName')?.hasError('required') && leadFromPersonalDetail.get('FullName')?.touched)">
-              Enter Full Name! </div>
+              Enter full name </div>
 
           </div>
           <div class="form-group col-md-4">
@@ -62,7 +62,7 @@
 
             <div class="invalid-feedback"
               *ngIf="(leadFromPersonalDetail.get('FatherName')?.hasError('required') && leadFromPersonalDetail.get('FatherName')?.touched)">
-              Enter Father Name! </div>
+              Enter father name</div>
 
           </div>
 
@@ -76,21 +76,9 @@
             <i class="fas fa-calendar-alt" (click)="datepickerYMD.show()"></i>
             <div class="invalid-feedback"
               *ngIf="(leadFromPersonalDetail.get('DOB')?.hasError('required') && leadFromPersonalDetail.get('DOB')?.touched)">
-              Please Select Date...! </div>
+              Please select date </div>
 
           </div>
-          <!--
-
-          <div class="form-group col-md-4">
-            <label>Date of Birth</label>
-            <input class="form-control" id="input4" type="date" placeholder="DD-MM-YYYY" [(ngModel)]="model.DateOfBirth"
-              formControlName="DOB" [ngClass]="{ 'is-invalid': f1.DOB.errors && f1.DOB.touched}">
-
-            <div class="invalid-feedback"
-              *ngIf="(leadFromPersonalDetail.get('DOB')?.hasError('required') && leadFromPersonalDetail.get('DOB')?.touched)">
-              Select Date of Birht! </div>
-
-          </div> -->
 
           <div class="form-group col-md-4">
             <label>Gender</label>
@@ -109,7 +97,7 @@
 
               <div class="invalid-feedback"
                 *ngIf="(leadFromPersonalDetail.get('Gender')?.hasError('required') && leadFromPersonalDetail.get('Gender')?.touched)">
-                Select Gender </div>
+                Select gender </div>
 
             </div>
 
@@ -125,11 +113,11 @@
 
             <div class="invalid-feedback"
               *ngIf="(leadFromPersonalDetail.get('Email')?.hasError('required') && leadFromPersonalDetail.get('Email')?.touched)">
-              Enter Email! </div>
+              Enter email id </div>
 
             <div class="invalid-feedback" *ngIf="!leadFromPersonalDetail.get('Email')?.hasError('required') && leadFromPersonalDetail.get('Email')?.touched
               && leadFromPersonalDetail.get('Email')?.invalid">
-              Please fill Correct Email </div>
+              Please fill correct email </div>
 
           </div>
           <div class="form-group col-md-4">
@@ -141,7 +129,7 @@
 
             <div class="invalid-feedback"
               *ngIf="(leadFromPersonalDetail.get('Mobile')?.hasError('required') && leadFromPersonalDetail.get('Mobile')?.touched)">
-              Enter Mobile Number! </div>
+              Enter mobile number! </div>
 
             <div class="invalid-feedback"
               *ngIf="!leadFromPersonalDetail.get('Mobile')?.hasError('required') && ((leadFromPersonalDetail.get('Mobile')?.hasError('maxlength') || leadFromPersonalDetail.get('Mobile')?.hasError('minlength')) && leadFromPersonalDetail.get('Mobile')?.touched) || (leadFromPersonalDetail.get('Mobile')?.hasError('maxlength') || leadFromPersonalDetail.get('Mobile')?.hasError('minlength'))">
@@ -159,10 +147,10 @@
 
             <div class="invalid-feedback"
               *ngIf="(leadFromPersonalDetail.get('AlternativeMobile')?.hasError('required') && leadFromPersonalDetail.get('AlternativeMobile')?.touched)">
-              Enter Alternate Mobile Number </div>
+              Enter alternate mobile number </div>
             <div class="invalid-feedback"
               *ngIf="!leadFromPersonalDetail.get('AlternativeMobile')?.hasError('required') && ((leadFromPersonalDetail.get('AlternativeMobile')?.hasError('maxlength') || leadFromPersonalDetail.get('AlternativeMobile')?.hasError('minlength')) && leadFromPersonalDetail.get('AlternativeMobile')?.touched) || (leadFromPersonalDetail.get('AlternativeMobile')?.hasError('maxlength') || leadFromPersonalDetail.get('AlternativeMobile')?.hasError('minlength'))">
-              Alternate Mobile length must be 10 digit </div>
+              Alternate mobile length must be 10 digit </div>
 
           </div>
 
@@ -175,7 +163,7 @@
 
             <div class="invalid-feedback"
               *ngIf="(leadFromPersonalDetail.get('Amount')?.hasError('required') && leadFromPersonalDetail.get('Amount')?.touched)">
-              Enter Amount</div>
+              Enter required loan amount</div>
 
           </div>
 
@@ -187,10 +175,8 @@
           </ng-select>
             <div class="invalid-feedback"
               *ngIf="(leadFromPersonalDetail.get('Purpose')?.hasError('required') && leadFromPersonalDetail.get('Purpose')?.touched)">
-              Enter Purpose </div>
-
+              Enter purpose </div>
           </div>
-
         </div>
       </div>
 
@@ -216,7 +202,7 @@
             </ng-select>
             <div class="invalid-feedback"
               *ngIf="(leadFromDocumentDetail.get('DocumentType')?.hasError('required') && leadFromDocumentDetail.get('DocumentType')?.touched)">
-              select Document Type! </div>
+              Select document type </div>
 
           </div>
           <div class="form-group col-md-4">
@@ -245,17 +231,17 @@
               [ngClass]="{ 'is-invalid': f2.PanNumber.errors && f2.PanNumber.touched}">
             <div class="invalid-feedback"
               *ngIf="(leadFromDocumentDetail.get('PanNumber')?.hasError('required') && leadFromDocumentDetail.get('PanNumber')?.touched)">
-              Enter Pan Number! </div>
+              Enter pan number </div>
 
             <div class="invalid-feedback"
               *ngIf="(leadFromDocumentDetail.get('PanNumber')?.hasError('') && leadFromDocumentDetail.get('PanNumber')?.touched)">
-              Enter Pan Number! </div>
+              Enter pancard number </div>
 
             <div class="invalid-feedback"
               *ngIf="!leadFromDocumentDetail.get('PanNumber')!.hasError('required') &&
               ((this.leadFromDocumentDetail!.get('PanNumber')!.hasError('maxlength') || this.leadFromDocumentDetail.get('PanNumber')!.hasError('minlength')) &&
                this.leadFromDocumentDetail.get('PanNumber')!.touched) || (this.leadFromDocumentDetail.get('PanNumber')!.hasError('maxlength') || this.leadFromDocumentDetail.get('PanNumber')!.hasError('minlength'))">
-              PAN number length must be 6 char or digit...! </div>
+              PAN number length must be 10 char or digit </div>
           </div>
 
           <div class="form-group col-md-4">
@@ -387,7 +373,7 @@
 
             <div class="invalid-feedback"
               *ngIf="(leadFromAppointmentDetail.get('Branch')?.hasError('required') && leadFromAppointmentDetail.get('Branch')?.touched)">
-              select Branch! </div>
+              Select branch name </div>
 
           </div>
 
