@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace AurigainLoanERP.Shared.ContractModel
 {
@@ -25,7 +26,7 @@ namespace AurigainLoanERP.Shared.ContractModel
             DetailAddress = new BtGoldLoanLeadAddressViewModel();
             AppointmentDetail = new BtGoldLoanLeadAppointmentViewModel();
             DocumentDetail = new BtGoldLoanLeadDocumentViewModel();
-            JewelleryDetail = new BtGoldLoanLeadJewelleryDetailViewModel();
+            JewelleryDetail = new List<BtGoldLoanLeadJewelleryDetailViewModel>();
             KYCDetail = new BtGoldLoanLeadKYCDetailViewModel();
             ExistingLoanDetail = new BtGoldLoanLeadExistingLoanViewModel();
         }
@@ -37,7 +38,7 @@ namespace AurigainLoanERP.Shared.ContractModel
         public BtGoldLoanLeadAppointmentViewModel AppointmentDetail { get; set; }
         public BtGoldLoanLeadDocumentViewModel DocumentDetail { get; set; }
         public BtGoldLoanLeadExistingLoanViewModel ExistingLoanDetail { get; set; }
-        public BtGoldLoanLeadJewelleryDetailViewModel JewelleryDetail { get; set; }
+        public List<BtGoldLoanLeadJewelleryDetailViewModel> JewelleryDetail { get; set; }
         public BtGoldLoanLeadKYCDetailViewModel KYCDetail { get; set; }
     }
     public class BTGoldLoanLeadPostModel
@@ -63,7 +64,7 @@ namespace AurigainLoanERP.Shared.ContractModel
         public BtGoldLoanLeadAppointmentPostModel AppointmentDetail { get; set; }
         public BtGoldLoanLeadDocumentPostModel DocumentDetail { get; set; }
         public BtGoldLoanLeadExistingLoanPostModel ExistingLoanDetail { get; set; }
-        public BtGoldLoanLeadJewelleryDetailPostModel JewelleryDetail { get; set; }
+        public List<BtGoldLoanLeadJewelleryDetailPostModel> JewelleryDetail { get; set; }
         public BtGoldLoanLeadKYCDetailPostModel KYCDetail { get; set; }
 
     }

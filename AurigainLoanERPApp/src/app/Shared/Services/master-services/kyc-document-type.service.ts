@@ -15,10 +15,23 @@ export class KycDocumentTypeService {
     let url = `${this._baseService.API_Url.Kyc_Document_Type_Detail_Api}${id}`;
     return this._baseService.get(url);
   }
-  GetDDLDocumentType(isKYC?: boolean): Observable<ApiResponse<DDLDocumentTypeModel[]>> {
+  GetDDLDocumentTypeForUserKYC(isKYC?: boolean): Observable<ApiResponse<DDLDocumentTypeModel[]>> {
+
     let url = `${this._baseService.API_Url.Kyc_Document_Type_Dropdown_Api}${isKYC == null ? '' : '/' + isKYC}`;
     return this._baseService.get(url);
   }
+  GetDDLDocumentTypeForBTLeadKYC(  IsBTLeadKyc?: boolean): Observable<ApiResponse<DDLDocumentTypeModel[]>> {
+
+    let url = `${this._baseService.API_Url.Kyc_Document_Type_BTLeadKyc_Dropdown_Api}${IsBTLeadKyc == null ? '' : '/' + IsBTLeadKyc}`;
+    return this._baseService.get(url);
+  }
+
+  GetDDLDocumentTypeForFreshLeadKYC(IsFreshLeadKyc?: boolean): Observable<ApiResponse<DDLDocumentTypeModel[]>> {
+
+    let url = `${this._baseService.API_Url.Kyc_Document_Type_FreshLeadKyc_Dropdown_Api}${IsFreshLeadKyc == null ? '' : '/' + IsFreshLeadKyc}`;
+    return this._baseService.get(url);
+  }
+
   AddUpdateDocumentType(model: DocumentTypeModel): Observable<ApiResponse<string>> {
     let url = `${this._baseService.API_Url.Kyc_Document_Type_Add_Update_Api}`;
     return this._baseService.post(url, model);

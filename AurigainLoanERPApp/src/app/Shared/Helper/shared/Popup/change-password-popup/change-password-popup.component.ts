@@ -11,7 +11,7 @@ import { CommonService } from 'src/app/Shared/Services/common.service';
   selector: 'app-change-password-popup',
   templateUrl: './change-password-popup.component.html',
   styleUrls: ['./change-password-popup.component.scss'],
-  providers:[UserSettingService]
+  providers: [UserSettingService]
 })
 export class ChangePasswordPopupComponent implements OnInit {
   changePasswordFrom!: FormGroup;
@@ -19,7 +19,7 @@ export class ChangePasswordPopupComponent implements OnInit {
   changePasswordModel!: UserChangePassword;
   verifiedOtpModel!: OptVerifiedModel;
   otpResponseModel!: GetOtpResponseModel;
-  btnResendDisabled:boolean =false;
+  btnResendDisabled: boolean = false;
 
   get OtpModel(): GetOtpModel {
     return this.getOtpModel;
@@ -28,108 +28,145 @@ export class ChangePasswordPopupComponent implements OnInit {
     return this.verifiedOtpModel;
   }
   get ChangePasswordModel(): UserChangePassword {
-   return this.changePasswordModel;
+    return this.changePasswordModel;
   }
 
   IsGetOtp: boolean = true;
-  IsVerified:boolean = false;
+  IsVerified: boolean = false;
   IsConfirmPassword: boolean = false;
   constructor(private readonly fb: FormBuilder, readonly _commonService: CommonService,
-              private readonly _settingService: UserSettingService,
-              private readonly toast: ToastrService ,
-              readonly _authService: AuthService,
-              public dialogRef: MatDialogRef<ChangePasswordPopupComponent>) {
-              this.getOtpModel = new GetOtpModel();
-              this.getOtpModel.IsResendOtp = false;
+    private readonly _settingService: UserSettingService,
+    private readonly toast: ToastrService,
+    readonly _authService: AuthService,
+    public dialogRef: MatDialogRef<ChangePasswordPopupComponent>) {
+    this.getOtpModel = new GetOtpModel();
+    this.getOtpModel.IsResendOtp = false;
   }
   ngOnInit(): void {
-  this.formInit();
+    this.formInit();
   }
   getOtp() {
-  if(this.getOtpModel.MobileNumber == undefined || this.getOtpModel.MobileNumber == null ) {
-    this.toast.warning('Please enter mobile number !','Required');
-    return ;
-  } else {
-    let subscription = this._settingService.GetOtp(this.OtpModel).subscribe(response => {
-     subscription.unsubscribe();
-     if(response.IsSuccess) {
-      this.otpResponseModel = response.Data as GetOtpResponseModel;
-      this.IsGetOtp = false;
-      this.IsVerified = true;
-      this.verifiedOtpModel = new OptVerifiedModel();
-      this.verifiedOtpModel.MobileNumber = this.getOtpModel.MobileNumber;
-     } else {
-       this.toast.error(response.Message as string,'Server Error');
-     }
-    });
-  }
+    if (this.getOtpModel.MobileNumber == undefined || this.getOtpModel.MobileNumber == null) {
+      this.toast.warning('Please enter mobile number !', 'Required');
+      return;
+    } else {
+      let subscription = this._settingService.GetOtp(this.OtpModel).subscribe(response => {
+        subscription.unsubscribe();
+        if (response.IsSuccess) {
+          this.otpResponseModel = response.Data as GetOtpResponseModel;
+          this.IsGetOtp = false;
+          this.IsVerified = true;
+          this.verifiedOtpModel = new OptVerifiedModel();
+          this.verifiedOtpModel.MobileNumber = this.getOtpModel.MobileNumber;
+
+          this.StartTimer(5)
+        } else {
+          this.toast.error(response.Message as string, 'Server Error');
+        }
+      });
+    }
   }
   resendOtp() {
-  this.getOtpModel.IsResendOtp = true;
-  let subscription = this._settingService.GetOtp(this.getOtpModel).subscribe(response => {
-    subscription.unsubscribe();
-    if(response.IsSuccess) {
-      this.IsVerified = true;
-      this.verifiedOtpModel = new OptVerifiedModel();
-    } else {
-    this.toast.info(response.Message as string , 'Information');
-    return;
-    }
-  });
-  }
-  verifiedOtp(){
-   if (this.VerifiedOtp.Otp == undefined || this.VerifiedOtp.Otp == null) {
-   this.toast.warning('Please enter otp','Required');
-   return ;
-   } else {
-
-    this.verifiedOtpModel.UserId = Number(this._authService.GetUserDetail()?.UserId);
-    let subscription = this._settingService.VerifiedOtpByChangePassword(this.verifiedOtpModel).subscribe(response => {
+    this.getOtpModel.IsResendOtp = true;
+    let subscription = this._settingService.GetOtp(this.getOtpModel).subscribe(response => {
       subscription.unsubscribe();
-      if(response.IsSuccess) {
-
-        this.IsGetOtp = false;
-        this.IsVerified = false;
-        this.IsConfirmPassword = true;
-        this.changePasswordModel = new UserChangePassword();
-        this.changePasswordModel.UserId = this._authService.GetUserDetail()?.UserId as number ;
+      if (response.IsSuccess) {
+        this.IsVerified = true;
+        this.verifiedOtpModel = new OptVerifiedModel();
       } else {
-      this.toast.error(response.Message as string ,'Unverified');
-      return;
+        this.toast.info(response.Message as string, 'Information');
+        return;
       }
     });
-   }
+  }
+  verifiedOtp() {
+    if (this.VerifiedOtp.Otp == undefined || this.VerifiedOtp.Otp == null) {
+      this.toast.warning('Please enter otp', 'Required');
+      return;
+    } else {
+
+      this.verifiedOtpModel.UserId = Number(this._authService.GetUserDetail()?.UserId);
+      let subscription = this._settingService.VerifiedOtpByChangePassword(this.verifiedOtpModel).subscribe(response => {
+        subscription.unsubscribe();
+        if (response.IsSuccess) {
+
+          this.IsGetOtp = false;
+          this.IsVerified = false;
+          this.IsConfirmPassword = true;
+          this.changePasswordModel = new UserChangePassword();
+          this.changePasswordModel.UserId = this._authService.GetUserDetail()?.UserId as number;
+        } else {
+          this.toast.error(response.Message as string, 'Unverified');
+          return;
+        }
+      });
+    }
 
   }
   changePassword() {
-  if(this.ChangePasswordModel.Password === this.ChangePasswordModel.ConfirmPassword) {
-    let subscription = this._settingService.ChangePassword(this.changePasswordModel).subscribe(response => {
-      subscription.unsubscribe();
-      if(response.IsSuccess) {
-      this.toast.success('Password change successful', 'Success');
-      this.changePasswordModel = new UserChangePassword();
+    if (this.ChangePasswordModel.Password === this.ChangePasswordModel.ConfirmPassword) {
+      let subscription = this._settingService.ChangePassword(this.changePasswordModel).subscribe(response => {
+        subscription.unsubscribe();
+        if (response.IsSuccess) {
+          this.toast.success('Password change successful', 'Success');
+          this.changePasswordModel = new UserChangePassword();
 
-      this.dialogRef.close();
+          this.dialogRef.close();
 
+          return;
+        } else {
+          this.toast.error(response.Message as string, 'Server Error');
+        }
+      });
+    } else {
+      this.toast.warning('Password and Confirm Password Mis Matched', 'Inccorect Password');
       return;
-      } else {
-      this.toast.error(response.Message as string , 'Server Error');
-      }
-    });
-  } else {
-    this.toast.warning('Password and Confirm Password Mis Matched', 'Inccorect Password');
-    return;
-  }
+    }
   }
   formInit() {
     this.changePasswordFrom = this.fb.group({
-    mobileNumber: [undefined, Validators.required],
-    verifiedOtp: [undefined],
-    newPassword: [undefined],
-    confirmPassword: [undefined]
+      mobileNumber: [undefined, Validators.required],
+      verifiedOtp: [undefined],
+      newPassword: [undefined],
+      confirmPassword: [undefined]
     });
   }
   onClose() {
     this.dialogRef.close(false);
   }
+
+
+  timerOn = true;
+  RemainingTime!: string;
+  desabledResendOTP=true;
+  StartTimer(remaining: number) {
+    this.desabledResendOTP=true;
+    var m = Math.floor(remaining / 60);
+    var s = remaining % 60;
+
+    m = m < 10 ? 0 + m : m;
+    s = s < 10 ? 0 + s : s;
+    this.RemainingTime = m + ':' + s;
+    remaining -= 1;
+
+    if (remaining >= 0 && this.timerOn) {
+      setTimeout( ()=> {
+        this.StartTimer(remaining);
+      }, 1000);
+      return;
+    }
+
+    if (!this.timerOn) {
+      // Do validate stuff here
+      return;
+    }
+
+    // Do timeout stuff here
+   
+    this.desabledResendOTP=false;
+
+  }
+
+
+
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace AurigainLoanERP.Shared.ContractModel
 {
@@ -6,7 +7,7 @@ namespace AurigainLoanERP.Shared.ContractModel
     {
         public GoldLoanFreshLeadModel()
         {
-            JewelleryDetail = new GoldLoanFreshLeadJewelleryDetailModel();
+            JewelleryDetail = new List<GoldLoanFreshLeadJewelleryDetailModel>();
             AppointmentDetail = new GoldLoanFreshLeadAppointmentDetailModel();
             KycDocument = new GoldLoanFreshLeadKycDocumentModel();
         }
@@ -28,7 +29,7 @@ namespace AurigainLoanERP.Shared.ContractModel
         public bool? IsActive { get; set; }
         public GoldLoanFreshLeadKycDocumentModel KycDocument { get; set; }
         public GoldLoanFreshLeadAppointmentDetailModel AppointmentDetail { get; set; }
-        public GoldLoanFreshLeadJewelleryDetailModel JewelleryDetail { get; set; }
+        public List<GoldLoanFreshLeadJewelleryDetailModel> JewelleryDetail { get; set; }
 
     }
     public class GoldLoanFreshLeadAppointmentDetailModel
@@ -96,7 +97,7 @@ namespace AurigainLoanERP.Shared.ContractModel
     {
         public GoldLoanFreshLeadViewModel()
         {
-            JewelleryDetail = new GoldLoanFreshLeadJewelleryDetailViewModel();
+            JewelleryDetail = new List<GoldLoanFreshLeadJewelleryDetailViewModel>();
             AppointmentDetail = new GoldLoanFreshLeadAppointmentDetailViewModel();
             KycDocument = new GoldLoanFreshLeadKycDocumentViewModel();
         }
@@ -120,7 +121,7 @@ namespace AurigainLoanERP.Shared.ContractModel
         public bool? IsActive { get; set; }
         public GoldLoanFreshLeadKycDocumentViewModel KycDocument { get; set; }
         public GoldLoanFreshLeadAppointmentDetailViewModel AppointmentDetail { get; set; }
-        public GoldLoanFreshLeadJewelleryDetailViewModel JewelleryDetail { get; set; }
+        public List<GoldLoanFreshLeadJewelleryDetailViewModel> JewelleryDetail { get; set; }
     }
     public class GoldLoanFreshLeadKycDocumentViewModel
     {

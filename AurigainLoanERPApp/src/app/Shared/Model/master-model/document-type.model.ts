@@ -20,5 +20,7 @@ export class DDLDocumentTypeModel {
   DocumentNumberLength!: number;
   IsNumeric!: boolean;
   IsKyc!: boolean;
+  IsBtleadKyc!: boolean;
+  IsFreshLeadKyc!: boolean;
   RequiredFileCount!: number;
 }

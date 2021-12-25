@@ -427,7 +427,7 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
   }
 
   getDDLDocumentType() {
-    let serve = this._kycDocumentTypeService.GetDDLDocumentType().subscribe(res => {
+    let serve = this._kycDocumentTypeService.GetDDLDocumentTypeForBTLeadKYC().subscribe(res => {
       serve.unsubscribe();
       if (res.IsSuccess) {
         this.ddlDocumentType = res?.Data as DDLDocumentTypeModel[];

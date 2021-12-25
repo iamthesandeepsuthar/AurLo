@@ -62,7 +62,7 @@ export class CustomerSignUpComponent implements OnInit {
     this.formInit();
   }
   getDocumentType() {
-    let subscription = this._documentType.GetDDLDocumentType().subscribe(response => {
+    let subscription = this._documentType.GetDDLDocumentTypeForUserKYC().subscribe(response => {
       subscription.unsubscribe();
       if (response.IsSuccess) {
         this.documentTypeModel = response.Data as DDLDocumentTypeModel[];

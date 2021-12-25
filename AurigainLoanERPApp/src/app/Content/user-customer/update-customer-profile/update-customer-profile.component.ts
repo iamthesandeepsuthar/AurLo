@@ -88,7 +88,7 @@ export class UpdateCustomerProfileComponent implements OnInit {
   }
   getDocumentType() {
     this.documentTypeModel = [];
-    let subscription = this._documentType.GetDDLDocumentType().subscribe(response => {
+    let subscription = this._documentType.GetDDLDocumentTypeForUserKYC().subscribe(response => {
       subscription.unsubscribe();
       if (response.IsSuccess) {
         this.documentTypeModel = response.Data as DDLDocumentTypeModel[];
