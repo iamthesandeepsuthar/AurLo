@@ -13,6 +13,7 @@ import { UserNomineeDetailSectionComponent } from "src/app/Shared/Helper/shared/
 import { UserSecurityDepositComponent } from "src/app/Shared/Helper/shared/UserRegistration/user-security-deposit/user-security-deposit.component";
 import { AgentPostModel, AgentViewModel } from "src/app/Shared/Model/Agent/agent.model";
 import { UserPostModel, UserKYCPostModel, UserNomineePostModel, UserBankDetailsPostModel, DocumentPostModel, FilePostModel } from "src/app/Shared/Model/doorstep-agent-model/door-step-agent.model";
+import { PincodeAreaModel } from "src/app/Shared/Model/master-model/district.model";
 import { AvailableAreaModel } from "src/app/Shared/Model/User-setting-model/user-availibility.model";
 import { UserSettingPostModel } from "src/app/Shared/Model/User-setting-model/user-setting.model";
 import { AgentService } from "src/app/Shared/Services/agent-services/agent.service";
@@ -114,11 +115,8 @@ export class AddUpdateAgentComponent implements OnInit, AfterContentChecked {
       }
     });
   }
-  getAddressLine2(areaId?: any) {
-    debugger;
-    alert(areaId);
-    const addressLine2 = this.areaModel.find(x => x.Id == areaId)?.AddressLine2;
-    this.model.AddressLine2 != addressLine2;
+  getAddressLine2(area?:any){
+  this.model.AddressLine2 = area?.AddressLine2;
   }
   GetFilterDropDown(key: string, FilterFrom: string, Values: any) {
 

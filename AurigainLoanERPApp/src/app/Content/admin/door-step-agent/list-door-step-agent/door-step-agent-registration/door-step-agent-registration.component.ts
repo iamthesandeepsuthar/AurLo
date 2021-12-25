@@ -108,6 +108,9 @@ export class DoorStepAgentRegistrationComponent implements OnInit, AfterContentC
       }
     });
   }
+  getAddressLine2(area?:any){
+    this.model.AddressLine2 = area?.AddressLine2;
+    }
 
   GetFilterDropDown(key: string, FilterFrom: string, Values: any) {
 
@@ -251,7 +254,7 @@ export class DoorStepAgentRegistrationComponent implements OnInit, AfterContentC
       Gender: [undefined, Validators.required],
       Qualification: [undefined, Validators.required],
       Address: [undefined, undefined],
-     // District: [undefined, Validators.required],
+      AddressLine2:[undefined],
       State: [undefined, Validators.required],
       PinCode: [undefined, Validators.compose([Validators.required, Validators.maxLength(6), Validators.minLength(6)])],
       DateOfBirth: [undefined, Validators.required],
@@ -264,23 +267,6 @@ export class DoorStepAgentRegistrationComponent implements OnInit, AfterContentC
 
     });
   }
-
-  // onUpdateProfileImage(file: FileInfo) {
-  //   if (this.Id > 0) {
-  //     this.profileModel.ProfileBase64 = file.FileBase64;
-  //     this.profileModel.FileName = file.Name;
-  //     this.profileModel.UserId = this.Id;
-  //      this._userSettingService.UpdateUserProfile(this.profileModel).then(res => {
-
-  //       if (res.IsSuccess) {
-  //         this._toast.success('profile picture upload successful', 'Upload Status');
-  //       } else {
-  //         this._toast.error(res.Message as string, 'Upload Status');
-  //       }
-  //     });
-  //   }
-
-  // }
 
   onGetDetail() {
     if (this.Id > 0) {
@@ -388,10 +374,12 @@ export class DoorStepAgentRegistrationComponent implements OnInit, AfterContentC
 
     }
   }
+
   fileProgress(fileInput: any) {
     this.fileData = fileInput.target.files[0] as File;
     this.preview();
   }
+
   preview() {
     // Show preview
     const mimeType = this.fileData?.type;
@@ -404,6 +392,7 @@ export class DoorStepAgentRegistrationComponent implements OnInit, AfterContentC
       this.previewUrl = reader.result;
     };
   }
+
   onUploadProfileImage() {
     if (this.Id > 0) {
       let profileModel = new UserSettingPostModel();
@@ -420,5 +409,4 @@ export class DoorStepAgentRegistrationComponent implements OnInit, AfterContentC
       });
     }
   }
-
 }
