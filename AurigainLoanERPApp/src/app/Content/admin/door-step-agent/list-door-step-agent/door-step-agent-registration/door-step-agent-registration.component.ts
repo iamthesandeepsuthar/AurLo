@@ -41,8 +41,11 @@ export class DoorStepAgentRegistrationComponent implements OnInit, AfterContentC
   get f() { return this.formGroup.controls; }
   get routing_Url() { return Routing_Url }
   get minDate() { return new Date() };
-  get maxDate() { return new Date() };
-
+  get DobMaxDate() {
+    var date = new Date();
+    date.setFullYear(date.getFullYear() - 18);
+    return date
+  };
 
   fileData!: File;
   previewUrl: any = null;

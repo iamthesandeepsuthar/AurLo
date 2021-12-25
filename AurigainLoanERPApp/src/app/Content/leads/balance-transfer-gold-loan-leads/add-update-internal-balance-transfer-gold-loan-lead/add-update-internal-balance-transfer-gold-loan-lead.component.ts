@@ -37,8 +37,7 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
 
   leadId: number = 0;
   model = new BTGoldLoanLeadPostModel();
-  maxDate = new Date();
-  AeraPincode!: string | any;
+   AeraPincode!: string | any;
   CorrespondAeraPincode!: string | any;
   BankId!: number;
   leadFormPersonalDetail!: FormGroup;
@@ -74,7 +73,11 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
   get f7() { return this.leadFormKYCDetail.controls; }
 
   get userDetail() { return this._auth.GetUserDetail() };
-
+  get DobMaxDate() {
+    var date = new Date();
+    date.setFullYear(date.getFullYear() - 18);
+    return date
+  };
   constructor(private readonly fb: FormBuilder, readonly _commonService: CommonService,
     private readonly _productService: ProductService,
     private readonly _stateDistrictService: StateDistrictService,

@@ -29,7 +29,11 @@ export class CUAddUpdateBalanceExternalTransferGoldLoanLeadComponent implements 
 
   leadId: number = 0;
   model = new BTGoldLoanLeadPostModel();
-  maxDate = new Date();
+  get DobMaxDate() {
+    var date = new Date();
+    date.setFullYear(date.getFullYear() - 18);
+    return date
+  };
   AeraPincode!: string | any;
   CorrespondAeraPincode!: string | any;
   BankId!: number;

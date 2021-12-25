@@ -36,7 +36,7 @@
             [ngClass]="{ 'is-invalid':(documentFormField!.controls![idx].get('File')?.hasError('required') && documentFormField!.controls![idx].get('File')?.touched )||( documentModel[idx]!.Files!.length>0 && itm.RequiredFileCount != documentModel[idx]!.Files!.length)}"
             [CurrentFileLength]="documentModel[idx]!.Files!.length ?? 0" [MaxFileLength]="itm.RequiredFileCount">
           </app-file-selector>
-          {{itm.RequiredFileCount +'/'+ documentModel[idx]!.Files!.length}}
+          {{ 'Attachment ' +itm.RequiredFileCount +'/'+ documentModel[idx]!.Files!.length }}
 
 
           <div class="invalid-feedback"

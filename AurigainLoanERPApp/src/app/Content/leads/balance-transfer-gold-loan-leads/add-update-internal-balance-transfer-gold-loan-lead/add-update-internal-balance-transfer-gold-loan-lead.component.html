@@ -72,7 +72,7 @@
             <label>Date of Birth <em class="text-danger">*</em></label>
             <input class="form-control" #datepickerYMD="bsDatepicker" autocomplete="off" placeholder="DD-MM-YYYY"
               formControlName="DOB" [ngClass]="{ 'is-invalid': f1.DOB.errors && f1.DOB.touched}" bsDatepicker
-              [(ngModel)]="model.DateOfBirth" [maxDate]="maxDate"
+              [(ngModel)]="model.DateOfBirth" [maxDate]="DobMaxDate"
               [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', adaptivePosition: true,isAnimated: true, showWeekNumbers: false }">
             <i class="fas fa-calendar-alt" (click)="datepickerYMD.toggle()"></i>
             <div class="invalid-feedback"
@@ -185,12 +185,12 @@
           <div class="form-group col-md-8">
             <label>Purpose of Loan<em class="text-danger">*</em></label>
             <ng-select [items]="ddlPurpose" [searchable]="true" bindLabel="Name" bindValue="Id"
-            placeholder="Select Purpose" formControlName="Purpose"
-            [ngClass]="{ 'is-invalid': f1.Purpose.errors && f1.Purpose.touched}" [(ngModel)]="model.PurposeId">
-          </ng-select>
+              placeholder="Select Purpose" formControlName="Purpose"
+              [ngClass]="{ 'is-invalid': f1.Purpose.errors && f1.Purpose.touched}" [(ngModel)]="model.PurposeId">
+            </ng-select>
             <div class="invalid-feedback"
               *ngIf="(leadFormPersonalDetail.get('Purpose')?.hasError('required') && leadFormPersonalDetail.get('Purpose')?.touched)">
-              Select  Purpose </div>
+              Select Purpose </div>
           </div>
         </div>
       </div>
@@ -458,8 +458,9 @@
 
 
             <ng-select [items]="ddlDocumentTypePOI"
-              (change)="this.model.KYCDetail.PoidocumentNumber=null;onChangePOIDocument($event)" (clear)="onChangePOIDocument($event)" [searchable]="true" [clearable]="true"
-              bindLabel="Name" bindValue="Id" placeholder="Select Document Type" formControlName="PoidocumentType"
+              (change)="this.model.KYCDetail.PoidocumentNumber=null;onChangePOIDocument($event)"
+              (clear)="onChangePOIDocument($event)" [searchable]="true" [clearable]="true" bindLabel="Name"
+              bindValue="Id" placeholder="Select Document Type" formControlName="PoidocumentType"
               [ngClass]="{ 'is-invalid': f7.PoidocumentType?.errors && f7.PoidocumentType?.touched}"
               [(ngModel)]="model.KYCDetail.PoidocumentTypeId">
             </ng-select>
@@ -473,7 +474,8 @@
             <input type="text" class="form-control" id="input9" placeholder="Document Number"
               [(ngModel)]="model.KYCDetail.PoidocumentNumber" formControlName="PoidocumentNumber"
               [ngClass]="{ 'is-invalid': f7.PoidocumentNumber?.errors && f7.DocumentNumber?.touched}"
-              (keypress)="onCheckDocumentNumberPOI($event,model.KYCDetail.PoidocumentTypeId)" [maxlength]="docPOIMaxChar">
+              (keypress)="onCheckDocumentNumberPOI($event,model.KYCDetail.PoidocumentTypeId)"
+              [maxlength]="docPOIMaxChar">
             <div class="invalid-feedback"
               *ngIf="(leadFormKYCDetail.get('PoidocumentNumber')?.hasError('required') && leadFormKYCDetail.get('PoidocumentNumber')?.touched)">
               Enter Document Number! </div>
@@ -492,8 +494,9 @@
 
 
             <ng-select [items]="ddlDocumentTypePOA"
-              (change)="onChangePOADocument($event);this.model.KYCDetail.PoadocumentNumber=null;" [searchable]="true" (clear)="onChangePOADocument($event)" [clearable]="true"
-              bindLabel="Name" bindValue="Id" placeholder="Select Document Type" formControlName="PoadocumentType"
+              (change)="onChangePOADocument($event);this.model.KYCDetail.PoadocumentNumber=null;" [searchable]="true"
+              (clear)="onChangePOADocument($event)" [clearable]="true" bindLabel="Name" bindValue="Id"
+              placeholder="Select Document Type" formControlName="PoadocumentType"
               [ngClass]="{ 'is-invalid': f7.PoadocumentType?.errors && f7.PoadocumentType?.touched}"
               [(ngModel)]="model.KYCDetail.PoadocumentTypeId">
             </ng-select>
@@ -508,7 +511,8 @@
             <input type="text" class="form-control" id="input9" placeholder="Document Number"
               [(ngModel)]="model.KYCDetail.PoadocumentNumber" formControlName="PoadocumentNumber"
               [ngClass]="{ 'is-invalid': f7.PoadocumentNumber?.errors && f7.DocumentNumber?.touched}"
-              (keypress)="onCheckDocumentNumberPOA($event,model.KYCDetail.PoadocumentTypeId)" [maxlength]="docPOAMaxChar">
+              (keypress)="onCheckDocumentNumberPOA($event,model.KYCDetail.PoadocumentTypeId)"
+              [maxlength]="docPOAMaxChar">
             <div class="invalid-feedback"
               *ngIf="(leadFormKYCDetail.get('PoadocumentNumber')?.hasError('required') && leadFormKYCDetail.get('PoadocumentNumber')?.touched)">
               Enter Document Number! </div>
@@ -572,7 +576,8 @@
           <div class="form-group col-md-4">
             <label>Amount : </label>
             <input type="text" class="form-control" id="input9" placeholder="Amount"
-              [(ngModel)]="model.ExistingLoanDetail.Amount" formControlName="Amount" (keypress)="_commonService.NumberOnly($event)"
+              [(ngModel)]="model.ExistingLoanDetail.Amount" formControlName="Amount"
+              (keypress)="_commonService.NumberOnly($event)"
               [ngClass]="{ 'is-invalid': f7.Amount?.errors && f7.Amount?.touched}" [maxlength]="10">
             <div class="invalid-feedback"
               *ngIf="(leadFormExistingLoanDetail.get('Amount')?.hasError('required') && leadFormExistingLoanDetail.get('Amount')?.touched)">
@@ -596,7 +601,8 @@
           <div class="form-group col-md-4">
             <label>Jewellery Valuation : </label>
             <input type="text" class="form-control" id="input9" placeholder="Jewellery Valuation"
-              [(ngModel)]="model.ExistingLoanDetail.JewelleryValuation" formControlName="JewelleryValuation" (keypress)="_commonService.NumberOnly($event)"
+              [(ngModel)]="model.ExistingLoanDetail.JewelleryValuation" formControlName="JewelleryValuation"
+              (keypress)="_commonService.NumberOnly($event)"
               [ngClass]="{ 'is-invalid': f6.JewelleryValuation?.errors && f6.JewelleryValuation?.touched}"
               [maxlength]="10">
             <div class="invalid-feedback"
@@ -608,7 +614,8 @@
           <div class="form-group col-md-4">
             <label>Outstanding Amount : </label>
             <input type="text" class="form-control" id="input9" placeholder="Outstanding Amount"
-              [(ngModel)]="model.ExistingLoanDetail.OutstandingAmount" formControlName="OutstandingAmount" (keypress)="_commonService.NumberOnly($event)"
+              [(ngModel)]="model.ExistingLoanDetail.OutstandingAmount" formControlName="OutstandingAmount"
+              (keypress)="_commonService.NumberOnly($event)"
               [ngClass]="{ 'is-invalid': f6.OutstandingAmount?.errors && f6.OutstandingAmount?.touched}"
               [maxlength]="10">
             <div class="invalid-feedback" *ngIf="(leadFormExistingLoanDetail.get('OutstandingAmount')?.hasError('required') &&
@@ -620,7 +627,8 @@
           <div class="form-group col-md-4">
             <label>Balance Transfer Amount : </label>
             <input type="text" class="form-control" id="input9" placeholder="Balance Transfer Amount"
-              [(ngModel)]="model.ExistingLoanDetail.BalanceTransferAmount" formControlName="BalanceTransferAmount" (keypress)="_commonService.NumberOnly($event)"
+              [(ngModel)]="model.ExistingLoanDetail.BalanceTransferAmount" formControlName="BalanceTransferAmount"
+              (keypress)="_commonService.NumberOnly($event)"
               [ngClass]="{ 'is-invalid': f6.BalanceTransferAmount?.errors && f6.BalanceTransferAmount?.touched}"
               [maxlength]="10">
             <div class="invalid-feedback" *ngIf="(leadFormExistingLoanDetail.get('BalanceTransferAmount')?.hasError('required') &&
@@ -631,9 +639,9 @@
           <div class="form-group col-md-4">
             <label>Required Amount : </label>
             <input type="text" class="form-control" id="input9" placeholder="Required Amount"
-              [(ngModel)]="model.ExistingLoanDetail.RequiredAmount" formControlName="RequiredAmount" (keypress)="_commonService.NumberOnly($event)"
-              [ngClass]="{ 'is-invalid': f6.RequiredAmount?.errors && f6.RequiredAmount?.touched}"
-              [maxlength]="10">
+              [(ngModel)]="model.ExistingLoanDetail.RequiredAmount" formControlName="RequiredAmount"
+              (keypress)="_commonService.NumberOnly($event)"
+              [ngClass]="{ 'is-invalid': f6.RequiredAmount?.errors && f6.RequiredAmount?.touched}" [maxlength]="10">
             <div class="invalid-feedback" *ngIf="(leadFormExistingLoanDetail.get('RequiredAmount')?.hasError('required') &&
                leadFormExistingLoanDetail.get('RequiredAmount')?.touched)">
               Enter Required Amount! </div>
@@ -642,9 +650,9 @@
           <div class="form-group col-md-4">
             <label>Tenure : </label>
             <input type="text" class="form-control" id="input9" placeholder="Tenure"
-              [(ngModel)]="model.ExistingLoanDetail.Tenure" formControlName="Tenure" (keypress)="_commonService.NumberOnly($event)"
-              [ngClass]="{ 'is-invalid': f6.Tenure?.errors && f6.Tenure?.touched}"
-              [maxlength]="2">
+              [(ngModel)]="model.ExistingLoanDetail.Tenure" formControlName="Tenure"
+              (keypress)="_commonService.NumberOnly($event)"
+              [ngClass]="{ 'is-invalid': f6.Tenure?.errors && f6.Tenure?.touched}" [maxlength]="2">
             <div class="invalid-feedback" *ngIf="(leadFormExistingLoanDetail.get('Tenure')?.hasError('required') &&
                leadFormExistingLoanDetail.get('Tenure')?.touched)">
               Enter Tenure ! </div>
@@ -657,7 +665,7 @@
       <div class="step-form-btn-grp mt-3">
         <button class="btn btn-outline-danger mr-3" mat-button matStepperPrevious><i
             class="fas fa-angle-left mr-1"></i>Back</button>
-            <button class="btn btn-success" mat-button type="submit"><i class="fas fa-check mr-1"></i> Submit</button>
+        <button class="btn btn-success" mat-button type="submit"><i class="fas fa-check mr-1"></i> Submit</button>
       </div>
     </form>
   </mat-step>

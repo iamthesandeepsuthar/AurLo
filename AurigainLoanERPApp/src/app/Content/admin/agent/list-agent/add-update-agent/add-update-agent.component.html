@@ -60,7 +60,7 @@
 
                 <div class="form-group col-md-4 date-icon-with-label">
                     <label>Date of birth</label>
-                    <input class="form-control" #datepickerYMD="bsDatepicker" placeholder="DD-MM-YYYY" formControlName="DateOfBirth" [ngClass]="{ 'is-invalid': f.DateOfBirth.errors && f.DateOfBirth.touched}" bsDatepicker [(ngModel)]="model.DateOfBirth" [maxDate]="maxDate"
+                    <input class="form-control" #datepickerYMD="bsDatepicker" placeholder="DD-MM-YYYY" formControlName="DateOfBirth" [ngClass]="{ 'is-invalid': f.DateOfBirth.errors && f.DateOfBirth.touched}" bsDatepicker [(ngModel)]="model.DateOfBirth" [maxDate]="DobMaxDate"
                         [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', adaptivePosition: true,isAnimated: true, showWeekNumbers: false }">
                     <i class="fas fa-calendar-alt" (click)="datepickerYMD.toggle()"></i>
                     <div class="invalid-feedback" *ngIf="(formGroup.get('DateOfBirth')?.hasError('required') && formGroup.get('DateOfBirth')?.touched)">
