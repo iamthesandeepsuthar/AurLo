@@ -19,6 +19,7 @@ export class ChangePasswordPopupComponent implements OnInit {
   changePasswordModel!: UserChangePassword;
   verifiedOtpModel!: OptVerifiedModel;
   otpResponseModel!: GetOtpResponseModel;
+  btnResendDisabled:boolean =false;
 
   get OtpModel(): GetOtpModel {
     return this.getOtpModel;
@@ -81,16 +82,19 @@ export class ChangePasswordPopupComponent implements OnInit {
    this.toast.warning('Please enter otp','Required');
    return ;
    } else {
-    let subscription = this._settingService.VerifiedOtpp(this.verifiedOtpModel).subscribe(response => {
+
+    this.verifiedOtpModel.UserId = Number(this._authService.GetUserDetail()?.UserId);
+    let subscription = this._settingService.VerifiedOtpByChangePassword(this.verifiedOtpModel).subscribe(response => {
       subscription.unsubscribe();
       if(response.IsSuccess) {
+
         this.IsGetOtp = false;
         this.IsVerified = false;
         this.IsConfirmPassword = true;
         this.changePasswordModel = new UserChangePassword();
         this.changePasswordModel.UserId = this._authService.GetUserDetail()?.UserId as number ;
       } else {
-      this.toast.error('User not verified successful','Unverified');
+      this.toast.error(response.Message as string ,'Unverified');
       return;
       }
     });
@@ -125,10 +129,7 @@ export class ChangePasswordPopupComponent implements OnInit {
     confirmPassword: [undefined]
     });
   }
-
   onClose() {
     this.dialogRef.close(false);
   }
-
-
 }

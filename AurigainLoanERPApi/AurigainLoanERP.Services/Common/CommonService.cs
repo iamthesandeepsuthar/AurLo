@@ -1,6 +1,7 @@
 ﻿using AurigainLoanERP.Data.Database;
 using AurigainLoanERP.Shared.Common.Method;
 using AurigainLoanERP.Shared.Common.Model;
+using AurigainLoanERP.Shared.ContractModel;
 using AurigainLoanERP.Shared.ExtensionMethod;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
@@ -140,7 +141,54 @@ namespace AurigainLoanERP.Services.Common
 
         }
 
+        public async Task<ApiServiceResponseModel<CommonModel>> GetCommonDataByUserId(long userId) 
+        {
+            CommonModel model = new CommonModel();
+            try
+            {
+                model.Qualification =await  getQualificaitonData();
+                model.Purpose = await getPurposeData();
+                return CreateResponse(model, ResponseMessage.Success, true, ((int)ApiStatusCode.Ok));
+            }
+            catch (Exception ex) 
+            {
+                return CreateResponse<CommonModel>(null, ResponseMessage.Fail, false, ((int)ApiStatusCode.ServerException), ex.Message.ToString());
+            }
+        }
+
         #region <<private Method>>
+        private async Task<List<DDLQualificationModel>> getQualificaitonData()
+        {
+            List<DDLQualificationModel> Qualification = new List<DDLQualificationModel>();
+            try
+            {
+                Qualification =  await (from data in _db.QualificationMaster where data.IsActive == true && !data.IsDelete select data)
+                     .Select(item => new DDLQualificationModel { Name = item.Name, Id = item.Id })
+                     .ToListAsync();
+                return Qualification;
+            }
+            catch
+            {
+
+                return Qualification;
+            }
+        }
+        private async Task<List<ddlPurposeModel>> getPurposeData()
+        {
+            List<ddlPurposeModel> purpose = new List<ddlPurposeModel>();
+            try
+            {
+                purpose = await (from data in _db.Purpose where data.IsActive.Value == true && !data.IsDelete select data)
+                     .Select(item => new ddlPurposeModel { Name = item.Name, Id = item.Id })
+                     .ToListAsync();
+                return purpose;
+            }
+            catch
+            {
+
+                return purpose;
+            }
+        }
 
         /// <summary>
         /// Get User Role

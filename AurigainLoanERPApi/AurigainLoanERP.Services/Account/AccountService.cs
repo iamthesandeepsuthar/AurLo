@@ -130,6 +130,47 @@ namespace AurigainLoanERP.Services.Account
                 return CreateResponse<string>(null, ResponseMessage.NotFound, false, ((int)ApiStatusCode.ServerException), ex.Message ?? ex.InnerException.ToString());
             }
         }
+        public async Task<ApiServiceResponseModel<string>> VerifiedPinForChangePassword(OtpVerifiedModel model)
+        {
+            try
+            {
+                var isExist = await _db.UserMaster.Where(x => x.Id == model.UserId && x.Mobile == model.MobileNumber && x.IsDelete == false).FirstOrDefaultAsync();
+                if (isExist == null) 
+                {
+                    return CreateResponse<string>("false", "Mobile number not registered with account", false, ((int)ApiStatusCode.NotFound));
+                } 
+                else
+                {
+                    var otp = await _db.UserOtp.Where(x => x.Mobile.Equals(model.MobileNumber)).OrderByDescending(x => x.Id).FirstOrDefaultAsync();
+                    if (otp == null)
+                    {
+                        return CreateResponse<string>(null, ResponseMessage.NotFound, false, ((int)ApiStatusCode.RecordNotFound));
+                    }
+                    var encrptOTP = _security.Base64Encode(model.Otp);
+                    if (otp.ExpireOn > DateTime.Now.ToLocalTime())
+                    {
+                        if (otp.Otp == encrptOTP)
+                        {
+                            _db.UserOtp.Remove(otp);
+                            _db.SaveChanges();
+                            return CreateResponse<string>("true", "Otp varified successful.", true, ((int)ApiStatusCode.Ok));
+                        }
+                        else
+                        {
+                            return CreateResponse<string>("false", "otp varification failed", false, ((int)ApiStatusCode.OTPVarificationFailed));
+                        }
+                    }
+                    else
+                    {
+                        return CreateResponse<string>("false", "Otp validity expaire, Generate new otp", false, ((int)ApiStatusCode.OTPValidityExpire));
+                    }
+                }                
+            }
+            catch (Exception ex)
+            {
+                return CreateResponse<string>(null, ResponseMessage.NotFound, false, ((int)ApiStatusCode.ServerException), ex.Message ?? ex.InnerException.ToString());
+            }
+        }
         public async Task<ApiServiceResponseModel<string>> ChangePassword(ChangePasswordModel model)
         {
             try

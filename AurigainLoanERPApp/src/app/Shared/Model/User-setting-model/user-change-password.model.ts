@@ -6,6 +6,7 @@ export class UserChangePassword {
 export class OptVerifiedModel {
   MobileNumber!: string;
   Otp!:string;
+  UserId!:number;
 }
 export class GetOtpModel{
  MobileNumber!: string;

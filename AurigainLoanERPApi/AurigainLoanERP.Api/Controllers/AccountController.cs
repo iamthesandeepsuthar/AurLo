@@ -64,10 +64,17 @@ namespace AurigainLoanERP.Api.Controllers
 
         //Post api/Account/VarifiedMPIN
         [HttpPost]
-        [AllowAnonymous]
+       // [AllowAnonymous]
         public async Task<ApiServiceResponseModel<string>> VarifiedMPIN(OtpVerifiedModel model)
         {
             return await _accountService.VerifiedPin(model);
+        }
+        //Post api/Account/VarifiedOtpForChangePassword
+        [HttpPost]
+        // [AllowAnonymous]
+        public async Task<ApiServiceResponseModel<string>> VarifiedOtpForChangePassword(OtpVerifiedModel model)
+        {
+            return await _accountService.VerifiedPinForChangePassword(model);
         }
 
         [HttpGet]

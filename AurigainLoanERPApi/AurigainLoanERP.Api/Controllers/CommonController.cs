@@ -37,6 +37,11 @@ namespace AurigainLoanERP.Api.Controllers
             FilterDropDownPostModel[] obj = { model != null ? model : new FilterDropDownPostModel() };
             return await _common.GetFilterDropDown(obj);
         }
+        [HttpGet("{id}")]
+        public async Task<ApiServiceResponseModel<CommonModel>> GetCommonDataByUserId(long id)
+        {
+            return await _common.GetCommonDataByUserId(id);
+        }
 
     }
 }

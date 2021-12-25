@@ -57,8 +57,12 @@ export class UserSettingService {
     let url = `${this._baseService.API_Url.GetOtp_Api}`;
     return this._baseService.post(url, model);
   }
-  VerifiedOtpp(model: OptVerifiedModel): Observable<ApiResponse<string>> {
+  VerifiedOtp(model: OptVerifiedModel): Observable<ApiResponse<string>> {
     let url = `${this._baseService.API_Url.VerifiedOtp_Api}`;
+    return this._baseService.post(url, model);
+  }
+  VerifiedOtpByChangePassword(model: OptVerifiedModel): Observable<ApiResponse<string>> {
+    let url = `${this._baseService.API_Url.VarifiedOtpForChangePassword}`;
     return this._baseService.post(url, model);
   }
   ChangePassword(model: UserChangePassword): Observable<ApiResponse<string>> {

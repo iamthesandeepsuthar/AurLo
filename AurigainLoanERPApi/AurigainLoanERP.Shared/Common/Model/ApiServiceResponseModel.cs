@@ -1,4 +1,7 @@
-﻿namespace AurigainLoanERP.Shared.Common.Model
+﻿using AurigainLoanERP.Shared.ContractModel;
+using System.Collections.Generic;
+
+namespace AurigainLoanERP.Shared.Common.Model
 {
     public class ApiServiceResponseModel<TResult> where TResult : class
     {
@@ -18,5 +21,11 @@
         public int[] Values { get; set; }
 
 
+    }
+
+    public class CommonModel 
+    { 
+        public List<ddlPurposeModel> Purpose { get; set;}
+        public List<DDLQualificationModel> Qualification { get; set;}
     }
 }

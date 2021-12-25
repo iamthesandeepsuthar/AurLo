@@ -1375,6 +1375,7 @@ namespace AurigainLoanERP.Services.User
             }
         }
         #endregion
+
         #region << Private Method>>
 
         /// <summary>
