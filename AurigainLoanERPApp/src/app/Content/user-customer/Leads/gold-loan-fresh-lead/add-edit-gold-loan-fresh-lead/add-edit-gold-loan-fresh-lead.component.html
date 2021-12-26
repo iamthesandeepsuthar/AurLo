@@ -351,16 +351,7 @@
               select Karats! </div>
           </div>
 
-          <div class="form-group col-md-4">
-            <label>Tenure </label>
-            <input type="text" [maxlength]="3" (keypress)="_commonService.NumberOnly($event)" class="form-control"
-              id="input14" placeholder="Tenure" [(ngModel)]="model.JewelleryDetail.PreferredLoanTenure"
-              formControlName="Tenure" [ngClass]="{ 'is-invalid': f3.Tenure.errors && f3.Tenure.touched}">
 
-            <div class="invalid-feedback"
-              *ngIf="(leadFromJewelleryDetail.get('Tenure')?.hasError('required') && leadFromJewelleryDetail.get('Tenure')?.touched)">
-              select Tenure! </div>
-          </div>
         </div>
       </div>
 

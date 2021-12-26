@@ -86,6 +86,7 @@ export class AddUpdateFreshGoldLoanLeadComponent implements OnInit {
   formInit() {
     this.leadFromPersonalDetail = this.fb.group({
       Product: [undefined, Validators.required],
+      Tenure: [undefined, Validators.required],
       Email: [undefined, Validators.compose([Validators.required, Validators.email])],
       FullName: [undefined, Validators.required],
       FatherName: [undefined, Validators.required],
@@ -110,7 +111,6 @@ export class AddUpdateFreshGoldLoanLeadComponent implements OnInit {
       Quantity: [undefined, undefined],
       Weight: [undefined, undefined],
       Karats: [undefined, undefined],
-      Tenure: [undefined, undefined]
     });
 
     this.leadFromAppointmentDetail = this.fb.group({
@@ -146,7 +146,7 @@ export class AddUpdateFreshGoldLoanLeadComponent implements OnInit {
       this.model.JewelleryDetail.Weight = this.model.JewelleryDetail.Weight ? Number(this.model.JewelleryDetail.Weight) : null;
       this.model.LoanAmountRequired = this.model.LoanAmountRequired ? Number(this.model.LoanAmountRequired) : null;
       this.model.JewelleryDetail.Quantity = this.model.JewelleryDetail.Quantity ? Number(this.model.JewelleryDetail.Quantity) : null;
-      this.model.JewelleryDetail.PreferredLoanTenure = this.model.JewelleryDetail.PreferredLoanTenure ? Number(this.model.JewelleryDetail.PreferredLoanTenure) : null;
+      this.model.PreferredLoanTenure = this.model.PreferredLoanTenure ? Number(this.model.PreferredLoanTenure) : null;
 
       this._goldLoanLeadService.AddUpdate(this.model).subscribe(res => {
         if (res.IsSuccess) {

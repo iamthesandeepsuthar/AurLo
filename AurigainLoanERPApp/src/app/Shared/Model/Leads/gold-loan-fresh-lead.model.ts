@@ -15,9 +15,10 @@ export class GoldLoanFreshLeadModel {
   SecondaryMobileNumber!: string;
   LoanAmountRequired!: number | null;
   Purpose!: string;
-  PurposeId!:number;
+  PurposeId!: number;
   LeadSourceByUserId!: number;
   ProductId!: number;
+  PreferredLoanTenure!: number | null;
   CreatedDate!: string;
   IsActive!: boolean;
   KycDocument!: GoldLoanFreshLeadKycDocumentModel;
@@ -35,17 +36,16 @@ export class GoldLoanFreshLeadAppointmentDetailModel {
   GlfreshLeadId!: number;
   IsActive!: boolean | null;
   CreatedDate!: string;
-  Pincode!:string;
-  LeadId!:number;
+  Pincode!: string;
+  LeadId!: number;
 }
 
 export class GoldLoanFreshLeadJewelleryDetailModel {
   Id!: number;
-  PreferredLoanTenure!: number | null;
   JewelleryTypeId!: number;
   Quantity!: number | null;
   Weight!: number | null;
-  Karat!: number|null ;
+  Karat!: number | null;
   GlfreshLeadId!: number;
   IsActive!: boolean;
   CreatedDate!: string;
@@ -54,7 +54,7 @@ export class GoldLoanFreshLeadJewelleryDetailModel {
 export class GoldLoanFreshLeadKycDocumentModel {
   Id!: number;
   KycDocumentTypeId!: number;
-  DocumentNumber!: string|null;
+  DocumentNumber!: string | null;
   PanNumber!: string;
   Pincode!: string;
   PincodeAreaId!: number;
@@ -105,6 +105,7 @@ export class GoldLoanFreshLeadViewModel {
   LeadSourceByUserId!: number;
   LeadSourceUserName!: string;
   ProductId!: number;
+  PreferredLoanTenure!: number;
   ProductName!: string;
   ProductCategoryName!: string;
   CreatedDate!: string;
@@ -143,8 +144,7 @@ export class GoldLoanFreshLeadAppointmentDetailViewModel {
 
 export class GoldLoanFreshLeadJewelleryDetailViewModel {
   Id!: number;
-  PreferredLoanTenure!: number;
-  JewelleryTypeId!: number;
+    JewelleryTypeId!: number;
   JewelleryTypeName!: string;
   Quantity!: number;
   Weight!: number | null;
