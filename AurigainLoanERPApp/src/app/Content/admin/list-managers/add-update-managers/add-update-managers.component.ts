@@ -68,7 +68,7 @@ ngOnInit(): void {
   IsActive: [true],
   Description: [undefined],
   DllState:[undefined , Validators.required],
-  //DllDistrict: [undefined, Validators.required],
+  AddressLine2: [undefined],
   UserRole: [undefined, Validators.required],
   Pincode: [undefined , Validators.required],
   DateOfBirth:[undefined , Validators.required],
@@ -82,7 +82,6 @@ ngOnInit(): void {
     subscription.unsubscribe();
     if(response.IsSuccess) {
      this.roleModel = response.Data as DDLUserRole[];
-     console.log('Role ----------------------->',this.roleModel);
     } else {
       this.toast.warning(response.Message?.toString(), 'Server Error');
       return;
@@ -123,6 +122,9 @@ ngOnInit(): void {
       }
     });
   }
+  getAddressLine2(area?:any){
+    this.model.AddressLine2 = area?.AddressLine2;
+    }
   onGetDetail() {
   let subscription = this._managerService.GetManagerById(this.Id).subscribe(res => {
   subscription.unsubscribe();

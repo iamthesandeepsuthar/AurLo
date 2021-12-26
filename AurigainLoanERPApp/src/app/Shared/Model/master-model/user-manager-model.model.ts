@@ -12,6 +12,7 @@ export class UserManagerModel {
         Password!: string;
         IsApproved!: boolean;
         Address!: string ;
+        AddressLine2!:string;
         UserId!:number;
         DistrictId!: number;
         DistrictName!: string;
