@@ -19,7 +19,8 @@ export class ChangePasswordPopupComponent implements OnInit {
   changePasswordModel!: UserChangePassword;
   verifiedOtpModel!: OptVerifiedModel;
   otpResponseModel!: GetOtpResponseModel;
-  btnResendDisabled: boolean = false;
+  btnResendDisabled: boolean = true;
+  RemainingTime!: string;
 
   get OtpModel(): GetOtpModel {
     return this.getOtpModel;
@@ -59,7 +60,7 @@ export class ChangePasswordPopupComponent implements OnInit {
           this.verifiedOtpModel = new OptVerifiedModel();
           this.verifiedOtpModel.MobileNumber = this.getOtpModel.MobileNumber;
 
-          this.StartTimer(5)
+          this.StartTimer(180)
         } else {
           this.toast.error(response.Message as string, 'Server Error');
         }
@@ -136,35 +137,31 @@ export class ChangePasswordPopupComponent implements OnInit {
   }
 
 
-  timerOn = true;
-  RemainingTime!: string;
-  desabledResendOTP=true;
   StartTimer(remaining: number) {
-    this.desabledResendOTP=true;
+    this.btnResendDisabled = true;
     var m = Math.floor(remaining / 60);
     var s = remaining % 60;
-
     m = m < 10 ? 0 + m : m;
     s = s < 10 ? 0 + s : s;
     this.RemainingTime = m + ':' + s;
     remaining -= 1;
 
-    if (remaining >= 0 && this.timerOn) {
-      setTimeout( ()=> {
+    if (remaining >= 0) {
+      setTimeout(() => {
         this.StartTimer(remaining);
       }, 1000);
       return;
     }
 
-    if (!this.timerOn) {
-      // Do validate stuff here
-      return;
-    }
+    // if (!this.timerOn) {
+    //   // Do validate stuff here
+    //   return;
+    // }
 
     // Do timeout stuff here
-   
-    this.desabledResendOTP=false;
 
+    this.btnResendDisabled = false;
+    return;
   }
 
 
