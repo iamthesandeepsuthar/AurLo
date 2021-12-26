@@ -71,6 +71,10 @@ export class API_Url {
 
   //#region <<Kyc Document Type>>
   public static Kyc_Document_Type_Dropdown_Api = `${environment.apiEndPoint}KycDocumentType/DocumentTypes`;
+  public static Kyc_Document_Type_BTLeadKyc_Dropdown_Api = `${environment.apiEndPoint}KycDocumentType/DocumentTypesForBTLeadKyc`;
+  public static Kyc_Document_Type_FreshLeadKyc_Dropdown_Api = `${environment.apiEndPoint}KycDocumentType/DocumentTypesForFreshLeadKyc`;
+
+
   public static Kyc_Document_Type_List_Api = `${environment.apiEndPoint}KycDocumentType/GetList`;
   public static Kyc_Document_Type_Detail_Api = `${environment.apiEndPoint}KycDocumentType/GetDocumentTypeById/`;
   public static Kyc_Document_Type_Add_Update_Api = `${environment.apiEndPoint}KycDocumentType/SubmitDocumentType`;

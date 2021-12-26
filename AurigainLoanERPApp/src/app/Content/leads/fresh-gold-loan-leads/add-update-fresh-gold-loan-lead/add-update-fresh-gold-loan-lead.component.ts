@@ -214,7 +214,7 @@ export class AddUpdateFreshGoldLoanLeadComponent implements OnInit {
   }
 
   getDDLDocumentType() {
-    let serve = this._kycDocumentTypeService.GetDDLDocumentType(true).subscribe(res => {
+    let serve = this._kycDocumentTypeService.GetDDLDocumentTypeForFreshLeadKYC(true).subscribe(res => {
       serve.unsubscribe();
       if (res.IsSuccess) {
         this.ddlDocumentTypeModel = res?.Data as DDLDocumentTypeModel[];

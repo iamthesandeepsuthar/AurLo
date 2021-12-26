@@ -325,7 +325,7 @@ namespace AurigainLoanERP.Services.FreshLead
                             Quantity = x.Quantity,
                             Weight = x.Weight,
                             Karat = x.Karat
-                        }).FirstOrDefault();
+                        }).ToList();
                     }
                     if (detail.GoldLoanFreshLeadAppointmentDetail != null)
                     {
@@ -1066,44 +1066,60 @@ namespace AurigainLoanERP.Services.FreshLead
             }
 
         }
-        private async Task<bool> SaveJewelleryDetail(GoldLoanFreshLeadJewelleryDetailModel model, long freshLeadId)
+        private async Task<bool> SaveJewelleryDetail(List<GoldLoanFreshLeadJewelleryDetailModel> model, long freshLeadId)
         {
             try
             {
-                if (model.Id == default || model.Id == 0)
+
+                //for removing non matching record
+                var ids = model.Select(x => x.Id).ToArray();
+                var removedData = await _db.GoldLoanFreshLeadJewelleryDetail.Where(x => x.GlfreshLeadId == freshLeadId && !ids.Contains(x.Id)).ToListAsync();
+
+                if (removedData != null && removedData.Count > 0)
                 {
-                    GoldLoanFreshLeadJewelleryDetail jewellery = new GoldLoanFreshLeadJewelleryDetail
-                    {
-                        IsActive = true,
-                        IsDelete = false,
-                        CreatedDate = DateTime.Now,
-                        GlfreshLeadId = freshLeadId,
-                        JewelleryTypeId = model.JewelleryTypeId,
-                        Karat = model.Karat,
-                        Quantity = model.Quantity,
-                        Weight = model.Weight,
-                        PreferredLoanTenure = model.PreferredLoanTenure,
-                        ModifiedDate = null
-                    };
-                    await _db.GoldLoanFreshLeadJewelleryDetail.AddAsync(jewellery);
+                    _db.GoldLoanFreshLeadJewelleryDetail.RemoveRange(removedData);
                     await _db.SaveChangesAsync();
-                    return true;
+
                 }
-                else
+
+                foreach (var item in model)
                 {
-                    var detail = await _db.GoldLoanFreshLeadJewelleryDetail.Where(x => x.Id == model.Id).FirstOrDefaultAsync();
-                    if (detail == null)
+                    if (item.Id == default || item.Id == 0)
                     {
-                        return false;
+                        GoldLoanFreshLeadJewelleryDetail jewellery = new GoldLoanFreshLeadJewelleryDetail
+                        {
+                            IsActive = true,
+                            IsDelete = false,
+                            CreatedDate = DateTime.Now,
+                            GlfreshLeadId = freshLeadId,
+                            JewelleryTypeId = item.JewelleryTypeId,
+                            Karat = item.Karat,
+                            Quantity = item.Quantity,
+                            Weight = item.Weight,
+                            PreferredLoanTenure = item.PreferredLoanTenure,
+                            ModifiedDate = null
+                        };
+                        await _db.GoldLoanFreshLeadJewelleryDetail.AddAsync(jewellery);
+                        await _db.SaveChangesAsync();
+                      
                     }
-                    detail.ModifiedDate = DateTime.Now;
-                    detail.Quantity = model.Quantity;
-                    detail.Weight = model.Weight;
-                    detail.PreferredLoanTenure = model.PreferredLoanTenure;
-                    detail.JewelleryTypeId = model.JewelleryTypeId;
-                    detail.Karat = model.Karat;
-                    await _db.SaveChangesAsync();
+                    else
+                    {
+                        var detail = await _db.GoldLoanFreshLeadJewelleryDetail.Where(x => x.Id == item.Id).FirstOrDefaultAsync();
+                        if (detail == null)
+                        {
+                            return false;
+                        }
+                        detail.ModifiedDate = DateTime.Now;
+                        detail.Quantity = item.Quantity;
+                        detail.Weight = item.Weight;
+                        detail.PreferredLoanTenure = item.PreferredLoanTenure;
+                        detail.JewelleryTypeId = item.JewelleryTypeId;
+                        detail.Karat = item.Karat;
+                        await _db.SaveChangesAsync();
+                    }
                 }
+               
                 return true;
             }
             catch { throw; }

@@ -8,6 +8,9 @@ export class DocumentTypeModel {
   IsNumeric!: boolean;
   ModifiedOn!: Date | null;
   IsKyc!: boolean;
+  IsFreshLeadKyc!: boolean;
+  IsBtleadKyc!: boolean;
+
   RequiredFileCount!: number;
 }
 
@@ -17,5 +20,7 @@ export class DDLDocumentTypeModel {
   DocumentNumberLength!: number;
   IsNumeric!: boolean;
   IsKyc!: boolean;
+  IsBtleadKyc!: boolean;
+  IsFreshLeadKyc!: boolean;
   RequiredFileCount!: number;
 }

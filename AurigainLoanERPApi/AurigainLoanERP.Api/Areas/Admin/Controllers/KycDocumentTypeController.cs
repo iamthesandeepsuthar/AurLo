@@ -26,8 +26,24 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
         [HttpGet("[action]/{isKYC?}")]
         public async Task<ApiServiceResponseModel<List<DDLDocumentTypeModel>>> DocumentTypes(bool? isKYC = null)
         {
-            return await _documentService.GetDocumentType(isKYC);
+            return await _documentService.GetDocumentType(isKYC: isKYC);
         }
+
+        // GET api/KycDocumentType/DocumentTypes
+        [HttpGet("[action]/{IsBTLeadKyc?}")]
+        public async Task<ApiServiceResponseModel<List<DDLDocumentTypeModel>>> DocumentTypesForBTLeadKyc(bool? IsBTLeadKyc = null)
+        {
+            return await _documentService.GetDocumentType(IsFreshLeadKyc : IsBTLeadKyc);
+        }
+
+        // GET api/KycDocumentType/DocumentTypes
+        [HttpGet("[action]/{IsFreshLeadKyc?}")]
+        public async Task<ApiServiceResponseModel<List<DDLDocumentTypeModel>>> DocumentTypesForFreshLeadKyc(bool? IsFreshLeadKyc = null)
+        {
+            return await _documentService.GetDocumentType(IsFreshLeadKyc: IsFreshLeadKyc);
+        }
+
+       
 
         // POST api/KycDocumentType/SubmitDocumentType
         [HttpPost("[action]")]

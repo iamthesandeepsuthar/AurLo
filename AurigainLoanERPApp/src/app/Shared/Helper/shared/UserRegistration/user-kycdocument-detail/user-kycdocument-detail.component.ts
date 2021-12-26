@@ -56,7 +56,7 @@ export class UserKYCDocumentDetailComponent implements OnInit, OnChanges {
   }
 
   getDocumentType() {
-    this._kycDocumentTypeService.GetDDLDocumentType(true).subscribe(res => {
+    this._kycDocumentTypeService.GetDDLDocumentTypeForUserKYC(true).subscribe(res => {
       if (res.IsSuccess) {
         this.docTypeModel = res.Data as DDLDocumentTypeModel[];
         this.docTypeModel = this.docTypeModel?.sort(function (a, b) { return a.Id - b.Id });

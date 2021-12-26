@@ -37,7 +37,7 @@ namespace AurigainLoanERP.Services.KycDocumentType
 
                 if (result != null)
                 {
-                    return CreateResponse<List<DocumentTypeModel>>(objResponse.Data, ResponseMessage.Success, true, ((int)ApiStatusCode.Ok), TotalRecord: result.Count());
+                    return CreateResponse(objResponse.Data, ResponseMessage.Success, true, ((int)ApiStatusCode.Ok), TotalRecord: result.Count());
                 }
                 else
                 {
@@ -50,17 +50,19 @@ namespace AurigainLoanERP.Services.KycDocumentType
             }
 
         }
-        public async Task<ApiServiceResponseModel<List<DDLDocumentTypeModel>>> GetDocumentType(bool? isKYC = null)
+        public async Task<ApiServiceResponseModel<List<DDLDocumentTypeModel>>> GetDocumentType(bool? isKYC = null, bool? IsBtleadKyc = null, bool? IsFreshLeadKyc = null)
         {
             try
             {
-                var types = await _db.DocumentType.Where(x => x.IsKyc == (isKYC.HasValue ? isKYC.Value : x.IsKyc)).Select(x => new DDLDocumentTypeModel
+                var types = await _db.DocumentType.Where(x => x.IsKyc == (isKYC.HasValue ? isKYC.Value : x.IsKyc) && x.IsBtleadKyc == (IsBtleadKyc.HasValue ? IsBtleadKyc.Value : x.IsBtleadKyc)  && x.IsFreshLeadKyc == (IsFreshLeadKyc.HasValue ? IsFreshLeadKyc.Value : x.IsFreshLeadKyc)).Select(x => new DDLDocumentTypeModel
                 {
                     Id = x.Id,
                     Name = x.DocumentName,
                     IsNumeric = x.IsNumeric,
                     DocumentNumberLength = x.DocumentNumberLength ?? null,
                     IsKyc = x.IsKyc,
+                    IsBtleadKyc = x.IsBtleadKyc,
+                    IsFreshLeadKyc = x.IsFreshLeadKyc,
                     RequiredFileCount = x.RequiredFileCount
                 }).ToListAsync();
 
@@ -133,6 +135,9 @@ namespace AurigainLoanERP.Services.KycDocumentType
                     type.IsNumeric = model.IsNumeric;
                     type.DocumentNumberLength = model.DocumentNumberLength;
                     type.IsKyc = model.IsKyc;
+                    type.IsFreshLeadKyc = model.IsFreshLeadKyc;
+                    type.IsBtleadKyc = model.IsBtleadKyc;
+
                     type.RequiredFileCount = model.RequiredFileCount;
                     type.ModifiedOn = DateTime.Now;
 

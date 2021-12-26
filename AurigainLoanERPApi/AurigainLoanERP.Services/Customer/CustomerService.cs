@@ -449,11 +449,11 @@ namespace AurigainLoanERP.Services.Customer
                 {
 
                     var docType = model.Select(x => x.KycdocumentTypeId).ToArray();
-                    var removedDate = await _db.UserKyc.Where(x => x.UserId == userId && !docType.Contains(x.KycdocumentTypeId)).ToListAsync();
+                    var removedData = await _db.UserKyc.Where(x => x.UserId == userId && !docType.Contains(x.KycdocumentTypeId)).ToListAsync();
 
-                    if (removedDate != null && removedDate.Count > 0)
+                    if (removedData != null && removedData.Count > 0)
                     {
-                        _db.UserKyc.RemoveRange(removedDate);
+                        _db.UserKyc.RemoveRange(removedData);
                         await _db.SaveChangesAsync();
 
                     }
