@@ -1,7 +1,7 @@
 ﻿CREATE TABLE [dbo].[GoldLoanFreshLeadJewelleryDetail]
 (
 	[Id] INT NOT NULL PRIMARY KEY IDENTITY, 
-    [PreferredLoanTenure] INT NOT NULL, 
+    
     [JewelleryTypeId] INT NOT NULL, 
     [Quantity] FLOAT NOT NULL, 
     [Weight] FLOAT NULL, 

@@ -11,7 +11,6 @@ namespace AurigainLoanERP.Data.Database
     {
         public GoldLoanFreshLead()
         {
-            GoldLoanFreshLeadActionHistory = new HashSet<GoldLoanFreshLeadActionHistory>();
             GoldLoanFreshLeadAppointmentDetail = new HashSet<GoldLoanFreshLeadAppointmentDetail>();
             GoldLoanFreshLeadJewelleryDetail = new HashSet<GoldLoanFreshLeadJewelleryDetail>();
             GoldLoanFreshLeadKycDocument = new HashSet<GoldLoanFreshLeadKycDocument>();
@@ -30,6 +29,9 @@ namespace AurigainLoanERP.Data.Database
         public string SecondaryMobileNumber { get; set; }
         public double LoanAmountRequired { get; set; }
         public string Purpose { get; set; }
+        public string LoanCaseNumber { get; set; }
+        public int? PurposeId { get; set; }
+        public int PreferredLoanTenure { get; set; }
         public long CustomerUserId { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime? ModifedDate { get; set; }
@@ -38,15 +40,12 @@ namespace AurigainLoanERP.Data.Database
         public string LeadStatus { get; set; }
         public long? CreatedBy { get; set; }
         public long? ModifiedBy { get; set; }
-        public string LoanCaseNumber { get; set; }
-        public int? PurposeId { get; set; }
 
         public virtual UserMaster CreatedByNavigation { get; set; }
         public virtual UserMaster CustomerUser { get; set; }
         public virtual UserMaster LeadSourceByUser { get; set; }
         public virtual UserMaster ModifiedByNavigation { get; set; }
         public virtual Product Product { get; set; }
-        public virtual ICollection<GoldLoanFreshLeadActionHistory> GoldLoanFreshLeadActionHistory { get; set; }
         public virtual ICollection<GoldLoanFreshLeadAppointmentDetail> GoldLoanFreshLeadAppointmentDetail { get; set; }
         public virtual ICollection<GoldLoanFreshLeadJewelleryDetail> GoldLoanFreshLeadJewelleryDetail { get; set; }
         public virtual ICollection<GoldLoanFreshLeadKycDocument> GoldLoanFreshLeadKycDocument { get; set; }

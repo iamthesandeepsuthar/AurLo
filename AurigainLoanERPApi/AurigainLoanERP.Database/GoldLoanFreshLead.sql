@@ -12,7 +12,10 @@
     [SecondaryMobileNumber] NVARCHAR(20) NULL, 
     [LoanAmountRequired] FLOAT NOT NULL, 
     [Purpose] NVARCHAR(1000) NULL,    
-    [CustomerUserId] BIGINT NOT NULL References UserMaster(Id), 
+    [LoanCaseNumber] NVARCHAR(50) NULL, 
+    [PurposeId] INT NULL, 
+    [PreferredLoanTenure] INT NOT NULL, 
+   [CustomerUserId] BIGINT NOT NULL References UserMaster(Id), 
     [CreatedDate] DATETIME NOT NULL DEFAULT getDate(), 
     [ModifedDate] DATETIME NULL, 
     [IsActive] BIT NOT NULL DEFAULT 1, 
@@ -20,8 +23,6 @@
     [LeadStatus] NVARCHAR(100) NULL, 
      [CreatedBy] BIGINT NULL references UserMaster(Id), 
     [ModifiedBy] BIGINT NULL references UserMaster(Id), 
-    [LoanCaseNumber] NVARCHAR(50) NULL, 
-    [PurposeId] INT NULL, 
-    
+   
     
 )

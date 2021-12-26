@@ -25,6 +25,7 @@ namespace AurigainLoanERP.Shared.ContractModel
         public int? PurposeId { get; set; }
         public long LeadSourceByUserId { get; set; }
         public int ProductId { get; set; }
+        public int PreferredLoanTenure { get; set; }
         public DateTime CreatedDate { get; set; }
         public bool? IsActive { get; set; }
         public GoldLoanFreshLeadKycDocumentModel KycDocument { get; set; }
@@ -47,7 +48,7 @@ namespace AurigainLoanERP.Shared.ContractModel
     public class GoldLoanFreshLeadJewelleryDetailModel
     {
         public int Id { get; set; }
-        public int PreferredLoanTenure { get; set; }
+       
         public int JewelleryTypeId { get; set; }
         public double Quantity { get; set; }
         public double? Weight { get; set; }
@@ -115,6 +116,8 @@ namespace AurigainLoanERP.Shared.ContractModel
         public long LeadSourceByUserId { get; set; }
         public string LeadSourceUserName { get; set; }
         public int ProductId { get; set; }
+        public int PreferredLoanTenure { get; set; }
+
         public string ProductName { get; set; }
         public string ProductCategoryName { get; set; }
         public DateTime CreatedDate { get; set; }
@@ -154,7 +157,6 @@ namespace AurigainLoanERP.Shared.ContractModel
     public class GoldLoanFreshLeadJewelleryDetailViewModel
     {
         public int Id { get; set; }
-        public int PreferredLoanTenure { get; set; }
         public int JewelleryTypeId { get; set; }
         public string JewelleryTypeName { get; set; }
         public double Quantity { get; set; }

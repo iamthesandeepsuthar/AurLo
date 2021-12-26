@@ -18,6 +18,5 @@ namespace AurigainLoanERP.Data.Database
 
         public virtual UserMaster AssignFromUser { get; set; }
         public virtual UserMaster AssignToUser { get; set; }
-        public virtual GoldLoanFreshLead Lead { get; set; }
     }
 }
