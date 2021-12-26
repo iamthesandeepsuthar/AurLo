@@ -7,7 +7,7 @@ import { ProductCategoryEnum, UserRoleEnum } from 'src/app/Shared/Enum/fixed-val
 import { AuthService } from 'src/app/Shared/Helper/auth.service';
 import { DropDownModel } from 'src/app/Shared/Helper/common-model';
 import { DropDown_key, Message, Routing_Url } from 'src/app/Shared/Helper/constants';
-import { GoldLoanFreshLeadModel } from 'src/app/Shared/Model/Leads/gold-loan-fresh-lead.model';
+import { GoldLoanFreshLeadJewelleryDetailModel, GoldLoanFreshLeadModel } from 'src/app/Shared/Model/Leads/gold-loan-fresh-lead.model';
 import { DDLBranchModel } from 'src/app/Shared/Model/master-model/bank-model.model';
 import { DDLDocumentTypeModel } from 'src/app/Shared/Model/master-model/document-type.model';
 import { DDLJewellaryType } from 'src/app/Shared/Model/master-model/jewellary-type-model.model';
@@ -26,12 +26,13 @@ import { StateDistrictService } from 'src/app/Shared/Services/master-services/st
   selector: 'app-add-update-fresh-gold-loan-lead',
   templateUrl: './add-update-fresh-gold-loan-lead.component.html',
   styleUrls: ['./add-update-fresh-gold-loan-lead.component.scss'],
-  providers: [ProductService, KycDocumentTypeService, StateDistrictService, BankBranchService, JewelleryTypeService, GoldLoanLeadsService,PurposeService]
+  providers: [ProductService, KycDocumentTypeService, StateDistrictService, BankBranchService, JewelleryTypeService, GoldLoanLeadsService, PurposeService]
 
 })
 export class AddUpdateFreshGoldLoanLeadComponent implements OnInit {
   leadId: number = 0;
   model = new GoldLoanFreshLeadModel();
+  JewelleryModel = new GoldLoanFreshLeadJewelleryDetailModel();
   get DobMaxDate() {
     var date = new Date();
     date.setFullYear(date.getFullYear() - 18);
@@ -48,7 +49,7 @@ export class AddUpdateFreshGoldLoanLeadComponent implements OnInit {
   ddlBranchModel!: DDLBranchModel[];
   ddlAreaModel!: AvailableAreaModel[];
   ddlJewellaryType!: DDLJewellaryType[];
-  ddlPurpose!:ddlPurposeModel[];
+  ddlPurpose!: ddlPurposeModel[];
   ddlKarats = [{ Name: "18 Karats", Id: 18 }, { Name: "20  Karats", Id: 20 }, { Name: "22  Karats", Id: 22 }, { Name: "24  Karats", Id: 24 }];
   UserId = 0;
   get userDetail() { return this._auth.GetUserDetail() };
@@ -104,8 +105,8 @@ export class AddUpdateFreshGoldLoanLeadComponent implements OnInit {
       PanNumber: [undefined, Validators.compose([Validators.minLength(10), Validators.maxLength(10)])],
       Pincode: [undefined, Validators.compose([Validators.minLength(6), Validators.maxLength(6)])],
       Aarea: [undefined],
-      addressLine1:[undefined],
-      addressLine2:[undefined]
+      addressLine1: [undefined],
+      addressLine2: [undefined]
     });
 
     this.leadFromJewelleryDetail = this.fb.group({
@@ -143,12 +144,15 @@ export class AddUpdateFreshGoldLoanLeadComponent implements OnInit {
         this.model.CustomerUserId = this.userDetail.UserId as number;
 
       }
-
-      this.model.JewelleryDetail.Karat = this.model.JewelleryDetail.Karat ? Number(this.model.JewelleryDetail.Karat) : null;
-      this.model.JewelleryDetail.Weight = this.model.JewelleryDetail.Weight ? Number(this.model.JewelleryDetail.Weight) : null;
       this.model.LoanAmountRequired = this.model.LoanAmountRequired ? Number(this.model.LoanAmountRequired) : null;
-      this.model.JewelleryDetail.Quantity = this.model.JewelleryDetail.Quantity ? Number(this.model.JewelleryDetail.Quantity) : null;
       this.model.PreferredLoanTenure = this.model.PreferredLoanTenure ? Number(this.model.PreferredLoanTenure) : null;
+
+      this.model.JewelleryDetail.forEach(element => {
+        element.Quantity = element.Quantity ? Number(element.Quantity) : null;
+        element.Karat = element.Karat ? Number(element.Karat) : null;
+        element.Weight = element.Weight ? Number(element.Weight) : null;
+
+      });
 
       this._goldLoanLeadService.AddUpdate(this.model).subscribe(res => {
         if (res.IsSuccess) {
@@ -194,13 +198,13 @@ export class AddUpdateFreshGoldLoanLeadComponent implements OnInit {
     this.GetDDLJewelleryType();
     this.getPurpose();
   }
-  getPurpose(){
+  getPurpose() {
     let subscription = this._purposeService.GetDDLPurpose().subscribe(res => {
       subscription.unsubscribe();
-      if(res.IsSuccess) {
-         this.ddlPurpose = res.Data as ddlPurposeModel[];
+      if (res.IsSuccess) {
+        this.ddlPurpose = res.Data as ddlPurposeModel[];
       } else {
-        this.toast.warning('Purpose list not available','No record found');
+        this.toast.warning('Purpose list not available', 'No record found');
         this.ddlPurpose = [];
         return;
       }
@@ -244,9 +248,9 @@ export class AddUpdateFreshGoldLoanLeadComponent implements OnInit {
       }
     });
   }
-  getAddressLine2(area?:any){
+  getAddressLine2(area?: any) {
     this.model.KycDocument.AddressLine2 = area?.AddressLine2;
-    }
+  }
 
   getDropDownPinCodeArea() {
 
@@ -297,6 +301,56 @@ export class AddUpdateFreshGoldLoanLeadComponent implements OnInit {
     }
   }
 
+  onGetJewellaryTypeName(value: number) {
+    return this.ddlJewellaryType.find(x => x.Id == value)?.Name;
+
+  }
+  onJewellaryAdd() {
+    debugger
+    this.UpdateJewellaryValidation(true);
+    this.leadFromJewelleryDetail.markAllAsTouched();
+    if (this.leadFromJewelleryDetail.valid) {
+      this.model.JewelleryDetail.push(this.JewelleryModel);
+      this.UpdateJewellaryValidation(false);
+      this.JewelleryModel = new GoldLoanFreshLeadJewelleryDetailModel();
+
+    }
+  }
+  onJewellaryEdit(idx: number) {
+    this.UpdateJewellaryValidation(true);
+    this.JewelleryModel = this.model.JewelleryDetail[idx];
+    this.model.JewelleryDetail.splice(idx, 1);
+
+
+  }
+  onJewellaryDelete(idx: number) {
+    this.model.JewelleryDetail.splice(idx, 1);
+  }
+  onJewellaryAddCancel() {
+    if (this.JewelleryModel.JewelleryTypeId && this.JewelleryModel.Karat && this.JewelleryModel.Quantity && this.JewelleryModel.Weight) {
+      this.model.JewelleryDetail.push(this.JewelleryModel);
+      this.JewelleryModel = new GoldLoanFreshLeadJewelleryDetailModel();
+    }
+    this.UpdateJewellaryValidation(false);
+
+  }
+  UpdateJewellaryValidation(enable = false) {
+    if (enable) {
+      this.f3.JewelleryType.setValidators([Validators.required]);
+      this.f3.Quantity.setValidators([Validators.required]);
+      this.f3.Weight.setValidators([Validators.required]);
+      this.f3.Karats.setValidators([Validators.required]);
+    } else {
+      this.f3.JewelleryType.removeValidators([Validators.required]);
+      this.f3.Quantity.removeValidators([Validators.required]);
+      this.f3.Weight.removeValidators([Validators.required]);
+      this.f3.Karats.removeValidators([Validators.required]);
+    }
+    this.f3.JewelleryType.updateValueAndValidity();
+    this.f3.Quantity.updateValueAndValidity();
+    this.f3.Weight.updateValueAndValidity();
+    this.f3.Karats.updateValueAndValidity();
+  }
   //#endregion
 
 }
