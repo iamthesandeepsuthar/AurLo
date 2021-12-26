@@ -287,8 +287,25 @@
 
           </div>
 
-        </div>
-      </div>
+                    <div class="form-group col-md-8">
+                        <label>Area Name</label>
+                        <ng-select [items]="ddlAreaModel" [searchable]="true" (change)="getAddressLine2($event)" bindLabel="AreaName" bindValue="Id" placeholder="Select Area" formControlName="Aarea" [ngClass]="{ 'is-invalid': f2.Aarea.errors && f2.Aarea.touched}" [(ngModel)]="model.KycDocument.PincodeAreaId">
+                        </ng-select>
+                        <div class="invalid-feedback" *ngIf="(leadFromDocumentDetail.get('Aarea')?.hasError('required') && leadFromDocumentDetail.get('Aarea')?.touched)">
+                            select Area! </div>
+
+                    </div>
+                    <div class="form-group col-md-12">
+                      <label>Address Line1</label>
+                      <input type="text"  class="form-control" [(ngModel)]="model.KycDocument.AddressLine1" formControlName="addressLine1" placeholder="Address Line1">
+                    </div>
+                    <div class="form-group col-md-12">
+                      <label>Address Line2</label>
+                      <input type="text" readonly  class="form-control text-dark" [(ngModel)]="model.KycDocument.AddressLine2" formControlName="addressLine2"placeholder="Address Line2">
+                    </div>
+
+                </div>
+            </div>
 
       <div class="step-form-btn-grp mt-3">
         <button class="btn btn-outline-danger mr-3" mat-button matStepperPrevious><i
@@ -492,8 +509,8 @@
       <div class="step-form-btn-grp mt-3">
         <button class="btn btn-outline-danger mr-3" mat-button matStepperPrevious><i
             class="fas fa-angle-left mr-1"></i>Back</button>
-        <button class="btn btn-success" mat-button type="submit"><i class="fas fa-check mr-1"></i> Submit</button>
-      </div>
-    </form>
-  </mat-step>
+                <button class="btn btn-success" mat-button type="submit"><i class="fas fa-check mr-1"></i> Submit</button>
+            </div>
+        </form>
+    </mat-step>
 </mat-stepper>

@@ -104,6 +104,8 @@ export class AddUpdateFreshGoldLoanLeadComponent implements OnInit {
       PanNumber: [undefined, Validators.compose([Validators.minLength(10), Validators.maxLength(10)])],
       Pincode: [undefined, Validators.compose([Validators.minLength(6), Validators.maxLength(6)])],
       Aarea: [undefined],
+      addressLine1:[undefined],
+      addressLine2:[undefined]
     });
 
     this.leadFromJewelleryDetail = this.fb.group({
@@ -242,6 +244,9 @@ export class AddUpdateFreshGoldLoanLeadComponent implements OnInit {
       }
     });
   }
+  getAddressLine2(area?:any){
+    this.model.KycDocument.AddressLine2 = area?.AddressLine2;
+    }
 
   getDropDownPinCodeArea() {
 
