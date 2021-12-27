@@ -35,10 +35,10 @@ export class BTGoldLoanLeadPostModel {
 export class BtGoldLoanLeadAddressPostModel {
   Id!: number;
   Address!: string;
-  AddressLine2!:string;
+  AddressLine2!: string;
   AeraPincodeId!: number | null;
   CorrespondAddress!: string;
-  CorrespondAddressLine2!:string;
+  CorrespondAddressLine2!: string;
   CorrespondAeraPincodeId!: number | null;
 }
 
@@ -47,7 +47,7 @@ export class BtGoldLoanLeadAppointmentPostModel {
   BranchId!: number;
   AppointmentDate!: string | null;
   AppointmentTime!: string;
-  LeadId!:number;
+  LeadId!: number;
 }
 
 export class BtGoldLoanLeadDocumentPostModel {
@@ -152,6 +152,8 @@ export class BTGoldLoanLeadViewModel {
   LeadSourceByuserName!: string;
   ProductName!: string;
   CustomerUserName!: string;
+  PurposeId!: number;
+  PurposeName!: string;
 }
 
 export class KYCDetail {
