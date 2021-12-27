@@ -114,6 +114,7 @@ namespace AurigainLoanERP.Shared.ContractModel
         public double LoanAmountRequired { get; set; }
         public string Purpose { get; set; }
         public int? PurposeId { get; set; }
+        public string PurposeName { get; set; }
         public long LeadSourceByUserId { get; set; }
         public string LeadSourceUserName { get; set; }
         public int ProductId { get; set; }

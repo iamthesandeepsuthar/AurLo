@@ -269,7 +269,7 @@ namespace AurigainLoanERP.Services.FreshLead
                     leadDetail.SecondaryMobileNumber = detail.SecondaryMobileNumber;
                     leadDetail.Purpose = detail.Purpose;
                     leadDetail.PurposeId = detail.PurposeId;
-                    leadDetail.PurposeId = detail.pu;
+                    leadDetail.PurposeName = detail.PurposeNavigation.Name;
                     leadDetail.LoanAmountRequired = detail.LoanAmountRequired;
                     leadDetail.Email = detail.Email;
                     leadDetail.IsActive = detail.IsActive;
