@@ -264,6 +264,10 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                     objModel.ProductCategoryName = detail.Product.ProductCategory.Name;
                     objModel.ProductId = detail.ProductId;
                     objModel.ProductName = detail.Product.Name ?? null;
+
+                    objModel.PurposeId = detail.PurposeId;
+                    objModel.PurposeName = detail.PurposeNavigation.Name;
+
                     objModel.FullName = detail.FullName ?? null;
                     objModel.FatherName = detail.FatherName ?? null;
                     objModel.Gender = detail.Gender ?? null;
