@@ -1063,8 +1063,10 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
 
                         LeadId = LeadId,
                         Address = string.IsNullOrEmpty(model.Address) ? null : model.Address,
+                        AddressLine2 = model.AddressLine2,
                         AeraPincodeId = model.AeraPincodeId.HasValue ? model.AeraPincodeId : null,
                         CorrespondAddress = string.IsNullOrEmpty(model.CorrespondAddress) ? null : model.CorrespondAddress,
+                        CorrespondAddressLine2 = model.CorrespondAddressLine2,
                         CorrespondAeraPincodeId = model.CorrespondAeraPincodeId.HasValue ? model.CorrespondAeraPincodeId : null,
 
                     };
@@ -1079,6 +1081,8 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                     if (objModel != null)
                     {
                         objModel.Address = string.IsNullOrEmpty(model.Address) ? null : model.Address;
+                        objModel.AddressLine2 = model.AddressLine2;
+                        objModel.CorrespondAddressLine2 = model.CorrespondAddressLine2;
                         objModel.AeraPincodeId = model.AeraPincodeId.HasValue ? model.AeraPincodeId : null;
                         objModel.CorrespondAddress = string.IsNullOrEmpty(model.CorrespondAddress) ? null : model.CorrespondAddress;
                         objModel.CorrespondAeraPincodeId = model.CorrespondAeraPincodeId.HasValue ? model.CorrespondAeraPincodeId : null;

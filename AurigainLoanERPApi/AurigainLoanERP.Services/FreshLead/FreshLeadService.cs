@@ -104,34 +104,7 @@ namespace AurigainLoanERP.Services.FreshLead
                                   select goldLoanLead);
 
                         break;
-                } 
-
-
-                //if (model.UserId == null)
-                //{
-                //    result = (from goldLoanLead in _db.GoldLoanFreshLead
-                //              where !goldLoanLead.IsDelete &&
-                //              (string.IsNullOrEmpty(model.Search)
-                //              || goldLoanLead.FullName.Contains(model.Search)
-                //              || goldLoanLead.PrimaryMobileNumber.Contains(model.Search)
-                //              || goldLoanLead.FatherName.Contains(model.Search)
-                //              || goldLoanLead.LeadSourceByUser.UserName.Contains(model.Search)
-                //              || goldLoanLead.GoldLoanFreshLeadKycDocument.FirstOrDefault().PincodeArea.Pincode.Contains(model.Search))
-                //              || goldLoanLead.Product.Name.Contains(model.Search)
-                //              select goldLoanLead);
-                //}
-                //else
-                //{
-                //    result = (from goldLoanLead in _db.GoldLoanFreshLead
-                //              where !goldLoanLead.IsDelete && goldLoanLead.CustomerUserId == model.UserId
-                //              && (string.IsNullOrEmpty(model.Search) ||
-                //              goldLoanLead.FullName.Contains(model.Search) || goldLoanLead.PrimaryMobileNumber.Contains(model.Search) ||
-                //              goldLoanLead.FatherName.Contains(model.Search) ||
-                //              goldLoanLead.LeadSourceByUser.UserName.Contains(model.Search) ||
-                //              goldLoanLead.GoldLoanFreshLeadKycDocument.FirstOrDefault().PincodeArea.Pincode.Contains(model.Search)) ||
-                //              goldLoanLead.Product.Name.Contains(model.Search)
-                //              select goldLoanLead);
-                //}
+                }            
 
                 switch (model.OrderBy)
                 {
@@ -955,7 +928,8 @@ namespace AurigainLoanERP.Services.FreshLead
                         LoanAmountRequired = model.LoanAmountRequired,
                         DateOfBirth = model.DateOfBirth,
                         ModifedDate = null,
-                        LeadStatus = "New"
+                        LeadStatus = "New",
+                        
                     };
                     await _db.GoldLoanFreshLead.AddAsync(lead);
                     await _db.SaveChangesAsync();
