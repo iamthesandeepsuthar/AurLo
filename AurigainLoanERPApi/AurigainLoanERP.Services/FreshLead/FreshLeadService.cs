@@ -272,6 +272,7 @@ namespace AurigainLoanERP.Services.FreshLead
                                     .Include(x => x.Product).ThenInclude(x => x.ProductCategory)
                                     .Include(x => x.LeadSourceByUser)
                                     .Include(x => x.GoldLoanFreshLeadJewelleryDetail)
+                                    .Include(x => x.Purpose)
                                     .Include(x => x.GoldLoanFreshLeadKycDocument).ThenInclude(y => y.KycDocumentType).
                                     Include(a => a.GoldLoanFreshLeadKycDocument).ThenInclude(x => x.PincodeArea).
                                     Include(a => a.GoldLoanFreshLeadKycDocument).ThenInclude(x => x.PincodeArea.District.State)
@@ -294,6 +295,8 @@ namespace AurigainLoanERP.Services.FreshLead
                     leadDetail.PrimaryMobileNumber = detail.PrimaryMobileNumber;
                     leadDetail.SecondaryMobileNumber = detail.SecondaryMobileNumber;
                     leadDetail.Purpose = detail.Purpose;
+                    leadDetail.PurposeId = detail.PurposeId;
+                    leadDetail.PurposeId = detail.pu;
                     leadDetail.LoanAmountRequired = detail.LoanAmountRequired;
                     leadDetail.Email = detail.Email;
                     leadDetail.IsActive = detail.IsActive;
