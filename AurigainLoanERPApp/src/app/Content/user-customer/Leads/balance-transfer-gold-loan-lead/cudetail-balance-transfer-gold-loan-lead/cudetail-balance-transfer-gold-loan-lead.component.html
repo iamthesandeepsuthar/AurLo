@@ -120,19 +120,22 @@
     <div class="table-responsive">
       <table class="table  table-borderless table-data-info table-font-17 table-v-align-top m-0">
         <tbody>
+          <ng-container *ngFor="let itm in Model?.JewelleryDetail">
+
+
           <tr>
             <td style="width: 20%;"> <strong> Type of Jewellery: </strong> </td>
-            <td style="width: 30%;">{{Model?.JewelleryDetail?.JewelleryType}}</td>
+            <td style="width: 30%;">{{itm?.JewelleryType}}</td>
             <td style="width: 20%;"><strong> Quantity: </strong> </td>
-            <td style="width: 30%;">{{Model?.JewelleryDetail?.Quantity}}</td>
+            <td style="width: 30%;">{{itm?.Quantity}}</td>
           </tr>
           <tr>
             <td><strong> Weight (in grams): </strong> </td>
-            <td>{{Model?.JewelleryDetail?.Weight}}</td>
+            <td>{{itm?.Weight}}</td>
             <td><strong> Karats : </strong> </td>
-            <td>{{Model?.JewelleryDetail?.Karats}}</td>
+            <td>{{itm?.Karats}}</td>
           </tr>
-
+        </ng-container>
         </tbody>
       </table>
     </div>

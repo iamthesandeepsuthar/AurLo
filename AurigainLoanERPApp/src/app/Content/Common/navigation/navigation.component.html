@@ -360,11 +360,11 @@
                             <a routerLinkActive="active" routerLink="{{this.routing_Url.Lead_Module+'/' + this.routing_Url.Other_Loan_Leads_Url}}"><i
                   class="fas fa-user-tag"></i>Other </a>
                         </li>
-                        <!-- -------------------------------------------------------------------------------------------------------------------------------- -->
-                        <li class="sub-submenu">
-                            <a href="#sub-submenu-1" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"> <span class="d-flex"> <i class="fas fa-gem"></i> Gold Loan</span> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        <li class="sub-submenu" id="accordion">
+                            <div>
+                            <a href="javascript:void(0)" data-target="#sub-submenu-1" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"> <span class="d-flex"> <i class="fas fa-gem"></i> Gold Loan</span> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                     stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg> </a>
-                            <ul class="collapse list-unstyled sub-submenu" id="sub-submenu-1" data-parent="#sub-submenu-1">
+                            <ul class="collapse list-unstyled sub-submenu" id="sub-submenu-1" data-parent="#accordion">
                                 <li>
                                     <a href="javascript:void(0)" routerLinkActive="active">Fresh Lead </a>
                                 </li>
@@ -372,8 +372,11 @@
                                     <a href="javascript:void(0)" routerLinkActive="active">BT Lead</a>
                                 </li>
                             </ul>
-                            <a href="#sub-submenu-2" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><span class="d-flex"> <i class="fas fa-address-card"></i>Personal Loan </span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg> </a>
-                            <ul class="collapse list-unstyled sub-submenu" id="sub-submenu-2" data-parent="#sub-submenu-1">
+                        </div>
+
+                        <div>
+                            <a href="javascript:void(0)" data-target="#sub-submenu-2" data-toggle="collapse" aria-expanded="true" class="dropdown-toggle"><span class="d-flex"> <i class="fas fa-address-card"></i>Personal Loan </span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg> </a>
+                            <ul class="collapse list-unstyled sub-submenu" id="sub-submenu-2" data-parent="#accordion">
                                 <li>
                                     <a href="javascript:void(0)" routerLinkActive="active">Fresh Lead </a>
                                 </li>
@@ -381,8 +384,10 @@
                                     <a href="javascript:void(0)" routerLinkActive="active">BT Lead</a>
                                 </li>
                             </ul>
-                            <a href="#sub-submenu-3" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><span class="d-flex"> <i class="fas fa-home"></i>Home Loan</span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg> </a>
-                            <ul class="collapse list-unstyled sub-submenu" id="sub-submenu-3" data-parent="#sub-submenu-1">
+                        </div>
+                        <div>
+                            <a href="javascript:void(0)" data-target="#sub-submenu-3" data-toggle="collapse" aria-expanded="true" class="dropdown-toggle"><span class="d-flex"> <i class="fas fa-home"></i>Home Loan</span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg> </a>
+                            <ul class="collapse list-unstyled sub-submenu" id="sub-submenu-3" data-parent="#accordion">
                                 <li>
                                     <a href="javascript:void(0)" routerLinkActive="active">Fresh Lead </a>
                                 </li>
@@ -390,8 +395,10 @@
                                     <a href="javascript:void(0)" routerLinkActive="active">BT Lead</a>
                                 </li>
                             </ul>
-                            <a href="#sub-submenu-4" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><span class="d-flex"> <i class="fas fa-car-side"></i>Vehicle Loan</span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg> </a>
-                            <ul class="collapse list-unstyled sub-submenu" id="sub-submenu-4" data-parent="#sub-submenu-1">
+                        </div>
+                        <div>
+                            <a href="javascript:void(0)" data-target="#sub-submenu-4" data-toggle="collapse" aria-expanded="true" class="dropdown-toggle"><span class="d-flex"> <i class="fas fa-car-side"></i>Vehicle Loan</span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg> </a>
+                            <ul class="collapse list-unstyled sub-submenu" id="sub-submenu-4" data-parent="#accordion">
                                 <li>
                                     <a href="javascript:void(0)" routerLinkActive="active">Fresh Lead </a>
                                 </li>
@@ -399,9 +406,8 @@
                                     <a href="javascript:void(0)" routerLinkActive="active">BT Lead</a>
                                 </li>
                             </ul>
+                        </div>
                         </li>
-
-
                     </ul>
 
                 </li>

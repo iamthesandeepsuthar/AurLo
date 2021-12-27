@@ -2,7 +2,7 @@ export class GoldLoanFreshLeadModel {
   constructor() {
     this.KycDocument = new GoldLoanFreshLeadKycDocumentModel();
     this.AppointmentDetail = new GoldLoanFreshLeadAppointmentDetailModel();
-    this.JewelleryDetail = new GoldLoanFreshLeadJewelleryDetailModel();
+    this.JewelleryDetail = [];
   }
   Id!: number;
   FullName!: string;
@@ -23,7 +23,7 @@ export class GoldLoanFreshLeadModel {
   IsActive!: boolean;
   KycDocument!: GoldLoanFreshLeadKycDocumentModel;
   AppointmentDetail!: GoldLoanFreshLeadAppointmentDetailModel;
-  JewelleryDetail!: GoldLoanFreshLeadJewelleryDetailModel;
+  JewelleryDetail!: GoldLoanFreshLeadJewelleryDetailModel[];
 }
 
 
@@ -88,7 +88,7 @@ export class GoldLoanFreshLeadListModel {
 export class GoldLoanFreshLeadViewModel {
   constructor() {
     this.AppointmentDetail = new GoldLoanFreshLeadAppointmentDetailViewModel();
-    this.JewelleryDetail = new GoldLoanFreshLeadJewelleryDetailViewModel();
+    this.JewelleryDetail = [];
 
   }
   Id!: number;
@@ -112,7 +112,7 @@ export class GoldLoanFreshLeadViewModel {
   IsActive!: boolean | null;
   KycDocument!: GoldLoanFreshLeadKycDocumentViewModel;
   AppointmentDetail!: GoldLoanFreshLeadAppointmentDetailViewModel;
-  JewelleryDetail!: GoldLoanFreshLeadJewelleryDetailViewModel;
+  JewelleryDetail!: GoldLoanFreshLeadJewelleryDetailViewModel[];
 }
 
 export class GoldLoanFreshLeadKycDocumentViewModel {
