@@ -315,7 +315,7 @@ export class AddUpdateAgentComponent implements OnInit, AfterContentChecked {
               this.model.UserNominee.NamineeName = data?.UserNominee?.NamineeName;
               this.model.UserNominee.RelationshipWithNominee = data?.UserNominee?.RelationshipWithNominee;
             }
-
+debugger
             if (data?.ReportingPerson) {
               this.model.ReportingPerson.Id = data?.ReportingPerson?.Id;
               this.model.ReportingPerson.UserId = data?.ReportingPerson?.UserId;

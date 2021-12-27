@@ -5,6 +5,7 @@ export class DoorStepAgentPostModel {
     this.UserKYC = [];
     this.UserNominee = new UserNomineePostModel();
     this.Documents = [];
+    this.ReportingPerson=new UserReportingPersonPostModel();
     this.SelfFunded = false;
   }
   Id!: number;

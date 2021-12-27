@@ -549,7 +549,7 @@ namespace AurigainLoanERP.Services.User
                         }
                         if (objDoorStepAgent.User.UserDocument != null)
                         {
-                            var docs = objDoorStepAgent.User.UserDocument.Where(x => x.IsActive == true && !x.IsDelete).OrderBy(x => x.DocumentTypeId);
+                            var docs = objDoorStepAgent.User.UserDocument.Where(x => x.IsActive.Value == true && !x.IsDelete).OrderBy(x => x.DocumentTypeId).ToList();
                             foreach (var item in docs)
                             {
                                 //  objDoorStepAgentModel.Documents.Add(_mapper.Map<UserDocumentViewModel>(item.value));
@@ -565,7 +565,7 @@ namespace AurigainLoanERP.Services.User
                                     ModifiedOn = item.ModifiedOn ?? null,
                                     CreatedBy = item.CreatedBy ?? null,
                                     ModifiedBy = item.ModifiedBy ?? null,
-                                    UserDocumentFiles = _db.UserDocumentFiles.Where(x => x.DocumentId == item.Id && !x.IsDelete && x.IsActive == true).Select(fileitem => new UserDocumentFilesViewModel
+                                    UserDocumentFiles = _db.UserDocumentFiles.Where(x => x.DocumentId == item.Id && !x.IsDelete && x.IsActive.Value == true).Select(fileitem => new UserDocumentFilesViewModel
                                     {
                                         Id = fileitem.Id,
                                         DocumentId = fileitem.DocumentId,
@@ -588,9 +588,9 @@ namespace AurigainLoanERP.Services.User
 
                         }
 
-                        objDoorStepAgentModel.DistrictName = objDoorStepAgent.AreaPincode.District.Name;
-                        objDoorStepAgentModel.StateName = objDoorStepAgent.AreaPincode.District.State.Name;
-                        objDoorStepAgentModel.StateId = objDoorStepAgent.AreaPincode.District.StateId;
+                        objDoorStepAgentModel.DistrictName = objDoorStepAgent.AreaPincode != null ?  objDoorStepAgent.AreaPincode.District.Name : null;
+                        objDoorStepAgentModel.StateName =  objDoorStepAgent.AreaPincode != null ?  objDoorStepAgent.AreaPincode.District.State.Name : null;
+                        objDoorStepAgentModel.StateId =  objDoorStepAgent.AreaPincode != null ?  objDoorStepAgent.AreaPincode.District.StateId : (int?)null;
                         objDoorStepAgentModel.QualificationName = objDoorStepAgent.Qualification.Name;
                         objDoorStepAgentModel.User.UserRoleName = objDoorStepAgent.User.UserRole.Name;
 
@@ -1388,7 +1388,7 @@ namespace AurigainLoanERP.Services.User
             try
             {
                 // check new user detail match with existing users
-                var existingUser = await _db.UserMaster.FirstOrDefaultAsync(x => (model.Id == null || model.Id == 0 || x.Id != model.Id) && ((!string.IsNullOrEmpty(model.Mobile) && x.Mobile == model.Mobile) || (!string.IsNullOrEmpty(model.Email) && x.Email == model.Email) || (string.IsNullOrEmpty(model.UserName) || (!string.IsNullOrEmpty(model.UserName) && x.UserName == model.UserName))));
+                var existingUser = await _db.UserMaster.Where(x =>  ((string.IsNullOrEmpty(model.Mobile) || x.Mobile == model.Mobile) || (string.IsNullOrEmpty(model.Email) || x.Email == model.Email) || (string.IsNullOrEmpty(model.UserName) || x.UserName == model.UserName)) && (model.Id == null || model.Id == 0 || x.Id != model.Id)).FirstOrDefaultAsync();
 
                 if (existingUser == null)
                 {

@@ -273,6 +273,7 @@ export class DoorStepAgentRegistrationComponent implements OnInit, AfterContentC
       this._userDoorStepService.GetDoorStepAgent(this.Id).subscribe(res => {
         if (res.IsSuccess) {
           let data = res.Data as DoorStepAgentViewModel;
+          debugger
           if (data) {
 
             this.model.Id = data?.Id;
@@ -329,7 +330,7 @@ export class DoorStepAgentRegistrationComponent implements OnInit, AfterContentC
               this.model.UserNominee.NamineeName = data?.UserNominee?.NamineeName;
               this.model.UserNominee.RelationshipWithNominee = data?.UserNominee?.RelationshipWithNominee;
             }
-
+debugger
             if (data?.ReportingPerson) {
               this.model.ReportingPerson.Id = data?.ReportingPerson?.Id;
               this.model.ReportingPerson.UserId = data?.ReportingPerson?.UserId;
@@ -349,8 +350,9 @@ export class DoorStepAgentRegistrationComponent implements OnInit, AfterContentC
               this.model.SecurityDeposit.BankName = data?.SecurityDeposit?.BankName;
 
             }
+            debugger
             if (data?.Documents) {
-
+debugger
               this.model.Documents = data?.Documents?.map(doc => {
                 return {
                   Id: doc?.Id,
