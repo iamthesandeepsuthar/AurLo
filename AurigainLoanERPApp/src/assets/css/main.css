@@ -4355,6 +4355,10 @@ bs-daterangepicker-container {
     display: flex !important;
     justify-content: space-between !important;
 }
+ul.sub-submenu {
+    background: rgba(0,0,0,0.3);
+    padding: 5px 0px;
+}
 
 
 /* .status-w-text {
