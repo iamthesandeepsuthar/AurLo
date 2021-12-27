@@ -308,7 +308,7 @@
             <ng-select [items]="ddlJewellaryType" [searchable]="true" bindLabel="Name" bindValue="Id"
               placeholder="Select Jewellery Type" formControlName="JewelleryType"
               [ngClass]="{ 'is-invalid': f3.JewelleryType.errors && f3.JewelleryType.touched}"
-              [(ngModel)]="model.JewelleryDetail.JewelleryTypeId">
+              [(ngModel)]="JewelleryModel.JewelleryTypeId">
             </ng-select>
             <div class="invalid-feedback"
               *ngIf="(leadFromJewelleryDetail.get('JewelleryType')?.hasError('required') && leadFromJewelleryDetail.get('JewelleryType')?.touched)">
@@ -319,7 +319,7 @@
             <label>Quantity</label>
             <!-- 1-10 -->
             <input type="text" (keypress)="_commonService.NumberOnly($event)" class="form-control" id="input12"
-              [min]="1" [max]="10" [maxlength]="2" placeholder="Quantity" [(ngModel)]="model.JewelleryDetail.Quantity"
+              [min]="1" [max]="10" [maxlength]="2" placeholder="Quantity" [(ngModel)]="JewelleryModel.Quantity"
               formControlName="Quantity" [ngClass]="{ 'is-invalid': f3.Quantity.errors && f3.Quantity.touched}">
 
             <div class="invalid-feedback"
@@ -331,7 +331,7 @@
           <div class="form-group col-md-4">
             <label>Weight (in grams)</label>
             <input type="text" [maxlength]="10" (keypress)="_commonService.checkDecimalNumberOnly($event)"
-              class="form-control" id="input13" placeholder="Weight" [(ngModel)]="model.JewelleryDetail.Weight"
+              class="form-control" id="input13" placeholder="Weight" [(ngModel)]="JewelleryModel.Weight"
               formControlName="Weight" [ngClass]="{ 'is-invalid': f3.Weight.errors && f3.Weight.touched}">
             <div class="invalid-feedback"
               *ngIf="(leadFromJewelleryDetail.get('Weight')?.hasError('required') && leadFromJewelleryDetail.get('Weight')?.touched)">
@@ -343,24 +343,52 @@
             <label>Karats</label>
             <ng-select [items]="ddlKarats" bindLabel="Name" bindValue="Id" formControlName="Karats"
               placeholder="Select Karats" [ngClass]="{ 'is-invalid': f3.Karats.errors && f3.Karats.touched}"
-              [(ngModel)]="model.JewelleryDetail.Karat">
+              [(ngModel)]="JewelleryModel.Karat">
 
             </ng-select>
             <div class="invalid-feedback"
               *ngIf="(leadFromJewelleryDetail.get('Karats')?.hasError('required') && leadFromJewelleryDetail.get('Karats')?.touched)">
               select Karats! </div>
           </div>
+          <div class="form-group mt-4 col-md-4">
 
-          <div class="form-group col-md-4">
-            <label>Tenure </label>
-            <input type="text" [maxlength]="3" (keypress)="_commonService.NumberOnly($event)" class="form-control"
-              id="input14" placeholder="Tenure" [(ngModel)]="model.JewelleryDetail.PreferredLoanTenure"
-              formControlName="Tenure" [ngClass]="{ 'is-invalid': f3.Tenure.errors && f3.Tenure.touched}">
-
-            <div class="invalid-feedback"
-              *ngIf="(leadFromJewelleryDetail.get('Tenure')?.hasError('required') && leadFromJewelleryDetail.get('Tenure')?.touched)">
-              select Tenure! </div>
+            <button class="btn btn-primary  mr-3" mat-button (click)="onJewellaryAdd()"><i class="fas fa-plus mr-1"></i> Add</button>
+            <button class="btn btn-outline-danger" mat-button (click)="onJewellaryAddCancel()"> <i class="fas fa-times mr-1"></i> Cancel</button>
           </div>
+
+          <div class="col-md-12">
+            <div class="table-responsive table-shadow my-4">
+              <table class="table table-striped dataTable table-header bg-white">
+                <thead>
+                  <tr>
+                    <th>Jewellery Type</th>
+                    <th>Quantity</th>
+                    <th>Weight</th>
+                    <th>Karat</th>
+                    <th style="width: 100px;">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item in model.JewelleryDetail;let idx=index">
+                    <td>{{onGetJewellaryTypeName(item.JewelleryTypeId)}}</td>
+                    <td>{{item.Quantity ?? 0}}</td>
+                    <td>{{item.Weight}}gm</td>
+                    <td>{{item.Karat}}</td>
+
+                    <td class="table-action-btn">
+                      <a href="javascript:void(0);" (click)="onJewellaryEdit(idx)" class="table-action-btn-edit"
+                        data-toggle="tooltip" data-placement="bottom" title="Edit"><i class="fas fa-edit"></i></a>
+                      <a href="javascript:void(0);" (click)="onJewellaryDelete(idx)" class="table-action-btn-delete"
+                        data-toggle="tooltip" data-placement="bottom" title="Remove"><i
+                          class="fas fa-trash-alt"></i></a>
+                    </td>
+                  </tr>
+
+                </tbody>
+              </table>
+            </div>
+          </div>
+
         </div>
       </div>
 

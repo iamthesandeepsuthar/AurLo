@@ -1354,7 +1354,7 @@ li.menu.menu-active>a svg {
 #sidebar ul.menu-categories ul.submenu>li ul.sub-submenu>li a {
     position: relative;
     padding: 4px 10px;
-    margin-left: 25px;
+    margin-left: 50px;
     font-size: 14px;
     color: #ffffff;
 }

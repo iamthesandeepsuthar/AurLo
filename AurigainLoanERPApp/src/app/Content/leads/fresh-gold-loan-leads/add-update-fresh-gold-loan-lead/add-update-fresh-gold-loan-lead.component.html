@@ -1,411 +1,482 @@
 <!-- Page Header Title start -->
 <div class="widget-header">
-    <div class="row d-block d-sm-flex align-items-center justify-content-between text-center text-sm-left">
-        <div>
-            <h1>Gold Loan Fresh Lead</h1>
-            <!-- Breadcrumb Start -->
-            <nav class="custom-breadcrum">
-                <ol class="breadcrumb justify-content-center justify-content-sm-start">
-                    <li class="breadcrumb-item"><a routerLink="/dashboard">Home</a></li>
-                    <li class="breadcrumb-item"><a routerLink="../../../fresh-leads">Gold Loan Fresh Lead</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">{{leadId ==0 ? 'Add new lead' : 'Update lead'}}</li>
-                </ol>
-            </nav>
-            <!-- Breadcrumb End -->
-        </div>
-        <button class="btn btn-dark btn-sm mt-2 mt-sm-0" routerLink="../../../fresh-leads"> <i
+  <div class="row d-block d-sm-flex align-items-center justify-content-between text-center text-sm-left">
+    <div>
+      <h1>Gold Loan Fresh Lead</h1>
+      <!-- Breadcrumb Start -->
+      <nav class="custom-breadcrum">
+        <ol class="breadcrumb justify-content-center justify-content-sm-start">
+          <li class="breadcrumb-item"><a routerLink="/dashboard">Home</a></li>
+          <li class="breadcrumb-item"><a routerLink="../../../fresh-leads">Gold Loan Fresh Lead</a></li>
+          <li class="breadcrumb-item active" aria-current="page">{{leadId ==0 ? 'Add new lead' : 'Update lead'}}</li>
+        </ol>
+      </nav>
+      <!-- Breadcrumb End -->
+    </div>
+    <button class="btn btn-dark btn-sm mt-2 mt-sm-0" routerLink="../../../fresh-leads"> <i
         class="fas fa-angle-left mr-1"></i> Back</button>
 
-    </div>
+  </div>
 </div>
 <!-- Page Header Title end -->
 
 
-<mat-stepper orientation="vertical" [linear]="true" class="mat-custom-steper reg-steper gold-loan-steper">
-    <mat-step [stepControl]="leadFromPersonalDetail">
-        <form [formGroup]="leadFromPersonalDetail" (ngSubmit)="leadFromPersonalDetail.markAllAsTouched()">
-            <ng-template matStepLabel>Personal Details</ng-template>
-            <div class="step-grp-content">
-                <div class="custom_stepers-body-items-form row">
-                    <div class="form-group col-md-4">
-                        <label>Select Product </label>
+<mat-stepper orientation="vertical" [linear]="false" class="mat-custom-steper reg-steper gold-loan-steper">
+  <mat-step [stepControl]="leadFromPersonalDetail">
+    <form [formGroup]="leadFromPersonalDetail" (ngSubmit)="leadFromPersonalDetail.markAllAsTouched()">
+      <ng-template matStepLabel>Personal Details</ng-template>
+      <div class="step-grp-content">
+        <div class="custom_stepers-body-items-form row">
+          <div class="form-group col-md-4">
+            <label>Select Product </label>
 
-                        <ng-select [items]="ddlProductModel" [searchable]="true" bindLabel="Name" bindValue="Id" placeholder="Select product" formControlName="Product" [ngClass]="{ 'is-invalid': f1.Product.errors && f1.Product.touched}" [(ngModel)]="model.ProductId">
-                        </ng-select>
-
-
-                        <div class="invalid-feedback" *ngIf="(leadFromPersonalDetail.get('Product')?.hasError('required') && leadFromPersonalDetail.get('Product')?.touched)">
-                            Enter Product! </div>
-
-                    </div>
+            <ng-select [items]="ddlProductModel" [searchable]="true" bindLabel="Name" bindValue="Id"
+              placeholder="Select product" formControlName="Product"
+              [ngClass]="{ 'is-invalid': f1.Product.errors && f1.Product.touched}" [(ngModel)]="model.ProductId">
+            </ng-select>
 
 
-                    <div class="form-group col-md-4">
-                        <label>Full Name</label>
-                        <input type="text" (keypress)="!_commonService.NumberOnly($event)" class="form-control" id="input2" placeholder="Full Name" formControlName="FullName" maxlength="200" [ngClass]="{ 'is-invalid': f1.FullName.errors && f1.FullName.touched}" [(ngModel)]="model.FullName">
+            <div class="invalid-feedback"
+              *ngIf="(leadFromPersonalDetail.get('Product')?.hasError('required') && leadFromPersonalDetail.get('Product')?.touched)">
+              Enter Product! </div>
 
-                        <div class="invalid-feedback" *ngIf="(leadFromPersonalDetail.get('FullName')?.hasError('required') && leadFromPersonalDetail.get('FullName')?.touched)">
-                            Enter full name </div>
+          </div>
 
-                    </div>
-                    <div class="form-group col-md-4">
-                        <label>Father's Name</label>
-                        <input type="text" (keypress)="!_commonService.NumberOnly($event)" class="form-control" id="input3" placeholder="Father's Name" formControlName="FatherName" maxlength="200" [ngClass]="{ 'is-invalid': f1.FatherName.errors && f1.FatherName.touched}" [(ngModel)]="model.FatherName">
 
-                        <div class="invalid-feedback" *ngIf="(leadFromPersonalDetail.get('FatherName')?.hasError('required') && leadFromPersonalDetail.get('FatherName')?.touched)">
-                            Enter father name</div>
+          <div class="form-group col-md-4">
+            <label>Full Name</label>
+            <input type="text" (keypress)="!_commonService.NumberOnly($event)" class="form-control" id="input2"
+              placeholder="Full Name" formControlName="FullName" maxlength="200"
+              [ngClass]="{ 'is-invalid': f1.FullName.errors && f1.FullName.touched}" [(ngModel)]="model.FullName">
 
-                    </div>
+            <div class="invalid-feedback"
+              *ngIf="(leadFromPersonalDetail.get('FullName')?.hasError('required') && leadFromPersonalDetail.get('FullName')?.touched)">
+              Enter full name </div>
 
-                    <div class="form-group col-md-4 date-icon-with-label">
-                        <label>Date of Birth</label>
-                        <input class="form-control" #datepickerYMD="bsDatepicker" autocomplete="off" placeholder="DD-MM-YYYY" formControlName="DOB" (focus)="datepickerYMD.show()" [ngClass]="{ 'is-invalid': f1.DOB.errors && f1.DOB.touched}" bsDatepicker [(ngModel)]="model.DateOfBirth"
-                            [maxDate]="DobMaxDate" [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', adaptivePosition: true,isAnimated: true, showWeekNumbers: false }">
-                        <i class="fas fa-calendar-alt" (click)="datepickerYMD.show()"></i>
-                        <div class="invalid-feedback" *ngIf="(leadFromPersonalDetail.get('DOB')?.hasError('required') && leadFromPersonalDetail.get('DOB')?.touched)">
-                            Please select date </div>
+          </div>
+          <div class="form-group col-md-4">
+            <label>Father's Name</label>
+            <input type="text" (keypress)="!_commonService.NumberOnly($event)" class="form-control" id="input3"
+              placeholder="Father's Name" formControlName="FatherName" maxlength="200"
+              [ngClass]="{ 'is-invalid': f1.FatherName.errors && f1.FatherName.touched}" [(ngModel)]="model.FatherName">
 
-                    </div>
+            <div class="invalid-feedback"
+              *ngIf="(leadFromPersonalDetail.get('FatherName')?.hasError('required') && leadFromPersonalDetail.get('FatherName')?.touched)">
+              Enter father name</div>
 
-                    <div class="form-group col-md-4">
-                        <label>Gender</label>
+          </div>
 
-                        <div class="form-radio-check-grp border-0 pl-0">
+          <div class="form-group col-md-4 date-icon-with-label">
+            <label>Date of Birth</label>
+            <input class="form-control" #datepickerYMD="bsDatepicker" autocomplete="off" placeholder="DD-MM-YYYY"
+              formControlName="DOB" (focus)="datepickerYMD.show()"
+              [ngClass]="{ 'is-invalid': f1.DOB.errors && f1.DOB.touched}" bsDatepicker [(ngModel)]="model.DateOfBirth"
+              [maxDate]="DobMaxDate"
+              [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', adaptivePosition: true,isAnimated: true, showWeekNumbers: false }">
+            <i class="fas fa-calendar-alt" (click)="datepickerYMD.show()"></i>
+            <div class="invalid-feedback"
+              *ngIf="(leadFromPersonalDetail.get('DOB')?.hasError('required') && leadFromPersonalDetail.get('DOB')?.touched)">
+              Please select date </div>
 
-                            <ng-container *ngFor="let item of dropDown!.ddlGender">
-                                <div class="n-chk d-inline">
-                                    <label class="new-control new-radio radio-classic-info">
+          </div>
+
+          <div class="form-group col-md-4">
+            <label>Gender</label>
+
+            <div class="form-radio-check-grp border-0 pl-0">
+
+              <ng-container *ngFor="let item of dropDown!.ddlGender">
+                <div class="n-chk d-inline">
+                  <label class="new-control new-radio radio-classic-info">
                     <input type="radio" formControlName="Gender" class="new-control-input" value="{{item.Value}}"
                       name="Gender" [(ngModel)]="model.Gender">
                     <span class="new-control-indicator"></span>{{item.Text}}
                   </label>
-                                </div>
-                            </ng-container>
-
-                            <div class="invalid-feedback" *ngIf="(leadFromPersonalDetail.get('Gender')?.hasError('required') && leadFromPersonalDetail.get('Gender')?.touched)">
-                                Select gender </div>
-
-                        </div>
-
-
-                    </div>
-                    <div class="form-group col-md-4">
-                        <label>Email</label>
-                        <input type="text" class="form-control" maxlength="200" id="input1" placeholder="Email Address" formControlName="Email" [ngClass]="{ 'is-invalid': f1.Email.errors && f1.Email.touched}" [(ngModel)]="model.Email">
-
-
-
-                        <div class="invalid-feedback" *ngIf="(leadFromPersonalDetail.get('Email')?.hasError('required') && leadFromPersonalDetail.get('Email')?.touched)">
-                            Enter email id </div>
-
-                        <div class="invalid-feedback" *ngIf="!leadFromPersonalDetail.get('Email')?.hasError('required') && leadFromPersonalDetail.get('Email')?.touched
-              && leadFromPersonalDetail.get('Email')?.invalid">
-                            Please fill correct email </div>
-
-                    </div>
-                    <div class="form-group col-md-4">
-                        <label>Mobile Number</label>
-                        <input type="text" [minlength]="10" [maxlength]="10" (keypress)="_commonService.NumberOnly($event)" placeholder="Mobile Number" class="form-control" id="input5" [(ngModel)]="model.PrimaryMobileNumber" formControlName="Mobile" [ngClass]="{ 'is-invalid': f1.Mobile.errors && f1.Mobile.touched}">
-
-
-                        <div class="invalid-feedback" *ngIf="(leadFromPersonalDetail.get('Mobile')?.hasError('required') && leadFromPersonalDetail.get('Mobile')?.touched)">
-                            Enter mobile number! </div>
-
-                        <div class="invalid-feedback" *ngIf="!leadFromPersonalDetail.get('Mobile')?.hasError('required') && ((leadFromPersonalDetail.get('Mobile')?.hasError('maxlength') || leadFromPersonalDetail.get('Mobile')?.hasError('minlength')) && leadFromPersonalDetail.get('Mobile')?.touched) || (leadFromPersonalDetail.get('Mobile')?.hasError('maxlength') || leadFromPersonalDetail.get('Mobile')?.hasError('minlength'))">
-                            Mobile length must be 10 digit </div>
-
-                    </div>
-
-                    <div class="form-group col-md-4">
-                        <label>Alternate Mobile Number</label>
-                        <input type="text" [minlength]="10" [maxlength]="10" class="form-control" (keypress)="_commonService.NumberOnly($event)" id="input6" placeholder="Alternative Mobile" [(ngModel)]="model.SecondaryMobileNumber" formControlName="AlternativeMobile" [ngClass]="{ 'is-invalid': f1.AlternativeMobile.errors && f1.AlternativeMobile.touched}">
-
-
-                        <div class="invalid-feedback" *ngIf="(leadFromPersonalDetail.get('AlternativeMobile')?.hasError('required') && leadFromPersonalDetail.get('AlternativeMobile')?.touched)">
-                            Enter alternate mobile number </div>
-                        <div class="invalid-feedback" *ngIf="!leadFromPersonalDetail.get('AlternativeMobile')?.hasError('required') && ((leadFromPersonalDetail.get('AlternativeMobile')?.hasError('maxlength') || leadFromPersonalDetail.get('AlternativeMobile')?.hasError('minlength')) && leadFromPersonalDetail.get('AlternativeMobile')?.touched) || (leadFromPersonalDetail.get('AlternativeMobile')?.hasError('maxlength') || leadFromPersonalDetail.get('AlternativeMobile')?.hasError('minlength'))">
-                            Alternate mobile length must be 10 digit </div>
-
-                    </div>
-
-                    <div class="form-group col-md-4">
-                        <label>Amount Loan</label>
-                        <input type="text" [maxlength]="10" class="form-control" (keypress)="_commonService.checkDecimalNumberOnly($event)" id="input7" placeholder="Amount" [(ngModel)]="model.LoanAmountRequired" formControlName="Amount" [ngClass]="{ 'is-invalid': f1.Amount.errors && f1.Amount.touched}">
-
-                        <div class="invalid-feedback" *ngIf="(leadFromPersonalDetail.get('Amount')?.hasError('required') && leadFromPersonalDetail.get('Amount')?.touched)">
-                            Enter required loan amount</div>
-
-                    </div>
-
-                    <div class="form-group col-md-12">
-                        <label>Purpose of Loan</label>
-                        <ng-select [items]="ddlPurpose" [searchable]="true" bindLabel="Name" bindValue="Id" placeholder="Select Purpose" formControlName="Purpose" [ngClass]="{ 'is-invalid': f1.Purpose.errors && f1.Purpose.touched}" [(ngModel)]="model.PurposeId">
-                        </ng-select>
-                        <div class="invalid-feedback" *ngIf="(leadFromPersonalDetail.get('Purpose')?.hasError('required') && leadFromPersonalDetail.get('Purpose')?.touched)">
-                            Enter purpose </div>
-                    </div>
                 </div>
+              </ng-container>
+
+              <div class="invalid-feedback"
+                *ngIf="(leadFromPersonalDetail.get('Gender')?.hasError('required') && leadFromPersonalDetail.get('Gender')?.touched)">
+                Select gender </div>
+
             </div>
 
-            <div class="step-form-btn-grp mt-3">
-                <button class="btn btn-primary" mat-button matStepperNext><i class="fas fa-check mr-1"></i> Next</button>
-            </div>
-        </form>
-    </mat-step>
-    <mat-step [stepControl]="leadFromDocumentDetail">
-        <form [formGroup]="leadFromDocumentDetail" (ngSubmit)="leadFromDocumentDetail.markAllAsTouched()">
-            <ng-template matStepLabel>Document Details</ng-template>
-            <div class="step-grp-content">
-                <div class="custom_stepers-body-items-form row">
-                    <div class="form-group col-md-4">
-                        <label>Document Type</label>
+
+          </div>
+          <div class="form-group col-md-4">
+            <label>Email</label>
+            <input type="text" class="form-control" maxlength="200" id="input1" placeholder="Email Address"
+              formControlName="Email" [ngClass]="{ 'is-invalid': f1.Email.errors && f1.Email.touched}"
+              [(ngModel)]="model.Email">
 
 
-                        <ng-select [items]="ddlDocumentTypeModel" (change)="this.model.KycDocument.DocumentNumber = null;onChangeDocument($event)" [searchable]="true" bindLabel="Name" bindValue="Id" placeholder="Select Document Type" formControlName="DocumentType" [ngClass]="{ 'is-invalid': f2.DocumentType.errors && f2.DocumentType.touched}"
-                            [(ngModel)]="model.KycDocument.KycDocumentTypeId">
-                        </ng-select>
-                        <div class="invalid-feedback" *ngIf="(leadFromDocumentDetail.get('DocumentType')?.hasError('required') && leadFromDocumentDetail.get('DocumentType')?.touched)">
-                            Select document type </div>
 
-                    </div>
-                    <div class="form-group col-md-4">
-                        <label>Document Number : </label>
-                        <input type="text" class="form-control" id="input9" placeholder="Document Number" [(ngModel)]="model.KycDocument.DocumentNumber" formControlName="DocumentNumber" [ngClass]="{ 'is-invalid': f2.DocumentNumber.errors && f2.DocumentNumber.touched}" (keypress)="onCheckDocumentNumber($event)"
-                            [maxlength]="docMaxChar">
-                        <div class="invalid-feedback" *ngIf="(leadFromDocumentDetail.get('DocumentNumber')?.hasError('required') && leadFromDocumentDetail.get('DocumentNumber')?.touched)">
-                            Enter Document Number! </div>
+            <div class="invalid-feedback"
+              *ngIf="(leadFromPersonalDetail.get('Email')?.hasError('required') && leadFromPersonalDetail.get('Email')?.touched)">
+              Enter email id </div>
 
-                        <div class="invalid-feedback" *ngIf="!leadFromDocumentDetail.get('DocumentNumber')!.hasError('required') &&
+            <div class="invalid-feedback" *ngIf="!leadFromPersonalDetail.get('Email')?.hasError('required') && leadFromPersonalDetail.get('Email')?.touched
+              && leadFromPersonalDetail.get('Email')?.invalid">
+              Please fill correct email </div>
+
+          </div>
+          <div class="form-group col-md-4">
+            <label>Mobile Number</label>
+            <input type="text" [minlength]="10" [maxlength]="10" (keypress)="_commonService.NumberOnly($event)"
+              placeholder="Mobile Number" class="form-control" id="input5" [(ngModel)]="model.PrimaryMobileNumber"
+              formControlName="Mobile" [ngClass]="{ 'is-invalid': f1.Mobile.errors && f1.Mobile.touched}">
+
+
+            <div class="invalid-feedback"
+              *ngIf="(leadFromPersonalDetail.get('Mobile')?.hasError('required') && leadFromPersonalDetail.get('Mobile')?.touched)">
+              Enter mobile number! </div>
+
+            <div class="invalid-feedback"
+              *ngIf="!leadFromPersonalDetail.get('Mobile')?.hasError('required') && ((leadFromPersonalDetail.get('Mobile')?.hasError('maxlength') || leadFromPersonalDetail.get('Mobile')?.hasError('minlength')) && leadFromPersonalDetail.get('Mobile')?.touched) || (leadFromPersonalDetail.get('Mobile')?.hasError('maxlength') || leadFromPersonalDetail.get('Mobile')?.hasError('minlength'))">
+              Mobile length must be 10 digit </div>
+
+          </div>
+
+          <div class="form-group col-md-4">
+            <label>Alternate Mobile Number</label>
+            <input type="text" [minlength]="10" [maxlength]="10" class="form-control"
+              (keypress)="_commonService.NumberOnly($event)" id="input6" placeholder="Alternative Mobile"
+              [(ngModel)]="model.SecondaryMobileNumber" formControlName="AlternativeMobile"
+              [ngClass]="{ 'is-invalid': f1.AlternativeMobile.errors && f1.AlternativeMobile.touched}">
+
+
+            <div class="invalid-feedback"
+              *ngIf="(leadFromPersonalDetail.get('AlternativeMobile')?.hasError('required') && leadFromPersonalDetail.get('AlternativeMobile')?.touched)">
+              Enter alternate mobile number </div>
+            <div class="invalid-feedback"
+              *ngIf="!leadFromPersonalDetail.get('AlternativeMobile')?.hasError('required') && ((leadFromPersonalDetail.get('AlternativeMobile')?.hasError('maxlength') || leadFromPersonalDetail.get('AlternativeMobile')?.hasError('minlength')) && leadFromPersonalDetail.get('AlternativeMobile')?.touched) || (leadFromPersonalDetail.get('AlternativeMobile')?.hasError('maxlength') || leadFromPersonalDetail.get('AlternativeMobile')?.hasError('minlength'))">
+              Alternate mobile length must be 10 digit </div>
+
+          </div>
+
+          <div class="form-group col-md-4">
+            <label>Amount Loan</label>
+            <input type="text" [maxlength]="10" class="form-control"
+              (keypress)="_commonService.checkDecimalNumberOnly($event)" id="input7" placeholder="Amount"
+              [(ngModel)]="model.LoanAmountRequired" formControlName="Amount"
+              [ngClass]="{ 'is-invalid': f1.Amount.errors && f1.Amount.touched}">
+
+            <div class="invalid-feedback"
+              *ngIf="(leadFromPersonalDetail.get('Amount')?.hasError('required') && leadFromPersonalDetail.get('Amount')?.touched)">
+              Enter required loan amount</div>
+
+          </div>
+
+          <div class="form-group col-md-4">
+            <label>Purpose of Loan</label>
+            <ng-select [items]="ddlPurpose" [searchable]="true" bindLabel="Name" bindValue="Id"
+              placeholder="Select Purpose" formControlName="Purpose"
+              [ngClass]="{ 'is-invalid': f1.Purpose.errors && f1.Purpose.touched}" [(ngModel)]="model.PurposeId">
+            </ng-select>
+            <div class="invalid-feedback"
+              *ngIf="(leadFromPersonalDetail.get('Purpose')?.hasError('required') && leadFromPersonalDetail.get('Purpose')?.touched)">
+              Enter purpose </div>
+          </div>
+
+
+          <div class="form-group col-md-4">
+            <label>Tenure </label>
+            <input type="text" [maxlength]="3" (keypress)="_commonService.NumberOnly($event)" class="form-control"
+              id="input14" placeholder="Tenure" [(ngModel)]="model.PreferredLoanTenure" formControlName="Tenure"
+              [ngClass]="{ 'is-invalid': f1.Tenure.errors && f1.Tenure.touched}">
+
+            <div class="invalid-feedback"
+              *ngIf="(leadFromPersonalDetail.get('Tenure')?.hasError('required') && leadFromPersonalDetail.get('Tenure')?.touched)">
+              select Tenure! </div>
+          </div>
+
+
+
+        </div>
+      </div>
+
+      <div class="step-form-btn-grp mt-3">
+        <button class="btn btn-primary" mat-button matStepperNext><i class="fas fa-check mr-1"></i> Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="leadFromDocumentDetail">
+    <form [formGroup]="leadFromDocumentDetail" (ngSubmit)="leadFromDocumentDetail.markAllAsTouched()">
+      <ng-template matStepLabel>Document Details</ng-template>
+      <div class="step-grp-content">
+        <div class="custom_stepers-body-items-form row">
+          <div class="form-group col-md-4">
+            <label>Document Type</label>
+
+
+            <ng-select [items]="ddlDocumentTypeModel"
+              (change)="this.model.KycDocument.DocumentNumber = null;onChangeDocument($event)" [searchable]="true"
+              bindLabel="Name" bindValue="Id" placeholder="Select Document Type" formControlName="DocumentType"
+              [ngClass]="{ 'is-invalid': f2.DocumentType.errors && f2.DocumentType.touched}"
+              [(ngModel)]="model.KycDocument.KycDocumentTypeId">
+            </ng-select>
+            <div class="invalid-feedback"
+              *ngIf="(leadFromDocumentDetail.get('DocumentType')?.hasError('required') && leadFromDocumentDetail.get('DocumentType')?.touched)">
+              Select document type </div>
+
+          </div>
+          <div class="form-group col-md-4">
+            <label>Document Number : </label>
+            <input type="text" class="form-control" id="input9" placeholder="Document Number"
+              [(ngModel)]="model.KycDocument.DocumentNumber" formControlName="DocumentNumber"
+              [ngClass]="{ 'is-invalid': f2.DocumentNumber.errors && f2.DocumentNumber.touched}"
+              (keypress)="onCheckDocumentNumber($event)" [maxlength]="docMaxChar">
+            <div class="invalid-feedback"
+              *ngIf="(leadFromDocumentDetail.get('DocumentNumber')?.hasError('required') && leadFromDocumentDetail.get('DocumentNumber')?.touched)">
+              Enter Document Number! </div>
+
+            <div class="invalid-feedback"
+              *ngIf="!leadFromDocumentDetail.get('DocumentNumber')!.hasError('required') &&
               ((this.leadFromDocumentDetail!.get('DocumentNumber')!.hasError('maxlength') || this.leadFromDocumentDetail.get('DocumentNumber')!.hasError('minlength')) &&
                this.leadFromDocumentDetail.get('DocumentNumber')!.touched) || (this.leadFromDocumentDetail.get('DocumentNumber')!.hasError('maxlength') || this.leadFromDocumentDetail.get('DocumentNumber')!.hasError('minlength'))">
-                            Document number length must be {{docMaxChar}} char or digit...! </div>
+              Document number length must be {{docMaxChar}} char or digit...! </div>
 
 
-                    </div>
+          </div>
 
-                    <div class="form-group col-md-4">
-                        <label>PAN Number</label>
-                        <input type="text" [maxlength]="10" class="form-control" id="input10" placeholder="PAN Number" [(ngModel)]="model.KycDocument.PanNumber" formControlName="PanNumber" [ngClass]="{ 'is-invalid': f2.PanNumber.errors && f2.PanNumber.touched}">
-                        <div class="invalid-feedback" *ngIf="(leadFromDocumentDetail.get('PanNumber')?.hasError('required') && leadFromDocumentDetail.get('PanNumber')?.touched)">
-                            Enter pan number </div>
+          <div class="form-group col-md-4">
+            <label>PAN Number</label>
+            <input type="text" [maxlength]="10" class="form-control" id="input10" placeholder="PAN Number"
+              [(ngModel)]="model.KycDocument.PanNumber" formControlName="PanNumber"
+              [ngClass]="{ 'is-invalid': f2.PanNumber.errors && f2.PanNumber.touched}">
+            <div class="invalid-feedback"
+              *ngIf="(leadFromDocumentDetail.get('PanNumber')?.hasError('required') && leadFromDocumentDetail.get('PanNumber')?.touched)">
+              Enter pan number </div>
 
-                        <div class="invalid-feedback" *ngIf="(leadFromDocumentDetail.get('PanNumber')?.hasError('') && leadFromDocumentDetail.get('PanNumber')?.touched)">
-                            Enter pancard number </div>
+            <div class="invalid-feedback"
+              *ngIf="(leadFromDocumentDetail.get('PanNumber')?.hasError('') && leadFromDocumentDetail.get('PanNumber')?.touched)">
+              Enter pancard number </div>
 
-                        <div class="invalid-feedback" *ngIf="!leadFromDocumentDetail.get('PanNumber')!.hasError('required') &&
+            <div class="invalid-feedback"
+              *ngIf="!leadFromDocumentDetail.get('PanNumber')!.hasError('required') &&
               ((this.leadFromDocumentDetail!.get('PanNumber')!.hasError('maxlength') || this.leadFromDocumentDetail.get('PanNumber')!.hasError('minlength')) &&
                this.leadFromDocumentDetail.get('PanNumber')!.touched) || (this.leadFromDocumentDetail.get('PanNumber')!.hasError('maxlength') || this.leadFromDocumentDetail.get('PanNumber')!.hasError('minlength'))">
-                            PAN number length must be 10 char or digit </div>
-                    </div>
+              PAN number length must be 10 char or digit </div>
+          </div>
 
-                    <div class="form-group col-md-4">
-                        <label>Pin Code</label>
-                        <input type="text" [maxlength]="6" class="form-control" (keypress)="_commonService.NumberOnly($event)" (blur)="onChangePinCode()" id="input10" placeholder="Pin Code" [(ngModel)]="model.KycDocument.Pincode" formControlName="Pincode" [ngClass]="{ 'is-invalid': f2.Pincode.errors && f2.Pincode.touched}">
-                        <div class="invalid-feedback" *ngIf="(leadFromDocumentDetail.get('Pincode')?.hasError('required') && leadFromDocumentDetail.get('Pincode')?.touched)">
-                            Enter Pin Code! </div>
-                        <div class="invalid-feedback" *ngIf="!leadFromDocumentDetail.get('Pincode')!.hasError('required') &&
+          <div class="form-group col-md-4">
+            <label>Pin Code</label>
+            <input type="text" [maxlength]="6" class="form-control" (keypress)="_commonService.NumberOnly($event)"
+              (blur)="onChangePinCode()" id="input10" placeholder="Pin Code" [(ngModel)]="model.KycDocument.Pincode"
+              formControlName="Pincode" [ngClass]="{ 'is-invalid': f2.Pincode.errors && f2.Pincode.touched}">
+            <div class="invalid-feedback"
+              *ngIf="(leadFromDocumentDetail.get('Pincode')?.hasError('required') && leadFromDocumentDetail.get('Pincode')?.touched)">
+              Enter Pin Code! </div>
+            <div class="invalid-feedback"
+              *ngIf="!leadFromDocumentDetail.get('Pincode')!.hasError('required') &&
               ((this.leadFromDocumentDetail!.get('Pincode')!.hasError('maxlength') || this.leadFromDocumentDetail.get('Pincode')!.hasError('minlength')) &&
                this.leadFromDocumentDetail.get('Pincode')!.touched) || (this.leadFromDocumentDetail.get('Pincode')!.hasError('maxlength') || this.leadFromDocumentDetail.get('Pincode')!.hasError('minlength'))">
-                            Pin number length must be 6 char or digit...! </div>
-                    </div>
+              Pin number length must be 6 char or digit...! </div>
+          </div>
 
-                    <div class="form-group col-md-8">
-                        <label>Area Name</label>
-                        <ng-select [items]="ddlAreaModel" [searchable]="true" (change)="getAddressLine2($event)" bindLabel="AreaName" bindValue="Id" placeholder="Select Area" formControlName="Aarea" [ngClass]="{ 'is-invalid': f2.Aarea.errors && f2.Aarea.touched}" [(ngModel)]="model.KycDocument.PincodeAreaId">
-                        </ng-select>
-                        <div class="invalid-feedback" *ngIf="(leadFromDocumentDetail.get('Aarea')?.hasError('required') && leadFromDocumentDetail.get('Aarea')?.touched)">
-                            select Area! </div>
+          <div class="form-group col-md-4">
+            <label>Area Name</label>
+            <ng-select [items]="ddlAreaModel" [searchable]="true" bindLabel="AreaName" bindValue="Id"
+              placeholder="Select Area" formControlName="Aarea"
+              [ngClass]="{ 'is-invalid': f2.Aarea.errors && f2.Aarea.touched}"
+              [(ngModel)]="model.KycDocument.PincodeAreaId">
+            </ng-select>
+            <div class="invalid-feedback"
+              *ngIf="(leadFromDocumentDetail.get('Aarea')?.hasError('required') && leadFromDocumentDetail.get('Aarea')?.touched)">
+              select Area! </div>
 
-                    </div>
-                    <div class="form-group col-md-12">
-                      <label>Address Line1</label>
-                      <input type="text"  class="form-control" [(ngModel)]="model.KycDocument.AddressLine1" formControlName="addressLine1" placeholder="Address Line1">
-                    </div>
-                    <div class="form-group col-md-12">
-                      <label>Address Line2</label>
-                      <input type="text" readonly  class="form-control text-dark" [(ngModel)]="model.KycDocument.AddressLine2" formControlName="addressLine2"placeholder="Address Line2">
-                    </div>
+          </div>
 
-                </div>
-            </div>
+          <div class="form-group col-md-8">
+            <label>Area Name</label>
+            <ng-select [items]="ddlAreaModel" [searchable]="true" (change)="getAddressLine2($event)"
+              bindLabel="AreaName" bindValue="Id" placeholder="Select Area" formControlName="Aarea"
+              [ngClass]="{ 'is-invalid': f2.Aarea.errors && f2.Aarea.touched}"
+              [(ngModel)]="model.KycDocument.PincodeAreaId">
+            </ng-select>
+            <div class="invalid-feedback"
+              *ngIf="(leadFromDocumentDetail.get('Aarea')?.hasError('required') && leadFromDocumentDetail.get('Aarea')?.touched)">
+              select Area! </div>
 
-            <div class="step-form-btn-grp mt-3">
-                <button class="btn btn-outline-danger mr-3" mat-button matStepperPrevious><i
+          </div>
+          <div class="form-group col-md-12">
+            <label>Address Line1</label>
+            <input type="text" class="form-control" [(ngModel)]="model.KycDocument.AddressLine1"
+              formControlName="addressLine1" placeholder="Address Line1">
+          </div>
+          <div class="form-group col-md-12">
+            <label>Address Line2</label>
+            <input type="text" readonly class="form-control text-dark" [(ngModel)]="model.KycDocument.AddressLine2"
+              formControlName="addressLine2" placeholder="Address Line2">
+          </div>
+
+        </div>
+      </div>
+
+      <div class="step-form-btn-grp mt-3">
+        <button class="btn btn-outline-danger mr-3" mat-button matStepperPrevious><i
             class="fas fa-angle-left mr-1"></i>Back</button>
-                <button class="btn btn-primary" mat-button matStepperNext><i class="fas fa-check mr-1"></i> Next</button>
+        <button class="btn btn-primary" mat-button matStepperNext><i class="fas fa-check mr-1"></i> Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="leadFromJewelleryDetail">
+    <form [formGroup]="leadFromJewelleryDetail" (ngSubmit)="leadFromJewelleryDetail.markAllAsTouched()">
+      <ng-template matStepLabel>Jewellery Details</ng-template>
+      <div class="step-grp-content">
+        <div class="custom_stepers-body-items-form row">
+          <div class="form-group col-md-4">
+            <label>Jewellery Type</label>
+
+            <ng-select [items]="ddlJewellaryType" [searchable]="true" bindLabel="Name" bindValue="Id"
+              placeholder="Select Jewellery Type" formControlName="JewelleryType"
+              [ngClass]="{ 'is-invalid': f3.JewelleryType.errors && f3.JewelleryType.touched}"
+              [(ngModel)]="JewelleryModel.JewelleryTypeId">
+            </ng-select>
+            <div class="invalid-feedback"
+              *ngIf="(leadFromJewelleryDetail.get('JewelleryType')?.hasError('required') && leadFromJewelleryDetail.get('JewelleryType')?.touched)">
+              select Jewellery Type! </div>
+          </div>
+
+          <div class="form-group col-md-4">
+            <label>Quantity</label>
+            <!-- 1-10 -->
+            <input type="text" (keypress)="_commonService.NumberOnly($event)" class="form-control" id="input12"
+              [min]="1" [max]="10" [maxlength]="2" placeholder="Quantity" [(ngModel)]="JewelleryModel.Quantity"
+              formControlName="Quantity" [ngClass]="{ 'is-invalid': f3.Quantity.errors && f3.Quantity.touched}">
+
+            <div class="invalid-feedback"
+              *ngIf="(leadFromJewelleryDetail.get('Quantity')?.hasError('required') && leadFromJewelleryDetail.get('Quantity')?.touched)">
+              Enter Quantity! </div>
+
+          </div>
+
+          <div class="form-group col-md-4">
+            <label>Weight (in grams)</label>
+            <input type="text" [maxlength]="10" (keypress)="_commonService.checkDecimalNumberOnly($event)"
+              class="form-control" id="input13" placeholder="Weight" [(ngModel)]="JewelleryModel.Weight"
+              formControlName="Weight" [ngClass]="{ 'is-invalid': f3.Weight.errors && f3.Weight.touched}">
+            <div class="invalid-feedback"
+              *ngIf="(leadFromJewelleryDetail.get('Weight')?.hasError('required') && leadFromJewelleryDetail.get('Weight')?.touched)">
+              Enter Weight! </div>
+
+
+          </div>
+          <div class="form-group col-md-4">
+            <label>Karats</label>
+            <ng-select [items]="ddlKarats" bindLabel="Name" bindValue="Id" formControlName="Karats"
+              placeholder="Select Karats" [ngClass]="{ 'is-invalid': f3.Karats.errors && f3.Karats.touched}"
+              [(ngModel)]="JewelleryModel.Karat">
+
+            </ng-select>
+            <div class="invalid-feedback"
+              *ngIf="(leadFromJewelleryDetail.get('Karats')?.hasError('required') && leadFromJewelleryDetail.get('Karats')?.touched)">
+              select Karats! </div>
+          </div>
+
+          <div class="form-group mt-4 col-md-4">
+
+            <button class="btn btn-primary  mr-3" mat-button (click)="onJewellaryAdd()"><i class="fas fa-plus mr-1"></i> Add</button>
+            <button class="btn btn-outline-danger" mat-button (click)="onJewellaryAddCancel()"> <i class="fas fa-times mr-1"></i> Cancel</button>
+          </div>
+
+          <div class="col-md-12">
+            <div class="table-responsive table-shadow my-4">
+              <table class="table table-striped dataTable table-header bg-white">
+                <thead>
+                  <tr>
+                    <th>Jewellery Type</th>
+                    <th>Quantity</th>
+                    <th>Weight</th>
+                    <th>Karat</th>
+                    <th style="width: 100px;">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of model.JewelleryDetail;let idx=index">
+                    <td>{{onGetJewellaryTypeName(item.JewelleryTypeId)}}</td>
+                    <td>{{item.Quantity ?? 0}}</td>
+                    <td>{{item.Weight}}gm</td>
+                    <td>{{item.Karat}}</td>
+
+                    <td class="table-action-btn">
+                      <a href="javascript:void(0);" (click)="onJewellaryEdit(idx)" class="table-action-btn-edit"
+                        data-toggle="tooltip" data-placement="bottom" title="Edit"><i class="fas fa-edit"></i></a>
+                      <a href="javascript:void(0);" (click)="onJewellaryDelete(idx)" class="table-action-btn-delete"
+                        data-toggle="tooltip" data-placement="bottom" title="Remove"><i
+                          class="fas fa-trash-alt"></i></a>
+                    </td>
+                  </tr>
+
+                </tbody>
+              </table>
             </div>
-        </form>
-    </mat-step>
-    <mat-step [stepControl]="leadFromJewelleryDetail">
-        <form [formGroup]="leadFromJewelleryDetail" (ngSubmit)="leadFromJewelleryDetail.markAllAsTouched()">
-            <ng-template matStepLabel>Jewellery Details</ng-template>
-            <div class="step-grp-content">
-                <div class="custom_stepers-body-items-form row">
-                    <div class="form-group col-md-4">
-                        <label>Jewellery Type</label>
+          </div>
 
-                        <ng-select [items]="ddlJewellaryType" [searchable]="true" bindLabel="Name" bindValue="Id" placeholder="Select Jewellery Type" formControlName="JewelleryType" [ngClass]="{ 'is-invalid': f3.JewelleryType.errors && f3.JewelleryType.touched}" [(ngModel)]="model.JewelleryDetail.JewelleryTypeId">
-                        </ng-select>
-                        <div class="invalid-feedback" *ngIf="(leadFromJewelleryDetail.get('JewelleryType')?.hasError('required') && leadFromJewelleryDetail.get('JewelleryType')?.touched)">
-                            select Jewellery Type! </div>
-                    </div>
+        </div>
+      </div>
 
-                    <div class="form-group col-md-4">
-                        <label>Quantity</label>
-                        <!-- 1-10 -->
-                        <input type="text" (keypress)="_commonService.NumberOnly($event)" class="form-control" id="input12" [min]="1" [max]="10" [maxlength]="2" placeholder="Quantity" [(ngModel)]="model.JewelleryDetail.Quantity" formControlName="Quantity" [ngClass]="{ 'is-invalid': f3.Quantity.errors && f3.Quantity.touched}">
-
-                        <div class="invalid-feedback" *ngIf="(leadFromJewelleryDetail.get('Quantity')?.hasError('required') && leadFromJewelleryDetail.get('Quantity')?.touched)">
-                            Enter Quantity! </div>
-
-                    </div>
-
-                    <div class="form-group col-md-4">
-                        <label>Weight (in grams)</label>
-                        <input type="text" [maxlength]="10" (keypress)="_commonService.checkDecimalNumberOnly($event)" class="form-control" id="input13" placeholder="Weight" [(ngModel)]="model.JewelleryDetail.Weight" formControlName="Weight" [ngClass]="{ 'is-invalid': f3.Weight.errors && f3.Weight.touched}">
-                        <div class="invalid-feedback" *ngIf="(leadFromJewelleryDetail.get('Weight')?.hasError('required') && leadFromJewelleryDetail.get('Weight')?.touched)">
-                            Enter Weight! </div>
-
-
-                    </div>
-                    <div class="form-group col-md-4">
-                        <label>Karats</label>
-                        <ng-select [items]="ddlKarats" bindLabel="Name" bindValue="Id" formControlName="Karats" placeholder="Select Karats" [ngClass]="{ 'is-invalid': f3.Karats.errors && f3.Karats.touched}" [(ngModel)]="model.JewelleryDetail.Karat">
-
-                        </ng-select>
-                        <div class="invalid-feedback" *ngIf="(leadFromJewelleryDetail.get('Karats')?.hasError('required') && leadFromJewelleryDetail.get('Karats')?.touched)">
-                            select Karats! </div>
-                    </div>
-
-                    <div class="form-group col-md-4">
-                        <label>Tenure </label>
-                        <input type="text" [maxlength]="3" (keypress)="_commonService.NumberOnly($event)" class="form-control" id="input14" placeholder="Tenure" [(ngModel)]="model.JewelleryDetail.PreferredLoanTenure" formControlName="Tenure" [ngClass]="{ 'is-invalid': f3.Tenure.errors && f3.Tenure.touched}">
-
-                        <div class="invalid-feedback" *ngIf="(leadFromJewelleryDetail.get('Tenure')?.hasError('required') && leadFromJewelleryDetail.get('Tenure')?.touched)">
-                            select Tenure! </div>
-                    </div>
-
-                    <div class="col-md-12">
-                        <div class="table-responsive table-shadow my-4">
-                            <table class="table table-striped dataTable table-header bg-white">
-                                <thead>
-                                    <tr>
-                                        <th>Jewellery Type</th>
-                                        <th>Quantity</th>
-                                        <th>Weight</th>
-                                        <th>Karat</th>
-                                        <th style="width: 100px;">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Necklace</td>
-                                        <td>10</td>
-                                        <td>100gm</td>
-                                        <td>20</td>
-                                        <td class="table-action-btn">
-                                            <a href="#" class="table-action-btn-edit" data-toggle="tooltip" data-placement="bottom" title="Edit"><i class="fas fa-edit"></i></a>
-                                            <a href="#" class="table-action-btn-delete" data-toggle="tooltip" data-placement="bottom" title="Remove"><i class="fas fa-trash-alt"></i></a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Necklace</td>
-                                        <td>10</td>
-                                        <td>100gm</td>
-                                        <td>20</td>
-                                        <td class="table-action-btn">
-                                            <a href="#" class="table-action-btn-edit" data-toggle="tooltip" data-placement="bottom" title="Edit"><i class="fas fa-edit"></i></a>
-                                            <a href="#" class="table-action-btn-delete" data-toggle="tooltip" data-placement="bottom" title="Remove"><i class="fas fa-trash-alt"></i></a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Necklace</td>
-                                        <td>10</td>
-                                        <td>100gm</td>
-                                        <td>20</td>
-                                        <td class="table-action-btn">
-                                            <a href="#" class="table-action-btn-edit" data-toggle="tooltip" data-placement="bottom" title="Edit"><i class="fas fa-edit"></i></a>
-                                            <a href="#" class="table-action-btn-delete" data-toggle="tooltip" data-placement="bottom" title="Remove"><i class="fas fa-trash-alt"></i></a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Necklace</td>
-                                        <td>10</td>
-                                        <td>100gm</td>
-                                        <td>20</td>
-                                        <td class="table-action-btn">
-                                            <a href="#" class="table-action-btn-edit" data-toggle="tooltip" data-placement="bottom" title="Edit"><i class="fas fa-edit"></i></a>
-                                            <a href="#" class="table-action-btn-delete" data-toggle="tooltip" data-placement="bottom" title="Remove"><i class="fas fa-trash-alt"></i></a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Necklace</td>
-                                        <td>10</td>
-                                        <td>100gm</td>
-                                        <td>20</td>
-                                        <td class="table-action-btn">
-                                            <a href="#" class="table-action-btn-edit" data-toggle="tooltip" data-placement="bottom" title="Edit"><i class="fas fa-edit"></i></a>
-                                            <a href="#" class="table-action-btn-delete" data-toggle="tooltip" data-placement="bottom" title="Remove"><i class="fas fa-trash-alt"></i></a>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-            <div class="step-form-btn-grp mt-3">
-                <button class="btn btn-outline-danger mr-3" mat-button matStepperPrevious><i
+      <div class="step-form-btn-grp mt-3">
+        <button class="btn btn-outline-danger mr-3" mat-button matStepperPrevious><i
             class="fas fa-angle-left mr-1"></i>Back</button>
-                <button class="btn btn-primary" mat-button matStepperNext><i class="fas fa-check mr-1"></i> Next</button>
-            </div>
-        </form>
-    </mat-step>
-    <mat-step [stepControl]="leadFromAppointmentDetail">
-        <form [formGroup]="leadFromAppointmentDetail" (ngSubmit)="onSubmit()">
-            <ng-template matStepLabel>Appointment Details</ng-template>
-            <div class="step-grp-content">
-                <div class="custom_stepers-body-items-form row">
-                    <div class="form-group col-md-4">
-                        <!-- this will auto fill from document pincode field blur event -->
-                        <label> Branch</label>
+        <button class="btn btn-primary" mat-button matStepperNext><i class="fas fa-check mr-1"></i> Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="leadFromAppointmentDetail">
+    <form [formGroup]="leadFromAppointmentDetail" (ngSubmit)="onSubmit()">
+      <ng-template matStepLabel>Appointment Details</ng-template>
+      <div class="step-grp-content">
+        <div class="custom_stepers-body-items-form row">
+          <div class="form-group col-md-4">
+            <!-- this will auto fill from document pincode field blur event -->
+            <label> Branch</label>
 
-                        <ng-select [items]="ddlBranchModel" [searchable]="true" bindLabel="BranchName" bindValue="Id" placeholder="Select Brnach" formControlName="Branch" [ngClass]="{ 'is-invalid': f4.Branch.errors && f4.Branch.touched}" [(ngModel)]="model.AppointmentDetail.BranchId">
-                        </ng-select>
+            <ng-select [items]="ddlBranchModel" [searchable]="true" bindLabel="BranchName" bindValue="Id"
+              placeholder="Select Brnach" formControlName="Branch"
+              [ngClass]="{ 'is-invalid': f4.Branch.errors && f4.Branch.touched}"
+              [(ngModel)]="model.AppointmentDetail.BranchId">
+            </ng-select>
 
-                        <div class="invalid-feedback" *ngIf="(leadFromAppointmentDetail.get('Branch')?.hasError('required') && leadFromAppointmentDetail.get('Branch')?.touched)">
-                            Select branch name </div>
+            <div class="invalid-feedback"
+              *ngIf="(leadFromAppointmentDetail.get('Branch')?.hasError('required') && leadFromAppointmentDetail.get('Branch')?.touched)">
+              Select branch name </div>
 
-                    </div>
+          </div>
 
-                    <div class="form-group col-md-4 date-icon-with-label">
-                        <label>Date of Appointment</label>
-                        <input class="form-control" #datepickerYMD="bsDatepicker" placeholder="DD-MM-YYYY" formControlName="DateofAppointment" [ngClass]="{ 'is-invalid': f4.DateofAppointment.errors && f4.DateofAppointment.touched}" bsDatepicker [(ngModel)]="model.AppointmentDetail.AppointmentDate"
-                            [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', adaptivePosition: true,isAnimated: true, showWeekNumbers: false }">
-                        <i class="fas fa-calendar-alt" (click)="datepickerYMD.toggle()"></i>
-                        <div class="invalid-feedback" *ngIf="(leadFromAppointmentDetail.get('DateofAppointment')?.hasError('required') && leadFromAppointmentDetail.get('DateofAppointment')?.touched)">
-                            Select date of appointment </div>
+          <div class="form-group col-md-4 date-icon-with-label">
+            <label>Date of Appointment</label>
+            <input class="form-control" #datepickerYMD="bsDatepicker" placeholder="DD-MM-YYYY"
+              formControlName="DateofAppointment"
+              [ngClass]="{ 'is-invalid': f4.DateofAppointment.errors && f4.DateofAppointment.touched}" bsDatepicker
+              [(ngModel)]="model.AppointmentDetail.AppointmentDate"
+              [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', adaptivePosition: true,isAnimated: true, showWeekNumbers: false }">
+            <i class="fas fa-calendar-alt" (click)="datepickerYMD.toggle()"></i>
+            <div class="invalid-feedback"
+              *ngIf="(leadFromAppointmentDetail.get('DateofAppointment')?.hasError('required') && leadFromAppointmentDetail.get('DateofAppointment')?.touched)">
+              Select date of appointment </div>
 
-                    </div>
+          </div>
 
 
-                    <div class="form-group col-md-4">
-                        <label> Time of Appointment</label>
-                        <input type="time" class="form-control" id="input16" [(ngModel)]="model.AppointmentDetail.AppointmentTime" formControlName="TimeofAppointment" [ngClass]="{ 'is-invalid': f4.TimeofAppointment.errors && f4.TimeofAppointment.touched}" class="form-control"
-                            placeholder="Time picker">
-                        <div class="invalid-feedback" *ngIf="(leadFromAppointmentDetail.get('TimeofAppointment')?.hasError('required') && leadFromAppointmentDetail.get('TimeofAppointment')?.touched)">
-                            Select time of appointment </div>
-                    </div>
+          <div class="form-group col-md-4">
+            <label> Time of Appointment</label>
+            <input type="time" class="form-control" id="input16" [(ngModel)]="model.AppointmentDetail.AppointmentTime"
+              formControlName="TimeofAppointment"
+              [ngClass]="{ 'is-invalid': f4.TimeofAppointment.errors && f4.TimeofAppointment.touched}"
+              class="form-control" placeholder="Time picker">
+            <div class="invalid-feedback"
+              *ngIf="(leadFromAppointmentDetail.get('TimeofAppointment')?.hasError('required') && leadFromAppointmentDetail.get('TimeofAppointment')?.touched)">
+              Select time of appointment </div>
+          </div>
 
-                </div>
-            </div>
-            <div class="step-form-btn-grp mt-3">
-                <button class="btn btn-outline-danger mr-3" mat-button matStepperPrevious><i
+        </div>
+      </div>
+      <div class="step-form-btn-grp mt-3">
+        <button class="btn btn-outline-danger mr-3" mat-button matStepperPrevious><i
             class="fas fa-angle-left mr-1"></i>Back</button>
-                <button class="btn btn-success" mat-button type="submit"><i class="fas fa-check mr-1"></i> Submit</button>
-            </div>
-        </form>
-    </mat-step>
+        <button class="btn btn-success" mat-button type="submit"><i class="fas fa-check mr-1"></i> Submit</button>
+      </div>
+    </form>
+  </mat-step>
 </mat-stepper>

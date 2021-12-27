@@ -21,7 +21,7 @@
 <!-- Page Header Title end -->
 
 
-<mat-stepper orientation="vertical" [linear]="true" class="mat-custom-steper reg-steper gold-loan-steper">
+<mat-stepper orientation="vertical" [linear]="false" class="mat-custom-steper reg-steper gold-loan-steper">
   <mat-step [stepControl]="leadFromPersonalDetail">
     <form [formGroup]="leadFromPersonalDetail" (ngSubmit)="leadFromPersonalDetail.markAllAsTouched()">
       <ng-template matStepLabel>Personal Details</ng-template>

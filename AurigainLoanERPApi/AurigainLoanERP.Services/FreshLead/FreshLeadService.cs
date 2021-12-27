@@ -283,6 +283,7 @@ namespace AurigainLoanERP.Services.FreshLead
                     leadDetail.ProductId = detail.ProductId;
                     leadDetail.ProductName = detail.Product.Name;
                     leadDetail.ProductCategoryName = detail.Product.ProductCategory.Name;
+                    leadDetail.PreferredLoanTenure = detail.PreferredLoanTenure;
                     leadDetail.FullName = detail.FullName;
                     leadDetail.FatherName = detail.FatherName;
                     leadDetail.Gender = detail.Gender;
@@ -319,7 +320,7 @@ namespace AurigainLoanERP.Services.FreshLead
                         leadDetail.JewelleryDetail = detail.GoldLoanFreshLeadJewelleryDetail.Where(x => x.GlfreshLeadId == detail.Id).Select(x => new GoldLoanFreshLeadJewelleryDetailViewModel
                         {
                             Id = x.Id,
-                            PreferredLoanTenure = x.PreferredLoanTenure,
+                            
                             JewelleryTypeId = x.JewelleryTypeId,
                             JewelleryTypeName = _db.JewellaryType.FirstOrDefault(y => y.Id == x.JewelleryTypeId).Name,
                             Quantity = x.Quantity,
@@ -947,6 +948,7 @@ namespace AurigainLoanERP.Services.FreshLead
                         Purpose = model.Purpose,
                         PurposeId = model.PurposeId,
                         ProductId = model.ProductId,
+                        PreferredLoanTenure= model.PreferredLoanTenure,
                         SecondaryMobileNumber = model.SecondaryMobileNumber,
                         PrimaryMobileNumber = model.PrimaryMobileNumber,
                         Gender = model.Gender,
@@ -971,6 +973,7 @@ namespace AurigainLoanERP.Services.FreshLead
                         lead.Purpose = model.Purpose;
                         lead.PurposeId = model.PurposeId;
                         lead.ModifedDate = DateTime.Now;
+                        lead.PreferredLoanTenure = model.PreferredLoanTenure;
                         lead.SecondaryMobileNumber = model.SecondaryMobileNumber;
                         lead.LeadSourceByUserId = model.LeadSourceByUserId;
                         await _db.SaveChangesAsync();
@@ -1096,7 +1099,6 @@ namespace AurigainLoanERP.Services.FreshLead
                             Karat = item.Karat,
                             Quantity = item.Quantity,
                             Weight = item.Weight,
-                            PreferredLoanTenure = item.PreferredLoanTenure,
                             ModifiedDate = null
                         };
                         await _db.GoldLoanFreshLeadJewelleryDetail.AddAsync(jewellery);
@@ -1113,7 +1115,6 @@ namespace AurigainLoanERP.Services.FreshLead
                         detail.ModifiedDate = DateTime.Now;
                         detail.Quantity = item.Quantity;
                         detail.Weight = item.Weight;
-                        detail.PreferredLoanTenure = item.PreferredLoanTenure;
                         detail.JewelleryTypeId = item.JewelleryTypeId;
                         detail.Karat = item.Karat;
                         await _db.SaveChangesAsync();

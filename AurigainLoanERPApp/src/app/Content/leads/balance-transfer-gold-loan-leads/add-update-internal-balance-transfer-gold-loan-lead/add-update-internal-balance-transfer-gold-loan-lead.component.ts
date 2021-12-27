@@ -7,7 +7,7 @@ import { UserRoleEnum, ProductCategoryEnum } from 'src/app/Shared/Enum/fixed-val
 import { AuthService } from 'src/app/Shared/Helper/auth.service';
 import { DropDownModel } from 'src/app/Shared/Helper/common-model';
 import { DropDown_key, Message, Routing_Url } from 'src/app/Shared/Helper/constants';
-import { BTGoldLoanLeadPostModel, BTGoldLoanLeadViewModel } from 'src/app/Shared/Model/Leads/btgold-loan-lead-post-model.model';
+import { BtGoldLoanLeadJewelleryDetailPostModel, BTGoldLoanLeadPostModel, BTGoldLoanLeadViewModel } from 'src/app/Shared/Model/Leads/btgold-loan-lead-post-model.model';
 import { DDLBranchModel } from 'src/app/Shared/Model/master-model/bank-model.model';
 import { DDLDocumentTypeModel } from 'src/app/Shared/Model/master-model/document-type.model';
 import { DDLJewellaryType } from 'src/app/Shared/Model/master-model/jewellary-type-model.model';
@@ -21,6 +21,7 @@ import { KycDocumentTypeService } from 'src/app/Shared/Services/master-services/
 import { ProductService } from 'src/app/Shared/Services/master-services/product.service';
 import { StateDistrictService } from 'src/app/Shared/Services/master-services/state-district.service';
 import { ddlPurposeModel } from 'src/app/Shared/Model/master-model/purpose-model.model';
+import { GoldLoanFreshLeadJewelleryDetailModel } from 'src/app/Shared/Model/Leads/gold-loan-fresh-lead.model';
 
 @Component({
   selector: 'app-add-update-internal-balance-transfer-gold-loan-lead',
@@ -37,6 +38,8 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
 
   leadId: number = 0;
   model = new BTGoldLoanLeadPostModel();
+  JewelleryModel = new BtGoldLoanLeadJewelleryDetailPostModel();
+
    AeraPincode!: string | any;
   CorrespondAeraPincode!: string | any;
   BankId!: number;
@@ -164,9 +167,6 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
       Tenure: [undefined],
     });
 
-    //jwelarry --done
-    //kyc/
-    //existitng loan
 
     // document upload
 
@@ -225,13 +225,18 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
       if (this.model.ExistingLoanDetail.Tenure) {
         this.model.ExistingLoanDetail.Tenure = Number(this.model.ExistingLoanDetail.Tenure);
       }
-      if (this.model.JewelleryDetail.Quantity) {
-        this.model.JewelleryDetail.Quantity = Number(this.model.JewelleryDetail.Quantity);
-      }
 
-      if (this.model.JewelleryDetail.Weight) {
-        this.model.JewelleryDetail.Weight = Number(this.model.JewelleryDetail.Weight);
-      }
+      this.model.JewelleryDetail.forEach(element => {
+        if (element.Quantity) {
+          element.Quantity = Number(element.Quantity);
+        }
+
+        if (element.Weight) {
+          element.Weight = Number(element.Weight);
+        }
+     });
+
+
       this._balanceTransferService.AddUpdateInternalLead(this.model).subscribe(res => {
         if (res.IsSuccess) {
           this.toast.success(Message.SaveSuccess);
@@ -302,11 +307,17 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
             this.model.ExistingLoanDetail.Tenure = viewData.ExistingLoanDetail.Tenure;
           }
           if (viewData.JewelleryDetail) {
-            this.model.JewelleryDetail.Id = viewData.JewelleryDetail.Id;
-            this.model.JewelleryDetail.JewelleryTypeId = viewData.JewelleryDetail.JewelleryTypeId;
-            this.model.JewelleryDetail.Quantity = viewData.JewelleryDetail.Quantity;
-            this.model.JewelleryDetail.Weight = viewData.JewelleryDetail.Weight;
-            this.model.JewelleryDetail.Karats = viewData.JewelleryDetail.Karats;
+
+            viewData.JewelleryDetail.forEach(element => {
+              let itm =new  BtGoldLoanLeadJewelleryDetailPostModel();
+
+              itm.Id = element.Id;
+              itm.JewelleryTypeId = element.JewelleryTypeId;
+              itm.Quantity = element.Quantity;
+              itm.Weight = element.Weight;
+              itm.Karats = element.Karats;
+              this.model.JewelleryDetail.push(itm)
+            });
 
           }
 
@@ -495,6 +506,54 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
   }
 
 
+  onGetJewellaryTypeName(value: any) {
+    return this.ddlJewellaryType.find(x => x.Id == value)?.Name;
+
+  }
+  onJewellaryAdd() {
+    this.UpdateJewellaryValidation(true);
+    this.leadFormJewelleryDetail.markAllAsTouched();
+    if (this.leadFormJewelleryDetail.valid) {
+      this.model.JewelleryDetail.push(this.JewelleryModel);
+      this.UpdateJewellaryValidation(false);
+
+    }
+  }
+  onJewellaryEdit(idx: number) {
+    this.UpdateJewellaryValidation(true);
+    this.JewelleryModel = this.model.JewelleryDetail[idx];
+    this.model.JewelleryDetail.splice(idx, 1);
+
+
+  }
+  onJewellaryDelete(idx: number) {
+    this.model.JewelleryDetail.splice(idx, 1);
+  }
+  onJewellaryAddCancel() {
+    if (this.JewelleryModel.JewelleryTypeId && this.JewelleryModel.Karats && this.JewelleryModel.Quantity && this.JewelleryModel.Weight) {
+      this.model.JewelleryDetail.push(this.JewelleryModel);
+      this.JewelleryModel = new BtGoldLoanLeadJewelleryDetailPostModel();
+    }
+    this.UpdateJewellaryValidation(false);
+
+  }
+  UpdateJewellaryValidation(enable = false) {
+    if (enable) {
+      this.f4.JewelleryType.setValidators([Validators.required]);
+      this.f4.Quantity.setValidators([Validators.required]);
+      this.f4.Weight.setValidators([Validators.required]);
+      this.f4.Karats.setValidators([Validators.required]);
+    } else {
+      this.f4.JewelleryType.removeValidators([Validators.required]);
+      this.f4.Quantity.removeValidators([Validators.required]);
+      this.f4.Weight.removeValidators([Validators.required]);
+      this.f4.Karats.removeValidators([Validators.required]);
+    }
+    this.f4.JewelleryType.updateValueAndValidity();
+    this.f4.Quantity.updateValueAndValidity();
+    this.f4.Weight.updateValueAndValidity();
+    this.f4.Karats.updateValueAndValidity();
+  }
 
 
   //#endregion

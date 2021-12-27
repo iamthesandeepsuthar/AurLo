@@ -5,7 +5,7 @@ export class BTGoldLoanLeadPostModel {
     this.AppointmentDetail = new BtGoldLoanLeadAppointmentPostModel();
     this.DocumentDetail = new BtGoldLoanLeadDocumentPostModel();
     this.ExistingLoanDetail = new BtGoldLoanLeadExistingLoanPostModel();
-    this.JewelleryDetail = new BtGoldLoanLeadJewelleryDetailPostModel();
+    this.JewelleryDetail = [];
     this.KYCDetail = new BtGoldLoanLeadKYCDetailPostModel();
   }
   Id!: number;
@@ -28,7 +28,7 @@ export class BTGoldLoanLeadPostModel {
   AppointmentDetail!: BtGoldLoanLeadAppointmentPostModel;
   DocumentDetail!: BtGoldLoanLeadDocumentPostModel;
   ExistingLoanDetail!: BtGoldLoanLeadExistingLoanPostModel;
-  JewelleryDetail!: BtGoldLoanLeadJewelleryDetailPostModel;
+  JewelleryDetail!: BtGoldLoanLeadJewelleryDetailPostModel[];
   KYCDetail!: BtGoldLoanLeadKYCDetailPostModel;
 }
 
@@ -147,7 +147,7 @@ export class BTGoldLoanLeadViewModel {
   AppointmentDetail!: AppointmentDetail;
   DocumentDetail!: DocumentDetail;
   ExistingLoanDetail!: ExistingLoanDetail;
-  JewelleryDetail!: JewelleryDetail;
+  JewelleryDetail!: JewelleryDetail[];
   KYCDetail!: KYCDetail;
   LeadSourceByuserName!: string;
   ProductName!: string;

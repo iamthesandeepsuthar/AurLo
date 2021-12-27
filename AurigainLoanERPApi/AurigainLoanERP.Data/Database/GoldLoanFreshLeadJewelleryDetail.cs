@@ -10,7 +10,6 @@ namespace AurigainLoanERP.Data.Database
     public partial class GoldLoanFreshLeadJewelleryDetail
     {
         public int Id { get; set; }
-        public int PreferredLoanTenure { get; set; }
         public int JewelleryTypeId { get; set; }
         public double Quantity { get; set; }
         public double? Weight { get; set; }
