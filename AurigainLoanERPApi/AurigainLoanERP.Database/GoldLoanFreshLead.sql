@@ -13,7 +13,7 @@
     [LoanAmountRequired] FLOAT NOT NULL, 
     [Purpose] NVARCHAR(1000) NULL,    
     [LoanCaseNumber] NVARCHAR(50) NULL, 
-    [PurposeId] INT NULL, 
+    [PurposeId] INT NULL references Purpose(Id), 
     [PreferredLoanTenure] INT NOT NULL, 
    [CustomerUserId] BIGINT NOT NULL References UserMaster(Id), 
     [CreatedDate] DATETIME NOT NULL DEFAULT getDate(), 

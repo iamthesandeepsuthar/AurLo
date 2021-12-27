@@ -113,6 +113,7 @@ namespace AurigainLoanERP.Shared.ContractModel
         public string SecondaryMobileNumber { get; set; }
         public double LoanAmountRequired { get; set; }
         public string Purpose { get; set; }
+        public int? PurposeId { get; set; }
         public long LeadSourceByUserId { get; set; }
         public string LeadSourceUserName { get; set; }
         public int ProductId { get; set; }
