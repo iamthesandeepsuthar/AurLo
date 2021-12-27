@@ -118,9 +118,11 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
       Pincode: [undefined, Validators.compose([Validators.minLength(6), Validators.maxLength(6)])],
       Area: [undefined],
       Address: [undefined],
+      AddressLine2:[undefined],
       CorrespondPincode: [undefined, Validators.compose([Validators.minLength(6), Validators.maxLength(6)])],
       CorrespondArea: [undefined],
       CorrespondAddress: [undefined],
+      CorrespondAddressLine2: [undefined],
 
     });
 
@@ -152,7 +154,6 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
 
 
     this.leadFormExistingLoanDetail = this.fb.group({
-
       BankName: [undefined],
       Amount: [undefined],
       Date: [undefined],
@@ -161,7 +162,6 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
       BalanceTransferAmount: [undefined],
       RequiredAmount: [undefined],
       Tenure: [undefined],
-
     });
 
     //jwelarry --done
@@ -379,7 +379,12 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
       }
     });
   }
-
+  getAddressLine2(area?:any){
+    this.model.AddressDetail.AddressLine2 = area?.AddressLine2;
+    }
+  getCorrespondingAddressLine2(area?:any){
+      this.model.AddressDetail.CorrespondAddressLine2 = area?.AddressLine2;
+    }
   getDropDownPinCodeArea(isCorrespond: boolean = false, isRemoveValue = false) {
     let pinCode: string = isCorrespond ? this.CorrespondAeraPincode : this.AeraPincode;
 
@@ -415,15 +420,13 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
     }
   }
   onSameAddressAssign(eve: any) {
-
     if (eve.target.checked) {
       this.CorrespondAeraPincode = this.AeraPincode;
       this.model.AddressDetail.CorrespondAddress = this.model.AddressDetail.Address;
+      this.model.AddressDetail.CorrespondAddressLine2 = this.model.AddressDetail.AddressLine2;
       this.getDropDownPinCodeArea(true);
       this.model.AddressDetail.CorrespondAeraPincodeId = this.model.AddressDetail.AeraPincodeId;
-
     }
-
   }
 
   getDDLDocumentType() {

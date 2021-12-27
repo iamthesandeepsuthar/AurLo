@@ -221,24 +221,26 @@
           <div class="form-group col-md-6">
             <label>Area (Location)</label>
             <ng-select [searchable]="true" [items]="ddlAreaModel" bindLabel="AreaName" bindValue="Id"
-              placeholder="Select area" formControlName="Area"
+              placeholder="Select area" formControlName="Area" (change)="getAddressLine2($event)"
               [ngClass]="{ 'is-invalid': f2.Area.errors && f2.Area.touched}"
               [(ngModel)]="model.AddressDetail.AeraPincodeId" [appendTo]="'body'">
-
-
             </ng-select>
             <div class="invalid-feedback"
               *ngIf="(leadFormAddressDetail.get('Area')?.hasError('required') && leadFormAddressDetail.get('Area')?.touched)">
               Select area location</div>
           </div>
           <div class="form-group col-md-12">
-            <label>Address</label>
+            <label>Address Line1</label>
             <textarea class="form-control" [(ngModel)]="model.AddressDetail.Address" formControlName="Address"
               [ngClass]="{ 'is-invalid': f2.Address.errors && f2.Address.touched}" id="exampleFormControlTextarea1"
               rows="2" placeholder="Enter address here"></textarea>
             <div class="invalid-feedback"
               *ngIf="(leadFormAddressDetail.get('Address')?.hasError('required') && leadFormAddressDetail.get('Address')?.touched)">
               fill address</div>
+          </div>
+          <div class="col-md-12 form-group">
+            <label>Address Line2</label>
+            <input type="text" readonly formControlName="AddressLine2"  [(ngModel)]="model.AddressDetail.AddressLine2" placeholder="Address Line2" readonly class="form-control text-dark">
           </div>
 
           <div class="form-group col-md-12">
@@ -268,14 +270,14 @@
             <ng-select [items]="ddlCorespondAreaModel" [searchable]="true" bindLabel="AreaName" bindValue="Id"
               placeholder="Select correspond area" formControlName="CorrespondArea"
               [ngClass]="{ 'is-invalid': f2.CorrespondArea.errors && f2.CorrespondArea.touched}"
-              [(ngModel)]="model.AddressDetail.CorrespondAeraPincodeId">
+              [(ngModel)]="model.AddressDetail.CorrespondAeraPincodeId" (change)="getCorrespondingAddressLine2($event)">
             </ng-select>
             <div class="invalid-feedback"
               *ngIf="(leadFormAddressDetail.get('CorrespondArea')?.hasError('required') && leadFormAddressDetail.get('CorrespondArea')?.touched)">
               Select correspond area location</div>
           </div>
           <div class="form-group col-md-12">
-            <label>Correspond Address</label>
+            <label>Correspond Address Line1</label>
             <textarea class="form-control" [(ngModel)]="model.AddressDetail.CorrespondAddress"
               formControlName="CorrespondAddress"
               [ngClass]="{ 'is-invalid': f2.CorrespondAddress.errors && f2.CorrespondAddress.touched}"
@@ -283,6 +285,10 @@
             <div class="invalid-feedback"
               *ngIf="(leadFormAddressDetail.get('CorrespondAddress')?.hasError('required') && leadFormAddressDetail.get('CorrespondAddress')?.touched)">
               fill correspond address</div>
+          </div>
+          <div class="col-md-12 form-group">
+            <label>Corresponding Address Line2</label>
+            <input type="text" formControlName="CorrespondAddressLine2" placeholder="Corresponding Address Line2"  [(ngModel)]="model.AddressDetail.CorrespondAddressLine2" readonly class="form-control text-dark">
           </div>
 
 

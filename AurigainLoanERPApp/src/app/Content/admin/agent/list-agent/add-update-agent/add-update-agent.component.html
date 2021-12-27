@@ -4,15 +4,13 @@
 <div class="widget-header">
     <div class="row d-block d-sm-flex align-items-center justify-content-between text-center text-sm-left">
         <div>
-            <h1>{{Id>0 ?'Update':'Add'}} agent</h1>
+            <h1>{{Id>0 ?'Update':'Add'}} Agent</h1>
             <!-- Breadcrumb Start -->
             <nav class="custom-breadcrum">
                 <ol class="breadcrumb justify-content-center justify-content-sm-start">
                     <li class="breadcrumb-item"><a routerLink="/dashboard">Home</a></li>
-                    <li class="breadcrumb-item"><a href="javascript:void(0)">Master</a></li>
-
                     <li class="breadcrumb-item"><a routerLink="{{ '../../' + this.routing_Url.AgentListUrl}}">Agent List</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">{{Id>0 ?'Update':'Add'}} agent</li>
+                    <li class="breadcrumb-item active" aria-current="page">{{Id>0 ?'Update':'Add'}} Agent</li>
                 </ol>
             </nav>
             <!-- Breadcrumb End -->
@@ -32,8 +30,8 @@
 
             <div class="col-lg-3 col-xl-2 pr-4 mb-4 mb-lg-0 agent-door-profile-img-box upload-btn-wrapper">
                 <div class="agent-door-profile-img d-flex align-items-center justify-content-center">
-                    <img [src]="previewUrl" onerror="this.src='assets/img/user-default.jpg'">
-                    <input type="file" name="myfile" (change)="fileProgress($event)" />
+                    <img  [src]="previewUrl" onerror="this.src='assets/img/user-default.jpg'">
+                    <input type="file" name="myfile" accept="image/*"  (change)="fileProgress($event)" />
                 </div>
                 <button *ngIf="Id>0" type="button" data-toggle="tooltip" (click)="onUploadProfileImage()" data-placement="bottom" title="Upload Profile">
           <i class="fas fa-cloud-upload-alt"></i>

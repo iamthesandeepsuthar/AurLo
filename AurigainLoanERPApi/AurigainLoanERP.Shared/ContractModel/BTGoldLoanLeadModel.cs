@@ -72,8 +72,10 @@ namespace AurigainLoanERP.Shared.ContractModel
     {
         public long Id { get; set; }
         public string Address { get; set; }
+        public string AddressLine2 { get; set;}
         public long? AeraPincodeId { get; set; }
         public string CorrespondAddress { get; set; }
+        public string CorrespondAddressLine2 { get; set;}
         public long? CorrespondAeraPincodeId { get; set; }
     }
     public class BtGoldLoanLeadAppointmentPostModel

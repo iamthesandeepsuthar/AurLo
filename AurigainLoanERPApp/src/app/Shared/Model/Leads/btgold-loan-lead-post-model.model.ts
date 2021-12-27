@@ -35,8 +35,10 @@ export class BTGoldLoanLeadPostModel {
 export class BtGoldLoanLeadAddressPostModel {
   Id!: number;
   Address!: string;
+  AddressLine2!:string;
   AeraPincodeId!: number | null;
   CorrespondAddress!: string;
+  CorrespondAddressLine2!:string;
   CorrespondAeraPincodeId!: number | null;
 }
 
