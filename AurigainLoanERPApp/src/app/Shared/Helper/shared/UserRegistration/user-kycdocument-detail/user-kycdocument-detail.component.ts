@@ -44,11 +44,13 @@ export class UserKYCDocumentDetailComponent implements OnInit, OnChanges {
   ngOnChanges(): void {
     //Called before any other lifecycle hook. Use it to inject dependencies, but avoid any serious work here.
     //Add '${implements OnChanges}' to the class.
-    debugger
+
 
     // if (this.documentModel) {
     //   this.documentModel = this.documentModel?.sort(function (a, b) { return a.DocumentTypeId - b.DocumentTypeId });
     // }
+
+
     // if (this.kycModel) {
     //   this.kycModel = this.kycModel?.sort(function (a, b) { return a.KycdocumentTypeId - b.KycdocumentTypeId });
     // }
@@ -110,6 +112,9 @@ export class UserKYCDocumentDetailComponent implements OnInit, OnChanges {
       })
     );
 
+  }
+  getDocName(Id: number) {
+    return this.docTypeModel.find(x => x.Id == Id)?.Name
   }
 
   onCheckDocumentNumber(val: any, docTypeId: number) {

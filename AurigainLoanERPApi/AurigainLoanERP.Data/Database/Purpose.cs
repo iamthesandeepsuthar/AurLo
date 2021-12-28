@@ -9,6 +9,12 @@ namespace AurigainLoanERP.Data.Database
 {
     public partial class Purpose
     {
+        public Purpose()
+        {
+            BtgoldLoanLead = new HashSet<BtgoldLoanLead>();
+            GoldLoanFreshLead = new HashSet<GoldLoanFreshLead>();
+        }
+
         public int Id { get; set; }
         public string Name { get; set; }
         public bool? IsActive { get; set; }
@@ -17,5 +23,8 @@ namespace AurigainLoanERP.Data.Database
         public long? ModifiedBy { get; set; }
         public long? CreatedBy { get; set; }
         public DateTime? ModifiedDate { get; set; }
+
+        public virtual ICollection<BtgoldLoanLead> BtgoldLoanLead { get; set; }
+        public virtual ICollection<GoldLoanFreshLead> GoldLoanFreshLead { get; set; }
     }
 }

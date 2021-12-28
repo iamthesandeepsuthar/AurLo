@@ -51,12 +51,13 @@ export class AgentPostModel {
   Documents: DocumentPostModel[] = [];
   BankDetails!: UserBankDetailsPostModel;
   UserKYC: UserKYCPostModel[] = [];
-  UserNominee!: UserNomineePostModel;
-  ReportingPerson!: UserReportingPersonPostModel;
+  UserNominee={} as UserNomineePostModel;
+  ReportingPerson ={} as UserReportingPersonPostModel;
 }
 
 
 export interface AgentViewModel {
+
   Id: number;
   FullName: string;
   FatherName: string;

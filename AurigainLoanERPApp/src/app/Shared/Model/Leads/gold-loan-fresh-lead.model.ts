@@ -110,6 +110,8 @@ export class GoldLoanFreshLeadViewModel {
   ProductCategoryName!: string;
   CreatedDate!: string;
   IsActive!: boolean | null;
+  PurposeId!: number;
+  PurposeName!: string;
   KycDocument!: GoldLoanFreshLeadKycDocumentViewModel;
   AppointmentDetail!: GoldLoanFreshLeadAppointmentDetailViewModel;
   JewelleryDetail!: GoldLoanFreshLeadJewelleryDetailViewModel[];
