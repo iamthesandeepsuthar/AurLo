@@ -237,6 +237,7 @@ namespace AurigainLoanERP.Services.FreshLead
             }
         }
         public async Task<ApiServiceResponseModel<GoldLoanFreshLeadViewModel>> FreshGoldLoanLeadDetailAsync(long id)
+        
         {
             GoldLoanFreshLeadViewModel leadDetail = new GoldLoanFreshLeadViewModel();
             try
@@ -245,11 +246,12 @@ namespace AurigainLoanERP.Services.FreshLead
                                     .Include(x => x.Product).ThenInclude(x => x.ProductCategory)
                                     .Include(x => x.LeadSourceByUser)
                                     .Include(x => x.GoldLoanFreshLeadJewelleryDetail)
-                                    .Include(x => x.Purpose)
-                                    .Include(x => x.GoldLoanFreshLeadKycDocument).ThenInclude(y => y.KycDocumentType).
-                                    Include(a => a.GoldLoanFreshLeadKycDocument).ThenInclude(x => x.PincodeArea).
-                                    Include(a => a.GoldLoanFreshLeadKycDocument).ThenInclude(x => x.PincodeArea.District.State)
-                                    .Include(x => x.GoldLoanFreshLeadAppointmentDetail).ThenInclude(p => p.Branch).ThenInclude(p => p.Bank).FirstOrDefaultAsync();
+                                    .Include(x => x.PurposeNavigation)
+                                    .Include(x => x.GoldLoanFreshLeadKycDocument).ThenInclude(y => y.KycDocumentType)
+                                    .Include(x => x.GoldLoanFreshLeadKycDocument).ThenInclude(a =>a.PincodeArea)
+                                    .Include(x => x.GoldLoanFreshLeadKycDocument).ThenInclude(b=> b.PincodeArea.District.State)
+                                    .Include(x => x.GoldLoanFreshLeadAppointmentDetail).ThenInclude(p => p.Branch).ThenInclude(q => q.Bank)
+                                    .FirstOrDefaultAsync();
 
                 if (detail != null)
                 {
@@ -267,7 +269,7 @@ namespace AurigainLoanERP.Services.FreshLead
                     leadDetail.LeadSourceUserName = detail.LeadSourceByUser.UserName;
                     leadDetail.PrimaryMobileNumber = detail.PrimaryMobileNumber;
                     leadDetail.SecondaryMobileNumber = detail.SecondaryMobileNumber;
-                    leadDetail.Purpose = detail.Purpose;
+                    leadDetail.Purpose = detail.PurposeNavigation.Name;
                     leadDetail.PurposeId = detail.PurposeId;
                     leadDetail.PurposeName = detail.PurposeNavigation.Name;
                     leadDetail.LoanAmountRequired = detail.LoanAmountRequired;
@@ -283,6 +285,7 @@ namespace AurigainLoanERP.Services.FreshLead
                             DocumentNumber = x.DocumentNumber,
                             PanNumber = x.PanNumber,
                             AddressLine1 = x.AddressLine1,
+                            AddressLine2 = x.AddressLine2,
                             PincodeAreaId = x.PincodeAreaId,
                             PincodeAreaName = x.PincodeArea.AreaName,
                             DistrictName = x.PincodeArea.District.Name,
@@ -301,7 +304,7 @@ namespace AurigainLoanERP.Services.FreshLead
                             JewelleryTypeName = _db.JewellaryType.FirstOrDefault(y => y.Id == x.JewelleryTypeId).Name,
                             Quantity = x.Quantity,
                             Weight = x.Weight,
-                            Karat = x.Karat
+                            Karat = x.Karats
                         }).ToList();
                     }
                     if (detail.GoldLoanFreshLeadAppointmentDetail != null)
@@ -1073,7 +1076,7 @@ namespace AurigainLoanERP.Services.FreshLead
                             CreatedDate = DateTime.Now,
                             GlfreshLeadId = freshLeadId,
                             JewelleryTypeId = item.JewelleryTypeId,
-                            Karat = item.Karat,
+                            Karats = item.Karats,
                             Quantity = item.Quantity,
                             Weight = item.Weight,
                             ModifiedDate = null
@@ -1093,7 +1096,7 @@ namespace AurigainLoanERP.Services.FreshLead
                         detail.Quantity = item.Quantity;
                         detail.Weight = item.Weight;
                         detail.JewelleryTypeId = item.JewelleryTypeId;
-                        detail.Karat = item.Karat;
+                        detail.Karats = item.Karats;
                         await _db.SaveChangesAsync();
                     }
                 }

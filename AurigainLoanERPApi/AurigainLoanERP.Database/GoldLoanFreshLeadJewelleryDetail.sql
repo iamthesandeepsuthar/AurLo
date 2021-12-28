@@ -5,7 +5,7 @@
     [JewelleryTypeId] INT NOT NULL, 
     [Quantity] FLOAT NOT NULL, 
     [Weight] FLOAT NULL, 
-    [Karat] INT NULL, 
+    [Karats] INT NULL, 
     [GLFreshLeadId] BIGINT NOT NULL references GoldLoanFreshLead (Id), 
     [IsActive] BIT NOT NULL DEFAULT 1, 
     [IsDelete] BIT NULL, 

@@ -13,7 +13,7 @@ namespace AurigainLoanERP.Data.Database
         public int JewelleryTypeId { get; set; }
         public double Quantity { get; set; }
         public double? Weight { get; set; }
-        public int? Karat { get; set; }
+        public int? Karats { get; set; }
         public long GlfreshLeadId { get; set; }
         public bool? IsActive { get; set; }
         public bool? IsDelete { get; set; }

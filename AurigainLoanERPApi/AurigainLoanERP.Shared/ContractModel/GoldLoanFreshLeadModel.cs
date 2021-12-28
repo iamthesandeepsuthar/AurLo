@@ -52,7 +52,7 @@ namespace AurigainLoanERP.Shared.ContractModel
         public int JewelleryTypeId { get; set; }
         public double Quantity { get; set; }
         public double? Weight { get; set; }
-        public int? Karat { get; set; }
+        public int? Karats { get; set; }
         public long GlfreshLeadId { get; set; }
         public bool? IsActive { get; set; }
         public DateTime CreatedDate { get; set; }
@@ -138,6 +138,7 @@ namespace AurigainLoanERP.Shared.ContractModel
         public long PincodeAreaId { get; set; }
         public string PincodeAreaName { get; set; }
         public string DistrictName { get; set; }
+        public string AddressLine2 { get; set;}
 
         public string StateName { get; set; }
         public string Pincode { get; set; }

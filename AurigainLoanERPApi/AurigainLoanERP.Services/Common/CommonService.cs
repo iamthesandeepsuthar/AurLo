@@ -148,6 +148,7 @@ namespace AurigainLoanERP.Services.Common
             {
                 model.Qualification =await  getQualificaitonData();
                 model.Purpose = await getPurposeData();
+                var ProductCategory = await getProductCategories();
                 return CreateResponse(model, ResponseMessage.Success, true, ((int)ApiStatusCode.Ok));
             }
             catch (Exception ex) 
@@ -185,8 +186,24 @@ namespace AurigainLoanERP.Services.Common
             }
             catch
             {
-
                 return purpose;
+            }
+        }
+        private async Task<List<DllProductCategoryModel>> getProductCategories()
+        {
+            List<DllProductCategoryModel> productCategory = new List<DllProductCategoryModel>();
+            try
+            {
+                productCategory = await (from data in _db.ProductCategory where data.IsActive.Value == true && !data.IsDelete select data)
+                     .Select(item => new DllProductCategoryModel
+                     {
+                         Name = item.Name,
+                         Id = item.Id }).ToListAsync();
+                return productCategory;
+            }
+            catch
+            {
+                throw;
             }
         }
 

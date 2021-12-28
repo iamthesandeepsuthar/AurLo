@@ -34,8 +34,6 @@ namespace AurigainLoanERP.Data.Database
         public string EmailId { get; set; }
         public string SecondaryMobile { get; set; }
         public string Purpose { get; set; }
-        public int? PurposeId { get; set; }
-        public string PurposeName { get; set; }
         public long LeadSourceByuserId { get; set; }
         public long CustomerUserId { get; set; }
         public bool IsInternalLead { get; set; }
@@ -49,7 +47,7 @@ namespace AurigainLoanERP.Data.Database
         public string LeadStatus { get; set; }
         public string ApprovalStatus { get; set; }
         public string LoanCaseNumber { get; set; }
-    
+        public int? PurposeId { get; set; }
 
         public virtual UserMaster CreatedByNavigation { get; set; }
         public virtual UserMaster CustomerUser { get; set; }

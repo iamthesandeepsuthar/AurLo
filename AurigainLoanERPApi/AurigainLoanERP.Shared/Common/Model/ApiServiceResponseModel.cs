@@ -27,5 +27,6 @@ namespace AurigainLoanERP.Shared.Common.Model
     { 
         public List<ddlPurposeModel> Purpose { get; set;}
         public List<DDLQualificationModel> Qualification { get; set;}
+        public List<DllProductCategoryModel> ProductCategory { get; set;}
     }
 }
