@@ -10,7 +10,7 @@ export class DocumentTypeModel {
   IsKyc!: boolean;
   IsFreshLeadKyc!: boolean;
   IsBtleadKyc!: boolean;
-
+  IsMandatory!: boolean;
   RequiredFileCount!: number;
 }
 
@@ -22,5 +22,6 @@ export class DDLDocumentTypeModel {
   IsKyc!: boolean;
   IsBtleadKyc!: boolean;
   IsFreshLeadKyc!: boolean;
+  IsMandatory!: boolean;
   RequiredFileCount!: number;
 }

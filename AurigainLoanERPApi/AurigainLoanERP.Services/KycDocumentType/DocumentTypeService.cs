@@ -63,6 +63,7 @@ namespace AurigainLoanERP.Services.KycDocumentType
                     IsKyc = x.IsKyc,
                     IsBtleadKyc = x.IsBtleadKyc,
                     IsFreshLeadKyc = x.IsFreshLeadKyc,
+                    IsMandatory=x.IsMandatory,
                     RequiredFileCount = x.RequiredFileCount
                 }).ToListAsync();
 
@@ -137,7 +138,7 @@ namespace AurigainLoanERP.Services.KycDocumentType
                     type.IsKyc = model.IsKyc;
                     type.IsFreshLeadKyc = model.IsFreshLeadKyc;
                     type.IsBtleadKyc = model.IsBtleadKyc;
-
+                    type.IsMandatory = model.IsMandatory;
                     type.RequiredFileCount = model.RequiredFileCount;
                     type.ModifiedOn = DateTime.Now;
 
