@@ -51,6 +51,7 @@ export class OtherLoanLeadsComponent implements OnInit {
     this.getList();
    }
   getList(): void {
+    this.indexModel.ProductCategoryId = 2;
     let serve = this._freshLeadService.GetList(this.indexModel).subscribe(response => {
       serve.unsubscribe();
       if (response.IsSuccess) {

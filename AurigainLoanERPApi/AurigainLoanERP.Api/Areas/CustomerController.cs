@@ -34,9 +34,6 @@ namespace AurigainLoanERP.Api.Areas
             return await _customer.TestEmail();
         }
 
-
-
-
         [HttpGet("[action]")]
         public async Task<ApiServiceResponseModel<SentSMSResponseModel>> testSMS(string msg, string mobile)
         {

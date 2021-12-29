@@ -83,6 +83,7 @@ export class IndexModel {
   IsPostBack: boolean;
   AdvanceSearchModel?: any;
   UserId!: number;
+  ProductCategoryId!: number;
   constructor() {
     this.PageSize = 10;
     this.IsPostBack = false;

@@ -127,7 +127,6 @@ namespace AurigainLoanERP.Services.Customer
                 {
                     return CreateResponse<List<CustomerListModel>>(null, ResponseMessage.NotFound, true, ((int)ApiStatusCode.RecordNotFound), TotalRecord: 0);
                 }
-
             }
             catch (Exception ex)
             {
