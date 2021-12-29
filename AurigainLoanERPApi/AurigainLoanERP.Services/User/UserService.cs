@@ -51,7 +51,6 @@ namespace AurigainLoanERP.Services.User
                 await _db.Database.BeginTransactionAsync();
                 if (model != null)
                 {
-
                     long userId = 0;
                     if (model.User != null)
                     {

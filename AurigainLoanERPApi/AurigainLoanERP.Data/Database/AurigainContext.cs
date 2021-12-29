@@ -264,21 +264,11 @@ namespace AurigainLoanERP.Data.Database
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__BTGoldLoa__Custo__4242D080");
 
-                entity.HasOne(d => d.LeadApproval)
-                    .WithMany(p => p.BtgoldLoanLead)
-                    .HasForeignKey(d => d.LeadApprovalId)
-                    .HasConstraintName("FK__BTGoldLoa__LeadA__5BCD9859");
-
                 entity.HasOne(d => d.LeadSourceByuser)
                     .WithMany(p => p.BtgoldLoanLeadLeadSourceByuser)
                     .HasForeignKey(d => d.LeadSourceByuserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__BTGoldLoa__LeadS__405A880E");
-
-                entity.HasOne(d => d.LeadStatusNavigation)
-                    .WithMany(p => p.BtgoldLoanLead)
-                    .HasForeignKey(d => d.LeadStatusId)
-                    .HasConstraintName("FK__BTGoldLoa__LeadS__5AD97420");
 
                 entity.HasOne(d => d.ModifiedByNavigation)
                     .WithMany(p => p.BtgoldLoanLeadModifiedByNavigation)
@@ -612,11 +602,6 @@ namespace AurigainLoanERP.Data.Database
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__FreshLead__LeadS__6A50C1DA");
 
-                entity.HasOne(d => d.LeadStatusNavigation)
-                    .WithMany(p => p.FreshLeadHlplcl)
-                    .HasForeignKey(d => d.LeadStatusId)
-                    .HasConstraintName("FK__FreshLead__LeadS__5CC1BC92");
-
                 entity.HasOne(d => d.ModifiedByNavigation)
                     .WithMany(p => p.FreshLeadHlplclModifiedByNavigation)
                     .HasForeignKey(d => d.ModifiedBy)
@@ -703,11 +688,6 @@ namespace AurigainLoanERP.Data.Database
                     .HasForeignKey(d => d.LeadSourceByUserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__GoldLoanF__LeadS__45DE573A");
-
-                entity.HasOne(d => d.LeadStatusNavigation)
-                    .WithMany(p => p.GoldLoanFreshLead)
-                    .HasForeignKey(d => d.LeadStatusId)
-                    .HasConstraintName("FK__GoldLoanF__LeadS__5DB5E0CB");
 
                 entity.HasOne(d => d.ModifiedByNavigation)
                     .WithMany(p => p.GoldLoanFreshLeadModifiedByNavigation)

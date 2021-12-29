@@ -48,14 +48,12 @@ namespace AurigainLoanERP.Data.Database
         public string ApprovalStatus { get; set; }
         public string LoanCaseNumber { get; set; }
         public int? PurposeId { get; set; }
-        public long? LeadStatusId { get; set; }
-        public long? LeadApprovalId { get; set; }
+        public int? LeadStatusId { get; set; }
+        public int? LeadApprovalId { get; set; }
 
         public virtual UserMaster CreatedByNavigation { get; set; }
         public virtual UserMaster CustomerUser { get; set; }
-        public virtual BtgoldLoanLeadApprovalActionHistory LeadApproval { get; set; }
         public virtual UserMaster LeadSourceByuser { get; set; }
-        public virtual GoldLoanFreshLeadStatusActionHistory LeadStatusNavigation { get; set; }
         public virtual UserMaster ModifiedByNavigation { get; set; }
         public virtual Product Product { get; set; }
         public virtual Purpose PurposeNavigation { get; set; }

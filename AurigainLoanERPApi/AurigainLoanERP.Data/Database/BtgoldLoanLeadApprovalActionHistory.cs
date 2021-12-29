@@ -9,11 +9,6 @@ namespace AurigainLoanERP.Data.Database
 {
     public partial class BtgoldLoanLeadApprovalActionHistory
     {
-        public BtgoldLoanLeadApprovalActionHistory()
-        {
-            BtgoldLoanLead = new HashSet<BtgoldLoanLead>();
-        }
-
         public long Id { get; set; }
         public long LeadId { get; set; }
         public int? ApprovalStatus { get; set; }
@@ -23,6 +18,5 @@ namespace AurigainLoanERP.Data.Database
 
         public virtual UserMaster ActionTakenByUser { get; set; }
         public virtual BtgoldLoanLead Lead { get; set; }
-        public virtual ICollection<BtgoldLoanLead> BtgoldLoanLead { get; set; }
     }
 }

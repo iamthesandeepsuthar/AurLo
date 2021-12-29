@@ -36,13 +36,12 @@ namespace AurigainLoanERP.Data.Database
         public bool IsDelete { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime? ModifiedDate { get; set; }
-        public long? LeadStatusId { get; set; }
+        public int? LeadStatusId { get; set; }
 
         public virtual PincodeArea AeraPincode { get; set; }
         public virtual UserMaster CreatedByNavigation { get; set; }
         public virtual UserMaster CustomerUser { get; set; }
         public virtual UserMaster LeadSourceByUser { get; set; }
-        public virtual GoldLoanFreshLeadStatusActionHistory LeadStatusNavigation { get; set; }
         public virtual UserMaster ModifiedByNavigation { get; set; }
         public virtual Product Product { get; set; }
         public virtual ICollection<FreshLeadHlplclstatusActionHistory> FreshLeadHlplclstatusActionHistory { get; set; }

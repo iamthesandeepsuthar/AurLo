@@ -23,7 +23,7 @@
     [LeadStatus] NVARCHAR(100) NULL, 
     [CreatedBy] BIGINT NULL references UserMaster(Id), 
     [ModifiedBy] BIGINT NULL references UserMaster(Id), 
-    [LeadStatusId] BIGINT NULL references GoldLoanFreshLeadStatusActionHistory(Id), 
+    [LeadStatusId] INT NULL , 
    
     
 )

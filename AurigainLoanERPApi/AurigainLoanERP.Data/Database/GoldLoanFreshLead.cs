@@ -40,12 +40,11 @@ namespace AurigainLoanERP.Data.Database
         public string LeadStatus { get; set; }
         public long? CreatedBy { get; set; }
         public long? ModifiedBy { get; set; }
-        public long? LeadStatusId { get; set; }
+        public int? LeadStatusId { get; set; }
 
         public virtual UserMaster CreatedByNavigation { get; set; }
         public virtual UserMaster CustomerUser { get; set; }
         public virtual UserMaster LeadSourceByUser { get; set; }
-        public virtual GoldLoanFreshLeadStatusActionHistory LeadStatusNavigation { get; set; }
         public virtual UserMaster ModifiedByNavigation { get; set; }
         public virtual Product Product { get; set; }
         public virtual Purpose PurposeNavigation { get; set; }

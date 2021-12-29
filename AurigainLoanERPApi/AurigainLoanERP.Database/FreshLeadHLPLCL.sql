@@ -22,6 +22,6 @@
     [IsDelete] BIT NOT NULL DEFAULT 0, 
     [CreatedDate] DATETIME NOT NULL DEFAULT getDate(), 
     [ModifiedDate] DATETIME NULL, 
-    [LeadStatusId] BIGINT NULL references GoldLoanFreshLeadStatusActionHistory(Id), 
+    [LeadStatusId] INT NULL, 
     
 )
