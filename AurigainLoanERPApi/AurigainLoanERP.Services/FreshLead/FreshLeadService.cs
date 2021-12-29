@@ -352,6 +352,7 @@ namespace AurigainLoanERP.Services.FreshLead
                     LeadStatus = model.LeadStatus,
                 };
                 var result = await _db.GoldLoanFreshLeadStatusActionHistory.AddAsync(objModel);
+                await _db.SaveChangesAsync();
                 var leadDetail = await _db.GoldLoanFreshLead.Where(x => x.Id == model.LeadId).FirstOrDefaultAsync();
                 if (leadDetail != null)
                 {
@@ -359,23 +360,29 @@ namespace AurigainLoanERP.Services.FreshLead
                     {
                         case 1:
                             leadDetail.LeadStatus = LeadStatus.Pending.GetStringValue();
+                            leadDetail.LeadStatusId = result.Entity.Id;
                             break;
                         case 2:
                             leadDetail.LeadStatus = LeadStatus.Mismatched.GetStringValue();
+                            leadDetail.LeadStatusId = result.Entity.Id;
                             break;
 
                         case 3:
                             leadDetail.LeadStatus = LeadStatus.InCompleted.GetStringValue();
+                            leadDetail.LeadStatusId = result.Entity.Id;
                             break;
                         case 4:
                             leadDetail.LeadStatus = LeadStatus.Rejected.GetStringValue();
+                            leadDetail.LeadStatusId = result.Entity.Id;
                             break;
                         case 5:
                             leadDetail.LeadStatus = LeadStatus.Completed.GetStringValue();
+                            leadDetail.LeadStatusId = result.Entity.Id;
                             break;
 
                         default:
                             leadDetail.LeadStatus = "New";
+                            leadDetail.LeadStatusId =null;
                             break;
                     }
 
@@ -410,6 +417,7 @@ namespace AurigainLoanERP.Services.FreshLead
                     LeadStatus = model.LeadStatus,
                 };
                 var result = await _db.FreshLeadHlplclstatusActionHistory.AddAsync(objModel);
+                await _db.SaveChangesAsync();
                 var leadDetail = await _db.FreshLeadHlplcl.Where(x => x.Id == model.LeadId).FirstOrDefaultAsync();
                 if (leadDetail != null)
                 {
@@ -417,23 +425,29 @@ namespace AurigainLoanERP.Services.FreshLead
                     {
                         case 1:
                             leadDetail.LeadStatus = LeadStatus.Pending.GetStringValue();
+                            leadDetail.LeadStatusId = result.Entity.Id;
                             break;
                         case 2:
                             leadDetail.LeadStatus = LeadStatus.Mismatched.GetStringValue();
+                            leadDetail.LeadStatusId = result.Entity.Id;
                             break;
 
                         case 3:
                             leadDetail.LeadStatus = LeadStatus.InCompleted.GetStringValue();
+                            leadDetail.LeadStatusId = result.Entity.Id;
                             break;
                         case 4:
                             leadDetail.LeadStatus = LeadStatus.Rejected.GetStringValue();
+                            leadDetail.LeadStatusId = result.Entity.Id;
                             break;
                         case 5:
                             leadDetail.LeadStatus = LeadStatus.Completed.GetStringValue();
+                            leadDetail.LeadStatusId = result.Entity.Id;
                             break;
 
                         default:
                             leadDetail.LeadStatus = "New";
+                            leadDetail.LeadStatusId = null;
                             break;
                     }
 
