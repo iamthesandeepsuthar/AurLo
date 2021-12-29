@@ -25,5 +25,7 @@
     [LeadStatus] NVARCHAR(100) NULL, 
     [ApprovalStatus] NVARCHAR(100) NULL, 
     [LoanCaseNumber] NVARCHAR(50) NULL, 
-    [PurposeId] INT NULL references Purpose(Id),   
+    [PurposeId] INT NULL references Purpose(Id), 
+    [LeadStatusId] BIGINT NULL references GoldLoanFreshLeadStatusActionHistory(Id), 
+    [LeadApprovalId] BIGINT NULL references BTGoldLoanLeadApprovalActionHistory(Id),   
 )

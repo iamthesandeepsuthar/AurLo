@@ -18,4 +18,8 @@ namespace AurigainLoanERP.Shared.Common.Model
             OrderByAsc = true;
         }
     }
+    public class LeadQueryModel : IndexModel
+    {
+        public int ProductCategoryId { get; set;}
+    }
 }

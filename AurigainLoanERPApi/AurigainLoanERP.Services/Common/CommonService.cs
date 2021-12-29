@@ -148,7 +148,7 @@ namespace AurigainLoanERP.Services.Common
             {
                 model.Qualification =await  getQualificaitonData();
                 model.Purpose = await getPurposeData();
-                var ProductCategory = await getProductCategories();
+                model.ProductCategory = await getProductCategories();
                 return CreateResponse(model, ResponseMessage.Success, true, ((int)ApiStatusCode.Ok));
             }
             catch (Exception ex) 

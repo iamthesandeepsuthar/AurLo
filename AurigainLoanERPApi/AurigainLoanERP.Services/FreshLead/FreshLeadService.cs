@@ -491,14 +491,12 @@ namespace AurigainLoanERP.Services.FreshLead
         }
         #endregion
         #region <<Personal Loan , Home Loan , Vehicel Loan Fresh Lead>>
-        public async Task<ApiServiceResponseModel<List<FreshLeadHLPLCLModel>>> FreshLeadHLPLCLList(IndexModel model)
+        public async Task<ApiServiceResponseModel<List<FreshLeadHLPLCLModel>>> FreshLeadHLPLCLList(LeadQueryModel model)
         {
             ApiServiceResponseModel<List<FreshLeadHLPLCLModel>> objResponse = new ApiServiceResponseModel<List<FreshLeadHLPLCLModel>>();
             try
             {
                 IQueryable<FreshLeadHlplcl> result;
-
-
                 switch (_loginUserDetail.RoleId)
                 {
 
@@ -510,7 +508,7 @@ namespace AurigainLoanERP.Services.FreshLead
                                   join product in _db.Product on Lead.ProductId equals product.Id
                                   join ProductCategory in _db.ProductCategory on product.ProductCategoryId equals ProductCategory.Id
                                   join leadScoureUser in _db.UserMaster on Lead.LeadSourceByUserId equals leadScoureUser.Id
-                                  where !Lead.IsDelete  && (string.IsNullOrEmpty(model.Search) || Lead.LeadType == (FreshLeadType.Salaried.GetStringValue().Equals(model.Search) || FreshLeadType.NonSalaried.GetStringValue().Equals(model.Search) ? (FreshLeadType.Salaried.GetStringValue().Equals(model.Search) ? false : true) : Lead.LeadType) || Lead.FullName.Contains(model.Search) || Lead.FatherName.Contains(model.Search) || product.Name.Contains(model.Search) || ProductCategory.Name.Contains(model.Search))
+                                  where !Lead.IsDelete && (model.ProductCategoryId == 0 || ProductCategory.Id == model.ProductCategoryId ) && (string.IsNullOrEmpty(model.Search) || Lead.LeadType == (FreshLeadType.Salaried.GetStringValue().Equals(model.Search) || FreshLeadType.NonSalaried.GetStringValue().Equals(model.Search) ? (FreshLeadType.Salaried.GetStringValue().Equals(model.Search) ? false : true) : Lead.LeadType) || Lead.FullName.Contains(model.Search) || Lead.FatherName.Contains(model.Search) || product.Name.Contains(model.Search) || ProductCategory.Name.Contains(model.Search))
                                   select Lead);
                         break;
 
@@ -522,7 +520,7 @@ namespace AurigainLoanERP.Services.FreshLead
                                   join product in _db.Product on Lead.ProductId equals product.Id
                                   join ProductCategory in _db.ProductCategory on product.ProductCategoryId equals ProductCategory.Id
                                   join leadScoureUser in _db.UserMaster on Lead.LeadSourceByUserId equals leadScoureUser.Id
-                                  where !Lead.IsDelete &&( Lead.CreatedBy ==_loginUserDetail.UserId || employees.Contains(Lead.LeadSourceByUserId)) && (string.IsNullOrEmpty(model.Search) || Lead.LeadType == (FreshLeadType.Salaried.GetStringValue().Equals(model.Search) || FreshLeadType.NonSalaried.GetStringValue().Equals(model.Search) ? (FreshLeadType.Salaried.GetStringValue().Equals(model.Search) ? false : true) : Lead.LeadType) || Lead.FullName.Contains(model.Search) || Lead.FatherName.Contains(model.Search) || product.Name.Contains(model.Search) || ProductCategory.Name.Contains(model.Search))
+                                  where !Lead.IsDelete && (model.ProductCategoryId == 0 || ProductCategory.Id == model.ProductCategoryId) &&  ( Lead.CreatedBy ==_loginUserDetail.UserId || employees.Contains(Lead.LeadSourceByUserId)) && (string.IsNullOrEmpty(model.Search) || Lead.LeadType == (FreshLeadType.Salaried.GetStringValue().Equals(model.Search) || FreshLeadType.NonSalaried.GetStringValue().Equals(model.Search) ? (FreshLeadType.Salaried.GetStringValue().Equals(model.Search) ? false : true) : Lead.LeadType) || Lead.FullName.Contains(model.Search) || Lead.FatherName.Contains(model.Search) || product.Name.Contains(model.Search) || ProductCategory.Name.Contains(model.Search))
                                   select Lead);
 
                         break;
@@ -534,7 +532,7 @@ namespace AurigainLoanERP.Services.FreshLead
                                   join product in _db.Product on Lead.ProductId equals product.Id
                                   join ProductCategory in _db.ProductCategory on product.ProductCategoryId equals ProductCategory.Id
                                   join leadScoureUser in _db.UserMaster on Lead.LeadSourceByUserId equals leadScoureUser.Id
-                                  where !Lead.IsDelete && (Lead.CreatedBy == _loginUserDetail.UserId ||Lead.LeadSourceByUserId == _loginUserDetail.UserId) &&   (string.IsNullOrEmpty(model.Search) || Lead.LeadType == (FreshLeadType.Salaried.GetStringValue().Equals(model.Search) || FreshLeadType.NonSalaried.GetStringValue().Equals(model.Search) ? (FreshLeadType.Salaried.GetStringValue().Equals(model.Search) ? false : true) : Lead.LeadType) || Lead.FullName.Contains(model.Search) || Lead.FatherName.Contains(model.Search) || product.Name.Contains(model.Search) || ProductCategory.Name.Contains(model.Search))
+                                  where !Lead.IsDelete && (model.ProductCategoryId == 0 || ProductCategory.Id == model.ProductCategoryId)  && (Lead.CreatedBy == _loginUserDetail.UserId ||Lead.LeadSourceByUserId == _loginUserDetail.UserId) &&   (string.IsNullOrEmpty(model.Search) || Lead.LeadType == (FreshLeadType.Salaried.GetStringValue().Equals(model.Search) || FreshLeadType.NonSalaried.GetStringValue().Equals(model.Search) ? (FreshLeadType.Salaried.GetStringValue().Equals(model.Search) ? false : true) : Lead.LeadType) || Lead.FullName.Contains(model.Search) || Lead.FatherName.Contains(model.Search) || product.Name.Contains(model.Search) || ProductCategory.Name.Contains(model.Search))
                                   select Lead);
 
                         break;
@@ -545,7 +543,7 @@ namespace AurigainLoanERP.Services.FreshLead
                                   join product in _db.Product on Lead.ProductId equals product.Id
                                   join ProductCategory in _db.ProductCategory on product.ProductCategoryId equals ProductCategory.Id
                                   join leadScoureUser in _db.UserMaster on Lead.LeadSourceByUserId equals leadScoureUser.Id
-                                  where !Lead.IsDelete &&
+                                  where !Lead.IsDelete && (model.ProductCategoryId == 0 || ProductCategory.Id == model.ProductCategoryId) && 
                                   (Lead.CreatedBy == _loginUserDetail.UserId ) &&
                                   (string.IsNullOrEmpty(model.Search) || Lead.LeadType == (FreshLeadType.Salaried.GetStringValue().Equals(model.Search) || FreshLeadType.NonSalaried.GetStringValue().Equals(model.Search) ? (FreshLeadType.Salaried.GetStringValue().Equals(model.Search) ? false : true) : Lead.LeadType) || Lead.FullName.Contains(model.Search) || Lead.FatherName.Contains(model.Search) || product.Name.Contains(model.Search) || ProductCategory.Name.Contains(model.Search))
                                   select Lead);
@@ -557,7 +555,7 @@ namespace AurigainLoanERP.Services.FreshLead
                                   join product in _db.Product on Lead.ProductId equals product.Id
                                   join ProductCategory in _db.ProductCategory on product.ProductCategoryId equals ProductCategory.Id
                                   join leadScoureUser in _db.UserMaster on Lead.LeadSourceByUserId equals leadScoureUser.Id
-                                  where    !Lead.IsDelete && (string.IsNullOrEmpty(model.Search) || Lead.LeadType == (FreshLeadType.Salaried.GetStringValue().Equals(model.Search) || FreshLeadType.NonSalaried.GetStringValue().Equals(model.Search) ? (FreshLeadType.Salaried.GetStringValue().Equals(model.Search) ? false : true) : Lead.LeadType) || Lead.FullName.Contains(model.Search) || Lead.FatherName.Contains(model.Search) || product.Name.Contains(model.Search) || ProductCategory.Name.Contains(model.Search))
+                                  where    !Lead.IsDelete && (model.ProductCategoryId == 0 || ProductCategory.Id == model.ProductCategoryId) &&  (string.IsNullOrEmpty(model.Search) || Lead.LeadType == (FreshLeadType.Salaried.GetStringValue().Equals(model.Search) || FreshLeadType.NonSalaried.GetStringValue().Equals(model.Search) ? (FreshLeadType.Salaried.GetStringValue().Equals(model.Search) ? false : true) : Lead.LeadType) || Lead.FullName.Contains(model.Search) || Lead.FatherName.Contains(model.Search) || product.Name.Contains(model.Search) || ProductCategory.Name.Contains(model.Search))
                                   select Lead);
 
                         break;
