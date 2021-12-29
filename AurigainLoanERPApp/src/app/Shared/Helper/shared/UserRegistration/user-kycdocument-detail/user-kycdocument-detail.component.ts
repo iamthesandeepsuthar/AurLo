@@ -17,10 +17,10 @@ import { UserSettingService } from 'src/app/Shared/Services/user-setting-service
 
 })
 export class UserKYCDocumentDetailComponent implements OnInit, OnChanges {
-  @Input() kycModel = [] as UserKYCPostModel[];
+  @Input() kycModel : UserKYCPostModel[]=[];
   @Output() onKYCSubmit = new EventEmitter<UserKYCPostModel[]>();
 
-  @Input() documentModel = [] as DocumentPostModel[];
+  @Input() documentModel : DocumentPostModel[]=[];
   @Output() onDocSubmit = new EventEmitter<DocumentPostModel[]>();
 
   docTypeModel!: DDLDocumentTypeModel[];
@@ -40,20 +40,23 @@ export class UserKYCDocumentDetailComponent implements OnInit, OnChanges {
     this.getDocumentType();
 
 
+
   }
-  ngOnChanges(): void {
+  ngOnChanges(changes: SimpleChanges): void {
     //Called before any other lifecycle hook. Use it to inject dependencies, but avoid any serious work here.
     //Add '${implements OnChanges}' to the class.
-
 
     // if (this.documentModel) {
     //   this.documentModel = this.documentModel?.sort(function (a, b) { return a.DocumentTypeId - b.DocumentTypeId });
     // }
 
+    if (changes.documentModel.previousValue! = changes.documentModel.currentValue ) {
+      this.documentModel = this.documentModel?.sort(function (a, b) { return a?.DocumentTypeId - b?.DocumentTypeId });
+    }
 
-    // if (this.kycModel) {
-    //   this.kycModel = this.kycModel?.sort(function (a, b) { return a.KycdocumentTypeId - b.KycdocumentTypeId });
-    // }
+    if (changes.kycModel.previousValue! = changes.kycModel.currentValue) {
+      this.kycModel = this.kycModel?.sort(function (a, b) { return a?.KycdocumentTypeId - b?.KycdocumentTypeId });
+    }
 
   }
 
@@ -64,8 +67,8 @@ export class UserKYCDocumentDetailComponent implements OnInit, OnChanges {
         this.docTypeModel = this.docTypeModel?.sort(function (a, b) { return a.Id - b.Id });
 
         this.docTypeModel!.forEach(x => {
-          let existingKYCItem = this.kycModel.findIndex(xi => xi.KycdocumentTypeId == x.Id);
-          let existingDocItem = this.documentModel.findIndex(xi => xi.DocumentTypeId == x.Id);
+          let existingKYCItem = this.kycModel?.findIndex(xi => xi.KycdocumentTypeId == x.Id);
+          let existingDocItem = this.documentModel?.findIndex(xi => xi.DocumentTypeId == x.Id);
 
           // Add newly Item in Document
           if (this.kycModel!.length != this.docTypeModel!.length && existingKYCItem < 0) {
@@ -127,8 +130,16 @@ export class UserKYCDocumentDetailComponent implements OnInit, OnChanges {
 
 
   }
-  getDocName(Id: number) {
-    return this.docTypeModel.find(x => x.Id == Id)?.Name
+  getDocName(itm: UserKYCPostModel) {
+
+    if (this.docTypeModel && this.kycModel) {
+      debugger
+      let data = this.docTypeModel.find(x => x.Id == itm?.KycdocumentTypeId);
+      return data?.Name ?? '';
+    } else {
+      return null;
+    }
+
   }
 
   onCheckDocumentNumber(val: any, docTypeId: number) {
@@ -145,7 +156,7 @@ export class UserKYCDocumentDetailComponent implements OnInit, OnChanges {
   }
 
   removeDocFile(file: FilePostModel, docId: number, docTypeId: number) {
-    this._userSettingService.DeleteDocumentFile(file.Id, docId).subscribe(res => {
+    this._userSettingService.DeleteDocumentFile(file?.Id, docId).subscribe(res => {
       if (res.IsSuccess) {
         this._toast.success('File Removed', 'Success');
         let docIndex = this.documentModel!.findIndex(x => x.DocumentTypeId == docTypeId)
