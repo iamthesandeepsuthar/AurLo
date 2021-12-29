@@ -1,149 +1,109 @@
 <!-- Page Header Title start -->
 <div class="widget-header">
-  <div class="row d-block d-sm-flex align-items-center justify-content-between text-center text-sm-left">
-    <div>
-      <h1>{{Id==0 ?'Add Document Type':'Update Document Type'}}</h1>
-      <!-- Breadcrumb Start -->
-      <nav class="custom-breadcrum">
-        <ol class="breadcrumb justify-content-center justify-content-sm-start">
-          <li class="breadcrumb-item"><a href="#">Home</a></li>
-          <li class="breadcrumb-item"><a href="javascript:void(0)">Master</a></li>
-          <li class="breadcrumb-item"><a
-              routerLink="{{'/' + this.routing_Url.MasterModule + this.routing_Url.UserRoleListUrl}}">
+	<div class="row d-block d-sm-flex align-items-center justify-content-between text-center text-sm-left">
+		<div>
+			<h1>{{Id==0 ?'Add Document Type':'Update Document Type'}}</h1>
+			<!-- Breadcrumb Start -->
+			<nav class="custom-breadcrum">
+				<ol class="breadcrumb justify-content-center justify-content-sm-start">
+					<li class="breadcrumb-item"><a href="#">Home</a></li>
+					<li class="breadcrumb-item"><a href="javascript:void(0)">Master</a></li>
+					<li class="breadcrumb-item"><a routerLink="{{'/' + this.routing_Url.MasterModule + this.routing_Url.UserRoleListUrl}}">
               KYC Document Type </a></li>
-          <li class="breadcrumb-item active" aria-current="page">{{Id==0 ?'Add Document Type':'Update Document Type'}}
-          </li>
-
-        </ol>
-      </nav>
-      <!-- Breadcrumb End -->
-    </div>
-  </div>
+					<li class="breadcrumb-item active" aria-current="page">{{Id==0 ?'Add Document Type':'Update Document Type'}} </li>
+				</ol>
+			</nav>
+			<!-- Breadcrumb End -->
+		</div>
+	</div>
 </div>
 <!-- Page Header Title end -->
 <!-- HTML FORM DIV START -->
-<div class="widget-content widget-content py-5 px-3 sm-form-center">
-  <form [formGroup]="documentTypeForm" (ngSubmit)="onSubmit()">
-    <div class="form-row">
-      <div class="form-group col-md-12">
-        <label>Document Type Name</label>
-        <input type="text" formControlName="Name" [(ngModel)]="Model.DocumentName"
-          [ngClass]="{ 'is-invalid': f.Name.errors && f.Name.touched}" class="form-control" id="input1"
-          placeholder="Name">
-        <div class="invalid-feedback"
-          *ngIf="(documentTypeForm.get('Name')?.hasError('required') && documentTypeForm.get('Name')?.touched)">Please
-          enter name for document type. </div>
-      </div>
-
-      <div class="form-group col-md-12">
-        <label>Document Number digit</label>
-        <input type="number" formControlName="DocumentNumberLength" [(ngModel)]="Model.DocumentNumberLength"
-          [ngClass]="{ 'is-invalid': f.DocumentNumberLength.errors && f.DocumentNumberLength.touched}"
-          class="form-control" id="input1" placeholder="document length">
-        <div class="invalid-feedback"
-          *ngIf="(documentTypeForm.get('DocumentNumberLength')?.hasError('required') && documentTypeForm.get('DocumentNumberLength')?.touched)">
-          Please enter document number digit </div>
-      </div>
-
-      <div class="form-group col-md-12">
-        <label>Document Number Type</label>
-        <div class="form-radio-check-grp">
-          <div class="n-chk d-inline">
-            <label class="new-control new-checkbox checkbox-info">
-              <input type="checkbox" formControlName="IsNumeric" class="new-control-input"
-                [(ngModel)]="Model.IsNumeric">
-              <span class="new-control-indicator"></span>Is Numeric
-            </label>
-          </div>
-        </div>
-      </div>
-
-      <div class="form-group col-md-12">
-        <label> Applicable for User Registration KYC</label>
-        <div class="form-radio-check-grp">
-          <div class="n-chk d-inline">
-            <label class="new-control new-checkbox checkbox-info">
-              <input type="checkbox" formControlName="IsKyc" class="new-control-input" [(ngModel)]="Model.IsKyc">
-              <span class="new-control-indicator"></span> Applicable for User Registration KYC
-            </label>
-          </div>
-        </div>
-      </div>
-
-      <div class="form-group col-md-12">
-        <label> Applicable for Fresh Lead Gold Loan KYC</label>
-        <div class="form-radio-check-grp">
-          <div class="n-chk d-inline">
-            <label class="new-control new-checkbox checkbox-info">
-              <input type="checkbox" formControlName="IsFreshLeadKyc" class="new-control-input" [(ngModel)]="Model.IsFreshLeadKyc">
-              <span class="new-control-indicator"></span> Applicable for Fresh Lead Gold Loan KYC
-            </label>
-          </div>
-        </div>
-      </div>
-
-      <div class="form-group col-md-12">
-        <label> Applicable for Balance Transfer KYC</label>
-        <div class="form-radio-check-grp">
-          <div class="n-chk d-inline">
-            <label class="new-control new-checkbox checkbox-info">
-              <input type="checkbox" formControlName="IsBtleadKyc" class="new-control-input" [(ngModel)]="Model.IsBtleadKyc">
-              <span class="new-control-indicator"></span> Applicable for Balance Transfer KYC
-            </label>
-          </div>
-        </div>
-      </div>
-
-      <div class="form-group col-md-12">
-        <label> Is Mandaoty </label>
-        <div class="form-radio-check-grp">
-          <div class="n-chk d-inline">
-            <label class="new-control new-checkbox checkbox-info">
-              <input type="checkbox" formControlName="IsMandatory" class="new-control-input" [(ngModel)]="Model.IsMandatory">
-              <span class="new-control-indicator"></span> Is Mandaoty
-            </label>
-          </div>
-        </div>
-      </div>
-
-
-
-      <div class="form-group col-md-12">
-        <label>Attachment File Count</label>
-        <input type="number" max="5" maxlength="1" formControlName="RequiredFileCount"
-          [(ngModel)]="Model.RequiredFileCount"
-          [ngClass]="{ 'is-invalid': f.RequiredFileCount.errors && f.RequiredFileCount.touched}" class="form-control"
-          id="input1" placeholder="Attachment File Count">
-        <div class="invalid-feedback"
-          *ngIf="(documentTypeForm.get('RequiredFileCount')?.hasError('required') && documentTypeForm.get('RequiredFileCount')?.touched)">
-
-          Attachment File Count required </div>
-      </div>
-
-      <div class="form-group col-md-12">
-        <label>Active</label>
-        <div class="form-radio-check-grp">
-          <div class="n-chk d-inline">
-            <label class="new-control new-checkbox checkbox-info">
-              <input type="checkbox" formControlName="IsActive" class="new-control-input" [(ngModel)]="Model.IsActive">
-              <span class="new-control-indicator"></span>Active Status
-            </label>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="sm-form-footer-btn-grp mt-2 row">
-      <div class="col-6">
-        <button type="submit" class="btn btn-primary w-100"> <i class="fas fa-check mr-1"></i> Submit</button>
-      </div>
-      <div class="col-6">
-        <button type="button" routerLink="{{'../../../'  + this.routing_Url.Kyc_Document_Type_List_Url}}"
-          class="btn btn-outline-danger w-100"> <i class="fas fa-times mr-1"></i> Cancel</button>
-      </div>
-    </div>
-
-
-  </form>
+<div class="widget-content widget-content">
+	<form [formGroup]="documentTypeForm" (ngSubmit)="onSubmit()">
+		<div class="widget-content widget-content p-3 form-grp-w-border">
+			<h2> Add Title</h2>
+			<div class="form-row">
+				<div class="form-group col-md-4">
+					<label>Document Type Name</label>
+					<input type="text" formControlName="Name" [(ngModel)]="Model.DocumentName" [ngClass]="{ 'is-invalid': f.Name.errors && f.Name.touched}" class="form-control" id="input1" placeholder="Name">
+					<div class="invalid-feedback" *ngIf="(documentTypeForm.get('Name')?.hasError('required') && documentTypeForm.get('Name')?.touched)">Please enter name for document type. </div>
+				</div>
+				<div class="form-group col-md-4">
+					<label>Document Number digit</label>
+					<input type="number" formControlName="DocumentNumberLength" [(ngModel)]="Model.DocumentNumberLength" [ngClass]="{ 'is-invalid': f.DocumentNumberLength.errors && f.DocumentNumberLength.touched}" class="form-control" id="input1" placeholder="document length">
+					<div class="invalid-feedback" *ngIf="(documentTypeForm.get('DocumentNumberLength')?.hasError('required') && documentTypeForm.get('DocumentNumberLength')?.touched)"> Please enter document number digit </div>
+				</div>
+				<div class="form-group col-md-4">
+					<label>Attachment File Count</label>
+					<input type="number" max="5" maxlength="1" formControlName="RequiredFileCount" [(ngModel)]="Model.RequiredFileCount" [ngClass]="{ 'is-invalid': f.RequiredFileCount.errors && f.RequiredFileCount.touched}" class="form-control" id="input1" placeholder="Attachment File Count">
+					<div class="invalid-feedback" *ngIf="(documentTypeForm.get('RequiredFileCount')?.hasError('required') && documentTypeForm.get('RequiredFileCount')?.touched)"> Attachment File Count required </div>
+				</div>
+				<div class="form-group col-md-4">
+					<label> Is Mandaoty </label>
+					<div class="form-radio-check-grp">
+						<div class="n-chk d-inline">
+							<label class="new-control new-checkbox checkbox-info">
+								<input type="checkbox" formControlName="IsMandatory" class="new-control-input" [(ngModel)]="Model.IsMandatory"> <span class="new-control-indicator"></span> Is Mandaoty </label>
+						</div>
+					</div>
+				</div>
+				<div class="form-group col-md-4">
+					<label>Document Number Type</label>
+					<div class="form-radio-check-grp">
+						<div class="n-chk d-inline">
+							<label class="new-control new-checkbox checkbox-info">
+								<input type="checkbox" formControlName="IsNumeric" class="new-control-input" [(ngModel)]="Model.IsNumeric"> <span class="new-control-indicator"></span>Is Numeric </label>
+						</div>
+					</div>
+				</div>
+				<div class="form-group col-md-4">
+					<label>Active</label>
+					<div class="form-radio-check-grp">
+						<div class="n-chk d-inline">
+							<label class="new-control new-checkbox checkbox-info">
+								<input type="checkbox" formControlName="IsActive" class="new-control-input" [(ngModel)]="Model.IsActive"> <span class="new-control-indicator"></span>Active Status </label>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="widget-content widget-content p-3 form-grp-w-border">
+			<h2> Add Title</h2>
+			<div class="form-row">
+				<div class="form-group col-md-6">
+					<label> Applicable for User Registration KYC</label>
+					<div class="form-radio-check-grp">
+						<div class="n-chk d-inline">
+							<label class="new-control new-checkbox checkbox-info">
+								<input type="checkbox" formControlName="IsKyc" class="new-control-input" [(ngModel)]="Model.IsKyc"> <span class="new-control-indicator"></span> Applicable for User Registration KYC </label>
+						</div>
+					</div>
+				</div>
+				<div class="form-group col-md-6">
+					<label> Applicable for Fresh Lead Gold Loan KYC</label>
+					<div class="form-radio-check-grp">
+						<div class="n-chk d-inline">
+							<label class="new-control new-checkbox checkbox-info">
+								<input type="checkbox" formControlName="IsFreshLeadKyc" class="new-control-input" [(ngModel)]="Model.IsFreshLeadKyc"> <span class="new-control-indicator"></span> Applicable for Fresh Lead Gold Loan KYC </label>
+						</div>
+					</div>
+				</div>
+				<div class="form-group col-md-6">
+					<label> Applicable for Balance Transfer KYC</label>
+					<div class="form-radio-check-grp">
+						<div class="n-chk d-inline">
+							<label class="new-control new-checkbox checkbox-info">
+								<input type="checkbox" formControlName="IsBtleadKyc" class="new-control-input" [(ngModel)]="Model.IsBtleadKyc"> <span class="new-control-indicator"></span> Applicable for Balance Transfer KYC </label>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="form-footer-btn-grp mt-3 py-3 widget-content widget-content  text-center">
+			<button type="submit" class="btn btn-success mr-3"><i class="fas fa-check mr-1"></i> Submit</button>
+			<button type="button" class="btn btn-outline-danger" routerLink="{{'../../../'  + this.routing_Url.Kyc_Document_Type_List_Url}}"><i class="fas fa-times mr-1"></i> Cancel</button>
+		</div>
+	</form>
 </div>
 <!-- HTML FORM DIV END -->
