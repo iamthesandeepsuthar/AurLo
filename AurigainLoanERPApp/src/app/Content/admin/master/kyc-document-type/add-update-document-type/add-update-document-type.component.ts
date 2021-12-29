@@ -46,6 +46,7 @@ export class AddUpdateDocumentTypeComponent implements OnInit {
       IsKyc: [false],
       IsFreshLeadKyc: [false],
       IsBtleadKyc: [false],
+      IsMandatory: [false],
 
       RequiredFileCount: [undefined, Validators.required]
     });

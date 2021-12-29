@@ -468,7 +468,7 @@ namespace AurigainLoanERP.Data.Database
                     .WithMany(p => p.BtgoldLoanLeadKycdetailPoadocumentType)
                     .HasForeignKey(d => d.PoadocumentTypeId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__BTGoldLoa__POADo__3D491139");
+                    .HasConstraintName("FK__BTGoldLoa__POADo__6B0FDBE9");
 
                 entity.HasOne(d => d.PoidocumentType)
                     .WithMany(p => p.BtgoldLoanLeadKycdetailPoidocumentType)

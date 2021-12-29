@@ -81,7 +81,7 @@ export class UserKYCDocumentDetailComponent implements OnInit, OnChanges {
             this.documentModel.push(item);
           }
 
-          this.addDocsItemControl(x.DocumentNumberLength);
+          this.addDocsItemControl(x.DocumentNumberLength, x.IsMandatory);
 
 
         });
@@ -103,14 +103,28 @@ export class UserKYCDocumentDetailComponent implements OnInit, OnChanges {
       this.onKYCSubmit.emit(this.kycModel);
     }
   }
-  addDocsItemControl(DocCharLenght: number) {
+  addDocsItemControl(DocCharLenght: number, IsMandatory: boolean) {
     const docs = this.f.DocumentFormField as FormArray;
-    this.f.DocumentFormField.push(
-      this.fb.group({
-        DocumentNumber: [undefined, Validators.compose([Validators.required, Validators.maxLength(DocCharLenght), Validators.minLength(DocCharLenght)])],
-        File: [undefined, Validators.required],
-      })
-    );
+    if (IsMandatory) {
+      this.f.DocumentFormField.push(
+
+        this.fb.group({
+
+          DocumentNumber: [undefined, Validators.compose([Validators.required, Validators.maxLength(DocCharLenght), Validators.minLength(DocCharLenght)])],
+          File: [undefined, Validators.required],
+        })
+      );
+    } else {
+      this.f.DocumentFormField.push(
+
+        this.fb.group({
+
+          DocumentNumber: [undefined, Validators.compose([Validators.maxLength(DocCharLenght), Validators.minLength(DocCharLenght)])],
+          File: [undefined],
+        })
+      );
+    }
+
 
   }
   getDocName(Id: number) {

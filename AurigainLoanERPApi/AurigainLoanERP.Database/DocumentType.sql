@@ -7,6 +7,7 @@
     [IsKYC] BIT NOT NULL DEFAULT 0 ,
     [IsFreshLeadKYC] BIT NOT NULL DEFAULT 0 ,
     [IsBTLeadKYC] BIT NOT NULL DEFAULT 0 ,
+    [IsMandatory] BIT NOT NULL DEFAULT 0 ,
     [RequiredFileCount] INT NOT NULL DEFAULT 0,
     [DocumentNumberLength] INT NULL,
     [IsDelete] BIT NOT NULL DEFAULT 0, 

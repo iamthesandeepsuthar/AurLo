@@ -12,6 +12,8 @@ namespace AurigainLoanERP.Shared.ContractModel
         public bool IsKyc { get; set; }
         public bool IsFreshLeadKyc { get; set; }
         public bool IsBtleadKyc { get; set; }
+        public bool IsMandatory { get; set; }
+
         public int RequiredFileCount { get; set; }
         public DateTime CreatedOn { get; set; }
         public DateTime? ModifiedOn { get; set; }
@@ -30,6 +32,8 @@ namespace AurigainLoanERP.Shared.ContractModel
         public bool IsKyc { get; set; }
         public bool IsFreshLeadKyc { get; set; }
         public bool IsBtleadKyc { get; set; }
+        public bool IsMandatory { get; set; }
+
         public int RequiredFileCount { get; set; }
     }
 
