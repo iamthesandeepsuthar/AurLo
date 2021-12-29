@@ -503,6 +503,7 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                 };
 
                 var result = await _db.BtgoldLoanLeadApprovalActionHistory.AddAsync(objModel);
+                await _db.SaveChangesAsync();
                 var leadDetail = await _db.BtgoldLoanLead.Where(x => x.Id == model.LeadId).FirstOrDefaultAsync();
                 if (leadDetail != null)
                 {
@@ -510,13 +511,16 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                     {
                         case 1:
                             leadDetail.ApprovalStatus = LeadApprovalStatus.Approved.GetStringValue();
+                            leadDetail.LeadApprovalId = result.Entity.Id;
                             break;
                         case 2:
                             leadDetail.ApprovalStatus = LeadApprovalStatus.Rejected.GetStringValue();
+                            leadDetail.LeadApprovalId = result.Entity.Id;
                             break;
 
                         default:
                             leadDetail.LeadStatus = "Pending";
+                            leadDetail.LeadApprovalId = null;
                             break;
                     }
 
@@ -551,6 +555,7 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                     LeadStatus = model.LeadStatus,
                 };
                 var result = await _db.BtgoldLoanLeadStatusActionHistory.AddAsync(objModel);
+                await _db.SaveChangesAsync();
                 var leadDetail = await _db.BtgoldLoanLead.Where(x => x.Id == model.LeadId).FirstOrDefaultAsync();
                 if (leadDetail != null)
                 {
@@ -558,23 +563,29 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                     {
                         case 1:
                             leadDetail.LeadStatus = LeadStatus.Pending.GetStringValue();
+                            leadDetail.LeadStatusId = result.Entity.Id;
                             break;
                         case 2:
                             leadDetail.LeadStatus = LeadStatus.Mismatched.GetStringValue();
+                            leadDetail.LeadStatusId = result.Entity.Id;
                             break;
 
                         case 3:
                             leadDetail.LeadStatus = LeadStatus.InCompleted.GetStringValue();
+                            leadDetail.LeadStatusId = result.Entity.Id;
                             break;
                         case 4:
                             leadDetail.LeadStatus = LeadStatus.Rejected.GetStringValue();
+                            leadDetail.LeadStatusId = result.Entity.Id;
                             break;
                         case 5:
                             leadDetail.LeadStatus = LeadStatus.Completed.GetStringValue();
+                            leadDetail.LeadStatusId = result.Entity.Id;
                             break;
 
                         default:
                             leadDetail.LeadStatus = "New";
+                            leadDetail.LeadStatusId = null;
                             break;
                     }
 
@@ -939,7 +950,6 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                 return CreateResponse<object>(null, ResponseMessage.Fail, false, ((int)ApiStatusCode.ServerException), ex.Message ?? ex.InnerException.ToString());
             }
         }
-
         public async Task<ApiServiceResponseModel<BtGoldLoanLeadAppointmentViewModel>> GetAppointmentDetail(long leadId)
         {
             try
@@ -971,7 +981,6 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                 return CreateResponse<BtGoldLoanLeadAppointmentViewModel>(null, ResponseMessage.Fail, false, ((int)ApiStatusCode.ServerException), ex.Message ?? ex.InnerException.ToString());
             }
         }
-
         public async Task<ApiServiceResponseModel<object>> SaveAppointment(BtGoldLoanLeadAppointmentPostModel model)
         {
             try
@@ -1004,6 +1013,7 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                 return CreateResponse<object>(null, ResponseMessage.Fail, false, ((int)ApiStatusCode.ServerException), ex.Message ?? ex.InnerException.ToString());
             }
         }
+       
         #region <<Private Method Of Balance Transafer Gold Loan Lead>>
         private async Task<long> SaveCustomerBTFreshLead(BTGoldLoanLeadPostModel model)
         {
