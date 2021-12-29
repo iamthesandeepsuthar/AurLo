@@ -154,4 +154,11 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="LeadStat0us" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="5aa69e79-b582-4fc0-9bff-38d19bd878b3" ChangeDateTime="12/29/2021 09:35:40">
+    <Property Name="ElementName" Value="[dbo].[GoldLoanFreshLeadStatusActionHistory].[LeadStat0us]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[GoldLoanFreshLeadStatusActionHistory]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="LeadStatus" />
+  </Operation>
 </Operations>
