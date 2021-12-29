@@ -4366,7 +4366,14 @@ ul.sub-submenu {
     background: #fff;
     box-shadow: 0 0 20px #c1c1c1;
 }
-
+.info-remark {
+    background: #fff;
+}
+.info-remark td {
+    border-left: solid 5px #eaf0f9 !important;
+    padding: 6px 10px !important;
+    color: #262626 !important;
+}
 /* .status-w-text {
     font-size: 14px;
 } */
