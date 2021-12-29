@@ -174,8 +174,8 @@ namespace AurigainLoanERP.Services.Customer
                     switch (user.UserRoleId)
                     {
                         case (int)UserRoleEnum.Customer:
-                            var supervisorUser = _db.UserCustomer.Where(x => x.UserId == id).FirstOrDefault();
-                            supervisorUser.IsDelete = !supervisorUser.IsDelete;
+                            var customerUser = _db.UserCustomer.Where(x => x.UserId == id).FirstOrDefault();
+                            customerUser.IsDelete = !customerUser.IsDelete;
                             break;
                     }
                     await _db.SaveChangesAsync();

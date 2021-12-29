@@ -517,6 +517,14 @@
                         <span class="shape2"></span>
                     </a>
                 </li>
+                <li *ngIf="isAccessMenu('CustomerList')" class="menu" routerLinkActive="menu-active">
+                  <a routerLink="{{this.routing_Url.AdminModule+'/'+ this.routing_Url.CustomersModule +'/'+this.routing_Url.Customer_List_Url}}" aria-expanded="false" class="dropdown-toggle">
+                      <div class="">
+                       <i class="fas fa-users mr-2 text-dark"> </i>
+                       <span>Customer</span>
+                      </div>
+                  </a>
+              </li>
             </ul>
         </ng-template>
     </nav>

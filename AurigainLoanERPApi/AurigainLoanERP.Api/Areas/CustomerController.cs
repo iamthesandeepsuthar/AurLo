@@ -55,7 +55,7 @@ namespace AurigainLoanERP.Api.Areas
         }
         // DELETE api/<AgentController>/5
         [HttpDelete("[action]/{id}")]
-        public async Task<ApiServiceResponseModel<object>> Delete(long id)
+        public async Task<ApiServiceResponseModel<object>> DeleteCustomer(long id)
         {
             return await _customer.UpdateDeleteStatus(id);
         }

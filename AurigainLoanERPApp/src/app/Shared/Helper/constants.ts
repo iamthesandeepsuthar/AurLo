@@ -175,6 +175,7 @@ export class API_Url {
   public static Customer_Profile_Detail_Api = `${environment.apiEndPoint}Customer/GetCustomerProfile/`;
   public static Customer_Get_Detail_Api = `${environment.apiEndPoint}Customer/GetCustomerDetail/`;
   public static Customer_List_Api = `${environment.apiEndPoint}Customer/GetList`;
+  public static Customer_Delete_Api=`${environment.apiEndPoint}Customer/DeleteCustomer`;
   // #endregion
 
 
@@ -222,7 +223,7 @@ export class Routing_Url {
   public static MasterModule = 'master';
   public static DoorStepModule = 'door-step-agent';
   public static AgentModule = 'agent';
-  public static CustomersModule = 'customer'; //for admin
+  public static CustomersModule = 'customers'; //for admin
   public static UserCustomerModule = 'user-customer'; //for login
   public static UserBackendOperatorModule = 'backend-operator'; //for login
   public static Lead_Module = 'leads'; //for login

@@ -27,4 +27,8 @@ export class CustomerService {
     let url = `${this._baseService.API_Url.Customer_List_Api}`;
     return this._baseService.post(url, model);
   }
+  DeleteCustomer(userId: number):Observable<ApiResponse<any>> {
+    let url=`${this._baseService.API_Url.Customer_Delete_Api}${userId}`;
+    return this._baseService.Delete(url);
+  }
 }

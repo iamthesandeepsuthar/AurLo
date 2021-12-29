@@ -3,15 +3,17 @@ import { CommonModule } from '@angular/common';
 
 import { CustomersRoutingModule } from './customers-routing.module';
 import { ListCustomerComponent } from './list-customer/list-customer.component';
+import { SharedModule } from 'src/app/Shared/Helper/shared/shared.module';
 
 
 @NgModule({
   declarations: [
-    ListCustomerComponent,    
+    ListCustomerComponent,
   ],
   imports: [
     CommonModule,
-    CustomersRoutingModule
+    CustomersRoutingModule,
+    SharedModule,
   ]
 })
 export class CustomersModule { }
