@@ -360,24 +360,24 @@ namespace AurigainLoanERP.Services.FreshLead
                     {
                         case 1:
                             leadDetail.LeadStatus = LeadStatus.Pending.GetStringValue();
-                            leadDetail.LeadStatusId = result.Entity.Id;
+                            leadDetail.LeadStatusId = model.LeadStatus;
                             break;
                         case 2:
                             leadDetail.LeadStatus = LeadStatus.Mismatched.GetStringValue();
-                            leadDetail.LeadStatusId = result.Entity.Id;
+                            leadDetail.LeadStatusId = model.LeadStatus;
                             break;
 
                         case 3:
                             leadDetail.LeadStatus = LeadStatus.InCompleted.GetStringValue();
-                            leadDetail.LeadStatusId = result.Entity.Id;
+                            leadDetail.LeadStatusId = model.LeadStatus;
                             break;
                         case 4:
                             leadDetail.LeadStatus = LeadStatus.Rejected.GetStringValue();
-                            leadDetail.LeadStatusId = result.Entity.Id;
+                            leadDetail.LeadStatusId = model.LeadStatus;
                             break;
                         case 5:
                             leadDetail.LeadStatus = LeadStatus.Completed.GetStringValue();
-                            leadDetail.LeadStatusId = result.Entity.Id;
+                            leadDetail.LeadStatusId = model.LeadStatus;
                             break;
 
                         default:
@@ -425,24 +425,24 @@ namespace AurigainLoanERP.Services.FreshLead
                     {
                         case 1:
                             leadDetail.LeadStatus = LeadStatus.Pending.GetStringValue();
-                            leadDetail.LeadStatusId = result.Entity.Id;
+                            leadDetail.LeadStatusId = model.LeadStatus;
                             break;
                         case 2:
                             leadDetail.LeadStatus = LeadStatus.Mismatched.GetStringValue();
-                            leadDetail.LeadStatusId = result.Entity.Id;
+                            leadDetail.LeadStatusId = model.LeadStatus;
                             break;
 
                         case 3:
                             leadDetail.LeadStatus = LeadStatus.InCompleted.GetStringValue();
-                            leadDetail.LeadStatusId = result.Entity.Id;
+                            leadDetail.LeadStatusId = model.LeadStatus;
                             break;
                         case 4:
                             leadDetail.LeadStatus = LeadStatus.Rejected.GetStringValue();
-                            leadDetail.LeadStatusId = result.Entity.Id;
+                            leadDetail.LeadStatusId = model.LeadStatus;
                             break;
                         case 5:
                             leadDetail.LeadStatus = LeadStatus.Completed.GetStringValue();
-                            leadDetail.LeadStatusId = result.Entity.Id;
+                            leadDetail.LeadStatusId = model.LeadStatus;
                             break;
 
                         default:
