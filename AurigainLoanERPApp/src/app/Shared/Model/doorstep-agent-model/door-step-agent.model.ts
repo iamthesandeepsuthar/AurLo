@@ -46,7 +46,7 @@ export class UserSecurityDepositPostModel {
 
 export class DocumentPostModel {
   constructor() {
-    // this.Id = 0;
+  //   this.Id = 0;
     this.DocumentTypeId = 0;
     this.Files = [] as FilePostModel[];
   }
