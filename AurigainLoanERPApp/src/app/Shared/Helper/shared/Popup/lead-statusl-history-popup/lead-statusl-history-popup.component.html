@@ -9,35 +9,35 @@
         </button>
         </div>
         <div class="px-3 pt-3 pb-0">
-        <div class="table-responsive">
-            <table class="table table-striped dataTable table-header table-blue table-no-border">
-                <thead>
-                    <tr>
-                        <th>Approval Status</th>
-                        <th>Action Taken By</th>
-                        <th>Date</th>
-                    </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let h of History">
-                    <td colspan="3" class="p-0 border-0">
-                     <table>
-                         <tbody>
-                             <tr>
-                                <td> <span class="text-success"> {{h.LeadStatus}} </span></td>
-                                <td>{{h.ActionTakenBy}}</td>
-                                <td>{{h.ActionDate | date}}</td>
-                             </tr>
-                             <tr class="info-remark">
-                                <td colspan="3">
-                                  <strong> Remarks : </strong>     {{h.Remark}}
-                                </td>
-                            </tr>
-                         </tbody>
-                     </table>
-                    </td>
-                </tr>
-                    <!-- <tr *ngFor="let h of History">
+            <div class="table-responsive">
+                <table class="table table-striped dataTable table-header table-blue table-no-border">
+                    <thead>
+                        <tr>
+                            <th style="width: 40%;">Approval Status</th>
+                            <th style="width: 40%;">Action Taken By</th>
+                            <th style="width: 20%;">Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let h of History">
+                            <td colspan="3" class="p-0 border-0">
+                                <table class="w-100">
+                                    <tbody>
+                                        <tr>
+                                            <td style="width: 40%;"> <span class="text-success"> {{h.LeadStatus}} </span></td>
+                                            <td style="width: 40%;">{{h.ActionTakenBy}}</td>
+                                            <td style="width: 20%;">{{h.ActionDate | date}}</td>
+                                        </tr>
+                                        <tr class="info-remark">
+                                            <td colspan="3">
+                                                <strong> Remarks : </strong> {{h.Remark}}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                        <!-- <tr *ngFor="let h of History">
                         <td> <span class="text-primary"> {{h.LeadStatus}} </span></td>
                         <td>{{h.ActionTakenBy}}</td>
                         <td>{{h.ActionDate | date}}</td>
@@ -48,9 +48,9 @@
                         </td>
                     </tr> -->
 
-                </tbody>
-            </table>
-        </div>
+                    </tbody>
+                </table>
+            </div>
         </div>
         <div class="modal-footer border-0">
             <button type="button" class="btn btn-outline-danger" (click)="onClose()"><i

@@ -54,7 +54,7 @@ hr {
 }
 
 strong {
-    font-weight: 600;
+    font-weight: 700;
 }
 
 code {
@@ -1193,6 +1193,8 @@ code {
 
 #sidebar ul.menu-categories li.menu>.dropdown-toggle>div {
     align-self: center;
+    display: flex;
+    align-items: center;
 }
 
 #sidebar ul.menu-categories li.menu .dropdown-toggle:after {
@@ -1206,6 +1208,10 @@ code {
     width: 20px;
     height: 20px;
     stroke-width: 1.6;
+}
+
+#sidebar ul.menu-categories li.menu>.dropdown-toggle i {
+    font-size: 20px;
 }
 
 li.menu.menu-active>a {
@@ -1252,7 +1258,8 @@ li.menu>a:hover svg {
 }
 
 li.menu.menu-active>a span,
-li.menu.menu-active>a svg {
+li.menu.menu-active>a svg,
+li.menu.menu-active>a i {
     color: #0e1726 !important;
 }
 
