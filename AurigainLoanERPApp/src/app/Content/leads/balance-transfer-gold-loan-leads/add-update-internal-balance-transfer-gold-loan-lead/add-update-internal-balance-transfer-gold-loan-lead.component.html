@@ -499,7 +499,7 @@
       <div class="step-grp-content">
         <div class="custom_stepers-body-items-form row">
           <div class="form-group col-md-4">
-            <label>Document Type (Identity)</label>
+            <label>Document (POI)</label>
 
 
             <ng-select [items]="ddlDocumentTypePOI"
@@ -515,7 +515,7 @@
 
           </div>
           <div class="form-group col-md-4">
-            <label>Document Number (Identity): </label>
+            <label>Document Number(POI) </label>
             <input type="text" class="form-control" id="input9" placeholder="Document Number"
               [(ngModel)]="model.KYCDetail.PoidocumentNumber" formControlName="PoidocumentNumber"
               [ngClass]="{ 'is-invalid': f7.PoidocumentNumber?.errors && f7.DocumentNumber?.touched}"
@@ -535,7 +535,7 @@
 
 
           <div class="form-group col-md-4">
-            <label>Document Type (Address)</label>
+            <label>Document (POA)</label>
 
 
             <ng-select [items]="ddlDocumentTypePOA"
@@ -552,7 +552,7 @@
 
           </div>
           <div class="form-group col-md-4">
-            <label>Document Number (Address): </label>
+            <label>Document Number (POA) </label>
             <input type="text" class="form-control" id="input9" placeholder="Document Number"
               [(ngModel)]="model.KYCDetail.PoadocumentNumber" formControlName="PoadocumentNumber"
               [ngClass]="{ 'is-invalid': f7.PoadocumentNumber?.errors && f7.DocumentNumber?.touched}"
