@@ -151,7 +151,7 @@ table.dataTable thead .sorting_desc:after {
 
 .table>tbody>tr:last-child>td .dropdown:not(.custom-dropdown-icon):not(.custom-dropdown) .dropdown-menu.show,
 .table>tbody>tr:nth-last-child(2)>td .dropdown:not(.custom-dropdown-icon):not(.custom-dropdown) .dropdown-menu.show {
-    top: -108px !important;
+    top: -69px !important;
 }
 
 .table>tbody>tr>td {
