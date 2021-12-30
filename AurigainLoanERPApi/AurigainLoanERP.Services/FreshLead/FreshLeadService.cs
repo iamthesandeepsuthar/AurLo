@@ -358,34 +358,25 @@ namespace AurigainLoanERP.Services.FreshLead
                 {
                     switch (model.LeadStatus)
                     {
-                        case 1:
-                            leadDetail.LeadStatus = LeadStatus.Pending.GetStringValue();
+                        case ((int)LeadStatusEnum.Pending):
+                            leadDetail.LeadStatus = LeadStatusEnum.Pending.GetStringValue();
                             leadDetail.LeadStatusId = model.LeadStatus;
                             break;
-                        case 2:
-                            leadDetail.LeadStatus = LeadStatus.Mismatched.GetStringValue();
+                    
+                        case ((int)LeadStatusEnum.Rejected):
+                            leadDetail.LeadStatus = LeadStatusEnum.Rejected.GetStringValue();
                             leadDetail.LeadStatusId = model.LeadStatus;
                             break;
-
-                        case 3:
-                            leadDetail.LeadStatus = LeadStatus.InCompleted.GetStringValue();
-                            leadDetail.LeadStatusId = model.LeadStatus;
-                            break;
-                        case 4:
-                            leadDetail.LeadStatus = LeadStatus.Rejected.GetStringValue();
-                            leadDetail.LeadStatusId = model.LeadStatus;
-                            break;
-                        case 5:
-                            leadDetail.LeadStatus = LeadStatus.Completed.GetStringValue();
+                        case ((int)LeadStatusEnum.Completed):
+                            leadDetail.LeadStatus = LeadStatusEnum.Completed.GetStringValue();
                             leadDetail.LeadStatusId = model.LeadStatus;
                             break;
 
                         default:
-                            leadDetail.LeadStatus = "New";
-                            leadDetail.LeadStatusId =null;
+                            leadDetail.LeadStatus = LeadStatusEnum.New.GetStringValue();
+                            leadDetail.LeadStatusId = ((int)LeadStatusEnum.New);
                             break;
                     }
-
                     await _db.SaveChangesAsync();
                     _db.Database.CommitTransaction();
                 }
@@ -423,31 +414,23 @@ namespace AurigainLoanERP.Services.FreshLead
                 {
                     switch (model.LeadStatus)
                     {
-                        case 1:
-                            leadDetail.LeadStatus = LeadStatus.Pending.GetStringValue();
+                        case ((int)LeadStatusEnum.Pending):
+                            leadDetail.LeadStatus = LeadStatusEnum.Pending.GetStringValue();
                             leadDetail.LeadStatusId = model.LeadStatus;
                             break;
-                        case 2:
-                            leadDetail.LeadStatus = LeadStatus.Mismatched.GetStringValue();
+                        case ((int)LeadStatusEnum.Completed):
+                            leadDetail.LeadStatus = LeadStatusEnum.Completed.GetStringValue();
                             leadDetail.LeadStatusId = model.LeadStatus;
                             break;
 
-                        case 3:
-                            leadDetail.LeadStatus = LeadStatus.InCompleted.GetStringValue();
+                        case ((int)LeadStatusEnum.Rejected):
+                            leadDetail.LeadStatus = LeadStatusEnum.Rejected.GetStringValue();
                             leadDetail.LeadStatusId = model.LeadStatus;
-                            break;
-                        case 4:
-                            leadDetail.LeadStatus = LeadStatus.Rejected.GetStringValue();
-                            leadDetail.LeadStatusId = model.LeadStatus;
-                            break;
-                        case 5:
-                            leadDetail.LeadStatus = LeadStatus.Completed.GetStringValue();
-                            leadDetail.LeadStatusId = model.LeadStatus;
-                            break;
+                            break;                      
 
                         default:
-                            leadDetail.LeadStatus = "New";
-                            leadDetail.LeadStatusId = null;
+                            leadDetail.LeadStatus =LeadStatusEnum.New.GetStringValue();
+                            leadDetail.LeadStatusId = ((int)LeadStatusEnum.New);
                             break;
                     }
 
@@ -480,12 +463,12 @@ namespace AurigainLoanERP.Services.FreshLead
                     {
                         ActionDate = d.ActionDate,
                         LeadId = d.LeadId,
-                        LeadStatus = d.LeadStatus == 1 ? LeadStatus.Pending.GetStringValue() :
-                                d.LeadStatus == 2 ? LeadStatus.Mismatched.GetStringValue() :
-                                d.LeadStatus == 3 ? LeadStatus.InCompleted.GetStringValue() :
-                                d.LeadStatus == 4 ? LeadStatus.Rejected.GetStringValue() :
-                                d.LeadStatus == 5 ? LeadStatus.Completed.GetStringValue() :
-                                "New",
+                        LeadStatus = d.LeadStatus == ((int)LeadStatusEnum.Pending) ? LeadStatusEnum.Pending.GetStringValue() :
+                                d.LeadStatus == ((int)LeadStatusEnum.GoldReached) ? LeadStatusEnum.GoldReached.GetStringValue() :
+                                d.LeadStatus == ((int)LeadStatusEnum.AmountTransfer) ? LeadStatusEnum.AmountTransfer.GetStringValue() :
+                                d.LeadStatus == ((int)LeadStatusEnum.Rejected) ? LeadStatusEnum.Rejected.GetStringValue() :
+                                d.LeadStatus == ((int)LeadStatusEnum.Completed) ? LeadStatusEnum.Completed.GetStringValue() :
+                                LeadStatusEnum.New.GetStringValue(),
                         ActionTakenBy = d.ActionTakenByUserId.HasValue ? $"{d.ActionTakenByUser.UserName} ({d.ActionTakenByUser.UserRole.Name})" : null,
                         ActionTakenByUserId = d.ActionTakenByUserId ?? null,
                         Id = d.Id,
@@ -680,12 +663,12 @@ namespace AurigainLoanERP.Services.FreshLead
                     {
                         ActionDate = d.ActionDate,
                         LeadId = d.LeadId,
-                        LeadStatus = d.LeadStatus == 1 ? LeadStatus.Pending.GetStringValue() :
-                                 d.LeadStatus == 2 ? LeadStatus.Mismatched.GetStringValue() :
-                                 d.LeadStatus == 3 ? LeadStatus.InCompleted.GetStringValue() :
-                                 d.LeadStatus == 4 ? LeadStatus.Rejected.GetStringValue() :
-                                 d.LeadStatus == 5 ? LeadStatus.Completed.GetStringValue() :
-                                 "New",
+                        LeadStatus = d.LeadStatus == ((int)LeadStatusEnum.Pending)? LeadStatusEnum.Pending.GetStringValue() :
+                                 d.LeadStatus == ((int)LeadStatusEnum.GoldReached) ? LeadStatusEnum.GoldReached.GetStringValue() :
+                                 d.LeadStatus == ((int)LeadStatusEnum.AmountTransfer) ? LeadStatusEnum.AmountTransfer.GetStringValue() :
+                                 d.LeadStatus == ((int)LeadStatusEnum.Rejected) ? LeadStatusEnum.Rejected.GetStringValue() :
+                                 d.LeadStatus == ((int)LeadStatusEnum.Completed) ? LeadStatusEnum.Completed.GetStringValue() :
+                                LeadStatusEnum.New.GetStringValue(),
                         ActionTakenBy = d.ActionTakenByUserId.HasValue ? $"{d.ActionTakenByUser.UserName} ({d.ActionTakenByUser.UserRole.Name})" : null,
                         ActionTakenByUserId = d.ActionTakenByUserId ?? null,
                         Id = d.Id,
@@ -946,8 +929,9 @@ namespace AurigainLoanERP.Services.FreshLead
                         LoanAmountRequired = model.LoanAmountRequired,
                         DateOfBirth = model.DateOfBirth,
                         ModifedDate = null,
-                        LeadStatus = "New",
-                        
+                        LeadStatus = LeadStatusEnum.New.GetStringValue(),
+                        LeadStatusId = ((int)LeadStatusEnum.New),
+
                     };
                     await _db.GoldLoanFreshLead.AddAsync(lead);
                     await _db.SaveChangesAsync();
@@ -1008,7 +992,8 @@ namespace AurigainLoanERP.Services.FreshLead
                             MobileNumber = model.MobileNumber,
                             LoanAmount = model.LoanAmount,
                             ModifiedDate = null,
-                            LeadStatus = "New",
+                            LeadStatus = LeadStatusEnum.New.GetStringValue(),
+                            LeadStatusId = ((int)LeadStatusEnum.New),
                             Pincode = model.Pincode,
                             AeraPincodeId = model.AreaPincodeId
                         };

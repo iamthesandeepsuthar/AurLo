@@ -20,13 +20,13 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let h of History">
-                        <td> <span class="text-success"> {{h.LeadStatus}} </span></td>
+                        <td> <span class="text-primary"> {{h.LeadStatus}} </span></td>
                         <td>{{h.ActionTakenBy}}</td>
                         <td>{{h.ActionDate | date}}</td>
                     </tr>
-                    <tr class="info-remark">
+                    <tr class="info-remark" *ngFor="let h of History">
                         <td colspan="3">
-                                07-Jun-2021 — Extension for Visual Studio Code - A lorem ipsum placeholder text generator for VS Code. Adds snippets for 1 sentence and 1 paragraph...
+                        {{h.Remark}}
                         </td>
                     </tr>
 

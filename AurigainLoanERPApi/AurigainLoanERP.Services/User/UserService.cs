@@ -32,8 +32,6 @@ namespace AurigainLoanERP.Services.User
             _security = new Security(_configuration);
             _fileHelper = new FileHelper(environment);
             _emailHelper = new EmailHelper(_configuration, environment);
-
-
         }
 
         #region << Agent User >>

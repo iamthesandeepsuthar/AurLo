@@ -13,7 +13,7 @@
             </nav>
             <!-- Breadcrumb End -->
         </div>
-        <a class="btn btn-dark btn-sm mt-2 mt-sm-0" *ngIf="this.userDetail!.RoleId != userRoleEnum.Customer" [routerLink]="'./'+routing_Url.Fresh_Lead_Add_Update_Internal_Lead_Url+'/0'">
+        <a class="btn btn-dark btn-sm mt-2 mt-sm-0" *ngIf="this.UserDetail!.RoleId != UserRoleEnum.Customer" [routerLink]="'./'+routing_Url.Fresh_Lead_Add_Update_Internal_Lead_Url+'/0'">
             <i class="fas fa-plus"></i> Add Internal Lead</a>
     </div>
 </div>
@@ -74,13 +74,14 @@
                 <ng-container matColumnDef="LeadStatus">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>Lead Status </th>
                     <td mat-cell *matCellDef="let element" class="table-action-btn">
-                        <div class="text-center" [ngSwitch]="element.LeadStatus">
-                            <div *ngSwitchCase="'Completed'" class="badge bg-success">{{element.LeadStatus}}</div>
-                            <div *ngSwitchCase="'Rejected'" class="badge bg-danger">{{element.LeadStatus}}</div>
-                            <div *ngSwitchCase="'Mismatched'" class="badge bg-warning">{{element.LeadStatus}}</div>
-                            <div *ngSwitchCase="'In Completed'" class="badge bg-secondary">{{element.LeadStatus}}</div>
-                            <div *ngSwitchCase="'Pending'" class="badge bg-dark">{{element.LeadStatus}}</div>
-                            <div *ngSwitchDefault class="badge bg-info">{{element.LeadStatus}}</div>
+                        <div class="text-center">
+                            <div *ngIf="LeadStatusEnum.Completed == element.LeadStatusId" class="badge bg-success">{{element.LeadStatus}}</div>
+                            <div *ngIf="LeadStatusEnum.Rejected == element.LeadStatusId"  class="badge bg-danger">{{element.LeadStatus}}</div>
+                            <div *ngIf="LeadStatusEnum.GoldReached == element.LeadStatusId" class="badge bg-warning">{{element.LeadStatus}}</div>
+                            <div *ngIf="LeadStatusEnum.AmountTransfer == element.LeadStatusId" class="badge bg-secondary">{{element.LeadStatus}}</div>
+                            <div *ngIf="LeadStatusEnum.BTReturnReady == element.LeadStatusId"  class="badge bg-dark">{{element.LeadStatus}}</div>
+                            <div *ngIf="LeadStatusEnum.Pending == element.LeadStatusId"  class="badge bg-info">{{element.LeadStatus}}</div>
+                            <div *ngIf="LeadStatusEnum.New == element.LeadStatusId" class="badge bg-primary">{{element.LeadStatus}}</div>
                         </div>
 
                     </td>
@@ -107,36 +108,6 @@
                     </td>
                 </ng-container>
 
-                <!-- <ng-container matColumnDef="IsApproved">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Approval </th>
-          <td mat-cell *matCellDef="let element" class="table-action-btn">
-            <a (click)="OnApproveStatus(element.UserId)" title="Update Approval Status">
-              <i *ngIf="element.IsApproved" class="fas fa-user-check text-success"></i>
-              <i *ngIf="!element.IsApproved" class="fas fa-user-times text-danger"></i>
-            </a>
-
-          </td>
-        </ng-container> -->
-
-
-                <!-- <ng-container matColumnDef="IsActive">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Status </th>
-          <td mat-cell *matCellDef="let element" class="table-action-btn">
-            <ng-container *ngIf="userRoleEnum.Customer !=  userDetail?.RoleId else NoEdit">
-              <a (click)="OnActiveStatus(element.UserId)" title="Update Active Status">
-                <i *ngIf="element.IsActive" class="fas fa-check-circle text-success"></i>
-                <i *ngIf="!element.IsActive" class="fas fa-ban text-danger"></i>
-              </a>
-            </ng-container>
-            <ng-template #NoEdit>
-              <a title="Active Status">
-                <i *ngIf="element.IsActive" class="fas fa-check-circle text-success"></i>
-                <i *ngIf="!element.IsActive" class="fas fa-ban text-danger"></i>
-              </a>
-            </ng-template>
-          </td>
-        </ng-container> -->
-
 
                 <ng-container matColumnDef="Action">
                     <th width="50" mat-header-cell *matHeaderCellDef> Action </th>
@@ -161,32 +132,32 @@
                                 <a class="table-action-btn-delete" (click)="onChangeAppointmentBooking(row.Id)" title="Appointment Booking"> <i class="fas fa-calendar-check"></i> Appointment Booking </a>
                             </li>
                                 <li>
-                                    <a *ngIf="!row?.IsStatusCompleted" href="javascript:void(0)" (click)="onChangeLeadStatus(row.Id)" class="table-action-btn-status-changes text-warning" data-toggle="tooltip" data-placement="bottom" title="Change Status ">
+                                    <a *ngIf="row?.ApprovalStatusId == ApprovalStatusEnum.Approved && this.UserDetail!.RoleId != UserRoleEnum.Customer" href="javascript:void(0)" (click)="onChangeLeadStatus(row.Id)" class="table-action-btn-status-changes text-warning" data-toggle="tooltip" data-placement="bottom" title="Change Status ">
                                         <img src="assets/img/change-status.png" alt="" /> Change Status
                                     </a>
                                 </li>
                                 <li>
-                                    <a *ngIf="row?.IsStatusCompleted && this.userDetail!.RoleId != userRoleEnum.Customer  && (  !row?.ApprovedStage || row?.ApprovedStage > this.userDetail!.RoleLevel)" (click)="onChangeLeadApproveStage(row.Id)" href="javascript:void(0)" class="table-action-btn-lead-approval text-info"
+                                    <a *ngIf="this.UserDetail!.RoleId != UserRoleEnum.Customer  && (  !row?.ApprovedStage || row?.ApprovedStage > this.UserDetail!.RoleLevel)" (click)="onChangeLeadApproveStage(row.Id)" href="javascript:void(0)" class="table-action-btn-lead-approval text-info"
                                         data-toggle="tooltip" data-placement="bottom" title="Lead Approval">
                                         <img src="assets/img/lead-approval.png" alt="" /> Lead Approval
                                     </a>
                                 </li>
                                 <li>
                                   <!-- && (  !row?.ApprovedStage || row?.ApprovedStage > this.userDetail!.RoleLevel) -->
-                                  <a routerLink="../{{routing_Url.BT_GoldLoan_BalanceReturn_Url +'/'+ row.Id}}"  *ngIf="(row?.IsStatusCompleted && row.ApprovalStatus =='Approved') && this.userDetail!.RoleId != userRoleEnum.Customer" class="table-action-btn-lead-approval text-info"
+                                  <a routerLink="../{{routing_Url.BT_GoldLoan_BalanceReturn_Url +'/'+ row.Id}}"  *ngIf="(row.LeadStatusId ==LeadStatusEnum.BTReturnReady) && this.UserDetail!.RoleId != UserRoleEnum.Customer" class="table-action-btn-lead-approval text-info"
                                       data-toggle="tooltip" data-placement="bottom" title="Balance Return">
                                       <i class="fas fa-exchange-alt mr-1"></i>Balance Return
                                   </a>
                               </li>
 
                                 <li>
-                                    <a *ngIf="row?.IsStatusCompleted && row?.ApprovedStage" (click)="onOpenApproveHistory(row.Id)" href="javascript:void(0)" class="table-action-btn-lead-approval text-info" data-toggle="tooltip" data-placement="bottom" title="Lead Approval History"> <img src="assets/img/history.png" alt="" /> Lead Approval History
+                                    <a *ngIf="row?.ApprovalStatusId == ApprovalStatusEnum.Approved " (click)="onOpenApproveHistory(row.Id)" href="javascript:void(0)" class="table-action-btn-lead-approval text-info" data-toggle="tooltip" data-placement="bottom" title="Lead Approval History"> <img src="assets/img/history.png" alt="" /> Lead Approval History
                                     </a>
                                 </li>
 
                                 <li>
 
-                                    <a (click)="onOpenStatusHistory(row.Id)" href="javascript:void(0)" class="table-action-btn-lead-approval text-info" data-toggle="tooltip" data-placement="bottom" title="Lead Status History"> <i class="fas fa-info-circle"></i> Lead Status History
+                                    <a *ngIf="row?.ApprovalStatusId == ApprovalStatusEnum.Approved" (click)="onOpenStatusHistory(row.Id)" href="javascript:void(0)" class="table-action-btn-lead-approval text-info" data-toggle="tooltip" data-placement="bottom" title="Lead Status History"> <i class="fas fa-info-circle"></i> Lead Status History
                                     </a>
                                 </li>
 

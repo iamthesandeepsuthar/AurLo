@@ -1,4 +1,4 @@
-import { LeadStatusEnum } from './../../../Shared/Enum/fixed-value';
+import { LeadApprovalStatusEnum, LeadStatusEnum } from './../../../Shared/Enum/fixed-value';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
@@ -32,9 +32,10 @@ export class BalanceTransferGoldLoanLeadsComponent implements OnInit {
   dataSource: any;
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort!: MatSort;
-  get userDetail() { return this._auth.GetUserDetail() };
-  get userRoleEnum() { return UserRoleEnum };
-  get leadStatusEnum() { return LeadStatusEnum};
+  get UserDetail() { return this._auth.GetUserDetail() };
+  get UserRoleEnum() { return UserRoleEnum };
+  get LeadStatusEnum() { return LeadStatusEnum};
+  get ApprovalStatusEnum() {return LeadApprovalStatusEnum}
   get routing_Url() { return Routing_Url };
 
   displayedColumns: string[] = ['index','LoanCaseNumber', 'FullName', 'FatherName','IsInternalLead', 'PrimaryMobileNumber','ProductName', 'Pincode', 'LoanAmountRequired','LeadSourceByUserName', 'LeadStatus','ApprovalStatus', 'Action'];
@@ -57,7 +58,7 @@ export class BalanceTransferGoldLoanLeadsComponent implements OnInit {
     private readonly _userSettingService: UserSettingService,
     private readonly _auth: AuthService,
     public dialog: MatDialog) {
-    this.indexModel.UserId = this.userDetail?.UserId as number
+    this.indexModel.UserId = this.UserDetail?.UserId as number
 
   }
 
@@ -157,7 +158,7 @@ export class BalanceTransferGoldLoanLeadsComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.toast.success(Message.SaveSuccess as string, 'Success');
+        // this.toast.success(Message.SaveSuccess as string, 'Success');
         this.getList();
       } else {
       //  this.toast.error(Message.SaveFail as string, 'Error');

@@ -57,8 +57,10 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                     objData.PurposeId = model.PurposeId;
                     objData.LeadSourceByuserId = model.LeadSourceByuserId;
                     objData.CreatedOn = DateTime.Now;
-                    objData.LeadStatus = "New";
-                    objData.ApprovalStatus = "Pending";
+                    objData.LeadStatus = LeadStatusEnum.New.GetStringValue();
+                    objData.ApprovalStatus = LeadApprovalStatusEnum.Pending.GetStringValue();
+                    objData.LeadStatusId = ((int)LeadStatusEnum.New);
+                    objData.LeadApprovalId = ((int)LeadApprovalStatusEnum.Pending);
                     objData.CustomerUserId = model.CustomerUserId;
                     objData.LoanAmount = model.LoanAmount;
                     objData.ProductId = model.ProductId;
@@ -220,13 +222,14 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                                               IsActive = detail.IsActive.Value,
                                               LeadStatus = detail.LeadStatus,
                                               ProductName = detail.Product.Name,
-                                              IsStatusCompleted = detail.BtgoldLoanLeadStatusActionHistory.Where(x => x.LeadStatus.Value == ((int)LeadStatus.Completed)).Count() > 0 ? true : false,
+                                              IsStatusCompleted = detail.BtgoldLoanLeadStatusActionHistory.Where(x => x.LeadStatus.Value == ((int)LeadStatusEnum.Completed)).Count() > 0 ? true : false,
                                               Pincode = detail.BtgoldLoanLeadAddressDetail.FirstOrDefault().AeraPincode.Pincode,
                                               ApprovalStatus = detail.ApprovalStatus,
+                                              ApprovalStatusId = detail.LeadApprovalId.Value,
                                               ApprovedStage = detail.BtgoldLoanLeadApprovalActionHistory.Count > 0 ?
                                               detail.BtgoldLoanLeadApprovalActionHistory.OrderByDescending(x => x.Id).FirstOrDefault(x => x.ActionTakenByUserId.HasValue).ActionTakenByUser.UserRole.UserRoleLevel.Value : (int?)null,
                                               LoanCaseNumber = detail.LoanCaseNumber != null ? detail.LoanCaseNumber : "N/A",
-                                              LeadStatusId = detail.BtgoldLoanLeadStatusActionHistory.Where(x => x.LeadId == detail.Id).OrderByDescending(x => x.Id).FirstOrDefault().LeadStatus.Value
+                                              LeadStatusId = detail.LeadStatusId.Value
                                           }).ToListAsync();
                 if (result != null)
                 {
@@ -416,8 +419,10 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                     objData.LoanAmount = model.LoanAmount;
                     objData.ProductId = model.ProductId;
                     objData.LoanCaseNumber = loanCaseNumber;
-                    objData.LeadStatus = "New";
-                    objData.ApprovalStatus = "Pending";
+                    objData.LeadStatus = LeadStatusEnum.New.GetStringValue();
+                    objData.ApprovalStatus = LeadApprovalStatusEnum.Pending.GetStringValue();
+                    objData.LeadStatusId = ((int)LeadStatusEnum.New);
+                    objData.LeadApprovalId = ((int)LeadApprovalStatusEnum.Pending);
                     objData.LoanAccountNumber = !string.IsNullOrEmpty(model.LoanAccountNumber) ? model.LoanAccountNumber : null;
                     objData.IsInternalLead = true;
                     objData.CreatedBy = _loginUserDetail.UserId ?? null;
@@ -501,7 +506,6 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                     Remarks = !string.IsNullOrEmpty(model.Remarks) ? model.Remarks : null,
                     ApprovalStatus = model.ApprovalStatus,
                 };
-
                 var result = await _db.BtgoldLoanLeadApprovalActionHistory.AddAsync(objModel);
                 await _db.SaveChangesAsync();
                 var leadDetail = await _db.BtgoldLoanLead.Where(x => x.Id == model.LeadId).FirstOrDefaultAsync();
@@ -509,21 +513,26 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                 {
                     switch (model.ApprovalStatus)
                     {
-                        case 1:
-                            leadDetail.ApprovalStatus = LeadApprovalStatus.Approved.GetStringValue();
+                        case ((int)LeadApprovalStatusEnum.Approved):
+                            leadDetail.ApprovalStatus = LeadApprovalStatusEnum.Approved.GetStringValue();
                             leadDetail.LeadApprovalId =model.ApprovalStatus;
+                            leadDetail.LeadStatusId = ((int)LeadStatusEnum.Pending);
+                            leadDetail.LeadStatus = LeadStatusEnum.Pending.GetStringValue();
                             break;
-                        case 2:
-                            leadDetail.ApprovalStatus = LeadApprovalStatus.Rejected.GetStringValue();
+                        case ((int)LeadApprovalStatusEnum.Rejected):
+                            leadDetail.ApprovalStatus = LeadApprovalStatusEnum.Rejected.GetStringValue();
                             leadDetail.LeadApprovalId = model.ApprovalStatus;
+                            leadDetail.LeadStatusId = ((int)LeadStatusEnum.Rejected);
+                            leadDetail.LeadStatus = LeadStatusEnum.Rejected.GetStringValue();
                             break;
 
                         default:
-                            leadDetail.LeadStatus = "Pending";
-                            leadDetail.LeadApprovalId = null;
+                            leadDetail.LeadStatus = LeadApprovalStatusEnum.Pending.GetStringValue();
+                            leadDetail.LeadApprovalId =((int)LeadApprovalStatusEnum.Pending);
+                            leadDetail.LeadStatusId = ((int)LeadStatusEnum.New);
+                            leadDetail.LeadStatus = LeadStatusEnum.New.GetStringValue();
                             break;
                     }
-
                     await _db.SaveChangesAsync();
                     _db.Database.CommitTransaction();
                 }
@@ -539,7 +548,6 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                 _db.Database.RollbackTransaction();
                 return CreateResponse<object>(false, ResponseMessage.Fail, false, ((int)ApiStatusCode.ServerException));
             }
-
         }
         public async Task<ApiServiceResponseModel<object>> UpdateLeadStatusAsync(LeadStatusModel model)
         {
@@ -561,31 +569,29 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                 {
                     switch (model.LeadStatus)
                     {
-                        case 1:
-                            leadDetail.LeadStatus = LeadStatus.Pending.GetStringValue();
+                        case ((int)LeadStatusEnum.AmountTransfer):
+                            leadDetail.LeadStatus = LeadStatusEnum.AmountTransfer.GetStringValue();
                             leadDetail.LeadStatusId =model.LeadStatus;
                             break;
-                        case 2:
-                            leadDetail.LeadStatus = LeadStatus.Mismatched.GetStringValue();
+                        case ((int)LeadStatusEnum.GoldReached):
+                            leadDetail.LeadStatus = LeadStatusEnum.GoldReached.GetStringValue();
                             leadDetail.LeadStatusId =model.LeadStatus;
                             break;
-
-                        case 3:
-                            leadDetail.LeadStatus = LeadStatus.InCompleted.GetStringValue();
+                        case ((int)LeadStatusEnum.BTReturnReady):
+                            leadDetail.LeadStatus = LeadStatusEnum.BTReturnReady.GetStringValue();
                             leadDetail.LeadStatusId = model.LeadStatus;
                             break;
-                        case 4:
-                            leadDetail.LeadStatus = LeadStatus.Rejected.GetStringValue();
+                        case ((int)LeadStatusEnum.Rejected):
+                            leadDetail.LeadStatus = LeadStatusEnum.Rejected.GetStringValue();
                             leadDetail.LeadStatusId = model.LeadStatus;
                             break;
-                        case 5:
-                            leadDetail.LeadStatus = LeadStatus.Completed.GetStringValue();
+                        case ((int)LeadStatusEnum.Completed):
+                            leadDetail.LeadStatus = LeadStatusEnum.Completed.GetStringValue();
                             leadDetail.LeadStatusId = model.LeadStatus;
                             break;
-
                         default:
-                            leadDetail.LeadStatus = "New";
-                            leadDetail.LeadStatusId = null;
+                            leadDetail.LeadStatus =LeadStatusEnum.Pending.GetStringValue();
+                            leadDetail.LeadStatusId = ((int)LeadStatusEnum.Pending);
                             break;
                     }
 
@@ -621,12 +627,12 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                     {
                         ActionDate = d.ActionDate,
                         LeadId = d.LeadId,
-                        LeadStatus = d.LeadStatus == 1 ? LeadStatus.Pending.GetStringValue() :
-                                d.LeadStatus == 2 ? LeadStatus.Mismatched.GetStringValue() :
-                                d.LeadStatus == 3 ? LeadStatus.InCompleted.GetStringValue() :
-                                d.LeadStatus == 4 ? LeadStatus.Rejected.GetStringValue() :
-                                d.LeadStatus == 5 ? LeadStatus.Completed.GetStringValue() :
-                                "New",
+                        LeadStatus = d.LeadStatus == ((int)LeadStatusEnum.Pending) ? LeadStatusEnum.Pending.GetStringValue() :
+                                d.LeadStatus == ((int)LeadStatusEnum.AmountTransfer) ? LeadStatusEnum.AmountTransfer.GetStringValue() :
+                                d.LeadStatus == ((int)LeadStatusEnum.GoldReached) ? LeadStatusEnum.GoldReached.GetStringValue() :
+                                d.LeadStatus == ((int)LeadStatusEnum.BTReturnReady) ? LeadStatusEnum.BTReturnReady.GetStringValue() :
+                                d.LeadStatus == ((int)LeadStatusEnum.Completed) ? LeadStatusEnum.Completed.GetStringValue() :
+                                                LeadStatusEnum.New.GetStringValue(),
                         ActionTakenBy = d.ActionTakenByUserId.HasValue ? $"{d.ActionTakenByUser.UserName} ({d.ActionTakenByUser.UserRole.Name})" : null,
                         ActionTakenByUserId = d.ActionTakenByUserId ?? null,
                         Id = d.Id,
@@ -656,8 +662,7 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                     {
                         ActionDate = d.ActionDate,
                         LeadId = d.LeadId,
-                        LeadStatus = d.ApprovalStatus == 1 ? LeadApprovalStatus.Approved.GetStringValue() : LeadApprovalStatus.Rejected.GetStringValue(),
-
+                        LeadStatus = d.ApprovalStatus == ((int)LeadApprovalStatusEnum.Approved) ? LeadApprovalStatusEnum.Approved.GetStringValue() : LeadApprovalStatusEnum.Rejected.GetStringValue(),
                         ActionTakenBy = d.ActionTakenByUserId.HasValue ? $"{d.ActionTakenByUser.UserName} ({d.ActionTakenByUser.UserRole.Name})" : null,
                         ActionTakenByUserId = d.ActionTakenByUserId ?? null,
                         Id = d.Id,
@@ -763,7 +768,7 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                                               LeadStatus = detail.LeadStatus,
                                               LeadType = "BT",
                                               ProductName = detail.Product.Name,
-                                              IsStatusCompleted = detail.BtgoldLoanLeadStatusActionHistory.Where(x => x.LeadStatus.Value == ((int)LeadStatus.Completed)).Count() > 0 ? true : false,
+                                              IsStatusCompleted = detail.BtgoldLoanLeadStatusActionHistory.Where(x => x.LeadStatus.Value == ((int)       LeadStatusEnum.Completed)).Count() > 0 ? true : false,
                                               Pincode = detail.BtgoldLoanLeadAddressDetail.FirstOrDefault().AeraPincode.Pincode,
                                               ApprovalStatus = detail.ApprovalStatus,
                                               LoanCaseNumber = detail.LoanCaseNumber != null ? detail.LoanCaseNumber : "N/A"

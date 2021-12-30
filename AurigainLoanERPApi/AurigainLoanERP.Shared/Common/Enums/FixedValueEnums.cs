@@ -110,26 +110,46 @@ namespace AurigainLoanERP.Shared.Enums
             BankCheque = 3,
 
         }
-        public enum LeadStatus
+        public enum LeadStatusEnum
+        {
+            [StringValue("New")]
+            New = 1,
+            [StringValue("Pending")]
+            Pending = 2,
+            [StringValue("Amount Transfer")]
+            AmountTransfer = 3,
+            [StringValue("Gold Reached")]
+            GoldReached = 4,
+            [StringValue("BTRetrun Ready")]
+            BTReturnReady = 5,
+            [StringValue("Completed")]
+            Completed = 6,
+            [StringValue("Rejected")]
+            Rejected=7
+        }
+        public enum LeadApprovalStatusEnum
         {
             [StringValue("Pending")]
             Pending = 1,
-            [StringValue("Mismatched")]
-            Mismatched = 2,
-            [StringValue("In Completed")]
-            InCompleted = 3,
-            [StringValue("Rejected")]
-            Rejected = 4,
-            [StringValue("Completed")]
-            Completed = 5,
-        }
-        public enum LeadApprovalStatus
-        {
             [StringValue("Approved")]
-            Approved = 1,
+            Approved = 2,
             [StringValue("Rejected")]
-            Rejected = 2
+            Rejected = 3
         }
+        //public enum LeadStatus
+        //{
+        //    [StringValue("Pending")]
+        //    Pending = 1,
+        //    [StringValue("Mismatched")]
+        //    Mismatched = 2,
+        //    [StringValue("In Completed")]
+        //    InCompleted = 3,
+        //    [StringValue("Rejected")]
+        //    Rejected = 4,
+        //    [StringValue("Completed")]
+        //    Completed = 5,
+        //}
+
         public enum PaymentMethod 
         {
             [StringValue("RTGS")]

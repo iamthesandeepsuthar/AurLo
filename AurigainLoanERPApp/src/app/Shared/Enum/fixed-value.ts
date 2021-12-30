@@ -33,9 +33,16 @@ export enum PaymentMethod {
   CHEQUE=4,
 }
 export enum LeadStatusEnum {
-  Pending = 1,
-  Mismatched = 2,
-  InCompleted = 3,
-  Rejected = 4,
-  Completed = 5
+  New = 1,
+  Pending = 2,
+  AmountTransfer = 3,
+  GoldReached = 4,
+  BTReturnReady = 5,
+  Completed = 6,
+  Rejected=7
+}
+export enum LeadApprovalStatusEnum {
+  Pending=1,
+  Approved=2,
+  Rejected=3
 }
