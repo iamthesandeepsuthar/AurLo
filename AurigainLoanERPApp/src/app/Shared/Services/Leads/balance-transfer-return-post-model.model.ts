@@ -24,7 +24,7 @@ export class BalanceTransferReturnBankChequeDetail {
   }
   Id!: number;
   ChequeNumber!: string;
-  ChequeImageUrl!: FilePostModel | null;
+  ChequeImageUrl: FilePostModel;
 }
 export class FilePostModel {
   Id!:number;

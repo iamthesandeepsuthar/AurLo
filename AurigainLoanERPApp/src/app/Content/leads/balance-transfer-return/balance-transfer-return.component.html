@@ -32,13 +32,13 @@
                         <td><strong> Loan Amount: </strong> </td>
                         <td>{{DetailModel.LoanAmount}}</td>
                         <td><strong> Lead Source By: </strong> </td>
-                        <td>{{DetailModel.LeadSourceByuserName}}</td>
+                        <td>{{DetailModel?.LeadSourceByuserName}}</td>
                     </tr>
                     <tr>
                         <td><strong>Mobile Number: </strong> </td>
-                        <td>{{DetailModel.Mobile}}</td>
+                        <td>{{DetailModel?.Mobile ?? 'N/A'}}</td>
                         <td><strong> Lender: </strong> </td>
-                        <td>{{DetailModel!.ExistingLoanDetail!.BankName}}</td>
+                        <td>{{DetailModel?.ExistingLoanDetail?.BankName ?? 'N/A'}}</td>
                     </tr>
                 </tbody>
             </table>
@@ -51,15 +51,15 @@
                 <tbody>
                     <tr>
                         <td style="width: 20%;"><strong> <i class="fas fa-gem mr-1"></i> Type Jewellery : </strong> </td>
-                        <td style="width: 30%;">{{DetailModel!.JewelleryDetail!.JewelleryType}}</td>
+                        <td style="width: 30%;">{{DetailModel?.JewelleryDetail?.JewelleryType}}</td>
                         <td style="width: 20%;"><strong> <i class="fas fa-list-ol mr-1"></i> Quantity : </strong> </td>
-                        <td style="width: 30%;">{{DetailModel!.JewelleryDetail!.Quantity}}</td>
+                        <td style="width: 30%;">{{DetailModel?.JewelleryDetail?.Quantity}}</td>
                     </tr>
                     <tr>
                         <td><strong> <i class="fas fa-weight mr-1"></i> Weight : </strong> </td>
-                        <td>{{DetailModel!.JewelleryDetail!.Weight}} </td>
+                        <td>{{DetailModel?.JewelleryDetail?.Weight}} </td>
                         <td><strong> <i class="fas fa-cube mr-1"></i> Karat : </strong> </td>
-                        <td>{{DetailModel!.JewelleryDetail!.Karats}}</td>
+                        <td>{{DetailModel?.JewelleryDetail?.Karats}}</td>
                     </tr>
                 </tbody>
             </table>
@@ -181,10 +181,9 @@
 
                           <div class="form-group col-md-12">
                               <label>Upload Cheque Image</label>
-                              <app-file-selector ></app-file-selector>
-                              <input type="file" class="form-control" />
-                              <!-- <app-file-selector (FilesChanged)="chequeDetail..(itm.Id, $event)"         >
-          </app-file-selector> -->
+                              <app-file-selector (FilesChanged)="HandleChequeFiles($event)"  ></app-file-selector>
+                              <!-- <input type="file" class="form-control" /> -->
+
                           </div>
                       </div>
                   </div>
