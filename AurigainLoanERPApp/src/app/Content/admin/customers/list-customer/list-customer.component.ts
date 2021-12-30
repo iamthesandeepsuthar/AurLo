@@ -27,10 +27,10 @@ export class ListCustomerComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort!: MatSort;
   id!: number;
-  displayedColumns: string[] = ['index','FullName','Mobile','Email', 'Gender','Mpin','IsActive', 'IsApproved', 'Action'];
+  displayedColumns: string[] = ['index','FullName','EmailId','Mobile','CreatedOn','Mpin', 'Gender','IsActive', 'IsApproved', 'Action'];
   ViewdisplayedColumns = [{ Value: 'FullName', Text: 'Full Name' },
   { Value: 'Gender', Text: 'Gender' },
-  { Value: 'Email', Text: 'Email' },
+  { Value: 'EmailId', Text: 'Email' },
   { Value: 'Mpin', Text: 'M-PIN' },
   { Value: 'Mobile', Text: 'Mobile' }];
   indexModel = new IndexModel();

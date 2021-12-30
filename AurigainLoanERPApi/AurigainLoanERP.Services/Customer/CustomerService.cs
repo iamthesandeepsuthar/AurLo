@@ -96,7 +96,7 @@ namespace AurigainLoanERP.Services.Customer
                         result = model.OrderByAsc ? (from orderData in result orderby orderData.User.Email ascending select orderData) : (from orderData in result orderby orderData.User.Email descending select orderData);
                         break;
                     default:
-                        result = model.OrderByAsc ? (from orderData in result orderby orderData.User.UserRole.Name ascending select orderData) : (from orderData in result orderby orderData.User.UserRole.Name descending select orderData);
+                        result = model.OrderByAsc ? (from orderData in result orderby orderData.User.CreatedOn ascending select orderData) : (from orderData in result orderby orderData.User.CreatedOn descending select orderData);
                         break;
                 }
 
@@ -113,10 +113,12 @@ namespace AurigainLoanERP.Services.Customer
                                               Mobile = detail.User.Mobile,
                                               FatherName = detail.FatherName,
                                               IsApproved = detail.User.IsApproved,
+                                              CreatedOn = detail.User.CreatedOn,
                                               Gender = detail.Gender ?? null,
                                               ProfileImageUrl = detail.User.ProfilePath.ToAbsolutePath() ?? null,
                                               IsActive = detail.User.IsActive,
                                               Password = detail.User.Password,
+                                              Mpin = detail.User.Mpin,
                                               Pincode = detail.PincodeArea.Pincode
                                           }).ToListAsync();
                 if (result != null)

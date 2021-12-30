@@ -46,6 +46,7 @@ namespace AurigainLoanERP.Shared.ContractModel
         public string Password { get; set; }
         public string ProfileImageUrl { get; set; }
         public string Gender { get; set; }
+        public DateTime CreatedOn { get; set; }
 
     }
 

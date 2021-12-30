@@ -65,4 +65,5 @@ export class CustomerListModel {
   Mpin!: string;
   ProfileImageUrl!: string;
   Gender!: string;
+  CreatedOn!:Date;
 }
