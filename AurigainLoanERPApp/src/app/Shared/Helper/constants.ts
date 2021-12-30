@@ -387,4 +387,5 @@ export class DropDown_key {
   static ddlBank = "ddlBank";
   static ddlLeadApprovalStatus = "ddlLeadApprovalStatus";
   static ddlLeadStatus = "ddlLeadStatus";
+  static ddlFreshLeadStatus="ddlFreshLeadStatus";
 }

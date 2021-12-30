@@ -44,13 +44,24 @@ export class LeadStatusPopupComponent implements OnInit {
     });
   }
   GetDropDown() {
-    let serve = this._commonService.GetDropDown([this.ddlkeys.ddlLeadStatus]).subscribe(res => {
-      serve.unsubscribe();
-      if (res.IsSuccess) {
-        let dropdownList = res?.Data as DropDownModel;
-        this.dropDown.ddlLeadStatus = dropdownList?.ddlLeadStatus ?? [];
-      }
-    });
+    if(this.data.Type == 'BTLEAD') {
+      let serve = this._commonService.GetDropDown([this.ddlkeys.ddlLeadStatus]).subscribe(res => {
+        serve.unsubscribe();
+        if (res.IsSuccess) {
+          let dropdownList = res?.Data as DropDownModel;
+          this.dropDown.ddlLeadStatus = dropdownList?.ddlLeadStatus ?? [];
+        }
+      });
+    } else {
+      let serve = this._commonService.GetDropDown([this.ddlkeys.ddlFreshLeadStatus]).subscribe(res => {
+        serve.unsubscribe();
+        if (res.IsSuccess) {
+          let dropdownList = res?.Data as DropDownModel;
+          this.dropDown.ddlLeadStatus = dropdownList?.ddlFreshLeadStatus ?? [];
+        }
+      });
+    }
+
   }
   onSubmit() {
     this.formgrp.markAllAsTouched();
@@ -67,7 +78,6 @@ export class LeadStatusPopupComponent implements OnInit {
       }
     }
   }
-
   FreshLeadStatusUpdate() {
     this.model.ActionTakenByUserId = this._authService.GetUserDetail()?.UserId as number;
     let subscription = this._freshLead.LeadStatus(this.model).subscribe(response => {
@@ -87,7 +97,7 @@ export class LeadStatusPopupComponent implements OnInit {
     let subscription = this._otherLead.LeadStatus(this.model).subscribe(response => {
       subscription.unsubscribe();
       if (response.IsSuccess) {
-        this.dialogRef.close(false);
+        this.dialogRef.close(true);
       } else {
         this._toast.error(response.Message as string, 'Server Error');
         this.dialogRef.close(false);
@@ -101,7 +111,7 @@ export class LeadStatusPopupComponent implements OnInit {
     let subscription = this._balanceTransfer.LeadStatus(this.model).subscribe(response => {
       subscription.unsubscribe();
       if (response.IsSuccess) {
-        this.dialogRef.close(false);
+        this.dialogRef.close(true);
       } else {
         this._toast.error(response.Message as string, 'Server Error');
         this.dialogRef.close(false);

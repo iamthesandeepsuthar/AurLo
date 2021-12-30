@@ -19,7 +19,25 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let h of History">
+                  <tr *ngFor="let h of History">
+                    <td colspan="3" class="p-0 border-0">
+                     <table>
+                         <tbody>
+                             <tr>
+                                <td> <span class="text-success"> {{h.LeadStatus}} </span></td>
+                                <td>{{h.ActionTakenBy}}</td>
+                                <td>{{h.ActionDate | date}}</td>
+                             </tr>
+                             <tr class="info-remark">
+                                <td colspan="3">
+                                  <strong> Remarks : </strong>     {{h.Remark}}
+                                </td>
+                            </tr>
+                         </tbody>
+                     </table>
+                    </td>
+                </tr>
+                    <!-- <tr *ngFor="let h of History">
                         <td> <span class="text-primary"> {{h.LeadStatus}} </span></td>
                         <td>{{h.ActionTakenBy}}</td>
                         <td>{{h.ActionDate | date}}</td>
@@ -28,7 +46,7 @@
                         <td colspan="3">
                         {{h.Remark}}
                         </td>
-                    </tr>
+                    </tr> -->
 
                 </tbody>
             </table>

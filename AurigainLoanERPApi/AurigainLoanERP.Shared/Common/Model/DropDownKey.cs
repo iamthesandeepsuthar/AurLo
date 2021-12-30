@@ -16,8 +16,7 @@
         public const string ddlBank = "ddlbank";
         public const string ddlLeadApprovalStatus = "ddlleadapprovalstatus";
         public const string ddlLeadStatus = "ddlleadstatus";
-
-
+        public const string ddlFreshLeadStatus = "ddlfreshleadstatus";
 
     }
 }

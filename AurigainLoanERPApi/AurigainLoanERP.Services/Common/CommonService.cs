@@ -87,12 +87,12 @@ namespace AurigainLoanERP.Services.Common
 
                             objData.Add(item, GetEnumDropDownWithInt<LeadStatusEnum>());
                             break;
+                        case DropDownKey.ddlFreshLeadStatus:                                        
+                            objData.Add(item, GetEnumDropDownWithInt<FreshLeadStatusEnum>());
+                            break;
                         default:
                             break;
                     }
-
-
-
                 }
 
                 return CreateResponse(objData, ResponseMessage.Success, true, ((int)ApiStatusCode.Ok));

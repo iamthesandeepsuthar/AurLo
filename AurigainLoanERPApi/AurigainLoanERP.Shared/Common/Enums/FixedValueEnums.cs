@@ -127,6 +127,17 @@ namespace AurigainLoanERP.Shared.Enums
             [StringValue("Rejected")]
             Rejected=7
         }
+
+        public enum FreshLeadStatusEnum {        
+            [StringValue("New")]
+            New = 1,
+            [StringValue("Pending")]
+            Pending = 2,        
+            [StringValue("Completed")]
+            Completed = 3,
+            [StringValue("Rejected")]
+            Rejected = 4
+        }
         public enum LeadApprovalStatusEnum
         {
             [StringValue("Pending")]
@@ -136,6 +147,7 @@ namespace AurigainLoanERP.Shared.Enums
             [StringValue("Rejected")]
             Rejected = 3
         }
+
         //public enum LeadStatus
         //{
         //    [StringValue("Pending")]
@@ -149,8 +161,7 @@ namespace AurigainLoanERP.Shared.Enums
         //    [StringValue("Completed")]
         //    Completed = 5,
         //}
-
-        public enum PaymentMethod 
+        public enum PaymentMethod
         {
             [StringValue("RTGS")]
             RTGS = 1,
@@ -159,7 +170,7 @@ namespace AurigainLoanERP.Shared.Enums
             [StringValue("IMPS")]
             IMPS = 3,
             [StringValue("CHEQUE")]
-            CHEQUE = 4            
+            CHEQUE = 4
         }
     }
-}
+}    

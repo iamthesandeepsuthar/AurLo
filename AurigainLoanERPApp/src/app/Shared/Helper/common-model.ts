@@ -105,6 +105,7 @@ export class DropDownModel {
   ddlBank!: DropDownItem[];
   ddlLeadApprovalStatus !: DropDownItem[];
   ddlLeadStatus!: DropDownItem[];
+  ddlFreshLeadStatus!:DropDownItem[];
 }
 
 export class DropDownItem {
