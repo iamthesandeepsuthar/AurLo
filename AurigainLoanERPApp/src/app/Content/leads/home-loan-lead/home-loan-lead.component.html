@@ -42,7 +42,7 @@
           <input type="search" [(ngModel)]="indexModel.Search" (blur)="onSearch()" class="form-control"
             placeholder="Search..." aria-controls="zero-config"></label></div>
 
-                  
+
                   <div class="table-view-btn ml-4">
                       <button type="button" class="btn-change-view"><i class="fa fa-bars"></i></button>
                       <button type="button" class="btn-change-view ml-2 active"><i class="fa fa-th-large"></i></button>
@@ -114,14 +114,11 @@
           title="Edit">
           <i class="fas fa-edit"></i>
         </a> -->
-
-
-
                       <div class="dropdown">
                           <button class="" type="button" data-toggle="dropdown"><i class="fas fa-ellipsis-v"></i></button>
                           <ul class="dropdown-menu">
                               <li>
-                                  <a class="table-action-btn-view" routerLink="../{{routing_Url.Other_Loan_Leads_Url +'/'+ routing_Url.Other_Loan_Lead_Detail +'/'+ row.Id}}" title="Detail"> <i class="fas fa-eye"></i> Detail</a>
+                                  <a class="table-action-btn-view" routerLink="../{{routing_Url.Home_Loan_Leads_Url +'/'+ routing_Url.Home_Loan_lead_Detail +'/'+ row.Id}}" title="Detail"> <i class="fas fa-eye"></i> Detail</a>
                               </li>
                               <li>
                                   <a href="javascript:void(0)" (click)="onChangeLeadStatus(row.Id)" class="table-action-btn-status-changes text-warning" data-toggle="tooltip" data-placement="bottom" title="Change Status "><img src="assets/img/change-status.png" alt="" /> Change Status</a>

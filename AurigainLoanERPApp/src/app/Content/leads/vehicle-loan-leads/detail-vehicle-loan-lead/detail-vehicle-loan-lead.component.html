@@ -1,0 +1,96 @@
+<!-- Page Header Title start -->
+<div class="widget-header">
+  <div class="row d-block d-sm-flex align-items-center justify-content-between text-center text-sm-left">
+      <div>
+          <h1>Fresh Lead Detail</h1>
+          <!-- Breadcrumb Start -->
+          <nav class="custom-breadcrum">
+              <ol class="breadcrumb justify-content-center justify-content-sm-start">
+                  <li class="breadcrumb-item"><a routerLink="/dashboard">Dashboard</a></li>
+                  <li class="breadcrumb-item"><a  routerLink="../../">Vehicle Leads</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">Detail</li>
+              </ol>
+          </nav>
+          <!-- Breadcrumb End -->
+      </div>
+  </div>
+</div>
+<!-- Page Header Title end -->
+
+
+<div class="detail-d-2 pb-4">
+  <div class="widget-content widget-content p-3 form-grp-w-border">
+      <h2> <img src="assets/img/lead.png">Lead Details</h2>
+
+      <div class="table-responsive">
+          <table class="table  table-borderless table-data-info table-font-17 table-v-align-top m-0">
+              <tbody>
+                  <tr>
+                      <td style="width: 20%;"> <strong> Full name: </strong> </td>
+                      <td style="width: 30%;">{{Model.FullName}}</td>
+                      <td style="width: 20%;"><strong> Mobile number: </strong> </td>
+                      <td style="width: 30%;">{{Model.MobileNumber}}</td>
+                  </tr>
+
+                  <tr>
+                      <td><strong> Emial ID: </strong> </td>
+                      <td>{{Model.EmailId}}</td>
+                      <td><strong> Father's name : </strong> </td>
+                      <td>{{Model.FatherName}}</td>
+                  </tr>
+
+                  <tr>
+                      <td><strong> Product name: </strong> </td>
+                      <td>{{Model.ProductName}}</td>
+                      <td><strong>Product Category: </strong> </td>
+                      <td>{{Model.ProductCategoryName}}</td>
+                  </tr>
+
+                  <tr>
+                      <td><strong> Lead Type: </strong> </td>
+                      <td>{{Model.LeadType ? 'Salaried': 'Non-Salaried'}}</td>
+                      <td><strong> Lead Status: </strong> </td>
+                      <td>{{Model.LeadStatus}}</td>
+                  </tr>
+
+                  <tr>
+                      <td><strong> Lead Created date: </strong> </td>
+                      <td>{{Model.CreatedDate | date}}</td>
+                      <td><strong> Lead Source by user: </strong> </td>
+                      <td>{{Model.LeadSourceByUserName}}</td>
+                  </tr>
+
+                  <tr>
+                      <td><strong> Income: </strong> </td>
+                      <td>{{Model.AnnualIncome}}</td>
+                      <td><strong> Employee Type: </strong> </td>
+                      <td>{{Model.EmployeeType}}</td>
+                  </tr>
+
+
+                  <tr>
+
+                    <td><strong> Pincode: </strong> </td>
+                    <td>{{Model.Pincode}}</td>
+                    <td><strong> No of year of ITR available: </strong> </td>
+                    <td>{{Model.NoOfItr}}</td>
+                  </tr>
+
+                  <tr>
+                    <td><strong> Amount Loan: </strong> </td>
+                    <td>{{Model.LoanAmount}}</td>
+                    <td><strong> Area(Location) </strong> </td>
+                    <td>{{Model.AreaLocation}}</td>
+                  </tr>
+
+
+              </tbody>
+          </table>
+      </div>
+
+
+  </div>
+
+
+</div>
+
