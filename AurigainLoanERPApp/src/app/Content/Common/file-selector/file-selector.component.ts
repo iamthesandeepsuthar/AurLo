@@ -114,7 +114,7 @@ export class FileSelectorComponent {
   }
 
   HandleFileInput(event: any) {
-    debugger
+    
     let TotalFilesCount = (this.CurrentFileLength ? this.CurrentFileLength : this.Files?.length) + 1
     if (TotalFilesCount <= this.MaxFileLength) {
       let files = event.target.files;
