@@ -502,6 +502,7 @@ namespace AurigainLoanERP.Services.User
                 if (objDoorStepAgent != null)
                 {
                     DoorStepAgentViewModel objDoorStepAgentModel = _mapper.Map<DoorStepAgentViewModel>(objDoorStepAgent);
+                    objDoorStepAgentModel.AddressLine2 = objDoorStepAgent.AddressLine2;
 
                     if (objDoorStepAgent.User != null)
                     {
@@ -724,6 +725,7 @@ namespace AurigainLoanERP.Services.User
                     manager.DistrictId = null;
                     manager.DateOfBirth = detail.DateOfBirth;
                     manager.Address = detail.Address;
+                    manager.AddressLine2 = detail.AddressLine2;
                     manager.EmailId = detail.User.Email;
                     manager.StateId = null;
                     manager.RoleId = detail.User.UserRoleId;

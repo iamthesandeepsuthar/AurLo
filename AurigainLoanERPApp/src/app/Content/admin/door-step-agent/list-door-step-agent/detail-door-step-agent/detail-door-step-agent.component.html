@@ -8,20 +8,13 @@
       <!-- Breadcrumb Start -->
       <nav class="custom-breadcrum">
         <ol class="breadcrumb justify-content-center justify-content-sm-start">
-          <li class="breadcrumb-item"><a routerLink="/dashboard">Home</a></li>
+          <li class="breadcrumb-item"><a routerLink="/dashboard">Dashboard</a></li>
           <li class="breadcrumb-item"><a routerLink="/admin/door-step-agent/door-step-agents-list">Door Step Agent </a></li>
           <li class="breadcrumb-item active" aria-current="page">Detail</li>
         </ol>
       </nav>
       <!-- Breadcrumb End -->
     </div>
-    <!-- <label class="switch s-icons s-outline s-outline-success switch-active-not switch-custom-d">
-      <div class="d-inline switch-t-dactive text-danger font-w-800">Deactive</div>
-      <input type="checkbox" checked>
-      <span class="slider round"></span>
-      <div class="d-inline switch-t-active font-w-800">Active</div>
-    </label> -->
-
   </div>
 </div>
 <!-- Page Header Title end -->
@@ -64,17 +57,17 @@
         </tr>
 
         <tr>
-          <td><strong> Address: </strong> </td>
+          <td><strong> Address Line1: </strong> </td>
           <td>{{model?.Address?? 'N/A'}}</td>
           <td><strong> State: </strong> </td>
           <td>{{model?.StateName?? 'N/A'}}</td>
         </tr>
 
         <tr>
-          <td><strong> District: </strong> </td>
-          <td>{{model?.DistrictName ?? 'N/A'}}</td>
-          <td><strong> Pincode: </strong> </td>
-          <td>{{model?.PinCode ?? 'N/A'}}</td>
+          <td><strong> Address Line2: </strong> </td>
+          <td>{{model?.AddressLine2  + ', '+ model?.PinCode  }}</td>
+          <!-- <td><strong> Pincode: </strong> </td>
+          <td>{{model?.PinCode ?? 'N/A'}}</td> -->
         </tr>
 
       </tbody>
@@ -114,7 +107,7 @@
         </tr>
         <tr>
           <td> <strong> IFSC Code: </strong> </td>
-          <td>{{model.BankDetails.Ifsccode?? 'N/A'}}</td>
+          <td>{{model.BankDetails.Ifsccode | uppercase }}</td>
         </tr>
 
         <tr>

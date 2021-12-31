@@ -254,6 +254,7 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                 var detail = await _db.BtgoldLoanLead.Where(x => x.Id == id && !x.IsDelete && x.IsActive == true)
                     .Include(x => x.LeadSourceByuser).ThenInclude(x => x.BtgoldLoanLeadLeadSourceByuser)
                     .Include(x => x.Product).ThenInclude(x => x.ProductCategory)
+                    .Include(x=>x.PurposeNavigation)
                     .Include(x => x.BtgoldLoanLeadAddressDetail).ThenInclude(x => x.AeraPincode).ThenInclude(x => x.District).ThenInclude(x => x.State)
                     .Include(x => x.BtgoldLoanLeadAppointmentDetail).ThenInclude(x => x.Branch).ThenInclude(x => x.Bank)
                     .Include(x => x.BtgoldLoanLeadExistingLoanDetail)

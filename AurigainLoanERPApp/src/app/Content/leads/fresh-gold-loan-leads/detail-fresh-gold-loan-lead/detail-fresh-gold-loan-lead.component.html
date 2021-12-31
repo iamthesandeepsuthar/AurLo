@@ -145,7 +145,7 @@
             <td style="width: 30%;">{{model?.AppointmentDetail?.BankName ?? 'N/A'}} |
               {{model?.AppointmentDetail?.BranchName ?? 'N/A'}}</td>
             <td style="width: 20%;"><strong> IFSC Code: </strong> </td>
-            <td style="width: 30%;">{{model?.AppointmentDetail?.IFSC ?? 'N/A'}}</td>
+            <td style="width: 30%;">{{model?.AppointmentDetail?.IFSC | uppercase }}</td>
           </tr>
           <tr>
             <td><strong> Date of Appointment: </strong> </td>

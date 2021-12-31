@@ -8,7 +8,7 @@
       <!-- Breadcrumb Start -->
       <nav class="custom-breadcrum">
         <ol class="breadcrumb justify-content-center justify-content-sm-start">
-          <li class="breadcrumb-item"><a routerLink="/dashboard">Home</a></li>
+          <li class="breadcrumb-item"><a routerLink="/dashboard">Dashboard</a></li>
           <li class="breadcrumb-item"><a routerLink="{{ '../../' + this.routing_Url.AgentListUrl}}"> Agent </a></li>
           <li class="breadcrumb-item active" aria-current="page">Detail</li>
         </ol>
@@ -56,20 +56,21 @@
           <td>{{model.SelfFunded ? 'Yes': 'No' ?? 'N/A'}}</td> -->
           <td><strong> Gender: </strong> </td>
           <td>{{model?.Gender?? 'N/A' }}</td>
-        </tr>
-
-        <tr>
-          <td><strong> Address: </strong> </td>
-          <td>{{model?.Address?? 'N/A'}}</td>
-          <td><strong> State: </strong> </td>
-          <td>{{model?.StateName?? 'N/A'}}</td>
-        </tr>
-
-        <tr>
-          <td><strong> District: </strong> </td>
-          <td>{{model?.DistrictName ?? 'N/A'}}</td>
           <td><strong> Pincode: </strong> </td>
           <td>{{model?.PinCode ?? 'N/A'}}</td>
+        </tr>
+
+        <tr>
+          <td><strong> Address Line1: </strong> </td>
+          <td>{{model?.Address?? 'N/A'}}</td>
+          <!-- <td><strong> State: </strong> </td>
+          <td>{{model?.StateName?? 'N/A'}}</td> -->
+        </tr>
+
+        <tr>
+          <td><strong> Address Line2: </strong> </td>
+          <td>{{model?.AddressLine2 ?? model?.DistrictName + ', '+ model?.StateName }}</td>
+
         </tr>
 
       </tbody>
@@ -109,7 +110,7 @@
         </tr>
         <tr>
           <td> <strong> IFSC Code: </strong> </td>
-          <td>{{model.BankDetails!.Ifsccode?? 'N/A'}}</td>
+          <td>{{model.BankDetails!.Ifsccode | uppercase}}</td>
         </tr>
 
         <tr>

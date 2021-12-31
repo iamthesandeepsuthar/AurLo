@@ -124,7 +124,7 @@ ngOnInit(): void {
   }
   getAddressLine2(area?:any){
     this.model.AddressLine2 = area?.AddressLine2;
-    }
+  }
   onGetDetail() {
   let subscription = this._managerService.GetManagerById(this.Id).subscribe(res => {
   subscription.unsubscribe();

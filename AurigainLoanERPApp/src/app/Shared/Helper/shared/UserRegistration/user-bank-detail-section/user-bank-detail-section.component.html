@@ -17,7 +17,7 @@
 
       <div class="form-group col-md-4">
         <label>IFSC Code</label>
-        <input type="text" class="form-control" id="bnkinput2" [(ngModel)]="bankModel.Ifsccode"
+        <input type="text" class="form-control" id="bnkinput2" [ngModel]="bankModel.Ifsccode | uppercase"
           formControlName="Ifsccode" (keypress)="_commonService.AlphaNumericOnly($event)"  [ngClass]="{ 'is-invalid': f.Ifsccode?.errors && f.Ifsccode?.touched}"
           placeholder="ifsc code">
         <div class="invalid-feedback"

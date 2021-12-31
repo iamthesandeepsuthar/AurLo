@@ -282,6 +282,7 @@ export class DoorStepAgentRegistrationComponent implements OnInit, AfterContentC
             this.model.Gender = data?.Gender;
             this.model.QualificationId = data?.QualificationId;
             this.model.Address = data?.Address;
+            this.model.AddressLine2 = data?.AddressLine2;
             this.model.DistrictId = data?.DistrictId;
             this.model.StateId = data?.StateId;
             this.model.PinCode = data?.PinCode;

@@ -269,6 +269,7 @@ export class AddUpdateAgentComponent implements OnInit, AfterContentChecked {
             this.model.Gender = data?.Gender;
             this.model.QualificationId = data?.QualificationId;
             this.model.Address = data?.Address;
+            this.model.AddressLine2 = data?.AddressLine2;
             this.model.DistrictId = data?.DistrictId;
             this.model.StateId = data?.StateId;
             this.model.PinCode = data?.PinCode;
@@ -315,7 +316,7 @@ export class AddUpdateAgentComponent implements OnInit, AfterContentChecked {
               this.model.UserNominee.NamineeName = data?.UserNominee?.NamineeName;
               this.model.UserNominee.RelationshipWithNominee = data?.UserNominee?.RelationshipWithNominee;
             }
-debugger
+
             if (data?.ReportingPerson) {
               this.model.ReportingPerson.Id = data?.ReportingPerson?.Id;
               this.model.ReportingPerson.UserId = data?.ReportingPerson?.UserId;
