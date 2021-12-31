@@ -127,7 +127,6 @@ namespace AurigainLoanERP.Shared.Enums
             [StringValue("Rejected")]
             Rejected=7
         }
-
         public enum FreshLeadStatusEnum {        
             [StringValue("New")]
             New = 1,
@@ -147,7 +146,6 @@ namespace AurigainLoanERP.Shared.Enums
             [StringValue("Rejected")]
             Rejected = 3
         }
-
         //public enum LeadStatus
         //{
         //    [StringValue("Pending")]

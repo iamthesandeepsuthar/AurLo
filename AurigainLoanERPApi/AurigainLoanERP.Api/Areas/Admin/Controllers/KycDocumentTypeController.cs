@@ -33,7 +33,7 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
         [HttpGet("[action]/{IsBTLeadKyc?}")]
         public async Task<ApiServiceResponseModel<List<DDLDocumentTypeModel>>> DocumentTypesForBTLeadKyc(bool? IsBTLeadKyc = null)
         {
-            return await _documentService.GetDocumentType(IsFreshLeadKyc : IsBTLeadKyc);
+            return await _documentService.GetDocumentType(IsBTLeadKyc: IsBTLeadKyc);
         }
 
         // GET api/KycDocumentType/DocumentTypes
