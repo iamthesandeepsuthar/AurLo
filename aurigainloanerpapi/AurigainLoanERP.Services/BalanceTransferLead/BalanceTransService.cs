@@ -254,7 +254,7 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                 var detail = await _db.BtgoldLoanLead.Where(x => x.Id == id && !x.IsDelete && x.IsActive == true)
                     .Include(x => x.LeadSourceByuser).ThenInclude(x => x.BtgoldLoanLeadLeadSourceByuser)
                     .Include(x => x.Product).ThenInclude(x => x.ProductCategory)
-                    .Include(x=>x.PurposeNavigation)
+                    .Include(x => x.PurposeNavigation)
                     .Include(x => x.BtgoldLoanLeadAddressDetail).ThenInclude(x => x.AeraPincode).ThenInclude(x => x.District).ThenInclude(x => x.State)
                     .Include(x => x.BtgoldLoanLeadAppointmentDetail).ThenInclude(x => x.Branch).ThenInclude(x => x.Bank)
                     .Include(x => x.BtgoldLoanLeadExistingLoanDetail)
@@ -356,7 +356,7 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                     }
                     if (detail.BtgoldLoanLeadJewelleryDetail != null)
                     {
-                        objModel.JewelleryDetail =  detail.BtgoldLoanLeadJewelleryDetail.Select(x => new BtGoldLoanLeadJewelleryDetailViewModel
+                        objModel.JewelleryDetail = detail.BtgoldLoanLeadJewelleryDetail.Select(x => new BtGoldLoanLeadJewelleryDetailViewModel
                         {
                             Id = x.Id,
                             JewelleryTypeId = x.JewelleryTypeId ?? null,
@@ -516,7 +516,7 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                     {
                         case ((int)LeadApprovalStatusEnum.Approved):
                             leadDetail.ApprovalStatus = LeadApprovalStatusEnum.Approved.GetStringValue();
-                            leadDetail.LeadApprovalId =model.ApprovalStatus;
+                            leadDetail.LeadApprovalId = model.ApprovalStatus;
                             leadDetail.LeadStatusId = ((int)LeadStatusEnum.Pending);
                             leadDetail.LeadStatus = LeadStatusEnum.Pending.GetStringValue();
                             break;
@@ -529,7 +529,7 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
 
                         default:
                             leadDetail.LeadStatus = LeadApprovalStatusEnum.Pending.GetStringValue();
-                            leadDetail.LeadApprovalId =((int)LeadApprovalStatusEnum.Pending);
+                            leadDetail.LeadApprovalId = ((int)LeadApprovalStatusEnum.Pending);
                             leadDetail.LeadStatusId = ((int)LeadStatusEnum.New);
                             leadDetail.LeadStatus = LeadStatusEnum.New.GetStringValue();
                             break;
@@ -572,11 +572,11 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                     {
                         case ((int)LeadStatusEnum.AmountTransfer):
                             leadDetail.LeadStatus = LeadStatusEnum.AmountTransfer.GetStringValue();
-                            leadDetail.LeadStatusId =model.LeadStatus;
+                            leadDetail.LeadStatusId = model.LeadStatus;
                             break;
                         case ((int)LeadStatusEnum.GoldReached):
                             leadDetail.LeadStatus = LeadStatusEnum.GoldReached.GetStringValue();
-                            leadDetail.LeadStatusId =model.LeadStatus;
+                            leadDetail.LeadStatusId = model.LeadStatus;
                             break;
                         case ((int)LeadStatusEnum.BTReturnReady):
                             leadDetail.LeadStatus = LeadStatusEnum.BTReturnReady.GetStringValue();
@@ -591,7 +591,7 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                             leadDetail.LeadStatusId = model.LeadStatus;
                             break;
                         default:
-                            leadDetail.LeadStatus =LeadStatusEnum.Pending.GetStringValue();
+                            leadDetail.LeadStatus = LeadStatusEnum.Pending.GetStringValue();
                             leadDetail.LeadStatusId = ((int)LeadStatusEnum.Pending);
                             break;
                     }
@@ -769,7 +769,7 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                                               LeadStatus = detail.LeadStatus,
                                               LeadType = "BT",
                                               ProductName = detail.Product.Name,
-                                              IsStatusCompleted = detail.BtgoldLoanLeadStatusActionHistory.Where(x => x.LeadStatus.Value == ((int)       LeadStatusEnum.Completed)).Count() > 0 ? true : false,
+                                              IsStatusCompleted = detail.BtgoldLoanLeadStatusActionHistory.Where(x => x.LeadStatus.Value == ((int)LeadStatusEnum.Completed)).Count() > 0 ? true : false,
                                               Pincode = detail.BtgoldLoanLeadAddressDetail.FirstOrDefault().AeraPincode.Pincode,
                                               ApprovalStatus = detail.ApprovalStatus,
                                               LoanCaseNumber = detail.LoanCaseNumber != null ? detail.LoanCaseNumber : "N/A"
@@ -1019,7 +1019,7 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                 return CreateResponse<object>(null, ResponseMessage.Fail, false, ((int)ApiStatusCode.ServerException), ex.Message ?? ex.InnerException.ToString());
             }
         }
-       
+
         #region <<Private Method Of Balance Transafer Gold Loan Lead>>
         private async Task<long> SaveCustomerBTFreshLead(BTGoldLoanLeadPostModel model)
         {
@@ -1174,8 +1174,6 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
 
                         LeadId = LeadId,
                         CustomerPhoto = model.CustomerPhoto != null ? Path.Combine(fileSavePath, _fileHelper.Save(model.CustomerPhoto.File, fileSavePath, model.CustomerPhoto.FileName)) : null,
-                        KycdocumentPoi = model.KycDocumentPoi != null ? Path.Combine(fileSavePath, _fileHelper.Save(model.KycDocumentPoi.File, fileSavePath, model.KycDocumentPoi.FileName)) : null,
-                        KycdocumentPoa = model.KycDocumentPoa != null ? Path.Combine(fileSavePath, _fileHelper.Save(model.KycDocumentPoa.File, fileSavePath, model.KycDocumentPoa.FileName)) : null,
                         BlankCheque1 = model.BlankCheque1 != null ? Path.Combine(fileSavePath, _fileHelper.Save(model.BlankCheque1.File, fileSavePath, model.BlankCheque1.FileName)) : null,
                         BlankCheque2 = model.BlankCheque2 != null ? Path.Combine(fileSavePath, _fileHelper.Save(model.BlankCheque2.File, fileSavePath, model.BlankCheque2.FileName)) : null,
                         LoanDocument = model.LoanDocument != null ? Path.Combine(fileSavePath, _fileHelper.Save(model.LoanDocument.File, fileSavePath, model.LoanDocument.FileName)) : null,
@@ -1187,6 +1185,56 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
 
                     var result = await _db.BtgoldLoanLeadDocumentDetail.AddAsync(objModel);
                     await _db.SaveChangesAsync();
+
+
+                    if (model.KycDocumentPoa != null && model.KycDocumentPoa.Count > 0)
+                    {
+                        foreach (var item in model.KycDocumentPoa)
+                        {
+                            if (item.File != null && item.File.IsBase64())
+                            {
+                                var POAModel = new BtgoldLoanLeadDocumentPoipoafiles()
+                                {
+                                    LeadId = LeadId,
+                                    IsPoi = false,
+                                    FileName = item.FileName ?? null,
+                                    Path = Path.Combine(fileSavePath, _fileHelper.Save(item.File, fileSavePath, item.FileName)),
+                                    FileType = item.FileType ?? null
+
+
+                                };
+                                await _db.BtgoldLoanLeadDocumentPoipoafiles.AddAsync(POAModel);
+                            }
+
+
+                        }
+                        await _db.SaveChangesAsync();
+                    }
+
+                    if (model.KycDocumentPoi != null && model.KycDocumentPoi.Count > 0)
+                    {
+                        foreach (var item in model.KycDocumentPoi)
+                        {
+                            if (true)
+                            {
+                                var POAModel = new BtgoldLoanLeadDocumentPoipoafiles()
+                                {
+                                    LeadId = LeadId,
+                                    IsPoi = true,
+                                    FileName = item.FileName ?? null,
+                                    Path = Path.Combine(fileSavePath, _fileHelper.Save(item.File, fileSavePath, item.FileName)),
+                                    FileType = item.FileType ?? null
+
+
+                                };
+                                await _db.BtgoldLoanLeadDocumentPoipoafiles.AddAsync(POAModel);
+                            }
+
+
+                        }
+                        await _db.SaveChangesAsync();
+                    }
+
 
                 }
                 else
@@ -1211,39 +1259,39 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
 
                         }
 
-                        if (model.KycDocumentPoi != null && model.KycDocumentPoi.IsEditMode && string.IsNullOrEmpty(model.KycDocumentPoi.File))
-                        {
-                            _fileHelper.Delete(Path.Combine(fileSavePath, objModel.KycdocumentPoi));
+                        //if (model.KycDocumentPoi != null && model.KycDocumentPoi.IsEditMode && string.IsNullOrEmpty(model.KycDocumentPoi.File))
+                        //{
+                        //    _fileHelper.Delete(Path.Combine(fileSavePath, objModel.KycdocumentPoi));
 
-                        }
-                        else
-                        {
-                            if (model.KycDocumentPoi.File.IsBase64() && !string.IsNullOrEmpty(objModel.KycdocumentPoi))
+                        //}
+                        //else
+                        //{
+                        //    if (model.KycDocumentPoi.File.IsBase64() && !string.IsNullOrEmpty(objModel.KycdocumentPoi))
 
-                            {
-                                _fileHelper.Delete(Path.Combine(fileSavePath, objModel.KycdocumentPoi));
-                                objModel.KycdocumentPoi = model.KycDocumentPoi != null ? _fileHelper.Save(model.KycDocumentPoi.File, fileSavePath, model.KycDocumentPoi.FileName) : null;
+                        //    {
+                        //        _fileHelper.Delete(Path.Combine(fileSavePath, objModel.KycdocumentPoi));
+                        //        objModel.KycdocumentPoi = model.KycDocumentPoi != null ? _fileHelper.Save(model.KycDocumentPoi.File, fileSavePath, model.KycDocumentPoi.FileName) : null;
 
-                            }
+                        //    }
 
-                        }
+                        //}
 
-                        if (model.KycDocumentPoa != null && model.KycDocumentPoa.IsEditMode && string.IsNullOrEmpty(model.KycDocumentPoa.File))
-                        {
-                            _fileHelper.Delete(Path.Combine(fileSavePath, objModel.KycdocumentPoa));
+                        //if (model.KycDocumentPoa != null && model.KycDocumentPoa.IsEditMode && string.IsNullOrEmpty(model.KycDocumentPoa.File))
+                        //{
+                        //    _fileHelper.Delete(Path.Combine(fileSavePath, objModel.KycdocumentPoa));
 
-                        }
-                        else
-                        {
-                            if (model.KycDocumentPoa.File.IsBase64() && !string.IsNullOrEmpty(objModel.KycdocumentPoa))
+                        //}
+                        //else
+                        //{
+                        //    if (model.KycDocumentPoa.File.IsBase64() && !string.IsNullOrEmpty(objModel.KycdocumentPoa))
 
-                            {
-                                _fileHelper.Delete(Path.Combine(fileSavePath, objModel.KycdocumentPoa));
-                                objModel.KycdocumentPoa = model.KycDocumentPoa != null ? _fileHelper.Save(model.KycDocumentPoa.File, fileSavePath, model.KycDocumentPoa.FileName) : null;
+                        //    {
+                        //        _fileHelper.Delete(Path.Combine(fileSavePath, objModel.KycdocumentPoa));
+                        //        objModel.KycdocumentPoa = model.KycDocumentPoa != null ? _fileHelper.Save(model.KycDocumentPoa.File, fileSavePath, model.KycDocumentPoa.FileName) : null;
 
-                            }
+                        //    }
 
-                        }
+                        //}
 
                         if (model.BlankCheque1 != null && model.BlankCheque1.IsEditMode && string.IsNullOrEmpty(model.BlankCheque1.File))
                         {
@@ -1367,6 +1415,164 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
 
                         await _db.SaveChangesAsync();
                     }
+
+                    var objPOIPOADoc = await _db.BtgoldLoanLeadDocumentPoipoafiles.Where(x => x.LeadId == LeadId).ToListAsync();
+                    List<BtgoldLoanLeadDocumentPoipoafiles> POAdocs = objPOIPOADoc != null ? objPOIPOADoc.Where(x => !x.IsPoi).ToList() : null;
+                    // If file exists then check file recieves for remove or update
+                    if (objPOIPOADoc != null && POAdocs.Count > 0)
+                    {
+                        //remove File
+                        if (model.KycDocumentPoa.Any(x => string.IsNullOrEmpty(x.File)))
+                        {
+                            foreach (var item in model.KycDocumentPoa.Where(x => string.IsNullOrEmpty(x.File)))
+                            {
+                                if (item.IsEditMode && string.IsNullOrEmpty(item.File))
+                                {
+
+                                    _fileHelper.Delete(Path.Combine(fileSavePath, item.FileName));
+                                    var deleteItm = POAdocs.Where(x => x.FileName == Path.Combine(fileSavePath, item.FileName)).FirstOrDefault();
+                                    _db.BtgoldLoanLeadDocumentPoipoafiles.Remove(deleteItm);
+                                }
+
+                            }
+                            _db.SaveChanges();
+                        }
+
+
+                        // update  Files
+                        for (int i = 0; i < model.KycDocumentPoa.Count; i++)
+                        {
+                            if (model.KycDocumentPoa[i].File.IsBase64() && POAdocs[i] != null && !string.IsNullOrEmpty(POAdocs[i].FileName))
+
+                            {
+                                var deleteItm = POAdocs.Where(x => x.FileName == Path.Combine(fileSavePath, POAdocs[i].FileName)).FirstOrDefault();
+                                if (deleteItm != null)
+                                {
+                                    _fileHelper.Delete(Path.Combine(fileSavePath, deleteItm.FileName));
+                                    _db.BtgoldLoanLeadDocumentPoipoafiles.Remove(deleteItm);
+                                }
+
+                                //Add Item
+                                var POAModel = new BtgoldLoanLeadDocumentPoipoafiles()
+                                {
+                                    LeadId = LeadId,
+                                    IsPoi = false,
+                                    FileName = model.KycDocumentPoa[i].FileName ?? null,
+                                    Path = Path.Combine(fileSavePath, _fileHelper.Save(model.KycDocumentPoa[i].File, fileSavePath, model.KycDocumentPoa[i].FileName)),
+                                    FileType = model.KycDocumentPoa[i].FileType ?? null
+
+
+                                };
+                                await _db.BtgoldLoanLeadDocumentPoipoafiles.AddAsync(POAModel);
+                            }
+                        }
+
+
+
+                    }
+                    //if File Not Exists then save directly
+                    else if (model.KycDocumentPoa != null && model.KycDocumentPoa.Count > 0)
+                    {
+                        foreach (var item in model.KycDocumentPoa)
+                        {
+                            if (!string.IsNullOrEmpty(item.File) && item.File.IsBase64())
+                            {
+                                var POAModel = new BtgoldLoanLeadDocumentPoipoafiles()
+                                {
+                                    LeadId = LeadId,
+                                    IsPoi = false,
+                                    FileName = item.FileName ?? null,
+                                    Path = Path.Combine(fileSavePath, _fileHelper.Save(item.File, fileSavePath, item.FileName)),
+                                    FileType = item.FileType ?? null
+
+
+                                };
+                                await _db.BtgoldLoanLeadDocumentPoipoafiles.AddAsync(POAModel);
+                            }
+
+
+                        }
+                        await _db.SaveChangesAsync();
+                    }
+
+
+                    List<BtgoldLoanLeadDocumentPoipoafiles> POIdocs = objPOIPOADoc != null ? objPOIPOADoc.Where(x => x.IsPoi).ToList() : null;
+                    // If file exists then check file recieves for remove or update
+                    if (objPOIPOADoc != null && POIdocs.Count > 0)
+                    {
+                        //remove File
+                        if (model.KycDocumentPoi.Any(x => string.IsNullOrEmpty(x.File)))
+                        {
+                            foreach (var item in model.KycDocumentPoi.Where(x => string.IsNullOrEmpty(x.File)))
+                            {
+                                if (item.IsEditMode && string.IsNullOrEmpty(item.File))
+                                {
+
+                                    _fileHelper.Delete(Path.Combine(fileSavePath, item.FileName));
+                                    var deleteItm = POIdocs.Where(x => x.FileName == Path.Combine(fileSavePath, item.FileName)).FirstOrDefault();
+                                    _db.BtgoldLoanLeadDocumentPoipoafiles.Remove(deleteItm);
+                                }
+
+                            }
+                            _db.SaveChanges();
+                        }
+
+
+                        // update  Files
+                        for (int i = 0; i < model.KycDocumentPoi.Count; i++)
+                        {
+                            if (model.KycDocumentPoi[i].File.IsBase64() && POIdocs[i] != null && !string.IsNullOrEmpty(POIdocs[i].FileName))
+
+                            {
+                                var deleteItm = POIdocs.Where(x => x.FileName == Path.Combine(fileSavePath, POIdocs[i].FileName)).FirstOrDefault();
+                                if (deleteItm != null)
+                                {
+                                    _fileHelper.Delete(Path.Combine(fileSavePath, deleteItm.FileName));
+                                    _db.BtgoldLoanLeadDocumentPoipoafiles.Remove(deleteItm);
+                                }
+
+                                //Add Item
+                                var POAModel = new BtgoldLoanLeadDocumentPoipoafiles()
+                                {
+                                    LeadId = LeadId,
+                                    IsPoi = true,
+                                    FileName = model.KycDocumentPoi[i].FileName ?? null,
+                                    Path = Path.Combine(fileSavePath, _fileHelper.Save(model.KycDocumentPoi[i].File, fileSavePath, model.KycDocumentPoi[i].FileName)),
+                                    FileType = model.KycDocumentPoi[i].FileType ?? null
+
+
+                                };
+                                await _db.BtgoldLoanLeadDocumentPoipoafiles.AddAsync(POAModel);
+                            }
+                        }
+
+
+
+                    }
+                    //if File Not Exists then save directly
+                    else if (model.KycDocumentPoi != null && model.KycDocumentPoi.Count > 0)
+                    {
+                        foreach (var item in model.KycDocumentPoi)
+                        {
+                            if (!string.IsNullOrEmpty(item.File) && item.File.IsBase64())
+                            {
+                                var POAModel = new BtgoldLoanLeadDocumentPoipoafiles()
+                                {
+                                    LeadId = LeadId,
+                                    IsPoi = true,
+                                    FileName = item.FileName ?? null,
+                                    Path = Path.Combine(fileSavePath, _fileHelper.Save(item.File, fileSavePath, item.FileName)),
+                                    FileType = item.FileType ?? null
+
+
+                                };
+                                await _db.BtgoldLoanLeadDocumentPoipoafiles.AddAsync(POAModel);
+                            }
+
+
+                        }
+                        await _db.SaveChangesAsync();
+                    }
                 }
 
                 return true;
@@ -1449,38 +1655,38 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                 foreach (var item in model)
                 {
 
-              
-                if (item.Id == default || item.Id == 0)
-                {
-                    var objModel = new BtgoldLoanLeadJewelleryDetail()
+
+                    if (item.Id == default || item.Id == 0)
                     {
+                        var objModel = new BtgoldLoanLeadJewelleryDetail()
+                        {
 
-                        LeadId = LeadId,
-                        JewelleryTypeId = item.JewelleryTypeId.HasValue ? item.JewelleryTypeId : null,
-                        Quantity = item.Quantity.HasValue ? item.Quantity : null,
-                        Weight = item.Weight.HasValue ? item.Weight : null,
-                        Karats = item.Karats.HasValue ? item.Karats : null,
+                            LeadId = LeadId,
+                            JewelleryTypeId = item.JewelleryTypeId.HasValue ? item.JewelleryTypeId : null,
+                            Quantity = item.Quantity.HasValue ? item.Quantity : null,
+                            Weight = item.Weight.HasValue ? item.Weight : null,
+                            Karats = item.Karats.HasValue ? item.Karats : null,
 
 
-                    };
+                        };
 
-                    var result = await _db.BtgoldLoanLeadJewelleryDetail.AddAsync(objModel);
-                    await _db.SaveChangesAsync();
-
-                }
-                else
-                {
-                    var objModel = await _db.BtgoldLoanLeadJewelleryDetail.FirstOrDefaultAsync(x => x.Id == item.Id);
-                    if (objModel != null)
-                    {
-
-                        objModel.JewelleryTypeId = item.JewelleryTypeId.HasValue ? item.JewelleryTypeId : null;
-                        objModel.Quantity = item.Quantity.HasValue ? item.Quantity : null;
-                        objModel.Weight = item.Weight.HasValue ? item.Weight : null;
-                        objModel.Karats = item.Karats.HasValue ? item.Karats : null;
+                        var result = await _db.BtgoldLoanLeadJewelleryDetail.AddAsync(objModel);
+                        await _db.SaveChangesAsync();
 
                     }
-                }
+                    else
+                    {
+                        var objModel = await _db.BtgoldLoanLeadJewelleryDetail.FirstOrDefaultAsync(x => x.Id == item.Id);
+                        if (objModel != null)
+                        {
+
+                            objModel.JewelleryTypeId = item.JewelleryTypeId.HasValue ? item.JewelleryTypeId : null;
+                            objModel.Quantity = item.Quantity.HasValue ? item.Quantity : null;
+                            objModel.Weight = item.Weight.HasValue ? item.Weight : null;
+                            objModel.Karats = item.Karats.HasValue ? item.Karats : null;
+
+                        }
+                    }
 
                 }
                 await _db.SaveChangesAsync();
