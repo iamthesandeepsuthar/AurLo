@@ -29,6 +29,7 @@ namespace AurigainLoanERP.Data.Database
         public virtual DbSet<BtgoldLoanLeadAppointmentDetail> BtgoldLoanLeadAppointmentDetail { get; set; }
         public virtual DbSet<BtgoldLoanLeadApprovalActionHistory> BtgoldLoanLeadApprovalActionHistory { get; set; }
         public virtual DbSet<BtgoldLoanLeadDocumentDetail> BtgoldLoanLeadDocumentDetail { get; set; }
+        public virtual DbSet<BtgoldLoanLeadDocumentPoipoafiles> BtgoldLoanLeadDocumentPoipoafiles { get; set; }
         public virtual DbSet<BtgoldLoanLeadExistingLoanDetail> BtgoldLoanLeadExistingLoanDetail { get; set; }
         public virtual DbSet<BtgoldLoanLeadJewelleryDetail> BtgoldLoanLeadJewelleryDetail { get; set; }
         public virtual DbSet<BtgoldLoanLeadKycdetail> BtgoldLoanLeadKycdetail { get; set; }
@@ -388,6 +389,25 @@ namespace AurigainLoanERP.Data.Database
                     .HasForeignKey(d => d.LeadId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__BTGoldLoa__LeadI__6B44E613");
+            });
+
+            modelBuilder.Entity<BtgoldLoanLeadDocumentPoipoafiles>(entity =>
+            {
+                entity.ToTable("BTGoldLoanLeadDocumentPOIPOAFiles");
+
+                entity.Property(e => e.FileName).IsRequired();
+
+                entity.Property(e => e.FileType).HasMaxLength(500);
+
+                entity.Property(e => e.IsPoi).HasColumnName("IsPOI");
+
+                entity.Property(e => e.Path).IsRequired();
+
+                entity.HasOne(d => d.Lead)
+                    .WithMany(p => p.BtgoldLoanLeadDocumentPoipoafiles)
+                    .HasForeignKey(d => d.LeadId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__BTGoldLoa__LeadI__795DFB40");
             });
 
             modelBuilder.Entity<BtgoldLoanLeadExistingLoanDetail>(entity =>

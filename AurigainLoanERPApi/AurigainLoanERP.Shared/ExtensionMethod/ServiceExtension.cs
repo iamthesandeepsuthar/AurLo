@@ -69,6 +69,7 @@ namespace AurigainLoanERP.Shared.ExtensionMethod
             }
             catch
             {
+
                 return false;
             }
 
