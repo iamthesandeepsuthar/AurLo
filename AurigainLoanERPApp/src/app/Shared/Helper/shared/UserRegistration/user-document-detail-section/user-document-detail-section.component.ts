@@ -100,7 +100,7 @@ export class UserDocumentDetailSectionComponent implements OnInit {
 
         if (Indx < 0) {
           let File = {} as FilePostModel;
-          console.log(element.FileBase64);
+        
           File.File = element.FileBase64;
           File.FileName = element.Name;
           File.IsEditMode = false;

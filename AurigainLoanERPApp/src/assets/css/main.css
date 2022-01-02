@@ -4073,7 +4073,7 @@ table.table.table-striped.dataTable.table-header.table-blue tbody tr:nth-of-type
 }
 
 .reg-steper .mat-step:nth-child(2) mat-step-header .mat-step-icon {
-    background: #f3f3f3 url(../img/document_details.png) no-repeat center center;
+    background: #f3f3f3 url(../img/address.png) no-repeat center center;
     background-size: 48px;
 }
 
@@ -4089,6 +4089,16 @@ table.table.table-striped.dataTable.table-header.table-blue tbody tr:nth-of-type
 
 .gold-loan-steper .mat-step:nth-child(4) mat-step-header .mat-step-icon {
     background: #f3f3f3 url(../img/appointment.png) no-repeat center center;
+    background-size: 40px;
+}
+
+.gold-loan-steper .mat-step:nth-child(5) mat-step-header .mat-step-icon {
+    background: #f3f3f3 url(../img/document_details.png) no-repeat center center;
+    background-size: 48px;
+}
+
+.gold-loan-steper .mat-step:nth-child(6) mat-step-header .mat-step-icon {
+    background: #f3f3f3 url(../img/loan.png) no-repeat center center;
     background-size: 40px;
 }
 
@@ -4383,6 +4393,14 @@ ul.sub-submenu {
 .table>tbody>tr:last-child>td .dropdown:not(.custom-dropdown-icon):not(.custom-dropdown) .dropdown-menu.show,
 .table>tbody>tr:nth-last-child(2)>td .dropdown:not(.custom-dropdown-icon):not(.custom-dropdown) .dropdown-menu.show {
     top: auto !important;
+}
+
+.flex-1 {
+    flex: 1;
+}
+
+.flex-1 button.btn.btn-primary.form-control {
+    margin-left: 4px;
 }
 
 
