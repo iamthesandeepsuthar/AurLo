@@ -92,8 +92,8 @@ namespace AurigainLoanERP.Shared.ContractModel
     {
         public long Id { get; set; }
         public FileModel? CustomerPhoto { get; set; }
-        public FileModel? KycDocumentPoi { get; set; }
-        public FileModel? KycDocumentPoa { get; set; }
+        public List<FileModel>? KycDocumentPoi { get; set; }
+        public List<FileModel>? KycDocumentPoa { get; set; }
         public FileModel? BlankCheque1 { get; set; }
         public FileModel? BlankCheque2 { get; set; }
         public FileModel? LoanDocument { get; set; }
