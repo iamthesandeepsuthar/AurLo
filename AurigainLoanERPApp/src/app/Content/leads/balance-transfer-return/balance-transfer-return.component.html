@@ -110,52 +110,55 @@
                 <div class="form-row">
                     <div class="form-group col-md-4" *ngIf="IsLoanAccountNumber">
                         <label>Loan A/C No.</label>
-                        <input type="text" class="form-control"  (keypress)="_commonService.NumberOnly($event)"  name="LoanAccountNumber" formControlName="LoanAccountNumber" [(ngModel)]="Model.LoanAccountNumber" id="input1" placeholder="Loan A/C No."> </div>
-                        <div class="form-group col-md-4">
+                        <input type="text" class="form-control" (keypress)="_commonService.NumberOnly($event)" name="LoanAccountNumber" formControlName="LoanAccountNumber" [(ngModel)]="Model.LoanAccountNumber" id="input1" placeholder="Loan A/C No."> </div>
+                    <div class="form-group col-md-4">
                         <label>Bank Name</label>
-                        <input type="text" [ngClass]="{ 'is-invalid': f.BankName.errors && f.BankName.touched}"  class="form-control" name="BankName" formControlName="BankName" [(ngModel)]="Model.BankName" id="input1" placeholder="Bank Name">
-                        <div class="invalid-feedback"
-                        *ngIf="(formBalanceReturn.get('BankName')?.hasError('required') && formBalanceReturn.get('BankName')?.touched)">Bank Name Required.</div>
-                      </div>
+                        <input type="text" [ngClass]="{ 'is-invalid': f.BankName.errors && f.BankName.touched}" class="form-control" name="BankName" formControlName="BankName" [(ngModel)]="Model.BankName" id="input1" placeholder="Bank Name">
+                        <div class="invalid-feedback" *ngIf="(formBalanceReturn.get('BankName')?.hasError('required') && formBalanceReturn.get('BankName')?.touched)">Bank Name Required.</div>
+                    </div>
                     <div class="form-group col-md-4">
                         <label>Customer Name</label>
-                        <input type="text" class="form-control"[ngClass]="{ 'is-invalid': f.CustomerName.errors && f.CustomerName.touched}" name="CustomerName" formControlName="CustomerName" [(ngModel)]="Model.CustomerName" id="input1" placeholder="Customer Name">
-                        <div class="invalid-feedback"
-                        *ngIf="(formBalanceReturn.get('CustomerName')?.hasError('required') && formBalanceReturn.get('CustomerName')?.touched)">Customer Name Required</div>
-                      </div>
+                        <input type="text" class="form-control" [ngClass]="{ 'is-invalid': f.CustomerName.errors && f.CustomerName.touched}" name="CustomerName" formControlName="CustomerName" [(ngModel)]="Model.CustomerName" id="input1" placeholder="Customer Name">
+                        <div class="invalid-feedback" *ngIf="(formBalanceReturn.get('CustomerName')?.hasError('required') && formBalanceReturn.get('CustomerName')?.touched)">Customer Name Required</div>
+                    </div>
                     <div class="form-group col-md-4">
                         <label>Amount Returned</label>
-                        <input type="text" [ngClass]="{ 'is-invalid': f.ReturnAmount.errors && f.ReturnAmount.touched}" (keypress)="_commonService.NumberOnly($event)" class="form-control" [(ngModel)]="Model.AmountReturn" formControlName="ReturnAmount" name="ReturnAmount" id="input1" placeholder="Amount Returned">
-                        <div class="invalid-feedback"
-                        *ngIf="(formBalanceReturn.get('ReturnAmount')?.hasError('required') && formBalanceReturn.get('ReturnAmount')?.touched)">Return Amount Required
+                        <input type="text" [ngClass]="{ 'is-invalid': f.ReturnAmount.errors && f.ReturnAmount.touched}" (keypress)="_commonService.NumberOnly($event)" class="form-control" [(ngModel)]="Model.AmountReturn" formControlName="ReturnAmount" name="ReturnAmount" id="input1"
+                            placeholder="Amount Returned">
+                        <div class="invalid-feedback" *ngIf="(formBalanceReturn.get('ReturnAmount')?.hasError('required') && formBalanceReturn.get('ReturnAmount')?.touched)">Return Amount Required
                         </div>
                     </div>
                     <div *ngIf="this.IsFinalPaymentDate" class="form-group col-md-4 date-icon-with-label">
                         <label>Final Payment Date</label>
                         <input type="date" class="form-control" formControlName="FinalPaymentDate" [(ngModel)]="Model.FinalPaymentDate" name="FinalPaymentDate" id="input1" placeholder="DD/MM/YYYY"></div>
-                    <div class="form-group col-md-4">
-                        <label>Payment Method</label>
-                        <select [ngClass]="{ 'is-invalid': f.PaymentMethod.errors && f.PaymentMethod.touched}"  (change)="checkPaymentMethod(Model.PaymentMethod)" class="form-control" name="PaymentMethod" formControlName="PaymentMethod" [(ngModel)]="Model.PaymentMethod">
+                    <div class="form-group col-md-8 col-lg-6 col-xl-4 d-flex flex-wrap">
+                        <div class="flex-1">
+                            <label>Payment Method</label>
+                            <select [ngClass]="{ 'is-invalid': f.PaymentMethod.errors && f.PaymentMethod.touched}" (change)="checkPaymentMethod(Model.PaymentMethod)" class="form-control" name="PaymentMethod" formControlName="PaymentMethod" [(ngModel)]="Model.PaymentMethod">
                       <option value=undefined>Select Payment Method</option>
                       <option value=1>RTGS</option>
 					          	<option value=2>NEFT</option>
 						          <option value=3>IMPS</option>
                       <option value=4>CHEQUE</option>
 					          </select>
-                    <div class="invalid-feedback"*ngIf="(formBalanceReturn.get('PaymentMethod')?.hasError('required') && formBalanceReturn.get('PaymentMethod')?.touched)">Please Select Payment Method </div>
+                            <div class="invalid-feedback" *ngIf="(formBalanceReturn.get('PaymentMethod')?.hasError('required') && formBalanceReturn.get('PaymentMethod')?.touched)">Please Select Payment Method </div>
+                        </div>
+                        <div class="flex-1" *ngIf="this.IsChequeDetail">
+                            <label>&nbsp;</label>
+                            <button type="button" #HideAddUpdateModel data-toggle="modal" href="#add-cheque-detail" class="btn btn-primary form-control">Cheque Detail</button>
+                        </div>
+
+
                     </div>
-                    <div *ngIf="this.IsChequeDetail" class="form-group col-md-4">
-                        <label></label>
-                        <button type="button" #HideAddUpdateModel data-toggle="modal" href="#add-cheque-detail" class="btn btn-primary form-control">Cheque Detail</button>
-                    </div>
+
                     <div *ngIf="!this.IsChequeDetail" class="form-group col-md-4">
                         <label>UTR Number</label>
-                        <input type="text"  [(ngModel)]="Model.UtrNumber" formControlName="UtrNo" name="UtrNo" class="form-control" id="input1" placeholder="UTR Number">
-                     </div>
-                     <div  class="form-group col-md-12">
-                      <label>Remarks</label>
-                      <input type="text" [(ngModel)]="Model.Remarks" formControlName="Remark" name="Remark" class="form-control" id="input1" placeholder="Remarks">
-                   </div>
+                        <input type="text" [(ngModel)]="Model.UtrNumber" formControlName="UtrNo" name="UtrNo" class="form-control" id="input1" placeholder="UTR Number">
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label>Remarks</label>
+                        <input type="text" [(ngModel)]="Model.Remarks" formControlName="Remark" name="Remark" class="form-control" id="input1" placeholder="Remarks">
+                    </div>
                 </div>
                 <div class="form-footer-btn-grp widget-content widget-content p-3 text-center">
                     <button type="submit" class="btn btn-success mr-3"> <i class="fas fa-check mr-1"></i>Final Submit </button>
@@ -164,38 +167,37 @@
             </div>
         </div>
         <div class="modal fade custom-modal" id="add-cheque-detail">
-          <div class="modal-dialog modal-dialog-centered modal-md" role="document">
-              <div class="modal-content">
-                  <div class="modal-header">
-                      <h5 class="modal-title">Add Cheque Detail</h5>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Add Cheque Detail</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
-                  </div>
-                  <div class="modal-body px-4 pt-4 pb-0">
-                      <div class="form-row">
-                          <div class="form-group col-md-12">
-                              <label>Cheque Number</label>
-                              <input type="number" [maxLength]="6" (keypress)="_commonService.NumberOnly($event)"  [(ngModel)]="chequeDetail.ChequeNumber" formControlName="ChequeNumber" class="form-control" placeholder="Cheque Number" />
-                          </div>
+                    </div>
+                    <div class="modal-body px-4 pt-4 pb-0">
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <label>Cheque Number</label>
+                                <input type="number" [maxLength]="6" (keypress)="_commonService.NumberOnly($event)" [(ngModel)]="chequeDetail.ChequeNumber" formControlName="ChequeNumber" class="form-control" placeholder="Cheque Number" />
+                            </div>
 
-                          <div class="form-group col-md-12">
-                              <label>Upload Cheque Image</label>
-                              <app-file-selector (FilesChanged)="HandleChequeFiles($event)"  ></app-file-selector>
-                              <!-- <input type="file" class="form-control" /> -->
+                            <div class="form-group col-md-12">
+                                <label>Upload Cheque Image</label>
+                                <app-file-selector (FilesChanged)="HandleChequeFiles($event)"></app-file-selector>
+                                <!-- <input type="file" class="form-control" /> -->
 
-                          </div>
-                      </div>
-                  </div>
-                  <div class="modal-footer border-0">
-                      <button type="button" (click)="SetChequeDetail()" class="btn btn-success">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer border-0">
+                        <button type="button" (click)="SetChequeDetail()" class="btn btn-success">
                     <i class="fas fa-check"></i>Submit</button>
-                      <button type="button" class="btn btn-outline-danger" data-dismiss="modal" aria-label="Close"><i class="fas fa-times mr-1"></i>Close</button>
-                  </div>
-              </div>
-          </div>
-      </div>
+                        <button type="button" class="btn btn-outline-danger" data-dismiss="modal" aria-label="Close"><i class="fas fa-times mr-1"></i>Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </form>
 
 </div>
-
