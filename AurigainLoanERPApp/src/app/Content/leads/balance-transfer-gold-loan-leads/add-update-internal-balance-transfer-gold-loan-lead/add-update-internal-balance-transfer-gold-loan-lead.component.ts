@@ -23,6 +23,7 @@ import { StateDistrictService } from 'src/app/Shared/Services/master-services/st
 import { ddlPurposeModel } from 'src/app/Shared/Model/master-model/purpose-model.model';
 import { GoldLoanFreshLeadJewelleryDetailModel } from 'src/app/Shared/Model/Leads/gold-loan-fresh-lead.model';
 import { FileInfo } from 'src/app/Content/Common/file-selector/file-selector.component';
+import { DocumentTypeEnum } from '../../../../Shared/Enum/fixed-value';
 
 @Component({
   selector: 'app-add-update-internal-balance-transfer-gold-loan-lead',
@@ -82,6 +83,14 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
     date.setFullYear(date.getFullYear() - 18);
     return date
   };
+  get POAMaxFile() {
+    return this.model?.KYCDetail?.PoadocumentTypeId == DocumentTypeEnum.AadhaarCard ? 2 : 1;
+
+  }
+  get POIMaxFile() {
+    return this.model?.KYCDetail?.PoidocumentTypeId == DocumentTypeEnum.AadhaarCard ? 2 : 1;
+
+  }
   constructor(private readonly fb: FormBuilder, readonly _commonService: CommonService,
     private readonly _productService: ProductService,
     private readonly _stateDistrictService: StateDistrictService,

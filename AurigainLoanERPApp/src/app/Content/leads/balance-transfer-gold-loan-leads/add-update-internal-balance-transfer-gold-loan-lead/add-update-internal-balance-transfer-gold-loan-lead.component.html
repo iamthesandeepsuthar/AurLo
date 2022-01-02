@@ -781,7 +781,7 @@
             <input type="hidden" name="POIdocument" [(ngModel)]="model.DocumentDetail.KycDocumentPoi"
               formControlName="POIdocument">
 
-            <app-file-selector [MaxFileLength]="2" (FilesChanged)="onDocumentAttach(4,$event)"
+            <app-file-selector [MaxFileLength]="POIMaxFile" (FilesChanged)="onDocumentAttach(4,$event)"
               [ngClass]="{ 'is-invalid': f5.POIdocument?.errors && f5.POIdocument?.touched}">
             </app-file-selector>
 
@@ -797,7 +797,7 @@
             <input type="hidden" name="POAdocument" [(ngModel)]="model.DocumentDetail.KycDocumentPoa"
               formControlName="POAdocument">
 
-            <app-file-selector [MaxFileLength]="2" (FilesChanged)="onDocumentAttach(5,$event)"
+            <app-file-selector [MaxFileLength]="POAMaxFile" (FilesChanged)="onDocumentAttach(5,$event)"
               [ngClass]="{ 'is-invalid': f5.POAdocument?.errors && f5.POAdocument?.touched}">
             </app-file-selector>
 
