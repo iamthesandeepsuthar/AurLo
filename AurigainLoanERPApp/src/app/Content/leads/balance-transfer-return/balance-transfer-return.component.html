@@ -176,7 +176,7 @@
                       <div class="form-row">
                           <div class="form-group col-md-12">
                               <label>Cheque Number</label>
-                              <input type="number"  (keypress)="_commonService.NumberOnly($event)"  [(ngModel)]="chequeDetail.ChequeNumber" formControlName="ChequeNumber" class="form-control" placeholder="Cheque Number" />
+                              <input type="number" [maxLength]="6" (keypress)="_commonService.NumberOnly($event)"  [(ngModel)]="chequeDetail.ChequeNumber" formControlName="ChequeNumber" class="form-control" placeholder="Cheque Number" />
                           </div>
 
                           <div class="form-group col-md-12">

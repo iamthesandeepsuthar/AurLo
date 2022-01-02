@@ -1,3 +1,4 @@
+import { AddFreshVehicleLeadComponent } from './vehicle-loan-leads/add-fresh-vehicle-lead/add-fresh-vehicle-lead.component';
 import { DetailVehicleLoanLeadComponent } from './vehicle-loan-leads/detail-vehicle-loan-lead/detail-vehicle-loan-lead.component';
 import { DetailHomeLoanLeadComponent } from './home-loan-lead/detail-home-loan-lead/detail-home-loan-lead.component';
 import { VehicleLoanLeadsComponent } from './vehicle-loan-leads/vehicle-loan-leads.component';
@@ -37,6 +38,7 @@ const routes: Routes = [
   {path: `${Routing_Url.Vehicle_Loan_Lead_Url}`, component: VehicleLoanLeadsComponent, canActivate: [AuthenticationGuard]},
   { path: `${Routing_Url.Home_Loan_Leads_Url}/${Routing_Url.Home_Loan_lead_Detail}/:id`, component: DetailHomeLoanLeadComponent, canActivate: [AuthenticationGuard] },
   { path: `${Routing_Url.Vehicle_Loan_Lead_Url}/${Routing_Url.Vehicle_Loan_Lead_Detail}/:id`, component: DetailVehicleLoanLeadComponent, canActivate: [AuthenticationGuard] },
+  {path: `${Routing_Url.Vehicle_Loan_Lead_Url}/${Routing_Url.Vehicle_Loan_Lead_AddUpdate}/:id`, component: AddFreshVehicleLeadComponent, canActivate: [AuthenticationGuard] }
 ];
 
 @NgModule({

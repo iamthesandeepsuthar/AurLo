@@ -16,6 +16,9 @@ import { HomeLoanLeadComponent } from './home-loan-lead/home-loan-lead.component
 import { VehicleLoanLeadsComponent } from './vehicle-loan-leads/vehicle-loan-leads.component';
 import { DetailVehicleLoanLeadComponent } from './vehicle-loan-leads/detail-vehicle-loan-lead/detail-vehicle-loan-lead.component';
 import { DetailHomeLoanLeadComponent } from './home-loan-lead/detail-home-loan-lead/detail-home-loan-lead.component';
+import { AddFreshPersonalLeadComponent } from './other-loan-leads/add-fresh-personal-lead/add-fresh-personal-lead.component';
+import { AddFreshVehicleLeadComponent } from './vehicle-loan-leads/add-fresh-vehicle-lead/add-fresh-vehicle-lead.component';
+import { AddFreshHomeLeadComponent } from './home-loan-lead/add-fresh-home-lead/add-fresh-home-lead.component';
 
 
 @NgModule({
@@ -33,6 +36,9 @@ import { DetailHomeLoanLeadComponent } from './home-loan-lead/detail-home-loan-l
     VehicleLoanLeadsComponent,
     DetailVehicleLoanLeadComponent,
     DetailHomeLoanLeadComponent,
+    AddFreshPersonalLeadComponent,
+    AddFreshVehicleLeadComponent,
+    AddFreshHomeLeadComponent,
 
   ],
   imports: [

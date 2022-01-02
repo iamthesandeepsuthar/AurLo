@@ -313,6 +313,9 @@ public static Vehicle_Loan_Lead_Url = 'vehicle-leads';
 public static Other_Loan_Lead_Detail='detail';
 public static Home_Loan_lead_Detail='detail';
 public static Vehicle_Loan_Lead_Detail='detail';
+public static Vehicle_Loan_Lead_AddUpdate='add-update';
+public static Home_Loan_Lead_AddUpdate='add-update';
+public static Personal_Loan_Lead_AddUpdate='add-update';
 
 
 public static Detail_Lead_Url = 'detail'

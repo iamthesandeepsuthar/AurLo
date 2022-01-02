@@ -16,7 +16,6 @@ import { BalanceTransferReturnViewModel, BalanceTransferReturnPostModel, Balance
   providers: [BalanceTransferGoldLoanLeadsService]
 })
 export class BalanceTransferReturnComponent implements OnInit {
-
   leadId: number = 0;
   detailModel: BalanceTransferReturnViewModel = new BalanceTransferReturnViewModel();
   model: BalanceTransferReturnPostModel = new BalanceTransferReturnPostModel();
@@ -120,11 +119,7 @@ export class BalanceTransferReturnComponent implements OnInit {
       this.IsChequeDetail = false;
     }
   }
-  // aa() {
-  //   this.chequeDetail = new BalanceTransferReturnBankChequeDetail();
-  // }
   HandleChequeFiles(files: FileInfo[]) {
-    debugger
     if (files && files.length > 0) {
 
       this.chequeDetail.ChequeImageUrl.File = files[0]!.FileBase64;
@@ -138,11 +133,8 @@ export class BalanceTransferReturnComponent implements OnInit {
     //  this.model.ChequeDetail.ChequeImageUrl = this.chequeDetail.ChequeImageUrl;
 
   }
-
   SetChequeDetail() {
-    debugger
     this.chequeDetail.ChequeNumber = this.chequeDetail?.ChequeNumber ? String(this.chequeDetail?.ChequeNumber) : undefined as any;
-    // this.chequeDetail.ChequeImageUrl = null;
     this.model.ChequeDetail = this.chequeDetail;
     this.HideAddUpdateModel.nativeElement.click();
   }
