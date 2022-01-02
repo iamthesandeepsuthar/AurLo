@@ -23,7 +23,7 @@
 <!-- Page Header Title end -->
 
 
-<mat-stepper orientation="vertical" [linear]="true" class="mat-custom-steper reg-steper gold-loan-steper">
+<mat-stepper orientation="vertical" [linear]="false" class="mat-custom-steper reg-steper gold-loan-steper">
   <mat-step [stepControl]="leadFormPersonalDetail">
     <form [formGroup]="leadFormPersonalDetail" (ngSubmit)="leadFormPersonalDetail.markAllAsTouched()">
       <ng-template matStepLabel>Personal Details</ng-template>
@@ -240,7 +240,8 @@
           </div>
           <div class="col-md-12 form-group">
             <label>Address Line2</label>
-            <input type="text" readonly formControlName="AddressLine2"  [(ngModel)]="model.AddressDetail.AddressLine2" placeholder="Address Line2" readonly class="form-control text-dark">
+            <input type="text" readonly formControlName="AddressLine2" [(ngModel)]="model.AddressDetail.AddressLine2"
+              placeholder="Address Line2" readonly class="form-control text-dark">
           </div>
 
           <div class="form-group col-md-12">
@@ -288,7 +289,8 @@
           </div>
           <div class="col-md-12 form-group">
             <label>Corresponding Address Line2</label>
-            <input type="text" formControlName="CorrespondAddressLine2" placeholder="Corresponding Address Line2"  [(ngModel)]="model.AddressDetail.CorrespondAddressLine2" readonly class="form-control text-dark">
+            <input type="text" formControlName="CorrespondAddressLine2" placeholder="Corresponding Address Line2"
+              [(ngModel)]="model.AddressDetail.CorrespondAddressLine2" readonly class="form-control text-dark">
           </div>
 
 
@@ -363,8 +365,10 @@
 
           <div class="form-group mt-4 col-md-4">
 
-            <button class="btn btn-primary  mr-3" mat-button (click)="onJewellaryAdd()"><i class="fas fa-plus mr-1"></i> Add</button>
-            <button class="btn btn-outline-danger" mat-button (click)="onJewellaryAddCancel()"> <i class="fas fa-times mr-1"></i> Cancel</button>
+            <button class="btn btn-primary  mr-3" mat-button (click)="onJewellaryAdd()"><i class="fas fa-plus mr-1"></i>
+              Add</button>
+            <button class="btn btn-outline-danger" mat-button (click)="onJewellaryAddCancel()"> <i
+                class="fas fa-times mr-1"></i> Cancel</button>
           </div>
 
           <div class="col-md-12">
@@ -601,6 +605,178 @@
       </div>
     </form>
   </mat-step>
+
+  <mat-step [stepControl]="leadFormDocumentDetail">
+    <form [formGroup]="leadFormDocumentDetail" (ngSubmit)="leadFormDocumentDetail.markAllAsTouched()">
+      <ng-template matStepLabel>Document Upload</ng-template>
+      <div class="step-grp-content">
+        <div class="custom_stepers-body-items-form row">
+
+          <div class="form-group col-md-6">
+            <label>Customer Photo</label>
+            <input type="hidden" name="CustomerPhoto" [(ngModel)]="model.DocumentDetail.CustomerPhoto"
+              formControlName="CustomerPhoto">
+
+            <app-file-selector [MaxFileLength]="1" (FilesChanged)="onDocumentAttach(1,$event)"
+              [ngClass]="{ 'is-invalid': f5.CustomerPhoto?.errors && f5.CustomerPhoto?.touched}">
+            </app-file-selector>
+
+            <div class="invalid-feedback"
+              *ngIf="(leadFormDocumentDetail.get('CustomerPhoto')?.hasError('required') && leadFormDocumentDetail.get('CustomerPhoto')?.touched)">
+              Please Add Customer Photo </div>
+
+          </div>
+          <div class="form-group col-md-6">
+            <label>Blank Cheque 1</label>
+            <input type="hidden" name="Cheque1" [(ngModel)]="model.DocumentDetail.BlankCheque1"
+              formControlName="Cheque1">
+
+            <app-file-selector [MaxFileLength]="1" (FilesChanged)="onDocumentAttach(2,$event)"
+              [ngClass]="{ 'is-invalid': f5.Cheque1?.errors && f5.Cheque1?.touched}">
+            </app-file-selector>
+
+            <div class="invalid-feedback"
+              *ngIf="(leadFormDocumentDetail.get('Cheque1')?.hasError('required') && leadFormDocumentDetail.get('Cheque1')?.touched)">
+              Please Add Blank Cheque 1 </div>
+
+
+          </div>
+          <div class="form-group col-md-6">
+            <label>Blank Cheque 2</label>
+
+            <input type="hidden" name="Cheque2" [(ngModel)]="model.DocumentDetail.BlankCheque2"
+              formControlName="Cheque2">
+
+            <app-file-selector [MaxFileLength]="1" (FilesChanged)="onDocumentAttach(3,$event)"
+              [ngClass]="{ 'is-invalid': f5.Cheque2?.errors && f5.Cheque2?.touched}">
+            </app-file-selector>
+
+            <div class="invalid-feedback"
+              *ngIf="(leadFormDocumentDetail.get('Cheque2')?.hasError('required') && leadFormDocumentDetail.get('Cheque2')?.touched)">
+              Please Add Blank Cheque 2 </div>
+
+
+          </div>
+
+          <div class="form-group col-md-6">
+            <label>KYC Document (POI)</label>
+            <input type="hidden" name="POIdocument" [(ngModel)]="model.DocumentDetail.KycDocumentPoi"
+              formControlName="POIdocument">
+
+            <app-file-selector [MaxFileLength]="2" (FilesChanged)="onDocumentAttach(4,$event)"
+              [ngClass]="{ 'is-invalid': f5.POIdocument?.errors && f5.POIdocument?.touched}">
+            </app-file-selector>
+
+            <div class="invalid-feedback"
+              *ngIf="(leadFormDocumentDetail.get('POIdocument')?.hasError('required') && leadFormDocumentDetail.get('POIdocument')?.touched)">
+              Please AddKYC Document (POI) </div>
+
+
+
+          </div>
+          <div class="form-group col-md-6">
+            <label>KYC Document (POA)</label>
+            <input type="hidden" name="POAdocument" [(ngModel)]="model.DocumentDetail.KycDocumentPoa"
+              formControlName="POAdocument">
+
+            <app-file-selector [MaxFileLength]="2" (FilesChanged)="onDocumentAttach(5,$event)"
+              [ngClass]="{ 'is-invalid': f5.POAdocument?.errors && f5.POAdocument?.touched}">
+            </app-file-selector>
+
+            <div class="invalid-feedback"
+              *ngIf="(leadFormDocumentDetail.get('POAdocument')?.hasError('required') && leadFormDocumentDetail.get('POAdocument')?.touched)">
+              Please Add Blank Cheque 2 </div>
+
+          </div>
+
+          <div class="form-group col-md-6">
+            <label>Loan Document</label>
+
+            <input type="hidden" name="LoanDocument" [(ngModel)]="model.DocumentDetail.LoanDocument"
+              formControlName="LoanDocument">
+
+            <app-file-selector [MaxFileLength]="1" (FilesChanged)="onDocumentAttach(6,$event)"
+              [ngClass]="{ 'is-invalid': f5.LoanDocument?.errors && f5.LoanDocument?.touched}">
+            </app-file-selector>
+
+            <div class="invalid-feedback"
+              *ngIf="(leadFormDocumentDetail.get('LoanDocument')?.hasError('required') && leadFormDocumentDetail.get('LoanDocument')?.touched)">
+              Please Add Loan Document </div>
+
+
+
+          </div>
+          <div class="form-group col-md-6">
+            <label>Foreclosure Letter</label>
+
+            <input type="hidden" name="ForeClouserLetter" [(ngModel)]="model.DocumentDetail.ForeClosureLetter"
+              formControlName="ForeClouserLetter">
+
+            <app-file-selector [MaxFileLength]="1" (FilesChanged)="onDocumentAttach(7,$event)"
+              [ngClass]="{ 'is-invalid': f5.ForeClouserLetter?.errors && f5.ForeClouserLetter?.touched}">
+            </app-file-selector>
+
+            <div class="invalid-feedback"
+              *ngIf="(leadFormDocumentDetail.get('ForeClouserLetter')?.hasError('required') && leadFormDocumentDetail.get('ForeClouserLetter')?.touched)">
+              Please Add Foreclosure Letter </div>
+
+          </div>
+          <div class="form-group col-md-6">
+            <label>ATM withdrawal slip</label>
+
+            <input type="hidden" name="ATMWithdrawalSlip" [(ngModel)]="model.DocumentDetail.AtmwithdrawalSlip"
+              formControlName="ATMWithdrawalSlip">
+
+            <app-file-selector [MaxFileLength]="1" (FilesChanged)="onDocumentAttach(8,$event)"
+              [ngClass]="{ 'is-invalid': f5.ATMWithdrawalSlip?.errors && f5.ATMWithdrawalSlip?.touched}">
+            </app-file-selector>
+
+            <div class="invalid-feedback"
+              *ngIf="(leadFormDocumentDetail.get('ATMWithdrawalSlip')?.hasError('required') && leadFormDocumentDetail.get('ATMWithdrawalSlip')?.touched)">
+              Please Add ATM withdrawal slip</div>
+
+          </div>
+
+          <div class="form-group col-md-6">
+            <label>Promissory Note</label>
+            <input type="hidden" name="PromisaryNote" [(ngModel)]="model.DocumentDetail.PromissoryNote"
+              formControlName="PromisaryNote">
+
+            <app-file-selector [MaxFileLength]="1" (FilesChanged)="onDocumentAttach(9,$event)"
+              [ngClass]="{ 'is-invalid': f5.PromisaryNote?.errors && f5.PromisaryNote?.touched}">
+            </app-file-selector>
+
+            <div class="invalid-feedback"
+              *ngIf="(leadFormDocumentDetail.get('PromisaryNote')?.hasError('required') && leadFormDocumentDetail.get('PromisaryNote')?.touched)">
+              Please Add Promissory Note </div>
+
+          </div>
+          <div class="form-group col-md-6">
+            <label>Last page of the Agreement</label>
+            <input type="hidden" name="LastPageOfAgreement" [(ngModel)]="model.DocumentDetail.AggrementLastPage"
+              formControlName="LastPageOfAgreement">
+
+            <app-file-selector [MaxFileLength]="1" (FilesChanged)="onDocumentAttach(10,$event)"
+              [ngClass]="{ 'is-invalid': f5.LastPageOfAgreement?.errors && f5.LastPageOfAgreement?.touched}">
+            </app-file-selector>
+
+            <div class="invalid-feedback"
+              *ngIf="(leadFormDocumentDetail.get('LastPageOfAgreement')?.hasError('required') && leadFormDocumentDetail.get('LastPageOfAgreement')?.touched)">
+              Please Last page of the Agreement </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="step-form-btn-grp mt-3">
+        <button class="btn btn-outline-danger mr-3" mat-button matStepperPrevious><i
+            class="fas fa-angle-left mr-1"></i>Back</button>
+        <button class="btn btn-primary" mat-button matStepperNext><i class="fas fa-check mr-1"></i> Next</button>
+      </div>
+    </form>
+  </mat-step>
+
+  <!-- Document Upload -->
 
   <mat-step [stepControl]="leadFormExistingLoanDetail">
     <form [formGroup]="leadFormExistingLoanDetail" (ngSubmit)="onSubmit()">

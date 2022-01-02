@@ -22,6 +22,7 @@ import { ProductService } from 'src/app/Shared/Services/master-services/product.
 import { StateDistrictService } from 'src/app/Shared/Services/master-services/state-district.service';
 import { ddlPurposeModel } from 'src/app/Shared/Model/master-model/purpose-model.model';
 import { GoldLoanFreshLeadJewelleryDetailModel } from 'src/app/Shared/Model/Leads/gold-loan-fresh-lead.model';
+import { FileInfo } from 'src/app/Content/Common/file-selector/file-selector.component';
 
 @Component({
   selector: 'app-add-update-internal-balance-transfer-gold-loan-lead',
@@ -30,7 +31,7 @@ import { GoldLoanFreshLeadJewelleryDetailModel } from 'src/app/Shared/Model/Lead
   providers: [ProductService, KycDocumentTypeService,
     StateDistrictService, BankBranchService,
     JewelleryTypeService,
-    BalanceTransferGoldLoanLeadsService,PurposeService]
+    BalanceTransferGoldLoanLeadsService, PurposeService]
 
 })
 export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements OnInit {
@@ -40,14 +41,14 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
   model = new BTGoldLoanLeadPostModel();
   JewelleryModel = new BtGoldLoanLeadJewelleryDetailPostModel();
 
-   AeraPincode!: string | any;
+  AeraPincode!: string | any;
   CorrespondAeraPincode!: string | any;
   BankId!: number;
   leadFormPersonalDetail!: FormGroup;
   leadFormAddressDetail!: FormGroup;
   leadFormAppointmentDetail!: FormGroup;
   leadFormJewelleryDetail!: FormGroup;
-  // leadFormDocumentDetail!: FormGroup;
+  leadFormDocumentDetail!: FormGroup;
   leadFormExistingLoanDetail!: FormGroup;
   leadFormKYCDetail!: FormGroup;
 
@@ -60,7 +61,7 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
   ddlDocumentType!: DDLDocumentTypeModel[];
   ddlDocumentTypePOI!: DDLDocumentTypeModel[];
   ddlDocumentTypePOA!: DDLDocumentTypeModel[];
-  ddlPurpose!:ddlPurposeModel[];
+  ddlPurpose!: ddlPurposeModel[];
   isSameAddress = false;
   ddlJewellaryType!: DDLJewellaryType[];
   ddlKarats = [{ Name: "18 Karats", Id: 18 }, { Name: "20  Karats", Id: 20 }, { Name: "22  Karats", Id: 22 }, { Name: "24  Karats", Id: 24 }];
@@ -71,7 +72,7 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
   get f2() { return this.leadFormAddressDetail.controls; }
   get f3() { return this.leadFormAppointmentDetail.controls; }
   get f4() { return this.leadFormJewelleryDetail.controls; }
-  //get f5() { return this.leadFormDocumentDetail.controls; }
+  get f5() { return this.leadFormDocumentDetail.controls; }
   get f6() { return this.leadFormExistingLoanDetail.controls; }
   get f7() { return this.leadFormKYCDetail.controls; }
 
@@ -121,7 +122,7 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
       Pincode: [undefined, Validators.compose([Validators.minLength(6), Validators.maxLength(6)])],
       Area: [undefined],
       Address: [undefined],
-      AddressLine2:[undefined],
+      AddressLine2: [undefined],
       CorrespondPincode: [undefined, Validators.compose([Validators.minLength(6), Validators.maxLength(6)])],
       CorrespondArea: [undefined],
       CorrespondAddress: [undefined],
@@ -156,6 +157,20 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
     });
 
 
+    this.leadFormDocumentDetail = this.fb.group({
+      POIdocument: [undefined],
+      POAdocument: [undefined],
+      Cheque1: [undefined],
+      Cheque2: [undefined],
+      PromisaryNote: [undefined],
+      LoanDocument: [undefined],
+      ForeClouserLetter: [undefined],
+      ATMWithdrawalSlip: [undefined],
+      LastPageOfAgreement: [undefined],
+      CustomerPhoto: [undefined]
+    });
+
+
     this.leadFormExistingLoanDetail = this.fb.group({
       BankName: [undefined],
       Amount: [undefined],
@@ -178,13 +193,13 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
     this.leadFormAppointmentDetail.markAllAsTouched();
     this.leadFormJewelleryDetail.markAllAsTouched()
     this.leadFormKYCDetail.markAllAsTouched()
-    //this.leadFormDocumentDetail.markAllAsTouched();
+    this.leadFormDocumentDetail.markAllAsTouched();
     this.leadFormExistingLoanDetail.markAllAsTouched();
 
     this.model.LeadSourceByuserId = this._auth.GetUserDetail()?.UserId as number;
-    //&& this.leadFormDocumentDetail.valid
+
     if (this.leadFormPersonalDetail.valid && this.leadFormAddressDetail.valid && this.leadFormAppointmentDetail.valid
-      && this.leadFormJewelleryDetail.valid && this.leadFormKYCDetail.valid
+      && this.leadFormJewelleryDetail.valid && this.leadFormKYCDetail.valid && this.leadFormDocumentDetail.valid
       && this.leadFormExistingLoanDetail.valid) {
 
       if (this.userDetail?.RoleId == UserRoleEnum.Operator || this.userDetail?.RoleId == UserRoleEnum.Agent || this.userDetail?.RoleId == UserRoleEnum.DoorStepAgent) {
@@ -234,7 +249,7 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
         if (element.Weight) {
           element.Weight = Number(element.Weight);
         }
-     });
+      });
 
 
       this._balanceTransferService.AddUpdateInternalLead(this.model).subscribe(res => {
@@ -281,12 +296,12 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
             this.model.AddressDetail.AeraPincodeId = viewData.DetailAddress.AeraPincodeId;
 
             this.CorrespondAeraPincode = viewData.DetailAddress.CorrespondPinCode;
-            this.getDropDownPinCodeArea(true,true);
+            this.getDropDownPinCodeArea(true, true);
             this.model.AddressDetail.CorrespondAddress = viewData.DetailAddress.CorrespondAddress;
             this.model.AddressDetail.CorrespondAeraPincodeId = viewData.DetailAddress.CorrespondAeraPincodeId;
           }
           if (viewData.AppointmentDetail) {
-            this.BankId=  viewData.AppointmentDetail.BankId;
+            this.BankId = viewData.AppointmentDetail.BankId;
             this.getDropDownBranch();
 
             this.model.AppointmentDetail.Id = viewData.AppointmentDetail.Id;
@@ -309,7 +324,7 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
           if (viewData.JewelleryDetail) {
 
             viewData.JewelleryDetail.forEach(element => {
-              let itm =new  BtGoldLoanLeadJewelleryDetailPostModel();
+              let itm = new BtGoldLoanLeadJewelleryDetailPostModel();
 
               itm.Id = element.Id;
               itm.JewelleryTypeId = element.JewelleryTypeId;
@@ -331,6 +346,143 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
           }
         }
       })
+    }
+  }
+
+  onDocumentAttach(type: number, file: FileInfo[]) {
+    switch (type) {
+      case 1:
+        if (file.length > 0) {
+
+          this.model.DocumentDetail.CustomerPhoto = {
+            File: file[0].FileBase64,
+            FileName: file[0].Name,
+            FileType: file[0].Name.split('.')[1],
+            IsEditMode: this.model.DocumentDetail.Id > 0 ? true : false
+          }
+        }
+        break;
+
+      case 2:
+        if (file.length > 0) {
+
+          this.model.DocumentDetail.BlankCheque1 = {
+            File: file[0].FileBase64,
+            FileName: file[0].Name,
+            FileType: file[0].Name.split('.')[1],
+            IsEditMode: this.model.DocumentDetail.Id > 0 ? true : false
+          }
+        }
+        break;
+
+      case 3:
+        if (file.length > 0) {
+
+          this.model.DocumentDetail.BlankCheque2 = {
+            File: file[0].FileBase64,
+            FileName: file[0].Name,
+            FileType: file[0].Name.split('.')[1],
+            IsEditMode: this.model.DocumentDetail.Id > 0 ? true : false
+          }
+        }
+        break;
+
+      case 4:
+        if (file.length > 0) {
+          this.model.DocumentDetail.KycDocumentPoi = [];
+          file.forEach(element => {
+            this.model.DocumentDetail.KycDocumentPoi?.push({
+              File: element.FileBase64,
+              FileName: element.Name,
+              FileType: element.Name.split('.')[1],
+              IsEditMode: this.model.DocumentDetail.Id > 0 ? true : false
+            })
+          });
+
+
+        }
+        break;
+
+      case 5:
+        if (file.length > 0) {
+          this.model.DocumentDetail.KycDocumentPoa = [];
+          file.forEach(element => {
+            this.model.DocumentDetail.KycDocumentPoa?.push({
+              File: element.FileBase64,
+              FileName: element.Name,
+              FileType: element.Name.split('.')[1],
+              IsEditMode: this.model.DocumentDetail.Id > 0 ? true : false
+            })
+          });
+
+
+        }
+        break;
+
+      case 6:
+        if (file.length > 0) {
+
+          this.model.DocumentDetail.LoanDocument = {
+            File: file[0].FileBase64,
+            FileName: file[0].Name,
+            FileType: file[0].Name.split('.')[1],
+            IsEditMode: this.model.DocumentDetail.Id > 0 ? true : false
+          }
+        }
+        break;
+
+      case 7:
+        if (file.length > 0) {
+
+          this.model.DocumentDetail.ForeClosureLetter = {
+            File: file[0].FileBase64,
+            FileName: file[0].Name,
+            FileType: file[0].Name.split('.')[1],
+            IsEditMode: this.model.DocumentDetail.Id > 0 ? true : false
+          }
+        }
+        break;
+
+      case 8:
+        if (file.length > 0) {
+
+          this.model.DocumentDetail.AtmwithdrawalSlip = {
+            File: file[0].FileBase64,
+            FileName: file[0].Name,
+            FileType: file[0].Name.split('.')[1],
+            IsEditMode: this.model.DocumentDetail.Id > 0 ? true : false
+          }
+        }
+        break;
+
+      case 9:
+        if (file.length > 0) {
+
+          this.model.DocumentDetail.PromissoryNote = {
+            File: file[0].FileBase64,
+            FileName: file[0].Name,
+            FileType: file[0].Name.split('.')[1],
+            IsEditMode: this.model.DocumentDetail.Id > 0 ? true : false
+          }
+        }
+        break;
+
+      case 10:
+        if (file.length > 0) {
+
+          this.model.DocumentDetail.AggrementLastPage = {
+            File: file[0].FileBase64,
+            FileName: file[0].Name,
+            FileType: file[0].Name.split('.')[1],
+            IsEditMode: this.model.DocumentDetail.Id > 0 ? true : false
+          }
+        }
+        break;
+
+
+
+      default:
+        break;
     }
   }
   //#region  <<DropDown>>
@@ -378,24 +530,24 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
     });
 
   }
-  getPurpose(){
+  getPurpose() {
     let subscription = this._purposeService.GetDDLPurpose().subscribe(res => {
       subscription.unsubscribe();
-      if(res.IsSuccess) {
-         this.ddlPurpose = res.Data as ddlPurposeModel[];
+      if (res.IsSuccess) {
+        this.ddlPurpose = res.Data as ddlPurposeModel[];
       } else {
-        this.toast.warning('Purpose list not available','No record found');
+        this.toast.warning('Purpose list not available', 'No record found');
         this.ddlPurpose = [];
         return;
       }
     });
   }
-  getAddressLine2(area?:any){
+  getAddressLine2(area?: any) {
     this.model.AddressDetail.AddressLine2 = area?.AddressLine2;
-    }
-  getCorrespondingAddressLine2(area?:any){
-      this.model.AddressDetail.CorrespondAddressLine2 = area?.AddressLine2;
-    }
+  }
+  getCorrespondingAddressLine2(area?: any) {
+    this.model.AddressDetail.CorrespondAddressLine2 = area?.AddressLine2;
+  }
   getDropDownPinCodeArea(isCorrespond: boolean = false, isRemoveValue = false) {
     let pinCode: string = isCorrespond ? this.CorrespondAeraPincode : this.AeraPincode;
 

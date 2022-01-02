@@ -53,8 +53,8 @@ export class BtGoldLoanLeadAppointmentPostModel {
 export class BtGoldLoanLeadDocumentPostModel {
   Id!: number;
   CustomerPhoto!: FileModel | null;
-  KycDocumentPoi!: FileModel | null;
-  KycDocumentPoa!: FileModel | null;
+  KycDocumentPoi!: FileModel[] | null;
+  KycDocumentPoa!: FileModel[] | null;
   BlankCheque1!: FileModel | null;
   BlankCheque2!: FileModel | null;
   LoanDocument!: FileModel | null;
