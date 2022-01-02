@@ -38,7 +38,7 @@ const routes: Routes = [
   {path: `${Routing_Url.Vehicle_Loan_Lead_Url}`, component: VehicleLoanLeadsComponent, canActivate: [AuthenticationGuard]},
   { path: `${Routing_Url.Home_Loan_Leads_Url}/${Routing_Url.Home_Loan_lead_Detail}/:id`, component: DetailHomeLoanLeadComponent, canActivate: [AuthenticationGuard] },
   { path: `${Routing_Url.Vehicle_Loan_Lead_Url}/${Routing_Url.Vehicle_Loan_Lead_Detail}/:id`, component: DetailVehicleLoanLeadComponent, canActivate: [AuthenticationGuard] },
-  {path: `${Routing_Url.Vehicle_Loan_Lead_Url}/${Routing_Url.Vehicle_Loan_Lead_AddUpdate}/:id`, component: AddFreshVehicleLeadComponent, canActivate: [AuthenticationGuard] }
+  {path: `${Routing_Url.Vehicle_Loan_Lead_Url}/${Routing_Url.Vehicle_Loan_Lead_AddUpdate}/:id`,component: AddFreshVehicleLeadComponent, canActivate: [AuthenticationGuard] }
 ];
 
 @NgModule({
