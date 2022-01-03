@@ -1,4 +1,4 @@
-<ng-Container [ngSwitch]="UserDetal.RoleId">
+<ng-Container [ngSwitch]="UserDetal?.RoleId">
   <app-agent-dashboard *ngSwitchCase="UserRoleEnum.Agent"></app-agent-dashboard>
   <app-admin-dashboard *ngSwitchCase="UserRoleEnum.Admin"></app-admin-dashboard>
   <app-web-operator-dashboard *ngSwitchCase="UserRoleEnum.Operator"></app-web-operator-dashboard>

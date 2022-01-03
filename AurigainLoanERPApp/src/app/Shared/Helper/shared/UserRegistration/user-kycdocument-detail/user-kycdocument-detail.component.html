@@ -11,7 +11,7 @@
           <label>{{  getDocName(kycModel[idx]) }} Number</label>
 
 
-          <input type="text" [maxlength]="itm!.DocumentNumberLength" [minlength]="itm.DocumentNumberLength"
+          <input type="text" UpperCase [maxlength]="itm!.DocumentNumberLength" [minlength]="itm.DocumentNumberLength"
             (keypress)="onCheckDocumentNumber($event,itm.Id)" class="form-control" formControlName="DocumentNumber"
             id="DocumentNumber" [(ngModel)]="kycModel[idx]!.Kycnumber" placeholder="{{itm.Name }} Number" [ngClass]="{ 'is-invalid': this.documentFormField.controls![idx].get('DocumentNumber')!.errors
              && this.documentFormField!.controls![idx].get('DocumentNumber')!.touched}">
