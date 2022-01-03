@@ -757,7 +757,7 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                 var data = result.Skip(((model.Page == 0 ? 1 : model.Page) - 1) * (model.PageSize != 0 ? model.PageSize : int.MaxValue)).Take(model.PageSize != 0 ? model.PageSize : int.MaxValue).Include(x => x.BtgoldLoanLeadApprovalActionHistory).ThenInclude(x => x.ActionTakenByUser).ThenInclude(x => x.UserRole);
 
                 objResponse.Data = await (from detail in data
-                                          where detail.IsDelete == false && detail.LeadStatus == "Pending" || detail.LeadStatus == "Mismatched" || detail.LeadStatus == "In Completed"
+                                          where detail.IsDelete == false && detail.LeadStatusId == ((int)LeadStatusEnum.BTReturnReady) 
                                           select new BTGoldLoanBalanceReturnLeadListModel
                                           {
                                               Id = detail.Id,
@@ -769,7 +769,7 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                                               LeadStatus = detail.LeadStatus,
                                               LeadType = "BT",
                                               ProductName = detail.Product.Name,
-                                              IsStatusCompleted = detail.BtgoldLoanLeadStatusActionHistory.Where(x => x.LeadStatus.Value == ((int)LeadStatusEnum.Completed)).Count() > 0 ? true : false,
+                                              IsStatusCompleted = detail.BtgoldLoanLeadStatusActionHistory.Where(x => x.LeadStatus.Value == ((int)         LeadStatusEnum.Completed)).Count() > 0 ? true : false,
                                               Pincode = detail.BtgoldLoanLeadAddressDetail.FirstOrDefault().AeraPincode.Pincode,
                                               ApprovalStatus = detail.ApprovalStatus,
                                               LoanCaseNumber = detail.LoanCaseNumber != null ? detail.LoanCaseNumber : "N/A"

@@ -225,9 +225,10 @@ namespace AurigainLoanERP.Services.Customer
                         if (result)
                         {
                             var user = await _db.UserMaster.Where(x => x.Id == userId).FirstOrDefaultAsync();
+                            var pass = _security.Base64Decode(user.Password);
                             Dictionary<string, string> replaceValues = new Dictionary<string, string>();
                             replaceValues.Add("{{UserName}}", user.Email);
-                            replaceValues.Add("{{Password}}", user.Password);
+                            replaceValues.Add("{{Password}}", pass);
                             await _emailHelper.SendHTMLBodyMail(user.Email, "Registration Notification", EmailPathConstant.RegisterTemplate, replaceValues);
                             _db.Database.CommitTransaction();
                             return CreateResponse<string>("", ResponseMessage.Save, true, ((int)ApiStatusCode.Ok));

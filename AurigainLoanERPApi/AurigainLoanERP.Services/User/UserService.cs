@@ -80,6 +80,12 @@ namespace AurigainLoanERP.Services.User
                         {
                             await SaveUserNomineeAsync(model.UserNominee, userId);
                         }
+                        var user = await _db.UserMaster.Where(x => x.Id == userId).FirstOrDefaultAsync();
+                        var pass = _security.Base64Decode(user.Password);
+                        Dictionary<string, string> replaceValues = new Dictionary<string, string>();
+                        replaceValues.Add("{{UserName}}", user.Email);
+                        replaceValues.Add("{{Password}}", pass);
+                        await _emailHelper.SendHTMLBodyMail(user.Email, "Registration Notification", EmailPathConstant.RegisterTemplate, replaceValues);
                         _db.Database.CommitTransaction();
                         return CreateResponse<string>(userId.ToString(), ResponseMessage.Save, true, ((int)ApiStatusCode.Ok));
                     }
@@ -99,9 +105,7 @@ namespace AurigainLoanERP.Services.User
             {
                 _db.Database.RollbackTransaction();
                 return CreateResponse<string>(null, ResponseMessage.Fail, false, ((int)ApiStatusCode.ServerException), ex.InnerException == null ? ex.Message : ex.InnerException.Message);
-
             }
-
         }
 
         /// <summary>
@@ -453,7 +457,12 @@ namespace AurigainLoanERP.Services.User
                             await SaveUserSecurityDepositAsync(model.SecurityDeposit, userId);
 
                         }
-
+                        var user = await _db.UserMaster.Where(x => x.Id == userId).FirstOrDefaultAsync();
+                        var pass = _security.Base64Decode(user.Password);
+                        Dictionary<string, string> replaceValues = new Dictionary<string, string>();
+                        replaceValues.Add("{{UserName}}", user.Email);
+                        replaceValues.Add("{{Password}}", pass);
+                        await _emailHelper.SendHTMLBodyMail(user.Email, "Registration Notification", EmailPathConstant.RegisterTemplate, replaceValues);
 
                         _db.Database.CommitTransaction();
                         return CreateResponse<string>(userId.ToString(), ResponseMessage.Save, true, ((int)ApiStatusCode.Ok));
@@ -622,6 +631,12 @@ namespace AurigainLoanERP.Services.User
                     var response = await SaveUserManagerAsync(model);
                     if (response)
                     {
+                        var user = await _db.UserMaster.Where(x => x.Email == model.EmailId).FirstOrDefaultAsync();
+                        var pass = _security.Base64Decode(user.Password);
+                        Dictionary<string, string> replaceValues = new Dictionary<string, string>();
+                        replaceValues.Add("{{UserName}}", user.Email);
+                        replaceValues.Add("{{Password}}", pass);
+                        await _emailHelper.SendHTMLBodyMail(user.Email, "Registration Notification", EmailPathConstant.RegisterTemplate, replaceValues);
                         _db.Database.CommitTransaction();
                         return CreateResponse<string>("", ResponseMessage.Save, true, ((int)ApiStatusCode.Ok));
                     }
@@ -1283,7 +1298,7 @@ namespace AurigainLoanERP.Services.User
                 {
                     Dictionary<string, string> replaceValues = new Dictionary<string, string>();
                     replaceValues.Add("{{UserName}}", user.UserName);
-                    await _emailHelper.SendHTMLBodyMail(user.Email, "Aurigain: approval Notification", EmailPathConstant.UserApproveTemplate, replaceValues);
+                    await _emailHelper.SendHTMLBodyMail(user.Email, "Aurigain: Approval Notification", EmailPathConstant.UserApproveTemplate, replaceValues);
                 }
 
                 return CreateResponse(true as object, ResponseMessage.Update, true, ((int)ApiStatusCode.Ok));
@@ -1442,12 +1457,13 @@ namespace AurigainLoanERP.Services.User
             {
                 if (model.Id == default)
                 {
+                    var uniqueId = GenerateUniqueId();
                     var objModel = new UserAgent();
                     objModel.CreatedOn = DateTime.Now;
                     objModel.UserId = userId;
                     objModel.FullName = !string.IsNullOrEmpty(model.FullName) ? model.FullName : null;
                     objModel.FatherName = !string.IsNullOrEmpty(model.FatherName) ? model.FatherName : null;
-                    objModel.UniqueId = "AUR"+GenerateUniqueId();
+                    objModel.UniqueId = "AUR" + uniqueId;
                     objModel.Gender = !string.IsNullOrEmpty(model.Gender) ? model.Gender : null;
                     objModel.Address = !string.IsNullOrEmpty(model.Address) ? model.Address : null;
                     objModel.AddressLine2 = !string.IsNullOrEmpty(model.AddressLine2) ? model.AddressLine2 : null;
@@ -1497,12 +1513,13 @@ namespace AurigainLoanERP.Services.User
             {
                 if (model.Id == default)
                 {
+                    var uniqueId = GenerateUniqueId();
                     var objModel = new UserDoorStepAgent();
                     objModel.CreatedOn = DateTime.Now;
                     objModel.UserId = userId;
                     objModel.FullName = !string.IsNullOrEmpty(model.FullName) ? model.FullName : null;
                     objModel.FatherName = !string.IsNullOrEmpty(model.FatherName) ? model.FatherName : null;
-                    objModel.UniqueId = "AUR" + GenerateUniqueId();
+                    objModel.UniqueId = "AUR" + uniqueId;
                     objModel.Gender = !string.IsNullOrEmpty(model.Gender) ? model.Gender : null;
                     objModel.Address = !string.IsNullOrEmpty(model.Address) ? model.Address : null;
                     objModel.AddressLine2 = !string.IsNullOrEmpty(model.AddressLine2) ? model.AddressLine2 : null;
@@ -1539,11 +1556,8 @@ namespace AurigainLoanERP.Services.User
             }
             catch (Exception)
             {
-
                 throw;
             };
-
-
         }
 
         /// <summary>
