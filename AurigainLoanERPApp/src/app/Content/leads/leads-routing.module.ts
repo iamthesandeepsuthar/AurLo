@@ -1,3 +1,5 @@
+import { AddFreshPersonalLeadComponent } from './other-loan-leads/add-fresh-personal-lead/add-fresh-personal-lead.component';
+import { AddFreshHomeLeadComponent } from './home-loan-lead/add-fresh-home-lead/add-fresh-home-lead.component';
 import { AddFreshVehicleLeadComponent } from './vehicle-loan-leads/add-fresh-vehicle-lead/add-fresh-vehicle-lead.component';
 import { DetailVehicleLoanLeadComponent } from './vehicle-loan-leads/detail-vehicle-loan-lead/detail-vehicle-loan-lead.component';
 import { DetailHomeLoanLeadComponent } from './home-loan-lead/detail-home-loan-lead/detail-home-loan-lead.component';
@@ -30,7 +32,7 @@ const routes: Routes = [
 
   { path: `${Routing_Url.Other_Loan_Leads_Url}`, component: OtherLoanLeadsComponent, canActivate: [AuthenticationGuard] },
   { path: `${Routing_Url.Other_Loan_Leads_Url}/${Routing_Url.Other_Loan_Lead_Detail}/:id`, component: DetailOtherLoanLeadComponent, canActivate: [AuthenticationGuard] },
-  { path: `${Routing_Url.Other_Loan_Leads_Url}/${Routing_Url.Add_Update_Lead_Url}/:id`, component: AddUpdateInternalBalanceTransferGoldLoanLeadComponent, canActivate: [AuthenticationGuard] },
+  {path: `${Routing_Url.Other_Loan_Leads_Url}/${Routing_Url.Personal_Loan_Lead_AddUpdate}/:id`,component: AddFreshPersonalLeadComponent, canActivate: [AuthenticationGuard] },
 
 
   { path: `${Routing_Url.BT_GoldLoan_BalanceReturn_Url}/:id`, component:BalanceTransferReturnComponent , canActivate:[AuthenticationGuard]},
@@ -38,7 +40,9 @@ const routes: Routes = [
   {path: `${Routing_Url.Vehicle_Loan_Lead_Url}`, component: VehicleLoanLeadsComponent, canActivate: [AuthenticationGuard]},
   { path: `${Routing_Url.Home_Loan_Leads_Url}/${Routing_Url.Home_Loan_lead_Detail}/:id`, component: DetailHomeLoanLeadComponent, canActivate: [AuthenticationGuard] },
   { path: `${Routing_Url.Vehicle_Loan_Lead_Url}/${Routing_Url.Vehicle_Loan_Lead_Detail}/:id`, component: DetailVehicleLoanLeadComponent, canActivate: [AuthenticationGuard] },
-  {path: `${Routing_Url.Vehicle_Loan_Lead_Url}/${Routing_Url.Vehicle_Loan_Lead_AddUpdate}/:id`,component: AddFreshVehicleLeadComponent, canActivate: [AuthenticationGuard] }
+  {path: `${Routing_Url.Vehicle_Loan_Lead_Url}/${Routing_Url.Vehicle_Loan_Lead_AddUpdate}/:id`,component: AddFreshVehicleLeadComponent, canActivate: [AuthenticationGuard] },
+  {path: `${Routing_Url.Home_Loan_Leads_Url}/${Routing_Url.Home_Loan_Lead_AddUpdate}/:id`,component: AddFreshHomeLeadComponent, canActivate: [AuthenticationGuard] },
+
 ];
 
 @NgModule({
