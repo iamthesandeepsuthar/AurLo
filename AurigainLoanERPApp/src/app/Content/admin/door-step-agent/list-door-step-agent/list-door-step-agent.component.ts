@@ -167,7 +167,7 @@ export class ListDoorStepAgentComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.toast.success('Record saved successful','Success');
+        //this.toast.success('Record saved successful','Success');
         this.getList();
       } else {
       }
@@ -181,7 +181,7 @@ export class ListDoorStepAgentComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.toast.success('Record Saved Successful','Success');
+       // this.toast.success('Record Saved Successful','Success');
       } else {
       }
     });

@@ -83,7 +83,7 @@
             <div>
                 <div class="n-chk">
                     <label class="new-control new-checkbox checkbox-info">
-						<input type="checkbox" class="new-control-input" [(ngModel)]="DetailModel!.BalanceTransferReturn!.GoldSubmittedToBank" name="custom-radio-10"> <span class="new-control-indicator"></span>Gold Submitted To Bank </label>
+						<input type="checkbox" class="new-control-input" *ngIf="this.UserDetail!.RoleId != UserRoleEnum.Customer" [(ngModel)]="DetailModel!.BalanceTransferReturn!.GoldSubmittedToBank" name="custom-radio-10"> <span class="new-control-indicator"></span>Gold Submitted To Bank </label>
                 </div>
             </div>
         </div>

@@ -24,11 +24,11 @@ namespace AurigainLoanERP.Shared.ContractModel
         public DateTime CreatedDate { get; set; }
         public DateTime? ModifiedDate { get; set; }
         public string LeadStatus { get; set;}
+        public int LeadStatusId { get; set;}
         public string Pincode { get; set; }
         public long? AreaPincodeId { get; set;}
         public long? CustomerUserId { get; set;}
-        public string AreaLocation { get; set;}
-        
+        public string AreaLocation { get; set;}        
     }
 
 }

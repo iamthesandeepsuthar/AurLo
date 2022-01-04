@@ -2,7 +2,8 @@ import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
 import { ToastrService } from "ngx-toastr";
-import { PaymentMethod } from "src/app/Shared/Enum/fixed-value";
+import { PaymentMethod, UserRoleEnum } from "src/app/Shared/Enum/fixed-value";
+import { AuthService } from "src/app/Shared/Helper/auth.service";
 import { CommonService } from "src/app/Shared/Services/common.service";
 import { BalanceTransferGoldLoanLeadsService } from "src/app/Shared/Services/Leads/balance-transfer-gold-loan-leads.service";
 import { FilePostModel } from "../../../Shared/Model/doorstep-agent-model/door-step-agent.model";
@@ -36,11 +37,14 @@ export class BalanceTransferReturnComponent implements OnInit {
   get ChequeDetail(): BalanceTransferReturnBankChequeDetail {
     return this.chequeDetail;
   }
+  get UserDetail() { return this._auth.GetUserDetail() };
+  get UserRoleEnum() { return UserRoleEnum };
   constructor(private readonly _toast: ToastrService,
     private readonly fb: FormBuilder,
     private readonly _btLeadService: BalanceTransferGoldLoanLeadsService,
     readonly _commonService: CommonService,
-    private readonly _activatedRoute: ActivatedRoute) {
+    private readonly _activatedRoute: ActivatedRoute,
+    private readonly _auth: AuthService,) {
     if (_activatedRoute.snapshot.params.id) {
       this.leadId = _activatedRoute.snapshot.params.id;
     }

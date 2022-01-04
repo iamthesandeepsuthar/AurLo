@@ -126,7 +126,7 @@ export class OtherLoanLeadsComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.toast.success(Message.SaveSuccess as string, 'Success');
+       // this.toast.success(Message.SaveSuccess as string, 'Success');
         this.getList();
       } else {
         this.toast.error(Message.SaveFail as string, 'Error');

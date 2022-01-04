@@ -1,63 +1,123 @@
+<!-- Page Header Title start -->
+<div class="widget-header">
+  <div class="row d-block d-sm-flex align-items-center justify-content-between text-center text-sm-left">
+      <div>
+          <h1>Vehicle Loan Fresh Lead</h1>
+          <!-- Breadcrumb Start -->
+          <nav class="custom-breadcrum">
+              <ol class="breadcrumb justify-content-center justify-content-sm-start">
+                  <li class="breadcrumb-item"><a href="javascript:void(0)">Dashboard</a></li>
+                  <li class="breadcrumb-item"><a href="javascript:void(0)">Vehicle Leads</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">New Lead</li>
+              </ol>
+          </nav>
+          <!-- Breadcrumb End -->
+      </div>
+  </div>
+</div>
+<!-- Page Header Title end -->
+
 <div class="p-3">
     <div class="row">
         <div class="col-lg-12 m-auto">
             <div class="form-row">
+              <div class="form-group col-md-4">
+                <label>Select Product </label>
+                <ng-select [items]="ddlProductModel" [searchable]="true" bindLabel="Name" bindValue="Id"
+                  placeholder="Select product" formControlName="Product"
+                  [ngClass]="{ 'is-invalid': f1.Product.errors && f1.Product.touched}" [(ngModel)]="model.ProductId">
+                </ng-select>
+                <div class="invalid-feedback"
+                  *ngIf="(vehicleForm.get('Product')?.hasError('required') && vehicleForm.get('Product')?.touched)">
+                  Select product</div>
+              </div>
+              <div class="form-group col-md-4">
+                <label>Full Name</label>
+                <input type="text" (keypress)="!_commonService.NumberOnly($event)" class="form-control" id="input2"
+                  placeholder="Full Name" formControlName="FullName" maxlength="200"
+                  [ngClass]="{ 'is-invalid': f1.FullName.errors && f1.FullName.touched}" [(ngModel)]="model.FullName">
+
+                <div class="invalid-feedback"
+                  *ngIf="(vehicleForm.get('FullName')?.hasError('required') && vehicleForm.get('FullName')?.touched)">
+                  Enter full name </div>
+
+              </div>
+              <div class="form-group col-md-4">
+                <label>Father's Name</label>
+                <input type="text" (keypress)="!_commonService.NumberOnly($event)" class="form-control" id="input3"
+                  placeholder="Father's Name" formControlName="FatherName" maxlength="200"
+                  [ngClass]="{ 'is-invalid': f1.FatherName.errors && f1.FatherName.touched}" [(ngModel)]="model.FatherName">
+
+                <div class="invalid-feedback"
+                  *ngIf="(vehicleForm.get('FatherName')?.hasError('required') && vehicleForm.get('FatherName')?.touched)">
+                  Enter father name</div>
+
+              </div>
+
+
+              <div class="form-group col-md-4">
+                <label>Email Id</label>
+                <input type="text" class="form-control" maxlength="200" id="input1" placeholder="Email Address"
+                  formControlName="Email" [ngClass]="{ 'is-invalid': f1.Email.errors && f1.Email.touched}"
+                  [(ngModel)]="model.EmailId">
+
+                <div class="invalid-feedback"
+                  *ngIf="(vehicleForm.get('Email')?.hasError('required') && vehicleForm.get('Email')?.touched)">
+                  Enter email id </div>
+
+                <div class="invalid-feedback" *ngIf="!vehicleForm.get('Email')?.hasError('required') && vehicleForm.get('Email')?.touched
+                  && vehicleForm.get('Email')?.invalid">
+                  Please fill correct email </div>
+
+              </div>
+              <div class="form-group col-md-4">
+                <label>Mobile Number</label>
+                <input type="text" [minlength]="10" [maxlength]="10" (keypress)="_commonService.NumberOnly($event)"
+                  placeholder="Mobile Number" class="form-control" id="input5" [(ngModel)]="model.MobileNumber"
+                  formControlName="Mobile" [ngClass]="{ 'is-invalid': f1.Mobile.errors && f1.Mobile.touched}">
+
+
+                <div class="invalid-feedback"
+                  *ngIf="(vehicleForm.get('Mobile')?.hasError('required') && vehicleForm.get('Mobile')?.touched)">
+                  Enter mobile number! </div>
+
+                <div class="invalid-feedback"
+                  *ngIf="!vehicleForm.get('Mobile')?.hasError('required') && ((vehicleForm.get('Mobile')?.hasError('maxlength') || vehicleForm.get('Mobile')?.hasError('minlength')) && vehicleForm.get('Mobile')?.touched) || (vehicleForm.get('Mobile')?.hasError('maxlength') || vehicleForm.get('Mobile')?.hasError('minlength'))">
+                  Mobile length must be 10 digit </div>
+
+              </div>
                 <div class="form-group col-md-4">
-                    <label>Full name</label>
-                    <input type="text" class="form-control" placeholder="Enter name">
+                    <label>Pincode <em class="text-danger">*</em></label>
+                    <input type="text" class="form-control"  placeholder="Pincode">
                 </div>
                 <div class="form-group col-md-4">
-                    <label>Mobile number</label>
-                    <input type="text" class="form-control" placeholder="Enter number">
+                  <label>Place of residence (Area Location) <em class="text-danger">*</em></label>
+                  <input type="text" class="form-control" placeholder="Pincode">
                 </div>
                 <div class="form-group col-md-4">
-                    <label>Email ID</label>
-                    <input type="text" class="form-control" placeholder="Enter email">
-                </div>
-                <div class="form-group col-md-4">
-                    <label>Place of residence (PINCODE) <em class="text-danger">*</em></label>
-                    <input type="text" class="form-control" placeholder="Enter Pincode">
-                </div>
-                <div class="form-group col-md-4">
-                    <label>Loan amount needed</label>
-                    <input type="text" class="form-control" placeholder="Enter amount">
+                    <label>Loan Amount Needed</label>
+                    <input type="text" class="form-control" placeholder="Loan Amount">
                 </div>
                 <div class="form-group col-md-4">
                     <label>Annual Income</label>
-                    <input type="text" class="form-control" placeholder="Enter Income">
+                    <input type="text" class="form-control" placeholder="Annual Income">
                 </div>
                 <div class="form-group col-md-4">
-                    <label>Employer Type</label>
-                    <select class="form-control">
-                    <option>--Select--</option>
-                    <option>--Select--</option>
-                    <option>--Select--</option>
-                </select>
+                  <label>Employee Type</label>
+                  <select class="form-control">
+                  <option value="0">Salaried</option>
+                  <option value="1">Self Employed</option>
+              </select>
                 </div>
                 <div class="form-group col-md-4">
-                    <label>Gender</label>
-                    <div class="form-radio-check-grp">
-                        <div class="n-chk d-inline">
-                            <label class="new-control new-radio radio-classic-info">
-                                <input type="radio" class="new-control-input" name="custom-radio-2" checked>
-                                <span class="new-control-indicator"></span>Male
-                            </label>
-                        </div>
-                        <div class="n-chk d-inline">
-                            <label class="new-control new-radio radio-classic-info">
-                                <input type="radio" class="new-control-input" name="custom-radio-2">
-                                <span class="new-control-indicator"></span>Female
-                            </label>
-                        </div>
-                    </div>
+                    <label>Designation</label>
+                   <input type="text" class="form-control" placeholder="Enter Employer Type">
                 </div>
-
-            </div>
+              </div>
             <div class="form-footer-btn-grp widget-content widget-content p-3 text-center">
-                <button type="submit" class="btn btn-success mr-3"> <i class="fas fa-check mr-1"></i> Save
-            application</button>
+                <button type="submit" class="btn btn-primary mr-3"> <i class="fas fa-check mr-1"></i> Save
+                application</button>
                 <button type="button" class="btn btn-outline-danger"> <i class="fas fa-times mr-1"></i> Cancel</button>
             </div>
-        </div>
-    </div>
+     </div>
 </div>
