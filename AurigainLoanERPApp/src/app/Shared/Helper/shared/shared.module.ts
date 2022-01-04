@@ -27,6 +27,8 @@ import { LeadApprovalHistoryPopupComponent } from './Popup/lead-approval-history
 import { LeadStatuslHistoryPopupComponent } from './Popup/lead-statusl-history-popup/lead-statusl-history-popup.component';
 import { ReportingPersonPopupComponent } from './Popup/reporting-person-popup/reporting-person-popup.component';
 import { AppointmentBookingPopupComponent } from './Popup/appointment-booking-popup/appointment-booking-popup.component';
+import { UpperCaseDirective } from './Directives/upper-case.directive';
+import { TitleCaseDirective } from './Directives/title-case.directive';
 
 const CommonModules = [HttpClientModule, ReactiveFormsModule, FormsModule];
 
@@ -76,10 +78,12 @@ const SharedEntryComponent = [
   ReportingPersonPopupComponent,
   AppointmentBookingPopupComponent
 ];
+
+const Directive = [UpperCaseDirective, TitleCaseDirective]
 @NgModule({
-  declarations: [SharedComponent],
+  declarations: [SharedComponent, Directive],
   entryComponents: [SharedEntryComponent],
   imports: [CommonModule, CommonModules, InstalledModule],
-  exports: [CommonModules, InstalledModule, SharedComponent],
+  exports: [CommonModules, InstalledModule, SharedComponent,Directive],
 })
 export class SharedModule { }

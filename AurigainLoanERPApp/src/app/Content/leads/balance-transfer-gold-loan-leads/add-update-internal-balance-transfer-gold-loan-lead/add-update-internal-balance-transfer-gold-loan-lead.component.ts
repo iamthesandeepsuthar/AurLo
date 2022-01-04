@@ -55,16 +55,16 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
 
   dropDown = new DropDownModel();
   get ddlkeys() { return DropDown_key };
-  ddlProductModel!: DDLProductModel[];
-  ddlBranchModel!: DDLBranchModel[];
-  ddlAreaModel!: AvailableAreaModel[];
-  ddlCorespondAreaModel!: AvailableAreaModel[];
-  ddlDocumentType!: DDLDocumentTypeModel[];
-  ddlDocumentTypePOI!: DDLDocumentTypeModel[];
-  ddlDocumentTypePOA!: DDLDocumentTypeModel[];
-  ddlPurpose!: ddlPurposeModel[];
+  ddlProductModel: DDLProductModel[] = [];
+  ddlBranchModel: DDLBranchModel[] = [];
+  ddlAreaModel: AvailableAreaModel[] = [];
+  ddlCorespondAreaModel: AvailableAreaModel[] = [];
+  ddlDocumentType: DDLDocumentTypeModel[] = [];
+  ddlDocumentTypePOI: DDLDocumentTypeModel[] = [];
+  ddlDocumentTypePOA: DDLDocumentTypeModel[] = [];
+  ddlPurpose: ddlPurposeModel[] = [];
   isSameAddress = false;
-  ddlJewellaryType!: DDLJewellaryType[];
+  ddlJewellaryType: DDLJewellaryType[] = [];
   ddlKarats = [{ Name: "18 Karats", Id: 18 }, { Name: "20  Karats", Id: 20 }, { Name: "22  Karats", Id: 22 }, { Name: "24  Karats", Id: 24 }];
   docPOIMaxChar: number = 0;
   docPOAMaxChar: number = 0;
@@ -645,8 +645,8 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
   }
 
   onChangePOIDocument(value: any) {
-
-    let doc = this.ddlDocumentTypePOI?.find(x => x.Id == value.Id);
+    debugger
+    let doc = this.ddlDocumentTypePOI?.find(x => x?.Id == value?.Id);
     this.f7.PoidocumentNumber.setValidators(Validators.compose([Validators.minLength(doc?.DocumentNumberLength as number), Validators.maxLength(doc?.DocumentNumberLength as number)]));
     this.f7.PoidocumentNumber.updateValueAndValidity();
 
