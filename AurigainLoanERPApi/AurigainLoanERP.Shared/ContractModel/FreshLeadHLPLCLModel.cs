@@ -28,7 +28,11 @@ namespace AurigainLoanERP.Shared.ContractModel
         public string Pincode { get; set; }
         public long? AreaPincodeId { get; set;}
         public long? CustomerUserId { get; set;}
-        public string AreaLocation { get; set;}        
+        public string AreaLocation { get; set;}
+        public string Gender { get; set; }
+        public string Address { get; set; }
+        public string AddressLine2 { get; set; }
+        public DateTime? DateOfBirth { get; set;}
     }
 
 }

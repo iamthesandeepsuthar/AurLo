@@ -5,7 +5,7 @@
           <h1>Personal Loan Fresh Lead</h1>
           <!-- Breadcrumb Start -->
           <nav class="custom-breadcrum">
-              <ol class="breadcrumb justify-content-center justify-content-sm-start">  
+              <ol class="breadcrumb justify-content-center justify-content-sm-start">
                   <li class="breadcrumb-item"><a href="javascript:void(0)">Dashboard</a></li>
                   <li class="breadcrumb-item"><a href="javascript:void(0)">Personal Leads</a></li>
                   <li class="breadcrumb-item active" aria-current="page">New Lead</li>
@@ -18,76 +18,161 @@
 <!-- Page Header Title end -->
 
 <div class="p-3">
-    <div class="row">
-        <div class="col-lg-12 m-auto">
-            <div class="form-row">
-                <div class="form-group col-md-4">
-                    <label>Full name</label>
-                    <input type="text" class="form-control" placeholder="Enter name">
-                </div>
-                <div class="form-group col-md-4">
-                  <label>Father Name</label>
-                  <input type="text" class="form-control" placeholder="Enter name">
-                </div>
-                <div class="form-group col-md-4">
-                    <label>Mobile Number</label>
-                    <input type="text" class="form-control" placeholder="Enter number">
-                </div>
-                <div class="form-group col-md-4">
-                    <label>Email ID</label>
-                    <input type="text" class="form-control" placeholder="Enter email">
-                </div>
-                <div class="form-group col-md-4">
-                    <label>Pincode <em class="text-danger">*</em></label>
-                    <input type="text" class="form-control" placeholder="Enter Pincode">
-                </div>
-                <div class="form-group col-md-4">
-                  <label>Place of residence (Area Location) <em class="text-danger">*</em></label>
-                  <input type="text" class="form-control" placeholder="Enter Pincode">
-                </div>
-                <div class="form-group col-md-4">
-                    <label>Loan Amount Needed</label>
-                    <input type="text" class="form-control" placeholder="Enter amount">
-                </div>
-                <div class="form-group col-md-4">
-                    <label>Annual Income</label>
-                    <input type="text" class="form-control" placeholder="Enter Income">
-                </div>
-                <div class="form-group col-md-4">
-                  <label>Employee Type</label>
-                  <select class="form-control">
-                  <option>--Select--</option>
-                  <option>--Select--</option>
-                  <option>--Select--</option>
-              </select>
-                </div>
-                <div class="form-group col-md-4">
-                    <label>Designation</label>
-                   <input type="text" class="form-control" placeholder="Enter Employer Type">
-                </div>
-                <div class="form-group col-md-4">
-                    <label>Gender</label>
-                    <div class="form-radio-check-grp">
-                        <div class="n-chk d-inline">
-                            <label class="new-control new-radio radio-classic-info">
-                                    <input type="radio" class="new-control-input" name="custom-radio-2" checked>
-                                    <span class="new-control-indicator"></span>Male
-                                </label>
-                        </div>
-                        <div class="n-chk d-inline">
-                            <label class="new-control new-radio radio-classic-info">
-                                    <input type="radio" class="new-control-input" name="custom-radio-2">
-                                    <span class="new-control-indicator"></span>Female
-                                </label>
-                        </div>
-                    </div>
-                </div>
+  <div class="row">
+      <div class="col-lg-12 m-auto">
+        <form [formGroup]="FormData" (ngSubmit)="FormData.markAllAsTouched()">
+          <div class="form-row">
+            <div class="form-group col-md-4">
+              <label>Select Product </label>
+              <ng-select [items]="ddlProductModel" [searchable]="true" bindLabel="Name" bindValue="Id"
+                placeholder="Select product" formControlName="Product"
+                [ngClass]="{ 'is-invalid': f1.Product.errors && f1.Product.touched}" [(ngModel)]="model.ProductId">
+              </ng-select>
+              <div class="invalid-feedback"
+                *ngIf="(FormData.get('Product')?.hasError('required') && FormData.get('Product')?.touched)">
+                Select product</div>
+            </div>
+            <div class="form-group col-md-4">
+              <label>Full Name</label>
+              <input type="text" (keypress)="!_commonService.NumberOnly($event)" class="form-control" id="input2"
+                placeholder="Full Name" formControlName="FullName" maxlength="200"
+                [ngClass]="{ 'is-invalid': f1.FullName.errors && f1.FullName.touched}" [(ngModel)]="model.FullName">
+
+              <div class="invalid-feedback"
+                *ngIf="(FormData.get('FullName')?.hasError('required') && FormData.get('FullName')?.touched)">
+                Enter full name </div>
+
+            </div>
+            <div class="form-group col-md-4">
+              <label>Father's Name</label>
+              <input type="text" (keypress)="!_commonService.NumberOnly($event)" class="form-control" id="input3"
+                placeholder="Father's Name" formControlName="FatherName" maxlength="200"
+                [ngClass]="{ 'is-invalid': f1.FatherName.errors && f1.FatherName.touched}" [(ngModel)]="model.FatherName">
+
+              <div class="invalid-feedback"
+                *ngIf="(FormData.get('FatherName')?.hasError('required') && FormData.get('FatherName')?.touched)">
+                Enter father name</div>
+
+            </div>
+            <div class="form-group col-md-4">
+              <label>Email Id</label>
+              <input type="text" class="form-control" maxlength="200" id="input1" placeholder="Email Address"
+                formControlName="Email" [ngClass]="{ 'is-invalid': f1.Email.errors && f1.Email.touched}"
+                [(ngModel)]="model.EmailId">
+
+              <div class="invalid-feedback"
+                *ngIf="(FormData.get('Email')?.hasError('required') && FormData.get('Email')?.touched)">
+                Enter email id </div>
+
+              <div class="invalid-feedback" *ngIf="!FormData.get('Email')?.hasError('required') && FormData.get('Email')?.touched
+                && FormData.get('Email')?.invalid">
+                Please fill correct email </div>
+            </div>
+              <div class="form-group col-md-4">
+              <label>Mobile Number</label>
+              <input type="text" [minlength]="10" [maxlength]="10" (keypress)="_commonService.NumberOnly($event)"
+                placeholder="Mobile Number" class="form-control" id="input5" [(ngModel)]="model.MobileNumber"
+                formControlName="Mobile" [ngClass]="{ 'is-invalid': f1.Mobile.errors && f1.Mobile.touched}">
+
+
+              <div class="invalid-feedback"
+                *ngIf="(FormData.get('Mobile')?.hasError('required') && FormData.get('Mobile')?.touched)">
+                Enter mobile number! </div>
+
+              <div class="invalid-feedback"
+                *ngIf="!FormData.get('Mobile')?.hasError('required') && ((FormData.get('Mobile')?.hasError('maxlength') || FormData.get('Mobile')?.hasError('minlength')) && FormData.get('Mobile')?.touched) || (FormData.get('Mobile')?.hasError('maxlength') || FormData.get('Mobile')?.hasError('minlength'))">
+                Mobile length must be 10 digit </div>
 
               </div>
-            <div class="form-footer-btn-grp widget-content widget-content p-3 text-center">
-                <button type="submit" class="btn btn-primary mr-3"> <i class="fas fa-check mr-1"></i> Save
-                application</button>
-                <button type="button" class="btn btn-outline-danger"> <i class="fas fa-times mr-1"></i> Cancel</button>
+              <div class="form-group col-md-4">
+                <label>Designation</label>
+               <input type="text" class="form-control" formControlName="Designation"  [(ngModel)]="Model.EmployeeType"  placeholder="Enter Employer Type">
             </div>
-     </div>
+              <div class="form-group col-md-4">
+                <label>Loan Amount Needed</label>
+                <input type="text" class="form-control"  formControlName="LoanAmount"[(ngModel)]="Model.LoanAmount" placeholder="Loan Amount">
+            </div>
+            <div class="form-group col-md-4">
+                <label>Annual Income</label>
+                <input type="text" class="form-control" formControlName="AnnualIncome"     placeholder="Annual Income">
+            </div>
+            <div class="form-group col-md-4">
+              <label>Profession</label>
+              <select class="form-control" formControlName="LeadType" [(ngModel)]="Model.LeadType">
+              <option value=0>Salaried</option>
+              <option value=1>Self Employed</option>
+          </select>
+            </div>
+            <div class="form-group col-md-4">
+              <label>Pincode</label>
+              <input type="text" [maxlength]="6" class="form-control" (keypress)="_commonService.NumberOnly($event)"
+                (blur)="getDropDownPinCodeArea()" id="input10" placeholder="Pincode" [(ngModel)]="model.Pincode"
+                formControlName="Pincode" [ngClass]="{ 'is-invalid': f1.Pincode.errors && f1.Pincode.touched}">
+              <div class="invalid-feedback"
+                *ngIf="(FormData.get('Pincode')?.hasError('required') && FormData.get('Pincode')?.touched)">
+                Enter Pincode </div>
+              <div class="invalid-feedback"
+                *ngIf="!FormData.get('Pincode')!.hasError('required') &&
+                ((this.FormData!.get('Pincode')!.hasError('maxlength') || this.FormData.get('Pincode')!.hasError('minlength')) &&
+                 this.FormData.get('Pincode')!.touched) || (this.FormData.get('Pincode')!.hasError('maxlength') || this.FormData.get('Pincode')!.hasError('minlength'))">
+                Pin number length must be 6 char or digit...! </div>
+           </div>
+            <div class="form-group col-md-4">
+                <label>Place of residence (Area Location) <em class="text-danger">*</em></label>
+                <ng-select [items]="ddlAreaModel" [searchable]="true" bindLabel="AreaName" bindValue="Id"
+                placeholder="Select Area" formControlName="AreaPincode"
+                [ngClass]="{ 'is-invalid': f1.AreaPincode.errors && f1.AreaPincode.touched}"
+                [(ngModel)]="model.AreaPincodeId">
+              </ng-select>
+              <div class="invalid-feedback"
+                *ngIf="(FormData.get('AreaPincode')?.hasError('required') && FormData.get('AreaPincode')?.touched)">
+                Select Area Location </div>
+            </div>
+            <div class="form-group col-md-4">
+              <label>Gender</label>
+              <div class="form-radio-check-grp border-0 pl-0">
+                  <div class="n-chk d-inline">
+                    <label class="new-control new-radio radio-classic-info">
+                      <input type="radio" formControlName="Gender" class="new-control-input" value="Male"
+                        name="Gender" [(ngModel)]="model.Gender">
+                      <span class="new-control-indicator"></span>Male
+                    </label>
+                  </div>
+                  <div class="n-chk d-inline">
+                    <label class="new-control new-radio radio-classic-info">
+                      <input type="radio" formControlName="Gender" class="new-control-input" value="Female"
+                        name="Gender" [(ngModel)]="model.Gender">
+                      <span class="new-control-indicator"></span>Female
+                    </label>
+                  </div>
+                  <div class="n-chk d-inline">
+                    <label class="new-control new-radio radio-classic-info">
+                      <input type="radio" formControlName="Gender" class="new-control-input" value="Other"
+                        name="Gender" [(ngModel)]="model.Gender">
+                      <span class="new-control-indicator"></span>Other
+                    </label>
+                  </div>
+
+                <div class="invalid-feedback"
+                  *ngIf="(FormData.get('Gender')?.hasError('required') && FormData.get('Gender')?.touched)">
+                  Select gender </div>
+              </div>
+            </div>
+            <div class="form-group col-md-12">
+              <label>Address Line1</label>
+              <textarea class="form-control" formControlName="Address" placeholder="Address Line1"  [(ngModel)]="Model.Address" row=2></textarea>
+            </div>
+            <div class="form-group col-md-12">
+                <label>Address Line2</label>
+                <input readonly class="form-control text-dark" formControlName="AddressLine2" placeholder="Address Line2"  [(ngModel)]="Model.AddressLine2">
+           </div>
+          </div>
+          <div class="form-footer-btn-grp widget-content widget-content p-3 text-center">
+              <button type="submit" class="btn btn-primary mr-3"> <i class="fas fa-check mr-1"></i> {{Id>0 ?'Update ':'Save '}}Application</button>
+              <button type="button" class="btn btn-outline-danger"> <i class="fas fa-times mr-1"></i> Cancel</button>
+          </div>
+        </form>
+   </div>
+  </div>
 </div>
+

@@ -5,7 +5,6 @@ import { Directive, ElementRef, HostListener } from '@angular/core';
 })
 export class TitleCaseDirective {
 
-
   lastValue!: string;
 
   constructor(public ref: ElementRef) { }
