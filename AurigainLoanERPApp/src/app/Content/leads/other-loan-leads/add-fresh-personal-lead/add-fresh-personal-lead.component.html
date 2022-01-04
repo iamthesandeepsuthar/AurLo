@@ -20,7 +20,7 @@
 <div class="p-3">
   <div class="row">
       <div class="col-lg-12 m-auto">
-        <form [formGroup]="FormData" (ngSubmit)="FormData.markAllAsTouched()">
+        <form [formGroup]="FormData" (ngSubmit)="onSubmit()">
           <div class="form-row">
             <div class="form-group col-md-4">
               <label>Select Product </label>
@@ -92,18 +92,28 @@
                 <label>Loan Amount Needed</label>
                 <input type="text" class="form-control"  formControlName="LoanAmount"[(ngModel)]="Model.LoanAmount" placeholder="Loan Amount">
             </div>
-            <div class="form-group col-md-4">
-                <label>Annual Income</label>
-                <input type="text" class="form-control" formControlName="AnnualIncome"     placeholder="Annual Income">
-            </div>
+
             <div class="form-group col-md-4">
               <label>Profession</label>
-              <select class="form-control" formControlName="LeadType" [(ngModel)]="Model.LeadType">
-              <option value=0>Salaried</option>
-              <option value=1>Self Employed</option>
-          </select>
+              <ng-select [items]="LeadType" [searchable]="true" bindLabel="Name" bindValue="Id"
+              placeholder="Select Profession" formControlName="LeadType"
+              [ngClass]="{ 'is-invalid': f1.LeadType.errors && f1.LeadType.touched}" [(ngModel)]="model.LeadType">
+            </ng-select>
+            <div class="invalid-feedback"
+              *ngIf="(FormData.get('LeadType')?.hasError('required') && FormData.get('LeadType')?.touched)">
+              Select Profession</div>
             </div>
-            <div class="form-group col-md-4">
+            <div class="form-group col-md-2" *ngIf="Model.LeadType">
+              <label>ITR </label>
+              <ng-select [items]="ITR" [searchable]="true" bindLabel="Name" bindValue="Id"
+              placeholder="Select ITR" formControlName="ITRNo" [(ngModel)]="model.NoOfItr">
+            </ng-select>
+            </div>
+            <div class="form-group col-md-2">
+              <label>Annual Income{{Model.LeadType ?' Last ITR' :''}}</label>
+              <input type="number" class="form-control" formControlName="AnnualIncome"  [(ngModel)]="Model.AnnualIncome"    placeholder="Annual Income">
+            </div>
+           <div class="form-group col-md-4">
               <label>Pincode</label>
               <input type="text" [maxlength]="6" class="form-control" (keypress)="_commonService.NumberOnly($event)"
                 (blur)="getDropDownPinCodeArea()" id="input10" placeholder="Pincode" [(ngModel)]="model.Pincode"
@@ -166,11 +176,11 @@
                 <label>Address Line2</label>
                 <input readonly class="form-control text-dark" formControlName="AddressLine2" placeholder="Address Line2"  [(ngModel)]="Model.AddressLine2">
            </div>
-          </div>
-          <div class="form-footer-btn-grp widget-content widget-content p-3 text-center">
+            </div>
+            <div class="form-footer-btn-grp widget-content widget-content p-3 text-center">
               <button type="submit" class="btn btn-primary mr-3"> <i class="fas fa-check mr-1"></i> {{Id>0 ?'Update ':'Save '}}Application</button>
               <button type="button" class="btn btn-outline-danger"> <i class="fas fa-times mr-1"></i> Cancel</button>
-          </div>
+            </div>
         </form>
    </div>
   </div>

@@ -35,7 +35,16 @@ export class AddFreshHomeLeadComponent implements OnInit {
     date.setFullYear(date.getFullYear() - 18);
     return date
   };
-  constructor(private readonly _vehicleService: PersonalHomeCarLoanService,
+  LeadType = [
+    { Id: 0, Name: 'Salaried' },
+    { Id: 1, Name: 'SelfEmployed' },
+  ];
+  ITR=[{Id:1, Name:'1 year'},
+  {Id:2, Name:'2 year'},
+  {Id:3, Name:'3 year'},
+  {Id:4, Name:'4 year'},
+  {Id:5, Name:'5 year'}];
+  constructor(private readonly _homeService: PersonalHomeCarLoanService,
     readonly _commonService: CommonService,
     private readonly toast: ToastrService,
     private readonly _userSettingService: UserSettingService,
@@ -76,6 +85,23 @@ export class AddFreshHomeLeadComponent implements OnInit {
     })
   }
   onSubmit():void {
+    this.FormData.markAllAsTouched();
+    if(this.FormData.valid){
+    this.model.LoanAmount = Number(this.model.LoanAmount);
+    this.model.LeadType = Boolean(this.model.LeadType);
+    alert(this.model.LeadType);
+     let subscription = this._homeService.AddUpdate(this.model).subscribe( response => {
+       subscription.unsubscribe();
+       if(response.IsSuccess) {
+        this.toast.success(response.Message as string,'Success');
+       } else {
+        this.toast.error(response.Message as string,'Server Error');
+       }
+     });
+    } else {
+      this.toast.warning('Form validation Invalid','Validation');
+      return;
+    }
   }
   formInit() {
     this.FormData = this.fb.group({
