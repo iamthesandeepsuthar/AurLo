@@ -24,6 +24,7 @@ import { ddlPurposeModel } from 'src/app/Shared/Model/master-model/purpose-model
 import { GoldLoanFreshLeadJewelleryDetailModel } from 'src/app/Shared/Model/Leads/gold-loan-fresh-lead.model';
 import { FileInfo } from 'src/app/Content/Common/file-selector/file-selector.component';
 import { DocumentTypeEnum } from '../../../../Shared/Enum/fixed-value';
+import { FilePostModel } from '../../../../Shared/Model/doorstep-agent-model/door-step-agent.model';
 
 @Component({
   selector: 'app-add-update-internal-balance-transfer-gold-loan-lead',
@@ -357,6 +358,98 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
             this.onChangePOIDocument();
 
           }
+          if (viewData.DocumentDetail) {
+
+
+            this.model.DocumentDetail.Id = viewData.Id;
+            this.model.DocumentDetail.CustomerPhoto = {
+
+              FileName: viewData.DocumentDetail.CustomerPhoto,
+              IsEditMode: false,
+              File: viewData.DocumentDetail.CustomerPhoto,
+              FileType: viewData.DocumentDetail.CustomerPhoto.split('.')[1]
+            };
+
+            viewData.DocumentDetail.KycDocumentPoi.forEach(element => {
+              this.model.DocumentDetail.KycDocumentPoi?.push({
+
+                FileName: element,
+                IsEditMode: false,
+                File: element,
+                FileType: element.split('.')[1]
+              })
+            });
+
+
+            viewData.DocumentDetail.KycDocumentPoa.forEach(element => {
+              this.model.DocumentDetail.KycDocumentPoa?.push({
+
+                FileName: element,
+                IsEditMode: false,
+                File: element,
+                FileType: element.split('.')[1]
+              })
+            });
+
+            this.model.DocumentDetail.BlankCheque1 = {
+
+              FileName: viewData.DocumentDetail.BlankCheque1,
+              IsEditMode: false,
+              File: viewData.DocumentDetail.BlankCheque1,
+              FileType: viewData.DocumentDetail.BlankCheque1.split('.')[1]
+            };
+
+
+            this.model.DocumentDetail.BlankCheque2 = {
+
+              FileName: viewData.DocumentDetail.BlankCheque2,
+              IsEditMode: false,
+              File: viewData.DocumentDetail.BlankCheque2,
+              FileType: viewData.DocumentDetail.BlankCheque2.split('.')[1]
+            };
+
+            this.model.DocumentDetail.LoanDocument = {
+
+              FileName: viewData.DocumentDetail.LoanDocument,
+              IsEditMode: false,
+              File: viewData.DocumentDetail.LoanDocument,
+              FileType: viewData.DocumentDetail.LoanDocument.split('.')[1]
+            };
+
+            this.model.DocumentDetail.AggrementLastPage = {
+
+              FileName: viewData.DocumentDetail.AggrementLastPage,
+              IsEditMode: false,
+              File: viewData.DocumentDetail.AggrementLastPage,
+              FileType: viewData.DocumentDetail.AggrementLastPage.split('.')[1]
+            };
+
+
+            this.model.DocumentDetail.PromissoryNote = {
+
+              FileName: viewData.DocumentDetail.PromissoryNote,
+              IsEditMode: false,
+              File: viewData.DocumentDetail.PromissoryNote,
+              FileType: viewData.DocumentDetail.PromissoryNote.split('.')[1]
+            };
+            this.model.DocumentDetail.AtmwithdrawalSlip = {
+
+              FileName: viewData.DocumentDetail.AtmwithdrawalSlip,
+              IsEditMode: false,
+              File: viewData.DocumentDetail.AtmwithdrawalSlip,
+              FileType: viewData.DocumentDetail.AtmwithdrawalSlip.split('.')[1]
+            };
+
+            this.model.DocumentDetail.ForeClosureLetter = {
+
+              FileName: viewData.DocumentDetail.ForeClosureLetter,
+              IsEditMode: false,
+              File: viewData.DocumentDetail.ForeClosureLetter,
+              FileType: viewData.DocumentDetail.ForeClosureLetter.split('.')[1]
+            };
+
+
+          }
         }
       })
     }
@@ -648,7 +741,7 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
     }
   }
 
-  onChangePOIDocument(value: any=this.model?.KYCDetail?.PoidocumentTypeId ) {
+  onChangePOIDocument(value: any = this.model?.KYCDetail?.PoidocumentTypeId) {
 
     if (value) {
 

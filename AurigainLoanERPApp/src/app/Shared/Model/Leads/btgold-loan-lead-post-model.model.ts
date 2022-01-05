@@ -192,8 +192,8 @@ export class ExistingLoanDetail {
 export class DocumentDetail {
   Id!: number;
   CustomerPhoto!: string;
-  KycDocumentPoi!: string;
-  KycDocumentPoa!: string;
+  KycDocumentPoi!: string[];
+  KycDocumentPoa!: string[];
   BlankCheque1!: string;
   BlankCheque2!: string;
   LoanDocument!: string;
