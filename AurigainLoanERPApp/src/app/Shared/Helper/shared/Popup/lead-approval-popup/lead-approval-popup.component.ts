@@ -68,7 +68,7 @@ export class LeadApprovalPopupComponent implements OnInit {
 
 
   onClose() {
-    this.dialogRef.close(false);
+    this.dialogRef.close(true);
   }
 
 }

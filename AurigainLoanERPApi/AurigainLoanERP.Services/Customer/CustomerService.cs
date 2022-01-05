@@ -225,9 +225,10 @@ namespace AurigainLoanERP.Services.Customer
                         if (result)
                         {
                             var user = await _db.UserMaster.Where(x => x.Id == userId).FirstOrDefaultAsync();
+                            var pass = _security.Base64Decode(user.Password);
                             Dictionary<string, string> replaceValues = new Dictionary<string, string>();
                             replaceValues.Add("{{UserName}}", user.Email);
-                            replaceValues.Add("{{Password}}", user.Password);
+                            replaceValues.Add("{{Password}}", pass);
                             await _emailHelper.SendHTMLBodyMail(user.Email, "Registration Notification", EmailPathConstant.RegisterTemplate, replaceValues);
                             _db.Database.CommitTransaction();
                             return CreateResponse<string>("", ResponseMessage.Save, true, ((int)ApiStatusCode.Ok));
@@ -273,11 +274,11 @@ namespace AurigainLoanERP.Services.Customer
                         Mobile = detail.User.Mobile,
                         Gender = detail.Gender,
                         DateOfBirth = detail.DateOfBirth,
-                        Address = detail.Address,
-                        AreaName = detail.PincodeArea.AreaName,
-                        Pincode = detail.PincodeArea.Pincode,
-                        District = detail.PincodeArea.District.Name,
-                        State = detail.PincodeArea.District.State.Name,
+                        Address = detail.Address?? null,
+                        AreaName = detail.PincodeArea != null? detail.PincodeArea.AreaName:null ,
+                        Pincode = detail.PincodeArea!=null? detail.PincodeArea.Pincode:null ,
+                        District = detail.PincodeArea!=null? detail.PincodeArea.District.Name:null ,
+                        State = detail.PincodeArea!=null? detail.PincodeArea.District.State.Name:null ,
                         IsActive = detail.IsActive,
                         CreatedOn = detail.CreatedOn,
 
@@ -291,7 +292,7 @@ namespace AurigainLoanERP.Services.Customer
                             Id = doc.Id,
                             KycdocumentTypeId = doc.KycdocumentTypeId,
                             Kycnumber = doc.Kycnumber,
-                            KycdocumentTypeName = doc.KycdocumentType.DocumentName,
+                            KycdocumentTypeName = doc.KycdocumentType!=null? doc.KycdocumentType.DocumentName:null,
                             UserId = doc.UserId
                         };
                         customer.KycDocuments.Add(kycDoc);

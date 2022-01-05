@@ -84,7 +84,7 @@
 
         <div class="invalid-feedback"
           *ngIf="(formGroup.get('CancelledCheque')?.hasError('required') && formGroup.get('CancelledCheque')?.touched)">
-          Please Add PAN Card doc ...! </div>
+          Please Add Cancelled Cheque </div>
 
         <ul *ngIf="documentModel!.length>0 &&  getChequeDocsFile && (getChequeDocsFile)!.DocumentTypeId >0">
           <ng-container *ngFor="let item of (getChequeDocsFile)?.Files">

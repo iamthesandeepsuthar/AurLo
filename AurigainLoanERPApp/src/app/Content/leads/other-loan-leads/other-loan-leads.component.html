@@ -12,8 +12,8 @@
             </nav>
             <!-- Breadcrumb End -->
         </div>
-        <!-- <a class="btn btn-dark btn-sm mt-2 mt-sm-0" routerLink="../agent-addupdate/0">
-    <i class="fas fa-plus"></i> Add agent</a> -->
+        <a class="btn btn-dark btn-sm mt-2 mt-sm-0"  [routerLink]="'./'+routing_Url.Personal_Loan_Lead_AddUpdate+'/0'">
+          <i class="fas fa-plus"></i> Create Lead</a>
     </div>
 </div>
 <!-- Page Header Title end -->
@@ -136,7 +136,7 @@
                                     <a class="table-action-btn-view" routerLink="../{{routing_Url.Other_Loan_Leads_Url +'/'+ routing_Url.Other_Loan_Lead_Detail +'/'+ row.Id}}" title="Detail"> <i class="fas fa-eye"></i> Detail</a>
                                 </li>
                                 <li>
-                                    <a href="javascript:void(0)" (click)="onChangeLeadStatus(row.Id)" class="table-action-btn-status-changes text-warning" data-toggle="tooltip" data-placement="bottom" title="Change Status "><img src="assets/img/change-status.png" alt="" /> Change Status</a>
+                                    <a *ngIf="this.UserDetail!.RoleId != UserRoleEnum.Customer"  href="javascript:void(0)" (click)="onChangeLeadStatus(row.Id)" class="table-action-btn-status-changes text-warning" data-toggle="tooltip" data-placement="bottom" title="Change Status "><img src="assets/img/change-status.png" alt="" /> Change Status</a>
                                 </li>
                                 <li>
                                     <a class="table-action-btn-delete" *ngIf="row.LeadStatus != 'New'" (click)="onChangeLeadStatusHistory(row.Id)" title="Lead History"> <i class="fas fa-info-circle"></i> Lead History </a>

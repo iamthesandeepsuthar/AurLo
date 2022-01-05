@@ -705,6 +705,10 @@ namespace AurigainLoanERP.Services.FreshLead
                     lead.FatherName = data.FatherName;
                     lead.MobileNumber = data.MobileNumber;
                     lead.EmailId = data.EmailId;
+                    lead.Gender = _db.UserCustomer.FirstOrDefault(x => x.UserId == data.CustomerUserId).Gender ?? null;
+                    lead.DateOfBirth = _db.UserCustomer.FirstOrDefault(x => x.UserId == data.CustomerUserId).DateOfBirth ?? null;
+                    lead.Address = _db.UserCustomer.FirstOrDefault(x => x.UserId == data.CustomerUserId).Address ?? null;
+                    lead.AddressLine2 = _db.UserCustomer.FirstOrDefault(x => x.UserId == data.CustomerUserId).AddressLine2 ?? null;
                     lead.LeadType = data.LeadType;
                     lead.LeadStatus = data.LeadStatus;
                     lead.LoanAmount = data.LoanAmount;
@@ -834,13 +838,14 @@ namespace AurigainLoanERP.Services.FreshLead
                 {
                     FullName = model.FullName,
                     FatherName = model.FatherName,
-                    DateOfBirth = DateTime.Now,
+                    DateOfBirth = model.DateOfBirth,
                     UserId = customerUser.Entity.Id,
-                    Gender = "Male",
+                    Gender =model.Gender,
                     IsActive = model.IsActive,
                     IsDelete = false,
-                    PincodeAreaId = null,
-                    Address = "",
+                    PincodeAreaId = model.AreaPincodeId,
+                    Address = model.Address,
+                    AddressLine2 =model.AddressLine2,
                     CreatedBy = (int)UserRoleEnum.Admin
                 };
                 var result = await _db.UserCustomer.AddAsync(customer);
@@ -892,6 +897,7 @@ namespace AurigainLoanERP.Services.FreshLead
                     IsDelete = false,
                     PincodeAreaId = model.KycDocument.PincodeAreaId,
                     Address = model.KycDocument.AddressLine1,
+                    AddressLine2 =model.KycDocument.AddressLine2,
                     CreatedBy = (int)UserRoleEnum.Admin
                 };
                 var result = await _db.UserCustomer.AddAsync(customer);
@@ -991,7 +997,7 @@ namespace AurigainLoanERP.Services.FreshLead
                             NoOfItr = model.NoOfItr,
                             MobileNumber = model.MobileNumber,
                             LoanAmount = model.LoanAmount,
-                            ModifiedDate = null,
+                            ModifiedDate = DateTime.Now,
                             LeadStatus = LeadStatusEnum.New.GetStringValue(),
                             LeadStatusId = ((int)LeadStatusEnum.New),
                             Pincode = model.Pincode,
@@ -1029,7 +1035,7 @@ namespace AurigainLoanERP.Services.FreshLead
                         lead.EmployeeType = model.EmployeeType;
                         lead.IsActive = model.IsActive;
                         lead.Pincode = model.Pincode;
-                        lead.AeraPincodeId = model.AreaPincodeId;
+                        lead.AeraPincodeId = model.AreaPincodeId;                        
                         await _db.SaveChangesAsync();
                         returnObject.status = true;
                         returnObject.Msg = "Update Record";
@@ -1044,7 +1050,6 @@ namespace AurigainLoanERP.Services.FreshLead
             {
                 throw;
             }
-
         }
         private async Task<bool> SaveJewelleryDetail(List<GoldLoanFreshLeadJewelleryDetailModel> model, long freshLeadId)
         {

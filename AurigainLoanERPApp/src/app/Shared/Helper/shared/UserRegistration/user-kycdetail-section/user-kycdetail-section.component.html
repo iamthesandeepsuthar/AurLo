@@ -16,7 +16,7 @@
       </div>
       <div class="form-group col-md-6">
         <label>Document Number</label>
-        <input type="text" [maxlength]="DocCharLenght" [minlength]="DocCharLenght"
+        <input type="text" UpperCase [maxlength]="DocCharLenght" [minlength]="DocCharLenght"
           (keypress)="onCheckValidInput($event)" class="form-control" formControlName="KycNumber" id="KycNumber"
           [(ngModel)]="this.model.Kycnumber" placeholder="document number"
           [ngClass]="{ 'is-invalid': f.KycNumber?.errors && f.KycNumber?.touched}">

@@ -173,9 +173,10 @@ export class ListAgentComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.toast.success('Record save successful','Success');
+        //this.toast.success('Record save successful','Success');
         this.getList();
       } else {
+        this.toast.error(result,'Success');
       }
     });
   }

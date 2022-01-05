@@ -11,9 +11,8 @@ export class FreshLeadHLPLCLModel {
   AnnualIncome!: number | null;
   LeadSourceByUserId!: number;
   LeadSourceByUserName!: string;
-  CustomerUserId!: number;
   ProductId!: number;
-  ProductName!:string;
+  ProductName!: string;
   ProductCategoryName!: string;
   EmployeeType!: string;
   NoOfItr!: number | null;
@@ -21,8 +20,16 @@ export class FreshLeadHLPLCLModel {
   IsDelete!: boolean;
   CreatedDate!: string;
   ModifiedDate!: string | null;
-  Pincode !:string;
-  AreaPincodeId !: number;
-  AreaLocation!:string;
-  LeadStatus!:string;
+  LeadStatus!: string;
+  LeadStatusId!: number;
+  Pincode!: string;
+  AreaPincodeId!: number | null;
+  CustomerUserId!: number | null;
+  AreaLocation!: string;
+  DateOfBirth!:Date;
+  Gender!:string;
+  Address!:string;
+  AddressLine2!:string;
 }
+
+

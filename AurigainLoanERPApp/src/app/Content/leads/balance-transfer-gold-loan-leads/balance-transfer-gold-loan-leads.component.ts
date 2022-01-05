@@ -173,7 +173,6 @@ export class BalanceTransferGoldLoanLeadsComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-
       }
     });
   }

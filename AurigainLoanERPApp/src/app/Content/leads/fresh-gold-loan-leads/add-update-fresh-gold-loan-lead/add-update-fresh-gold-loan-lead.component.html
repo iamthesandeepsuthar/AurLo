@@ -38,7 +38,7 @@
 
             <div class="invalid-feedback"
               *ngIf="(leadFromPersonalDetail.get('Product')?.hasError('required') && leadFromPersonalDetail.get('Product')?.touched)">
-              Enter Product! </div>
+              Select product </div>
 
           </div>
 
@@ -82,9 +82,7 @@
 
           <div class="form-group col-md-4">
             <label>Gender</label>
-
             <div class="form-radio-check-grp border-0 pl-0">
-
               <ng-container *ngFor="let item of dropDown!.ddlGender">
                 <div class="n-chk d-inline">
                   <label class="new-control new-radio radio-classic-info">
@@ -94,14 +92,10 @@
                   </label>
                 </div>
               </ng-container>
-
               <div class="invalid-feedback"
                 *ngIf="(leadFromPersonalDetail.get('Gender')?.hasError('required') && leadFromPersonalDetail.get('Gender')?.touched)">
                 Select gender </div>
-
             </div>
-
-
           </div>
           <div class="form-group col-md-4">
             <label>Email</label>

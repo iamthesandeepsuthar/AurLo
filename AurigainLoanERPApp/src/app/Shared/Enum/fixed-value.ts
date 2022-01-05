@@ -46,3 +46,8 @@ export enum LeadApprovalStatusEnum {
   Approved=2,
   Rejected=3
 }
+// Personal , Home , vehicle Loan Fresh Lead 
+export enum LeadTypeEnum{
+  Salaried=0,
+  SelfEmployed =1
+}

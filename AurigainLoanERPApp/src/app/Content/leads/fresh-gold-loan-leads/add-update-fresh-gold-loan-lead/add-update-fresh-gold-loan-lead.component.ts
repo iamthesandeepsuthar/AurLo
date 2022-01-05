@@ -306,7 +306,7 @@ export class AddUpdateFreshGoldLoanLeadComponent implements OnInit {
 
   }
   onJewellaryAdd() {
-    debugger
+
     this.UpdateJewellaryValidation(true);
     this.leadFromJewelleryDetail.markAllAsTouched();
     if (this.leadFromJewelleryDetail.valid) {

@@ -35,4 +35,8 @@ export class PersonalHomeCarLoanService {
     let url = `${this._baseService.API_Url.Personal_Home_Car_Loan_Lead_Detail_Api}${id}`;
     return this._baseService.get(url);
   }
+  AddUpdate(model: FreshLeadHLPLCLModel): Observable<ApiResponse<string>> {
+    let url = `${this._baseService.API_Url.Personal_Home_Car_Loan_Lead_Add_Update_Api}`;
+    return this._baseService.post(url, model);
+  }
 }
