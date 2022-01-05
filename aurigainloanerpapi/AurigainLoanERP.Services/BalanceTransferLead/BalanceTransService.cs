@@ -1430,7 +1430,7 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                                 {
 
                                     _fileHelper.Delete(Path.Combine(fileSavePath, item.FileName));
-                                    var deleteItm = POAdocs.Where(x => x.FileName == Path.Combine(fileSavePath, item.FileName)).FirstOrDefault();
+                                    var deleteItm = POAdocs.Where(x => x.FileName.Contains(item.FileName)).FirstOrDefault();
                                     _db.BtgoldLoanLeadDocumentPoipoafiles.Remove(deleteItm);
                                 }
 
@@ -1445,7 +1445,7 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                             if (model.KycDocumentPoa[i].File.IsBase64() && POAdocs[i] != null && !string.IsNullOrEmpty(POAdocs[i].FileName))
 
                             {
-                                var deleteItm = POAdocs.Where(x => x.FileName == Path.Combine(fileSavePath, POAdocs[i].FileName)).FirstOrDefault();
+                                var deleteItm = POAdocs.Where(x => x.FileName.Contains(POAdocs[i].FileName)).FirstOrDefault();
                                 if (deleteItm != null)
                                 {
                                     _fileHelper.Delete(Path.Combine(fileSavePath, deleteItm.FileName));
