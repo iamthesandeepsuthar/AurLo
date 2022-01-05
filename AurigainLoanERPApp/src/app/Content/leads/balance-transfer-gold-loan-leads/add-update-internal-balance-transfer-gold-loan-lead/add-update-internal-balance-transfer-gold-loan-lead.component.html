@@ -507,9 +507,9 @@
 
 
             <ng-select [items]="ddlDocumentTypePOI"
-              (change)="this.model.KYCDetail.PoidocumentNumber=null;onChangePOIDocument(model.KYCDetail.PoidocumentTypeId)" (clear)="onChangePOIDocument(model.KYCDetail.PoidocumentTypeId)"
-              [searchable]="true" [clearable]="true" bindLabel="Name" bindValue="Id" placeholder="Select Document Type"
-              formControlName="PoidocumentType"
+              (change)="this.model.KYCDetail.PoidocumentNumber=null;onChangePOIDocument(model.KYCDetail.PoidocumentTypeId)"
+              (clear)="onChangePOIDocument(model.KYCDetail.PoidocumentTypeId)" [searchable]="true" [clearable]="true"
+              bindLabel="Name" bindValue="Id" placeholder="Select Document Type" formControlName="PoidocumentType"
               [ngClass]="{ 'is-invalid': f7.PoidocumentType?.errors && f7.PoidocumentType?.touched}"
               [(ngModel)]="model.KYCDetail.PoidocumentTypeId">
             </ng-select>
@@ -533,19 +533,16 @@
               ((this.leadFormKYCDetail!.get('PoidocumentNumber')!.hasError('maxlength') || this.leadFormKYCDetail.get('PoidocumentNumber')!.hasError('minlength')) &&
                this.leadFormKYCDetail.get('PoidocumentNumber')!.touched) || (this.leadFormKYCDetail.get('PoidocumentNumber')!.hasError('maxlength') || this.leadFormKYCDetail.get('PoidocumentNumber')!.hasError('minlength'))">
               Document number length must be {{docPOIMaxChar}} char or digit...! </div>
-
-
           </div>
-
 
           <div class="form-group col-md-4">
             <label>Document (POA)</label>
 
 
-            <ng-select [items]="ddlDocumentTypePOA" (change)="this.model.KYCDetail.PoadocumentNumber=null;onChangePOADocument()"
-              [searchable]="true" 
-              (clear)="onChangePOADocument(model.KYCDetail.PoidocumentTypeId)" [clearable]="true" bindLabel="Name" bindValue="Id"
-              placeholder="Select Document Type" formControlName="PoadocumentType"
+            <ng-select [items]="ddlDocumentTypePOA"
+              (change)="this.model.KYCDetail.PoadocumentNumber=null;onChangePOADocument()" [searchable]="true"
+              (clear)="onChangePOADocument(model.KYCDetail.PoidocumentTypeId)" [clearable]="true" bindLabel="Name"
+              bindValue="Id" placeholder="Select Document Type" formControlName="PoadocumentType"
               [ngClass]="{ 'is-invalid': f7.PoadocumentType?.errors && f7.PoadocumentType?.touched}"
               [(ngModel)]="model.KYCDetail.PoadocumentTypeId">
             </ng-select>
