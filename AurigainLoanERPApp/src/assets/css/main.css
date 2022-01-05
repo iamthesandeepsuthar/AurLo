@@ -3921,6 +3921,10 @@ table.table.table-striped.dataTable.table-header.table-blue tbody tr:nth-of-type
     justify-content: space-between;
 }
 
+.file-upload-details i {
+    cursor: pointer;
+}
+
 .file-upload-details .dz-details {
     flex: 100%;
 }
