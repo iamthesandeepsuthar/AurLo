@@ -3907,14 +3907,22 @@ table.table.table-striped.dataTable.table-header.table-blue tbody tr:nth-of-type
     color: #4361ee;
 }
 
+.step-grp-content .btn-upload-border {
+    background: #fff;
+}
+
 .file-upload-details {
     background: #ffffff;
     padding: 10px;
     border-radius: 10px;
     box-shadow: 0 0 20px #ededed;
-    margin-top: 15px;
+    margin-bottom: 10px;
     display: flex;
     justify-content: space-between;
+}
+
+.file-upload-details i {
+    cursor: pointer;
 }
 
 .file-upload-details .dz-details {
@@ -4102,6 +4110,11 @@ table.table.table-striped.dataTable.table-header.table-blue tbody tr:nth-of-type
     background-size: 40px;
 }
 
+.gold-loan-steper .mat-step:nth-child(7) mat-step-header .mat-step-icon {
+    background: #f3f3f3 url(../img/doc_upload.png) no-repeat center center;
+    background-size: 40px;
+}
+
 .reg-steper .mat-step-icon.mat-step-icon-state-edit {
     background: #3fb744 !important;
 }
@@ -4195,9 +4208,9 @@ table {
 }
 
 .table-data-name {
-    display: flex;
+    /* display: flex;
     align-items: center;
-    line-height: 15px;
+    line-height: 15px; */
     min-width: 160px;
 }
 
@@ -4401,6 +4414,10 @@ ul.sub-submenu {
 
 .flex-1 button.btn.btn-primary.form-control {
     margin-left: 4px;
+}
+
+table.mat-table {
+    min-height: 240px;
 }
 
 
