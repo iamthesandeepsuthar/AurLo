@@ -47,8 +47,8 @@
 
           <div class="form-group col-md-4">
             <label>Full Name <em class="text-danger">*</em></label>
-            <input TitleCase type="text" (keypress)="!_commonService.NumberOnly($event)" class="form-control" id="input2"
-              placeholder="Full Name" formControlName="FullName" maxlength="200"
+            <input TitleCase type="text" (keypress)="!_commonService.NumberOnly($event)" class="form-control"
+              id="input2" placeholder="Full Name" formControlName="FullName" maxlength="200"
               [ngClass]="{ 'is-invalid': f1.FullName.errors && f1.FullName.touched}" [(ngModel)]="model.FullName">
 
             <div class="invalid-feedback"
@@ -58,8 +58,8 @@
           </div>
           <div class="form-group col-md-4">
             <label>Father's Name <em class="text-danger">*</em></label>
-            <input TitleCase type="text" (keypress)="!_commonService.NumberOnly($event)" class="form-control" id="input3"
-              placeholder="Father's Name" formControlName="FatherName" maxlength="200"
+            <input TitleCase type="text" (keypress)="!_commonService.NumberOnly($event)" class="form-control"
+              id="input3" placeholder="Father's Name" formControlName="FatherName" maxlength="200"
               [ngClass]="{ 'is-invalid': f1.FatherName.errors && f1.FatherName.touched}" [(ngModel)]="model.FatherName">
 
             <div class="invalid-feedback"
@@ -507,9 +507,9 @@
 
 
             <ng-select [items]="ddlDocumentTypePOI"
-              (change)="this.model.KYCDetail.PoidocumentNumber=null;onChangePOIDocument($event)"
-              (clear)="onChangePOIDocument($event)" [searchable]="true" [clearable]="true" bindLabel="Name"
-              bindValue="Id" placeholder="Select Document Type" formControlName="PoidocumentType"
+              (change)="this.model.KYCDetail.PoidocumentNumber=null;onChangePOIDocument(model.KYCDetail.PoidocumentTypeId)" (clear)="onChangePOIDocument(model.KYCDetail.PoidocumentTypeId)"
+              [searchable]="true" [clearable]="true" bindLabel="Name" bindValue="Id" placeholder="Select Document Type"
+              formControlName="PoidocumentType"
               [ngClass]="{ 'is-invalid': f7.PoidocumentType?.errors && f7.PoidocumentType?.touched}"
               [(ngModel)]="model.KYCDetail.PoidocumentTypeId">
             </ng-select>
@@ -542,9 +542,9 @@
             <label>Document (POA)</label>
 
 
-            <ng-select [items]="ddlDocumentTypePOA"
-              (change)="onChangePOADocument($event);this.model.KYCDetail.PoadocumentNumber=null;" [searchable]="true"
-              (clear)="onChangePOADocument($event)" [clearable]="true" bindLabel="Name" bindValue="Id"
+            <ng-select [items]="ddlDocumentTypePOA" (change)="this.model.KYCDetail.PoadocumentNumber=null;onChangePOADocument()"
+              [searchable]="true" 
+              (clear)="onChangePOADocument(model.KYCDetail.PoidocumentTypeId)" [clearable]="true" bindLabel="Name" bindValue="Id"
               placeholder="Select Document Type" formControlName="PoadocumentType"
               [ngClass]="{ 'is-invalid': f7.PoadocumentType?.errors && f7.PoadocumentType?.touched}"
               [(ngModel)]="model.KYCDetail.PoadocumentTypeId">
@@ -592,7 +592,7 @@
               *ngIf="!leadFormKYCDetail.get('PanNumber')!.hasError('required') &&
               ((this.leadFormKYCDetail!.get('PanNumber')!.hasError('maxlength') || this.leadFormKYCDetail.get('PanNumber')!.hasError('minlength')) &&
                this.leadFormKYCDetail.get('PanNumber')!.touched) || (this.leadFormKYCDetail.get('PanNumber')!.hasError('maxlength') || this.leadFormKYCDetail.get('PanNumber')!.hasError('minlength'))">
-              PAN number length must be 6 char or digit...! </div>
+              PAN number length must be 10 char or digit...! </div>
           </div>
 
         </div>

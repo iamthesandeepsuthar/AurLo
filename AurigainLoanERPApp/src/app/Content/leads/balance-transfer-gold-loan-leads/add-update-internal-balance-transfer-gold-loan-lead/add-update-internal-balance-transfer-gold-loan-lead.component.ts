@@ -296,6 +296,7 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
           this.model.LoanAmount = viewData.LoanAmount;
           this.model.LoanAccountNumber = viewData.LoanAccountNumber;
           this.model.LeadSourceByuserId = viewData.LeadSourceByuserId;
+          this.model.PurposeId = viewData.PurposeId;
 
           if (viewData.DetailAddress) {
             this.AeraPincode = viewData.DetailAddress.PinCode;
@@ -352,6 +353,9 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
             this.model.KYCDetail.PoadocumentTypeId = viewData.KYCDetail.PoadocumentTypeId;
             this.model.KYCDetail.PoadocumentNumber = viewData.KYCDetail.PoadocumentNumber;
             this.model.KYCDetail.PANNumber = viewData.KYCDetail.PANNumber;
+            this.onChangePOADocument();
+            this.onChangePOIDocument();
+
           }
         }
       })
@@ -602,7 +606,7 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
   }
 
   getDDLDocumentType() {
-    let serve = this._kycDocumentTypeService.GetDDLDocumentTypeForBTLeadKYC().subscribe(res => {
+    let serve = this._kycDocumentTypeService.GetDDLDocumentTypeForBTLeadKYC(true).subscribe(res => {
       serve.unsubscribe();
       if (res.IsSuccess) {
         this.ddlDocumentType = res?.Data as DDLDocumentTypeModel[];
@@ -622,7 +626,7 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
 
     let dataItem = this.ddlDocumentTypePOI?.find(x => x.Id == typeId) as DDLDocumentTypeModel;
 
-    if (dataItem.IsNumeric) {
+    if (dataItem?.IsNumeric) {
       return this._commonService.NumberOnly(eve);
 
     } else {
@@ -635,7 +639,7 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
 
     let dataItem = this.ddlDocumentTypePOA?.find(x => x.Id == typeId) as DDLDocumentTypeModel;
 
-    if (dataItem.IsNumeric) {
+    if (dataItem?.IsNumeric) {
       return this._commonService.NumberOnly(eve);
 
     } else {
@@ -644,24 +648,30 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
     }
   }
 
-  onChangePOIDocument(value: any) {
-    debugger
-    let doc = this.ddlDocumentTypePOI?.find(x => x?.Id == value?.Id);
-    this.f7.PoidocumentNumber.setValidators(Validators.compose([Validators.minLength(doc?.DocumentNumberLength as number), Validators.maxLength(doc?.DocumentNumberLength as number)]));
-    this.f7.PoidocumentNumber.updateValueAndValidity();
+  onChangePOIDocument(value: any=this.model?.KYCDetail?.PoidocumentTypeId ) {
 
-    this.docPOIMaxChar = doc?.DocumentNumberLength ?? this.docPOIMaxChar;
+    if (value) {
 
+
+      let doc = this.ddlDocumentTypePOI?.find(x => x?.Id == value);
+      this.f7.PoidocumentNumber.setValidators(Validators.compose([Validators.minLength(doc?.DocumentNumberLength as number), Validators.maxLength(doc?.DocumentNumberLength as number)]));
+      this.f7.PoidocumentNumber.updateValueAndValidity();
+
+      this.docPOIMaxChar = doc?.DocumentNumberLength ?? this.docPOIMaxChar;
+    }
     this.ddlDocumentTypePOA = this.ddlDocumentType?.filter(x => this.model?.KYCDetail?.PoidocumentTypeId ? x.Id != this.model?.KYCDetail?.PoidocumentTypeId : true);
 
   }
 
-  onChangePOADocument(value: any) {
+  onChangePOADocument(value: any = this.model?.KYCDetail?.PoadocumentTypeId) {
+    debugger
+    if (value) {
+      let doc = this.ddlDocumentTypePOA?.find(x => x.Id == value);
+      this.f7.PoadocumentNumber.setValidators(Validators.compose([Validators.minLength(doc?.DocumentNumberLength as number), Validators.maxLength(doc?.DocumentNumberLength as number)]));
+      this.f7.PoadocumentNumber.updateValueAndValidity();
+      this.docPOAMaxChar = doc?.DocumentNumberLength ?? this.docPOAMaxChar;
+    }
 
-    let doc = this.ddlDocumentTypePOA?.find(x => x.Id == value.Id);
-    this.f7.PoadocumentNumber.setValidators(Validators.compose([Validators.minLength(doc?.DocumentNumberLength as number), Validators.maxLength(doc?.DocumentNumberLength as number)]));
-    this.f7.PoadocumentNumber.updateValueAndValidity();
-    this.docPOAMaxChar = doc?.DocumentNumberLength ?? this.docPOAMaxChar;
     this.ddlDocumentTypePOI = this.ddlDocumentType?.filter(x => this.model?.KYCDetail?.PoadocumentTypeId ? x.Id != this.model?.KYCDetail?.PoadocumentTypeId : true);
 
   }

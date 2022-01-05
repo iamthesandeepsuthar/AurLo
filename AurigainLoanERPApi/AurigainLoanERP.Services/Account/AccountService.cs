@@ -215,7 +215,7 @@ namespace AurigainLoanERP.Services.Account
                             UserId = user.Id
                         };
                         await _db.UserLoginLog.AddAsync(log);
-                        var fresh_token = _security.CreateToken(user.Id, model.MobileNumber, user.UserRole.Name, user.UserRoleId);
+                        var fresh_token = _security.CreateToken(user.Id, model.MobileNumber, user.UserRole.Name, user.UserRoleId,false);
                         if (!string.IsNullOrEmpty(fresh_token.Data))
                         {
                             user.Token = fresh_token.Data;

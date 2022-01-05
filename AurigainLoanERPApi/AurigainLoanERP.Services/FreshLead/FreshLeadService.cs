@@ -104,7 +104,7 @@ namespace AurigainLoanERP.Services.FreshLead
                                   select goldLoanLead);
 
                         break;
-                }            
+                }
 
                 switch (model.OrderBy)
                 {
@@ -237,7 +237,7 @@ namespace AurigainLoanERP.Services.FreshLead
             }
         }
         public async Task<ApiServiceResponseModel<GoldLoanFreshLeadViewModel>> FreshGoldLoanLeadDetailAsync(long id)
-        
+
         {
             GoldLoanFreshLeadViewModel leadDetail = new GoldLoanFreshLeadViewModel();
             try
@@ -248,8 +248,8 @@ namespace AurigainLoanERP.Services.FreshLead
                                     .Include(x => x.GoldLoanFreshLeadJewelleryDetail)
                                     .Include(x => x.PurposeNavigation)
                                     .Include(x => x.GoldLoanFreshLeadKycDocument).ThenInclude(y => y.KycDocumentType)
-                                    .Include(x => x.GoldLoanFreshLeadKycDocument).ThenInclude(a =>a.PincodeArea)
-                                    .Include(x => x.GoldLoanFreshLeadKycDocument).ThenInclude(b=> b.PincodeArea.District.State)
+                                    .Include(x => x.GoldLoanFreshLeadKycDocument).ThenInclude(a => a.PincodeArea)
+                                    .Include(x => x.GoldLoanFreshLeadKycDocument).ThenInclude(b => b.PincodeArea.District.State)
                                     .Include(x => x.GoldLoanFreshLeadAppointmentDetail).ThenInclude(p => p.Branch).ThenInclude(q => q.Bank)
                                     .FirstOrDefaultAsync();
 
@@ -257,8 +257,8 @@ namespace AurigainLoanERP.Services.FreshLead
                 {
                     leadDetail.Id = detail.Id;
                     leadDetail.ProductId = detail.ProductId;
-                    leadDetail.ProductName = detail.Product.Name;
-                    leadDetail.ProductCategoryName = detail.Product.ProductCategory.Name;
+                    leadDetail.ProductName = detail.Product != null ? detail.Product.Name :null;
+                    leadDetail.ProductCategoryName = detail.Product!=null ? detail.Product.ProductCategory.Name :null;
                     leadDetail.PreferredLoanTenure = detail.PreferredLoanTenure;
                     leadDetail.FullName = detail.FullName;
                     leadDetail.FatherName = detail.FatherName;
@@ -269,9 +269,9 @@ namespace AurigainLoanERP.Services.FreshLead
                     leadDetail.LeadSourceUserName = detail.LeadSourceByUser.UserName;
                     leadDetail.PrimaryMobileNumber = detail.PrimaryMobileNumber;
                     leadDetail.SecondaryMobileNumber = detail.SecondaryMobileNumber;
-                    leadDetail.Purpose = detail.PurposeNavigation.Name;
+                    leadDetail.Purpose = detail.PurposeNavigation != null ? detail.PurposeNavigation.Name : null;
                     leadDetail.PurposeId = detail.PurposeId;
-                    leadDetail.PurposeName = detail.PurposeNavigation.Name;
+                    leadDetail.PurposeName = detail.PurposeNavigation != null ? detail.PurposeNavigation.Name : null;
                     leadDetail.LoanAmountRequired = detail.LoanAmountRequired;
                     leadDetail.Email = detail.Email;
                     leadDetail.IsActive = detail.IsActive;
@@ -299,7 +299,7 @@ namespace AurigainLoanERP.Services.FreshLead
                         leadDetail.JewelleryDetail = detail.GoldLoanFreshLeadJewelleryDetail.Where(x => x.GlfreshLeadId == detail.Id).Select(x => new GoldLoanFreshLeadJewelleryDetailViewModel
                         {
                             Id = x.Id,
-                            
+
                             JewelleryTypeId = x.JewelleryTypeId,
                             JewelleryTypeName = _db.JewellaryType.FirstOrDefault(y => y.Id == x.JewelleryTypeId).Name,
                             Quantity = x.Quantity,
@@ -361,7 +361,7 @@ namespace AurigainLoanERP.Services.FreshLead
                         case ((int)FreshLeadStatusEnum.Pending):
                             leadDetail.LeadStatus = FreshLeadStatusEnum.Pending.GetStringValue();
                             leadDetail.LeadStatusId = model.LeadStatus;
-                            break;                    
+                            break;
                         case ((int)FreshLeadStatusEnum.Rejected):
                             leadDetail.LeadStatus = FreshLeadStatusEnum.Rejected.GetStringValue();
                             leadDetail.LeadStatusId = model.LeadStatus;
@@ -424,10 +424,10 @@ namespace AurigainLoanERP.Services.FreshLead
                         case ((int)FreshLeadStatusEnum.Rejected):
                             leadDetail.LeadStatus = FreshLeadStatusEnum.Rejected.GetStringValue();
                             leadDetail.LeadStatusId = model.LeadStatus;
-                            break;                      
+                            break;
 
                         default:
-                            leadDetail.LeadStatus =LeadStatusEnum.New.GetStringValue();
+                            leadDetail.LeadStatus = LeadStatusEnum.New.GetStringValue();
                             leadDetail.LeadStatusId = ((int)FreshLeadStatusEnum.New);
                             break;
                     }
@@ -504,7 +504,7 @@ namespace AurigainLoanERP.Services.FreshLead
                                   join product in _db.Product on Lead.ProductId equals product.Id
                                   join ProductCategory in _db.ProductCategory on product.ProductCategoryId equals ProductCategory.Id
                                   join leadScoureUser in _db.UserMaster on Lead.LeadSourceByUserId equals leadScoureUser.Id
-                                  where !Lead.IsDelete && (model.ProductCategoryId == 0 || ProductCategory.Id == model.ProductCategoryId ) && (string.IsNullOrEmpty(model.Search) || Lead.LeadType == (FreshLeadType.Salaried.GetStringValue().Equals(model.Search) || FreshLeadType.NonSalaried.GetStringValue().Equals(model.Search) ? (FreshLeadType.Salaried.GetStringValue().Equals(model.Search) ? false : true) : Lead.LeadType) || Lead.FullName.Contains(model.Search) || Lead.FatherName.Contains(model.Search) || product.Name.Contains(model.Search) || ProductCategory.Name.Contains(model.Search))
+                                  where !Lead.IsDelete && (model.ProductCategoryId == 0 || ProductCategory.Id == model.ProductCategoryId) && (string.IsNullOrEmpty(model.Search) || Lead.LeadType == (FreshLeadType.Salaried.GetStringValue().Equals(model.Search) || FreshLeadType.NonSalaried.GetStringValue().Equals(model.Search) ? (FreshLeadType.Salaried.GetStringValue().Equals(model.Search) ? false : true) : Lead.LeadType) || Lead.FullName.Contains(model.Search) || Lead.FatherName.Contains(model.Search) || product.Name.Contains(model.Search) || ProductCategory.Name.Contains(model.Search))
                                   select Lead);
                         break;
 
@@ -516,7 +516,7 @@ namespace AurigainLoanERP.Services.FreshLead
                                   join product in _db.Product on Lead.ProductId equals product.Id
                                   join ProductCategory in _db.ProductCategory on product.ProductCategoryId equals ProductCategory.Id
                                   join leadScoureUser in _db.UserMaster on Lead.LeadSourceByUserId equals leadScoureUser.Id
-                                  where !Lead.IsDelete && (model.ProductCategoryId == 0 || ProductCategory.Id == model.ProductCategoryId) &&  ( Lead.CreatedBy ==_loginUserDetail.UserId || employees.Contains(Lead.LeadSourceByUserId)) && (string.IsNullOrEmpty(model.Search) || Lead.LeadType == (FreshLeadType.Salaried.GetStringValue().Equals(model.Search) || FreshLeadType.NonSalaried.GetStringValue().Equals(model.Search) ? (FreshLeadType.Salaried.GetStringValue().Equals(model.Search) ? false : true) : Lead.LeadType) || Lead.FullName.Contains(model.Search) || Lead.FatherName.Contains(model.Search) || product.Name.Contains(model.Search) || ProductCategory.Name.Contains(model.Search))
+                                  where !Lead.IsDelete && (model.ProductCategoryId == 0 || ProductCategory.Id == model.ProductCategoryId) && (Lead.CreatedBy == _loginUserDetail.UserId || employees.Contains(Lead.LeadSourceByUserId)) && (string.IsNullOrEmpty(model.Search) || Lead.LeadType == (FreshLeadType.Salaried.GetStringValue().Equals(model.Search) || FreshLeadType.NonSalaried.GetStringValue().Equals(model.Search) ? (FreshLeadType.Salaried.GetStringValue().Equals(model.Search) ? false : true) : Lead.LeadType) || Lead.FullName.Contains(model.Search) || Lead.FatherName.Contains(model.Search) || product.Name.Contains(model.Search) || ProductCategory.Name.Contains(model.Search))
                                   select Lead);
 
                         break;
@@ -528,7 +528,7 @@ namespace AurigainLoanERP.Services.FreshLead
                                   join product in _db.Product on Lead.ProductId equals product.Id
                                   join ProductCategory in _db.ProductCategory on product.ProductCategoryId equals ProductCategory.Id
                                   join leadScoureUser in _db.UserMaster on Lead.LeadSourceByUserId equals leadScoureUser.Id
-                                  where !Lead.IsDelete && (model.ProductCategoryId == 0 || ProductCategory.Id == model.ProductCategoryId)  && (Lead.CreatedBy == _loginUserDetail.UserId ||Lead.LeadSourceByUserId == _loginUserDetail.UserId) &&   (string.IsNullOrEmpty(model.Search) || Lead.LeadType == (FreshLeadType.Salaried.GetStringValue().Equals(model.Search) || FreshLeadType.NonSalaried.GetStringValue().Equals(model.Search) ? (FreshLeadType.Salaried.GetStringValue().Equals(model.Search) ? false : true) : Lead.LeadType) || Lead.FullName.Contains(model.Search) || Lead.FatherName.Contains(model.Search) || product.Name.Contains(model.Search) || ProductCategory.Name.Contains(model.Search))
+                                  where !Lead.IsDelete && (model.ProductCategoryId == 0 || ProductCategory.Id == model.ProductCategoryId) && (Lead.CreatedBy == _loginUserDetail.UserId || Lead.LeadSourceByUserId == _loginUserDetail.UserId) && (string.IsNullOrEmpty(model.Search) || Lead.LeadType == (FreshLeadType.Salaried.GetStringValue().Equals(model.Search) || FreshLeadType.NonSalaried.GetStringValue().Equals(model.Search) ? (FreshLeadType.Salaried.GetStringValue().Equals(model.Search) ? false : true) : Lead.LeadType) || Lead.FullName.Contains(model.Search) || Lead.FatherName.Contains(model.Search) || product.Name.Contains(model.Search) || ProductCategory.Name.Contains(model.Search))
                                   select Lead);
 
                         break;
@@ -539,8 +539,8 @@ namespace AurigainLoanERP.Services.FreshLead
                                   join product in _db.Product on Lead.ProductId equals product.Id
                                   join ProductCategory in _db.ProductCategory on product.ProductCategoryId equals ProductCategory.Id
                                   join leadScoureUser in _db.UserMaster on Lead.LeadSourceByUserId equals leadScoureUser.Id
-                                  where !Lead.IsDelete && (model.ProductCategoryId == 0 || ProductCategory.Id == model.ProductCategoryId) && 
-                                  (Lead.CreatedBy == _loginUserDetail.UserId ) &&
+                                  where !Lead.IsDelete && (model.ProductCategoryId == 0 || ProductCategory.Id == model.ProductCategoryId) &&
+                                  (Lead.CreatedBy == _loginUserDetail.UserId) &&
                                   (string.IsNullOrEmpty(model.Search) || Lead.LeadType == (FreshLeadType.Salaried.GetStringValue().Equals(model.Search) || FreshLeadType.NonSalaried.GetStringValue().Equals(model.Search) ? (FreshLeadType.Salaried.GetStringValue().Equals(model.Search) ? false : true) : Lead.LeadType) || Lead.FullName.Contains(model.Search) || Lead.FatherName.Contains(model.Search) || product.Name.Contains(model.Search) || ProductCategory.Name.Contains(model.Search))
                                   select Lead);
 
@@ -551,11 +551,11 @@ namespace AurigainLoanERP.Services.FreshLead
                                   join product in _db.Product on Lead.ProductId equals product.Id
                                   join ProductCategory in _db.ProductCategory on product.ProductCategoryId equals ProductCategory.Id
                                   join leadScoureUser in _db.UserMaster on Lead.LeadSourceByUserId equals leadScoureUser.Id
-                                  where    !Lead.IsDelete && (model.ProductCategoryId == 0 || ProductCategory.Id == model.ProductCategoryId) &&  (string.IsNullOrEmpty(model.Search) || Lead.LeadType == (FreshLeadType.Salaried.GetStringValue().Equals(model.Search) || FreshLeadType.NonSalaried.GetStringValue().Equals(model.Search) ? (FreshLeadType.Salaried.GetStringValue().Equals(model.Search) ? false : true) : Lead.LeadType) || Lead.FullName.Contains(model.Search) || Lead.FatherName.Contains(model.Search) || product.Name.Contains(model.Search) || ProductCategory.Name.Contains(model.Search))
+                                  where !Lead.IsDelete && (model.ProductCategoryId == 0 || ProductCategory.Id == model.ProductCategoryId) && (string.IsNullOrEmpty(model.Search) || Lead.LeadType == (FreshLeadType.Salaried.GetStringValue().Equals(model.Search) || FreshLeadType.NonSalaried.GetStringValue().Equals(model.Search) ? (FreshLeadType.Salaried.GetStringValue().Equals(model.Search) ? false : true) : Lead.LeadType) || Lead.FullName.Contains(model.Search) || Lead.FatherName.Contains(model.Search) || product.Name.Contains(model.Search) || ProductCategory.Name.Contains(model.Search))
                                   select Lead);
 
                         break;
-                }          
+                }
 
                 switch (model.OrderBy)
                 {
@@ -662,7 +662,7 @@ namespace AurigainLoanERP.Services.FreshLead
                     {
                         ActionDate = d.ActionDate,
                         LeadId = d.LeadId,
-                        LeadStatus = d.LeadStatus == ((int)FreshLeadStatusEnum.Pending)? LeadStatusEnum.Pending.GetStringValue() :
+                        LeadStatus = d.LeadStatus == ((int)FreshLeadStatusEnum.Pending) ? LeadStatusEnum.Pending.GetStringValue() :
                                  //d.LeadStatus == ((int)LeadStatusEnum.GoldReached) ? LeadStatusEnum.GoldReached.GetStringValue() :
                                  //d.LeadStatus == ((int)LeadStatusEnum.AmountTransfer) ? LeadStatusEnum.AmountTransfer.GetStringValue() :
                                  d.LeadStatus == ((int)FreshLeadStatusEnum.Rejected) ? LeadStatusEnum.Rejected.GetStringValue() :
@@ -687,20 +687,20 @@ namespace AurigainLoanERP.Services.FreshLead
                 return CreateResponse<List<LeadStatusActionHistory>>(null, ex.Message, false, ((int)ApiStatusCode.ServerException));
             }
         }
-        public async Task<ApiServiceResponseModel<FreshLeadHLPLCLModel>> FreshHLPLCLDetail(long Id) 
+        public async Task<ApiServiceResponseModel<FreshLeadHLPLCLModel>> FreshHLPLCLDetail(long Id)
         {
             try
             {
                 FreshLeadHLPLCLModel lead = new FreshLeadHLPLCLModel();
                 var data = await _db.FreshLeadHlplcl.Where(x => x.Id == Id && x.IsDelete == false).
-                           Include(x=>x.Product).ThenInclude(y=>y.ProductCategory).
+                           Include(x => x.Product).ThenInclude(y => y.ProductCategory).
                            Include(x => x.CustomerUser).Include(x => x.LeadSourceByUser).
-                           Include(x => x.AeraPincode).ThenInclude(z=>z.District).ThenInclude(s=>s.State).
+                           Include(x => x.AeraPincode).ThenInclude(z => z.District).ThenInclude(s => s.State).
                            FirstOrDefaultAsync();
                 if (data != null)
                 {
                     lead.AnnualIncome = data.AnnualIncome;
-                    lead.AreaPincodeId = data.AeraPincodeId!= null ? data.AeraPincodeId : null;
+                    lead.AreaPincodeId = data.AeraPincodeId != null ? data.AeraPincodeId : null;
                     lead.FullName = data.FullName;
                     lead.FatherName = data.FatherName;
                     lead.MobileNumber = data.MobileNumber;
@@ -713,7 +713,7 @@ namespace AurigainLoanERP.Services.FreshLead
                     lead.LeadStatus = data.LeadStatus;
                     lead.LoanAmount = data.LoanAmount;
                     lead.LeadSourceByUserId = data.LeadSourceByUserId;
-                    lead.CustomerUserId = data.CustomerUserId == null ? null :data.CustomerUserId ;
+                    lead.CustomerUserId = data.CustomerUserId == null ? null : data.CustomerUserId;
                     lead.CreatedDate = data.CreatedDate;
                     lead.EmployeeType = data.EmployeeType;
                     lead.NoOfItr = data.NoOfItr;
@@ -722,14 +722,14 @@ namespace AurigainLoanERP.Services.FreshLead
                     lead.LeadSourceByUserName = data.LeadSourceByUser.UserName;
                     lead.Pincode = data.Pincode;
                     lead.AreaLocation = data.AeraPincode.AreaName + "| " + data.AeraPincode.District.Name + "| " + data.AeraPincode.District.State.Name;
-                    return CreateResponse<FreshLeadHLPLCLModel>(lead, ResponseMessage.Success,true, ((int)ApiStatusCode.Ok));
+                    return CreateResponse<FreshLeadHLPLCLModel>(lead, ResponseMessage.Success, true, ((int)ApiStatusCode.Ok));
                 }
-                else 
+                else
                 {
-                    return CreateResponse<FreshLeadHLPLCLModel>(null, ResponseMessage.NotFound,false,((int)ApiStatusCode.Ok));
+                    return CreateResponse<FreshLeadHLPLCLModel>(null, ResponseMessage.NotFound, false, ((int)ApiStatusCode.Ok));
                 }
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 return CreateResponse<FreshLeadHLPLCLModel>(null, ResponseMessage.Fail, false, ((int)ApiStatusCode.ServerException), ex.InnerException == null ? ex.Message : ex.InnerException.Message);
             }
@@ -765,7 +765,7 @@ namespace AurigainLoanERP.Services.FreshLead
                 return CreateResponse<GoldLoanFreshLeadAppointmentDetailViewModel>(null, ResponseMessage.Fail, false, ((int)ApiStatusCode.ServerException), ex.Message ?? ex.InnerException.ToString());
             }
         }
-        public async Task<ApiServiceResponseModel<object>> SaveAppointment(GoldLoanFreshLeadAppointmentDetailModel model) 
+        public async Task<ApiServiceResponseModel<object>> SaveAppointment(GoldLoanFreshLeadAppointmentDetailModel model)
         {
             try
             {
@@ -781,13 +781,13 @@ namespace AurigainLoanERP.Services.FreshLead
                         CreatedDate = DateTime.Now,
                         IsActive = true,
                         IsDelete = false,
-                        GlfreshLeadId =model.LeadId
+                        GlfreshLeadId = model.LeadId
                     };
                     await _db.GoldLoanFreshLeadAppointmentDetail.AddAsync(appointment);
                     await _db.SaveChangesAsync();
                     return CreateResponse<object>(true, ResponseMessage.Save, true, ((int)ApiStatusCode.Ok));
                 }
-                else 
+                else
                 {
                     data.AppointmentDate = model.AppointmentDate;
                     data.AppointmentTime = model.AppointmentTime.ToTimeSpanValue();
@@ -795,9 +795,9 @@ namespace AurigainLoanERP.Services.FreshLead
                     data.BranchId = model.BranchId;
                     await _db.SaveChangesAsync();
                     return CreateResponse<object>(true, ResponseMessage.Update, true, ((int)ApiStatusCode.Ok));
-                }                                   
+                }
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 return CreateResponse<object>(null, ResponseMessage.Fail, false, ((int)ApiStatusCode.ServerException), ex.Message ?? ex.InnerException.ToString());
             }
@@ -840,12 +840,12 @@ namespace AurigainLoanERP.Services.FreshLead
                     FatherName = model.FatherName,
                     DateOfBirth = model.DateOfBirth,
                     UserId = customerUser.Entity.Id,
-                    Gender =model.Gender,
+                    Gender = model.Gender,
                     IsActive = model.IsActive,
                     IsDelete = false,
                     PincodeAreaId = model.AreaPincodeId,
                     Address = model.Address,
-                    AddressLine2 =model.AddressLine2,
+                    AddressLine2 = model.AddressLine2,
                     CreatedBy = (int)UserRoleEnum.Admin
                 };
                 var result = await _db.UserCustomer.AddAsync(customer);
@@ -897,7 +897,7 @@ namespace AurigainLoanERP.Services.FreshLead
                     IsDelete = false,
                     PincodeAreaId = model.KycDocument.PincodeAreaId,
                     Address = model.KycDocument.AddressLine1,
-                    AddressLine2 =model.KycDocument.AddressLine2,
+                    AddressLine2 = model.KycDocument.AddressLine2,
                     CreatedBy = (int)UserRoleEnum.Admin
                 };
                 var result = await _db.UserCustomer.AddAsync(customer);
@@ -928,7 +928,7 @@ namespace AurigainLoanERP.Services.FreshLead
                         Purpose = model.Purpose,
                         PurposeId = model.PurposeId,
                         ProductId = model.ProductId,
-                        PreferredLoanTenure= model.PreferredLoanTenure,
+                        PreferredLoanTenure = model.PreferredLoanTenure,
                         SecondaryMobileNumber = model.SecondaryMobileNumber,
                         PrimaryMobileNumber = model.PrimaryMobileNumber,
                         Gender = model.Gender,
@@ -1035,7 +1035,7 @@ namespace AurigainLoanERP.Services.FreshLead
                         lead.EmployeeType = model.EmployeeType;
                         lead.IsActive = model.IsActive;
                         lead.Pincode = model.Pincode;
-                        lead.AeraPincodeId = model.AreaPincodeId;                        
+                        lead.AeraPincodeId = model.AreaPincodeId;
                         await _db.SaveChangesAsync();
                         returnObject.status = true;
                         returnObject.Msg = "Update Record";
@@ -1085,7 +1085,7 @@ namespace AurigainLoanERP.Services.FreshLead
                         };
                         await _db.GoldLoanFreshLeadJewelleryDetail.AddAsync(jewellery);
                         await _db.SaveChangesAsync();
-                      
+
                     }
                     else
                     {
@@ -1102,7 +1102,7 @@ namespace AurigainLoanERP.Services.FreshLead
                         await _db.SaveChangesAsync();
                     }
                 }
-               
+
                 return true;
             }
             catch { throw; }
@@ -1139,11 +1139,11 @@ namespace AurigainLoanERP.Services.FreshLead
                         detail.BranchId = model.BranchId;
                         await _db.SaveChangesAsync();
                     }
-                    else 
+                    else
                     {
                         return false;
                     }
-                  
+
                     return true;
                 }
             }

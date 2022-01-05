@@ -102,7 +102,7 @@ namespace AurigainLoanERP.Shared.ExtensionMethod
             result = prefix + "/" + month.ToString() + "/" + year + "/" + random.Next(10000, 199999).ToString();
             return result;
         }
-        public ApiServiceResponseModel<string> CreateToken(long UserId, string UserName, string RoleType, int RoleId)
+        public ApiServiceResponseModel<string> CreateToken(long UserId, string UserName, string RoleType, int RoleId, bool isWeb=true)
         {
 
             var key = _configuration.GetValue<string>("Jwt:Key");
@@ -117,7 +117,7 @@ namespace AurigainLoanERP.Shared.ExtensionMethod
                 new Claim(TokenClaimsConstant.RoleId, RoleId.ToString()),
                 new Claim(TokenClaimsConstant.GenerateTime, DateTime.Now.ToString("dd-mm-yyyy HH:mm:ss"))
             };
-            var token = new JwtSecurityToken(issuer, issuer, claims, expires: DateTime.Now.AddDays(90),
+            var token = new JwtSecurityToken(issuer, issuer, claims, expires: isWeb ? DateTime.Now.AddHours(10) : DateTime.Now.AddDays(90),
                   signingCredentials: credentials);
 
             return CreateResponse<string>(new JwtSecurityTokenHandler().WriteToken(token), ResponseMessage.Success, true, ((int)ApiStatusCode.Ok));

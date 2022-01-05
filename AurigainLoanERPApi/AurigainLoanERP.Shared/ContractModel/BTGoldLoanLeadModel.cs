@@ -21,6 +21,7 @@ namespace AurigainLoanERP.Shared.ContractModel
         public int? PurposeId { get; set; }
         public string PurposeName { get; set; }
         public decimal LoanAmount { get; set; }
+        public string LoanAccountNumber { get; set; }
         public string LoanCaseNumber { get; set;}
         public long LeadSourceByuserId { get; set; }
         public BTGoldLoanLeadViewModel()

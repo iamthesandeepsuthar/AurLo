@@ -266,12 +266,12 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                 if (detail != null)
                 {
                     objModel.Id = detail.Id;
-                    objModel.ProductCategoryName = detail.Product.ProductCategory.Name;
+                    objModel.ProductCategoryName = detail.Product != null ?  detail.Product.ProductCategory.Name : null;
                     objModel.ProductId = detail.ProductId;
-                    objModel.ProductName = detail.Product.Name ?? null;
+                    objModel.ProductName = detail.Product!=null? detail.Product.Name : null;
 
-                    objModel.PurposeId = detail.PurposeId;
-                    objModel.PurposeName = detail.PurposeNavigation.Name;
+                    objModel.PurposeId = detail.PurposeId ?? null;
+                    objModel.PurposeName = detail.PurposeNavigation!=null? detail.PurposeNavigation.Name : null;
 
                     objModel.FullName = detail.FullName ?? null;
                     objModel.FatherName = detail.FatherName ?? null;
@@ -285,7 +285,9 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                     // objModel.CustomerUserName = detail.CustomerUser.UserName ?? null;
                     objModel.SecondaryMobile = detail.SecondaryMobile ?? null;
                     objModel.Purpose = detail.Purpose ?? null;
+             
                     objModel.LoanAmount = detail.LoanAmount;
+                    objModel.LoanAccountNumber = detail.LoanAccountNumber?? null;
                     objModel.LoanCaseNumber = detail.LoanCaseNumber != null ? detail.LoanCaseNumber : "N/A";
                     objModel.LeadSourceByuserId = detail.LeadSourceByuserId;
                     objModel.LeadSourceByuserName = detail.LeadSourceByuser.UserName ?? null;
