@@ -29,7 +29,7 @@
 
       <div class="form-group col-md-4">
         <label>Bank Name</label>
-        <input type="text" class="form-control" id="bnkinput2" [(ngModel)]="bankModel.BankName"
+        <input type="text" TitleCase class="form-control" id="bnkinput2" [(ngModel)]="bankModel.BankName"
           formControlName="BankName" [ngClass]="{ 'is-invalid': f.BankName?.errors && f.BankName?.touched}"
           placeholder="bank name">
 

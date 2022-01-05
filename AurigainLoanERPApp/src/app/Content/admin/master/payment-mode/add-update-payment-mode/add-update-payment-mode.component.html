@@ -27,7 +27,7 @@
       <div class="form-row">
           <div class="form-group col-md-12">
               <label>Payment Mode</label>
-              <input type="text" formControlName="Name" [(ngModel)]="Model.Mode"
+              <input TitleCase type="text" formControlName="Name" [(ngModel)]="Model.Mode"
                   [ngClass]="{ 'is-invalid': f.Name.errors && f.Name.touched}" class="form-control" id="input1"
                   placeholder="Enter payment mode.">
               <div class="invalid-feedback"

@@ -33,16 +33,16 @@
   <div class="form-row">
             <div class="form-group col-md-4">
                 <label>Full Name</label>
-                <input type="text" class="form-control" id="fullName"
+                <input type="text" class="form-control" TitleCase id="fullName"
                 [ngClass]="{ 'is-invalid': f.FullName.errors && f.FullName.touched}"
                  [(ngModel)]="Model.FullName" formControlName="FullName" placeholder="Full name">
-                 <div class="invalid-feedback" *ngIf="(managerFrom.get('FullName')?.hasError('required') && managerFrom.get('FullName')?.touched)">enter full name </div>
+                 <div class="invalid-feedback" *ngIf="(managerFrom.get('FullName')?.hasError('required') && managerFrom.get('FullName')?.touched)">Enter full name </div>
             </div>
             <div class="form-group col-md-4">
                 <label>Father's Name</label>
                 <input type="text" class="form-control" [(ngModel)]="Model.FatherName"
-                [ngClass]="{ 'is-invalid': f.FatherName.errors && f.FatherName.touched}" formControlName="FatherName" id="fatherName" placeholder="Father's name">
-                <div class="invalid-feedback" *ngIf="(managerFrom.get('FatherName')?.hasError('required') && managerFrom.get('FatherName')?.touched)">enter father name</div>
+                [ngClass]="{ 'is-invalid': f.FatherName.errors && f.FatherName.touched}" formControlName="FatherName" TitleCase id="fatherName" placeholder="Father's name">
+                <div class="invalid-feedback" *ngIf="(managerFrom.get('FatherName')?.hasError('required') && managerFrom.get('FatherName')?.touched)">Enter father name</div>
             </div>
             <div class="form-group col-md-4">
                 <label>Date of birth</label>
@@ -50,7 +50,7 @@
                 formControlName="DateOfBirth" bsDatepicker [(ngModel)]="model.DateOfBirth"
                 [ngClass]="{ 'is-invalid': f.DateOfBirth.errors && f.DateOfBirth.touched}" [maxDate]="DobMaxDate"
                 [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', adaptivePosition: true,isAnimated: true, showWeekNumbers: false }">
-                <div class="invalid-feedback" *ngIf="(managerFrom.get('DateOfBirth')?.hasError('required') && managerFrom.get('DateOfBirth')?.touched)">select date of birth</div>
+                <div class="invalid-feedback" *ngIf="(managerFrom.get('DateOfBirth')?.hasError('required') && managerFrom.get('DateOfBirth')?.touched)">Select date of birth</div>
             </div>
             <div class="form-group col-md-4">
                 <label>Mobile Number</label>
@@ -64,7 +64,7 @@
                 <input type="text" class="form-control"
                 [ngClass]="{ 'is-invalid': f.EmailId.errors && f.EmailId.touched}"
                 [(ngModel)]="Model.EmailId" formControlName="EmailId" id="emailId" placeholder="Email id">
-                <div class="invalid-feedback" *ngIf="(managerFrom.get('EmailId')?.hasError('required') && managerFrom.get('EmailId')?.touched)">enter email id </div>
+                <div class="invalid-feedback" *ngIf="(managerFrom.get('EmailId')?.hasError('required') && managerFrom.get('EmailId')?.touched)">Enter email id </div>
             </div>
             <div class="form-group col-md-4">
                 <label>User Role</label>
@@ -134,7 +134,7 @@
 
           <div class="form-group col-md-12">
             <label>Address Line1</label>
-            <textarea rows="2" class="form-control" id="32" formControlName="Address" [(ngModel)]="Model.Address" placeholder="Address Line1 "> </textarea>
+            <textarea rows="2" TitleCase class="form-control" id="32" formControlName="Address" [(ngModel)]="Model.Address" placeholder="Address Line1 "> </textarea>
           </div>
           <div class="form-group col-md-12">
             <label>Address Line2</label>

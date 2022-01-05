@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { LeadTypeEnum, ProductCategoryEnum } from 'src/app/Shared/Enum/fixed-value';
 import { DropDownModel } from 'src/app/Shared/Helper/common-model';
-import { DropDown_key } from 'src/app/Shared/Helper/constants';
+import { DropDown_key, Routing_Url } from 'src/app/Shared/Helper/constants';
 import { FreshLeadHLPLCLModel } from 'src/app/Shared/Model/Leads/other-loan-leads.model';
 import { DDLProductModel } from 'src/app/Shared/Model/master-model/product-model.model';
 import { AvailableAreaModel } from 'src/app/Shared/Model/User-setting-model/user-availibility.model';
@@ -91,11 +91,11 @@ export class AddFreshVehicleLeadComponent implements OnInit {
     if(this.FormData.valid){
     this.model.LoanAmount = Number(this.model.LoanAmount);
     this.model.LeadType = Boolean(this.model.LeadType);
-    alert(this.model.LeadType);
      let subscription = this._vehicleService.AddUpdate(this.model).subscribe( response => {
        subscription.unsubscribe();
        if(response.IsSuccess) {
         this.toast.success(response.Message as string,'Success');
+        this._router.navigate([`${Routing_Url.Lead_Module}/${Routing_Url.Vehicle_Loan_Lead_Url}`]);
        } else {
         this.toast.error(response.Message as string,'Server Error');
        }

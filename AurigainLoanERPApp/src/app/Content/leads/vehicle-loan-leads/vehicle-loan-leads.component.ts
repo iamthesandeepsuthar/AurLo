@@ -4,6 +4,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ToastrService } from 'ngx-toastr';
+import { UserRoleEnum } from 'src/app/Shared/Enum/fixed-value';
+import { AuthService } from 'src/app/Shared/Helper/auth.service';
 import { IndexModel } from 'src/app/Shared/Helper/common-model';
 import { Message, Routing_Url } from 'src/app/Shared/Helper/constants';
 import { LeadStatusPopupComponent } from 'src/app/Shared/Helper/shared/Popup/lead-status-popup/lead-status-popup.component';
@@ -22,6 +24,7 @@ import { UserSettingService } from 'src/app/Shared/Services/user-setting-service
 export class VehicleLoanLeadsComponent implements OnInit {
   model!: FreshLeadHLPLCLModel[];
   dataSource: any;
+  get UserDetail() { return this._auth.GetUserDetail() };
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort!: MatSort;
 
@@ -35,6 +38,7 @@ export class VehicleLoanLeadsComponent implements OnInit {
    indexModel = new IndexModel();
   totalRecords: number = 0;
   get routing_Url() { return Routing_Url };
+  get UserRoleEnum() { return UserRoleEnum };
 
 
   //#endregion
@@ -43,7 +47,7 @@ export class VehicleLoanLeadsComponent implements OnInit {
     private readonly _commonService: CommonService,
     private readonly toast: ToastrService,
     private readonly _userSettingService: UserSettingService,
-    public dialog: MatDialog) { }
+    public dialog: MatDialog,private readonly _auth: AuthService,) { }
 
   ngOnInit(): void {
     this.getList();

@@ -47,7 +47,7 @@
             </div>
             <div class="form-group col-md-3">
                 <label>District Name</label>
-                <input type="text" formControlName="Name" [(ngModel)]="model.Name" [ngClass]="{ 'is-invalid': f.Name.errors && f.Name.touched }" class="form-control" id="input1" placeholder="Name" />
+                <input type="text" TitleCase formControlName="Name" [(ngModel)]="model.Name" [ngClass]="{ 'is-invalid': f.Name.errors && f.Name.touched }" class="form-control" id="input1" placeholder="Name" />
                 <div class="invalid-feedback" *ngIf="districtForm.get('Name')?.hasError('required') && districtForm.get('Name')?.touched "> Please enter district name.</div>
             </div>
 
@@ -80,7 +80,7 @@
                         <div class="form-row" *ngIf="isArea|| this.model.Areas.length>0">
                             <div class="form-group col-md-12">
                                 <label>Area Name</label>
-                                <input type="text" formControlName="areaName" [(ngModel)]="pincodeAreaModel.AreaName" class="form-control" placeholder="area name" />
+                                <input TitleCase type="text" formControlName="areaName" [(ngModel)]="pincodeAreaModel.AreaName" class="form-control" placeholder="area name" />
                             </div>
 
                             <div class="form-group col-md-12">

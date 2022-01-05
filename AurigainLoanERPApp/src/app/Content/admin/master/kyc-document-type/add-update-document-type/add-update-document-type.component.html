@@ -25,12 +25,12 @@
 			<div class="form-row">
 				<div class="form-group col-md-4">
 					<label>Document Type Name</label>
-					<input type="text" formControlName="Name" [(ngModel)]="Model.DocumentName" [ngClass]="{ 'is-invalid': f.Name.errors && f.Name.touched}" class="form-control" id="input1" placeholder="Name">
+					<input TitleCase type="text" formControlName="Name" [(ngModel)]="Model.DocumentName" [ngClass]="{ 'is-invalid': f.Name.errors && f.Name.touched}" class="form-control" id="input1" placeholder="Name">
 					<div class="invalid-feedback" *ngIf="(documentTypeForm.get('Name')?.hasError('required') && documentTypeForm.get('Name')?.touched)">Please enter name for document type. </div>
 				</div>
 				<div class="form-group col-md-4">
 					<label>Document Number Length</label>
-					<input type="number" formControlName="DocumentNumberLength" [(ngModel)]="Model.DocumentNumberLength" [ngClass]="{ 'is-invalid': f.DocumentNumberLength.errors && f.DocumentNumberLength.touched}" class="form-control" id="input1" placeholder="document length">
+					<input type="text" (keypress)="_commonService.checkDecimalNumberOnly($event)" formControlName="DocumentNumberLength" [(ngModel)]="Model.DocumentNumberLength" [ngClass]="{ 'is-invalid': f.DocumentNumberLength.errors && f.DocumentNumberLength.touched}" class="form-control" id="input1" placeholder="document length">
 					<div class="invalid-feedback" *ngIf="(documentTypeForm.get('DocumentNumberLength')?.hasError('required') && documentTypeForm.get('DocumentNumberLength')?.touched)"> Please enter document number digit </div>
 				</div>
 				<div class="form-group col-md-4">
