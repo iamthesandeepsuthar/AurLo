@@ -64,7 +64,7 @@ namespace AurigainLoanERP.Api.Controllers
 
         //Post api/Account/VarifiedMPIN
         [HttpPost]
-        // [AllowAnonymous]
+        [AllowAnonymous]
         public async Task<ApiServiceResponseModel<string>> VarifiedMPIN(OtpVerifiedModel model)
         {
             return await _accountService.VerifiedPin(model);
