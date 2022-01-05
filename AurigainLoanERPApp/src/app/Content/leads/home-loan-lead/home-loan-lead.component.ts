@@ -1,3 +1,4 @@
+import { AuthService } from 'src/app/Shared/Helper/auth.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
@@ -12,6 +13,7 @@ import { FreshLeadHLPLCLModel } from 'src/app/Shared/Model/Leads/other-loan-lead
 import { CommonService } from 'src/app/Shared/Services/common.service';
 import { PersonalHomeCarLoanService } from 'src/app/Shared/Services/Leads/personal-home-car-loan.service';
 import { UserSettingService } from 'src/app/Shared/Services/user-setting-services/user-setting.service';
+import { UserRoleEnum } from 'src/app/Shared/Enum/fixed-value';
 
 @Component({
   selector: 'app-home-loan-lead',
@@ -22,6 +24,7 @@ import { UserSettingService } from 'src/app/Shared/Services/user-setting-service
 export class HomeLoanLeadComponent implements OnInit {
   model!: FreshLeadHLPLCLModel[];
   dataSource: any;
+  get UserDetail() { return this._auth.GetUserDetail() };
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort!: MatSort;
 
@@ -35,6 +38,7 @@ export class HomeLoanLeadComponent implements OnInit {
    indexModel = new IndexModel();
   totalRecords: number = 0;
   get routing_Url() { return Routing_Url };
+  get UserRoleEnum() { return UserRoleEnum };
 
 
   //#endregion
@@ -43,12 +47,13 @@ export class HomeLoanLeadComponent implements OnInit {
     private readonly _commonService: CommonService,
     private readonly toast: ToastrService,
     private readonly _userSettingService: UserSettingService,
-    public dialog: MatDialog) { }
+    public dialog: MatDialog,private readonly _auth: AuthService,) { }
 
   ngOnInit(): void {
     this.getList();
    }
   getList(): void {
+
     this.indexModel.ProductCategoryId = 4;
     let serve = this._freshLeadService.GetList(this.indexModel).subscribe(response => {
       serve.unsubscribe();
@@ -70,6 +75,7 @@ export class HomeLoanLeadComponent implements OnInit {
         this.toast.error(error.Message as string, 'Error');
       });
   }
+
   sortData(event: any): void {
 
     this.indexModel.OrderBy = event.active;

@@ -132,7 +132,7 @@
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label>Name <strong class="text-danger ml-1">*</strong></label>
-                                <input type="text" class="form-control" formControlName="branchName" [(ngModel)]="BranchModel.BranchName" name="branchName" id="BranchName" placeholder="Branch name">
+                                <input type="text" TitleCase class="form-control" formControlName="branchName" [(ngModel)]="BranchModel.BranchName" name="branchName" id="BranchName" placeholder="Branch name">
                             </div>
                             <div class="form-group col-md-6">
                                 <label>Branch Code <strong class="text-danger ml-1">*</strong></label>
@@ -140,7 +140,7 @@
                             </div>
                             <div class="form-group col-md-6">
                                 <label>Ifsc <strong class="text-danger ml-1">*</strong></label>
-                                <input type="text" class="form-control" formControlName="branchIfsc" [(ngModel)]="BranchModel.Ifsc" id="Ifsc" placeholder="IFSC">
+                                <input type="text"  UpperCase class="form-control" formControlName="branchIfsc" [(ngModel)]="BranchModel.Ifsc" id="Ifsc" placeholder="IFSC">
                             </div>
                             <div class="form-group col-md-6">
                                 <label>Contact Number</label>
