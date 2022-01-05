@@ -261,6 +261,7 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                     .Include(x => x.BtgoldLoanLeadJewelleryDetail).ThenInclude(x => x.JewelleryType)
                     .Include(x => x.BtgoldLoanLeadDocumentDetail)
                     .Include(x => x.BtgoldLoanLeadKycdetail).ThenInclude(x => x.PoadocumentType)
+                    .Include(x => x.BtgoldLoanLeadDocumentPoipoafiles)
                     .Include(x => x.BtgoldLoanLeadKycdetail).ThenInclude(x => x.PoidocumentType).FirstOrDefaultAsync();
                 if (detail != null)
                 {
@@ -328,8 +329,7 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                         {
                             Id = x.Id,
                             CustomerPhoto = !string.IsNullOrEmpty(x.CustomerPhoto) ? x.CustomerPhoto.ToAbsolutePath() : null,
-                            KycDocumentPoi = !string.IsNullOrEmpty(x.KycdocumentPoi) ? x.KycdocumentPoi.ToAbsolutePath() : null,
-                            KycDocumentPoa = !string.IsNullOrEmpty(x.KycdocumentPoa) ? x.KycdocumentPoa.ToAbsolutePath() : null,
+
                             BlankCheque1 = !string.IsNullOrEmpty(x.BlankCheque1) ? x.BlankCheque1.ToAbsolutePath() : null,
                             BlankCheque2 = !string.IsNullOrEmpty(x.BlankCheque2) ? x.BlankCheque2.ToAbsolutePath() : null,
                             LoanDocument = !string.IsNullOrEmpty(x.LoanDocument) ? x.LoanDocument.ToAbsolutePath() : null,
@@ -338,7 +338,28 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                             AtmwithdrawalSlip = !string.IsNullOrEmpty(x.AtmwithdrawalSlip) ? x.AtmwithdrawalSlip.ToAbsolutePath() : null,
                             ForeClosureLetter = !string.IsNullOrEmpty(x.ForeClosureLetter) ? x.ForeClosureLetter.ToAbsolutePath() : null,
                         }).FirstOrDefault();
+
+
                     }
+                    if (detail.BtgoldLoanLeadDocumentPoipoafiles != null)
+                    {
+                        var objPOAPOIFile = detail.BtgoldLoanLeadDocumentPoipoafiles.ToList(); 
+                        if (objModel.DocumentDetail != null)
+                        {
+
+                            objModel.DocumentDetail.KycDocumentPoi = objPOAPOIFile.Where(x => x.IsPoi).Select(x => !string.IsNullOrEmpty(x.Path) ? x.Path.ToAbsolutePath() : null).ToList();
+                            objModel.DocumentDetail.KycDocumentPoa = objPOAPOIFile.Where(x => !x.IsPoi).Select(x => !string.IsNullOrEmpty(x.Path) ? x.Path.ToAbsolutePath() : null).ToList();
+                        }
+                        else
+                        {
+                            objModel.DocumentDetail = detail.BtgoldLoanLeadDocumentDetail.Select(x => new BtGoldLoanLeadDocumentViewModel
+                            {
+                                KycDocumentPoi = objPOAPOIFile.Where(x => x.IsPoi).Select(x => !string.IsNullOrEmpty(x.Path) ? x.Path.ToAbsolutePath() : null).ToList(),
+                                KycDocumentPoa = objPOAPOIFile.Where(x => !x.IsPoi).Select(x => !string.IsNullOrEmpty(x.Path) ? x.Path.ToAbsolutePath() : null).ToList()
+                            }).FirstOrDefault();
+                        }
+                    }
+
                     if (detail.BtgoldLoanLeadExistingLoanDetail != null)
                     {
                         objModel.ExistingLoanDetail = detail.BtgoldLoanLeadExistingLoanDetail.Select(x => new BtGoldLoanLeadExistingLoanViewModel
@@ -757,7 +778,7 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                 var data = result.Skip(((model.Page == 0 ? 1 : model.Page) - 1) * (model.PageSize != 0 ? model.PageSize : int.MaxValue)).Take(model.PageSize != 0 ? model.PageSize : int.MaxValue).Include(x => x.BtgoldLoanLeadApprovalActionHistory).ThenInclude(x => x.ActionTakenByUser).ThenInclude(x => x.UserRole);
 
                 objResponse.Data = await (from detail in data
-                                          where detail.IsDelete == false && detail.LeadStatusId == ((int)LeadStatusEnum.BTReturnReady) 
+                                          where detail.IsDelete == false && detail.LeadStatusId == ((int)LeadStatusEnum.BTReturnReady)
                                           select new BTGoldLoanBalanceReturnLeadListModel
                                           {
                                               Id = detail.Id,
@@ -769,7 +790,7 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                                               LeadStatus = detail.LeadStatus,
                                               LeadType = "BT",
                                               ProductName = detail.Product.Name,
-                                              IsStatusCompleted = detail.BtgoldLoanLeadStatusActionHistory.Where(x => x.LeadStatus.Value == ((int)         LeadStatusEnum.Completed)).Count() > 0 ? true : false,
+                                              IsStatusCompleted = detail.BtgoldLoanLeadStatusActionHistory.Where(x => x.LeadStatus.Value == ((int)LeadStatusEnum.Completed)).Count() > 0 ? true : false,
                                               Pincode = detail.BtgoldLoanLeadAddressDetail.FirstOrDefault().AeraPincode.Pincode,
                                               ApprovalStatus = detail.ApprovalStatus,
                                               LoanCaseNumber = detail.LoanCaseNumber != null ? detail.LoanCaseNumber : "N/A"
