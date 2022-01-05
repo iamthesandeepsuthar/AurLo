@@ -47,7 +47,7 @@
 
           <div class="form-group col-md-4">
             <label>Full Name <em class="text-danger">*</em></label>
-            <input type="text" (keypress)="!_commonService.NumberOnly($event)" class="form-control" id="input2"
+            <input TitleCase type="text" (keypress)="!_commonService.NumberOnly($event)" class="form-control" id="input2"
               placeholder="Full Name" formControlName="FullName" maxlength="200"
               [ngClass]="{ 'is-invalid': f1.FullName.errors && f1.FullName.touched}" [(ngModel)]="model.FullName">
 
@@ -58,7 +58,7 @@
           </div>
           <div class="form-group col-md-4">
             <label>Father's Name <em class="text-danger">*</em></label>
-            <input type="text" (keypress)="!_commonService.NumberOnly($event)" class="form-control" id="input3"
+            <input TitleCase type="text" (keypress)="!_commonService.NumberOnly($event)" class="form-control" id="input3"
               placeholder="Father's Name" formControlName="FatherName" maxlength="200"
               [ngClass]="{ 'is-invalid': f1.FatherName.errors && f1.FatherName.touched}" [(ngModel)]="model.FatherName">
 
@@ -601,7 +601,7 @@
       <div class="step-form-btn-grp mt-3">
         <button class="btn btn-outline-danger mr-3" mat-button matStepperPrevious><i
             class="fas fa-angle-left mr-1"></i>Back</button>
-        
+
         <button class="btn btn-primary" mat-button matStepperNext><i class="fas fa-check mr-1"></i> Next</button>
       </div>
     </form>

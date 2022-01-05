@@ -26,7 +26,7 @@
       <div class="form-row">
           <div class="form-group col-md-4">
               <label>Product Name</label>
-              <input type="text" class="form-control"
+              <input type="text" TitleCase class="form-control"
               [ngClass]="{ 'is-invalid': f.productName.errors && f.productName.touched}"
               [(ngModel)]="Model.Name" formControlName="productName" id="productName" placeholder="Product name">
               <div class="invalid-feedback"

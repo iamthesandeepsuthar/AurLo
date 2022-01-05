@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Routing_Url } from 'src/app/Shared/Helper/constants';
 import { DocumentTypeModel } from 'src/app/Shared/Model/master-model/document-type.model';
+import { CommonService } from 'src/app/Shared/Services/common.service';
 import { KycDocumentTypeService } from 'src/app/Shared/Services/master-services/kyc-document-type.service';
 @Component({
   selector: 'app-add-update-document-type',
@@ -19,7 +20,7 @@ export class AddUpdateDocumentTypeComponent implements OnInit {
   get f() { return this.documentTypeForm.controls; }
   get Model(): DocumentTypeModel { return this.model; }
 
-  constructor(private readonly fb: FormBuilder,
+  constructor(private readonly fb: FormBuilder, readonly _commonService: CommonService,
     private readonly _documentTypeService: KycDocumentTypeService,
     private _activatedRoute: ActivatedRoute,
     private _router: Router,
@@ -52,7 +53,6 @@ export class AddUpdateDocumentTypeComponent implements OnInit {
     });
   }
   onGetDetail() {
-    debugger;
     let subscription = this._documentTypeService.GetDocumentType(this.Id).subscribe(res => {
       subscription.unsubscribe();
       if (res.IsSuccess) {

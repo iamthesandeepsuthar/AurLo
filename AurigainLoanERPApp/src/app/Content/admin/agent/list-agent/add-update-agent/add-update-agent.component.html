@@ -50,9 +50,9 @@
             <div class="col-lg-9 col-xl-10 row m-0">
                 <div class="form-group col-md-4">
                     <label>Full Name</label>
-                    <input type="text" formControlName="FullName" [(ngModel)]="model.FullName" formControlName="FullName" [ngClass]="{ 'is-invalid': f.FullName.errors && f.FullName.touched}" class="form-control" id="input1" placeholder="Full name">
+                    <input type="text" TitleCase formControlName="FullName" [(ngModel)]="model.FullName" formControlName="FullName" [ngClass]="{ 'is-invalid': f.FullName.errors && f.FullName.touched}" class="form-control" id="input1" placeholder="Full name">
                     <div class="invalid-feedback" *ngIf="(formGroup.get('FullName')?.hasError('required') && formGroup.get('FullName')?.touched)">
-                        enter full name</div>
+                        Enter full name</div>
 
                 </div>
 
@@ -62,22 +62,22 @@
                         [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', adaptivePosition: true,isAnimated: true, showWeekNumbers: false }">
                     <i class="fas fa-calendar-alt" (click)="datepickerYMD.toggle()"></i>
                     <div class="invalid-feedback" *ngIf="(formGroup.get('DateOfBirth')?.hasError('required') && formGroup.get('DateOfBirth')?.touched)">
-                        select date of birth </div>
+                        Select date of birth </div>
                 </div>
                 <div class="form-group col-md-4">
                     <label>Father's Name</label>
-                    <input type="text" [(ngModel)]="model.FatherName" formControlName="FatherName" [ngClass]="{ 'is-invalid': f.FatherName.errors && f.FatherName.touched}" class="form-control" id="input3" placeholder="Father name">
+                    <input type="text" TitleCase [(ngModel)]="model.FatherName" formControlName="FatherName" [ngClass]="{ 'is-invalid': f.FatherName.errors && f.FatherName.touched}" class="form-control" id="input3" placeholder="Father name">
                     <div class="invalid-feedback" *ngIf="(formGroup.get('FatherName')?.hasError('required') && formGroup.get('FatherName')?.touched)">
-                        enter father name</div>
+                        Enter father name</div>
                 </div>
                 <div class="form-group col-md-4">
                     <label>Mobile Number</label>
                     <input type="text" [(ngModel)]="model.User.Mobile" (keypress)="_commonService.NumberOnly($event)" [minlength]="10" [maxLength]="12" formControlName="Mobile" [ngClass]="{ 'is-invalid': f.Mobile.errors && f.Mobile.touched}" class="form-control" id="input4"
                         placeholder="mobile number">
                     <div class="invalid-feedback" *ngIf="(formGroup.get('Mobile')?.hasError('required') && formGroup.get('Mobile')?.touched)">
-                        Please fill Mobile number...! </div>
+                        Enter mobile number. </div>
                     <div class="invalid-feedback" *ngIf="!formGroup.get('Mobile')?.hasError('required') && ((formGroup.get('Mobile')?.hasError('maxlength') || formGroup.get('Mobile')?.hasError('minlength')) && formGroup.get('Mobile')?.touched) || (formGroup.get('Mobile')?.hasError('maxlength') || formGroup.get('Mobile')?.hasError('minlength'))">
-                        Mobile length must be 10-12 digit...! </div>
+                        Mobile length must be 10-12 digit. </div>
                 </div>
 
                 <div class="form-group col-md-4">
@@ -105,16 +105,16 @@
                     <ng-select formControlName="Qualification" [items]="dropDown!.ddlQualification" [ngClass]="{ 'is-invalid': f.Qualification.errors && f.Qualification.touched}" bindLabel="Text" bindValue="Value" placeholder="Qualification" appendTo="body" [(ngModel)]="model.QualificationId">
                     </ng-select>
                     <div class="invalid-feedback" *ngIf="(formGroup.get('Qualification')?.hasError('required') && formGroup.get('Qualification')?.touched)">
-                        Please Select Qualification...! </div>
+                        Select qualification...! </div>
                 </div>
 
                 <div class="form-group col-md-4">
                     <label>Personal Email ID</label>
                     <input type="email" formControlName="Email" [ngClass]="{ 'is-invalid': f.Email.errors && f.Email.touched}" [(ngModel)]="model.User.Email" class="form-control" id="input3" placeholder="Email id">
                     <div class="invalid-feedback" *ngIf="(formGroup.get('Email')?.hasError('required') && formGroup.get('Email')?.touched)">
-                        enter email id</div>
+                        Enter email id</div>
                     <div class="invalid-feedback" *ngIf="!formGroup.get('Email')?.hasError('required') && formGroup.get('Email')?.touched && formGroup.get('Email')?.invalid">
-                        enter email id in correct format</div>
+                        Enter email id in correct format</div>
                 </div>
 
                 <div class="form-group col-md-8">
@@ -152,7 +152,7 @@
                 </div>
                 <div class="form-group col-md-12">
                   <label>Address Line1</label>
-                  <textarea class="form-control" [ngClass]="{ 'is-invalid': f.Address.errors && f.Address.touched}" placeholder="Address Line1" [(ngModel)]="model.Address" id="exampleFormControlTextarea1" formControlName="Address" rows="3"></textarea>
+                  <textarea class="form-control" TitleCase [ngClass]="{ 'is-invalid': f.Address.errors && f.Address.touched}" placeholder="Address Line1" [(ngModel)]="model.Address" id="exampleFormControlTextarea1" formControlName="Address" rows="3"></textarea>
                   <div class="invalid-feedback" *ngIf="(formGroup.get('Address')?.hasError('required') && formGroup.get('Address')?.touched)">
                       Please enter address</div>
 

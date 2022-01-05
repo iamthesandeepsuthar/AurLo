@@ -16,11 +16,11 @@
       <div class="form-group col-md-4">
         <label>Nominee Name</label>
         <input type="email" class="form-control" id="input1" [(ngModel)]="nomineeModel.NamineeName"
-          formControlName="NamineeName" placeholder="nominee name"
+          formControlName="NamineeName" TitleCase placeholder="nominee name"
           [ngClass]="{ 'is-invalid': f.NamineeName?.errors && f.NamineeName?.touched}">
         <div class="invalid-feedback"
           *ngIf="(formGroup.get('NamineeName')?.hasError('required') && formGroup.get('NamineeName')?.touched)">
-          Please Fill Name...! </div>
+          Enter Nominee Name </div>
       </div>
 
       <div class="form-group col-md-4">
@@ -37,7 +37,7 @@
           </div>
           <div class="invalid-feedback"
             *ngIf="(formGroup.get('IsSelfDeclaration')?.hasError('required') && formGroup.get('IsSelfDeclaration')?.touched)">
-            Self Declaration is required..! </div>
+            Self Declaration is required </div>
         </div>
       </div>
 

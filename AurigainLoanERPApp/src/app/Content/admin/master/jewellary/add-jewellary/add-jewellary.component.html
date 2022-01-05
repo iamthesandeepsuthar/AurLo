@@ -26,7 +26,7 @@
     <div class="form-row">
       <div class="form-group col-md-12">
         <label>Jewellery Type Name</label>
-        <input type="text" formControlName="Name" [(ngModel)]="Model.Name"
+        <input  TitleCase type="text" formControlName="Name" [(ngModel)]="Model.Name"
           [ngClass]="{ 'is-invalid': f.Name.errors && f.Name.touched}" class="form-control" id="input1"
           placeholder="Jewellery type">
         <div class="invalid-feedback"
@@ -35,7 +35,7 @@
 
       <div class="form-group col-md-12">
         <label>Description</label>
-        <textarea type="text" formControlName="Description" class="form-control" rows="2"
+        <textarea TitleCase type="text" formControlName="Description" class="form-control" rows="2"
           [(ngModel)]="Model.Description" placeholder="enter description here."></textarea>
       </div>
       <div class="form-group col-md-12">
