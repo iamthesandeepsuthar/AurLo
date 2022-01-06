@@ -9,7 +9,7 @@ import { ProductModel } from 'src/app/Shared/Model/master-model/product-model.mo
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { DllProductCategoryModel } from 'src/app/Shared/Model/master-model/product-category-model.model';
-import { validateHorizontalPosition } from '@angular/cdk/overlay';
+
 
 @Component({
   selector: 'app-add-update-product',

@@ -706,6 +706,8 @@ namespace AurigainLoanERP.Services.FreshLead
                            FirstOrDefaultAsync();
                 if (data != null)
                 {
+                    lead.Id = data.Id;
+                    lead.ProductId = data.ProductId;                   
                     lead.AnnualIncome = data.AnnualIncome;
                     lead.AreaPincodeId = data.AeraPincodeId != null ? data.AeraPincodeId : null;
                     lead.FullName = data.FullName;

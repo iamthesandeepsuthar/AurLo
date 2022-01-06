@@ -123,6 +123,9 @@
                       <div class="dropdown">
                           <button class="" type="button" data-toggle="dropdown"><i class="fas fa-ellipsis-v"></i></button>
                           <ul class="dropdown-menu">
+                             <li>
+                              <a class="table-action-btn-view" routerLink="../{{routing_Url.Vehicle_Loan_Lead_Url +'/'+ routing_Url.Vehicle_Loan_Lead_AddUpdate +'/'+ row.Id}}" title="Edit"> <i class="fas fa-edit"></i> Edit</a>
+                             </li>
                               <li>
                                   <a class="table-action-btn-view" routerLink="../{{routing_Url.Vehicle_Loan_Lead_Url +'/'+ routing_Url.Vehicle_Loan_Lead_Detail +'/'+ row.Id}}" title="Detail"> <i class="fas fa-eye"></i> Detail</a>
                               </li>

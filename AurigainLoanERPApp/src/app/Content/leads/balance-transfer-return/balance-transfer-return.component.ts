@@ -147,6 +147,7 @@ export class BalanceTransferReturnComponent implements OnInit {
     if (this.formBalanceReturn.valid) {
       let returnAmountValue = this.checkLoanAmount();
       if (returnAmountValue) {
+        this.model.LoanAmount = Number(this.detailModel.LoanAmount);
         this.model.BtReturnId = Number(this.detailModel.BalanceTransferReturn.Id);
         this.model.LoanDisbursment = Boolean(this.model.LoanDisbursment);
         this.model.AmountReturn = Number(this.model.AmountReturn);

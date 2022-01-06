@@ -16,6 +16,7 @@ export class BalanceTransferReturnPostModel {
   UtrNumber!: string;
   AmountReturn!: number | null;
   FinalPaymentDate!: string;
+  LoanAmount!:number;
   ChequeDetail!: BalanceTransferReturnBankChequeDetail;
 }
 export class BalanceTransferReturnBankChequeDetail {

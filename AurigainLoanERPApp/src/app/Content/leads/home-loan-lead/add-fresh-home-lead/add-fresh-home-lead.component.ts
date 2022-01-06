@@ -37,8 +37,8 @@ export class AddFreshHomeLeadComponent implements OnInit {
     return date
   };
   LeadType = [
-    { Id: 0, Name: 'Salaried' },
-    { Id: 1, Name: 'SelfEmployed' },
+    { Id: false, Name: 'Salaried' },
+    { Id: true, Name: 'SelfEmployed' },
   ];
   ITR=[{Id:1, Name:'1 year'},
   {Id:2, Name:'2 year'},
@@ -55,10 +55,30 @@ export class AddFreshHomeLeadComponent implements OnInit {
     private readonly _stateDistrictService: StateDistrictService,
     private readonly _auth: AuthService,) {
     this.model= new FreshLeadHLPLCLModel();
+    if (this._activatedRoute.snapshot.params.id) {
+      this.Id = this._activatedRoute.snapshot.params.id;
+    }
   }
   ngOnInit(): void {
     this.getDDLProducts();
     this.formInit();
+    if(this.Id>0) {
+      this.getDetail();
+    }
+  }
+  getDetail() {
+    let subscription = this._homeService.GetById(this.Id).subscribe(response => {
+      subscription.unsubscribe();
+      if(response.IsSuccess) {
+       this.model = response.Data as FreshLeadHLPLCLModel;
+       this.model.LeadType = this.model.LeadType as boolean;
+       this.model.ProductId = this.model.ProductId as number;
+       this.getDropDownPinCodeArea();
+      } else {
+        this.toast.error(response.Message as string, 'RecordNotFound');
+        return;
+      }
+    })
   }
   GetDropDownGender() {
     let serve = this._commonService.GetDropDown([DropDown_key.ddlGender]).subscribe(res => {
@@ -92,6 +112,7 @@ export class AddFreshHomeLeadComponent implements OnInit {
     this.model.LeadSourceByUserId = this._auth.GetUserDetail()?.UserId as number;
     this.model.LoanAmount = Number(this.model.LoanAmount);
     this.model.LeadType = Boolean(this.model.LeadType);
+    this.model.AnnualIncome = Number(this.model.AnnualIncome);
      let subscription = this._homeService.AddUpdate(this.model).subscribe( response => {
        subscription.unsubscribe();
        if(response.IsSuccess) {
@@ -120,7 +141,7 @@ export class AddFreshHomeLeadComponent implements OnInit {
       Pincode:[undefined],
       AreaPincode:[undefined],
       EmployeeType:[undefined],
-      ITRYear:[undefined],
+      ITRNo:[undefined],
       Gender:[undefined],
       DOB:[undefined],
       Address:[undefined],
