@@ -19,6 +19,15 @@ import { DetailHomeLoanLeadComponent } from './home-loan-lead/detail-home-loan-l
 import { AddFreshPersonalLeadComponent } from './other-loan-leads/add-fresh-personal-lead/add-fresh-personal-lead.component';
 import { AddFreshVehicleLeadComponent } from './vehicle-loan-leads/add-fresh-vehicle-lead/add-fresh-vehicle-lead.component';
 import { AddFreshHomeLeadComponent } from './home-loan-lead/add-fresh-home-lead/add-fresh-home-lead.component';
+import { BtHomeLoanLeadsComponent } from './home-loan-lead/bt-home-loan-leads/bt-home-loan-leads.component';
+import { AddUpdatebtHomeLoanLeadComponent } from './home-loan-lead/bt-home-loan-leads/add-updatebt-home-loan-lead/add-updatebt-home-loan-lead.component';
+import { DetailBtHomeLoanLeadComponent } from './home-loan-lead/bt-home-loan-leads/detail-bt-home-loan-lead/detail-bt-home-loan-lead.component';
+import { BtVehicleLoanLeadsComponent } from './vehicle-loan-leads/bt-vehicle-loan-leads/bt-vehicle-loan-leads.component';
+import { AddUpdateBtVehicleLoanLeadComponent } from './vehicle-loan-leads/bt-vehicle-loan-leads/add-update-bt-vehicle-loan-lead/add-update-bt-vehicle-loan-lead.component';
+import { DetailBtVehicleLoanLeadComponent } from './vehicle-loan-leads/bt-vehicle-loan-leads/detail-bt-vehicle-loan-lead/detail-bt-vehicle-loan-lead.component';
+import { BtPersonalLoanLeadsComponent } from './other-loan-leads/bt-personal-loan-leads/bt-personal-loan-leads.component';
+import { AddUpdateBtPersonalLoanLeadsComponent } from './other-loan-leads/bt-personal-loan-leads/add-update-bt-personal-loan-leads/add-update-bt-personal-loan-leads.component';
+import { DetailBtPersonalLoanLeadComponent } from './other-loan-leads/bt-personal-loan-leads/detail-bt-personal-loan-lead/detail-bt-personal-loan-lead.component';
 
 
 @NgModule({
@@ -39,6 +48,15 @@ import { AddFreshHomeLeadComponent } from './home-loan-lead/add-fresh-home-lead/
     AddFreshPersonalLeadComponent,
     AddFreshVehicleLeadComponent,
     AddFreshHomeLeadComponent,
+    BtHomeLoanLeadsComponent,
+    AddUpdatebtHomeLoanLeadComponent,
+    DetailBtHomeLoanLeadComponent,
+    BtVehicleLoanLeadsComponent,
+    AddUpdateBtVehicleLoanLeadComponent,
+    DetailBtVehicleLoanLeadComponent,
+    BtPersonalLoanLeadsComponent,
+    AddUpdateBtPersonalLoanLeadsComponent,
+    DetailBtPersonalLoanLeadComponent,
 
   ],
   imports: [
