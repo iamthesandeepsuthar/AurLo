@@ -71,7 +71,7 @@ export class AddUpdateUserRoleComponent implements OnInit {
       subscribe.unsubscribe();
         if (res.IsSuccess) {
           this._toast.success('Save successful record');
-          this._router.navigate(['/' + this.routing_Url.MasterModule + this.routing_Url.UserRoleListUrl]);
+          this._router.navigate([this.routing_Url.AdminModule +'/' + this.routing_Url.MasterModule + this.routing_Url.UserRoleListUrl]);
         } else {
         this._toast.error(res.Message?.toString(), 'Error');
         }

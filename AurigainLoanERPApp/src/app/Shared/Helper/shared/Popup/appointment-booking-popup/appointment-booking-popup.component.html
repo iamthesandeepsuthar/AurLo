@@ -35,7 +35,7 @@
               <div class="form-group col-md-3 date-icon-with-label">
                 <label>Date of Appointment</label>
                 <input class="form-control" #datepickerYMD="bsDatepicker"placeholder="DD-MM-YYYY"  formControlName="DateofAppointment"[ngClass]="{ 'is-invalid': f4.DateofAppointment.errors && f4.DateofAppointment.touched }"
-                  bsDatepicker [(ngModel)]="model.AppointmentDate"      [bsConfig]="{  dateInputFormat: 'DD-MM-YYYY',  adaptivePosition: true,  isAnimated: true,  showWeekNumbers: false }"/> <i class="fas fa-calendar-alt" (click)="datepickerYMD.toggle()" ></i>
+                [maxDate]="DobMaxDate" bsDatepicker [(ngModel)]="model.AppointmentDate"      [bsConfig]="{  dateInputFormat: 'DD-MM-YYYY',  adaptivePosition: true,  isAnimated: true,  showWeekNumbers: false }"/> <i class="fas fa-calendar-alt" (click)="datepickerYMD.toggle()" ></i>
                 <div class="invalid-feedback" *ngIf="leadFromAppointmentDetail.get('DateofAppointment') ?.hasError('required') && leadFromAppointmentDetail.get('DateofAppointment')?.touched">
                   select date of Appointment  </div>
               </div>

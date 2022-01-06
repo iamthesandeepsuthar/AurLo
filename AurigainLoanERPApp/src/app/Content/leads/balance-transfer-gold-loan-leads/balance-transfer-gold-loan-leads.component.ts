@@ -38,14 +38,14 @@ export class BalanceTransferGoldLoanLeadsComponent implements OnInit {
   get ApprovalStatusEnum() {return LeadApprovalStatusEnum}
   get routing_Url() { return Routing_Url };
 
-  displayedColumns: string[] = ['index','LoanCaseNumber', 'FullName', 'FatherName','IsInternalLead', 'PrimaryMobileNumber','ProductName', 'Pincode', 'LoanAmountRequired','LeadSourceByUserName', 'LeadStatus','ApprovalStatus', 'Action'];
+  displayedColumns: string[] = ['index','LoanCaseNumber', 'FullName','IsInternalLead', 'PrimaryMobileNumber','Pincode','LeadSourceByUserName', 'LeadStatus','ApprovalStatus', 'Action'];
   ViewdisplayedColumns = [{ Value: 'FullName', Text: 'Full Name' },
   {Value:'LoanCaseNumber',Text:'Loan Case'},
   { Value: 'PrimaryMobileNumber', Text: 'Mobile Number' },
   { Value: 'LeadSourceByUserName', Text: 'Lead Source By' },
-  { Value: 'LoanAmountRequired', Text: 'Loan Amount' },
-   { Value: 'FatherName', Text: 'Father Name' },
-  { Value: 'ProductName', Text: 'Product' },
+ // { Value: 'LoanAmountRequired', Text: 'Loan Amount' },
+  //  { Value: 'FatherName', Text: 'Father Name' },
+ // { Value: 'ProductName', Text: 'Product' },
   { Value: 'Pincode', Text: 'Pincode' }];
   indexModel = new IndexModel();
   totalRecords: number = 0;
