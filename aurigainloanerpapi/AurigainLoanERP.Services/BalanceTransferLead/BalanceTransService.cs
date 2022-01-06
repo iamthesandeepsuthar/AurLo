@@ -64,6 +64,7 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                     objData.CustomerUserId = model.CustomerUserId;
                     objData.LoanAmount = model.LoanAmount;
                     objData.ProductId = model.ProductId;
+                    objData.LoanAccountNumber = model.LoanAccountNumber;
                     objData.IsInternalLead = false;
                     objData.CreatedBy = _loginUserDetail.UserId ?? null;
                     objData.IsActive = true;
