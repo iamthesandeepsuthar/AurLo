@@ -90,7 +90,7 @@
             </div>
               <div class="form-group col-md-4">
                 <label>Loan Amount Needed</label>
-                <input type="text" class="form-control"  formControlName="LoanAmount"[(ngModel)]="Model.LoanAmount" placeholder="Loan Amount">
+                <input type="text"  (keypress)="_commonService.checkDecimalNumberOnly($event)" class="form-control"  formControlName="LoanAmount"[(ngModel)]="Model.LoanAmount" placeholder="Loan Amount">
             </div>
 
             <div class="form-group col-md-4">
@@ -111,7 +111,7 @@
             </div>
             <div class="form-group col-md-2">
               <label>Annual Income{{Model.LeadType ?' Last ITR' :''}}</label>
-              <input type="number" class="form-control" formControlName="AnnualIncome"  [(ngModel)]="Model.AnnualIncome"    placeholder="Annual Income">
+              <input type="text"  (keypress)="_commonService.checkDecimalNumberOnly($event)" class="form-control" formControlName="AnnualIncome"  [(ngModel)]="Model.AnnualIncome"    placeholder="Annual Income">
             </div>
            <div class="form-group col-md-4">
               <label>Pincode</label>

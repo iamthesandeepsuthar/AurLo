@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ProductCategoryEnum } from 'src/app/Shared/Enum/fixed-value';
+import { AuthService } from 'src/app/Shared/Helper/auth.service';
 import { DropDownModel } from 'src/app/Shared/Helper/common-model';
 import { DropDown_key, Routing_Url } from 'src/app/Shared/Helper/constants';
 import { FreshLeadHLPLCLModel } from 'src/app/Shared/Model/Leads/other-loan-leads.model';
@@ -51,7 +52,8 @@ export class AddFreshHomeLeadComponent implements OnInit {
     private readonly fb: FormBuilder,readonly _router: Router,
     private readonly _activatedRoute: ActivatedRoute,
     private readonly _productService: ProductService,
-    private readonly _stateDistrictService: StateDistrictService,) {
+    private readonly _stateDistrictService: StateDistrictService,
+    private readonly _auth: AuthService,) {
     this.model= new FreshLeadHLPLCLModel();
   }
   ngOnInit(): void {
@@ -87,6 +89,7 @@ export class AddFreshHomeLeadComponent implements OnInit {
   onSubmit():void {
     this.FormData.markAllAsTouched();
     if(this.FormData.valid){
+    this.model.LeadSourceByUserId = this._auth.GetUserDetail()?.UserId as number;
     this.model.LoanAmount = Number(this.model.LoanAmount);
     this.model.LeadType = Boolean(this.model.LeadType);
      let subscription = this._homeService.AddUpdate(this.model).subscribe( response => {
