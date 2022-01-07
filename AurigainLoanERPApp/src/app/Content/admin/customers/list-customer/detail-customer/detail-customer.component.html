@@ -1,0 +1,100 @@
+<!-- Page Header Title start -->
+<div class="widget-header">
+  <div class="row d-block d-sm-flex align-items-center justify-content-between text-center text-sm-left">
+    <div>
+      <h1>Customer Detail</h1>
+      <!-- Breadcrumb Start -->
+      <nav class="custom-breadcrum">
+        <ol class="breadcrumb justify-content-center justify-content-sm-start">
+          <li class="breadcrumb-item"><a routerLink="/dashboard">Home</a></li>
+          <li class="breadcrumb-item"><a routerLink="../../{{routing_Url.Customer_List_Url}}">Customer List</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Customer Detail </li>
+        </ol>
+      </nav>
+      <!-- Breadcrumb End -->
+    </div>
+  </div>
+</div>
+<!-- Page Header Title end -->
+<div class="detail-d-2 pb-4">
+
+  <div class="widget-content widget-content p-3 form-grp-w-border">
+    <h2> <img src="assets/img/personal_detail.png">Personal Details</h2>
+
+    <div class="table-responsive">
+      <table class="table  table-borderless table-data-info table-font-17 table-v-align-top m-0">
+        <tbody>
+          <tr>
+            <td style="width: 20%;"> <strong> Full Name </strong> </td>
+            <td style="width: 30%;">{{model!.FullName ?? 'N/A'}}</td>
+            <td style="width: 20%;"><strong>Email Id </strong> </td>
+            <td style="width: 30%;">{{model!.EmailId ?? 'N/A'}}</td>
+          </tr>
+          <tr>
+
+            <td><strong> Father's name : </strong> </td>
+            <td>{{model?.FatherName ?? 'N/A'}}</td>
+            <td><strong> Date of birth: </strong> </td>
+            <td>{{(model?.DateOfBirth | date : 'dd-MM-YYYY') ?? 'N/A'}}</td>
+          </tr>
+
+          <tr>
+
+            <td><strong> Gender: </strong> </td>
+            <td>{{model?.Gender?? 'N/A'}}</td>
+            <td><strong> Mobile number: </strong> </td>
+            <td>{{model?.Mobile ?? 'N/A'}}</td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+
+
+  </div>
+
+  <div class="widget-content widget-content p-3 form-grp-w-border">
+    <h2> <img src="assets/img/document_details.png">Document & Address Detail</h2>
+    <div class="table-responsive">
+      <table class="table  table-borderless table-data-info table-font-17 table-v-align-top m-0">
+        <tbody>
+
+          <tr *ngFor="let items of model!.KycDocuments">
+
+
+            <td style="width: 20%;"> <strong> Document Type: </strong> </td>
+            <td style="width: 30%;">{{items?.KycdocumentTypeName ?? 'N/A'}}</td>
+            <td style="width: 20%;"><strong> Document Number: </strong> </td>
+            <td style="width: 30%;">{{items?.Kycnumber ?? 'N/A'}}</td>
+          </tr>
+
+          <tr>
+            <td><strong> Address: </strong> </td>
+            <td>{{model!.Address ?? 'N/A'}}</td>
+          </tr>
+
+          <tr>
+
+            <td><strong> Area name: </strong> </td>
+            <td>{{model?.AreaName ?? 'N/A'}}</td>
+            <td><strong> District: </strong> </td>
+            <td>{{model!.District ?? 'N/A'}}</td>
+          </tr>
+          <tr>
+
+            <td><strong> State: </strong> </td>
+            <td>{{model?.State ?? 'N/A' }}</td>
+            <td><strong> Pincode: </strong> </td>
+            <td>{{model?.Pincode ??'N/A'}}</td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="form-footer-btn-grp widget-content widget-content p-3 text-center">
+
+    <a type="button" routerLink="../../{{routing_Url.Customer_List_Url}}" class="btn btn-outline-danger"> <i class="fas fa-times mr-1"></i>
+      Cancel</a>
+  </div>
+</div>
