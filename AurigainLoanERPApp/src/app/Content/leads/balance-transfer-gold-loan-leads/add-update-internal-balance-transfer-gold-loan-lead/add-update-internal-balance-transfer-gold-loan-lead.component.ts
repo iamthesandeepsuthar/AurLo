@@ -363,7 +363,6 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
 
             this.model.DocumentDetail.Id = viewData.Id;
             this.model.DocumentDetail.CustomerPhoto = {
-
               FileName: viewData.DocumentDetail.CustomerPhoto,
               IsEditMode: false,
               File: viewData.DocumentDetail.CustomerPhoto,

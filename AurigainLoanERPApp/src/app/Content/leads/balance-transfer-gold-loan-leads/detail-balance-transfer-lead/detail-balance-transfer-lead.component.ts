@@ -14,6 +14,7 @@ import { BalanceTransferGoldLoanLeadsService } from 'src/app/Shared/Services/Lea
 export class DetailBalanceTransferLeadComponent implements OnInit {
   LeadId = 0;
   model = {} as BTGoldLoanLeadViewModel;
+  ImageFile: string = "";
   constructor(private readonly _freshLeadService: BalanceTransferGoldLoanLeadsService,
     private readonly _commonService: CommonService,
     private readonly toast: ToastrService, private readonly _activatedRoute: ActivatedRoute) {
@@ -35,6 +36,7 @@ export class DetailBalanceTransferLeadComponent implements OnInit {
     let serve = this._freshLeadService.GetById(this.LeadId).subscribe(response => {
       serve.unsubscribe();
       if (response.IsSuccess) {
+        debugger
         this.model = response.Data as BTGoldLoanLeadViewModel;
       }
     }, errors => {
