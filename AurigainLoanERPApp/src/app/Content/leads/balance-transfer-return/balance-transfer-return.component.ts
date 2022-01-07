@@ -59,7 +59,9 @@ export class BalanceTransferReturnComponent implements OnInit {
     let subscription = this._btLeadService.GetLeadDetailById(this.leadId).subscribe(response => {
       subscription.unsubscribe();
       if (response.IsSuccess) {
+        debugger;
         this.detailModel = response.Data as BalanceTransferReturnViewModel;
+        console.log(this.detailModel);
         this.detailModel.BalanceTransferReturn.Id = Number(this.detailModel.BalanceTransferReturn.Id);
       } else {
         this._toast.error(response.Message as string, 'Server Error');
