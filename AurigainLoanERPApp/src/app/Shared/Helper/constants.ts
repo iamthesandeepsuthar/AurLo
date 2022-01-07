@@ -286,6 +286,7 @@ export class Routing_Url {
 
   //#region <<Customer>>
   public static Customer_List_Url = 'list';
+  public static Customer_Detail_Url = 'detail';
   public static Customer_Profile_Url = "profile/";
   public static Customer_Gold_Loan_Fresh_Lead_List_Url = 'gold-loan-leads';
   public static Customer_Gold_Loan_lead_Detail_Url = 'detail/';

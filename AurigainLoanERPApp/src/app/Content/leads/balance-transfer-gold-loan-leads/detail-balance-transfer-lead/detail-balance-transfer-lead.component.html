@@ -44,7 +44,7 @@
           </tr>
           <tr>
             <td><strong> Date of Birth: </strong> </td>
-            <td>{{Model.DateOfBirth | date}}</td>
+            <td>{{Model.DateOfBirth | date:'shortTime'}}</td>
             <td><strong> Gender: </strong> </td>
             <td>{{Model.Gender}}</td>
           </tr>
@@ -252,8 +252,6 @@
 
   </div>
 
-
-
   <div class="widget-content widget-content p-3 form-grp-w-border" *ngIf="Model?.KYCDetail != null">
     <h2> <img src="assets/img/document_details.png">KYC Document Details</h2>
     <div class="mb-3">
@@ -287,4 +285,163 @@
       </div>
     </div>
   </div>
+
+
+  <div class="widget-content widget-content p-3 form-grp-w-border" *ngIf="Model?.DocumentDetail != null">
+    <h2> <img src="assets/img/doc_upload.png"> Document Details</h2>
+
+    <div class="step-grp-content">
+      <div class="custom_stepers-body-items-form row">
+
+        <div class="form-group col-md-6" *ngIf="Model?.DocumentDetail!.CustomerPhoto">
+          <label>Customer Photo </label>
+          <a href="" (click)="ImageFile=Model?.DocumentDetail!.CustomerPhoto" data-toggle="modal"
+            data-target="#Doc-Popup" class="small-media-items position-relative mr-3">
+
+            <div class="small-media-items-img"><img [src]="Model?.DocumentDetail!.CustomerPhoto"
+                onerror="this.src='assets/img/document_pictures_white.png'" /></div>
+            <i class="fas fa-link"></i>
+          </a>
+
+        </div>
+        <div class="form-group col-md-6" *ngIf="Model?.DocumentDetail!.BlankCheque1">
+          <label>Blank Cheque 1</label>
+
+          <a href="" (click)="ImageFile=Model?.DocumentDetail!.BlankCheque1" data-toggle="modal"
+            data-target="#Doc-Popup" class="small-media-items position-relative mr-3">
+
+            <div class="small-media-items-img"><img [src]="Model?.DocumentDetail!.BlankCheque1"
+                onerror="this.src='assets/img/document_pictures_white.png'" /></div>
+            <i class="fas fa-link"></i>
+          </a>
+
+
+        </div>
+        <div class="form-group col-md-6" *ngIf="Model?.DocumentDetail!.BlankCheque2">
+          <label>Blank Cheque 2</label>
+
+          <a href="" (click)="ImageFile=Model?.DocumentDetail!.BlankCheque2" data-toggle="modal"
+            data-target="#Doc-Popup" class="small-media-items position-relative mr-3">
+
+            <div class="small-media-items-img"><img [src]="Model?.DocumentDetail!.BlankCheque2"
+                onerror="this.src='assets/img/document_pictures_white.png'" /></div>
+            <i class="fas fa-link"></i>
+          </a>
+
+        </div>
+
+        <div class="form-group col-md-6"
+          *ngIf="Model?.DocumentDetail?.KycDocumentPoi && Model?.DocumentDetail?.KycDocumentPoi!.length>0">
+          <label>KYC Document (POI) </label>
+          <ng-container *ngFor="let item of Model?.DocumentDetail?.KycDocumentPoi">
+            <a href="" (click)="ImageFile=item" data-toggle="modal" data-target="#Doc-Popup"
+              class="small-media-items position-relative mr-3">
+
+              <div class="small-media-items-img"><img [src]="item"
+                  onerror="this.src='assets/img/document_pictures_white.png'" /></div>
+              <i class="fas fa-link"></i>
+            </a>
+          </ng-container>
+
+
+
+        </div>
+        <div class="form-group col-md-6"
+          *ngIf="Model?.DocumentDetail!.KycDocumentPoa && Model?.DocumentDetail!.KycDocumentPoa!.length>0">
+          <label>KYC Document (POA)</label>
+          <ng-container *ngFor="let item of Model?.DocumentDetail!.KycDocumentPoa">
+            <a href="" (click)="ImageFile=item" data-toggle="modal" data-target="#Doc-Popup"
+              class="small-media-items position-relative mr-3">
+
+              <div class="small-media-items-img"><img [src]="item"
+                  onerror="this.src='assets/img/document_pictures_white.png'" /></div>
+              <i class="fas fa-link"></i>
+            </a>
+          </ng-container>
+
+        </div>
+
+        <div class="form-group col-md-6" *ngIf="Model?.DocumentDetail!.LoanDocument">
+          <label>Loan Document</label>
+
+          <a href="" (click)="ImageFile=Model?.DocumentDetail!.LoanDocument" data-toggle="modal"
+            data-target="#Doc-Popup" class="small-media-items position-relative mr-3">
+
+            <div class="small-media-items-img"><img [src]="Model?.DocumentDetail!.LoanDocument"
+                onerror="this.src='assets/img/document_pictures_white.png'" /></div>
+            <i class="fas fa-link"></i>
+          </a>
+
+
+        </div>
+        <div class="form-group col-md-6" *ngIf="Model?.DocumentDetail!.ForeClosureLetter">
+          <label>Foreclosure Letter</label>
+          <a href="" (click)="ImageFile=Model?.DocumentDetail!.ForeClosureLetter" data-toggle="modal"
+            data-target="#Doc-Popup" class="small-media-items position-relative mr-3">
+
+            <div class="small-media-items-img"><img [src]="Model?.DocumentDetail!.ForeClosureLetter"
+                onerror="this.src='assets/img/document_pictures_white.png'" /></div>
+            <i class="fas fa-link"></i>
+          </a>
+
+
+
+        </div>
+        <div class="form-group col-md-6" *ngIf="Model?.DocumentDetail!.AtmwithdrawalSlip">
+          <label>ATM withdrawal slip</label>
+
+          <a href="" (click)="ImageFile=Model?.DocumentDetail!.AtmwithdrawalSlip" data-toggle="modal"
+            data-target="#Doc-Popup" class="small-media-items position-relative mr-3">
+
+            <div class="small-media-items-img"><img [src]="Model?.DocumentDetail!.AtmwithdrawalSlip"
+                onerror="this.src='assets/img/document_pictures_white.png'" /></div>
+            <i class="fas fa-link"></i>
+          </a>
+
+
+        </div>
+
+        <div class="form-group col-md-6" *ngIf="Model?.DocumentDetail!.PromissoryNote">
+          <label>Promissory Note</label>
+          <a href="" (click)="ImageFile=Model?.DocumentDetail!.PromissoryNote" data-toggle="modal"
+            data-target="#Doc-Popup" class="small-media-items position-relative mr-3">
+
+            <div class="small-media-items-img"><img [src]="Model?.DocumentDetail!.PromissoryNote"
+                onerror="this.src='assets/img/document_pictures_white.png'" /></div>
+            <i class="fas fa-link"></i>
+          </a>
+
+
+        </div>
+        <div class="form-group col-md-6" *ngIf="Model?.DocumentDetail!.AggrementLastPage">
+          <label>Last page of the Agreement</label>
+          <a href="" (click)="ImageFile=Model?.DocumentDetail!.AggrementLastPage" data-toggle="modal"
+            data-target="#Doc-Popup" class="small-media-items position-relative mr-3">
+
+            <div class="small-media-items-img"><img [src]="Model?.DocumentDetail!.AggrementLastPage"
+                onerror="this.src='assets/img/document_pictures_white.png'" /></div>
+            <i class="fas fa-link"></i>
+          </a>
+
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
 </div>
+<!-- Gallery popup start -->
+<div class="modal fade show-gallery modal-doc-show" id="Doc-Popup" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content bg-transparent">
+      <button type="button" class="close modal-btn-with-no-header" data-dismiss="modal" aria-label="Close"> <i
+          class="fas fa-times"></i></button>
+      <div class="modal-body p-0 text-center">
+        <img [src]="ImageFile" onerror="this.src='assets/img/document_pictures_white.png'" alt="" title="file.Path" />
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Gallery popup  End -->

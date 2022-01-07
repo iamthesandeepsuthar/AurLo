@@ -734,8 +734,9 @@
             <label>Customer Photo</label>
             <input type="hidden" name="CustomerPhoto" [(ngModel)]="model.DocumentDetail.CustomerPhoto"
               formControlName="CustomerPhoto">
-
-            <app-file-selector [MaxFileLength]="1" (FilesChanged)="onDocumentAttach(1,$event)"
+              <!-- [CurrentFileLength]="model.DocumentDetail.CustomerPhoto? 1: 0" -->
+            <app-file-selector [CurrentFileLength]="model.DocumentDetail.CustomerPhoto? 1: 0" [MaxFileLength]="1"
+              (FilesChanged)="onDocumentAttach(1,$event)"
               [ngClass]="{ 'is-invalid': f5.CustomerPhoto?.errors && f5.CustomerPhoto?.touched}">
             </app-file-selector>
 
