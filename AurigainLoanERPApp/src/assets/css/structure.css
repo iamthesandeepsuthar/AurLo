@@ -1363,7 +1363,8 @@ li.menu.menu-active>a i {
     padding: 4px 10px;
     margin-left: 50px;
     font-size: 14px;
-    color: #ffffff;
+    opacity: 0.5;
+    color: #fff;
 }
 
 #sidebar ul.menu-categories ul.submenu>li ul.sub-submenu>li.active a {
@@ -1377,7 +1378,7 @@ li.menu.menu-active>a i {
 }
 
 #sidebar ul.menu-categories ul.submenu>li ul.sub-submenu>li a.active {
-    opacity: 0.5;
+    opacity: 1;
 }
 
 #sidebar ul.menu-categories ul.submenu>li ul.sub-submenu>li a:before {

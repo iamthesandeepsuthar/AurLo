@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { LeadTypeEnum, ProductCategoryEnum } from 'src/app/Shared/Enum/fixed-value';
+import { AuthService } from 'src/app/Shared/Helper/auth.service';
 import { DropDownModel } from 'src/app/Shared/Helper/common-model';
 import { DropDown_key, Routing_Url } from 'src/app/Shared/Helper/constants';
 import { FreshLeadHLPLCLModel } from 'src/app/Shared/Model/Leads/other-loan-leads.model';
@@ -38,8 +39,8 @@ export class AddFreshVehicleLeadComponent implements OnInit {
     return date
   };
   LeadType = [
-    { Id: 0, Name: 'Salaried' },
-    { Id: 1, Name: 'SelfEmployed' },
+    { Id: false, Name: 'Salaried' },
+    { Id: true, Name: 'SelfEmployed' },
   ];
   ITR=[{Id:1, Name:'1 year'},
   {Id:2, Name:'2 year'},
@@ -53,12 +54,33 @@ export class AddFreshVehicleLeadComponent implements OnInit {
     private readonly fb: FormBuilder,readonly _router: Router,
     private readonly _activatedRoute: ActivatedRoute,
     private readonly _productService: ProductService,
-    private readonly _stateDistrictService: StateDistrictService,) {
+    private readonly _stateDistrictService: StateDistrictService,
+    private readonly _auth: AuthService,) {
     this.model= new FreshLeadHLPLCLModel();
+    if (this._activatedRoute.snapshot.params.id) {
+      this.Id = this._activatedRoute.snapshot.params.id;
+    }
   }
   ngOnInit(): void {
-    this.getDDLProducts();
     this.formInit();
+    this.getDDLProducts();
+    if(this.Id>0) {
+      this.getDetail();
+    }
+  }
+  getDetail() {
+    let subscription = this._vehicleService.GetById(this.Id).subscribe(response => {
+      subscription.unsubscribe();
+      if(response.IsSuccess) {
+        this.model = response.Data as FreshLeadHLPLCLModel;
+        this.model.LeadType = this.model.LeadType as boolean;
+        this.model.ProductId = this.model.ProductId as number;
+        this.getDropDownPinCodeArea();
+      } else {
+        this.toast.error(response.Message as string, 'RecordNotFound');
+        return;
+      }
+    })
   }
   GetDropDownGender() {
     let serve = this._commonService.GetDropDown([DropDown_key.ddlGender]).subscribe(res => {
@@ -89,8 +111,10 @@ export class AddFreshVehicleLeadComponent implements OnInit {
   onSubmit():void {
     this.FormData.markAllAsTouched();
     if(this.FormData.valid){
+    this.model.LeadSourceByUserId = this._auth.GetUserDetail()?.UserId as number;
     this.model.LoanAmount = Number(this.model.LoanAmount);
     this.model.LeadType = Boolean(this.model.LeadType);
+    this.model.AnnualIncome = Number(this.model.AnnualIncome);
      let subscription = this._vehicleService.AddUpdate(this.model).subscribe( response => {
        subscription.unsubscribe();
        if(response.IsSuccess) {
@@ -119,7 +143,7 @@ export class AddFreshVehicleLeadComponent implements OnInit {
       Pincode:[undefined],
       AreaPincode:[undefined],
       EmployeeType:[undefined],
-      ITRYear:[undefined],
+      ITRNo:[undefined],
       Gender:[undefined],
       DOB:[undefined],
       Address:[undefined],

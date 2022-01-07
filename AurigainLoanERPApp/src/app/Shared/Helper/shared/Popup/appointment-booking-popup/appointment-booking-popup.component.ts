@@ -25,6 +25,10 @@ export class AppointmentBookingPopupComponent implements OnInit {
   btModel: BtGoldLoanLeadAppointmentPostModel = new BtGoldLoanLeadAppointmentPostModel();
   model: GoldLoanFreshLeadAppointmentDetailModel = new GoldLoanFreshLeadAppointmentDetailModel();
   get f4 () { return this.leadFromAppointmentDetail.controls; }
+  get DobMaxDate() {
+    var date = new Date;
+    return date
+  };
   constructor( private readonly toast: ToastrService,
                private readonly _leadService: GoldLoanLeadsService,
                private readonly fb: FormBuilder,

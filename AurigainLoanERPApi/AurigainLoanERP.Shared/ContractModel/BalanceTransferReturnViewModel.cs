@@ -37,10 +37,10 @@ namespace AurigainLoanERP.Shared.ContractModel
         public bool? GoldSubmittedToBank { get; set; }
         
     }
-    public class BalanceTranferReturnPostModel 
+    public class BalanceTranferReturnPostModel
     {
-        public long BtReturnId { get; set;}
-        public long LeadId { get; set;}
+        public long BtReturnId { get; set; }
+        public long LeadId { get; set; }
         public bool? AmountPainToExistingBank { get; set; }
         public bool? GoldReceived { get; set; }
         public bool? GoldSubmittedToBank { get; set; }
@@ -52,7 +52,8 @@ namespace AurigainLoanERP.Shared.ContractModel
         public string Remarks { get; set; }
         public string UtrNumber { get; set; }
         public decimal? AmountReturn { get; set; }
-        public string FinalPaymentDate { get; set;}
+        public string FinalPaymentDate { get; set; }
+        public decimal LoanAmount {get;set;}
         public BalanceTransferReturnBankChequeDetail ChequeDetail { get; set; }
     }
 }

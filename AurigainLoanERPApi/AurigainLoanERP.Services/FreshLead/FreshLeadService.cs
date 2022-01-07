@@ -181,42 +181,49 @@ namespace AurigainLoanERP.Services.FreshLead
                     else
                     {
                         customerUserId = model.CustomerUserId.Value;
-                        var adminUserId = await _db.UserMaster.Where(x => x.UserRoleId == ((int)UserRoleEnum.Admin)).Select(x => x.Id).FirstOrDefaultAsync();
-                        model.LeadSourceByUserId = adminUserId;
+                        //var adminUserId = await _db.UserMaster.Where(x => x.UserRoleId == ((int)UserRoleEnum.Admin)).Select(x => x.Id).FirstOrDefaultAsync();
+                        //model.LeadSourceByUserId = adminUserId;
                     }
                     long leadId = 0;
                     if (customerUserId > 0)
                     {
-                        leadId = await SaveBasicDetailGoldFreshLead(model, customerUserId);
-                        if (leadId > 0)
+                        var leadExist = _db.GoldLoanFreshLead.Where(x => x.PrimaryMobileNumber == model.PrimaryMobileNumber && x.ProductId == model.ProductId && x.LeadStatusId != ((int)FreshLeadStatusEnum.Completed) || x.LeadStatusId != ((int)FreshLeadStatusEnum.Rejected)).FirstOrDefaultAsync();
+                        if (leadExist != null)
                         {
-                            if (model.KycDocument != null)
+                            leadId = await SaveBasicDetailGoldFreshLead(model, customerUserId);
+                            if (leadId > 0)
                             {
-                                await SaveKycDocumentDetail(model.KycDocument, leadId);
-                            }
+                                if (model.KycDocument != null)
+                                {
+                                    await SaveKycDocumentDetail(model.KycDocument, leadId);
+                                }
 
-                            if (model.AppointmentDetail != null)
+                                if (model.AppointmentDetail != null)
+                                {
+                                    await SaveAppointmentDetail(model.AppointmentDetail, leadId);
+                                }
+
+                                if (model.JewelleryDetail != null)
+                                {
+                                    await SaveJewelleryDetail(model.JewelleryDetail, leadId);
+                                }
+
+                                //Dictionary<string, string> replaceValues = new Dictionary<string, string>();
+                                //replaceValues.Add("{{UserName}}", user.UserName);
+                                //await _emailHelper.SendHTMLBodyMail(user.Email, "Aurigain: Gold Loan Application Notification", EmailPathConstant.GoldLoanLeadGenerationTemplate, replaceValues);
+                                _db.Database.CommitTransaction();
+                                return CreateResponse<string>(leadId.ToString(), ResponseMessage.Save, true, ((int)ApiStatusCode.Ok));
+                            }
+                            else
                             {
-                                await SaveAppointmentDetail(model.AppointmentDetail, leadId);
+                                _db.Database.RollbackTransaction();
+                                return CreateResponse<string>(null, ResponseMessage.UserExist, false, ((int)ApiStatusCode.DataBaseTransactionFailed));
                             }
-
-                            if (model.JewelleryDetail != null)
-                            {
-                                await SaveJewelleryDetail(model.JewelleryDetail, leadId);
-                            }
-
-
-                            //Dictionary<string, string> replaceValues = new Dictionary<string, string>();
-                            //replaceValues.Add("{{UserName}}", user.UserName);
-                            //await _emailHelper.SendHTMLBodyMail(user.Email, "Aurigain: Gold Loan Application Notification", EmailPathConstant.GoldLoanLeadGenerationTemplate, replaceValues);
-
-                            _db.Database.CommitTransaction();
-                            return CreateResponse<string>(leadId.ToString(), ResponseMessage.Save, true, ((int)ApiStatusCode.Ok));
                         }
-                        else
+                        else 
                         {
                             _db.Database.RollbackTransaction();
-                            return CreateResponse<string>(null, ResponseMessage.UserExist, false, ((int)ApiStatusCode.DataBaseTransactionFailed));
+                            return CreateResponse<string>(null, ResponseMessage.RecordAlreadyExist, false, ((int)ApiStatusCode.AlreadyExist));
                         }
                     }
                     else
@@ -634,7 +641,7 @@ namespace AurigainLoanERP.Services.FreshLead
                     else
                     {
                         _db.Database.RollbackTransaction();
-                        return CreateResponse<string>("", result.Msg, true, ((int)ApiStatusCode.Ok)); ;
+                        return CreateResponse<string>("", result.Msg, false, ((int)ApiStatusCode.AlreadyExist)); ;
                     }
                 }
                 else
@@ -699,6 +706,8 @@ namespace AurigainLoanERP.Services.FreshLead
                            FirstOrDefaultAsync();
                 if (data != null)
                 {
+                    lead.Id = data.Id;
+                    lead.ProductId = data.ProductId;                   
                     lead.AnnualIncome = data.AnnualIncome;
                     lead.AreaPincodeId = data.AeraPincodeId != null ? data.AeraPincodeId : null;
                     lead.FullName = data.FullName;
@@ -977,7 +986,7 @@ namespace AurigainLoanERP.Services.FreshLead
             {
                 if (model.Id == default || model.Id == 0)
                 {
-                    var isExist = await _db.FreshLeadHlplcl.Where(x => x.ProductId == model.ProductId && x.MobileNumber == model.MobileNumber).FirstOrDefaultAsync();
+                    var isExist = await _db.FreshLeadHlplcl.Where(x => x.ProductId == model.ProductId && x.MobileNumber == model.MobileNumber && x.LeadStatusId != (int)FreshLeadStatusEnum.Completed || x.LeadStatusId != ((int)FreshLeadStatusEnum.Rejected)).FirstOrDefaultAsync();
                     if (isExist == null)
                     {
                         FreshLeadHlplcl lead = new FreshLeadHlplcl
@@ -1005,7 +1014,7 @@ namespace AurigainLoanERP.Services.FreshLead
                         };
                         await _db.FreshLeadHlplcl.AddAsync(lead);
                         await _db.SaveChangesAsync();
-                        returnObject.status = true;
+                        returnObject.status = true;                        
                         returnObject.Msg = "Saved Record";
                         return returnObject;
                     }

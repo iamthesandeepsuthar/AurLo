@@ -64,6 +64,7 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                     objData.CustomerUserId = model.CustomerUserId;
                     objData.LoanAmount = model.LoanAmount;
                     objData.ProductId = model.ProductId;
+                    objData.LoanAccountNumber = model.LoanAccountNumber;
                     objData.IsInternalLead = false;
                     objData.CreatedBy = _loginUserDetail.UserId ?? null;
                     objData.IsActive = true;
@@ -969,6 +970,23 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                         }
                         await _db.SaveChangesAsync();
                         _db.Database.CommitTransaction();
+                        decimal? totalReturnAmount = await _db.BalanceTransferLoanReturn.Where(x => x.LeadId == model.LeadId).Select(x=>x.AmountReturn).SumAsync();
+                        if (model.LoanAmount == totalReturnAmount)
+                        {
+                            var objModel = new BtgoldLoanLeadStatusActionHistory()
+                            {
+                                LeadId = model.LeadId,
+                                ActionDate = DateTime.Now,
+                                ActionTakenByUserId = _loginUserDetail.UserId,
+                                Remarks = "Lead Completed",
+                                LeadStatus = ((int)LeadStatusEnum.Completed),
+                            };
+                            var result = await _db.BtgoldLoanLeadStatusActionHistory.AddAsync(objModel);
+                            await _db.SaveChangesAsync();
+                            var leadDetail = await _db.BtgoldLoanLead.Where(x => x.Id == model.LeadId).FirstOrDefaultAsync();
+                            leadDetail.LeadStatusId = ((int)LeadStatusEnum.Completed);
+                            await _db.SaveChangesAsync();
+                        }                        
                     }
                     return CreateResponse<object>(true, ResponseMessage.Update, true, ((int)ApiStatusCode.Ok));
                 }
