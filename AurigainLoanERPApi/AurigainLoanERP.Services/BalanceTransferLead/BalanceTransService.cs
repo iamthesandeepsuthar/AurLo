@@ -821,7 +821,7 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                 var detail = await _db.BtgoldLoanLead.Where(x => x.Id == id && x.IsDelete == false && x.IsActive == true)
                     .Include(x => x.LeadSourceByuser).ThenInclude(x => x.BtgoldLoanLeadLeadSourceByuser)
                     .Include(x => x.Product).ThenInclude(x => x.ProductCategory)
-                   .Include(x => x.BtgoldLoanLeadAddressDetail).ThenInclude(x => x.AeraPincode).ThenInclude(x => x.District).ThenInclude(x => x.State)
+                    .Include(x => x.BtgoldLoanLeadAddressDetail).ThenInclude(x => x.AeraPincode).ThenInclude(x => x.District).ThenInclude(x => x.State)
                     .Include(x => x.BtgoldLoanLeadExistingLoanDetail)
                     .Include(x => x.BtgoldLoanLeadJewelleryDetail).ThenInclude(x => x.JewelleryType)
                     .FirstOrDefaultAsync();
@@ -856,7 +856,7 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                     }
                     if (detail.BtgoldLoanLeadJewelleryDetail != null)
                     {
-                        objModel.JewelleryDetail = detail.BtgoldLoanLeadJewelleryDetail.Select(x => new BtGoldLoanLeadJewelleryDetailViewModel
+                        objModel.Jewelleries = detail.BtgoldLoanLeadJewelleryDetail.Select(x => new BtGoldLoanLeadJewelleryDetailViewModel
                         {
                             Id = x.Id,
                             JewelleryTypeId = x.JewelleryTypeId ?? null,
@@ -864,7 +864,7 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                             Quantity = x.Quantity ?? null,
                             Weight = x.Weight ?? null,
                             Karats = x.Karats ?? null,
-                        }).FirstOrDefault();
+                        }).ToList();
                     }
                     var balanceTrasferReturn = await _db.BalanceTransferLoanReturn.Where(x => x.LeadId == id).FirstOrDefaultAsync();
                     if (balanceTrasferReturn != null)

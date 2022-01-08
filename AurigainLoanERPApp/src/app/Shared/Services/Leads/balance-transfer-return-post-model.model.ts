@@ -38,6 +38,7 @@ export class FilePostModel {
 export class  BalanceTransferReturnViewModel {
   constructor() {
     this.BalanceTransferReturn = new BalanceTranferReturnViewModel();
+    this.Jewelleries = []
   }
   Id!: number;
   ProductId!: number;
@@ -51,7 +52,7 @@ export class  BalanceTransferReturnViewModel {
   ProductName!: string;
   IsInternalLead!: boolean;
   ExistingLoanDetail!: BtGoldLoanLeadExistingLoanViewModel;
-  JewelleryDetail!: BtGoldLoanLeadJewelleryDetailViewModel;
+  Jewelleries!: BtGoldLoanLeadJewelleryDetailViewModel[];
   BalanceTransferReturn!: BalanceTranferReturnViewModel;
 }
 export class BalanceTranferReturnViewModel {

@@ -8,7 +8,7 @@ namespace AurigainLoanERP.Shared.ContractModel
     {
         public BalanceTransferReturnViewModel()
         {            
-            JewelleryDetail = new BtGoldLoanLeadJewelleryDetailViewModel();           
+            Jewelleries = new List<BtGoldLoanLeadJewelleryDetailViewModel>();           
             ExistingLoanDetail = new BtGoldLoanLeadExistingLoanViewModel();
             BalanceTransferReturn = new BalanceTranferReturnViewModel();
         }
@@ -24,7 +24,7 @@ namespace AurigainLoanERP.Shared.ContractModel
         public string ProductName { get; set; }        
         public bool IsInternalLead { get; set; }             
         public BtGoldLoanLeadExistingLoanViewModel ExistingLoanDetail { get; set; }
-        public BtGoldLoanLeadJewelleryDetailViewModel JewelleryDetail { get; set; }   
+        public List<BtGoldLoanLeadJewelleryDetailViewModel> Jewelleries { get; set; }   
         public BalanceTranferReturnViewModel BalanceTransferReturn { get; set;}
 
     }
