@@ -48,6 +48,9 @@ export class LoginComponent implements OnInit {
           //     break;
 
           //   default:
+          setTimeout(() => {
+            location.reload();
+          }, 10);
           this._route.navigate(['']);
 
           //     break;
