@@ -136,5 +136,10 @@ namespace AurigainLoanERP.Api.Areas.Admin.Controllers
         {
             return await _objBTLead.SaveAppointment(model);
         }
+        [HttpGet]
+        public async Task<ApiServiceResponseModel<object>> DeleteBTGoldLoanLeadDocumentFile(long LeadId, long documentType, bool IsPOIPOADOC, string FileName = null) { 
+            return await _objBTLead.DeleteBTGoldLoanLeadDocumentFile(LeadId,documentType,IsPOIPOADOC,FileName);
+
+        }
     }
 }

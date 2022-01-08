@@ -20,6 +20,7 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
         Task<ApiServiceResponseModel<object>>AddUpdateBTGoldLoanLeadBalanceReturn(BalanceTranferReturnPostModel model);
         Task<ApiServiceResponseModel<BtGoldLoanLeadAppointmentViewModel>> GetAppointmentDetail(long leadId);
         Task<ApiServiceResponseModel<object>> SaveAppointment(BtGoldLoanLeadAppointmentPostModel model);
+        Task<ApiServiceResponseModel<object>> DeleteBTGoldLoanLeadDocumentFile(long LeadId, long documentType, bool IsPOIPOADOC, string FileName = null);
 
     }
 }
