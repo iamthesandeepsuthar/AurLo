@@ -267,12 +267,12 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                 if (detail != null)
                 {
                     objModel.Id = detail.Id;
-                    objModel.ProductCategoryName = detail.Product != null ?  detail.Product.ProductCategory.Name : null;
+                    objModel.ProductCategoryName = detail.Product != null ? detail.Product.ProductCategory.Name : null;
                     objModel.ProductId = detail.ProductId;
-                    objModel.ProductName = detail.Product!=null? detail.Product.Name : null;
+                    objModel.ProductName = detail.Product != null ? detail.Product.Name : null;
 
                     objModel.PurposeId = detail.PurposeId ?? null;
-                    objModel.PurposeName = detail.PurposeNavigation!=null? detail.PurposeNavigation.Name : null;
+                    objModel.PurposeName = detail.PurposeNavigation != null ? detail.PurposeNavigation.Name : null;
 
                     objModel.FullName = detail.FullName ?? null;
                     objModel.FatherName = detail.FatherName ?? null;
@@ -286,9 +286,9 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                     // objModel.CustomerUserName = detail.CustomerUser.UserName ?? null;
                     objModel.SecondaryMobile = detail.SecondaryMobile ?? null;
                     objModel.Purpose = detail.Purpose ?? null;
-             
+
                     objModel.LoanAmount = detail.LoanAmount;
-                    objModel.LoanAccountNumber = detail.LoanAccountNumber?? null;
+                    objModel.LoanAccountNumber = detail.LoanAccountNumber ?? null;
                     objModel.LoanCaseNumber = detail.LoanCaseNumber != null ? detail.LoanCaseNumber : "N/A";
                     objModel.LeadSourceByuserId = detail.LeadSourceByuserId;
                     objModel.LeadSourceByuserName = detail.LeadSourceByuser.UserName ?? null;
@@ -346,7 +346,7 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                     }
                     if (detail.BtgoldLoanLeadDocumentPoipoafiles != null)
                     {
-                        var objPOAPOIFile = detail.BtgoldLoanLeadDocumentPoipoafiles.ToList(); 
+                        var objPOAPOIFile = detail.BtgoldLoanLeadDocumentPoipoafiles.ToList();
                         if (objModel.DocumentDetail != null)
                         {
 
@@ -970,7 +970,7 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                         }
                         await _db.SaveChangesAsync();
                         _db.Database.CommitTransaction();
-                        decimal? totalReturnAmount = await _db.BalanceTransferLoanReturn.Where(x => x.LeadId == model.LeadId).Select(x=>x.AmountReturn).SumAsync();
+                        decimal? totalReturnAmount = await _db.BalanceTransferLoanReturn.Where(x => x.LeadId == model.LeadId).Select(x => x.AmountReturn).SumAsync();
                         if (model.LoanAmount == totalReturnAmount)
                         {
                             var objModel = new BtgoldLoanLeadStatusActionHistory()
@@ -986,7 +986,7 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                             var leadDetail = await _db.BtgoldLoanLead.Where(x => x.Id == model.LeadId).FirstOrDefaultAsync();
                             leadDetail.LeadStatusId = ((int)LeadStatusEnum.Completed);
                             await _db.SaveChangesAsync();
-                        }                        
+                        }
                     }
                     return CreateResponse<object>(true, ResponseMessage.Update, true, ((int)ApiStatusCode.Ok));
                 }
@@ -1058,6 +1058,134 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
             catch (Exception ex)
             {
                 return CreateResponse<object>(null, ResponseMessage.Fail, false, ((int)ApiStatusCode.ServerException), ex.Message ?? ex.InnerException.ToString());
+            }
+        }
+
+        public async Task<ApiServiceResponseModel<object>> DeleteBTGoldLoanLeadDocumentFile(long LeadId, long documentType, bool IsPOIPOADOC, string FileName = null)
+        {
+            try
+            {
+
+                if (IsPOIPOADOC)
+                {
+                    var objFileModel = await _db.BtgoldLoanLeadDocumentPoipoafiles.Where(x => x.Id == LeadId && x.IsPoi == (documentType == 4 ? true : false) && FileName.Contains(x.Path)).FirstOrDefaultAsync();
+
+                    if (objFileModel != null)
+                    {
+                        if (!string.IsNullOrEmpty(objFileModel.Path))
+                        {
+                            _fileHelper.Delete(objFileModel.Path);
+
+                            _db.BtgoldLoanLeadDocumentPoipoafiles.Remove(objFileModel);
+                            await _db.SaveChangesAsync();
+                        }
+
+                    }
+
+                }
+                else
+                {
+                    var objFileModel = await _db.BtgoldLoanLeadDocumentDetail.FirstOrDefaultAsync(x => x.Id == LeadId);
+                    if (objFileModel != null)
+                    {
+                          switch (documentType)
+                        {
+                            case 1:
+
+                                if (!string.IsNullOrEmpty(objFileModel.CustomerPhoto))
+                                {
+                                    _fileHelper.Delete(objFileModel.CustomerPhoto);
+
+                                }
+                                objFileModel.CustomerPhoto = null;
+
+                                break;
+                            case 2:
+                                if (!string.IsNullOrEmpty(objFileModel.BlankCheque1))
+                                {
+                                    _fileHelper.Delete(objFileModel.BlankCheque1);
+
+                                }
+
+                                objFileModel.BlankCheque1 = null;
+
+
+                                break;
+                            case 3:
+                                if (!string.IsNullOrEmpty(objFileModel.BlankCheque2))
+                                {
+                                    _fileHelper.Delete(objFileModel.BlankCheque2);
+
+                                }
+
+                                objFileModel.BlankCheque2 = null;
+                                break;
+
+                            case 6:
+
+                                if (!string.IsNullOrEmpty(objFileModel.LoanDocument))
+                                {
+                                    _fileHelper.Delete(objFileModel.LoanDocument);
+
+                                }
+
+                                objFileModel.LoanDocument = null;
+                                break;
+                            case 7:
+                                if (!string.IsNullOrEmpty(objFileModel.ForeClosureLetter))
+                                {
+                                    _fileHelper.Delete(objFileModel.ForeClosureLetter);
+                                }
+                                objFileModel.ForeClosureLetter = null;
+                                break;
+                            case 8:
+                                if (!string.IsNullOrEmpty(objFileModel.AtmwithdrawalSlip))
+                                {
+                                    _fileHelper.Delete(objFileModel.AtmwithdrawalSlip);
+
+                                }
+                                objFileModel.AtmwithdrawalSlip = null;
+                                break;
+
+                            case 9:
+
+                                if (!string.IsNullOrEmpty(objFileModel.PromissoryNote))
+                                {
+                                    _fileHelper.Delete(objFileModel.PromissoryNote);
+
+                                }
+                                objFileModel.PromissoryNote = null;
+                                break;
+
+                            case 10:
+
+                                if (!string.IsNullOrEmpty(objFileModel.AggrementLastPage))
+                                {
+                                    _fileHelper.Delete(objFileModel.AggrementLastPage);
+
+                                }
+
+                                objFileModel.AggrementLastPage = null;
+
+                                break;
+
+                            default:
+                                break;
+                        }
+
+                        _db.BtgoldLoanLeadDocumentDetail.Remove(objFileModel);
+                        await _db.SaveChangesAsync();
+                       
+                    }
+
+                }
+
+                return CreateResponse(true as object, ResponseMessage.Update, true, ((int)ApiStatusCode.Ok));
+            }
+            catch (Exception ex)
+            {
+                 return CreateResponse(true as object, ResponseMessage.Fail, true, ((int)ApiStatusCode.DataBaseTransactionFailed), ex.Message ?? ex.InnerException.ToString());
+
             }
         }
 
