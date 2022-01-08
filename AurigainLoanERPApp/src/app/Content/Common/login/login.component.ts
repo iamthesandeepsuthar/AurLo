@@ -49,14 +49,17 @@ export class LoginComponent implements OnInit {
 
           //   default:
           setTimeout(() => {
-            location.reload();
-          }, 10);
+
+
+            this.toast.success(res.Message?.toString(), 'Login Response');
+          }, 0);
           this._route.navigate(['']);
+          location.reload();
 
           //     break;
           // }
 
-          this.toast.success(res.Message?.toString(), 'Login Response');
+
         } else {
           this.toast.info(res.Message?.toString(), 'Login Response');
         }
