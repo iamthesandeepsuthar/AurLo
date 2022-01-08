@@ -734,9 +734,10 @@
             <label>Customer Photo</label>
             <input type="hidden" name="CustomerPhoto" [(ngModel)]="model.DocumentDetail.CustomerPhoto"
               formControlName="CustomerPhoto">
-              <!-- [CurrentFileLength]="model.DocumentDetail.CustomerPhoto? 1: 0" -->
+
             <app-file-selector [CurrentFileLength]="model.DocumentDetail.CustomerPhoto? 1: 0" [MaxFileLength]="1"
               (FilesChanged)="onDocumentAttach(1,$event)"
+              [CurrentFileLength]="model?.DocumentDetail?.CustomerPhoto ? 1: 0"
               [ngClass]="{ 'is-invalid': f5.CustomerPhoto?.errors && f5.CustomerPhoto?.touched}">
             </app-file-selector>
 
@@ -751,6 +752,7 @@
               formControlName="Cheque1">
 
             <app-file-selector [MaxFileLength]="1" (FilesChanged)="onDocumentAttach(2,$event)"
+              [CurrentFileLength]="model?.DocumentDetail?.BlankCheque1 ? 1: 0"
               [ngClass]="{ 'is-invalid': f5.Cheque1?.errors && f5.Cheque1?.touched}">
             </app-file-selector>
 
@@ -767,6 +769,7 @@
               formControlName="Cheque2">
 
             <app-file-selector [MaxFileLength]="1" (FilesChanged)="onDocumentAttach(3,$event)"
+              [CurrentFileLength]="model?.DocumentDetail?.BlankCheque2 ? 1: 0"
               [ngClass]="{ 'is-invalid': f5.Cheque2?.errors && f5.Cheque2?.touched}">
             </app-file-selector>
 
@@ -783,6 +786,7 @@
               formControlName="POIdocument">
 
             <app-file-selector [MaxFileLength]="POIMaxFile" (FilesChanged)="onDocumentAttach(4,$event)"
+              [CurrentFileLength]="model?.DocumentDetail?.KycDocumentPoi?.length ?? 0"
               [ngClass]="{ 'is-invalid': f5.POIdocument?.errors && f5.POIdocument?.touched}">
             </app-file-selector>
 
@@ -799,12 +803,13 @@
               formControlName="POAdocument">
 
             <app-file-selector [MaxFileLength]="POAMaxFile" (FilesChanged)="onDocumentAttach(5,$event)"
+              [CurrentFileLength]="model?.DocumentDetail?.KycDocumentPoa?.length ?? 0"
               [ngClass]="{ 'is-invalid': f5.POAdocument?.errors && f5.POAdocument?.touched}">
             </app-file-selector>
 
             <div class="invalid-feedback"
               *ngIf="(leadFormDocumentDetail.get('POAdocument')?.hasError('required') && leadFormDocumentDetail.get('POAdocument')?.touched)">
-              Please Add Blank Cheque 2 </div>
+              Please Add Document (POA) </div>
 
           </div>
 
@@ -815,7 +820,9 @@
               formControlName="LoanDocument">
 
             <app-file-selector [MaxFileLength]="1" (FilesChanged)="onDocumentAttach(6,$event)"
-              [ngClass]="{ 'is-invalid': f5.LoanDocument?.errors && f5.LoanDocument?.touched}">
+            [CurrentFileLength]="model?.DocumentDetail?.LoanDocument ? 1: 0"
+
+            [ngClass]="{ 'is-invalid': f5.LoanDocument?.errors && f5.LoanDocument?.touched}">
             </app-file-selector>
 
             <div class="invalid-feedback"
@@ -832,6 +839,8 @@
               formControlName="ForeClouserLetter">
 
             <app-file-selector [MaxFileLength]="1" (FilesChanged)="onDocumentAttach(7,$event)"
+            [CurrentFileLength]="model?.DocumentDetail?.ForeClosureLetter ? 1: 0"
+
               [ngClass]="{ 'is-invalid': f5.ForeClouserLetter?.errors && f5.ForeClouserLetter?.touched}">
             </app-file-selector>
 
@@ -847,7 +856,9 @@
               formControlName="ATMWithdrawalSlip">
 
             <app-file-selector [MaxFileLength]="1" (FilesChanged)="onDocumentAttach(8,$event)"
-              [ngClass]="{ 'is-invalid': f5.ATMWithdrawalSlip?.errors && f5.ATMWithdrawalSlip?.touched}">
+            [CurrentFileLength]="model?.DocumentDetail?.AtmwithdrawalSlip ? 1: 0"
+
+            [ngClass]="{ 'is-invalid': f5.ATMWithdrawalSlip?.errors && f5.ATMWithdrawalSlip?.touched}">
             </app-file-selector>
 
             <div class="invalid-feedback"
@@ -862,7 +873,9 @@
               formControlName="PromisaryNote">
 
             <app-file-selector [MaxFileLength]="1" (FilesChanged)="onDocumentAttach(9,$event)"
-              [ngClass]="{ 'is-invalid': f5.PromisaryNote?.errors && f5.PromisaryNote?.touched}">
+            [CurrentFileLength]="model?.DocumentDetail?.PromissoryNote ? 1: 0"
+
+            [ngClass]="{ 'is-invalid': f5.PromisaryNote?.errors && f5.PromisaryNote?.touched}">
             </app-file-selector>
 
             <div class="invalid-feedback"
@@ -876,7 +889,9 @@
               formControlName="LastPageOfAgreement">
 
             <app-file-selector [MaxFileLength]="1" (FilesChanged)="onDocumentAttach(10,$event)"
-              [ngClass]="{ 'is-invalid': f5.LastPageOfAgreement?.errors && f5.LastPageOfAgreement?.touched}">
+            [CurrentFileLength]="model?.DocumentDetail?.AggrementLastPage ? 1: 0"
+
+            [ngClass]="{ 'is-invalid': f5.LastPageOfAgreement?.errors && f5.LastPageOfAgreement?.touched}">
             </app-file-selector>
 
             <div class="invalid-feedback"
