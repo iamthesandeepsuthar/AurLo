@@ -40,16 +40,17 @@ export class LoginComponent implements OnInit {
           // switch (data.RoleId) {
           //   case UserRoleEnum.Customer:
           //     this._route.navigate([Routing_Url.UserCustomerModule]);
-                      //     break;
+          //     break;
           //   case UserRoleEnum.Operator:
           //     this._route.navigate([Routing_Url.UserBackendOperatorModule]);
-                      //    break;
-                      //   default:
+          //    break;
+          //   default:
           setTimeout(() => {
-            location.reload();
-           this.toast.success(res.Message?.toString(), 'Login Response');
-          }, 0);
+  location.reload();
+            this.toast.success(res.Message?.toString(), 'Login Response');
+          }, -5);
           this._route.navigate(['']);
+
           //     break;
           // }
         } else {
