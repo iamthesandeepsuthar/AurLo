@@ -574,7 +574,7 @@
 
           <div class="form-group col-md-4">
             <label>PAN Number</label>
-            <input type="text" [maxlength]="10" class="form-control" id="input10" placeholder="PAN Number"
+            <input type="text" UpperCase [maxlength]="10" class="form-control" id="input10" placeholder="PAN Number"
               [ngModel]="model.KYCDetail.PANNumber | uppercase" formControlName="PanNumber"
               [ngClass]="{ 'is-invalid': f7.PanNumber?.errors && f7.PanNumber?.touched}">
             <div class="invalid-feedback"
@@ -883,7 +883,7 @@
             <div class="invalid-feedback"
               *ngIf="(leadFormDocumentDetail.get('POAdocument')?.hasError('required') && leadFormDocumentDetail.get('POAdocument')?.touched)">
               Please Add Document (POA) </div>
-              
+
             <ul *ngIf="model.DocumentDetail.KycDocumentPoi &&  model.DocumentDetail.Id>0">
               <ng-container *ngFor="let item of model.DocumentDetail.KycDocumentPoa">
                 <div class="dropzone dropzone-light file-upload-details" *ngIf="!item.IsEditMode">

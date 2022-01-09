@@ -305,11 +305,14 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
             this.model.AddressDetail.Id = viewData.DetailAddress.Id;
             this.model.AddressDetail.Address = viewData.DetailAddress.Address;
             this.model.AddressDetail.AeraPincodeId = viewData.DetailAddress.AeraPincodeId;
+            this.model.AddressDetail.AddressLine2 = viewData.DetailAddress.AddressLine2;
 
             this.CorrespondAeraPincode = viewData.DetailAddress.CorrespondPinCode;
             this.getDropDownPinCodeArea(true, true);
             this.model.AddressDetail.CorrespondAddress = viewData.DetailAddress.CorrespondAddress;
             this.model.AddressDetail.CorrespondAeraPincodeId = viewData.DetailAddress.CorrespondAeraPincodeId;
+            this.model.AddressDetail.CorrespondAddressLine2 = viewData.DetailAddress.CorrespondingAddressLine2
+            ;
           }
           if (viewData.AppointmentDetail) {
             this.BankId = viewData.AppointmentDetail.BankId;
@@ -842,7 +845,7 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
   }
 
   onChangePOADocument(value: any = this.model?.KYCDetail?.PoadocumentTypeId) {
-    debugger
+
     if (value) {
       let doc = this.ddlDocumentTypePOA?.find(x => x.Id == value);
       this.f7.PoadocumentNumber.setValidators(Validators.compose([Validators.minLength(doc?.DocumentNumberLength as number), Validators.maxLength(doc?.DocumentNumberLength as number)]));
