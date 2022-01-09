@@ -1061,14 +1061,14 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
             }
         }
 
-        public async Task<ApiServiceResponseModel<object>> DeleteBTGoldLoanLeadDocumentFile(long LeadId, long documentType, bool IsPOIPOADOC, string FileName = null)
+        public async Task<ApiServiceResponseModel<object>> DeleteBTGoldLoanLeadDocumentFile(BTGoldLoanDeletePostModel model )
         {
             try
             {
 
-                if (IsPOIPOADOC)
+                if (model.IsPOIPOADOC)
                 {
-                    var objFileModel = await _db.BtgoldLoanLeadDocumentPoipoafiles.Where(x => x.Id == LeadId && x.IsPoi == (documentType == 4 ? true : false) && FileName.Contains(x.Path)).FirstOrDefaultAsync();
+                    var objFileModel = await _db.BtgoldLoanLeadDocumentPoipoafiles.Where(x => x.Id == model.LeadId && x.IsPoi == (model.documentType == 4 ? true : false) && model.FileName.Contains(x.Path)).FirstOrDefaultAsync();
 
                     if (objFileModel != null)
                     {
@@ -1085,10 +1085,10 @@ namespace AurigainLoanERP.Services.BalanceTransferLead
                 }
                 else
                 {
-                    var objFileModel = await _db.BtgoldLoanLeadDocumentDetail.FirstOrDefaultAsync(x => x.Id == LeadId);
+                    var objFileModel = await _db.BtgoldLoanLeadDocumentDetail.FirstOrDefaultAsync(x => x.Id == model.LeadId);
                     if (objFileModel != null)
                     {
-                          switch (documentType)
+                          switch (model.documentType)
                         {
                             case 1:
 

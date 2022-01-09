@@ -745,6 +745,25 @@
               *ngIf="(leadFormDocumentDetail.get('CustomerPhoto')?.hasError('required') && leadFormDocumentDetail.get('CustomerPhoto')?.touched)">
               Please Add Customer Photo </div>
 
+            <ul
+              *ngIf="model.DocumentDetail.CustomerPhoto && !model.DocumentDetail.CustomerPhoto.IsEditMode && model.DocumentDetail.Id>0">
+
+              <div class="dropzone dropzone-light file-upload-details">
+                <div class="dz-details">
+                  <div class="dz-filename"><span data-dz-name="">{{model.DocumentDetail.CustomerPhoto?.FileName}}</span>
+                  </div>
+                </div>
+                <a [href]="model.DocumentDetail.CustomerPhoto.File" target="_blank">
+                  <i data-toggle="tooltip" data-placement="bottom" title="View"
+                    class="fas fa-eye file-upload-details-remove"></i>
+                </a>
+
+                <i (click)="RemoveDocument(1,model.DocumentDetail.CustomerPhoto,false)" data-toggle="tooltip"
+                  data-placement="bottom" title="Remove"
+                  class="fas fa-trash-alt text-danger file-upload-details-remove"></i>
+              </div>
+            </ul>
+
           </div>
           <div class="form-group col-md-6">
             <label>Blank Cheque 1</label>
@@ -760,6 +779,25 @@
               *ngIf="(leadFormDocumentDetail.get('Cheque1')?.hasError('required') && leadFormDocumentDetail.get('Cheque1')?.touched)">
               Please Add Blank Cheque 1 </div>
 
+
+            <ul
+              *ngIf="model.DocumentDetail.BlankCheque1 && !model.DocumentDetail.BlankCheque1.IsEditMode && model.DocumentDetail.Id>0">
+
+              <div class="dropzone dropzone-light file-upload-details">
+                <div class="dz-details">
+                  <div class="dz-filename"><span data-dz-name="">{{model.DocumentDetail.BlankCheque1?.FileName}}</span>
+                  </div>
+                </div>
+                <a [href]="model.DocumentDetail.BlankCheque1.File" target="_blank">
+                  <i data-toggle="tooltip" data-placement="bottom" title="View"
+                    class="fas fa-eye file-upload-details-remove"></i>
+                </a>
+
+                <i (click)="RemoveDocument(2,model.DocumentDetail.BlankCheque1,false)" data-toggle="tooltip"
+                  data-placement="bottom" title="Remove"
+                  class="fas fa-trash-alt text-danger file-upload-details-remove"></i>
+              </div>
+            </ul>
 
           </div>
           <div class="form-group col-md-6">
@@ -777,6 +815,24 @@
               *ngIf="(leadFormDocumentDetail.get('Cheque2')?.hasError('required') && leadFormDocumentDetail.get('Cheque2')?.touched)">
               Please Add Blank Cheque 2 </div>
 
+            <ul
+              *ngIf="model.DocumentDetail.BlankCheque2 && !model.DocumentDetail.BlankCheque2.IsEditMode && model.DocumentDetail.Id>0">
+
+              <div class="dropzone dropzone-light file-upload-details">
+                <div class="dz-details">
+                  <div class="dz-filename"><span data-dz-name="">{{model.DocumentDetail.BlankCheque2?.FileName}}</span>
+                  </div>
+                </div>
+                <a [href]="model.DocumentDetail.BlankCheque2.File" target="_blank">
+                  <i data-toggle="tooltip" data-placement="bottom" title="View"
+                    class="fas fa-eye file-upload-details-remove"></i>
+                </a>
+
+                <i (click)="RemoveDocument(3,model.DocumentDetail.BlankCheque2,false)" data-toggle="tooltip"
+                  data-placement="bottom" title="Remove"
+                  class="fas fa-trash-alt text-danger file-upload-details-remove"></i>
+              </div>
+            </ul>
 
           </div>
 
@@ -795,6 +851,23 @@
               Please AddKYC Document (POI) </div>
 
 
+            <ul *ngIf="model.DocumentDetail.KycDocumentPoi &&  model.DocumentDetail.Id>0">
+              <ng-container *ngFor="let item of model.DocumentDetail.KycDocumentPoi">
+                <div class="dropzone dropzone-light file-upload-details" *ngIf="!item.IsEditMode">
+                  <div class="dz-details">
+                    <div class="dz-filename"><span data-dz-name="">{{item?.FileName}}</span>
+                    </div>
+                  </div>
+                  <a [href]="item?.File" target="_blank">
+                    <i data-toggle="tooltip" data-placement="bottom" title="View"
+                      class="fas fa-eye file-upload-details-remove"></i>
+                  </a>
+
+                  <i (click)="RemoveDocument(4,item,true)" data-toggle="tooltip" data-placement="bottom" title="Remove"
+                    class="fas fa-trash-alt text-danger file-upload-details-remove"></i>
+                </div>
+              </ng-container>
+            </ul>
 
           </div>
           <div class="form-group col-md-6">
@@ -810,7 +883,24 @@
             <div class="invalid-feedback"
               *ngIf="(leadFormDocumentDetail.get('POAdocument')?.hasError('required') && leadFormDocumentDetail.get('POAdocument')?.touched)">
               Please Add Document (POA) </div>
+              
+            <ul *ngIf="model.DocumentDetail.KycDocumentPoi &&  model.DocumentDetail.Id>0">
+              <ng-container *ngFor="let item of model.DocumentDetail.KycDocumentPoa">
+                <div class="dropzone dropzone-light file-upload-details" *ngIf="!item.IsEditMode">
+                  <div class="dz-details">
+                    <div class="dz-filename"><span data-dz-name="">{{item?.FileName}}</span>
+                    </div>
+                  </div>
+                  <a [href]="item?.File" target="_blank">
+                    <i data-toggle="tooltip" data-placement="bottom" title="View"
+                      class="fas fa-eye file-upload-details-remove"></i>
+                  </a>
 
+                  <i (click)="RemoveDocument(5,item,true)" data-toggle="tooltip" data-placement="bottom" title="Remove"
+                    class="fas fa-trash-alt text-danger file-upload-details-remove"></i>
+                </div>
+              </ng-container>
+            </ul>
           </div>
 
           <div class="form-group col-md-6">
@@ -820,9 +910,8 @@
               formControlName="LoanDocument">
 
             <app-file-selector [MaxFileLength]="1" (FilesChanged)="onDocumentAttach(6,$event)"
-            [CurrentFileLength]="model?.DocumentDetail?.LoanDocument ? 1: 0"
-
-            [ngClass]="{ 'is-invalid': f5.LoanDocument?.errors && f5.LoanDocument?.touched}">
+              [CurrentFileLength]="model?.DocumentDetail?.LoanDocument ? 1: 0"
+              [ngClass]="{ 'is-invalid': f5.LoanDocument?.errors && f5.LoanDocument?.touched}">
             </app-file-selector>
 
             <div class="invalid-feedback"
@@ -830,6 +919,24 @@
               Please Add Loan Document </div>
 
 
+            <ul
+              *ngIf="model.DocumentDetail.LoanDocument && !model.DocumentDetail.LoanDocument.IsEditMode && model.DocumentDetail.Id>0">
+
+              <div class="dropzone dropzone-light file-upload-details">
+                <div class="dz-details">
+                  <div class="dz-filename"><span data-dz-name="">{{model.DocumentDetail.LoanDocument?.FileName}}</span>
+                  </div>
+                </div>
+                <a [href]="model.DocumentDetail.LoanDocument.File" target="_blank">
+                  <i data-toggle="tooltip" data-placement="bottom" title="View"
+                    class="fas fa-eye file-upload-details-remove"></i>
+                </a>
+
+                <i (click)="RemoveDocument(6,model.DocumentDetail.LoanDocument,false)" data-toggle="tooltip"
+                  data-placement="bottom" title="Remove"
+                  class="fas fa-trash-alt text-danger file-upload-details-remove"></i>
+              </div>
+            </ul>
 
           </div>
           <div class="form-group col-md-6">
@@ -839,8 +946,7 @@
               formControlName="ForeClouserLetter">
 
             <app-file-selector [MaxFileLength]="1" (FilesChanged)="onDocumentAttach(7,$event)"
-            [CurrentFileLength]="model?.DocumentDetail?.ForeClosureLetter ? 1: 0"
-
+              [CurrentFileLength]="model?.DocumentDetail?.ForeClosureLetter ? 1: 0"
               [ngClass]="{ 'is-invalid': f5.ForeClouserLetter?.errors && f5.ForeClouserLetter?.touched}">
             </app-file-selector>
 
@@ -848,6 +954,25 @@
               *ngIf="(leadFormDocumentDetail.get('ForeClouserLetter')?.hasError('required') && leadFormDocumentDetail.get('ForeClouserLetter')?.touched)">
               Please Add Foreclosure Letter </div>
 
+            <ul
+              *ngIf="model.DocumentDetail.ForeClosureLetter && !model.DocumentDetail.ForeClosureLetter.IsEditMode && model.DocumentDetail.Id>0">
+
+              <div class="dropzone dropzone-light file-upload-details">
+                <div class="dz-details">
+                  <div class="dz-filename"><span
+                      data-dz-name="">{{model.DocumentDetail.ForeClosureLetter?.FileName}}</span>
+                  </div>
+                </div>
+                <a [href]="model.DocumentDetail.ForeClosureLetter.File" target="_blank">
+                  <i data-toggle="tooltip" data-placement="bottom" title="View"
+                    class="fas fa-eye file-upload-details-remove"></i>
+                </a>
+
+                <i (click)="RemoveDocument(7,model.DocumentDetail.ForeClosureLetter,false)" data-toggle="tooltip"
+                  data-placement="bottom" title="Remove"
+                  class="fas fa-trash-alt text-danger file-upload-details-remove"></i>
+              </div>
+            </ul>
           </div>
           <div class="form-group col-md-6">
             <label>ATM withdrawal slip</label>
@@ -856,15 +981,33 @@
               formControlName="ATMWithdrawalSlip">
 
             <app-file-selector [MaxFileLength]="1" (FilesChanged)="onDocumentAttach(8,$event)"
-            [CurrentFileLength]="model?.DocumentDetail?.AtmwithdrawalSlip ? 1: 0"
-
-            [ngClass]="{ 'is-invalid': f5.ATMWithdrawalSlip?.errors && f5.ATMWithdrawalSlip?.touched}">
+              [CurrentFileLength]="model?.DocumentDetail?.AtmwithdrawalSlip ? 1: 0"
+              [ngClass]="{ 'is-invalid': f5.ATMWithdrawalSlip?.errors && f5.ATMWithdrawalSlip?.touched}">
             </app-file-selector>
 
             <div class="invalid-feedback"
               *ngIf="(leadFormDocumentDetail.get('ATMWithdrawalSlip')?.hasError('required') && leadFormDocumentDetail.get('ATMWithdrawalSlip')?.touched)">
               Please Add ATM withdrawal slip</div>
 
+            <ul
+              *ngIf="model.DocumentDetail.AtmwithdrawalSlip && !model.DocumentDetail.AtmwithdrawalSlip.IsEditMode && model.DocumentDetail.Id>0">
+
+              <div class="dropzone dropzone-light file-upload-details">
+                <div class="dz-details">
+                  <div class="dz-filename"><span
+                      data-dz-name="">{{model.DocumentDetail.AtmwithdrawalSlip?.FileName}}</span>
+                  </div>
+                </div>
+                <a [href]="model.DocumentDetail.AtmwithdrawalSlip.File" target="_blank">
+                  <i data-toggle="tooltip" data-placement="bottom" title="View"
+                    class="fas fa-eye file-upload-details-remove"></i>
+                </a>
+
+                <i (click)="RemoveDocument(8,model.DocumentDetail.AtmwithdrawalSlip,false)" data-toggle="tooltip"
+                  data-placement="bottom" title="Remove"
+                  class="fas fa-trash-alt text-danger file-upload-details-remove"></i>
+              </div>
+            </ul>
           </div>
 
           <div class="form-group col-md-6">
@@ -873,15 +1016,33 @@
               formControlName="PromisaryNote">
 
             <app-file-selector [MaxFileLength]="1" (FilesChanged)="onDocumentAttach(9,$event)"
-            [CurrentFileLength]="model?.DocumentDetail?.PromissoryNote ? 1: 0"
-
-            [ngClass]="{ 'is-invalid': f5.PromisaryNote?.errors && f5.PromisaryNote?.touched}">
+              [CurrentFileLength]="model?.DocumentDetail?.PromissoryNote ? 1: 0"
+              [ngClass]="{ 'is-invalid': f5.PromisaryNote?.errors && f5.PromisaryNote?.touched}">
             </app-file-selector>
 
             <div class="invalid-feedback"
               *ngIf="(leadFormDocumentDetail.get('PromisaryNote')?.hasError('required') && leadFormDocumentDetail.get('PromisaryNote')?.touched)">
               Please Add Promissory Note </div>
 
+            <ul
+              *ngIf="model.DocumentDetail.PromissoryNote && !model.DocumentDetail.PromissoryNote.IsEditMode && model.DocumentDetail.Id>0">
+
+              <div class="dropzone dropzone-light file-upload-details">
+                <div class="dz-details">
+                  <div class="dz-filename"><span
+                      data-dz-name="">{{model.DocumentDetail.PromissoryNote?.FileName}}</span>
+                  </div>
+                </div>
+                <a [href]="model.DocumentDetail.PromissoryNote.File" target="_blank">
+                  <i data-toggle="tooltip" data-placement="bottom" title="View"
+                    class="fas fa-eye file-upload-details-remove"></i>
+                </a>
+
+                <i (click)="RemoveDocument(9,model.DocumentDetail.PromissoryNote,false)" data-toggle="tooltip"
+                  data-placement="bottom" title="Remove"
+                  class="fas fa-trash-alt text-danger file-upload-details-remove"></i>
+              </div>
+            </ul>
           </div>
           <div class="form-group col-md-6">
             <label>Last page of the Agreement</label>
@@ -889,15 +1050,33 @@
               formControlName="LastPageOfAgreement">
 
             <app-file-selector [MaxFileLength]="1" (FilesChanged)="onDocumentAttach(10,$event)"
-            [CurrentFileLength]="model?.DocumentDetail?.AggrementLastPage ? 1: 0"
-
-            [ngClass]="{ 'is-invalid': f5.LastPageOfAgreement?.errors && f5.LastPageOfAgreement?.touched}">
+              [CurrentFileLength]="model?.DocumentDetail?.AggrementLastPage ? 1: 0"
+              [ngClass]="{ 'is-invalid': f5.LastPageOfAgreement?.errors && f5.LastPageOfAgreement?.touched}">
             </app-file-selector>
 
             <div class="invalid-feedback"
               *ngIf="(leadFormDocumentDetail.get('LastPageOfAgreement')?.hasError('required') && leadFormDocumentDetail.get('LastPageOfAgreement')?.touched)">
               Please Last page of the Agreement </div>
 
+            <ul
+              *ngIf="model.DocumentDetail.AggrementLastPage && !model.DocumentDetail.AggrementLastPage.IsEditMode && model.DocumentDetail.Id>0">
+
+              <div class="dropzone dropzone-light file-upload-details">
+                <div class="dz-details">
+                  <div class="dz-filename"><span
+                      data-dz-name="">{{model.DocumentDetail.AggrementLastPage?.FileName}}</span>
+                  </div>
+                </div>
+                <a [href]="model.DocumentDetail.AggrementLastPage.File" target="_blank">
+                  <i data-toggle="tooltip" data-placement="bottom" title="View"
+                    class="fas fa-eye file-upload-details-remove"></i>
+                </a>
+
+                <i (click)="RemoveDocument(10,model.DocumentDetail.AggrementLastPage,false)" data-toggle="tooltip"
+                  data-placement="bottom" title="Remove"
+                  class="fas fa-trash-alt text-danger file-upload-details-remove"></i>
+              </div>
+            </ul>
           </div>
         </div>
       </div>

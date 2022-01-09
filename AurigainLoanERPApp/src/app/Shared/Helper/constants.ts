@@ -212,6 +212,8 @@ export class API_Url {
  public static BT_Gold_Loan_Lead_Add_Update_Balance_Return_Api=`${environment.apiEndPoint}GoldLoanBalanceTransfer/AddUpdateBTGoldLoanLeadBalanceRetrun`;
  public static BT_Gold_Loan_Lead_Appointment_Detail_Api=`${environment.apiEndPoint}GoldLoanBalanceTransfer/AppointmentDetailById/`;
  public static BT_Gold_Loan_Lead_Add_Update_Appointment_Api=`${environment.apiEndPoint}GoldLoanBalanceTransfer/SaveAppointment`;
+ public static BT_Gold_Loan_Lead_Delete_Document_Api=`${environment.apiEndPoint}GoldLoanBalanceTransfer/DeleteBTGoldLoanLeadDocumentFile`;
+
  //#endregion
 }
 
@@ -380,6 +382,7 @@ export class Message {
   static UpdateFail = 'Record failed to update...!';
   static ConfirmUpdate = 'Are you Sure update this record?';
   static DeleteConfirmation = 'Are you want to delete record ?';
+  static FileDeleted = 'File successfully Deleted...!';
   //#endregion
 }
 

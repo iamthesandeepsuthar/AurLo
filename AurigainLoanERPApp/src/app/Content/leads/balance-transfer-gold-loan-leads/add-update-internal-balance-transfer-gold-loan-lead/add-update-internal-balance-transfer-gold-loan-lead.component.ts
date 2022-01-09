@@ -7,7 +7,7 @@ import { UserRoleEnum, ProductCategoryEnum } from 'src/app/Shared/Enum/fixed-val
 import { AuthService } from 'src/app/Shared/Helper/auth.service';
 import { DropDownModel } from 'src/app/Shared/Helper/common-model';
 import { DropDown_key, Message, Routing_Url } from 'src/app/Shared/Helper/constants';
-import { BtGoldLoanLeadJewelleryDetailPostModel, BTGoldLoanLeadPostModel, BTGoldLoanLeadViewModel } from 'src/app/Shared/Model/Leads/btgold-loan-lead-post-model.model';
+import { BTGoldLoanDeletePostModel, BtGoldLoanLeadJewelleryDetailPostModel, BTGoldLoanLeadPostModel, BTGoldLoanLeadViewModel } from 'src/app/Shared/Model/Leads/btgold-loan-lead-post-model.model';
 import { DDLBranchModel } from 'src/app/Shared/Model/master-model/bank-model.model';
 import { DDLDocumentTypeModel } from 'src/app/Shared/Model/master-model/document-type.model';
 import { DDLJewellaryType } from 'src/app/Shared/Model/master-model/jewellary-type-model.model';
@@ -25,6 +25,7 @@ import { GoldLoanFreshLeadJewelleryDetailModel } from 'src/app/Shared/Model/Lead
 import { FileInfo } from 'src/app/Content/Common/file-selector/file-selector.component';
 import { DocumentTypeEnum } from '../../../../Shared/Enum/fixed-value';
 import { FilePostModel } from '../../../../Shared/Model/doorstep-agent-model/door-step-agent.model';
+import { FileModel } from '../../../../Shared/Model/Leads/btgold-loan-lead-post-model.model';
 
 @Component({
   selector: 'app-add-update-internal-balance-transfer-gold-loan-lead',
@@ -77,7 +78,6 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
   get f5() { return this.leadFormDocumentDetail.controls; }
   get f6() { return this.leadFormExistingLoanDetail.controls; }
   get f7() { return this.leadFormKYCDetail.controls; }
-
   get userDetail() { return this._auth.GetUserDetail() };
   get DobMaxDate() {
     var date = new Date();
@@ -363,16 +363,17 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
 
             this.model.DocumentDetail.Id = viewData.Id;
             this.model.DocumentDetail.CustomerPhoto = {
-              FileName: viewData.DocumentDetail.CustomerPhoto,
+
+              FileName: viewData.DocumentDetail.CustomerPhoto.split('/')[viewData.DocumentDetail.CustomerPhoto.split('/').length - 1],
               IsEditMode: false,
               File: viewData.DocumentDetail.CustomerPhoto,
               FileType: viewData.DocumentDetail.CustomerPhoto.split('.')[1]
-            };
+            } ?? undefined;
 
             viewData.DocumentDetail.KycDocumentPoi.forEach(element => {
               this.model.DocumentDetail.KycDocumentPoi?.push({
 
-                FileName: element,
+                FileName: element.split('/')[element.split('/').length - 1],
                 IsEditMode: false,
                 File: element,
                 FileType: element.split('.')[1]
@@ -383,7 +384,7 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
             viewData.DocumentDetail.KycDocumentPoa.forEach(element => {
               this.model.DocumentDetail.KycDocumentPoa?.push({
 
-                FileName: element,
+                FileName: element.split('/')[element.split('/').length - 1],
                 IsEditMode: false,
                 File: element,
                 FileType: element.split('.')[1]
@@ -392,60 +393,61 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
 
             this.model.DocumentDetail.BlankCheque1 = {
 
-              FileName: viewData.DocumentDetail.BlankCheque1,
+              FileName: viewData.DocumentDetail.BlankCheque1.split('/')[viewData.DocumentDetail.BlankCheque1.split('/').length - 1],
               IsEditMode: false,
               File: viewData.DocumentDetail.BlankCheque1,
               FileType: viewData.DocumentDetail.BlankCheque1.split('.')[1]
-            };
+            } ?? undefined;
 
 
             this.model.DocumentDetail.BlankCheque2 = {
 
-              FileName: viewData.DocumentDetail.BlankCheque2,
+              FileName: viewData.DocumentDetail.BlankCheque2.split('/')[viewData.DocumentDetail.BlankCheque2.split('/').length - 1],
               IsEditMode: false,
               File: viewData.DocumentDetail.BlankCheque2,
               FileType: viewData.DocumentDetail.BlankCheque2.split('.')[1]
-            };
+            } ?? undefined;
 
             this.model.DocumentDetail.LoanDocument = {
 
-              FileName: viewData.DocumentDetail.LoanDocument,
+              FileName: viewData.DocumentDetail.LoanDocument.split('/')[viewData.DocumentDetail.LoanDocument.split('/').length - 1],
               IsEditMode: false,
               File: viewData.DocumentDetail.LoanDocument,
               FileType: viewData.DocumentDetail.LoanDocument.split('.')[1]
-            };
+            } ?? undefined;
 
             this.model.DocumentDetail.AggrementLastPage = {
 
-              FileName: viewData.DocumentDetail.AggrementLastPage,
+              FileName: viewData.DocumentDetail.AggrementLastPage.split('/')[viewData.DocumentDetail.AggrementLastPage.split('/').length - 1],
               IsEditMode: false,
               File: viewData.DocumentDetail.AggrementLastPage,
               FileType: viewData.DocumentDetail.AggrementLastPage.split('.')[1]
-            };
+            } ?? undefined;
 
 
             this.model.DocumentDetail.PromissoryNote = {
 
-              FileName: viewData.DocumentDetail.PromissoryNote,
+              FileName: viewData.DocumentDetail.PromissoryNote.split('/')[viewData.DocumentDetail.PromissoryNote.split('/').length - 1],
               IsEditMode: false,
               File: viewData.DocumentDetail.PromissoryNote,
               FileType: viewData.DocumentDetail.PromissoryNote.split('.')[1]
-            };
+            } ?? undefined;
             this.model.DocumentDetail.AtmwithdrawalSlip = {
 
-              FileName: viewData.DocumentDetail.AtmwithdrawalSlip,
+              FileName: viewData.DocumentDetail.AtmwithdrawalSlip.split('/')[viewData.DocumentDetail.AtmwithdrawalSlip.split('/').length - 1],
               IsEditMode: false,
               File: viewData.DocumentDetail.AtmwithdrawalSlip,
               FileType: viewData.DocumentDetail.AtmwithdrawalSlip.split('.')[1]
-            };
+            } ?? undefined;
 
             this.model.DocumentDetail.ForeClosureLetter = {
 
-              FileName: viewData.DocumentDetail.ForeClosureLetter,
+              FileName: viewData.DocumentDetail.ForeClosureLetter.split('/')[viewData.DocumentDetail.ForeClosureLetter.split('/').length - 1],
               IsEditMode: false,
               File: viewData.DocumentDetail.ForeClosureLetter,
               FileType: viewData.DocumentDetail.ForeClosureLetter.split('.')[1]
-            };
+            } ?? undefined;
+
 
 
           }
@@ -590,6 +592,90 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
         break;
     }
   }
+
+  RemoveDocument(type: number, file: FileModel, isPOAPOIDoc: boolean) {
+    let deleteModel = {} as BTGoldLoanDeletePostModel;
+    deleteModel.LeadId = this.leadId;
+    deleteModel.documentType = type;
+    deleteModel.IsPOIPOADOC = isPOAPOIDoc;
+    deleteModel.FileName = file.File;
+
+    let serve = this._balanceTransferService.DeleteBTGoldLoanLeadDocumentFile(deleteModel).subscribe(res => {
+      serve.unsubscribe();
+      if (res.IsSuccess) {
+        this.toast.success(Message.FileDeleted);
+        switch (type) {
+          case 1:
+
+            this.model.DocumentDetail.CustomerPhoto = null;
+            break;
+
+          case 2:
+
+
+            this.model.DocumentDetail.BlankCheque1 = null;
+
+            break;
+
+          case 3:
+
+
+            this.model.DocumentDetail.BlankCheque2 = null;
+
+            break;
+
+          case 4:
+
+            let fidx = this.model.DocumentDetail.KycDocumentPoi?.findIndex(x => x.FileName == file.FileName) ?? -1;
+
+            if (fidx >= 0) {
+              this.model.DocumentDetail.KycDocumentPoi?.slice(fidx, 1);
+            }
+            break;
+
+          case 5:
+
+            let fPOAidx = this.model.DocumentDetail.KycDocumentPoa?.findIndex(x => x.FileName == file.FileName) ?? -1;
+
+            if (fPOAidx >= 0) {
+              this.model.DocumentDetail.KycDocumentPoa?.slice(fPOAidx, 1);
+            }
+
+
+
+            break;
+
+          case 6:
+            this.model.DocumentDetail.LoanDocument = null;
+            break;
+
+          case 7:
+            this.model.DocumentDetail.ForeClosureLetter = null;
+            break;
+
+          case 8:
+            this.model.DocumentDetail.AtmwithdrawalSlip = null;
+            break;
+
+          case 9:
+            this.model.DocumentDetail.PromissoryNote = null;
+
+            break;
+
+          case 10:
+            this.model.DocumentDetail.AggrementLastPage = null;
+
+            break;
+
+
+
+          default:
+            break;
+        }
+      }
+    })
+  }
+
   //#region  <<DropDown>>
   GetDropDowns() {
 

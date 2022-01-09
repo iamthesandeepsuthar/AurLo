@@ -22,7 +22,7 @@ namespace AurigainLoanERP.Shared.ContractModel
         public string PurposeName { get; set; }
         public decimal LoanAmount { get; set; }
         public string LoanAccountNumber { get; set; }
-        public string LoanCaseNumber { get; set;}
+        public string LoanCaseNumber { get; set; }
         public long LeadSourceByuserId { get; set; }
         public BTGoldLoanLeadViewModel()
         {
@@ -58,7 +58,7 @@ namespace AurigainLoanERP.Shared.ContractModel
         public long CustomerUserId { get; set; }
         public string SecondaryMobile { get; set; }
         public string Purpose { get; set; }
-        public int? PurposeId { get; set;}
+        public int? PurposeId { get; set; }
         public decimal LoanAmount { get; set; }
         public string LoanAccountNumber { get; set; }
         public long LeadSourceByuserId { get; set; }
@@ -75,10 +75,10 @@ namespace AurigainLoanERP.Shared.ContractModel
     {
         public long Id { get; set; }
         public string Address { get; set; }
-        public string AddressLine2 { get; set;}
+        public string AddressLine2 { get; set; }
         public long? AeraPincodeId { get; set; }
         public string CorrespondAddress { get; set; }
-        public string CorrespondAddressLine2 { get; set;}
+        public string CorrespondAddressLine2 { get; set; }
         public long? CorrespondAeraPincodeId { get; set; }
     }
     public class BtGoldLoanLeadAppointmentPostModel
@@ -88,6 +88,15 @@ namespace AurigainLoanERP.Shared.ContractModel
         public DateTime? AppointmentDate { get; set; }
         public string AppointmentTime { get; set; }
         public long LeadId { get; set; }
+    }
+    public class BTGoldLoanDeletePostModel
+    {
+        public long LeadId { get; set; }
+        public long documentType { get; set; }
+        public bool IsPOIPOADOC { get; set; }
+        public string FileName { get; set; }
+
+
     }
     public class BtGoldLoanLeadDocumentPostModel
     {
@@ -135,17 +144,17 @@ namespace AurigainLoanERP.Shared.ContractModel
         public string PANNumber { get; set; }
     }
     public class BtGoldLoanLeadApprovalStagePostModel
-    { 
+    {
         public long LeadId { get; set; }
-        public int? ApprovalStatus { get; set; } 
+        public int? ApprovalStatus { get; set; }
         public string Remarks { get; set; }
     }
     public class BtGoldLoanLeadApprovalStageViewModel
     {
-        public long Id { get; set;}
+        public long Id { get; set; }
         public string LeadApproveByUser { get; set; }
         public long LeadApproveByUserId { get; set; }
-        public long LeadId { get; set;}
+        public long LeadId { get; set; }
         public int? ApprovalStatus { get; set; }
         public string Remarks { get; set; }
     }
@@ -177,7 +186,7 @@ namespace AurigainLoanERP.Shared.ContractModel
         public string BankName { get; set; }
         public DateTime? AppointmentDate { get; set; }
         public string AppointmentTime { get; set; }
-        public DateTime ActionDate { get; set;}
+        public DateTime ActionDate { get; set; }
 
     }
     public class BtGoldLoanLeadDocumentViewModel
@@ -259,33 +268,34 @@ namespace AurigainLoanERP.Shared.ContractModel
         public string Pincode { get; set; }
         public bool IsActive { get; set; }
         public bool IsDelete { get; set; }
-        public string LeadStatus { get; set;}
-        public string ApprovalStatus { get; set;}
+        public string LeadStatus { get; set; }
+        public string ApprovalStatus { get; set; }
         public bool IsStatusCompleted { get; set; }
         public int? ApprovedStage { get; set; }
         public string LoanCaseNumber { get; set; }
-        public int LeadStatusId { get; set;}
-        public int ApprovalStatusId { get; set;}
+        public int LeadStatusId { get; set; }
+        public int ApprovalStatusId { get; set; }
     }
-    public class BTGoldLoanBalanceReturnLeadListModel {
-        public long Id { get; set;}
-        public string FullName { get; set; }
-        public string PrimaryMobileNumber { get; set;}
-        public string LeadSourceByUserName { get; set;}
-        public bool IsInternalLead { get; set;}
-        public string Pincode { get; set;}
-        public string ApprovalStatus { get; set;}
-        public bool IsStatusCompleted { get; set;}
-        public string LeadStatus { get; set; }
-        public string LoanCaseNumber { get; set;}
-        public double LoanAmountRequired { get; set;}
-        public string LeadType { get; set;}
-        public string ProductName { get; set;}
-    }   
-    public class BalanceTransferReturnBankChequeDetail 
+    public class BTGoldLoanBalanceReturnLeadListModel
     {
-        public long Id { get; set;}
-        public string ChequeNumber { get; set;}
-        public FilePostModel ChequeImageUrl { get; set;}        
+        public long Id { get; set; }
+        public string FullName { get; set; }
+        public string PrimaryMobileNumber { get; set; }
+        public string LeadSourceByUserName { get; set; }
+        public bool IsInternalLead { get; set; }
+        public string Pincode { get; set; }
+        public string ApprovalStatus { get; set; }
+        public bool IsStatusCompleted { get; set; }
+        public string LeadStatus { get; set; }
+        public string LoanCaseNumber { get; set; }
+        public double LoanAmountRequired { get; set; }
+        public string LeadType { get; set; }
+        public string ProductName { get; set; }
+    }
+    public class BalanceTransferReturnBankChequeDetail
+    {
+        public long Id { get; set; }
+        public string ChequeNumber { get; set; }
+        public FilePostModel ChequeImageUrl { get; set; }
     }
 }

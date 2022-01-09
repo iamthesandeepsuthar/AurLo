@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { BaseAPIService } from "../../Helper/base-api.service";
 import { ApiResponse, IndexModel } from "../../Helper/common-model";
-import { AppointmentDetail, BtGoldLoanLeadAppointmentPostModel, BtGoldLoanLeadApprovalStagePostModel, BTGoldLoanLeadListModel, BTGoldLoanLeadPostModel, BTGoldLoanLeadViewModel } from "../../Model/Leads/btgold-loan-lead-post-model.model";
+import { AppointmentDetail, BTGoldLoanDeletePostModel, BtGoldLoanLeadAppointmentPostModel, BtGoldLoanLeadApprovalStagePostModel, BTGoldLoanLeadListModel, BTGoldLoanLeadPostModel, BTGoldLoanLeadViewModel } from "../../Model/Leads/btgold-loan-lead-post-model.model";
 import { LeadStatusActionHistory, LeadStatusModel } from "../../Model/Leads/lead-status-model.model";
 import { BalanceTransferReturnPostModel, BalanceTransferReturnViewModel } from "./balance-transfer-return-post-model.model";
 
@@ -35,13 +35,13 @@ export class BalanceTransferGoldLoanLeadsService {
     let url = `${this._baseService.API_Url.BT_Gold_Loan_Lead__AddUpdateInternalLead_Api}`;
     return this._baseService.post(url, model);
   }
-  UpdateLeadApprovalStatus(model: BtGoldLoanLeadApprovalStagePostModel) : Observable<ApiResponse<any>> {
+  UpdateLeadApprovalStatus(model: BtGoldLoanLeadApprovalStagePostModel): Observable<ApiResponse<any>> {
 
     let url = `${this._baseService.API_Url.BT_Gold_Loan_Lead_Approval_Status_Api}`;
     return this._baseService.post(url, model);
   }
 
-  LeadStatus(model: LeadStatusModel) : Observable<ApiResponse<any>> {
+  LeadStatus(model: LeadStatusModel): Observable<ApiResponse<any>> {
     let url = `${this._baseService.API_Url.BT_Gold_Loan_Lead_Status_Change_Api}`;
     return this._baseService.post(url, model);
   }
@@ -75,6 +75,11 @@ export class BalanceTransferGoldLoanLeadsService {
   SaveAppointment(model: BtGoldLoanLeadAppointmentPostModel): Observable<ApiResponse<any>> {
     let url = `${this._baseService.API_Url.BT_Gold_Loan_Lead_Add_Update_Appointment_Api}`;
     return this._baseService.post(url, model);
+  }
+
+  DeleteBTGoldLoanLeadDocumentFile(model: BTGoldLoanDeletePostModel) {
+    let url = `${this._baseService.API_Url.BT_Gold_Loan_Lead_Delete_Document_Api}`;
+    return this._baseService.post(url,model);
   }
 
   //#endregion </Balance>

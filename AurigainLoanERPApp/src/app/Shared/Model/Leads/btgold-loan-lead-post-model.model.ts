@@ -49,7 +49,12 @@ export class BtGoldLoanLeadAppointmentPostModel {
   AppointmentTime!: string;
   LeadId!: number;
 }
-
+export interface BTGoldLoanDeletePostModel {
+  LeadId: number;
+  documentType: number;
+  IsPOIPOADOC: boolean;
+  FileName: string;
+}
 export class BtGoldLoanLeadDocumentPostModel {
   Id!: number;
   CustomerPhoto!: FileModel | null;
