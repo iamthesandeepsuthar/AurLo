@@ -107,11 +107,13 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
   ngOnInit(): void {
     this.formInit();
     this.GetDropDowns();
+
     if (this._activatedRoute.snapshot?.params?.id) {
       this.leadId = this._activatedRoute.snapshot.params.id;
       this.onGetDetail();
     }
   }
+
   formInit() {
     this.leadFormPersonalDetail = this.fb.group({
       Product: [undefined, Validators.required],
@@ -282,95 +284,95 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
         serve.unsubscribe();
         if (res.IsSuccess) {
           let viewData = res.Data as BTGoldLoanLeadViewModel;
-          this.model.Id = viewData.Id;
-          this.model.ProductId = viewData.ProductId;
-          this.model.FullName = viewData.FullName;
-          this.model.FatherName = viewData.FatherName;
-          this.model.Gender = viewData.Gender;
-          this.model.DateOfBirth = viewData.DateOfBirth;
-          this.model.Profession = viewData.Profession;
-          this.model.Mobile = viewData.Mobile;
-          this.model.EmailId = viewData.EmailId;
-          this.model.CustomerUserId = viewData.CustomerUserId;
-          this.model.SecondaryMobile = viewData.SecondaryMobile;
-          this.model.Purpose = viewData.Purpose;
-          this.model.LoanAmount = viewData.LoanAmount;
-          this.model.LoanAccountNumber = viewData.LoanAccountNumber;
-          this.model.LeadSourceByuserId = viewData.LeadSourceByuserId;
-          this.model.PurposeId = viewData.PurposeId;
+          this.model.Id = viewData?.Id;
+          this.model.ProductId = viewData?.ProductId ?? undefined;
+          this.model.FullName = viewData?.FullName ?? undefined;
+          this.model.FatherName = viewData?.FatherName ?? undefined;
+          this.model.Gender = viewData?.Gender ?? undefined;
+          this.model.DateOfBirth = viewData?.DateOfBirth ?? undefined;
+          this.model.Profession = viewData?.Profession ?? undefined;
+          this.model.Mobile = viewData?.Mobile ?? undefined;
+          this.model.EmailId = viewData?.EmailId ?? undefined;
+          this.model.CustomerUserId = viewData?.CustomerUserId ?? undefined;
+          this.model.SecondaryMobile = viewData?.SecondaryMobile ?? undefined;
+          this.model.Purpose = viewData?.Purpose ?? undefined;
+          this.model.LoanAmount = viewData?.LoanAmount ?? undefined;
+          this.model.LoanAccountNumber = viewData?.LoanAccountNumber ?? undefined;
+          this.model.LeadSourceByuserId = viewData?.LeadSourceByuserId ?? undefined;
+          this.model.PurposeId = viewData?.PurposeId ?? undefined;
 
-          if (viewData.DetailAddress) {
-            this.AeraPincode = viewData.DetailAddress.PinCode;
+          if (viewData?.DetailAddress) {
+            this.AeraPincode = viewData?.DetailAddress?.PinCode ?? undefined;
             this.getDropDownPinCodeArea(false, true);
-            this.model.AddressDetail.Id = viewData.DetailAddress.Id;
-            this.model.AddressDetail.Address = viewData.DetailAddress.Address;
-            this.model.AddressDetail.AeraPincodeId = viewData.DetailAddress.AeraPincodeId;
+            this.model.AddressDetail.Id = viewData?.DetailAddress?.Id ?? undefined;
+            this.model.AddressDetail.Address = viewData?.DetailAddress?.Address ?? undefined;
+            this.model.AddressDetail.AeraPincodeId = viewData?.DetailAddress?.AeraPincodeId ?? undefined;
 
-            this.CorrespondAeraPincode = viewData.DetailAddress.CorrespondPinCode;
+            this.CorrespondAeraPincode = viewData?.DetailAddress?.CorrespondPinCode ?? undefined;
             this.getDropDownPinCodeArea(true, true);
-            this.model.AddressDetail.CorrespondAddress = viewData.DetailAddress.CorrespondAddress;
-            this.model.AddressDetail.CorrespondAeraPincodeId = viewData.DetailAddress.CorrespondAeraPincodeId;
+            this.model.AddressDetail.CorrespondAddress = viewData?.DetailAddress?.CorrespondAddress ?? undefined;
+            this.model.AddressDetail.CorrespondAeraPincodeId = viewData?.DetailAddress?.CorrespondAeraPincodeId ?? undefined;
           }
-          if (viewData.AppointmentDetail) {
-            this.BankId = viewData.AppointmentDetail.BankId;
+          if (viewData?.AppointmentDetail) {
+            this.BankId = viewData?.AppointmentDetail?.BankId ?? undefined;
             this.getDropDownBranch();
 
-            this.model.AppointmentDetail.Id = viewData.AppointmentDetail.Id;
-            this.model.AppointmentDetail.BranchId = viewData.AppointmentDetail.BranchId;
-            this.model.AppointmentDetail.AppointmentDate = viewData.AppointmentDetail.AppointmentDate;
-            this.model.AppointmentDetail.AppointmentTime = viewData.AppointmentDetail.AppointmentTime;
+            this.model.AppointmentDetail.Id = viewData?.AppointmentDetail?.Id ?? undefined;
+            this.model.AppointmentDetail.BranchId = viewData?.AppointmentDetail?.BranchId ?? undefined;
+            this.model.AppointmentDetail.AppointmentDate = viewData?.AppointmentDetail?.AppointmentDate ?? undefined;
+            this.model.AppointmentDetail.AppointmentTime = viewData?.AppointmentDetail?.AppointmentTime ?? undefined;
           }
 
-          if (viewData.ExistingLoanDetail) {
-            this.model.ExistingLoanDetail.Id = viewData.ExistingLoanDetail.Id;
-            this.model.ExistingLoanDetail.BankName = viewData.ExistingLoanDetail.BankName;
-            this.model.ExistingLoanDetail.Amount = viewData.ExistingLoanDetail.Amount;
-            this.model.ExistingLoanDetail.Date = viewData.ExistingLoanDetail.Date;
-            this.model.ExistingLoanDetail.JewelleryValuation = viewData.ExistingLoanDetail.JewelleryValuation;
-            this.model.ExistingLoanDetail.OutstandingAmount = viewData.ExistingLoanDetail.OutstandingAmount;
-            this.model.ExistingLoanDetail.BalanceTransferAmount = viewData.ExistingLoanDetail.BalanceTransferAmount;
-            this.model.ExistingLoanDetail.RequiredAmount = viewData.ExistingLoanDetail.RequiredAmount;
-            this.model.ExistingLoanDetail.Tenure = viewData.ExistingLoanDetail.Tenure;
+          if (viewData?.ExistingLoanDetail) {
+            this.model.ExistingLoanDetail.Id = viewData?.ExistingLoanDetail?.Id ?? undefined;
+            this.model.ExistingLoanDetail.BankName = viewData?.ExistingLoanDetail?.BankName ?? undefined;
+            this.model.ExistingLoanDetail.Amount = viewData?.ExistingLoanDetail?.Amount ?? undefined;
+            this.model.ExistingLoanDetail.Date = viewData?.ExistingLoanDetail?.Date ?? undefined;
+            this.model.ExistingLoanDetail.JewelleryValuation = viewData?.ExistingLoanDetail?.JewelleryValuation ?? undefined;
+            this.model.ExistingLoanDetail.OutstandingAmount = viewData?.ExistingLoanDetail?.OutstandingAmount ?? undefined;
+            this.model.ExistingLoanDetail.BalanceTransferAmount = viewData?.ExistingLoanDetail?.BalanceTransferAmount ?? undefined;
+            this.model.ExistingLoanDetail.RequiredAmount = viewData?.ExistingLoanDetail?.RequiredAmount ?? undefined;
+            this.model.ExistingLoanDetail.Tenure = viewData?.ExistingLoanDetail?.Tenure ?? undefined;
           }
-          if (viewData.JewelleryDetail) {
+          if (viewData?.JewelleryDetail) {
 
-            viewData.JewelleryDetail.forEach(element => {
+            viewData?.JewelleryDetail.forEach(element => {
               let itm = new BtGoldLoanLeadJewelleryDetailPostModel();
 
-              itm.Id = element.Id;
-              itm.JewelleryTypeId = element.JewelleryTypeId;
-              itm.Quantity = element.Quantity;
-              itm.Weight = element.Weight;
-              itm.Karats = element.Karats;
+              itm.Id = element?.Id ?? undefined;
+              itm.JewelleryTypeId = element?.JewelleryTypeId ?? undefined;
+              itm.Quantity = element?.Quantity ?? undefined;
+              itm.Weight = element?.Weight ?? undefined;
+              itm.Karats = element?.Karats ?? undefined;
               this.model.JewelleryDetail.push(itm)
             });
 
           }
 
-          if (viewData.KYCDetail) {
-            this.model.KYCDetail.Id = viewData.KYCDetail.Id;
-            this.model.KYCDetail.PoidocumentTypeId = viewData.KYCDetail.PoidocumentTypeId;
-            this.model.KYCDetail.PoidocumentNumber = viewData.KYCDetail.PoidocumentNumber;
-            this.model.KYCDetail.PoadocumentTypeId = viewData.KYCDetail.PoadocumentTypeId;
-            this.model.KYCDetail.PoadocumentNumber = viewData.KYCDetail.PoadocumentNumber;
-            this.model.KYCDetail.PANNumber = viewData.KYCDetail.PANNumber;
+          if (viewData?.KYCDetail) {
+            this.model.KYCDetail.Id = viewData?.KYCDetail?.Id ?? undefined;
+            this.model.KYCDetail.PoidocumentTypeId = viewData?.KYCDetail?.PoidocumentTypeId ?? undefined;
+            this.model.KYCDetail.PoidocumentNumber = viewData?.KYCDetail?.PoidocumentNumber ?? undefined;
+            this.model.KYCDetail.PoadocumentTypeId = viewData?.KYCDetail?.PoadocumentTypeId ?? undefined;
+            this.model.KYCDetail.PoadocumentNumber = viewData?.KYCDetail?.PoadocumentNumber ?? undefined;
+            this.model.KYCDetail.PANNumber = viewData?.KYCDetail?.PANNumber ?? undefined;
             this.onChangePOADocument();
             this.onChangePOIDocument();
 
           }
-          if (viewData.DocumentDetail) {
+          if (viewData?.DocumentDetail) {
 
 
-            this.model.DocumentDetail.Id = viewData.Id;
+            this.model.DocumentDetail.Id = viewData?.Id;
             this.model.DocumentDetail.CustomerPhoto = {
 
-              FileName: viewData.DocumentDetail.CustomerPhoto.split('/')[viewData.DocumentDetail.CustomerPhoto.split('/').length - 1],
+              FileName: viewData?.DocumentDetail?.CustomerPhoto?.split('/')[viewData?.DocumentDetail?.CustomerPhoto?.split('/')?.length - 1] ?? undefined,
               IsEditMode: false,
-              File: viewData.DocumentDetail.CustomerPhoto,
-              FileType: viewData.DocumentDetail.CustomerPhoto.split('.')[1]
+              File: viewData?.DocumentDetail?.CustomerPhoto ?? undefined,
+              FileType: viewData?.DocumentDetail?.CustomerPhoto.split('.')[1] ?? undefined
             } ?? undefined;
 
-            viewData.DocumentDetail.KycDocumentPoi.forEach(element => {
+            viewData?.DocumentDetail.KycDocumentPoi.forEach(element => {
               this.model.DocumentDetail.KycDocumentPoi?.push({
 
                 FileName: element.split('/')[element.split('/').length - 1],
@@ -381,7 +383,7 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
             });
 
 
-            viewData.DocumentDetail.KycDocumentPoa.forEach(element => {
+            viewData?.DocumentDetail.KycDocumentPoa.forEach(element => {
               this.model.DocumentDetail.KycDocumentPoa?.push({
 
                 FileName: element.split('/')[element.split('/').length - 1],
@@ -393,62 +395,60 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
 
             this.model.DocumentDetail.BlankCheque1 = {
 
-              FileName: viewData.DocumentDetail.BlankCheque1.split('/')[viewData.DocumentDetail.BlankCheque1.split('/').length - 1],
+              FileName: viewData?.DocumentDetail?.BlankCheque1?.split('/')[viewData?.DocumentDetail?.BlankCheque1?.split('/')?.length - 1],
               IsEditMode: false,
-              File: viewData.DocumentDetail.BlankCheque1,
-              FileType: viewData.DocumentDetail.BlankCheque1.split('.')[1]
+              File: viewData?.DocumentDetail?.BlankCheque1 ?? undefined,
+              FileType: viewData?.DocumentDetail?.BlankCheque1.split('.')[1] ?? undefined
             } ?? undefined;
 
 
             this.model.DocumentDetail.BlankCheque2 = {
 
-              FileName: viewData.DocumentDetail.BlankCheque2.split('/')[viewData.DocumentDetail.BlankCheque2.split('/').length - 1],
+              FileName: viewData?.DocumentDetail?.BlankCheque2?.split('/')[viewData?.DocumentDetail?.BlankCheque2?.split('/')?.length - 1] ?? undefined,
               IsEditMode: false,
-              File: viewData.DocumentDetail.BlankCheque2,
-              FileType: viewData.DocumentDetail.BlankCheque2.split('.')[1]
+              File: viewData?.DocumentDetail?.BlankCheque2 ?? undefined,
+              FileType: viewData?.DocumentDetail?.BlankCheque2?.split('.')[1] ?? undefined
             } ?? undefined;
 
             this.model.DocumentDetail.LoanDocument = {
 
-              FileName: viewData.DocumentDetail.LoanDocument.split('/')[viewData.DocumentDetail.LoanDocument.split('/').length - 1],
+              FileName: viewData?.DocumentDetail?.LoanDocument?.split('/')[viewData?.DocumentDetail?.LoanDocument?.split('/')?.length - 1] ?? undefined,
               IsEditMode: false,
-              File: viewData.DocumentDetail.LoanDocument,
-              FileType: viewData.DocumentDetail.LoanDocument.split('.')[1]
+              File: viewData?.DocumentDetail?.LoanDocument ?? undefined,
+              FileType: viewData?.DocumentDetail?.LoanDocument.split('.')[1] ?? undefined
             } ?? undefined;
 
             this.model.DocumentDetail.AggrementLastPage = {
 
-              FileName: viewData.DocumentDetail.AggrementLastPage.split('/')[viewData.DocumentDetail.AggrementLastPage.split('/').length - 1],
+              FileName: viewData?.DocumentDetail?.AggrementLastPage?.split('/')[viewData?.DocumentDetail?.AggrementLastPage?.split('/')?.length - 1] ?? undefined,
               IsEditMode: false,
-              File: viewData.DocumentDetail.AggrementLastPage,
-              FileType: viewData.DocumentDetail.AggrementLastPage.split('.')[1]
+              File: viewData?.DocumentDetail?.AggrementLastPage ?? undefined,
+              FileType: viewData?.DocumentDetail?.AggrementLastPage.split('.')[1] ?? undefined
             } ?? undefined;
 
 
             this.model.DocumentDetail.PromissoryNote = {
 
-              FileName: viewData.DocumentDetail.PromissoryNote.split('/')[viewData.DocumentDetail.PromissoryNote.split('/').length - 1],
+              FileName: viewData?.DocumentDetail?.PromissoryNote?.split('/')[viewData?.DocumentDetail?.PromissoryNote?.split('/')?.length - 1],
               IsEditMode: false,
-              File: viewData.DocumentDetail.PromissoryNote,
-              FileType: viewData.DocumentDetail.PromissoryNote.split('.')[1]
+              File: viewData?.DocumentDetail?.PromissoryNote ?? undefined,
+              FileType: viewData?.DocumentDetail?.PromissoryNote.split('.')[1] ?? undefined
             } ?? undefined;
             this.model.DocumentDetail.AtmwithdrawalSlip = {
 
-              FileName: viewData.DocumentDetail.AtmwithdrawalSlip.split('/')[viewData.DocumentDetail.AtmwithdrawalSlip.split('/').length - 1],
+              FileName: viewData?.DocumentDetail?.AtmwithdrawalSlip?.split('/')[viewData?.DocumentDetail?.AtmwithdrawalSlip?.split('/')?.length - 1] ?? undefined,
               IsEditMode: false,
-              File: viewData.DocumentDetail.AtmwithdrawalSlip,
-              FileType: viewData.DocumentDetail.AtmwithdrawalSlip.split('.')[1]
+              File: viewData?.DocumentDetail?.AtmwithdrawalSlip ?? undefined,
+              FileType: viewData?.DocumentDetail?.AtmwithdrawalSlip.split('.')[1] ?? undefined
             } ?? undefined;
 
             this.model.DocumentDetail.ForeClosureLetter = {
 
-              FileName: viewData.DocumentDetail.ForeClosureLetter.split('/')[viewData.DocumentDetail.ForeClosureLetter.split('/').length - 1],
+              FileName: viewData?.DocumentDetail?.ForeClosureLetter?.split('/')[viewData?.DocumentDetail?.ForeClosureLetter?.split('/')?.length - 1],
               IsEditMode: false,
-              File: viewData.DocumentDetail.ForeClosureLetter,
-              FileType: viewData.DocumentDetail.ForeClosureLetter.split('.')[1]
+              File: viewData?.DocumentDetail?.ForeClosureLetter ?? undefined,
+              FileType: viewData?.DocumentDetail?.ForeClosureLetter.split('.')[1] ?? undefined
             } ?? undefined;
-
-
 
           }
         }
@@ -678,7 +678,6 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
 
   //#region  <<DropDown>>
   GetDropDowns() {
-
     this.GetDropDown();
     this.getDDLProducts();
     this.GetDDLJewelleryType();
@@ -903,6 +902,7 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
     this.f4.Weight.updateValueAndValidity();
     this.f4.Karats.updateValueAndValidity();
   }
+
 
 
   //#endregion

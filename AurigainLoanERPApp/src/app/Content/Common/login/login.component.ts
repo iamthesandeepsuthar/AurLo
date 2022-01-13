@@ -23,6 +23,8 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    localStorage.clear();
+    sessionStorage.clear();
   }
 
   onSubmit() {
@@ -35,6 +37,7 @@ export class LoginComponent implements OnInit {
       this._authService.Login(this.model).subscribe((res) => {
         if (res.IsSuccess) {
           let data = res.Data as LoginResponseModel;
+          localStorage.clear();
           this._authService.SaveUserToken(data.Token);
           this._authService.SaveUserDetail(data);
           setTimeout(() => {

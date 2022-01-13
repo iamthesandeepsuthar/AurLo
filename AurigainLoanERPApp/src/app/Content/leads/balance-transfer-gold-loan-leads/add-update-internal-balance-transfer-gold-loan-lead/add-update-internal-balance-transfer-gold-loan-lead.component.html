@@ -508,7 +508,7 @@
 
             <ng-select [items]="ddlDocumentTypePOI"
               (change)="this.model.KYCDetail.PoidocumentNumber=null;onChangePOIDocument(model.KYCDetail.PoidocumentTypeId)"
-              (clear)="onChangePOIDocument(model.KYCDetail.PoidocumentTypeId)" [searchable]="true" [clearable]="true"
+              (clear)="onChangePOIDocument(model.KYCDetail?.PoidocumentTypeId)" [searchable]="true" [clearable]="true"
               bindLabel="Name" bindValue="Id" placeholder="Select Document Type" formControlName="PoidocumentType"
               [ngClass]="{ 'is-invalid': f7.PoidocumentType?.errors && f7.PoidocumentType?.touched}"
               [(ngModel)]="model.KYCDetail.PoidocumentTypeId">
@@ -522,7 +522,7 @@
             <label>Document Number(POI) </label>
             <input type="text" class="form-control" id="input9" placeholder="Document Number"
               [(ngModel)]="model.KYCDetail.PoidocumentNumber" formControlName="PoidocumentNumber"
-              [ngClass]="{ 'is-invalid': f7.PoidocumentNumber?.errors && f7.DocumentNumber?.touched}"
+              [ngClass]="{ 'is-invalid': (f7.PoidocumentNumber?.errors && f7.DocumentNumber?.touched) || f7.PoidocumentNumber?.errors}"
               (keypress)="onCheckDocumentNumberPOI($event,model.KYCDetail.PoidocumentTypeId)"
               [maxlength]="docPOIMaxChar">
             <div class="invalid-feedback"
@@ -530,8 +530,8 @@
               Enter Document Number! </div>
             <div class="invalid-feedback"
               *ngIf="!leadFormKYCDetail.get('PoidocumentNumber')!.hasError('required') &&
-              ((this.leadFormKYCDetail!.get('PoidocumentNumber')!.hasError('maxlength') || this.leadFormKYCDetail.get('PoidocumentNumber')!.hasError('minlength')) &&
-               this.leadFormKYCDetail.get('PoidocumentNumber')!.touched) || (this.leadFormKYCDetail.get('PoidocumentNumber')!.hasError('maxlength') || this.leadFormKYCDetail.get('PoidocumentNumber')!.hasError('minlength'))">
+            (((this.leadFormKYCDetail!.get('PoidocumentNumber')!.hasError('maxlength') || this.leadFormKYCDetail.get('PoidocumentNumber')!.hasError('minlength')) && this.leadFormKYCDetail.get('PoidocumentNumber')!.touched)
+            || (this.leadFormKYCDetail!.get('PoidocumentNumber')!.hasError('maxlength') || this.leadFormKYCDetail.get('PoidocumentNumber')!.hasError('minlength')))">
               Document number length must be {{docPOIMaxChar}} char or digit...! </div>
           </div>
 
@@ -556,18 +556,18 @@
             <label>Document Number (POA) </label>
             <input type="text" class="form-control" id="input9" placeholder="Document Number"
               [(ngModel)]="model.KYCDetail.PoadocumentNumber" formControlName="PoadocumentNumber"
-              [ngClass]="{ 'is-invalid': f7.PoadocumentNumber?.errors && f7.DocumentNumber?.touched}"
+              [ngClass]="{ 'is-invalid': (f7.PoadocumentNumber?.errors && f7.DocumentNumber?.touched ) || f7.PoadocumentNumber?.errors }"
               (keypress)="onCheckDocumentNumberPOA($event,model.KYCDetail.PoadocumentTypeId)"
               [maxlength]="docPOAMaxChar">
             <div class="invalid-feedback"
               *ngIf="(leadFormKYCDetail.get('PoadocumentNumber')?.hasError('required') && leadFormKYCDetail.get('PoadocumentNumber')?.touched)">
               Enter Document Number! </div>
+
             <div class="invalid-feedback"
               *ngIf="!leadFormKYCDetail.get('PoadocumentNumber')!.hasError('required') &&
-              ((this.leadFormKYCDetail!.get('PoadocumentNumber')!.hasError('maxlength') || this.leadFormKYCDetail.get('PoadocumentNumber')!.hasError('minlength')) &&
-               this.leadFormKYCDetail.get('PoadocumentNumber')!.touched) || (this.leadFormKYCDetail.get('PoadocumentNumber')!.hasError('maxlength') || this.leadFormKYCDetail.get('PoadocumentNumber')!.hasError('minlength'))">
+            (((this.leadFormKYCDetail!.get('PoadocumentNumber')!.hasError('maxlength') || this.leadFormKYCDetail.get('PoadocumentNumber')!.hasError('minlength')) && this.leadFormKYCDetail.get('PoadocumentNumber')!.touched)
+            || (this.leadFormKYCDetail!.get('PoadocumentNumber')!.hasError('maxlength') || this.leadFormKYCDetail.get('PoadocumentNumber')!.hasError('minlength')))">
               Document number length must be {{docPOAMaxChar}} char or digit...! </div>
-
 
           </div>
 
@@ -599,13 +599,14 @@
         <button class="btn btn-outline-danger mr-3" mat-button matStepperPrevious><i
             class="fas fa-angle-left mr-1"></i>Back</button>
 
-        <button class="btn btn-primary" mat-button matStepperNext><i class="fas fa-check mr-1"></i> Next</button>
+        <button class="btn btn-primary"  mat-button matStepperNext><i class="fas fa-check mr-1"></i>
+          Next</button>
       </div>
     </form>
   </mat-step>
 
 
-  <!-- Document Upload -->
+
 
   <mat-step [stepControl]="leadFormExistingLoanDetail">
     <form [formGroup]="leadFormExistingLoanDetail" (ngSubmit)="leadFormExistingLoanDetail.markAllAsTouched()">
@@ -721,7 +722,7 @@
     </form>
   </mat-step>
 
-
+  <!-- Document Upload -->
   <mat-step [stepControl]="leadFormDocumentDetail">
     <form [formGroup]="leadFormDocumentDetail" (ngSubmit)="onSubmit()">
       <ng-template matStepLabel>Document Upload</ng-template>
@@ -883,7 +884,7 @@
             <div class="invalid-feedback"
               *ngIf="(leadFormDocumentDetail.get('POAdocument')?.hasError('required') && leadFormDocumentDetail.get('POAdocument')?.touched)">
               Please Add Document (POA) </div>
-              
+
             <ul *ngIf="model.DocumentDetail.KycDocumentPoi &&  model.DocumentDetail.Id>0">
               <ng-container *ngFor="let item of model.DocumentDetail.KycDocumentPoa">
                 <div class="dropzone dropzone-light file-upload-details" *ngIf="!item.IsEditMode">
