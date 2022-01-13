@@ -20,7 +20,7 @@ import { JewelleryTypeService } from 'src/app/Shared/Services/master-services/je
 import { KycDocumentTypeService } from 'src/app/Shared/Services/master-services/kyc-document-type.service';
 import { ProductService } from 'src/app/Shared/Services/master-services/product.service';
 import { StateDistrictService } from 'src/app/Shared/Services/master-services/state-district.service';
-import { ddlPurposeModel } from 'src/app/Shared/Model/master-model/purpose-model.model'; 
+import { ddlPurposeModel } from 'src/app/Shared/Model/master-model/purpose-model.model';
 import { FileInfo } from 'src/app/Content/Common/file-selector/file-selector.component';
 import { DocumentTypeEnum } from '../../../../Shared/Enum/fixed-value';
 import { FileModel } from '../../../../Shared/Model/Leads/btgold-loan-lead-post-model.model';
@@ -901,9 +901,6 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
     this.f4.Weight.updateValueAndValidity();
     this.f4.Karats.updateValueAndValidity();
   }
-
-
-
   //#endregion
 
 }
