@@ -20,11 +20,9 @@ import { JewelleryTypeService } from 'src/app/Shared/Services/master-services/je
 import { KycDocumentTypeService } from 'src/app/Shared/Services/master-services/kyc-document-type.service';
 import { ProductService } from 'src/app/Shared/Services/master-services/product.service';
 import { StateDistrictService } from 'src/app/Shared/Services/master-services/state-district.service';
-import { ddlPurposeModel } from 'src/app/Shared/Model/master-model/purpose-model.model';
-import { GoldLoanFreshLeadJewelleryDetailModel } from 'src/app/Shared/Model/Leads/gold-loan-fresh-lead.model';
+import { ddlPurposeModel } from 'src/app/Shared/Model/master-model/purpose-model.model'; 
 import { FileInfo } from 'src/app/Content/Common/file-selector/file-selector.component';
 import { DocumentTypeEnum } from '../../../../Shared/Enum/fixed-value';
-import { FilePostModel } from '../../../../Shared/Model/doorstep-agent-model/door-step-agent.model';
 import { FileModel } from '../../../../Shared/Model/Leads/btgold-loan-lead-post-model.model';
 
 @Component({
@@ -307,11 +305,12 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
             this.model.AddressDetail.Id = viewData?.DetailAddress?.Id ?? undefined;
             this.model.AddressDetail.Address = viewData?.DetailAddress?.Address ?? undefined;
             this.model.AddressDetail.AeraPincodeId = viewData?.DetailAddress?.AeraPincodeId ?? undefined;
-
+            this.model.AddressDetail.AddressLine2 = viewData?.DetailAddress?.AddressLine2 ?? undefined;
             this.CorrespondAeraPincode = viewData?.DetailAddress?.CorrespondPinCode ?? undefined;
             this.getDropDownPinCodeArea(true, true);
             this.model.AddressDetail.CorrespondAddress = viewData?.DetailAddress?.CorrespondAddress ?? undefined;
             this.model.AddressDetail.CorrespondAeraPincodeId = viewData?.DetailAddress?.CorrespondAeraPincodeId ?? undefined;
+            this.model.AddressDetail.CorrespondAddressLine2 = viewData?.DetailAddress?.CorrespondingAddressLine2 ?? undefined;
           }
           if (viewData?.AppointmentDetail) {
             this.BankId = viewData?.AppointmentDetail?.BankId ?? undefined;
@@ -841,7 +840,7 @@ export class AddUpdateInternalBalanceTransferGoldLoanLeadComponent implements On
   }
 
   onChangePOADocument(value: any = this.model?.KYCDetail?.PoadocumentTypeId) {
-    debugger
+
     if (value) {
       let doc = this.ddlDocumentTypePOA?.find(x => x.Id == value);
       this.f7.PoadocumentNumber.setValidators(Validators.compose([Validators.minLength(doc?.DocumentNumberLength as number), Validators.maxLength(doc?.DocumentNumberLength as number)]));

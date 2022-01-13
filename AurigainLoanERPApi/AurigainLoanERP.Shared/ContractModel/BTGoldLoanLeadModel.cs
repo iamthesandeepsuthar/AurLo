@@ -162,12 +162,14 @@ namespace AurigainLoanERP.Shared.ContractModel
     {
         public long Id { get; set; }
         public string Address { get; set; }
+        public string AddressLine2 { get; set;}
         public long? AeraPincodeId { get; set; }
         public string AreaName { get; set; }
         public string PinCode { get; set; }
         public string State { get; set; }
         public string District { get; set; }
         public string CorrespondAddress { get; set; }
+        public string CorrespondingAddressLine2 { get; set;}
         public long? CorrespondAeraPincodeId { get; set; }
         public string CorrespondAreaName { get; set; }
         public string CorrespondPinCode { get; set; }

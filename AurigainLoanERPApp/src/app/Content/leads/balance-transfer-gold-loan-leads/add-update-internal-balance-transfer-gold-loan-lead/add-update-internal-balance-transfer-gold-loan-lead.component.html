@@ -574,7 +574,7 @@
 
           <div class="form-group col-md-4">
             <label>PAN Number</label>
-            <input type="text" [maxlength]="10" class="form-control" id="input10" placeholder="PAN Number"
+            <input type="text" UpperCase [maxlength]="10" class="form-control" id="input10" placeholder="PAN Number"
               [ngModel]="model.KYCDetail.PANNumber | uppercase" formControlName="PanNumber"
               [ngClass]="{ 'is-invalid': f7.PanNumber?.errors && f7.PanNumber?.touched}">
             <div class="invalid-feedback"

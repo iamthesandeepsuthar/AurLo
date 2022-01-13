@@ -223,12 +223,14 @@ export class AppointmentDetail {
 export class AddressDetail {
   Id!: number;
   Address!: string;
+  AddressLine2!:string;
   AeraPincodeId!: number;
   AreaName!: string;
   PinCode!: string;
   State!: string;
   District!: string;
   CorrespondAddress!: string;
+  CorrespondingAddressLine2!:string;
   CorrespondAeraPincodeId!: number;
   CorrespondAreaName!: string;
   CorrespondPinCode!: string;
